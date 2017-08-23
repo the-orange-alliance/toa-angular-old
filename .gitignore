@@ -45,6 +45,7 @@ $RECYCLE.BIN/
 .Trashes
 .VolumeIcon.icns
 .nohup.out
+npm-debug.log
 
 # Directories potentially created on remote AFP share
 .AppleDB
