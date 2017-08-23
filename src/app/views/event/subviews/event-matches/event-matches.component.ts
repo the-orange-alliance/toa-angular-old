@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { FTCDatabase } from "../../../../providers/ftc-database";
 import { MatchParser, MatchSorter } from "../../../../util/match-utils";
 
@@ -14,7 +14,7 @@ export class EventMatchesComponent implements OnInit {
 
   match_sorter: MatchSorter;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute) {
+  constructor(private ftc: FTCDatabase, private router: Router) {
     this.match_sorter = new MatchSorter();
   }
 
@@ -30,6 +30,14 @@ export class EventMatchesComponent implements OnInit {
 
   getStation(match_data, station: number): string {
     return match_data.teams.toString().split(",")[station];
+  }
+
+  openTeamPage(team: any) {
+    this.router.navigate(['/teams', team]);
+  }
+
+  openMatchDetails(match_data: any) {
+    // this.router.navigate(['/matches', match_data]);
   }
 
 }

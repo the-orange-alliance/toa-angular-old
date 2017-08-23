@@ -53,7 +53,8 @@
               <span class="fa fa-globe"></span>
             </div>
             <div class="col-xs-10 col-md-11">
-              <a href="{{ event.event_website }}" target="_blank">{{ event.event_website }}</a>
+              <span *ngIf="event.website"><a href="{{ event.event_website }}" target="_blank">{{ event.event_website }}</a></span>
+              <span *ngIf="!event.website"><i>Website N/A</i></span>
             </div>
           </div>
         </div>
