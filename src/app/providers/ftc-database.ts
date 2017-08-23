@@ -1,0 +1,92 @@
+import { Injectable } from '@angular/core';
+import {Http, Headers} from '@angular/http';
+import 'rxjs/add/operator/map';
+import {Observable} from "rxjs";
+
+@Injectable()
+export class FTCDatabase {
+
+  year: number = 2017;
+
+  constructor(private http: Http) {}
+
+  private request(url: string) {
+    let auth_header = new Headers({
+      'X-Application-Origin': 'TOA'
+    });
+    return this.http.get("https://dev.theyellowalliance.com" + url, { headers: auth_header })
+  }
+
+  public getAllSeasons() {
+    return this.request("/api/seasons").map(res => res.json());
+  }
+
+  public getAllRegions() {
+    return this.request("/api/regions").map(res => res.json());
+  }
+
+  public getAllTeams() {
+    return this.request("/api/teams/count").map(res => res.json());
+  }
+
+  public getTeams(starting_row: number) {
+    return this.request("/api/teams/" + starting_row).map(res => res.json());
+  }
+
+  public getAllMatches(year?: number) {
+    return this.request("/api/matches/" + (year == null ? this.year : year) + "/count").map(res => res.json());
+  }
+
+  public getHighScoreNoPenalty(year?: number) {
+    return this.request("/api/matches/" + (year == null ? this.year : year) + "/high-scores/no-penalty").map(res => res.json());
+  }
+
+  public getHighScoreWithPenalty(year?: number) {
+    return this.request("/api/matches/" + (year == null ? this.year : year) + "/high-scores/with-penalty").map(res => res.json());
+  }
+
+  public getAllEvents() {
+    return this.request("/api/events/").map(res => res.json());
+  }
+
+  public getSeasonEvents(season: any) {
+    return this.request("/api/events/season/" + season).map(res => res.json());
+  }
+
+  public getEvent(event_key, year?: number) {
+    return Observable.forkJoin(
+      this.request("/api/event/" + event_key).map(res => res.json()),
+      this.request("/api/event/" + (year == null ? this.year : year) + "/" + event_key + "/matches").map(res => res.json()),
+      this.request("/api/event/" + (year == null ? this.year : year) + "/" + event_key + "/matches/stations").map(res => res.json()),
+      this.request("/api/event/" + (year == null ? this.year : year) + "/" + event_key + "/alliances").map(res => res.json()),
+      this.request("/api/event/" + (year == null ? this.year : year) + "/" + event_key + "/rankings").map(res => res.json()),
+      this.request("/api/event/" + (year == null ? this.year : year) + "/" + event_key + "/awards").map(res => res.json()),
+      this.request("/api/event/" + (year == null ? this.year : year) + "/" + event_key + "/teams").map(res => res.json())
+    );
+  }
+
+  public getTeam(team_number: number, year?: number) {
+    return Observable.forkJoin(
+      this.request("/api/team/" + team_number).map(res => res.json()),
+      this.request("/api/team/" + team_number + "/" + (year == null ? this.year : year) + "/events").map(res => res.json())
+    );
+  }
+
+  public getTeamEvents(team_number: number, year?: number) {
+    console.log("/api/team/" + team_number + "/" + (year == null ? this.year : year) + "/events");
+    return this.request("/api/team/" + team_number + "/" + (year == null ? this.year : year) + "/events").map(res => res.json());
+  }
+
+  public getEventName(event_key) {
+    return this.request("/api/event/" +  event_key + "/name").map(res => res.json());
+  }
+
+  public getEventMatches(event_key: string, year?: number) {
+    return this.request("/api/event/" + (year == null ? this.year : year) + "/" + event_key + "/matches/stations").map(res => res.json());
+  }
+
+  public getServerDefaultResponse(test_url) {
+    return this.request("/api/" + test_url).map(res => res.json());
+  }
+
+}

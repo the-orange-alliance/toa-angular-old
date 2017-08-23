@@ -1,0 +1,52 @@
+<!-- NAVBAR -->
+<nav class="navbar navbar-default">
+
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="fa fa-2x fa-bars"></span>
+    </button>
+    <a class="navbar-brand" routerLink="/"><img src="assets/imgs/favicon.jpg" class="img-fit"/></a><span class="navbar-brand">The Orange Alliance</span>
+  </div>
+
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li class="toggleable" ><a routerLink="/home" routerLinkActive="active">Home</a></li>
+      <li class="toggleable" ><a routerLink="/teams" routerLinkActive="active">Teams</a></li>
+      <li (mouseover)="expandDropdown($event)" (mouseleave)="collapseDropdown($event)">
+        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Events
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li class="toggleable" ><a routerLink="/events" routerLinkActive="active">All Events</a></li>
+          <li class="toggleable" ><a routerLink="/active-events" routerLinkActive="active">Active Events</a></li>
+          <!--<li role="separator" class="divider"></li>-->
+        </ul>
+      </li>
+      <li class="toggleable" ><a routerLink="/rankings" routerLinkActive="active">Rankings</a></li>
+      <li class="toggleable" ><a routerLink="/streaming" routerLinkActive="active">Streaming</a></li>
+      <li class="toggleable" ><a routerLink="/about" routerLinkActive="active">About</a></li>
+    </ul>
+    <form class="navbar-form navbar-left">
+      <div class="form-group">
+        <input [(ngModel)]="search" [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Team # or Event">
+      </div>
+      <button class="btn btn-default" (click)="performSearch()" >Search</button>
+    </form>
+    <ul class="nav navbar-nav mar-0 float-right-md">
+      <li class="toggleable"><a routerLink="/admin">Login</a></li>
+    </ul>
+  </div>
+
+</nav>
+<!-- NAVBAR -->
+
+<router-outlet></router-outlet>
+
+<hr>
+
+<!-- FOOTER CONTAINER -->
+<footer class="centered">
+  &copy; 2017 The Orange Alliance.
+</footer>
+<!-- FOOTER CONTAINER -->

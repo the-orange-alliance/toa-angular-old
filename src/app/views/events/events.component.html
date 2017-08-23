@@ -1,0 +1,96 @@
+<!-- MAIN CONTAINER -->
+<main class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8">
+      <p class="lead">
+        Welcome to The Orange Alliance! Select a year, district, and event to view official scores from FIRST Tech Challenge.
+      </p>
+    </div>
+
+    <div class="col-xs-12 col-md-4">
+
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <b>Filter Options</b>
+          </div>
+        </div>
+        <div class="panel-body">
+
+          <div class="row">
+            <div class="col-xs-4">
+              <span>Year: </span>
+            </div>
+            <div *ngIf="seasons" class="dropdown col-xs-8">
+              <button class="btn btn-default dropdown-toggle" type="button" id="ftc_year" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{ getSeason(current_season) }}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="ftc_year">
+                <li *ngFor="let season of seasons"><a (click)="selectSeason(season)" >{{ getSeason(season) }}</a></li>
+              </ul>
+            </div>
+
+            <div class="col-xs-4">
+              <span>Region: </span>
+            </div>
+            <div *ngIf="regions" class="dropdown col-xs-8">
+              <button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{ current_region.region_key }} <span *ngIf="current_region.region_desc">- {{ current_region.region_desc }}</span>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="ftc_district">
+                <li *ngFor="let region of regions"><a (click)="selectRegion(region)">{{ region.region_key }} <span *ngIf="region.region_desc">- {{ region.region_desc }}</span></a></li>
+              </ul>
+            </div>
+
+            <!--<div class="col-xs-4">-->
+              <!--<span>Event: </span>-->
+            <!--</div>-->
+            <!--<div class="dropdown col-xs-8">-->
+              <!--<button class="btn btn-default dropdown-toggle" type="button" id="ftc_event" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
+                <!--All Events-->
+                <!--<span class="caret"></span>-->
+              <!--</button>-->
+              <!--<ul class="dropdown-menu" aria-labelledby="ftc_event">-->
+                <!--<li><a href="#">Events Here lol</a></li>-->
+              <!--</ul>-->
+            <!--</div>-->
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div *ngFor="let week of weeks" class="col-xs-12 col-md-4">
+      <div *ngIf="getEventsByWeek(week).length > 0" class="panel panel-warning">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <b *ngIf="week.week != 'CMPHOU' && week.week != 'CMPSTL' && week.week != 'SPR' && week.week != 'FOC'">Week {{ week.week }}</b>
+            <b *ngIf="week.week == 'CMPHOU'">FIRST Championship - Houston</b>
+            <b *ngIf="week.week == 'CMPSTL'">FIRST Championship - St. Louis</b>
+            <b *ngIf="week.week == 'SPR'">Super Regionals</b>
+            <b *ngIf="week.week == 'FOC'">Festival of Champions</b>
+            <span class="badge">{{ getEventsByWeek(week).length }}</span>
+            <br/>
+            <small>{{ week.start_date | date :  "mediumDate"}} - {{ week.end_date | date :  "mediumDate" }}</small>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div *ngFor="let event of getEventsByWeek(week)">
+            <a *ngIf="event.division_name == null" (click)="openEvent(event.event_key)">{{ event.event_name }}</a>
+            <a *ngIf="event.division_name" (click)="openEvent(event.event_key)">{{ event.event_name }} - {{ event.division_name }} Division</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+<!-- MAIN CONTAINER -->

@@ -1,0 +1,176 @@
+<main class="container">
+  <div class="row" *ngIf="team">
+
+    <div class="col-xs-12 col-sm-3 col-lg-2">
+      <div>
+        <div class="row clearfix">
+          <div *ngIf="team.rookie_year" class="dropdown col-xs-12">
+            <button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <span>{{ current_year }} Season</span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="ftc_district" *ngIf="years">
+              <li *ngFor="let year of years"><a (click)="selectYear(year)">{{ year }} Season</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <br/>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="well">
+              <ul class="nav">
+                <li>Team Info</li>
+                <li>
+                  Event Results
+                  <ul class="nav">
+                    <li *ngFor="let event of team.events">{{ event.event_name }}</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-9 col-lg-10">
+
+      <div class="row">
+        <div class="col-xs-12">
+          <h2>Team <span *ngIf="team?.team_key">{{ team.team_key }}</span> - <span *ngIf="team?.team_name_short">{{ team.team_name_short }}</span></h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <blockquote>
+            <em>Part of the <a routerLink="/">{{ team.region_key }} District</a></em>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <span><span class="fa fa-map-marker"></span> From <span *ngIf="team?.city">{{ team.city }}</span>, <span *ngIf="team?.state_prov">{{ team.state_prov }}</span>, <span *ngIf="team?.country">{{ team.country }}</span></span>
+        </div>
+        <div class="col-xs-12">
+          <span><span class="fa fa-info-circle"></span> Also known as {{ team.team_name_long }}</span>
+        </div>
+        <div class="col-xs-12">
+          <span><span class="fa fa-globe"></span> <span *ngIf="team.website">{{ team.website }}</span><span *ngIf="!team.website"><i>Website N/A</i></span></span>
+        </div>
+        <div class="col-xs-12">
+          <span><span class="fa fa-calendar"></span> Rookie year {{ team.rookie_year }}</span>
+        </div>
+      </div>
+
+      <div *ngIf="team.events" class="row">
+
+        <div *ngFor="let event of team.events" class="col-xs-12 pad-bot-25">
+          <div class="col-xs-12 col-sm-4">
+            <h3><a routerLink="/event">{{ event.event_name }}</a></h3>
+            <div>
+              <span><span class="fa fa-map-marker"></span> {{ event.city }}, {{ event.state_prov }}, {{ event.country }}</span>
+            </div>
+            <div>
+              <span><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-8">
+            <table class="match-table">
+              <thead>
+                <tr class="visible-lg">
+                  <th>
+                    <span class="fa fa-play-circle-o  "></span>
+                  </th>
+                  <th>Match</th>
+                  <th colspan="6">Red Alliance</th>
+                  <th colspan="6">Blue Alliance</th>
+                  <th colspan="2">Scores</th>
+                </tr>
+                <tr class="hidden-lg">
+                  <th rowspan="2">
+                    <span class="fa fa-play-circle-o"></span>
+                  </th>
+                  <th rowspan="2">Match</th>
+                  <th colspan="12">Red Alliance</th>
+                  <th colspan="2">Red Score</th>
+                </tr>
+                <tr class="hidden-lg">
+                  <th colspan="12">Blue Alliance</th>
+                  <th colspan="2">Blue Score</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <th colspan="18">Qualifications</th>
+              </tr>
+              </tbody>
+              <tbody *ngFor="let match of event.match_data">
+                <tr class="visible-lg">
+                  <td>
+                    <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
+                  </td>
+                  <td>
+                    {{ match.match_name }}
+                  </td>
+                  <td colspan="3" class="red">
+                    {{ getStation(match, 0) }}
+                  </td>
+                  <td colspan="3" class="red">
+                    {{ getStation(match, 1) }}
+                  </td>
+                  <td colspan="3" class="blue">
+                    {{ getStation(match, 2) }}
+                  </td>
+                  <td colspan="3" class="blue">
+                    {{ getStation(match, 3) }}
+                  </td>
+                  <td class="red">
+                    {{ match.red_score }}
+                  </td>
+                  <td class="blue">
+                    {{ match.blue_score }}
+                  </td>
+                </tr>
+                <tr class="hidden-lg">
+                  <td rowspan="2">
+                    <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
+                  </td>
+                  <td rowspan="2">
+                    {{ match.match_name }}
+                  </td>
+                  <td colspan="6" class="red">
+                    {{ getStation(match, 0) }}
+                  </td>
+                  <td colspan="6" class="red">
+                    {{ getStation(match, 1) }}
+                  </td>
+                  <td colspan="2" class="red">
+                    {{ match.red_score }}
+                  </td>
+                </tr>
+                <tr class="hidden-lg">
+                  <td colspan="6" class="blue">
+                    {{ getStation(match, 2) }}
+                  </td>
+                  <td colspan="6" class="blue">
+                    {{ getStation(match, 3) }}
+                  </td>
+                  <td colspan="2" class="blue">
+                    {{ match.blue_score }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</main>

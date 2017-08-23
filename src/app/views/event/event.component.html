@@ -1,0 +1,86 @@
+<!-- MAIN CONTAINER -->
+<main class="container">
+
+  <nav aria-label="...">
+    <ul class="pager mar-top-0">
+      <li class="previous"><a routerLink="/events"><span aria-hidden="true">&larr;</span> {{ event.start_date | date : "y" }} Events</a></li>
+    </ul>
+  </nav>
+
+  <div class="row">
+
+    <div class="col-xs-12 col-md-6">
+      <h3 class="mar-top-5">{{ event.start_date | date : "y" }} {{ event.event_name }}</h3>
+      <p class="lead">
+        <small>Basic information about the {{ event.event_name }} can be found in the information chart. All times and dates displayed here, and on the event's individual result pages, are local to the event.</small>
+      </p>
+    </div>
+
+    <div class="col-xs-12 col-md-6">
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="fa fa-globe"></span> Event Information</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-2 col-md-1">
+              <span class="fa fa-code"></span>
+            </div>
+            <div class="col-xs-10 col-md-11">
+              {{ event.event_key }}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-2 col-md-1">
+              <span class="fa fa-calendar"></span>
+            </div>
+            <div class="col-xs-10 col-md-11">
+              {{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-2 col-md-1">
+              <span class="fa fa-location-arrow"></span>
+            </div>
+            <div class="col-xs-10 col-md-11">
+              <a href="https://www.google.com/maps/search/{{ event.venue }} in {{ event.city }}, {{ event.state_prov }}" target="_blank">{{ event.venue }} in {{ event.city }}, {{ event.state_prov }}</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-2 col-md-1">
+              <span class="fa fa-globe"></span>
+            </div>
+            <div class="col-xs-10 col-md-11">
+              <a href="{{ event.event_website }}" target="_blank">{{ event.event_website }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <ul class="nav nav-tabs">
+        <li role="presentation" [class.active]="isSelected('matches')"><a (click)="select('matches')">Results</a></li>
+        <li role="presentation" [class.active]="isSelected('rankings')"><a (click)="select('rankings')">Rankings</a></li>
+        <li role="presentation" [class.active]="isSelected('awards')"><a (click)="select('awards')">Awards</a></li>
+        <li role="presentation" [class.active]="isSelected('teams')"><a (click)="select('teams')">Teams</a></li>
+        <li role="presentation" [class.active]="isSelected('advancement')"><a (click)="select('adancment')">Advancement</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <event-rankings *ngIf="isSelected('rankings')" [event]="event" [rankings]="event.rankings"></event-rankings>
+    <event-teams *ngIf="isSelected('teams')" [event]="event"></event-teams>
+    <event-matches *ngIf="isSelected('matches')" [matches]="event.matches.stations"></event-matches>
+    <event-awards *ngIf="isSelected('awards')" [event]="event"></event-awards>
+
+  </div>
+
+</main>
+<!-- MAIN CONTAINER -->

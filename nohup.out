@@ -1,0 +1,16 @@
+events.js:160
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE :::8080
+    at Object.exports._errnoException (util.js:1022:11)
+    at exports._exceptionWithHostPort (util.js:1045:20)
+    at Server._listen2 (net.js:1259:14)
+    at listen (net.js:1295:10)
+    at Server.listen (net.js:1391:5)
+    at Object.<anonymous> (/home/ftcuseradmin/dev.theyellowalliance.com/server/server.js:41:8)
+    at Module._compile (module.js:570:32)
+    at Object.Module._extensions..js (module.js:579:10)
+    at Module.load (module.js:487:32)
+    at tryModuleLoad (module.js:446:12)
+API running on localhost:8080

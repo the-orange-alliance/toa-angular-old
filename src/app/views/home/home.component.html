@@ -1,0 +1,68 @@
+<!-- MAIN CONTAINER -->
+<main class="container">
+
+  <h3 class="mar-0">2016-2017 FTC Recap</h3>
+  <h3 class="mar-0"><small *ngIf="match_count"> {{ match_count }} Matches</small></h3>
+
+  <div class="row" *ngIf="penalty_match">
+    <div class="col-xs-12 mar-top-20">
+      <h4 class="mar-0">Highest Scoring Match</h4>
+      <h4 class="mar-0"><small>(Penalty Free)</small></h4>
+      <h4><a (click)="openEvent(penalty_match.event_key, $event)">{{ penalty_match.event_name }}</a> <small>{{ penalty_match.match_name }}</small></h4>
+      <table class="match-table">
+        <thead>
+        <tr>
+          <th colspan="3">Teams</th>
+          <th>Score</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="red">
+          <td><a href="#">1</a></td>
+          <td><a href="#">2</a></td>
+          <td><a href="#">3</a></td>
+          <td>{{ penalty_match.red_score }}</td>
+        </tr>
+        <tr class="blue">
+          <td><a href="#">4</a></td>
+          <td><a href="#">5</a></td>
+          <td><a href="#">6</a></td>
+          <td>{{ penalty_match.blue_score }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="regular_match">
+    <div class="col-xs-12 mar-top-20">
+      <h4 class="mar-0">Highest Scoring Match</h4>
+      <h4 class="mar-0"><small>(With Penalties)</small></h4>
+      <h4><a (click)="openEvent(regular_match.event_key, $event)">{{ regular_match.event_name }}</a> <small>{{ regular_match.match_name }}</small></h4>
+      <table class="match-table">
+        <thead>
+        <tr>
+          <th colspan="3">Teams</th>
+          <th>Score</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="red">
+          <td><a href="#">1</a></td>
+          <td><a href="#">2</a></td>
+          <td><a href="#">3</a></td>
+          <td>{{ regular_match.red_score }}</td>
+        </tr>
+        <tr class="blue">
+          <td><a href="#">4</a></td>
+          <td><a href="#">5</a></td>
+          <td><a href="#">6</a></td>
+          <td>{{ regular_match.blue_score }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+<!-- MAIN CONTAINER -->
