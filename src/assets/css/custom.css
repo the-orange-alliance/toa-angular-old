@@ -101,11 +101,11 @@ td, th {
 }
 
 .match-winner {
-  text-decoration: underline;
+  font-weight: bold;
 }
 
 .current-team {
-  font-weight: bold;
+  text-decoration: underline;
 }
 
 .allow-expand {
