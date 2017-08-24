@@ -77,10 +77,10 @@
             <b *ngIf="week.week == 'CMPHOU'">FIRST Championship - Houston</b>
             <b *ngIf="week.week == 'CMPSTL'">FIRST Championship - St. Louis</b>
             <b *ngIf="week.week == 'CMPDET'">FIRST Championship - Detroit</b>
-            <b *ngIf="week.week == 'ESR'">East Super Regional</b>
-            <b *ngIf="week.week == 'NSR'">North Super Regional</b>
-            <b *ngIf="week.week == 'SSR'">South Super Regional</b>
-            <b *ngIf="week.week == 'WSR'">West Super Regional</b>
+            <b *ngIf="week.week == 'ESR'">East Super Regional Championship</b>
+            <b *ngIf="week.week == 'NSR'">North Super Regional Championship</b>
+            <b *ngIf="week.week == 'SSR'">South Super Regional Championship</b>
+            <b *ngIf="week.week == 'WSR'">West Super Regional Championship</b>
             <b *ngIf="week.week == 'SPR'">Super Regionals</b>
             <b *ngIf="week.week == 'FOC'">Festival of Champions</b>
             <span class="badge">{{ getEventsByWeek(week).length }}</span>
@@ -90,9 +90,9 @@
         </div>
         <div class="panel-body">
           <div *ngFor="let event of getEventsByWeek(week)">
-            <a *ngIf="week.week == 'CMP' || week.week == 'CMPHOU' || week.week == 'CMPDET' || week.week == 'CMPSTL' || week.week == 'SPR' || week.week == 'ESR' || week.week == 'SSR' || week.week == 'NSR' || week.week == 'WSR'" (click)="openEvent(event.event_key)">{{ event.division_name }} Division</a>
+            <a *ngIf="week.week == 'CMP' || week.week == 'CMPHOU' || week.week == 'CMPDET' || week.week == 'CMPSTL' || week.week == 'ESR' || week.week == 'SSR' || week.week == 'NSR' || week.week == 'WSR'" (click)="openEvent(event.event_key)">{{ event.division_name }} Division</a>
             <a *ngIf="event.division_name == null" (click)="openEvent(event.event_key)">{{ event.event_name }}</a>
-            <a *ngIf="event.division_name && week.week != 'CMP' && week.week != 'CMPHOU' && week.week != 'CMPDET' && week.week != 'CMPSTL' && week.week != 'SPR' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'" (click)="openEvent(event.event_key)">{{ event.event_name }} - {{ event.division_name }} Division</a>
+            <a *ngIf="event.division_name && week.week != 'CMP' && week.week != 'CMPHOU' && week.week != 'CMPDET' && week.week != 'CMPSTL' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'" (click)="openEvent(event.event_key)">{{ event.event_name }} - {{ event.division_name }} Division</a>
           </div>
         </div>
       </div>
