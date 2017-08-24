@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FTCDatabase } from "../../../../providers/ftc-database";
-import { MatchParser, MatchSorter } from "../../../../util/match-utils";
+import { MatchParser, MatchSorter, MatchType } from "../../../../util/match-utils";
 
 @Component({
   providers: [FTCDatabase],
@@ -14,13 +14,42 @@ export class EventMatchesComponent implements OnInit {
 
   match_sorter: MatchSorter;
 
+  qual_matches: any;
+  quarters_matches: any;
+  semis_matches: any;
+  finals_matches: any;
+
   constructor(private ftc: FTCDatabase, private router: Router) {
     this.match_sorter = new MatchSorter();
+    this.qual_matches = [];
+    this.quarters_matches = [];
+    this.semis_matches = [];
+    this.finals_matches = [];
   }
 
   ngOnInit() {
     if (this.matches) {
       this.matches = this.match_sorter.sort(this.matches, 0, this.matches.length - 1);
+
+      for (let match of this.matches) {
+        if (match.tournament_level == MatchType.QUALS_MATCH) {
+          this.qual_matches.push(match);
+        }
+        if (match.tournament_level == MatchType.QUARTERS_MATCH_1 ||
+            match.tournament_level == MatchType.QUARTERS_MATCH_2 ||
+            match.tournament_level == MatchType.QUARTERS_MATCH_3 ||
+            match.tournament_level == MatchType.QUARTERS_MATCH_4) {
+          this.quarters_matches.push(match);
+        }
+        if (match.tournament_level == MatchType.SEMIS_MATCH_1 ||
+            match.tournament_level == MatchType.SEMIS_MATCH_2 ) {
+          this.semis_matches.push(match);
+        }
+        if (match.tournament_level == MatchType.FINALS_MATCH) {
+          this.finals_matches.push(match);
+        }
+      }
+
     }
   }
 
@@ -37,7 +66,7 @@ export class EventMatchesComponent implements OnInit {
   }
 
   openMatchDetails(match_data: any) {
-    // this.router.navigate(['/matches', match_data]);
+    this.router.navigate(['/matches', match_data]);
   }
 
 }

@@ -22,7 +22,7 @@ export class RankSorter {
 
     for (let i = left; i < right; i++) {
       // -1 means items[i] < pivotValue, 1 means items[i] > pivotValue
-      if (items[i].Rank < pivotValue.rank) {
+      if (items[i].rank < pivotValue.rank) {
         this.swap(items, i, partitionIndex);
         partitionIndex++;
       }
