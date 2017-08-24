@@ -76,7 +76,7 @@ export class EventsComponent implements OnInit {
   getEventsByWeek(week: any): any {
     let new_events = [];
     for (let event of this.events) {
-      if (event.week_key == week.week) {
+      if (event.week_key == week.week && event.start_date == week.start_date) {
         new_events.push(event);
       }
     }
