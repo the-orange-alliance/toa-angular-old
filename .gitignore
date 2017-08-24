@@ -1,5 +1,6 @@
 # Folders created by Angular, Node.js, or IntelliJ
 node_modules/
+dist/
 .idea/
 .idea/jsLibraryMappings.xml
 .idea/vcs.xml
