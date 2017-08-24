@@ -72,9 +72,15 @@
       <div *ngIf="getEventsByWeek(week).length > 0" class="panel panel-warning">
         <div class="panel-heading">
           <div class="panel-title">
-            <b *ngIf="week.week != 'CMPHOU' && week.week != 'CMPSTL' && week.week != 'SPR' && week.week != 'FOC'">Week {{ week.week }}</b>
+            <b *ngIf="week.week != 'CMPHOU' && week.week != 'CMPSTL' && week.week != 'CMPDET' && week.week != 'CMP' && week.week != 'SPR' && week.week != 'FOC' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'">Week {{ week.week }}</b>
+            <b *ngIf="week.week == 'CMP'">FIRST Championship</b>
             <b *ngIf="week.week == 'CMPHOU'">FIRST Championship - Houston</b>
             <b *ngIf="week.week == 'CMPSTL'">FIRST Championship - St. Louis</b>
+            <b *ngIf="week.week == 'CMPDET'">FIRST Championship - Detroit</b>
+            <b *ngIf="week.week == 'ESR'">East Super Regional</b>
+            <b *ngIf="week.week == 'NSR'">North Super Regional</b>
+            <b *ngIf="week.week == 'SSR'">South Super Regional</b>
+            <b *ngIf="week.week == 'WSR'">West Super Regional</b>
             <b *ngIf="week.week == 'SPR'">Super Regionals</b>
             <b *ngIf="week.week == 'FOC'">Festival of Champions</b>
             <span class="badge">{{ getEventsByWeek(week).length }}</span>
