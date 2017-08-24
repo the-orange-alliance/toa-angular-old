@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'events', component: EventsComponent },
   { path: 'teams', component: TeamsComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'api/docs', component: ApiDocsComponent },
+  { path: 'apidocs', component: ApiDocsComponent },
   { path: 'privacy', component: PrivacyComponent },
   { path: 'ranking', component: RankingComponent },
   { path: 'stream', component: StreamingComponent },
