@@ -37,13 +37,18 @@ export class TeamComponent implements OnInit {
   ngOnInit(): void {
     this.years = [];
     this.ftc.getTeam(this.team_key, this.current_year).subscribe((data) => {
-      this.team = data[0][0];
-      this.team.events = data[1];
-      for (let i = this.team.rookie_year; i <= new Date().getFullYear(); i++) {
-        this.years.push(i);
+      if (!data[0][0]) {
+        this.router.navigate(["/not-found"]);
+      } else {
+        this.team = data[0][0];
+        this.team.events = data[1];
+
+        for (let i = this.team.rookie_year; i <= new Date().getFullYear(); i++) {
+          this.years.push(i);
+        }
+        this.years.reverse();
+        this.getEventMatches();
       }
-      this.years.reverse();
-      this.getEventMatches();
     }, (err) => {
       console.log(err);
     });
