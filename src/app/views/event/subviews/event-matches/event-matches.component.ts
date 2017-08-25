@@ -70,12 +70,12 @@ export class EventMatchesComponent implements OnInit {
     return match_data.teams.toString().split(",")[station];
   }
 
-  getNumberOfTeams(match_data) {
-    return match_data.teams.toString().split(",").length;
-  }
-
   openTeamPage(team: any) {
     this.router.navigate(['/teams', team]);
+  }
+
+  getNumberOfTeams(match_data) {
+    return match_data.teams.toString().split(",").length;
   }
 
   openMatchDetails(match_data: any) {
