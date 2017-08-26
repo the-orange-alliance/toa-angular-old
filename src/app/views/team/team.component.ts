@@ -42,7 +42,8 @@ export class TeamComponent implements OnInit {
       } else {
         this.team = data[0][0];
         this.team.events = data[1];
-
+        this.team.rankings = data[2];
+        this.team.awards = data[3];
         for (let i = this.team.rookie_year; i <= new Date().getFullYear(); i++) {
           this.years.push(i);
         }
@@ -102,9 +103,33 @@ export class TeamComponent implements OnInit {
         this.semis_matches = [];
         this.finals_matches = [];
 
+        this.getEventRankings();
+        this.getEventAwards();
       }, (err) => {
         console.log(err);
       });
+    }
+  }
+
+  getEventRankings() {
+    for (let ranking of this.team.rankings) {
+      for (let event of this.team.events) {
+        if (ranking.event_key == event.event_key) {
+          event.ranking = ranking;
+        }
+      }
+    }
+  }
+
+  getEventAwards() {
+    for (let event of this.team.events) {
+      let awards = [];
+      for (let award of this.team.awards) {
+        if (event.event_key == award.event_key) {
+          awards.push(award);
+        }
+      }
+      event.awards = awards;
     }
   }
 

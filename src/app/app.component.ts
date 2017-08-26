@@ -9,7 +9,10 @@ export class TheOrangeAllianceComponent {
 
   search: any;
 
+  current_year: any;
+
   constructor() {
+    this.current_year = new Date().getFullYear();
   }
 
   performSearch(): void {

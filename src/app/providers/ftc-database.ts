@@ -76,7 +76,9 @@ export class FTCDatabase {
   public getTeam(team_number: number, year?: number) {
     return Observable.forkJoin(
       this.request("/api/team/" + team_number).map(res => res.json()),
-      this.request("/api/team/" + team_number + "/" + (year == null ? this.year : year) + "/events").map(res => res.json())
+      this.request("/api/team/" + team_number + "/" + (year == null ? this.year : year) + "/events").map(res => res.json()),
+      this.request("/api/team/" + team_number + "/" + (year == null ? this.year : year) + "/results").map(res => res.json()),
+      this.request("/api/team/" + team_number + "/" + (year == null ? this.year : year) + "/awards").map(res => res.json())
     );
   }
 
