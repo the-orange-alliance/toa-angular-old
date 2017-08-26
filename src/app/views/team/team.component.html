@@ -56,13 +56,13 @@
           <span><span class="fa fa-map-marker"></span> From <span *ngIf="team?.city">{{ team.city }}</span>, <span *ngIf="team?.state_prov">{{ team.state_prov }}</span>, <span *ngIf="team?.country">{{ team.country }}</span></span>
         </div>
         <div class="col-xs-12">
-          <span><span class="fa fa-info-circle"></span> Also known as {{ team.team_name_long }}</span>
+          <span><span class="fa fa-info-circle"></span> aka <em>{{ team.team_name_long }}</em></span>
         </div>
         <div class="col-xs-12">
           <span><span class="fa fa-globe"></span> <span *ngIf="team.website">{{ team.website }}</span><span *ngIf="!team.website"><i>Website N/A</i></span></span>
         </div>
         <div class="col-xs-12">
-          <span><span class="fa fa-calendar"></span> Rookie year {{ team.rookie_year }}</span>
+          <span><span class="fa fa-calendar"></span> Rookie Year: {{ team.rookie_year }}</span>
         </div>
       </div>
 
