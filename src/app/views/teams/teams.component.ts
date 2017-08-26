@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FTCDatabase } from "../../providers/ftc-database";
+import { TeamFilter } from "../../util/team-utils";
 
 const TEAMS_PER_PAGE = 500;
 
@@ -13,11 +14,27 @@ export class TeamsComponent implements OnInit {
 
   teams: any[];
   teams_count: number;
+  teams_filter: TeamFilter;
 
   pages: any[];
   cur_page: number;
 
-  constructor(private router: Router, private ftc: FTCDatabase) {}
+  regions: any;
+  leagues: any;
+
+  location_query: string;
+  team_query: string;
+
+  current_region: any;
+  current_league: any;
+
+  constructor(private router: Router, private ftc: FTCDatabase) {
+    this.regions = [];
+    this.leagues = [];
+
+    this.location_query = null;
+    this.team_query = null;
+  }
 
   ngOnInit(): void {
     this.ftc.getAllTeams().subscribe((data) => {
@@ -27,6 +44,22 @@ export class TeamsComponent implements OnInit {
         this.pages.push({ index: (i) });
       }
       this.getTeams(0);
+    }, (err) => {
+      console.log(err);
+    });
+
+    this.ftc.getAllRegions().subscribe( (data) => {
+      this.regions = data;
+      this.regions.push({ region_key: 'All Regions' });
+      this.current_region = this.regions[this.regions.length - 1];
+    }, (err) => {
+      console.log(err);
+    });
+
+    this.ftc.getAllLeagues().subscribe( (data) => {
+      this.leagues = data;
+      this.leagues.push({ league_key: 'All Leagues' });
+      this.current_league = this.leagues[this.leagues.length - 1];
     }, (err) => {
       console.log(err);
     });
@@ -46,6 +79,7 @@ export class TeamsComponent implements OnInit {
     }
     this.ftc.getTeams(this.cur_page * TEAMS_PER_PAGE).subscribe((data) => {
       this.teams = data;
+      this.teams_filter = new TeamFilter(this.teams);
     }, (err) => {
       console.log(err);
     });
@@ -57,6 +91,56 @@ export class TeamsComponent implements OnInit {
 
   decIndex() {
     return this.cur_page-1;
+  }
+
+  selectRegion(region: any) {
+    if (this.current_region.region_key != region.region_key) {
+      this.current_region = region;
+      if (this.current_region.region_desc) {
+        this.teams_filter.filterArray(this.current_region.region_key);
+        this.teams = this.teams_filter.getFilteredArray();
+      } else {
+        this.teams = this.teams_filter.getOriginalArray();
+      }
+    }
+  }
+
+  selectLeague(league: any) {
+    if (this.current_league.region_key != league.league_key) {
+      this.current_league = league;
+      if (this.current_league.league_desc) {
+        this.teams_filter.filterArray(this.current_league.league_key);
+        this.teams = this.teams_filter.getFilteredArray();
+      } else {
+        this.teams = this.teams_filter.getOriginalArray();
+      }
+    }
+  }
+
+  queryTeam() {
+    if (this.team_query != null && this.team_query.length > 0) {
+      this.teams_filter.filterArray(this.team_query);
+      this.teams = this.teams_filter.getFilteredArray();
+    } else {
+      this.teams = this.teams_filter.getOriginalArray();
+    }
+  }
+
+  queryLocation() {
+    if (this.location_query != null && this.location_query.length > 0) {
+      this.teams_filter.filterArray(this.location_query);
+      this.teams = this.teams_filter.getFilteredArray();
+    } else {
+      this.teams = this.teams_filter.getOriginalArray();
+    }
+  }
+
+  clearFilter() {
+    this.current_league = this.leagues[this.leagues.length - 1];
+    this.current_region = this.regions[this.regions.length - 1];
+    this.team_query = null;
+    this.location_query = null;
+    this.teams = this.teams_filter.getOriginalArray();
   }
 
 }

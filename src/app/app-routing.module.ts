@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'events/:event_key', component: EventComponent },
   { path: 'teams/:team_key', component: TeamComponent },
   { path: 'matches/:match_data', component: PageNotFoundComponent },
+  { path: 'not-found', component: PageNotFoundComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

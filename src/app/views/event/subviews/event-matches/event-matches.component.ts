@@ -19,12 +19,16 @@ export class EventMatchesComponent implements OnInit {
   semis_matches: any;
   finals_matches: any;
 
+  match_levels: any;
+
   constructor(private ftc: FTCDatabase, private router: Router) {
     this.match_sorter = new MatchSorter();
     this.qual_matches = [];
     this.quarters_matches = [];
     this.semis_matches = [];
     this.finals_matches = [];
+
+    this.match_levels = [];
   }
 
   ngOnInit() {
@@ -34,6 +38,9 @@ export class EventMatchesComponent implements OnInit {
       for (let match of this.matches) {
         if (match.tournament_level == MatchType.QUALS_MATCH) {
           this.qual_matches.push(match);
+          this.match_levels.push({
+            "quals": match
+          });
         }
         if (match.tournament_level == MatchType.QUARTERS_MATCH_1 ||
             match.tournament_level == MatchType.QUARTERS_MATCH_2 ||
@@ -50,6 +57,8 @@ export class EventMatchesComponent implements OnInit {
         }
       }
 
+      console.log(this.match_levels);
+
     }
   }
 
@@ -63,6 +72,10 @@ export class EventMatchesComponent implements OnInit {
 
   openTeamPage(team: any) {
     this.router.navigate(['/teams', team]);
+  }
+
+  getNumberOfTeams(match_data) {
+    return match_data.teams.toString().split(",").length;
   }
 
   openMatchDetails(match_data: any) {

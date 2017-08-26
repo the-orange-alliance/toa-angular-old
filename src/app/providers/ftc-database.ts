@@ -25,6 +25,10 @@ export class FTCDatabase {
     return this.request("/api/regions").map(res => res.json());
   }
 
+  public getAllLeagues() {
+    return this.request("/api/leagues").map(res => res.json());
+  }
+
   public getAllTeams() {
     return this.request("/api/teams/count").map(res => res.json());
   }
@@ -37,8 +41,12 @@ export class FTCDatabase {
     return this.request("/api/matches/" + (year == null ? this.year : year) + "/count").map(res => res.json());
   }
 
-  public getHighScoreNoPenalty(year?: number) {
-    return this.request("/api/matches/" + (year == null ? this.year : year) + "/high-scores/no-penalty").map(res => res.json());
+  public getHighScoreQual(year?: number) {
+    return this.request("/api/matches/" + (year == null ? this.year : year) + "/high-scores/qual-no-penalty").map(res => res.json());
+  }
+
+  public getHighScoreElim(year?: number) {
+    return this.request("/api/matches/" + (year == null ? this.year : year) + "/high-scores/elim-no-penalty").map(res => res.json());
   }
 
   public getHighScoreWithPenalty(year?: number) {
@@ -72,6 +80,10 @@ export class FTCDatabase {
     );
   }
 
+  public getStations(match_key: string, year?: number) {
+    return this.request("/api/match/" + (year == null ? this.year : year) + "/" + match_key + "/stations").map(res => res.json());
+  }
+
   public getTeamEvents(team_number: number, year?: number) {
     console.log("/api/team/" + team_number + "/" + (year == null ? this.year : year) + "/events");
     return this.request("/api/team/" + team_number + "/" + (year == null ? this.year : year) + "/events").map(res => res.json());
@@ -83,10 +95,6 @@ export class FTCDatabase {
 
   public getEventMatches(event_key: string, year?: number) {
     return this.request("/api/event/" + (year == null ? this.year : year) + "/" + event_key + "/matches/stations").map(res => res.json());
-  }
-
-  public getServerDefaultResponse(test_url) {
-    return this.request("/api/" + test_url).map(res => res.json());
   }
 
 }
