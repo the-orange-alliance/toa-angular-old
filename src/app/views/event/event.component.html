@@ -10,7 +10,8 @@
   <div class="row">
 
     <div class="col-xs-12 col-md-6">
-      <h3 class="mar-top-5">{{ event.start_date | date : "y" }} {{ event.event_name }}</h3>
+      <h3 *ngIf="event.division_name == null">{{ event.start_date | date : "y" }} {{ event.event_name }}</h3>
+      <h3 *ngIf="event.division_name">{{ event.start_date | date : "y" }} {{ event.event_name }} - {{ event.division_name }} Division</h3>
       <p class="lead">
         <small>Basic information about the {{ event.event_name }} can be found in the information chart. All times and dates displayed here, and on the event's individual result pages, are local to the event.</small>
       </p>
@@ -53,8 +54,8 @@
               <span class="fa fa-globe"></span>
             </div>
             <div class="col-xs-10 col-md-11">
-              <span *ngIf="event.website"><a href="{{ event.event_website }}" target="_blank">{{ event.event_website }}</a></span>
-              <span *ngIf="!event.website"><i>Website N/A</i></span>
+              <span *ngIf="event.event_website"><a href="{{ event.event_website }}" target="_blank">{{ event.event_website }}</a></span>
+              <span *ngIf="event.event_website == null"><i>Website N/A</i></span>
             </div>
           </div>
         </div>
