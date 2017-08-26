@@ -35,7 +35,7 @@ export class HomeComponent {
         console.log(err);
       });
       this.ftc.getEventName(this.qual_match.event_key).subscribe((name) => {
-        this.qual_match.event_name = name[0].event_name;
+        this.qual_match.event = name[0];
       }, (err) => {
         console.log(err);
       })
@@ -54,7 +54,7 @@ export class HomeComponent {
         console.log(err);
       });
       this.ftc.getEventName(this.elim_match.event_key).subscribe((name) => {
-        this.elim_match.event_name = name[0].event_name;
+        this.elim_match.event = name[0];
       }, (err) => {
         console.log(err);
       })
@@ -73,7 +73,7 @@ export class HomeComponent {
         console.log(err);
       });
       this.ftc.getEventName(this.normal_match.event_key).subscribe((name) => {
-        this.normal_match.event_name = name[0].event_name;
+        this.normal_match.event = name[0];
       }, (err) => {
         console.log(err);
       })
@@ -84,7 +84,6 @@ export class HomeComponent {
     this.ftc.getSeasonEvents("1617").subscribe((data) => {
       let today = new Date();
       let next_week = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-      console.log(today + " | " + next_week);
       this.current_events = [];
       for (let event of data) {
         if (this.isInDateRange(new Date(event.start_date), new Date(event.end_date), today, next_week)) {

@@ -44,7 +44,7 @@
     <div class="col-xs-12 col-md-8 col-md-offset-2 mar-top-20">
       <h4 class="mar-0">Highest Scoring Qualification Match</h4>
       <h4 class="mar-0"><small>(Penalty Free)</small></h4>
-      <h4><a (click)="openEvent(qual_match.event_key, $event)">{{ qual_match.event_name }}</a> <small>{{
+      <h4 *ngIf="qual_match.event"><a (click)="openEvent(qual_match.event_key, $event)">{{ qual_match.event.event_name }}<span *ngIf="qual_match.event.division_name"> - {{ qual_match.event.division_name }}</span></a> <small>{{
         qual_match.match_name }}</small></h4>
       <table class="match-table">
         <thead>
@@ -85,7 +85,7 @@
     <div class="col-xs-12 col-md-8 col-md-offset-2 mar-top-20">
       <h4 class="mar-0">Highest Scoring Elimination Match</h4>
       <h4 class="mar-0"><small>(Penalty Free)</small></h4>
-      <h4><a (click)="openEvent(elim_match.event_key, $event)">{{ elim_match.event_name }}</a> <small>{{
+      <h4 *ngIf="elim_match.event"><a (click)="openEvent(elim_match.event_key, $event)">{{ elim_match.event.event_name }}<span *ngIf="elim_match.event.division_name"> - {{ elim_match.event.division_name }}</span></a> <small>{{
         elim_match.match_name }}</small></h4>
       <table class="match-table">
         <thead>
@@ -156,7 +156,7 @@
     <div class="col-xs-12 col-md-8 col-md-offset-2 mar-top-20">
       <h4 class="mar-0">Highest Scoring Match</h4>
       <h4 class="mar-0"><small>(With Penalties)</small></h4>
-      <h4><a (click)="openEvent(normal_match.event_key, $event)">{{ normal_match.event_name }}</a> <small>{{
+      <h4 *ngIf="normal_match.event"><a (click)="openEvent(normal_match.event_key, $event)">{{ normal_match.event.event_name }}<span *ngIf="normal_match.event.division_name"> - {{ normal_match.event.division_name }}</span></a> <small>{{
         normal_match.match_name }}</small></h4>
       <table class="match-table">
         <thead>

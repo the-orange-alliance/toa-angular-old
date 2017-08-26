@@ -14,7 +14,7 @@ export class FTCDatabase {
     let auth_header = new Headers({
       'X-Application-Origin': 'TOA'
     });
-    return this.http.get("https://dev.theyellowalliance.com" + url, { headers: auth_header })
+    return this.http.get("http://beta.theorangealliance.org" + url, { headers: auth_header })
   }
 
   public getAllSeasons() {
@@ -90,7 +90,7 @@ export class FTCDatabase {
   }
 
   public getEventName(event_key) {
-    return this.request("/api/event/" +  event_key + "/name").map(res => res.json());
+    return this.request("/api/event/" +  event_key).map(res => res.json());
   }
 
   public getEventMatches(event_key: string, year?: number) {

@@ -27,6 +27,15 @@ export class EventParser {
     return !isNaN(parseInt(event_id.substring(event_id.length - 1, event_id.length)));
   }
 
+  getDivisionID(): number {
+    if (this.hasDivision()) {
+      let event_id = this.getEventCode();
+      return parseInt(event_id.substring(event_id.length - 1, event_id.length));
+    } else {
+      return -1;
+    }
+  }
+
 }
 
 export class EventFilter {
@@ -87,7 +96,7 @@ export class EventSorter {
 
     for (let i = left; i < right; i++) {
       // -1 means items[i] < pivotValue, 1 means items[i] > pivotValue
-      if (items[i].start_date < pivotValue.start_date || new EventParser(pivotValue).hasDivision()) {
+      if (items[i].start_date < pivotValue.start_date || new EventParser(pivotValue).getDivisionID() == 0) {
         this.swap(items, i, partitionIndex);
         partitionIndex++;
       }

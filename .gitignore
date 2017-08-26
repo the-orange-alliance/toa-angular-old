@@ -4,6 +4,7 @@ dist/
 .idea/
 .idea/jsLibraryMappings.xml
 .idea/vcs.xml
+public/
 
 # Windows image file caches
 Thumbs.db
