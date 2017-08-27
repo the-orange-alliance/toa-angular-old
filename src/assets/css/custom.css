@@ -153,6 +153,12 @@ footer {
   color: #ff9800;
 }
 
+/* Used for website header. */
+
+.whitetext {
+color:white;
+}
+
 /* Extra small devices (phones, 320px and up, bootstrap default) */
 
 /* Small devices (tablets, 768px and up) */
