@@ -97,7 +97,7 @@ export class TeamsComponent implements OnInit {
     if (this.current_region.region_key != region.region_key) {
       this.current_region = region;
       if (this.current_region.region_desc) {
-        this.teams_filter.filterArray(this.current_region.region_key);
+        this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
         this.teams = this.teams_filter.getFilteredArray();
       } else {
         this.teams = this.teams_filter.getOriginalArray();
@@ -109,7 +109,7 @@ export class TeamsComponent implements OnInit {
     if (this.current_league.region_key != league.league_key) {
       this.current_league = league;
       if (this.current_league.league_desc) {
-        this.teams_filter.filterArray(this.current_league.league_key);
+        this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
         this.teams = this.teams_filter.getFilteredArray();
       } else {
         this.teams = this.teams_filter.getOriginalArray();
@@ -119,7 +119,7 @@ export class TeamsComponent implements OnInit {
 
   queryTeam() {
     if (this.team_query != null && this.team_query.length > 0) {
-      this.teams_filter.filterArray(this.team_query);
+      this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
       this.teams = this.teams_filter.getFilteredArray();
     } else {
       this.teams = this.teams_filter.getOriginalArray();
@@ -128,7 +128,7 @@ export class TeamsComponent implements OnInit {
 
   queryLocation() {
     if (this.location_query != null && this.location_query.length > 0) {
-      this.teams_filter.filterArray(this.location_query);
+      this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
       this.teams = this.teams_filter.getFilteredArray();
     } else {
       this.teams = this.teams_filter.getOriginalArray();
