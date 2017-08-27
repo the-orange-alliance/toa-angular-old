@@ -94,7 +94,7 @@ export class MatchesComponent implements OnInit {
     this.router.navigate(['/teams', team]);
   }
 
-  openEvent(event_key, e): void {
+  openEvent(event_key): void {
     this.router.navigate(['/events', event_key]);
   }
 

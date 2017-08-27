@@ -2,7 +2,7 @@
 
   <div *ngIf="match_data && match_event" class="row">
     <div class="col-xs-12">
-      <h2><a>{{ match_event.event_name }}<span *ngIf="match_event.division_name"> - {{ match_event.division_name }} Division</span></a> <small>{{ match_data.match_name }}</small></h2>
+      <h2><a (click)="openEvent(match_event.event_key)">{{ match_event.event_name }}<span *ngIf="match_event.division_name"> - {{ match_event.division_name }} Division</span></a> <small>{{ match_data.match_name }}</small></h2>
     </div>
   </div>
 
@@ -111,7 +111,7 @@
     </div>
   </div>
 
-  <div *ngIf="match_details" class="row">
+  <div class="row">
 
     <div class="col-xs-12 col-md-6">
       <table class="match-table">
@@ -125,7 +125,12 @@
           <th colspan="3">Blue Alliance</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="!match_details">
+        <tr>
+          <td colspan="12"><i>There is no available auton detail for this match.</i></td>
+        </tr>
+        </tbody>
+        <tbody *ngIf="match_details">
         <tr>
           <td colspan="3" class="red">{{ match_details.red_auto_art_cen }}</td>
           <td colspan="6">auto_art_cen</td>
@@ -172,7 +177,12 @@
           <th colspan="3">Blue Alliance</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="!match_details">
+        <tr>
+          <td colspan="12"><i>There is no available teleop detail for this match.</i></td>
+        </tr>
+        </tbody>
+        <tbody *ngIf="match_details">
         <tr>
           <td colspan="3" class="red">{{ match_details.red_driver_beacons }}</td>
           <td colspan="6">driver_beacons</td>

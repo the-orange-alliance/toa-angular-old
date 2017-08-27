@@ -83,7 +83,7 @@ export class EventMatchesComponent implements OnInit {
   }
 
   openMatchDetails(match_data: any) {
-    this.router.navigate(['/matches', match_data]);
+    this.router.navigate(['/matches', match_data.match_key]);
   }
 
 }
