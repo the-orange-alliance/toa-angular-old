@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs";
+import {observable} from "rxjs/symbol/observable";
 
 @Injectable()
 export class FTCDatabase {
@@ -97,6 +98,14 @@ export class FTCDatabase {
 
   public getEventMatches(event_key: string, year?: number) {
     return this.request("/api/event/" + (year == null ? this.year : year) + "/" + event_key + "/matches/stations").map(res => res.json());
+  }
+
+  public getMatchDetail(match_key: string, year?: number) {
+    return Observable.forkJoin(
+      this.request("/api/match/" + (year == null ? this.year : year) + "/" + match_key).map(res => res.json()),
+      this.request("/api/match/" + (year == null ? this.year : year) + "/" + match_key + "/details").map(res => res.json()),
+        this.request("/api/match/" + (year == null ? this.year : year) + "/" + match_key + "/stations").map(res => res.json())
+    );
   }
 
 }
