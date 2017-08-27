@@ -23,7 +23,7 @@ export class TheOrangeAllianceComponent {
 
   expandDropdown(e) {
 
-    if (document.getElementsByClassName('collapsed')[0] != null) {
+    if (document.getElementsByClassName('collapsed')[0] !== null) {
       if (e.srcElement.classList.contains('dropdown-toggle')) {
         e.srcElement.parentElement.classList.add('open');
         e.srcElement.classList.add('dropdown-active');
@@ -35,7 +35,7 @@ export class TheOrangeAllianceComponent {
 
   collapseDropdown(e) {
 
-    if (document.getElementsByClassName('collapsed')[0] != null) {
+    if (document.getElementsByClassName('collapsed')[0] !== null) {
       e.path[0].classList.remove('open');
       e.fromElement.children[0].setAttribute('aria-expanded', 'false');
       e.fromElement.children[0].classList.remove('dropdown-active');

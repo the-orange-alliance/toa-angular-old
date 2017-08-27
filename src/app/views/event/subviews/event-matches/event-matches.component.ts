@@ -36,23 +36,23 @@ export class EventMatchesComponent implements OnInit {
       this.matches = this.match_sorter.sort(this.matches, 0, this.matches.length - 1);
 
       for (const match of this.matches) {
-        if (match.tournament_level == MatchType.QUALS_MATCH) {
+        if (match.tournament_level === MatchType.QUALS_MATCH) {
           this.qual_matches.push(match);
           this.match_levels.push({
             'quals': match
           });
         }
-        if (match.tournament_level == MatchType.QUARTERS_MATCH_1 ||
-            match.tournament_level == MatchType.QUARTERS_MATCH_2 ||
-            match.tournament_level == MatchType.QUARTERS_MATCH_3 ||
-            match.tournament_level == MatchType.QUARTERS_MATCH_4) {
+        if (match.tournament_level === MatchType.QUARTERS_MATCH_1 ||
+            match.tournament_level === MatchType.QUARTERS_MATCH_2 ||
+            match.tournament_level === MatchType.QUARTERS_MATCH_3 ||
+            match.tournament_level === MatchType.QUARTERS_MATCH_4) {
           this.quarters_matches.push(match);
         }
-        if (match.tournament_level == MatchType.SEMIS_MATCH_1 ||
-            match.tournament_level == MatchType.SEMIS_MATCH_2 ) {
+        if (match.tournament_level === MatchType.SEMIS_MATCH_1 ||
+            match.tournament_level === MatchType.SEMIS_MATCH_2 ) {
           this.semis_matches.push(match);
         }
-        if (match.tournament_level == MatchType.FINALS_MATCH) {
+        if (match.tournament_level === MatchType.FINALS_MATCH) {
           this.finals_matches.push(match);
         }
       }
@@ -67,7 +67,7 @@ export class EventMatchesComponent implements OnInit {
   getStation(match_data, station: number): string {
     const teams = match_data.teams.toString().split(',');
     const stations = match_data.station_status.toString().split(',');
-    if (stations[station] == 0) {
+    if (stations[station] === 0) {
       return teams[station] + '*';
     } else {
       return teams[station];

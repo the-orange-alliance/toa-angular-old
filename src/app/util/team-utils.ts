@@ -32,7 +32,7 @@ export class TeamFilter {
 
         if (region_query) {
           region_query = region_query.toLowerCase();
-          contains_region = (team_region == region_query);
+          contains_region = (team_region === region_query);
         }
 
         if (name_query) {
@@ -50,7 +50,7 @@ export class TeamFilter {
 
         if (league_query) {
           league_query = league_query.toLowerCase();
-          contains_league = (team_league == league_query);
+          contains_league = (team_league === league_query);
         }
 
         return contains_number || contains_name || contains_region || contains_league || contains_city || contains_state_prov || contains_country;

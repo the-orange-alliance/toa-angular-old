@@ -105,7 +105,7 @@ export class HomeComponent {
     // This will remove matches with duplicate scores
     let last_red_score = null;
     for (let i = 0; i < matches.length; i++) {
-      if (last_red_score == matches[i].red_score) {
+      if (last_red_score === matches[i].red_score) {
         matches.splice(i - 1, i);
       }
       last_red_score = matches[i].red_score;

@@ -45,7 +45,7 @@ export class EventComponent implements OnInit {
   }
 
   public isSelected(view_type): boolean {
-    return this.view_type == view_type;
+    return this.view_type === view_type;
   }
 
 }

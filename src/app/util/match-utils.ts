@@ -90,7 +90,7 @@ export class MatchParser {
     const match_number = match_string.substring(1, match_string.length);
     let number = '';
     for (let i = 0; i < match_number.length; i++) {
-      if (match_number[i] != '0') {
+      if (match_number[i] !== '0') {
         number =  match_number.substring(i, match_number.length);
         break;
       }
@@ -124,7 +124,7 @@ export class MatchSorter {
 
     for (let i = left; i < right; i++) {
       // -1 means items[i] < pivotValue, 1 means items[i] > pivotValue
-      if (this.shouldSwap(items[i], pivotValue) == -1) {
+      if (this.shouldSwap(items[i], pivotValue) === -1) {
         this.swap(items, i, partitionIndex);
         partitionIndex++;
       }
@@ -143,13 +143,13 @@ export class MatchSorter {
     const parser_1 = new MatchParser(match1);
     const parser_2 = new MatchParser(match2);
 
-    if (match1.tournament_level == match2.tournament_level) {
+    if (match1.tournament_level === match2.tournament_level) {
       return parser_1.getMatchNumber() < parser_2.getMatchNumber() ? -1 : 1;
     } else {
-      if (match1.tournament_level == MatchType.FINALS_MATCH) {
+      if (match1.tournament_level === MatchType.FINALS_MATCH) {
         return 1;
       }
-      if (match2.tournament_level == MatchType.FINALS_MATCH) {
+      if (match2.tournament_level === MatchType.FINALS_MATCH) {
         return -1;
       }
       return match1.tournament_level < match2.tournament_level ? -1 : 1;

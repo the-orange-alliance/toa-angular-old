@@ -58,7 +58,7 @@ export class EventsComponent implements OnInit {
     this.weeks = [];
     let cur_date = null;
     for (const event of this.events) {
-      if (event.start_date != cur_date) {
+      if (event.start_date !== cur_date) {
         this.weeks.push({
           'week': event.week_key,
           'start_date': event.start_date,
@@ -76,7 +76,7 @@ export class EventsComponent implements OnInit {
   getEventsByWeek(week: any): any {
     const new_events = [];
     for (const event of this.events) {
-      if (event.week_key == week.week && event.start_date == week.start_date) {
+      if (event.week_key === week.week && event.start_date === week.start_date) {
         new_events.push(event);
       }
     }
@@ -84,7 +84,7 @@ export class EventsComponent implements OnInit {
   }
 
   selectSeason(season: any) {
-    if (this.current_season.SeasonID != season.season_key) {
+    if (this.current_season.SeasonID !== season.season_key) {
       this.current_season = season;
       this.ftc.getSeasonEvents(this.current_season.season_key).subscribe( (data) => {
         this.weeks = [];
@@ -101,7 +101,7 @@ export class EventsComponent implements OnInit {
   }
 
   selectRegion(region: any) {
-    if (this.current_region.region_key != region.region_key) {
+    if (this.current_region.region_key !== region.region_key) {
       this.current_region = region;
       if (this.current_region.region_desc) {
         this.event_filter.filterArray(this.current_region.region_key);

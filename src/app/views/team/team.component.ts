@@ -75,20 +75,20 @@ export class TeamComponent implements OnInit {
         event.match_data = this.sortAndFind(event);
 
         for (const match of event.match_data) {
-          if (match.tournament_level == MatchType.QUALS_MATCH) {
+          if (match.tournament_level === MatchType.QUALS_MATCH) {
             this.qual_matches.push(match);
           }
-          if (match.tournament_level == MatchType.QUARTERS_MATCH_1 ||
-            match.tournament_level == MatchType.QUARTERS_MATCH_2 ||
-            match.tournament_level == MatchType.QUARTERS_MATCH_3 ||
-            match.tournament_level == MatchType.QUARTERS_MATCH_4) {
+          if (match.tournament_level === MatchType.QUARTERS_MATCH_1 ||
+            match.tournament_level === MatchType.QUARTERS_MATCH_2 ||
+            match.tournament_level === MatchType.QUARTERS_MATCH_3 ||
+            match.tournament_level === MatchType.QUARTERS_MATCH_4) {
             this.quarters_matches.push(match);
           }
-          if (match.tournament_level == MatchType.SEMIS_MATCH_1 ||
-            match.tournament_level == MatchType.SEMIS_MATCH_2 ) {
+          if (match.tournament_level === MatchType.SEMIS_MATCH_1 ||
+            match.tournament_level === MatchType.SEMIS_MATCH_2 ) {
             this.semis_matches.push(match);
           }
-          if (match.tournament_level == MatchType.FINALS_MATCH) {
+          if (match.tournament_level === MatchType.FINALS_MATCH) {
             this.finals_matches.push(match);
           }
         }
@@ -114,7 +114,7 @@ export class TeamComponent implements OnInit {
   getEventRankings() {
     for (const ranking of this.team.rankings) {
       for (const event of this.team.events) {
-        if (ranking.event_key == event.event_key) {
+        if (ranking.event_key === event.event_key) {
           event.ranking = ranking;
         }
       }
@@ -125,7 +125,7 @@ export class TeamComponent implements OnInit {
     for (const event of this.team.events) {
       const awards = [];
       for (const award of this.team.awards) {
-        if (event.event_key == award.event_key) {
+        if (event.event_key === award.event_key) {
           awards.push(award);
         }
       }
@@ -137,7 +137,7 @@ export class TeamComponent implements OnInit {
     let team_matches = [];
     for (const match of event_data.match_data) {
       for (const team of match.teams.split(',')) {
-        if (team == this.team_key) {
+        if (team === this.team_key) {
           team_matches.push(match);
         }
       }
@@ -153,7 +153,7 @@ export class TeamComponent implements OnInit {
   }
 
   isCurrentTeam(match_data, station: number): boolean {
-    return match_data.teams.toString().split(',')[station] == this.team_key;
+    return match_data.teams.toString().split(',')[station] === this.team_key;
   }
 
   openTeamPage(team: any) {

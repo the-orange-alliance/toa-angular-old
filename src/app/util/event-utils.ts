@@ -48,7 +48,7 @@ export class EventFilter {
   }
 
   public filterArray(query: string) {
-    if (query && query.trim() != '' && query != null) {
+    if (query && query.trim() !== '' && query !== null) {
       this.events_filtered = this.events.filter((event) => {
         query = query.toLowerCase();
         const region = (event.region_key || 'null').toLowerCase();
@@ -96,7 +96,7 @@ export class EventSorter {
 
     for (let i = left; i < right; i++) {
       // -1 means items[i] < pivotValue, 1 means items[i] > pivotValue
-      if (items[i].start_date < pivotValue.start_date || new EventParser(pivotValue).getDivisionID() == 0) {
+      if (items[i].start_date < pivotValue.start_date || new EventParser(pivotValue).getDivisionID() === 0) {
         this.swap(items, i, partitionIndex);
         partitionIndex++;
       }
