@@ -5,7 +5,7 @@ import { TeamSorter } from '../../../../util/team-utils';
 
 @Component({
   providers: [FTCDatabase],
-  selector: 'event-teams',
+  selector: 'toa-event-teams',
   templateUrl: './event-teams.component.html'
 })
 export class EventTeamsComponent implements OnInit {

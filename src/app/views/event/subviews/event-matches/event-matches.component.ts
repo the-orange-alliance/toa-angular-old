@@ -5,7 +5,7 @@ import { MatchParser, MatchSorter, MatchType } from '../../../../util/match-util
 
 @Component({
   providers: [FTCDatabase],
-  selector: 'event-matches',
+  selector: 'toa-event-matches',
   templateUrl: './event-matches.component.html'
 })
 export class EventMatchesComponent implements OnInit {

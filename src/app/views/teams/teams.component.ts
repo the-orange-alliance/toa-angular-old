@@ -6,7 +6,7 @@ import { TeamFilter } from '../../util/team-utils';
 const TEAMS_PER_PAGE = 500;
 
 @Component({
-  selector: 'teams',
+  selector: 'toa-teams',
   templateUrl: './teams.component.html',
   providers: [FTCDatabase]
 })

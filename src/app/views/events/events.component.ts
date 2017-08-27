@@ -7,7 +7,7 @@ import { EventFilter } from '../../util/event-utils';
 
 @Component({
   providers: [FTCDatabase],
-  selector: 'events',
+  selector: 'toa-events',
   templateUrl: './events.component.html'
 })
 export class EventsComponent implements OnInit {

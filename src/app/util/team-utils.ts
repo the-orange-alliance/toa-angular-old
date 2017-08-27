@@ -53,7 +53,8 @@ export class TeamFilter {
           contains_league = (team_league === league_query);
         }
 
-        return contains_number || contains_name || contains_region || contains_league || contains_city || contains_state_prov || contains_country;
+        return contains_number || contains_name || contains_region
+        || contains_league || contains_city || contains_state_prov || contains_country;
       });
     } else {
       this.teams_filtered = this.teams;

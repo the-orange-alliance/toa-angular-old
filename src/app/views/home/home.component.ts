@@ -4,7 +4,7 @@ import { FTCDatabase } from '../../providers/ftc-database';
 import { MatchParser } from '../../util/match-utils';
 
 @Component({
-  selector: 'home',
+  selector: 'toa-home',
   templateUrl: './home.component.html',
   providers: [FTCDatabase]
 })
@@ -18,16 +18,16 @@ export class HomeComponent {
   match_count: number;
 
   constructor(private router: Router, private ftc: FTCDatabase) {
-    this.ftc.getAllMatches().subscribe((data) => {
-      this.match_count = data[0].MatchCount;
+    this.ftc.getAllMatches().subscribe((match_data) => {
+      this.match_count = match_data[0].MatchCount;
     }, (err) => {
       console.log(err);
     });
     this.ftc.getHighScoreQual().subscribe((data) => {
       this.qual_match = this.getBestMatch(data);
-      this.ftc.getStations(this.qual_match.match_key).subscribe((data) => {
+      this.ftc.getStations(this.qual_match.match_key).subscribe((qual_data) => {
         let teams = '';
-        for (const station of data) {
+        for (const station of qual_data) {
           teams += station.team_key + ',';
         }
         this.qual_match.teams = teams.toString().substring(0, teams.length - 1);
@@ -42,8 +42,8 @@ export class HomeComponent {
     }, (err) => {
       console.log(err);
     });
-    this.ftc.getHighScoreElim().subscribe((data) => {
-      this.elim_match = this.getBestMatch(data);
+    this.ftc.getHighScoreElim().subscribe((elim_data) => {
+      this.elim_match = this.getBestMatch(elim_data);
       this.ftc.getStations(this.elim_match.match_key).subscribe((data) => {
         let teams = '';
         for (const station of data) {
@@ -61,8 +61,8 @@ export class HomeComponent {
     }, (err) => {
       console.log(err);
     });
-    this.ftc.getHighScoreWithPenalty().subscribe((data) => {
-      this.normal_match = this.getBestMatch(data);
+    this.ftc.getHighScoreWithPenalty().subscribe((match_data) => {
+      this.normal_match = this.getBestMatch(match_data);
       this.ftc.getStations(this.normal_match.match_key).subscribe((data) => {
         let teams = '';
         for (const station of data) {

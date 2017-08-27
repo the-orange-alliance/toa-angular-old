@@ -4,6 +4,7 @@
 export class EventParser {
 
   event_data: any;
+  private radix = 10;
 
   constructor(event_data: any) {
     this.event_data = event_data;
@@ -24,13 +25,13 @@ export class EventParser {
 
   hasDivision(): boolean {
     const event_id = this.getEventCode();
-    return !isNaN(parseInt(event_id.substring(event_id.length - 1, event_id.length)));
+    return !isNaN(parseInt(event_id.substring(event_id.length - 1, event_id.length), this.radix));
   }
 
   getDivisionID(): number {
     if (this.hasDivision()) {
       const event_id = this.getEventCode();
-      return parseInt(event_id.substring(event_id.length - 1, event_id.length));
+      return parseInt(event_id.substring(event_id.length - 1, event_id.length), this.radix);
     } else {
       return -1;
     }

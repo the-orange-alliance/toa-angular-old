@@ -5,7 +5,7 @@ import { EventParser } from '../../util/event-utils';
 
 @Component({
   providers: [FTCDatabase],
-  selector: 'event',
+  selector: 'toa-event',
   templateUrl: './event.component.html'
 })
 export class EventComponent implements OnInit {

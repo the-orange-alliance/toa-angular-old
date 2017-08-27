@@ -23,7 +23,7 @@ import { TeamComponent } from './views/team/team.component';
 import { RankingComponent } from './views/ranking/ranking.component';
 import { StreamingComponent } from './views/stream/streaming.component';
 import { TermsComponent } from './views/terms/terms.component';
-import {MatchesComponent} from "./views/matches/matches.component";
+import {MatchesComponent} from './views/matches/matches.component';
 
 @NgModule({
   declarations: [

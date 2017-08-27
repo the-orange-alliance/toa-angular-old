@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 
 @Component({
-  selector: 'apidocs',
+  selector: 'toa-apidocs',
   templateUrl: './apidocs.component.html',
   providers: [FTCDatabase]
 })

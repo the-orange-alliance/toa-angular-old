@@ -5,7 +5,7 @@ import {RankSorter} from '../../../../util/ranking-utils';
 
 @Component({
   providers: [FTCDatabase],
-  selector: 'event-rankings',
+  selector: 'toa-event-rankings',
   templateUrl: './event-rankings.component.html'
 })
 export class EventRankingsComponent implements OnInit {

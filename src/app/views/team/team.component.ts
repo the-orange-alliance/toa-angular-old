@@ -5,7 +5,7 @@ import { MatchSorter, MatchType } from '../../util/match-utils';
 import { EventSorter } from '../../util/event-utils';
 
 @Component({
-  selector: 'team',
+  selector: 'toa-team',
   templateUrl: './team.component.html',
   providers: [FTCDatabase]
 })

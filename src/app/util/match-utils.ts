@@ -95,7 +95,7 @@ export class MatchParser {
         break;
       }
     }
-    return parseInt(number);
+    return parseInt(number, 10);
   }
 
 }
