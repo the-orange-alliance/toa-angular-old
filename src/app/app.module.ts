@@ -11,7 +11,7 @@ import { TeamsComponent } from './views/teams/teams.component';
 import { EventComponent } from './views/event/event.component';
 import { AboutComponent } from './views/about/about.component';
 import { ApiDocsComponent } from './views/apidocs/apidocs.component';
-import {PrivacyComponent } from './views/privacy/privacy.component';
+import { PrivacyComponent } from './views/privacy/privacy.component';
 
 import { FTCDatabase } from './providers/ftc-database';
 import { EventRankingsComponent } from './views/event/subviews/event-rankings/event-rankings.component';
@@ -20,9 +20,10 @@ import { EventTeamsComponent } from './views/event/subviews/event-teams/event-te
 import { EventAwardsComponent } from './views/event/subviews/event-awards/event-awards.component';
 import { PageNotFoundComponent } from './views/404/404.component';
 import { TeamComponent } from './views/team/team.component';
-import {RankingComponent} from './views/ranking/ranking.component';
-import {StreamingComponent} from './views/stream/streaming.component';
-import {TermsComponent} from './views/terms/terms.component';
+import { RankingComponent } from './views/ranking/ranking.component';
+import { StreamingComponent } from './views/stream/streaming.component';
+import { TermsComponent } from './views/terms/terms.component';
+import {MatchesComponent} from "./views/matches/matches.component";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {TermsComponent} from './views/terms/terms.component';
     PrivacyComponent,
     RankingComponent,
     StreamingComponent,
-    TermsComponent
+    TermsComponent,
+    MatchesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'the-orange-alliance'}),

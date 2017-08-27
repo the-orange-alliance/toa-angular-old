@@ -156,12 +156,12 @@ export class TeamComponent implements OnInit {
     return match_data.teams.toString().split(',')[station] === this.team_key;
   }
 
-  openTeamPage(team: any) {
-    this.router.navigate(['/teams', team]);
+  openTeamPage(team_number: any) {
+    this.router.navigate(['/']);
   }
 
   openMatchDetails(match_data: any) {
-    this.router.navigate(['/matches', match_data]);
+    this.router.navigate(['/matches', match_data.match_key]);
   }
 
 }

@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 #login-form {
   margin-top: 25%;
   border-radius: 3px;
