@@ -57,8 +57,6 @@ export class EventMatchesComponent implements OnInit {
         }
       }
 
-      console.log(this.match_levels);
-
     }
   }
 
@@ -67,7 +65,13 @@ export class EventMatchesComponent implements OnInit {
   }
 
   getStation(match_data, station: number): string {
-    return match_data.teams.toString().split(",")[station];
+    let teams = match_data.teams.toString().split(",");
+    let stations = match_data.station_status.toString().split(",");
+    if (stations[station] == 0) {
+      return teams[station] + "*";
+    } else {
+      return teams[station];
+    }
   }
 
   openTeamPage(team: any) {
