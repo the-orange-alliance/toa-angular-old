@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FTCDatabase } from "../../providers/ftc-database";
-import { EventParser } from "../../util/event-utils";
+import { FTCDatabase } from '../../providers/ftc-database';
+import { EventParser } from '../../util/event-utils';
 
 @Component({
   providers: [FTCDatabase],

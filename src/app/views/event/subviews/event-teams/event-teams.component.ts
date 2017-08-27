@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FTCDatabase } from "../../../../providers/ftc-database";
-import { TeamSorter } from "../../../../util/team-utils";
+import { FTCDatabase } from '../../../../providers/ftc-database';
+import { TeamSorter } from '../../../../util/team-utils';
 
 @Component({
   providers: [FTCDatabase],

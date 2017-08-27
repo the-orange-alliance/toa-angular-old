@@ -10,26 +10,26 @@ export class EventParser {
   }
 
   getSeasonID(): string {
-    return this.event_data.event_key.toString().split("-")[0];
+    return this.event_data.event_key.toString().split('-')[0];
   }
 
   getRegionID(): string {
-    return this.event_data.event_key.toString().split("-")[1];
+    return this.event_data.event_key.toString().split('-')[1];
   }
 
   getEventCode(): string {
-    let split = this.event_data.event_key.toString().split("-");
-    return this.event_data.event_key.toString().split("-")[2];
+    const split = this.event_data.event_key.toString().split('-');
+    return this.event_data.event_key.toString().split('-')[2];
   }
 
   hasDivision(): boolean {
-    let event_id = this.getEventCode();
+    const event_id = this.getEventCode();
     return !isNaN(parseInt(event_id.substring(event_id.length - 1, event_id.length)));
   }
 
   getDivisionID(): number {
     if (this.hasDivision()) {
-      let event_id = this.getEventCode();
+      const event_id = this.getEventCode();
       return parseInt(event_id.substring(event_id.length - 1, event_id.length));
     } else {
       return -1;
@@ -51,9 +51,9 @@ export class EventFilter {
     if (query && query.trim() != '' && query != null) {
       this.events_filtered = this.events.filter((event) => {
         query = query.toLowerCase();
-        let region = (event.region_key || "null").toLowerCase();
+        const region = (event.region_key || 'null').toLowerCase();
 
-        let contains_region = (region.indexOf(query) > -1);
+        const contains_region = (region.indexOf(query) > -1);
 
         return contains_region;
       });
@@ -91,7 +91,7 @@ export class EventSorter {
   }
 
   private partition(items, pivot, left, right) {
-    let pivotValue = items[pivot];
+    const pivotValue = items[pivot];
     let partitionIndex = left;
 
     for (let i = left; i < right; i++) {
@@ -106,7 +106,7 @@ export class EventSorter {
   }
 
   private swap(items, index1, index2) {
-    let temp = items[index1];
+    const temp = items[index1];
     items[index1] = items[index2];
     items[index2] = temp;
   }

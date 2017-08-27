@@ -17,7 +17,7 @@ export class RankSorter {
   }
 
   private partition(items, pivot, left, right) {
-    let pivotValue = items[pivot];
+    const pivotValue = items[pivot];
     let partitionIndex = left;
 
     for (let i = left; i < right; i++) {
@@ -32,7 +32,7 @@ export class RankSorter {
   }
 
   private swap(items, index1, index2) {
-    let temp = items[index1];
+    const temp = items[index1];
     items[index1] = items[index2];
     items[index2] = temp;
   }

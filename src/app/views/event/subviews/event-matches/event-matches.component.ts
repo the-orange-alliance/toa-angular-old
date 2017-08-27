@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FTCDatabase } from "../../../../providers/ftc-database";
-import { MatchParser, MatchSorter, MatchType } from "../../../../util/match-utils";
+import { FTCDatabase } from '../../../../providers/ftc-database';
+import { MatchParser, MatchSorter, MatchType } from '../../../../util/match-utils';
 
 @Component({
   providers: [FTCDatabase],
@@ -35,11 +35,11 @@ export class EventMatchesComponent implements OnInit {
     if (this.matches) {
       this.matches = this.match_sorter.sort(this.matches, 0, this.matches.length - 1);
 
-      for (let match of this.matches) {
+      for (const match of this.matches) {
         if (match.tournament_level == MatchType.QUALS_MATCH) {
           this.qual_matches.push(match);
           this.match_levels.push({
-            "quals": match
+            'quals': match
           });
         }
         if (match.tournament_level == MatchType.QUARTERS_MATCH_1 ||
@@ -65,10 +65,10 @@ export class EventMatchesComponent implements OnInit {
   }
 
   getStation(match_data, station: number): string {
-    let teams = match_data.teams.toString().split(",");
-    let stations = match_data.station_status.toString().split(",");
+    const teams = match_data.teams.toString().split(',');
+    const stations = match_data.station_status.toString().split(',');
     if (stations[station] == 0) {
-      return teams[station] + "*";
+      return teams[station] + '*';
     } else {
       return teams[station];
     }
@@ -79,7 +79,7 @@ export class EventMatchesComponent implements OnInit {
   }
 
   getNumberOfTeams(match_data) {
-    return match_data.teams.toString().split(",").length;
+    return match_data.teams.toString().split(',').length;
   }
 
   openMatchDetails(match_data: any) {

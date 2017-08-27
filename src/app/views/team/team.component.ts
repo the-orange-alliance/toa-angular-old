@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from "@angular/router";
-import { FTCDatabase } from "../../providers/ftc-database";
-import { MatchSorter, MatchType } from "../../util/match-utils";
-import { EventSorter } from "../../util/event-utils";
+import { Router, ActivatedRoute } from '@angular/router';
+import { FTCDatabase } from '../../providers/ftc-database';
+import { MatchSorter, MatchType } from '../../util/match-utils';
+import { EventSorter } from '../../util/event-utils';
 
 @Component({
   selector: 'team',
@@ -38,7 +38,7 @@ export class TeamComponent implements OnInit {
     this.years = [];
     this.ftc.getTeam(this.team_key, this.current_year).subscribe((data) => {
       if (!data[0][0]) {
-        this.router.navigate(["/not-found"]);
+        this.router.navigate(['/not-found']);
       } else {
         this.team = data[0][0];
         this.team.events = data[1];
@@ -69,12 +69,12 @@ export class TeamComponent implements OnInit {
   getEventMatches() {
     this.team.events = this.event_sorter.sort(this.team.events, 0, this.team.events.length - 1);
 
-    for (let event of this.team.events) {
+    for (const event of this.team.events) {
       this.ftc.getEventMatches(event.event_key, this.current_year).subscribe((data) => {
         event.match_data = data;
         event.match_data = this.sortAndFind(event);
 
-        for (let match of event.match_data) {
+        for (const match of event.match_data) {
           if (match.tournament_level == MatchType.QUALS_MATCH) {
             this.qual_matches.push(match);
           }
@@ -112,8 +112,8 @@ export class TeamComponent implements OnInit {
   }
 
   getEventRankings() {
-    for (let ranking of this.team.rankings) {
-      for (let event of this.team.events) {
+    for (const ranking of this.team.rankings) {
+      for (const event of this.team.events) {
         if (ranking.event_key == event.event_key) {
           event.ranking = ranking;
         }
@@ -122,9 +122,9 @@ export class TeamComponent implements OnInit {
   }
 
   getEventAwards() {
-    for (let event of this.team.events) {
-      let awards = [];
-      for (let award of this.team.awards) {
+    for (const event of this.team.events) {
+      const awards = [];
+      for (const award of this.team.awards) {
         if (event.event_key == award.event_key) {
           awards.push(award);
         }
@@ -135,25 +135,25 @@ export class TeamComponent implements OnInit {
 
   sortAndFind(event_data: any) {
     let team_matches = [];
-    for (let match of event_data.match_data) {
-      for (let team of match.teams.split(",")) {
+    for (const match of event_data.match_data) {
+      for (const team of match.teams.split(',')) {
         if (team == this.team_key) {
           team_matches.push(match);
         }
       }
     }
 
-    let sorter = new MatchSorter();
+    const sorter = new MatchSorter();
     team_matches = sorter.sort(team_matches, 0, team_matches.length - 1);
     return team_matches;
   }
 
   getStation(match_data, station: number): string {
-    return match_data.teams.toString().split(",")[station]
+    return match_data.teams.toString().split(',')[station];
   }
 
   isCurrentTeam(match_data, station: number): boolean {
-    return match_data.teams.toString().split(",")[station] == this.team_key;
+    return match_data.teams.toString().split(',')[station] == this.team_key;
   }
 
   openTeamPage(team: any) {

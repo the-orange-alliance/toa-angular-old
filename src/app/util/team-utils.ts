@@ -14,13 +14,13 @@ export class TeamFilter {
     if (region_query || name_query || location_query || league_query) {
       this.teams_filtered = this.teams.filter((team) => {
 
-        let team_number = (team.team_number + "" || "null").toLowerCase();
-        let team_name = (team.team_name_long + "" || "null").toLowerCase();
-        let team_region = (team.region_key + "" || "null").toLowerCase();
-        let team_league = (team.league_key + "" || "null").toLowerCase();
-        let team_city = (team.city + "" || "null").toLowerCase();
-        let team_state_prov = (team.state_prov + "" || "null").toLowerCase();
-        let team_country = (team.country + "" || "null").toLowerCase();
+        const team_number = (team.team_number + '' || 'null').toLowerCase();
+        const team_name = (team.team_name_long + '' || 'null').toLowerCase();
+        const team_region = (team.region_key + '' || 'null').toLowerCase();
+        const team_league = (team.league_key + '' || 'null').toLowerCase();
+        const team_city = (team.city + '' || 'null').toLowerCase();
+        const team_state_prov = (team.state_prov + '' || 'null').toLowerCase();
+        const team_country = (team.country + '' || 'null').toLowerCase();
 
         let contains_region = false;
         let contains_number = false;
@@ -89,7 +89,7 @@ export class TeamSorter {
   }
 
   private partition(items, pivot, left, right) {
-    let pivotValue = items[pivot];
+    const pivotValue = items[pivot];
     let partitionIndex = left;
 
     for (let i = left; i < right; i++) {
@@ -104,7 +104,7 @@ export class TeamSorter {
   }
 
   private swap(items, index1, index2) {
-    let temp = items[index1];
+    const temp = items[index1];
     items[index1] = items[index2];
     items[index2] = temp;
   }

@@ -15,15 +15,15 @@ export class MatchType {
    4 Finals
   */
 
-  static PRACTICE_MATCH: number = 0;
-  static QUALS_MATCH: number = 1;
-  static QUARTERS_MATCH_1: number = 21;
-  static QUARTERS_MATCH_2: number = 22;
-  static QUARTERS_MATCH_3: number = 23;
-  static QUARTERS_MATCH_4: number = 24;
-  static SEMIS_MATCH_1: number = 31;
-  static SEMIS_MATCH_2: number = 32;
-  static FINALS_MATCH: number = 4;
+  static PRACTICE_MATCH = 0;
+  static QUALS_MATCH = 1;
+  static QUARTERS_MATCH_1 = 21;
+  static QUARTERS_MATCH_2 = 22;
+  static QUARTERS_MATCH_3 = 23;
+  static QUARTERS_MATCH_4 = 24;
+  static SEMIS_MATCH_1 = 31;
+  static SEMIS_MATCH_2 = 32;
+  static FINALS_MATCH = 4;
 
 }
 
@@ -37,48 +37,48 @@ export class MatchParser {
   }
 
   getSeasonID(): string {
-    return this.match_data.match_key.toString().split("-")[0];
+    return this.match_data.match_key.toString().split('-')[0];
   }
 
   getRegionID(): string {
-    return this.match_data.match_key.toString().split("-")[1];
+    return this.match_data.match_key.toString().split('-')[1];
   }
 
   getEventID(): string {
-    let split = this.match_data.match_key.toString().split("-");
-    return split[0] + "-" + split[1] + "-" + split[2];
+    const split = this.match_data.match_key.toString().split('-');
+    return split[0] + '-' + split[1] + '-' + split[2];
   }
 
   toString() {
-    let output = "";
+    let output = '';
 
-    switch(this.match_data.tournament_level) {
+    switch (this.match_data.tournament_level) {
       case MatchType.PRACTICE_MATCH:
-        output+= "Practice Match ";
+        output += 'Practice Match ';
         break;
       case MatchType.QUALS_MATCH:
-        output+= "Qual Match ";
+        output += 'Qual Match ';
         break;
       case MatchType.QUARTERS_MATCH_1:
-        output+= "Quarters Series 1 Match ";
+        output += 'Quarters Series 1 Match ';
         break;
       case MatchType.QUARTERS_MATCH_2:
-        output+= "Quarters Series 2 Match ";
+        output += 'Quarters Series 2 Match ';
         break;
       case MatchType.QUARTERS_MATCH_3:
-        output+= "Quarters Series 3 Match ";
+        output += 'Quarters Series 3 Match ';
         break;
       case MatchType.QUARTERS_MATCH_4:
-        output+= "Quarters Series 4 Match ";
+        output += 'Quarters Series 4 Match ';
         break;
       case MatchType.SEMIS_MATCH_1:
-        output+= "Semis Series 1 Match ";
+        output += 'Semis Series 1 Match ';
         break;
       case MatchType.SEMIS_MATCH_2:
-        output+= "Semis Series 2 Match ";
+        output += 'Semis Series 2 Match ';
         break;
       case MatchType.FINALS_MATCH:
-        output+= "Finals Match ";
+        output += 'Finals Match ';
         break;
     }
     output += this.getMatchNumber();
@@ -86,11 +86,11 @@ export class MatchParser {
   }
 
   getMatchNumber(): number {
-    let match_string = this.match_data.match_key.toString().split("-")[3];
-    let match_number = match_string.substring(1, match_string.length);
-    let number = "";
+    const match_string = this.match_data.match_key.toString().split('-')[3];
+    const match_number = match_string.substring(1, match_string.length);
+    let number = '';
     for (let i = 0; i < match_number.length; i++) {
-      if (match_number[i] != "0") {
+      if (match_number[i] != '0') {
         number =  match_number.substring(i, match_number.length);
         break;
       }
@@ -119,7 +119,7 @@ export class MatchSorter {
   }
 
   private partition(items, pivot, left, right) {
-    let pivotValue = items[pivot];
+    const pivotValue = items[pivot];
     let partitionIndex = left;
 
     for (let i = left; i < right; i++) {
@@ -134,14 +134,14 @@ export class MatchSorter {
   }
 
   private swap(items, index1, index2) {
-    let temp = items[index1];
+    const temp = items[index1];
     items[index1] = items[index2];
     items[index2] = temp;
   }
 
   private shouldSwap(match1, match2) {
-    let parser_1 = new MatchParser(match1);
-    let parser_2 = new MatchParser(match2);
+    const parser_1 = new MatchParser(match1);
+    const parser_2 = new MatchParser(match2);
 
     if (match1.tournament_level == match2.tournament_level) {
       return parser_1.getMatchNumber() < parser_2.getMatchNumber() ? -1 : 1;
