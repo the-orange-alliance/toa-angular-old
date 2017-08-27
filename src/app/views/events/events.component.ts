@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
-import { FTCDatabase } from "../../providers/ftc-database";
-import { SeasonParser } from "../../util/season-utils";
-import { EventFilter } from "../../util/event-utils";
+import { FTCDatabase } from '../../providers/ftc-database';
+import { SeasonParser } from '../../util/season-utils';
+import { EventFilter } from '../../util/event-utils';
 
 @Component({
   providers: [FTCDatabase],
-  selector: 'events',
+  selector: 'toa-events',
   templateUrl: './events.component.html'
 })
 export class EventsComponent implements OnInit {
@@ -26,7 +26,7 @@ export class EventsComponent implements OnInit {
   constructor(private ftc: FTCDatabase, private router: Router) {}
 
   ngOnInit(): void {
-    this.ftc.getSeasonEvents("1617").subscribe( (data) => {
+    this.ftc.getSeasonEvents('1617').subscribe( (data) => {
       this.weeks = [];
       this.events = data;
       this.event_filter = new EventFilter(this.events);
@@ -57,12 +57,12 @@ export class EventsComponent implements OnInit {
   organizeEventsByWeek(): void {
     this.weeks = [];
     let cur_date = null;
-    for (let event of this.events) {
-      if (event.start_date != cur_date) {
+    for (const event of this.events) {
+      if (event.start_date !== cur_date) {
         this.weeks.push({
-          "week": event.week_key,
-          "start_date": event.start_date,
-          "end_date": event.end_date
+          'week': event.week_key,
+          'start_date': event.start_date,
+          'end_date': event.end_date
         });
         cur_date = event.start_date;
       }
@@ -74,9 +74,9 @@ export class EventsComponent implements OnInit {
   }
 
   getEventsByWeek(week: any): any {
-    let new_events = [];
-    for (let event of this.events) {
-      if (event.week_key == week.week && event.start_date == week.start_date) {
+    const new_events = [];
+    for (const event of this.events) {
+      if (event.week_key === week.week && event.start_date === week.start_date) {
         new_events.push(event);
       }
     }
@@ -84,7 +84,7 @@ export class EventsComponent implements OnInit {
   }
 
   selectSeason(season: any) {
-    if (this.current_season.SeasonID != season.season_key) {
+    if (this.current_season.SeasonID !== season.season_key) {
       this.current_season = season;
       this.ftc.getSeasonEvents(this.current_season.season_key).subscribe( (data) => {
         this.weeks = [];
@@ -101,7 +101,7 @@ export class EventsComponent implements OnInit {
   }
 
   selectRegion(region: any) {
-    if (this.current_region.region_key != region.region_key) {
+    if (this.current_region.region_key !== region.region_key) {
       this.current_region = region;
       if (this.current_region.region_desc) {
         this.event_filter.filterArray(this.current_region.region_key);

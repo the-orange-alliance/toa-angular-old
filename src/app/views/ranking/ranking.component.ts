@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 
 @Component({
-  selector: 'ranking',
+  selector: 'toa-ranking',
   templateUrl: './ranking.component.html',
   providers: [FTCDatabase]
 })

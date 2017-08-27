@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 
 @Component({
-  selector: 'terms',
+  selector: 'toa-terms',
   templateUrl: './terms.component.html',
   providers: [FTCDatabase]
 })
