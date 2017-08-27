@@ -157,6 +157,7 @@ footer {
 
 .whitetext {
 color:white;
+text-decoration: none !important;
 }
 
 /* Extra small devices (phones, 320px and up, bootstrap default) */
