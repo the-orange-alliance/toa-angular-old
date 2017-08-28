@@ -30,7 +30,7 @@ export class FTCDatabase {
   }
 
   public getEveryTeam() {
-    return this.request("/api/teams").map(res => res.json());
+    return this.request('/api/teams').map(res => res.json());
   }
 
   public getAllTeams() {

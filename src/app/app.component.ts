@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FTCDatabase } from "./providers/ftc-database";
-import { TeamFilter } from "./util/team-utils";
-import { Router } from "@angular/router";
+import { FTCDatabase } from './providers/ftc-database';
+import { TeamFilter } from './util/team-utils';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'toa-root',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   providers: [FTCDatabase]
@@ -35,14 +35,14 @@ export class TheOrangeAllianceComponent {
     if (this.search) {
       this.teams_filter.filterArray(null, this.search, null, null);
       this.teams = this.teams_filter.getFilteredArray();
-      document.getElementById("search").style.display = "block";
+      document.getElementById('search').style.display = 'block';
       if (this.teams.length < 4) {
         this.search_results = this.teams.splice(0, this.teams.length);
       } else {
         this.search_results = this.teams.splice(0, 4);
       }
     } else {
-      document.getElementById("search").style.display = "none";
+      document.getElementById('search').style.display = 'none';
     }
   }
 
@@ -74,7 +74,7 @@ export class TheOrangeAllianceComponent {
   }
 
   hideDropdown() {
-    document.getElementById("search").style.display = "none";
+    document.getElementById('search').style.display = 'none';
   }
 
 }
