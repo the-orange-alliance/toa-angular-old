@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
-import { observable } from 'rxjs/symbol/observable';
+import { Observable } from "rxjs";
 
 @Injectable()
 export class FTCDatabase {
@@ -66,7 +66,7 @@ export class FTCDatabase {
   }
 
   public getEvent(event_key, year?: number) {
-    return observable.forkJoin(
+    return Observable.forkJoin(
       this.request('/api/event/' + event_key).map(res => res.json()),
       this.request('/api/event/' + (year == null ? this.year : year) + '/' + event_key + '/matches').map(res => res.json()),
       this.request('/api/event/' + (year == null ? this.year : year) + '/' + event_key + '/matches/stations').map(res => res.json()),
@@ -78,7 +78,7 @@ export class FTCDatabase {
   }
 
   public getTeam(team_number: number, year?: number) {
-    return observable.forkJoin(
+    return Observable.forkJoin(
       this.request('/api/team/' + team_number).map(res => res.json()),
       this.request('/api/team/' + team_number + '/' + (year == null ? this.year : year) + '/events').map(res => res.json()),
       this.request('/api/team/' + team_number + '/' + (year == null ? this.year : year) + '/results').map(res => res.json()),
@@ -91,7 +91,6 @@ export class FTCDatabase {
   }
 
   public getTeamEvents(team_number: number, year?: number) {
-    console.log('/api/team/' + team_number + '/' + (year == null ? this.year : year) + '/events');
     return this.request('/api/team/' + team_number + '/' + (year == null ? this.year : year) + '/events').map(res => res.json());
   }
 
@@ -104,10 +103,10 @@ export class FTCDatabase {
   }
 
   public getMatchDetail(match_key: string, year?: number) {
-    return observable.forkJoin(
+    return Observable.forkJoin(
       this.request('/api/match/' + (year == null ? this.year : year) + '/' + match_key).map(res => res.json()),
       this.request('/api/match/' + (year == null ? this.year : year) + '/' + match_key + '/details').map(res => res.json()),
-        this.request('/api/match/' + (year == null ? this.year : year) + '/' + match_key + '/stations').map(res => res.json())
+      this.request('/api/match/' + (year == null ? this.year : year) + '/' + match_key + '/stations').map(res => res.json())
     );
   }
 
