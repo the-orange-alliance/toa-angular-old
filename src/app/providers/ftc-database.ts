@@ -30,6 +30,10 @@ export class FTCDatabase {
     return this.request("/api/leagues").map(res => res.json());
   }
 
+  public getEveryTeam() {
+    return this.request("/api/teams").map(res => res.json());
+  }
+
   public getAllTeams() {
     return this.request("/api/teams/count").map(res => res.json());
   }
