@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FTCDatabase } from "../../providers/ftc-database";
-import { EventParser } from "../../util/event-utils";
+import { FTCDatabase } from '../../providers/ftc-database';
+import { EventParser } from '../../util/event-utils';
 
 @Component({
   providers: [FTCDatabase],
-  selector: 'event',
+  selector: 'toa-event',
   templateUrl: './event.component.html'
 })
 export class EventComponent implements OnInit {
@@ -45,7 +45,7 @@ export class EventComponent implements OnInit {
   }
 
   public isSelected(view_type): boolean {
-    return this.view_type == view_type;
+    return this.view_type === view_type;
   }
 
 }

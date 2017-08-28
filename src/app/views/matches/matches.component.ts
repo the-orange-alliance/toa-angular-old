@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 
 @Component({
-  selector: 'match',
+  selector: 'toa-match',
   templateUrl: './matches.component.html',
   providers: [FTCDatabase]
 })
@@ -27,11 +27,11 @@ export class MatchesComponent implements OnInit {
   }
 
   ngOnInit() {
-    let season_split = this.match_key.toString().split("-")[0];
-    this.ftc.getMatchDetail(this.match_key, this.convertSeasonToYear(season_split)).subscribe((data) => {
-      this.match_data = data[0][0];
-      this.match_details = data[1][0];
-      this.match_stations = data[2];
+    const season_split = this.match_key.toString().split('-')[0];
+    this.ftc.getMatchDetail(this.match_key, this.convertSeasonToYear(season_split)).subscribe((match_data) => {
+      this.match_data = match_data[0][0];
+      this.match_details = match_data[1][0];
+      this.match_stations = match_data[2];
 
       // this.auton_fields = this.getAutonFields(this.match_details);
       // this.teleop_fields = this.getTeleopFields(this.match_details);
@@ -49,8 +49,8 @@ export class MatchesComponent implements OnInit {
   //   let auto_fields = [];
   //   for (let i = 0; i < fields.length; i++) {
   //     let key = fields[i];
-  //     if (key.indexOf("auto") > -1) {
-  //       let team = key.split("_")[0];
+  //     if (key.indexOf('auto') > -1) {
+  //       let team = key.split('_')[0];
   //       auto_fields.push({
   //         name: key,
   //         value: match_details[key],
@@ -66,7 +66,7 @@ export class MatchesComponent implements OnInit {
   //   let tele_fields = [];
   //   for (let i = 0; i < fields.length; i++) {
   //     let key = fields[i];
-  //     if (key.indexOf("driver") > -1) {
+  //     if (key.indexOf('driver') > -1) {
   //       tele_fields.push({
   //         name: key,
   //         value: match_details[key]
@@ -79,7 +79,7 @@ export class MatchesComponent implements OnInit {
   convertSeasonToYear(season: string): number {
     let year = 2017;
     switch (season) {
-      case "1617":
+      case '1617':
         year = 2017;
         break;
     }

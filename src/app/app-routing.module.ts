@@ -13,7 +13,7 @@ import { RankingComponent } from './views/ranking/ranking.component';
 import { StreamingComponent } from './views/stream/streaming.component';
 import { TermsComponent } from './views/terms/terms.component';
 import { PageNotFoundComponent } from './views/404/404.component';
-import { MatchesComponent } from "./views/matches/matches.component";
+import { MatchesComponent } from './views/matches/matches.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },

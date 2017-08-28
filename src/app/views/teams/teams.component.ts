@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { FTCDatabase } from "../../providers/ftc-database";
-import { TeamFilter } from "../../util/team-utils";
+import { Router } from '@angular/router';
+import { FTCDatabase } from '../../providers/ftc-database';
+import { TeamFilter } from '../../util/team-utils';
 
 const TEAMS_PER_PAGE = 500;
 
 @Component({
-  selector: 'teams',
+  selector: 'toa-teams',
   templateUrl: './teams.component.html',
   providers: [FTCDatabase]
 })
@@ -70,8 +70,8 @@ export class TeamsComponent implements OnInit {
   }
 
   getTeams(page_index): void {
-    if (page_index > this.pages.length-1) {
-      this.cur_page = this.pages.length-1;
+    if (page_index > this.pages.length - 1) {
+      this.cur_page = this.pages.length - 1;
     } else if (page_index <= 0) {
       this.cur_page = 0;
     } else {
@@ -86,15 +86,15 @@ export class TeamsComponent implements OnInit {
   }
 
   incIndex() {
-    return this.cur_page+1;
+    return this.cur_page + 1;
   }
 
   decIndex() {
-    return this.cur_page-1;
+    return this.cur_page - 1;
   }
 
   selectRegion(region: any) {
-    if (this.current_region.region_key != region.region_key) {
+    if (this.current_region.region_key !== region.region_key) {
       this.current_region = region;
       if (this.current_region.region_desc) {
         this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
@@ -106,7 +106,7 @@ export class TeamsComponent implements OnInit {
   }
 
   selectLeague(league: any) {
-    if (this.current_league.region_key != league.league_key) {
+    if (this.current_league.region_key !== league.league_key) {
       this.current_league = league;
       if (this.current_league.league_desc) {
         this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
@@ -118,7 +118,7 @@ export class TeamsComponent implements OnInit {
   }
 
   queryTeam() {
-    if (this.team_query != null && this.team_query.length > 0) {
+    if (this.team_query !== null && this.team_query.length > 0) {
       this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
       this.teams = this.teams_filter.getFilteredArray();
     } else {
@@ -127,7 +127,7 @@ export class TeamsComponent implements OnInit {
   }
 
   queryLocation() {
-    if (this.location_query != null && this.location_query.length > 0) {
+    if (this.location_query !== null && this.location_query.length > 0) {
       this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
       this.teams = this.teams_filter.getFilteredArray();
     } else {

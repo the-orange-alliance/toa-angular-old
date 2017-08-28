@@ -4,33 +4,34 @@
 export class EventParser {
 
   event_data: any;
+  private radix = 10;
 
   constructor(event_data: any) {
     this.event_data = event_data;
   }
 
   getSeasonID(): string {
-    return this.event_data.event_key.toString().split("-")[0];
+    return this.event_data.event_key.toString().split('-')[0];
   }
 
   getRegionID(): string {
-    return this.event_data.event_key.toString().split("-")[1];
+    return this.event_data.event_key.toString().split('-')[1];
   }
 
   getEventCode(): string {
-    let split = this.event_data.event_key.toString().split("-");
-    return this.event_data.event_key.toString().split("-")[2];
+    const split = this.event_data.event_key.toString().split('-');
+    return this.event_data.event_key.toString().split('-')[2];
   }
 
   hasDivision(): boolean {
-    let event_id = this.getEventCode();
-    return !isNaN(parseInt(event_id.substring(event_id.length - 1, event_id.length)));
+    const event_id = this.getEventCode();
+    return !isNaN(parseInt(event_id.substring(event_id.length - 1, event_id.length), this.radix));
   }
 
   getDivisionID(): number {
     if (this.hasDivision()) {
-      let event_id = this.getEventCode();
-      return parseInt(event_id.substring(event_id.length - 1, event_id.length));
+      const event_id = this.getEventCode();
+      return parseInt(event_id.substring(event_id.length - 1, event_id.length), this.radix);
     } else {
       return -1;
     }
@@ -48,12 +49,12 @@ export class EventFilter {
   }
 
   public filterArray(query: string) {
-    if (query && query.trim() != '' && query != null) {
+    if (query && query.trim() !== '' && query !== null) {
       this.events_filtered = this.events.filter((event) => {
         query = query.toLowerCase();
-        let region = (event.region_key || "null").toLowerCase();
+        const region = (event.region_key || 'null').toLowerCase();
 
-        let contains_region = (region.indexOf(query) > -1);
+        const contains_region = (region.indexOf(query) > -1);
 
         return contains_region;
       });
@@ -91,12 +92,12 @@ export class EventSorter {
   }
 
   private partition(items, pivot, left, right) {
-    let pivotValue = items[pivot];
+    const pivotValue = items[pivot];
     let partitionIndex = left;
 
     for (let i = left; i < right; i++) {
       // -1 means items[i] < pivotValue, 1 means items[i] > pivotValue
-      if (items[i].start_date < pivotValue.start_date || new EventParser(pivotValue).getDivisionID() == 0) {
+      if (items[i].start_date < pivotValue.start_date || new EventParser(pivotValue).getDivisionID() === 0) {
         this.swap(items, i, partitionIndex);
         partitionIndex++;
       }
@@ -106,7 +107,7 @@ export class EventSorter {
   }
 
   private swap(items, index1, index2) {
-    let temp = items[index1];
+    const temp = items[index1];
     items[index1] = items[index2];
     items[index2] = temp;
   }
