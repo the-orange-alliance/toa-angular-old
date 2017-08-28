@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 
 @Component({
-  selector: 'streaming',
+  selector: 'toa-streaming',
   templateUrl: './streaming.component.html',
   providers: [FTCDatabase]
 })

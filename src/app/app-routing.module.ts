@@ -13,6 +13,7 @@ import { RankingComponent } from './views/ranking/ranking.component';
 import { StreamingComponent } from './views/stream/streaming.component';
 import { TermsComponent } from './views/terms/terms.component';
 import { PageNotFoundComponent } from './views/404/404.component';
+import { MatchesComponent } from './views/matches/matches.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -26,7 +27,7 @@ const routes: Routes = [
   { path: 'terms', component: TermsComponent },
   { path: 'events/:event_key', component: EventComponent },
   { path: 'teams/:team_key', component: TeamComponent },
-  { path: 'matches/:match_data', component: PageNotFoundComponent },
+  { path: 'matches/:match_key', component: MatchesComponent },
   { path: 'not-found', component: PageNotFoundComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }

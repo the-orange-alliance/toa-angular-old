@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Router } from "@angular/router";
-import { FTCDatabase } from "../../providers/ftc-database";
-import { MatchParser } from "../../util/match-utils";
+import { Router } from '@angular/router';
+import { FTCDatabase } from '../../providers/ftc-database';
+import { MatchParser } from '../../util/match-utils';
 
 @Component({
-  selector: 'home',
+  selector: 'toa-home',
   templateUrl: './home.component.html',
   providers: [FTCDatabase]
 })
@@ -18,17 +18,17 @@ export class HomeComponent {
   match_count: number;
 
   constructor(private router: Router, private ftc: FTCDatabase) {
-    this.ftc.getAllMatches().subscribe((data) => {
-      this.match_count = data[0].MatchCount;
+    this.ftc.getAllMatches().subscribe((match_data) => {
+      this.match_count = match_data[0].MatchCount;
     }, (err) => {
       console.log(err);
     });
     this.ftc.getHighScoreQual().subscribe((data) => {
       this.qual_match = this.getBestMatch(data);
-      this.ftc.getStations(this.qual_match.match_key).subscribe((data) => {
-        let teams = "";
-        for (let station of data) {
-          teams += station.team_key + ",";
+      this.ftc.getStations(this.qual_match.match_key).subscribe((qual_data) => {
+        let teams = '';
+        for (const station of qual_data) {
+          teams += station.team_key + ',';
         }
         this.qual_match.teams = teams.toString().substring(0, teams.length - 1);
       }, (err) => {
@@ -38,16 +38,16 @@ export class HomeComponent {
         this.qual_match.event = name[0];
       }, (err) => {
         console.log(err);
-      })
+      });
     }, (err) => {
       console.log(err);
     });
-    this.ftc.getHighScoreElim().subscribe((data) => {
-      this.elim_match = this.getBestMatch(data);
+    this.ftc.getHighScoreElim().subscribe((elim_data) => {
+      this.elim_match = this.getBestMatch(elim_data);
       this.ftc.getStations(this.elim_match.match_key).subscribe((data) => {
-        let teams = "";
-        for (let station of data) {
-          teams += station.team_key + ",";
+        let teams = '';
+        for (const station of data) {
+          teams += station.team_key + ',';
         }
         this.elim_match.teams = teams.toString().substring(0, teams.length - 1);
       }, (err) => {
@@ -57,16 +57,16 @@ export class HomeComponent {
         this.elim_match.event = name[0];
       }, (err) => {
         console.log(err);
-      })
+      });
     }, (err) => {
       console.log(err);
     });
-    this.ftc.getHighScoreWithPenalty().subscribe((data) => {
-      this.normal_match = this.getBestMatch(data);
+    this.ftc.getHighScoreWithPenalty().subscribe((match_data) => {
+      this.normal_match = this.getBestMatch(match_data);
       this.ftc.getStations(this.normal_match.match_key).subscribe((data) => {
-        let teams = "";
-        for (let station of data) {
-          teams += station.team_key + ",";
+        let teams = '';
+        for (const station of data) {
+          teams += station.team_key + ',';
         }
         this.normal_match.teams = teams.toString().substring(0, teams.length - 1);
       }, (err) => {
@@ -76,16 +76,16 @@ export class HomeComponent {
         this.normal_match.event = name[0];
       }, (err) => {
         console.log(err);
-      })
+      });
     }, (err) => {
       console.log(err);
     });
 
-    this.ftc.getSeasonEvents("1617").subscribe((data) => {
-      let today = new Date();
-      let next_week = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+    this.ftc.getSeasonEvents('1617').subscribe((data) => {
+      const today = new Date();
+      const next_week = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
       this.current_events = [];
-      for (let event of data) {
+      for (const event of data) {
         if (this.isInDateRange(new Date(event.start_date), new Date(event.end_date), today, next_week)) {
           this.current_events.push(event);
         }
@@ -105,8 +105,8 @@ export class HomeComponent {
     // This will remove matches with duplicate scores
     let last_red_score = null;
     for (let i = 0; i < matches.length; i++) {
-      if (last_red_score == matches[i].red_score) {
-        matches.splice(i-1, i);
+      if (last_red_score === matches[i].red_score) {
+        matches.splice(i - 1, i);
       }
       last_red_score = matches[i].red_score;
     }
@@ -126,7 +126,7 @@ export class HomeComponent {
   }
 
   getStation(match_data, station: number): string {
-    return match_data.teams.toString().split(",")[station];
+    return match_data.teams.toString().split(',')[station];
   }
 
   openTeamPage(team: any) {
@@ -138,7 +138,7 @@ export class HomeComponent {
   }
 
   getNumberOfTeams(match_data) {
-    return match_data.teams.toString().split(",").length;
+    return match_data.teams.toString().split(',').length;
   }
 
   openMatchDetails(match_data: any) {

@@ -79,7 +79,7 @@
               <span><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span>
             </div>
             <div *ngIf="event.ranking">
-              <span>Overall team {{ team_key }} was rank {{ event.ranking.rank }} with a record of {{ event.ranking.wins }}-{{ event.ranking.losses }}-{{ event.ranking.ties }}</span>
+              <span>Overall team {{ team_key }} was <b>rank {{ event.ranking.rank }}</b> with a record of <b>{{ event.ranking.wins }}-{{ event.ranking.losses }}-{{ event.ranking.ties }}</b></span>
             </div>
             <div *ngIf="event.awards && event.awards.length > 0">
               <span>Awards include:</span>
@@ -132,16 +132,16 @@
                   <a (click)="openMatchDetails(match)">{{ match.match_name }}</a>
                 </td>
                 <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 0))" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
+                  <a href="/teams/{{ getStation(match, 0) }}" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
                 </td>
                 <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 1))" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
+                  <a href="/teams/{{ getStation(match, 1) }}" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
                 </td>
                 <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 2))" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
+                  <a href="/teams/{{ getStation(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
                 <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 3))" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
+                  <a href="/teams/{{ getStation(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
                 <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
                   {{ match.red_score }}
@@ -158,10 +158,10 @@
                   {{ match.match_name }}
                 </td>
                 <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 0))" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
+                  <a href="/teams/{{ getStation(match, 0) }}" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
                 </td>
                 <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 1))" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
+                  <a href="/teams/{{ getStation(match, 1) }}" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
                   {{ match.red_score }}
@@ -169,10 +169,10 @@
               </tr>
               <tr class="hidden-lg">
                 <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 2))" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
+                  <a href="/teams/{{ getStation(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
                 <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 3))" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
+                  <a href="/teams/{{ getStation(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   {{ match.blue_score }}
@@ -194,22 +194,22 @@
                   <a (click)="openMatchDetails(match)">{{ match.match_name }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 0))" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
+                  <a href="/teams/{{ getStation(match, 0) }}" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 1))" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
+                  <a href="/teams/{{ getStation(match, 1) }}" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 2))" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
+                  <a href="/teams/{{ getStation(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 3))" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
+                  <a href="/teams/{{ getStation(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 4))" [class.current-team]="isCurrentTeam(match, 4)">{{ getStation(match, 4) }}</a>
+                  <a href="/teams/{{ getStation(match, 4) }}" [class.current-team]="isCurrentTeam(match, 4)">{{ getStation(match, 4) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 5))" [class.current-team]="isCurrentTeam(match, 5)">{{ getStation(match, 5) }}</a>
+                  <a href="/teams/{{ getStation(match, 5) }}" [class.current-team]="isCurrentTeam(match, 5)">{{ getStation(match, 5) }}</a>
                 </td>
                 <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
                   {{ match.red_score }}
@@ -226,13 +226,13 @@
                   {{ match.match_name }}
                 </td>
                 <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 0))" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
+                  <a href="/teams/{{ getStation(match, 0) }}" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
                 </td>
                 <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 1))" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
+                  <a href="/teams/{{ getStation(match, 1) }}" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
                 </td>
                 <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 2))" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
+                  <a href="/teams/{{ getStation(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
                   {{ match.red_score }}
@@ -240,13 +240,13 @@
               </tr>
               <tr class="hidden-lg">
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 3))" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
+                  <a href="/teams/{{ getStation(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 4))" [class.current-team]="isCurrentTeam(match, 4)">{{ getStation(match, 4) }}</a>
+                  <a href="/teams/{{ getStation(match, 4) }}" [class.current-team]="isCurrentTeam(match, 4)">{{ getStation(match, 4) }}</a>
                 </td>
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 5))" [class.current-team]="isCurrentTeam(match, 5)">{{ getStation(match, 5) }}</a>
+                  <a href="/teams/{{ getStation(match, 5) }}" [class.current-team]="isCurrentTeam(match, 5)">{{ getStation(match, 5) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   {{ match.blue_score }}
@@ -268,22 +268,22 @@
                   <a (click)="openMatchDetails(match)">{{ match.match_name }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 0))" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
+                  <a href="/teams/{{ getStation(match, 0) }}" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 1))" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
+                  <a href="/teams/{{ getStation(match, 1) }}" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 2))" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
+                  <a href="/teams/{{ getStation(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 3))" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
+                  <a href="/teams/{{ getStation(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 4))" [class.current-team]="isCurrentTeam(match, 4)">{{ getStation(match, 4) }}</a>
+                  <a href="/teams/{{ getStation(match, 4) }}" [class.current-team]="isCurrentTeam(match, 4)">{{ getStation(match, 4) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 5))" [class.current-team]="isCurrentTeam(match, 5)">{{ getStation(match, 5) }}</a>
+                  <a href="/teams/{{ getStation(match, 5) }}" [class.current-team]="isCurrentTeam(match, 5)">{{ getStation(match, 5) }}</a>
                 </td>
                 <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
                   {{ match.red_score }}
@@ -300,13 +300,13 @@
                   {{ match.match_name }}
                 </td>
                 <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 0))" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
+                  <a href="/teams/{{ getStation(match, 0) }}" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
                 </td>
                 <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 1))" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
+                  <a href="/teams/{{ getStation(match, 1) }}" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
                 </td>
                 <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 2))" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
+                  <a href="/teams/{{ getStation(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
                   {{ match.red_score }}
@@ -314,13 +314,13 @@
               </tr>
               <tr class="hidden-lg">
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 3))" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
+                  <a href="/teams/{{ getStation(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 4))" [class.current-team]="isCurrentTeam(match, 4)">{{ getStation(match, 4) }}</a>
+                  <a href="/teams/{{ getStation(match, 4) }}" [class.current-team]="isCurrentTeam(match, 4)">{{ getStation(match, 4) }}</a>
                 </td>
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 5))" [class.current-team]="isCurrentTeam(match, 5)">{{ getStation(match, 5) }}</a>
+                  <a href="/teams/{{ getStation(match, 5) }}" [class.current-team]="isCurrentTeam(match, 5)">{{ getStation(match, 5) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   {{ match.blue_score }}
@@ -342,22 +342,22 @@
                   <a (click)="openMatchDetails(match)">{{ match.match_name }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 0))" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
+                  <a href="/teams/{{ getStation(match, 0) }}" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 1))" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
+                  <a href="/teams/{{ getStation(match, 1) }}" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 2))" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
+                  <a href="/teams/{{ getStation(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 3))" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
+                  <a href="/teams/{{ getStation(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 4))" [class.current-team]="isCurrentTeam(match, 4)">{{ getStation(match, 4) }}</a>
+                  <a href="/teams/{{ getStation(match, 4) }}" [class.current-team]="isCurrentTeam(match, 4)">{{ getStation(match, 4) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 5))" [class.current-team]="isCurrentTeam(match, 5)">{{ getStation(match, 5) }}</a>
+                  <a href="/teams/{{ getStation(match, 5) }}" [class.current-team]="isCurrentTeam(match, 5)">{{ getStation(match, 5) }}</a>
                 </td>
                 <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
                   {{ match.red_score }}
@@ -374,13 +374,13 @@
                   {{ match.match_name }}
                 </td>
                 <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 0))" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
+                  <a href="/teams/{{ getStation(match, 0) }}" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
                 </td>
                 <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 1))" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
+                  <a href="/teams/{{ getStation(match, 1) }}" [class.current-team]="isCurrentTeam(match, 1)">{{ getStation(match, 1) }}</a>
                 </td>
                 <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 2))" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
+                  <a href="/teams/{{ getStation(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
                 <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
                   {{ match.red_score }}
@@ -388,13 +388,13 @@
               </tr>
               <tr class="hidden-lg">
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 3))" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
+                  <a href="/teams/{{ getStation(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 4))" [class.current-team]="isCurrentTeam(match, 4)">{{ getStation(match, 4) }}</a>
+                  <a href="/teams/{{ getStation(match, 4) }}" [class.current-team]="isCurrentTeam(match, 4)">{{ getStation(match, 4) }}</a>
                 </td>
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-                  <a (click)="openTeamPage(getStation(match, 5))" [class.current-team]="isCurrentTeam(match, 5)">{{ getStation(match, 5) }}</a>
+                  <a href="/teams/{{ getStation(match, 5) }}" [class.current-team]="isCurrentTeam(match, 5)">{{ getStation(match, 5) }}</a>
                 </td>
                 <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   {{ match.blue_score }}

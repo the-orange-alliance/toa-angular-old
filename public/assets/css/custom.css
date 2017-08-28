@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 #login-form {
   margin-top: 25%;
   border-radius: 3px;
@@ -153,11 +157,23 @@ footer {
   color: #ff9800;
 }
 
+/* Used for website header. */
+
+.whitetext {
+color:white;
+text-decoration: none !important;
+}
+
 /* Extra small devices (phones, 320px and up, bootstrap default) */
+#search-form {
+  display: none;
+}
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-
+  #search-form {
+    display: block;
+  }
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -269,6 +285,20 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.search-results {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 196px !important;
+  text-wrap: normal;
+  overflow-x: hidden;
+  background-color: #fff !important;
+}
+
+.search-results > li, .search-results > li > a, .search-results > li > a:link, .search-results > li > a:visited {
+  background-color: #fff !important;
+  color: #ff9800 !important;
 }
 
 /* Loading text styles */
