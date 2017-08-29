@@ -195,6 +195,10 @@ export class TeamComponent implements OnInit {
     return match_data.teams.toString().split(',')[station];
   }
 
+  getStationLength(match_data): number {
+    return match_data.teams.toString().split(',').length;
+  }
+
   isCurrentTeam(match_data, station: number): boolean {
     return match_data.teams.toString().split(',')[station] === this.team_key;
   }
