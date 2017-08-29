@@ -154,7 +154,11 @@ td, th {
 }
 
 footer {
-  color: #ff9800;
+  margin-top: 18px;
+  background-color: #ff9800;
+  color: white;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 /* Used for website header. */
