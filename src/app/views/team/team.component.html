@@ -3,14 +3,14 @@
 
     <div class="col-xs-12 col-sm-3 col-lg-2">
       <div id="info">
-        <div class="row clearfix">
+        <div *ngIf="seasons" class="row clearfix">
           <div *ngIf="team.rookie_year" class="dropdown col-xs-12">
-            <button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              <span>{{ current_year }} Season</span>
+            <button *ngIf="current_season" class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <span>{{ current_season.season_key }} - {{ current_season.season_desc }}</span>
               <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="ftc_district" *ngIf="years">
-              <li *ngFor="let year of years"><a (click)="selectYear(year)">{{ year }} Season</a></li>
+            <ul class="dropdown-menu" aria-labelledby="ftc_district">
+              <li *ngFor="let season of seasons"><a (click)="selectSeason(season)">{{ season.season_key }} - {{ season.season_desc }}</a></li>
             </ul>
           </div>
         </div>

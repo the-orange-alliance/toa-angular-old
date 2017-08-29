@@ -16,7 +16,6 @@ export class TeamComponent implements OnInit {
   team: any;
   team_key: any;
 
-  current_year: number;
   years: any;
 
   qual_matches: any;
@@ -24,9 +23,12 @@ export class TeamComponent implements OnInit {
   semis_matches: any;
   finals_matches: any;
 
+  seasons: any;
+  current_season: any;
+
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router) {
     this.team_key = this.route.snapshot.params['team_key'];
-    this.current_year = 2017;
+    this.current_season = { season_key: "1617", season_desc: "Velocity Vortex" };
     this.qual_matches = [];
     this.quarters_matches = [];
     this.semis_matches = [];
@@ -36,7 +38,7 @@ export class TeamComponent implements OnInit {
 
   ngOnInit(): void {
     this.years = [];
-    this.ftc.getTeam(this.team_key, this.current_year).subscribe((data) => {
+    this.ftc.getTeam(this.team_key, 2017).subscribe((data) => {
       if (!data[0][0]) {
         this.router.navigate(['/not-found']);
       } else {
@@ -49,15 +51,43 @@ export class TeamComponent implements OnInit {
         }
         this.years.reverse();
         this.getEventMatches();
+
+        this.ftc.getAllSeasons().subscribe((data) => {
+          this.seasons = this.getTeamSeasons(data).reverse();
+        }, (err) => {
+          console.log(err);
+        });
+
       }
     }, (err) => {
       console.log(err);
     });
   }
 
-  selectYear(year: number) {
-    this.current_year = year;
-    this.ftc.getTeamEvents(this.team_key, this.current_year).subscribe((data) => {
+  getTeamSeasons(season_data: any) {
+    let year_code = parseInt((this.team.rookie_year + "").toString().substring(2, 4));
+    let second_code = year_code + 1;
+    let rookie_season_id = "";
+    if (year_code < 10) {
+      rookie_season_id = "0" + year_code;
+    } else {
+      rookie_season_id = "" + year_code;
+    }
+    if (second_code < 10) {
+      rookie_season_id += "0" + second_code;
+    } else {
+      rookie_season_id += "" + second_code;
+    }
+    for (let i = 0; i < season_data.length; i++) {
+      if (rookie_season_id == season_data[i].season_key) {
+        return season_data.splice(i, season_data.length - 1);
+      }
+    }
+  }
+
+  selectSeason(season: any) {
+    this.current_season = season;
+    this.ftc.getTeamEvents(this.team_key, this.convertSeason(this.current_season)).subscribe((data) => {
       this.team.events = data;
       this.getEventMatches();
     }, (err) => {
@@ -70,7 +100,7 @@ export class TeamComponent implements OnInit {
     this.team.events = this.event_sorter.sort(this.team.events, 0, this.team.events.length - 1);
 
     for (const event of this.team.events) {
-      this.ftc.getEventMatches(event.event_key, this.current_year).subscribe((data) => {
+      this.ftc.getEventMatches(event.event_key, this.convertSeason(this.current_season)).subscribe((data) => {
         event.match_data = data;
         event.match_data = this.sortAndFind(event);
 
@@ -146,6 +176,19 @@ export class TeamComponent implements OnInit {
     const sorter = new MatchSorter();
     team_matches = sorter.sort(team_matches, 0, team_matches.length - 1);
     return team_matches;
+  }
+
+  convertSeason(season: any) {
+    let year = 2017;
+    switch (season.season_key) {
+      case "1718":
+        year = 2018;
+        break;
+      case "1617":
+        year = 2017;
+        break;
+    }
+    return year;
   }
 
   getStation(match_data, station: number): string {
