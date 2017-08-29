@@ -42,7 +42,7 @@ export class TheOrangeAllianceComponent {
         this.search_results = this.teams.splice(0, 4);
       }
     } else {
-      document.getElementById('search').style.display = 'none';
+      document.getElementById("search").style.display = "none";
     }
   }
 
@@ -74,7 +74,7 @@ export class TheOrangeAllianceComponent {
   }
 
   hideDropdown() {
-    document.getElementById('search').style.display = 'none';
+    document.getElementById("search").style.display = "none";
   }
 
 }
