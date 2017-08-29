@@ -31,7 +31,7 @@
           <div class="panel-title">
             <div class="row">
               <div class="col-xs-6 text-left">
-                <b>Team Filter Options</b>
+                <b>Team Filter Options</b> <span *ngIf="current_teams">({{ current_teams.length }} Results)</span>
               </div>
               <div class="col-xs-6 text-right">
                 <a (click)="clearFilter()">Clear Filter <span class="fa fa-close"></span></a>
@@ -104,7 +104,7 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="teams">
+  <div class="row" *ngIf="current_teams">
     <div class="col-xs-12 col-md-6">
       <table class="table table-striped teams-table">
         <thead>
@@ -114,11 +114,11 @@
           <td>Location</td>
         </tr>
         </thead>
-        <tbody *ngIf="teams.length > 0">
-          <tr *ngFor="let team of teams; let i = index;">
-            <td *ngIf="i < 250"><a (click)="openTeam(team.team_number)">{{ team.team_number }}</a></td>
-            <td *ngIf="i < 250">{{ team.team_name_short }}</td>
-            <td *ngIf="i < 250">{{ team.city }}, {{ team.state_prov }}, {{ team.country }}</td>
+        <tbody *ngIf="current_teams.length > 0">
+          <tr *ngFor="let team of current_teams; let i = index;">
+            <td *ngIf="i < current_teams.length / 2"><a (click)="openTeam(team.team_number)">{{ team.team_number }}</a></td>
+            <td *ngIf="i < current_teams.length / 2">{{ team.team_name_short }}</td>
+            <td *ngIf="i < current_teams.length / 2">{{ team.city }}, {{ team.state_prov }}, {{ team.country }}</td>
           </tr>
         </tbody>
       </table>
@@ -133,18 +133,18 @@
           <td>Location</td>
         </tr>
         </thead>
-        <tbody *ngIf="teams.length > 0">
-        <tr *ngFor="let team of teams; let i = index;">
-          <td *ngIf="i >= 250"><a (click)="openTeam(team.team_number)">{{ team.team_number }}</a></td>
-          <td *ngIf="i >= 250">{{ team.team_name_short }}</td>
-          <td *ngIf="i >= 250">{{ team.city }}, {{ team.state_prov }}, {{ team.country }}</td>
+        <tbody *ngIf="current_teams.length > 0">
+        <tr *ngFor="let team of current_teams; let i = index;">
+          <td *ngIf="i >= current_teams.length / 2"><a (click)="openTeam(team.team_number)">{{ team.team_number }}</a></td>
+          <td *ngIf="i >= current_teams.length / 2">{{ team.team_name_short }}</td>
+          <td *ngIf="i >= current_teams.length / 2">{{ team.city }}, {{ team.state_prov }}, {{ team.country }}</td>
         </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="row">
+  <div *ngIf="current_teams && current_teams.length <= 0" class="row">
     <div class="col-xs-12 text-center">
       <span><i>There are no teams that match that query.</i></span>
     </div>

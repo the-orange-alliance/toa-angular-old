@@ -17,6 +17,18 @@ export class FTCDatabase {
     return this.http.get('https://beta.theorangealliance.org' + url, { headers: auth_header });
   }
 
+  public getAnnouncements() {
+    return this.request('/api/web/announcements').map(res => res.json());
+  }
+
+  public getWebChangelog() {
+    return this.request('/api/web/changelog').map(res => res.json());
+  }
+
+  public getAPIDoc() {
+    return this.request('/api/web/doc').map(res => res.json());
+  }
+
   public getAllSeasons() {
     return this.request('/api/seasons').map(res => res.json());
   }

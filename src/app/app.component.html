@@ -1,5 +1,5 @@
 <!-- NAVBAR -->
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
 
   <div class="navbar-header">
     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -17,23 +17,23 @@
       <li class="toggleable" ><a routerLink="/stream" routerLinkActive="active">Streaming</a></li>
       <li class="toggleable" ><a routerLink="/about" routerLinkActive="active">About</a></li>
     </ul>
-    <form id="search-form" class="navbar-form navbar-left">
+    <form class="navbar-form navbar-left">
       <div class="form-group">
-        <input (keyup)="performSearch()" (blur)="hideDropdown()" (focus)="performSearch()" [(ngModel)]="search" [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Team # or Event">
+        <input id="ftc_search" (keyup)="performSearch()" (focus)="performSearch()" [(ngModel)]="search" [ngModelOptions]="{standalone: true}" type="text" class="form-control dropdown-toggle" placeholder="Team # or Event" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
       </div>
-      <ul id="search" class="dropdown-menu search-results">
-        <li *ngFor="let result of search_results"><a (click)="openTeam(result.team_key)">{{ result.team_key }} - {{ result.team_name_short }}</a></li>
+      <ul id="search" class="dropdown-menu search-results" aria-labelledby="ftc_search">
+        <li><a (click)="hideDropdown()">Close <span class="fa fa-close"></span></a></li>
+        <li *ngFor="let result of search_results"><a href="/teams/{{result.team_key}}">{{ result.team_key }} - {{ result.team_name_short }}</a></li>
       </ul>
     </form>
-    <ul class="nav navbar-nav mar-0 float-right-md">
-      <li class="toggleable"><a routerLink="/admin">Login</a></li>
-    </ul>
   </div>
 
 </nav>
 <!-- NAVBAR -->
 
-<router-outlet></router-outlet>
+<div class="pad-top-50 mar-top-25">
+  <router-outlet></router-outlet>
+</div>
 
 <hr>
 

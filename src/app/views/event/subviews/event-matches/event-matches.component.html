@@ -68,10 +68,10 @@
             {{ match.match_name }}
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 0) }}
+            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 1) }}
+            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -79,10 +79,10 @@
         </tr>
         <tr class="hidden-lg">
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 2) }}
+            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 3) }}
+            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
@@ -136,13 +136,13 @@
             {{ match.match_name }}
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 0) }}
+            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 1) }}
+            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 2) }}
+            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -150,13 +150,13 @@
         </tr>
         <tr *ngIf="getNumberOfTeams(match) == 6" class="hidden-lg">
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 3) }}
+            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 4) }}
+            <a (click)="openTeamPage(getStation(match, 4))">{{ getStation(match, 4) }}</a>
           </td>
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 5) }}
+            <a (click)="openTeamPage(getStation(match, 5))">{{ getStation(match, 5) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
@@ -196,10 +196,10 @@
             {{ match.match_name }}
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 0) }}
+            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 1) }}
+            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -207,10 +207,10 @@
         </tr>
         <tr *ngIf="getNumberOfTeams(match) == 4" class="hidden-lg">
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 2) }}
+            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 3) }}
+            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
@@ -264,13 +264,13 @@
             {{ match.match_name }}
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 0) }}
+            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 1) }}
+            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 2) }}
+            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -278,13 +278,13 @@
         </tr>
         <tr *ngIf="getNumberOfTeams(match) == 6" class="hidden-lg">
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 3) }}
+            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 4) }}
+            <a (click)="openTeamPage(getStation(match, 4))">{{ getStation(match, 4) }}</a>
           </td>
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 5) }}
+            <a (click)="openTeamPage(getStation(match, 5))">{{ getStation(match, 5) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
@@ -324,10 +324,10 @@
             {{ match.match_name }}
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 0) }}
+            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 1) }}
+            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -335,10 +335,10 @@
         </tr>
         <tr *ngIf="getNumberOfTeams(match) == 4" class="hidden-lg">
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 2) }}
+            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 3) }}
+            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
@@ -392,13 +392,13 @@
             {{ match.match_name }}
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 0) }}
+            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 1) }}
+            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 2) }}
+            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -406,13 +406,13 @@
         </tr>
         <tr *ngIf="getNumberOfTeams(match) == 6" class="hidden-lg">
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 3) }}
+            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 4) }}
+            <a (click)="openTeamPage(getStation(match, 4))">{{ getStation(match, 4) }}</a>
           </td>
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 5) }}
+            <a (click)="openTeamPage(getStation(match, 5))">{{ getStation(match, 5) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
@@ -452,10 +452,10 @@
             {{ match.match_name }}
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 0) }}
+            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            {{ getStation(match, 1) }}
+            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -463,10 +463,10 @@
         </tr>
         <tr *ngIf="getNumberOfTeams(match) == 4" class="hidden-lg">
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 2) }}
+            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            {{ getStation(match, 3) }}
+            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
