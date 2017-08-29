@@ -69,7 +69,6 @@ export class TheOrangeAllianceComponent {
   }
 
   openTeam(team_number): void {
-    this.hideDropdown();
     this.router.navigate(['/teams', team_number]);
   }
 

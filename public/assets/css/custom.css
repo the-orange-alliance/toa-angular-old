@@ -301,6 +301,11 @@ a:hover {
   color: #ff9800 !important;
 }
 
+.search-results > li > a:hover {
+  background-color: #f8f8f8 !important;
+  color: #ff9800 !important;
+}
+
 .blog-author {
   color: #ff9800;
 }
