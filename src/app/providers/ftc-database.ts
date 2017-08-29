@@ -14,7 +14,7 @@ export class FTCDatabase {
     const auth_header = new Headers({
       'X-Application-Origin': 'TOA'
     });
-    return this.http.get('http://beta.theorangealliance.org' + url, { headers: auth_header });
+    return this.http.get('https://beta.theorangealliance.org' + url, { headers: auth_header });
   }
 
   public getAllSeasons() {
