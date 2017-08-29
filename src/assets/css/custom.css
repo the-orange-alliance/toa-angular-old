@@ -301,6 +301,14 @@ a:hover {
   color: #ff9800 !important;
 }
 
+.blog-author {
+  color: #ff9800;
+}
+
+.blog-author:hover {
+  text-decoration: none;
+}
+
 /* Loading text styles */
 @keyframes blink {
   0% {

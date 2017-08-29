@@ -1,6 +1,19 @@
 <!-- MAIN CONTAINER -->
 <main class="container">
 
+  <div *ngIf="current_announcement" class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <h2 class="mar-0">{{ current_announcement.title }}</h2>
+      <h4 class="mar-0"><small>  {{ current_announcement.publish_date | date :  "mediumDate" }} - <span class="blog-author">{{ current_announcement.author }}</span></small></h4>
+    </div>
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <p>{{ current_announcement.text }}</p>
+      <a href="{{ current_announcement.read_more }}">Read More</a>
+    </div>
+  </div>
+
+  <br/>
+
   <div class="row">
     <div class="col-xs-12 col-md-8 col-md-offset-2">
       <h3 class="mar-0">This Week's Events</h3>

@@ -10,6 +10,7 @@ import { MatchParser } from '../../util/match-utils';
 })
 export class HomeComponent {
 
+  current_announcement: any;
   current_events: any;
 
   qual_match: any;
@@ -80,7 +81,6 @@ export class HomeComponent {
     }, (err) => {
       console.log(err);
     });
-
     this.ftc.getSeasonEvents('1617').subscribe((data) => {
       const today = new Date();
       const next_week = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
@@ -93,7 +93,22 @@ export class HomeComponent {
     }, (err) => {
       console.log(err);
     });
+    this.ftc.getAnnouncements().subscribe((data) => {
+      const today = new Date();
+      for (let announcement of data) {
+        if (this.isBetweenDates(new Date(announcement.publish_date), new Date(announcement.end_date), today)) {
+          this.current_announcement = announcement;
+          console.log(this.current_announcement);
+          break;
+        }
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
 
+  isBetweenDates(start_date, end_date, today) {
+    return (today <= end_date && today >= start_date);
   }
 
   isInDateRange(start_date, end_date, today, next_week) {
