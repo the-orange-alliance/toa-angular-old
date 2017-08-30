@@ -87,6 +87,7 @@ export class TeamComponent implements OnInit {
 
   selectSeason(season: any) {
     this.current_season = season;
+    this.team.events = [];
     this.ftc.getTeamEvents(this.team_key, this.convertSeason(this.current_season)).subscribe((data) => {
       this.team.events = data;
       this.getEventMatches();
@@ -186,6 +187,33 @@ export class TeamComponent implements OnInit {
         break;
       case "1617":
         year = 2017;
+        break;
+      case "1516":
+        year = 2016;
+        break;
+      case "1415":
+        year = 2015;
+        break;
+      case "1314":
+        year = 2014;
+        break;
+      case "1213":
+        year = 2013;
+        break;
+      case "1112":
+        year = 2012;
+        break;
+      case "1011":
+        year = 2011;
+        break;
+      case "0910":
+        year = 2010;
+        break;
+      case "0809":
+        year = 2009;
+        break;
+      case "0708":
+        year = 2008;
         break;
     }
     return year;

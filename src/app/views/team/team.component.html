@@ -20,7 +20,7 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="well">
-              <ul class="nav">
+              <ul *ngIf="team.events" class="nav">
                 <li><a href="teams/{{ team.team_key }}#info">Team Info</a></li>
                 <li>
                   Event Results
@@ -266,7 +266,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr class="hidden-lg">
+              <tr *ngIf="getStationLength(match) == 6" class="hidden-lg">
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStation(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
@@ -298,7 +298,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr class="hidden-lg">
+              <tr *ngIf="getStationLength(match) == 4" class="hidden-lg">
                 <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStation(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
@@ -309,7 +309,6 @@
                   {{ match.blue_score }}
                 </td>
               </tr>
-
               </tbody>
 
               <tbody *ngIf="event.semis_matches && event.semis_matches.length > 0">
@@ -398,7 +397,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr class="hidden-lg">
+              <tr *ngIf="getStationLength(match) == 6" class="hidden-lg">
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStation(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
@@ -430,7 +429,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr class="hidden-lg">
+              <tr *ngIf="getStationLength(match) == 4" class="hidden-lg">
                 <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStation(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
@@ -529,7 +528,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr class="hidden-lg">
+              <tr *ngIf="getStationLength(match) == 6" class="hidden-lg">
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStation(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
@@ -561,7 +560,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr class="hidden-lg">
+              <tr *ngIf="getStationLength(match) == 4" class="hidden-lg">
                 <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStation(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
