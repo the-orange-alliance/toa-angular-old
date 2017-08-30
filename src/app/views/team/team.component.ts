@@ -211,4 +211,10 @@ export class TeamComponent implements OnInit {
     this.router.navigate(['/matches', match_data.match_key]);
   }
 
+  getSeasonString(season: any) {
+    let code_one = season.season_key.toString().substring(0, 2);
+    let code_two = season.season_key.toString().substring(2, 4);
+    return "20" + code_one + "/20" + code_two;
+  }
+
 }

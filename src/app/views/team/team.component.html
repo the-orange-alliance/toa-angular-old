@@ -6,11 +6,11 @@
         <div *ngIf="seasons" class="row clearfix">
           <div *ngIf="team.rookie_year" class="dropdown col-xs-12">
             <button *ngIf="current_season" class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              <span>{{ current_season.season_key }} - {{ current_season.season_desc }}</span>
+              <span>{{ getSeasonString(current_season) }}</span>
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="ftc_district">
-              <li *ngFor="let season of seasons"><a (click)="selectSeason(season)">{{ season.season_key }} - {{ season.season_desc }}</a></li>
+              <li *ngFor="let season of seasons"><a (click)="selectSeason(season)">{{ getSeasonString(season) }}</a></li>
             </ul>
           </div>
         </div>
