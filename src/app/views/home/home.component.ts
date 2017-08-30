@@ -98,7 +98,6 @@ export class HomeComponent {
       for (let announcement of data) {
         if (this.isBetweenDates(new Date(announcement.publish_date), new Date(announcement.end_date), today)) {
           this.current_announcement = announcement;
-          console.log(this.current_announcement);
           break;
         }
       }

@@ -27,6 +27,7 @@ export class TeamsComponent implements OnInit {
 
   current_region: any;
   current_league: any;
+  current_teams: any;
 
   constructor(private router: Router, private ftc: FTCDatabase) {
     this.regions = [];
@@ -43,7 +44,7 @@ export class TeamsComponent implements OnInit {
       for (let i = 0; i < Math.ceil(this.teams_count / TEAMS_PER_PAGE); i++) {
         this.pages.push({ index: (i) });
       }
-      this.getTeams(0);
+      this.getAllTeams();
     }, (err) => {
       console.log(err);
     });
@@ -69,6 +70,16 @@ export class TeamsComponent implements OnInit {
     this.router.navigate(['/teams', team_number]);
   }
 
+  getAllTeams(): void {
+    this.ftc.getEveryTeam().subscribe((data) => {
+      this.teams = data;
+      this.teams_filter = new TeamFilter(this.teams);
+      this.getTeams(0);
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
   getTeams(page_index): void {
     if (page_index > this.pages.length - 1) {
       this.cur_page = this.pages.length - 1;
@@ -77,12 +88,7 @@ export class TeamsComponent implements OnInit {
     } else {
       this.cur_page = page_index;
     }
-    this.ftc.getTeams(this.cur_page * TEAMS_PER_PAGE).subscribe((data) => {
-      this.teams = data;
-      this.teams_filter = new TeamFilter(this.teams);
-    }, (err) => {
-      console.log(err);
-    });
+    this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page+1) * TEAMS_PER_PAGE));
   }
 
   incIndex() {
@@ -98,9 +104,9 @@ export class TeamsComponent implements OnInit {
       this.current_region = region;
       if (this.current_region.region_desc) {
         this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
-        this.teams = this.teams_filter.getFilteredArray();
+        this.current_teams = this.teams_filter.getFilteredArray();
       } else {
-        this.teams = this.teams_filter.getOriginalArray();
+        this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page+1) * TEAMS_PER_PAGE));
       }
     }
   }
@@ -110,9 +116,9 @@ export class TeamsComponent implements OnInit {
       this.current_league = league;
       if (this.current_league.league_desc) {
         this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
-        this.teams = this.teams_filter.getFilteredArray();
+        this.current_teams = this.teams_filter.getFilteredArray();
       } else {
-        this.teams = this.teams_filter.getOriginalArray();
+        this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page+1) * TEAMS_PER_PAGE));
       }
     }
   }
@@ -120,18 +126,18 @@ export class TeamsComponent implements OnInit {
   queryTeam() {
     if (this.team_query !== null && this.team_query.length > 0) {
       this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
-      this.teams = this.teams_filter.getFilteredArray();
+      this.current_teams = this.teams_filter.getFilteredArray();
     } else {
-      this.teams = this.teams_filter.getOriginalArray();
+      this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page+1) * TEAMS_PER_PAGE));
     }
   }
 
   queryLocation() {
     if (this.location_query !== null && this.location_query.length > 0) {
       this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
-      this.teams = this.teams_filter.getFilteredArray();
+      this.current_teams = this.teams_filter.getFilteredArray();
     } else {
-      this.teams = this.teams_filter.getOriginalArray();
+      this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page+1) * TEAMS_PER_PAGE));
     }
   }
 
@@ -140,7 +146,7 @@ export class TeamsComponent implements OnInit {
     this.current_region = this.regions[this.regions.length - 1];
     this.team_query = null;
     this.location_query = null;
-    this.teams = this.teams_filter.getOriginalArray();
+    this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page+1) * TEAMS_PER_PAGE));
   }
 
 }

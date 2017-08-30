@@ -4,7 +4,47 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <p>Text</p>
+      <p>The goal of TOA API is to provide us, and potential outside users a way to query our databases. </p>
+      <p>The Base URL for accessing anything related to our API is <a href="http://www.theorangealliance.org/api">http://www.theorangealliance.org/api</a></p>
+      <h2 style="color: orange">Gaining Access to TOA API</h2>
+      <p>In order to gain access to TOA API, you need to first gain access to an API key.  You can apply for an <a href="https://goo.gl/forms/u3E1sMuCNT9UcPmH3" target="_blank">API Key Here</a>. Once you have that key, you must set two custom headers with every GET request. You must set <code>X-Application-Origin</code> to the name of your application. Secondly, you must set <code>X-TOA-Key</code> to your API key. </p>
+      <h2 style="color: orange">API Access Levels</h2>
+      <p><b>Level 0</b></p>
+      <ul>
+        <li>Revoked/not yet approved API key.</li>
+        <li>Every request to TOA API with this key will be denied with a 403 status.        </li>
+      </ul>
+      <p><b>Level 1</b></p>
+      <ul>
+        <li>Single-purpose/team API key</li>
+        <li>Allowed to request data from TOA API, most routes will be available.</li>
+        <li>Every request is tracked and a rate limit of 30 requests/minute is placed.</li>
+      </ul>
+      <p><b>Level 2</b></p>
+      <ul>
+        <li>Full developer access/application API key</li>
+        <li>Allowed to request data from TOA API</li>
+        <li>Every request is tracked, but there is no limit on rates.</li>
+      </ul>
+      <h2 style="color: orange">TOA Base Information</h2>
+      <p>Every URL parameter following the /api/ is considered a separate component (in the project they also have their own routing files). Without the X-Application-Origin and X-TOA-Key headers, TOA API will send a 403 forbidden access response. These are used for tracking.</p>
+      <p>Here are the following main components as well as their sub-components:</p>
+      <p>(Parameters are in bold and will vary)</p>
+      <p>* All data is returned in JSON format</p>
+    </div>
+  </div>
+
+  <div *ngFor="let route of api_routes" class="row">
+    <div class="col-xs-12">
+      <h3 style="color: orange">{{ route.base_route }}</h3>
+      <P>{{ route.route }}</P>
+      <ul>
+        <li>{{ route.route_description }}</li>
+        <p>{{ route.example_example }}</p>
+        <ul>
+          <li>{{ route.route_notes }}</li>
+        </ul>
+      </ul>
     </div>
   </div>
 

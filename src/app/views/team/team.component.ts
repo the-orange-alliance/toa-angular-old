@@ -195,6 +195,10 @@ export class TeamComponent implements OnInit {
     return match_data.teams.toString().split(',')[station];
   }
 
+  getStationLength(match_data): number {
+    return match_data.teams.toString().split(',').length;
+  }
+
   isCurrentTeam(match_data, station: number): boolean {
     return match_data.teams.toString().split(',')[station] === this.team_key;
   }
@@ -205,6 +209,12 @@ export class TeamComponent implements OnInit {
 
   openMatchDetails(match_data: any) {
     this.router.navigate(['/matches', match_data.match_key]);
+  }
+
+  getSeasonString(season: any) {
+    let code_one = season.season_key.toString().substring(0, 2);
+    let code_two = season.season_key.toString().substring(2, 4);
+    return "20" + code_one + "/20" + code_two;
   }
 
 }

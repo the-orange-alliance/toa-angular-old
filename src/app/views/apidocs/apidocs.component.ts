@@ -9,10 +9,14 @@ import { FTCDatabase } from '../../providers/ftc-database';
 })
 export class ApiDocsComponent {
 
+  api_routes: any;
 
-  constructor(private router: Router) {
-
+  constructor(private router: Router, private ftc: FTCDatabase) {
+    this.ftc.getAPIDoc().subscribe((data) => {
+      this.api_routes = data;
+    }, (err) => {
+      console.log(err);
+    });
   }
-
 
 }
