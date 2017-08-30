@@ -161,6 +161,16 @@ footer {
   padding-bottom: 15px;
 }
 
+footer > div > div > p > a, footer > div > div > p > a:visited {
+  color: inherit;
+  text-decoration: underline;
+}
+
+footer > div > div > p > a:hover, footer > div > div > p > a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
 /* Used for website header. */
 
 .whitetext {
