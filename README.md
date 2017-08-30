@@ -1,8 +1,12 @@
 # TheOrangeAlliance
 
-The Orange Alliance was inspired by [The Blue Alliance](http://thebluealliance.com), but we are not affiliated.
+[The Orange Alliance](http://theorangealliance.org) is a webapp and API to access data about FIRST Tech Challange. It was inspired by [The Blue Alliance](http://thebluealliance.com), but we're not affiliated.
 
 This projet includes a full-stack development module using MySQL as the database, Express as the server-side api, Angular 4 for the client-side single page application, and Node.js for the underlying platform. (MEAN stack development).
+
+[Chat with us on Discord](https://discord.gg/5fH66UV)
+
+[Like us on Facebook](https://www.facebook.com/theorangealliance/)
 
 ## Running Angular 4 with ExpressJS and Client-Side Rendering
 
