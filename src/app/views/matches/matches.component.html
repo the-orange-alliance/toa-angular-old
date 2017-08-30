@@ -132,18 +132,18 @@
         </tbody>
         <tbody *ngIf="match_details">
         <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_art_cen == 0">0</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_art_cen != 0">{{ match_details.red_auto_art_cen }} ( +{{ match_details.red_auto_art_cen * 15 }} )</td>
+          <td colspan="3" class="red" *ngIf="match_details.red_auto_part_cen == 0">0</td>
+          <td colspan="3" class="red" *ngIf="match_details.red_auto_part_cen != 0">{{ match_details.red_auto_part_cen }} ( +{{ match_details.red_auto_part_cen * 15 }} )</td>
           <td colspan="6">Auto Center Vortex</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_art_cen == 0">0</td>
-          <td colspan="3" class="blue" *ngIf="match_details.red_auto_art_cen != 0">{{ match_details.blue_auto_art_cen }} ( +{{ match_details.blue_auto_art_cen * 15 }} )</td>
+          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_part_cen == 0">0</td>
+          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_part_cen != 0">{{ match_details.blue_auto_part_cen }} ( +{{ match_details.blue_auto_part_cen * 15 }} )</td>
         </tr>
         <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_art_cor == 0">0</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_art_cor != 0">{{ match_details.red_auto_art_cor }} ( +{{ match_details.red_auto_art_cor * 5 }} </td>
+          <td colspan="3" class="red" *ngIf="match_details.red_auto_part_cor == 0">0</td>
+          <td colspan="3" class="red" *ngIf="match_details.red_auto_part_cor != 0">{{ match_details.red_auto_part_cor }} ( +{{ match_details.red_auto_part_cor * 5 }} </td>
           <td colspan="6">Auto Corner Vortex</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_art_cor == 0">0</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_art_cor != 0">{{ match_details.blue_auto_art_cor }} ( +{{ match_details.blue_auto_art_cor * 5 }} )</td>
+          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_part_cor == 0">0</td>
+          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_part_cor != 0">{{ match_details.blue_auto_part_cor }} ( +{{ match_details.blue_auto_part_cor * 5 }} )</td>
         </tr>
         <tr>
           <td colspan="3" class="red" *ngIf="match_details.red_auto_beacons == 0">None</td>
@@ -222,8 +222,8 @@
           <td colspan="3" class="red" *ngIf="match_details.red_driver_part_cen == 0">0</td>
           <td colspan="3" class="red" *ngIf="match_details.red_driver_part_cen != 0">{{ match_details.red_driver_part_cen }} ( +{{ match_details.red_driver_part_cen * 5 }} )</td>
           <td colspan="6">Tele Center Vortex</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_art_cen == 0">0</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_art_cen != 0">{{ match_details.blue_driver_part_cen }} ( +{{ match_details.blue_driver_part_cen * 5 }} )</td>
+          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_part_cen == 0">0</td>
+          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_part_cen != 0">{{ match_details.blue_driver_part_cen }} ( +{{ match_details.blue_driver_part_cen * 5 }} )</td>
         </tr>
         <tr>
           <td colspan="3" class="red" *ngIf="match_details.red_driver_part_cor == 0">0</td>
