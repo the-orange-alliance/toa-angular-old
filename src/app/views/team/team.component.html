@@ -79,7 +79,7 @@
               <span><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span>
             </div>
             <div *ngIf="event.ranking">
-              <span>Overall team {{ team_key }} was <b>rank {{ event.ranking.rank }}</b> with a record of <b>{{ event.ranking.wins }}-{{ event.ranking.losses }}-{{ event.ranking.ties }}</b></span>
+              <span>Overall team {{ team_key }} was <b>Rank {{ event.ranking.rank }}</b> with a record of <b>{{ event.ranking.wins }}-{{ event.ranking.losses }}-{{ event.ranking.ties }}</b></span>
             </div>
             <div *ngIf="event.awards && event.awards.length > 0">
               <span>Awards include:</span>
