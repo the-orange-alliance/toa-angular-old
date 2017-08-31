@@ -256,15 +256,9 @@ text-decoration: none !important;
 
 .navbar-toggle {
   padding: 1px 6px;
-  color: #888;
-}
-
-.navbar-toggle[aria-expanded="false"] {
-  background-color: #f8f8f8 !important;
-}
-
-.navbar-toggle[aria-expanded="true"] {
-  background-color: #ddd !important;
+  color: #FFF;
+  border: 0;
+  background: none !important;
 }
 
 .dropdown-menu {
