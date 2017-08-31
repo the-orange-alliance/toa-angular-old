@@ -23,7 +23,10 @@
       </div>
       <ul id="search" class="dropdown-menu search-results" aria-labelledby="ftc_search">
         <li><a (click)="hideDropdown()">Close <span class="fa fa-close"></span></a></li>
-        <li *ngFor="let result of search_results"><a href="/teams/{{result.team_key}}">{{ result.team_key }} - {{ result.team_name_short }}</a></li>
+        <li *ngFor="let result of team_search_results"><a href="/teams/{{result.team_key}}">{{ result.team_key }} - {{ result.team_name_short }}</a></li>
+        <li *ngFor="let result of event_search_results"><a href="/events/{{result.event_key}}">{{ result.event_name }}</a></li>
+        <li *ngIf="team_search_results.length <= 0"><a><i>No team results</i></a></li>
+        <li *ngIf="event_search_results.length <= 0"><a><i>No event results</i></a></li>
       </ul>
     </form>
   </div>

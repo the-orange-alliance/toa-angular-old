@@ -9,10 +9,16 @@ import { FTCDatabase } from '../../providers/ftc-database';
 })
 export class AboutComponent {
 
+  ver_routes: any;
 
-  constructor(private router: Router) {
-
+  constructor(private router: Router, private ftc: FTCDatabase) {
+    this.ftc.getWebChangelog().subscribe((data) => {
+      this.ver_routes = data;
+    }, (err) => {
+      console.log(err);
+    });
   }
+
 
 
 }

@@ -69,10 +69,10 @@
         <tbody>
         <tr class="red">
           <td class="red" [class.match-winner]="qual_match.red_score >= qual_match.blue_score">
-            <a (click)="openTeamPage(getStation(qual_match, 0))">{{ getStation(qual_match, 0) }}</a>
+            <a href="/teams/{{ getStation(qual_match, 0) }}">{{ getStation(qual_match, 0) }}</a>
           </td>
           <td class="red" [class.match-winner]="qual_match.red_score >= qual_match.blue_score">
-            <a (click)="openTeamPage(getStation(qual_match, 1))">{{ getStation(qual_match, 1) }}</a>
+            <a href="/teams/{{ getStation(qual_match, 1) }}">{{ getStation(qual_match, 1) }}</a>
           </td>
           <td class="red" [class.match-winner]="qual_match.red_score >= qual_match.blue_score">
             {{ qual_match.red_score }}
@@ -80,10 +80,10 @@
         </tr>
         <tr class="blue">
           <td class="blue" [class.match-winner]="qual_match.red_score <= qual_match.blue_score">
-            <a (click)="openTeamPage(getStation(qual_match, 2))">{{ getStation(qual_match, 2) }}</a>
+            <a href="/teams/{{ getStation(qual_match, 2) }}">{{ getStation(qual_match, 2) }}</a>
           </td>
           <td class="blue" [class.match-winner]="qual_match.red_score <= qual_match.blue_score">
-            <a (click)="openTeamPage(getStation(qual_match, 3))">{{ getStation(qual_match, 3) }}</a>
+            <a href="/teams/{{ getStation(qual_match, 3) }}">{{ getStation(qual_match, 3) }}</a>
           </td>
           <td class="blue" [class.match-winner]="qual_match.red_score <= qual_match.blue_score">
             {{ qual_match.blue_score }}
@@ -110,13 +110,13 @@
         <tbody *ngIf="getNumberOfTeams(elim_match) == 6">
         <tr class="red">
           <td colspan="2" class="red" [class.match-winner]="elim_match.red_score >= elim_match.blue_score">
-            <a (click)="openTeamPage(getStation(elim_match, 0))">{{ getStation(elim_match, 0) }}</a>
+            <a href="/teams/{{ getStation(elim_match, 0) }}">{{ getStation(elim_match, 0) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="qual_match.red_score >= elim_match.blue_score">
-            <a (click)="openTeamPage(getStation(elim_match, 1))">{{ getStation(elim_match, 1) }}</a>
+            <a href="/teams/{{ getStation(elim_match, 1) }}">{{ getStation(elim_match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="elim_match.red_score >= elim_match.blue_score">
-            <a (click)="openTeamPage(getStation(elim_match, 2))">{{ getStation(elim_match, 2) }}</a>
+            <a href="/teams/{{ getStation(elim_match, 2) }}">{{ getStation(elim_match, 2) }}</a>
           </td>
           <td class="red" [class.match-winner]="elim_match.red_score >= elim_match.blue_score">
             {{ elim_match.red_score }}
@@ -124,13 +124,13 @@
         </tr>
         <tr class="blue">
           <td colspan="2" class="blue" [class.match-winner]="elim_match.red_score <= elim_match.blue_score">
-            <a (click)="openTeamPage(getStation(elim_match, 3))">{{ getStation(elim_match, 3) }}</a>
+            <a href="/teams/{{ getStation(elim_match, 3) }}">{{ getStation(elim_match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="elim_match.red_score <= elim_match.blue_score">
-            <a (click)="openTeamPage(getStation(elim_match, 4))">{{ getStation(elim_match, 4) }}</a>
+            <a href="/teams/{{ getStation(elim_match, 4) }}">{{ getStation(elim_match, 4) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="elim_match.red_score <= elim_match.blue_score">
-            <a (click)="openTeamPage(getStation(elim_match, 5))">{{ getStation(elim_match, 5) }}</a>
+            <a href="/teams/{{ getStation(elim_match, 5) }}">{{ getStation(elim_match, 5) }}</a>
           </td>
           <td class="blue" [class.match-winner]="elim_match.red_score <= elim_match.blue_score">
             {{ elim_match.blue_score }}
@@ -140,10 +140,10 @@
         <tbody *ngIf="getNumberOfTeams(elim_match) == 4">
         <tr class="red">
           <td colspan="3" class="red" [class.match-winner]="elim_match.red_score >= elim_match.blue_score">
-            <a (click)="openTeamPage(getStation(elim_match, 0))">{{ getStation(elim_match, 0) }}</a>
+            <a href="/teams/{{ getStation(elim_match, 0) }}">{{ getStation(elim_match, 0) }}</a>
           </td>
           <td colspan="3" class="red" [class.match-winner]="elim_match.red_score >= elim_match.blue_score">
-            <a (click)="openTeamPage(getStation(elim_match, 1))">{{ getStation(elim_match, 1) }}</a>
+            <a href="/teams/{{ getStation(elim_match, 1) }}">{{ getStation(elim_match, 1) }}</a>
           </td>
           <td class="red" [class.match-winner]="elim_match.red_score >= elim_match.blue_score">
             {{ elim_match.red_score }}
@@ -151,10 +151,10 @@
         </tr>
         <tr class="blue">
           <td colspan="3" class="blue" [class.match-winner]="elim_match.red_score <= elim_match.blue_score">
-            <a (click)="openTeamPage(getStation(elim_match, 2))">{{ getStation(elim_match, 2) }}</a>
+            <a href="/teams/{{ getStation(elim_match, 2) }}">{{ getStation(elim_match, 2) }}</a>
           </td>
           <td colspan="3" class="blue" [class.match-winner]="qual_match.red_score <= elim_match.blue_score">
-            <a (click)="openTeamPage(getStation(elim_match, 3))">{{ getStation(elim_match, 3) }}</a>
+            <a href="/teams/{{ getStation(elim_match, 3) }}">{{ getStation(elim_match, 3) }}</a>
           </td>
           <td class="blue" [class.match-winner]="elim_match.red_score <= elim_match.blue_score">
             {{ elim_match.blue_score }}
@@ -181,13 +181,13 @@
         <tbody *ngIf="getNumberOfTeams(normal_match) == 6">
         <tr class="red">
           <td colspan="2" class="red" [class.match-winner]="normal_match.red_score >= normal_match.blue_score">
-            <a (click)="openTeamPage(getStation(normal_match, 0))">{{ getStation(normal_match, 0) }}</a>
+            <a href="/teams/{{ getStation(normal_match, 0) }}">{{ getStation(normal_match, 0) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="qual_match.red_score >= normal_match.blue_score">
-            <a (click)="openTeamPage(getStation(normal_match, 1))">{{ getStation(normal_match, 1) }}</a>
+            <a href="/teams/{{ getStation(normal_match, 1) }}">{{ getStation(normal_match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="elim_match.red_score >= normal_match.blue_score">
-            <a (click)="openTeamPage(getStation(normal_match, 2))">{{ getStation(normal_match, 2) }}</a>
+            <a href="/teams/{{ getStation(normal_match, 2) }}">{{ getStation(normal_match, 2) }}</a>
           </td>
           <td class="red" [class.match-winner]="normal_match.red_score >= normal_match.blue_score">
             {{ normal_match.red_score }}
@@ -195,13 +195,13 @@
         </tr>
         <tr class="blue">
           <td colspan="2" class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
-            <a (click)="openTeamPage(getStation(normal_match, 3))">{{ getStation(normal_match, 3) }}</a>
+            <a href="/teams/{{ getStation(normal_match, 3) }}">{{ getStation(normal_match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
-            <a (click)="openTeamPage(getStation(normal_match, 4))">{{ getStation(normal_match, 4) }}</a>
+            <a href="/teams/{{ getStation(normal_match, 4) }}">{{ getStation(normal_match, 4) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
-            <a (click)="openTeamPage(getStation(normal_match, 5))">{{ getStation(normal_match, 5) }}</a>
+            <a href="/teams/{{ getStation(normal_match, 5) }}">{{ getStation(normal_match, 5) }}</a>
           </td>
           <td class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
             {{ normal_match.blue_score }}
@@ -211,10 +211,10 @@
         <tbody *ngIf="getNumberOfTeams(normal_match) == 4">
         <tr class="red">
           <td colspan="3" class="red" [class.match-winner]="normal_match.red_score >= normal_match.blue_score">
-            <a (click)="openTeamPage(getStation(normal_match, 0))">{{ getStation(normal_match, 0) }}</a>
+            <a href="/teams/{{ getStation(normal_match, 0) }}">{{ getStation(normal_match, 0) }}</a>
           </td>
           <td colspan="3" class="red" [class.match-winner]="normal_match.red_score >= normal_match.blue_score">
-            <a (click)="openTeamPage(getStation(normal_match, 1))">{{ getStation(normal_match, 1) }}</a>
+            <a href="/teams/{{ getStation(normal_match, 1) }}">{{ getStation(normal_match, 1) }}</a>
           </td>
           <td class="red" [class.match-winner]="normal_match.red_score >= normal_match.blue_score">
             {{ normal_match.red_score }}
@@ -222,10 +222,10 @@
         </tr>
         <tr class="blue">
           <td colspan="3" class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
-            <a (click)="openTeamPage(getStation(normal_match, 2))">{{ getStation(normal_match, 2) }}</a>
+            <a href="/teams/{{ getStation(normal_match, 2) }}">{{ getStation(normal_match, 2) }}</a>
           </td>
           <td colspan="3" class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
-            <a (click)="openTeamPage(getStation(normal_match, 3))">{{ getStation(normal_match, 3) }}</a>
+            <a href="/teams/{{ getStation(normal_match, 3) }}">{{ getStation(normal_match, 3) }}</a>
           </td>
           <td class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
             {{ normal_match.blue_score }}

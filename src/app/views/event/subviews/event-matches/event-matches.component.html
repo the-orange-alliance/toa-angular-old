@@ -39,19 +39,19 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td>
-            <a (click)="openMatchDetails(match)">{{ match.match_name }}</a>
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -65,13 +65,13 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td rowspan="2">
-            {{ match.match_name }}
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -79,10 +79,10 @@
         </tr>
         <tr class="hidden-lg">
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
@@ -101,25 +101,25 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td>
-            <a (click)="openMatchDetails(match)">{{ match.match_name }}</a>
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 4))">{{ getStation(match, 4) }}</a>
+            <a href="/teams/{{ getStation(match, 4) }}">{{ getStation(match, 4) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 5))">{{ getStation(match, 5) }}</a>
+            <a href="/teams/{{ getStation(match, 5) }}">{{ getStation(match, 5) }}</a>
           </td>
           <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -133,16 +133,16 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td rowspan="2">
-            {{ match.match_name }}
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -150,13 +150,13 @@
         </tr>
         <tr *ngIf="getNumberOfTeams(match) == 6" class="hidden-lg">
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 4))">{{ getStation(match, 4) }}</a>
+            <a href="/teams/{{ getStation(match, 4) }}">{{ getStation(match, 4) }}</a>
           </td>
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 5))">{{ getStation(match, 5) }}</a>
+            <a href="/teams/{{ getStation(match, 5) }}">{{ getStation(match, 5) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
@@ -167,19 +167,19 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td>
-            <a (click)="openMatchDetails(match)">{{ match.match_name }}</a>
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -193,13 +193,13 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td rowspan="2">
-            {{ match.match_name }}
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -207,10 +207,10 @@
         </tr>
         <tr *ngIf="getNumberOfTeams(match) == 4" class="hidden-lg">
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
@@ -229,25 +229,25 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td>
-            <a (click)="openMatchDetails(match)">{{ match.match_name }}</a>
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 4))">{{ getStation(match, 4) }}</a>
+            <a href="/teams/{{ getStation(match, 4) }}">{{ getStation(match, 4) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 5))">{{ getStation(match, 5) }}</a>
+            <a href="/teams/{{ getStation(match, 5) }}">{{ getStation(match, 5) }}</a>
           </td>
           <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -261,16 +261,16 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td rowspan="2">
-            {{ match.match_name }}
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -278,13 +278,13 @@
         </tr>
         <tr *ngIf="getNumberOfTeams(match) == 6" class="hidden-lg">
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 4))">{{ getStation(match, 4) }}</a>
+            <a href="/teams/{{ getStation(match, 4) }}">{{ getStation(match, 4) }}</a>
           </td>
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 5))">{{ getStation(match, 5) }}</a>
+            <a href="/teams/{{ getStation(match, 5) }}">{{ getStation(match, 5) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
@@ -295,19 +295,19 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td>
-            <a (click)="openMatchDetails(match)">{{ match.match_name }}</a>
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -321,13 +321,13 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td rowspan="2">
-            {{ match.match_name }}
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -335,10 +335,10 @@
         </tr>
         <tr *ngIf="getNumberOfTeams(match) == 4" class="hidden-lg">
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
@@ -357,25 +357,25 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td>
-            <a (click)="openMatchDetails(match)">{{ match.match_name }}</a>
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 4))">{{ getStation(match, 4) }}</a>
+            <a href="/teams/{{ getStation(match, 4) }}">{{ getStation(match, 4) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 5))">{{ getStation(match, 5) }}</a>
+            <a href="/teams/{{ getStation(match, 5) }}">{{ getStation(match, 5) }}</a>
           </td>
           <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -389,16 +389,16 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td rowspan="2">
-            {{ match.match_name }}
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -406,13 +406,13 @@
         </tr>
         <tr *ngIf="getNumberOfTeams(match) == 6" class="hidden-lg">
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 4))">{{ getStation(match, 4) }}</a>
+            <a href="/teams/{{ getStation(match, 4) }}">{{ getStation(match, 4) }}</a>
           </td>
           <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 5))">{{ getStation(match, 5) }}</a>
+            <a href="/teams/{{ getStation(match, 5) }}">{{ getStation(match, 5) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}
@@ -423,19 +423,19 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td>
-            <a (click)="openMatchDetails(match)">{{ match.match_name }}</a>
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -449,13 +449,13 @@
             <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
           </td>
           <td rowspan="2">
-            {{ match.match_name }}
+            <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 0))">{{ getStation(match, 0) }}</a>
+            <a href="/teams/{{ getStation(match, 0) }}">{{ getStation(match, 0) }}</a>
           </td>
           <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 1))">{{ getStation(match, 1) }}</a>
+            <a href="/teams/{{ getStation(match, 1) }}">{{ getStation(match, 1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
             {{ match.red_score }}
@@ -463,10 +463,10 @@
         </tr>
         <tr *ngIf="getNumberOfTeams(match) == 4" class="hidden-lg">
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 2))">{{ getStation(match, 2) }}</a>
+            <a href="/teams/{{ getStation(match, 2) }}">{{ getStation(match, 2) }}</a>
           </td>
           <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
-            <a (click)="openTeamPage(getStation(match, 3))">{{ getStation(match, 3) }}</a>
+            <a href="/teams/{{ getStation(match, 3) }}">{{ getStation(match, 3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
             {{ match.blue_score }}

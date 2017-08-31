@@ -63,6 +63,30 @@ export class EventFilter {
     }
   }
 
+  public searchFilter(query: string) {
+    if (query && query.trim() !== '' && query !== null) {
+      this.events_filtered = this.events.filter((event) => {
+        query = query.toLowerCase();
+
+        const event_region = (event.region_key || 'null').toLowerCase();
+        const event_city = (event.city + '' || 'null').toLowerCase();
+        const event_state_prov = (event.state_prov + '' || 'null').toLowerCase();
+        const event_country = (event.country + '' || 'null').toLowerCase();
+        const event_name = (event.event_name || "null").toLowerCase();
+
+        const contains_region = (event_region.indexOf(query) > -1);
+        const contains_city = (event_city.indexOf(query) > -1);
+        const contains_state_prov = (event_state_prov.indexOf(query) > -1);
+        const contains_country = (event_country.indexOf(query) > -1);
+        const contains_name = (event_name.indexOf(query) > -1);
+
+        return contains_region || contains_city || contains_state_prov || contains_country || contains_name;
+      });
+    } else {
+      this.events_filtered = this.events;
+    }
+  }
+
   public getOriginalArray() {
     return this.events;
   }

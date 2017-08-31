@@ -166,15 +166,10 @@
 
   <h2><b class="primary">The Orange Alliance</b> Changelog</h2>
 
-  <div class="row">
+  <div *ngFor="let ver of ver_routes" class="row">
     <div class="col-xs-12">
-      <h3>v1.B.0 - BETA <small>August 26th, 2017</small></h3>
-      <ul>
-        <li>Created Base for Website</li>
-        <li>Created Team Views</li>
-        <li>Created Event View</li>
-        <li>Created About, API Docs, Privacy and Terms Static Pages</li>
-      </ul>
+      <h3>{{ ver.version }} <small>{{ ver.release_date | date :  "mediumDate"  }}</small></h3>
+      <p>{{ ver.change_log }}</p>
     </div>
   </div>
 

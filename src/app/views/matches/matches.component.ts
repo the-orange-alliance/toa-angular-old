@@ -29,16 +29,20 @@ export class MatchesComponent implements OnInit {
   ngOnInit() {
     const season_split = this.match_key.toString().split('-')[0];
     this.ftc.getMatchDetail(this.match_key, this.convertSeasonToYear(season_split)).subscribe((match_data) => {
-      this.match_data = match_data[0][0];
-      this.match_details = match_data[1][0];
-      this.match_stations = match_data[2];
+      if (!match_data[0][0]) {
+        this.router.navigate(['/not-found']);
+      } else {
+        this.match_data = match_data[0][0];
+        this.match_details = match_data[1][0];
+        this.match_stations = match_data[2];
 
-      // this.auton_fields = this.getAutonFields(this.match_details);
-      // this.teleop_fields = this.getTeleopFields(this.match_details);
+        // this.auton_fields = this.getAutonFields(this.match_details);
+        // this.teleop_fields = this.getTeleopFields(this.match_details);
 
-      this.ftc.getEventName(this.match_data.event_key).subscribe((data) => {
-        this.match_event = data[0];
-      });
+        this.ftc.getEventName(this.match_data.event_key).subscribe((data) => {
+          this.match_event = data[0];
+        });
+      }
     }, (err) => {
       console.log(err);
     });
