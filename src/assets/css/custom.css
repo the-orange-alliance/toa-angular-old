@@ -171,6 +171,14 @@ footer > div > div > p > a:hover, footer > div > div > p > a:active {
   text-decoration: none;
 }
 
+#side-bar {
+  padding: 5px !important;
+  width: 20%;
+  position: absolute;
+  left: 5%;
+  background-color: #efefef;
+}
+
 /* Used for website header. */
 
 .whitetext {
@@ -256,15 +264,9 @@ text-decoration: none !important;
 
 .navbar-toggle {
   padding: 1px 6px;
-  color: #888;
-}
-
-.navbar-toggle[aria-expanded="false"] {
-  background-color: #f8f8f8 !important;
-}
-
-.navbar-toggle[aria-expanded="true"] {
-  background-color: #ddd !important;
+  color: #FFF;
+  border: 0;
+  background: none !important;
 }
 
 .dropdown-menu {
