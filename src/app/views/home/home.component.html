@@ -1,13 +1,6 @@
 <!-- MAIN CONTAINER -->
 <main class="container">
 
-  <!--<div id="side-bar">
-    <h2>Welcome!</h2>
-    <p>
-      The Orange Alliance is a project to help make FTC match, event and team information more accessible. The project is in it's early stages, so many pages aren't complete and a lot of data is missing. You're more than welcome to submit data or contribute code. Our code is on
-      <a href="https://github.com/orange-alliance">GitHub</a> and you can contact us <a href="https://goo.gl/forms/kgMtJgXq6QCny4vm1">here</a> or on <a href="https://discord.gg/5fH66UV">Discord</a>.</p>
-  </div>-->
-
   <div *ngIf="current_announcement" class="row">
     <div class="col-xs-12 col-md-8 col-md-offset-2">
       <h2 class="mar-0">{{ current_announcement.title }}</h2>
@@ -18,7 +11,18 @@
       <a *ngIf="current_announcement.read_more && current_announcement.read_more.length > 0" href="/blog/{{ current_announcement.read_more }}">Read More</a>
     </div>
   </div>
-
+<!--
+  <div id="side-bar">
+    <h2>Welcome!</h2>
+    <p>
+      The Orange Alliance is a project to help make FTC match, event and team information more accessible. The project is in it's early stages, so many pages aren't complete and a lot of data is missing. You're more than welcome to submit data or contribute code.</p>
+      <button onclick="window.location.href='https://discord.gg/5fH66UV'" class="sidebar-button">Chat with us on Discord!</button>
+      <br>
+      <button onclick="window.location.href='https://goo.gl/forms/kgMtJgXq6QCny4vm1'" class="sidebar-button">Contact us Here!</button>
+      <br>
+      <button onclick="window.location.href='https://github.com/orange-alliance'" class="sidebar-button">Contribute on Github!</button>
+  </div>
+-->
   <br/>
 
   <div class="row">
