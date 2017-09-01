@@ -67,7 +67,7 @@ export class EventMatchesComponent implements OnInit {
   getStation(match_data, station: number): string {
     const teams = match_data.teams.toString().split(',');
     const stations = match_data.station_status.toString().split(',');
-    if (stations[station] === 0) {
+    if (stations[station] === '0') {
       return teams[station] + '*';
     } else {
       return teams[station];

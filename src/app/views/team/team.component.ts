@@ -220,7 +220,13 @@ export class TeamComponent implements OnInit {
   }
 
   getStation(match_data, station: number): string {
-    return match_data.teams.toString().split(',')[station];
+    const teams = match_data.teams.toString().split(',');
+    const stations = match_data.station_status.toString().split(',');
+    if (stations[station] === '0') {
+      return teams[station] + '*';
+    } else {
+      return teams[station];
+    }
   }
 
   getStationLength(match_data): number {
