@@ -183,7 +183,7 @@ footer > div > div > p > a:hover, footer > div > div > p > a:active {
     display:block;
     width: 20%;
     position: absolute;
-    background-color: #efefef;
+    background-color: #eef;
     border-radius: 25px;
     border: 2px solid #ff9800;
   }
