@@ -1,6 +1,13 @@
 <!-- MAIN CONTAINER -->
 <main class="container">
 
+  <div id="side-bar">
+    <h2>Welcome!</h2>
+    <p>
+      The Orange Alliance is a project to help make FTC match, event and team information more accessible. The project is in it's early stages, so many pages aren't complete and a lot of data is missing. You're more than welcome to submit data or contribute code. Our code is on 
+      <a href="https://github.com/orange-alliance">GitHub</a> and you can contact us <a href="https://goo.gl/forms/kgMtJgXq6QCny4vm1">here</a> or on <a href="https://discord.gg/5fH66UV">Discord</a>.</p>
+  </div>
+
   <div *ngIf="current_announcement" class="row">
     <div class="col-xs-12 col-md-8 col-md-offset-2">
       <h2 class="mar-0">{{ current_announcement.title }}</h2>
