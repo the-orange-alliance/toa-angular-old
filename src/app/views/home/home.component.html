@@ -8,7 +8,7 @@
     </div>
     <div class="col-xs-12 col-md-8 col-md-offset-2">
       <p>{{ current_announcement.text }}</p>
-      <a href="{{ current_announcement.read_more }}">Read More</a>
+      <a *ngIf="current_announcement.read_more && current_announcement.read_more.length > 0" href="/blog/{{ current_announcement.read_more }}">Read More</a>
     </div>
   </div>
 
