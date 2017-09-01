@@ -15,7 +15,8 @@ export class TeamFilter {
       this.teams_filtered = this.teams.filter((team) => {
 
         const team_number = (team.team_number + '' || 'null').toLowerCase();
-        const team_name = (team.team_name_long + '' || 'null').toLowerCase();
+        const team_school = (team.team_name_long + '' || 'null').toLowerCase();
+        const team_name = (team.team_name_short + '' || 'null').toLowerCase();
         const team_region = (team.region_key + '' || 'null').toLowerCase();
         const team_league = (team.league_key + '' || 'null').toLowerCase();
         const team_city = (team.city + '' || 'null').toLowerCase();
@@ -24,6 +25,7 @@ export class TeamFilter {
 
         let contains_region = false;
         let contains_number = false;
+        let contains_school = false;
         let contains_name = false;
         let contains_city = false;
         let contains_state_prov = false;
@@ -39,6 +41,7 @@ export class TeamFilter {
           name_query = name_query.toLowerCase();
           contains_number = (team_number.indexOf(name_query) > -1);
           contains_name = (team_name.indexOf(name_query) > -1);
+          contains_school = (team_school.indexOf(name_query) > -1);
         }
 
         if (location_query) {
@@ -53,7 +56,7 @@ export class TeamFilter {
           contains_league = (team_league === league_query);
         }
 
-        return contains_number || contains_name || contains_region
+        return contains_number || contains_name || contains_region || contains_school
         || contains_league || contains_city || contains_state_prov || contains_country;
       });
     } else {
