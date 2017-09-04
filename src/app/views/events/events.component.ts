@@ -56,31 +56,31 @@ export class EventsComponent implements OnInit {
 
   organizeEventsByWeek(): void {
     this.weeks = [];
-    let cur_date = null;
-    for (const event of this.events) {
-      if (event.start_date !== cur_date) {
+    let cur_week = null;
+    for (let event of this.events) {
+      if (event.week_key != cur_week) {
         this.weeks.push({
           'week': event.week_key,
           'start_date': event.start_date,
           'end_date': event.end_date
         });
-        cur_date = event.start_date;
+        cur_week = event.week_key;
       }
     }
+  }
+
+  getEventsByWeek(week: any): any {
+    let filtered_events = [];
+    for (let event of this.events) {
+      if (event.week_key == week.week) {
+        filtered_events.push(event);
+      }
+    }
+    return filtered_events;
   }
 
   openEvent(event_key): void {
     this.router.navigate(['/events', event_key]);
-  }
-
-  getEventsByWeek(week: any): any {
-    const new_events = [];
-    for (const event of this.events) {
-      if (event.week_key === week.week && event.start_date === week.start_date) {
-        new_events.push(event);
-      }
-    }
-    return new_events;
   }
 
   selectSeason(season: any) {

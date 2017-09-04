@@ -159,6 +159,7 @@ footer {
   color: white;
   padding-top: 15px;
   padding-bottom: 15px;
+  box-shadow: 0px 10000px 0px 10000px #ff9800;
 }
 
 footer > div > div > p > a, footer > div > div > p > a:visited {
@@ -171,11 +172,59 @@ footer > div > div > p > a:hover, footer > div > div > p > a:active {
   text-decoration: none;
 }
 
+@media (min-width: 1350px) {
+  #side-bar {
+    padding-right: 5px !important;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    left: 20px;
+    display:block;
+    width: 20%;
+    position: absolute;
+    background-color: #eef;
+    border-radius: 25px;
+    border: 2px solid #ff9800;
+  }
+}
+
+@media (max-width: 1349px) {
+  #side-bar {
+    width: 100%;
+  }
+}
+
+.sidebar-button {
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  background-color: #efefef;
+  color: black;
+  border: 2px solid #ff9800;
+  border-radius: 25px;
+  display:block;
+  width: 75%;
+  margin:0 auto;
+}
+
+.sidebar-button:hover {
+  background-color: #ff9800;
+  color: #efefef;
+}
+
 /* Used for website header. */
 
 .whitetext {
 color:white;
 text-decoration: none !important;
+}
+
+.whitetext:hover {
+  color:white;
+}
+
+.whitetext:visited {
+  color:white;
 }
 
 /* Extra small devices (phones, 320px and up, bootstrap default) */
@@ -256,15 +305,9 @@ text-decoration: none !important;
 
 .navbar-toggle {
   padding: 1px 6px;
-  color: #888;
-}
-
-.navbar-toggle[aria-expanded="false"] {
-  background-color: #f8f8f8 !important;
-}
-
-.navbar-toggle[aria-expanded="true"] {
-  background-color: #ddd !important;
+  color: #FFF;
+  border: 0;
+  background: none !important;
 }
 
 .dropdown-menu {
