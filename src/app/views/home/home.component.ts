@@ -20,7 +20,7 @@ export class HomeComponent {
 
   constructor(private router: Router, private ftc: FTCDatabase) {
     this.ftc.getAllMatches().subscribe((match_data) => {
-      this.match_count = match_data[0].MatchCount;
+      this.match_count = match_data[0].match_count;
     }, (err) => {
       console.log(err);
     });

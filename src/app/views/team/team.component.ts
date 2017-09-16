@@ -28,7 +28,7 @@ export class TeamComponent implements OnInit {
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router) {
     this.team_key = this.route.snapshot.params['team_key'];
-    this.current_season = { season_key: "1617", season_desc: "Velocity Vortex" };
+    this.current_season = { season_key: '1617', season_desc: 'Velocity Vortex' };
     this.qual_matches = [];
     this.quarters_matches = [];
     this.semis_matches = [];
@@ -38,7 +38,7 @@ export class TeamComponent implements OnInit {
 
   ngOnInit(): void {
     this.years = [];
-    this.ftc.getTeam(this.team_key, 2017).subscribe((data) => {
+    this.ftc.getTeam(this.team_key).subscribe((data) => {
       if (!data[0][0]) {
         this.router.navigate(['/not-found']);
       } else {
@@ -180,43 +180,7 @@ export class TeamComponent implements OnInit {
   }
 
   convertSeason(season: any) {
-    let year = 2017;
-    switch (season.season_key) {
-      case "1718":
-        year = 2018;
-        break;
-      case "1617":
-        year = 2017;
-        break;
-      case "1516":
-        year = 2016;
-        break;
-      case "1415":
-        year = 2015;
-        break;
-      case "1314":
-        year = 2014;
-        break;
-      case "1213":
-        year = 2013;
-        break;
-      case "1112":
-        year = 2012;
-        break;
-      case "1011":
-        year = 2011;
-        break;
-      case "0910":
-        year = 2010;
-        break;
-      case "0809":
-        year = 2009;
-        break;
-      case "0708":
-        year = 2008;
-        break;
-    }
-    return year;
+    return season.season_key;
   }
 
   getStation(match_data, station: number): string {

@@ -36,11 +36,11 @@
             </div>
             <div *ngIf="regions" class="dropdown col-xs-8">
               <button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{ current_region.region_key }} <span *ngIf="current_region.region_desc">- {{ current_region.region_desc }}</span>
+                {{ current_region.region_key }} <span *ngIf="current_region.description">- {{ current_region.description}}</span>
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="ftc_district">
-                <li *ngFor="let region of regions"><a (click)="selectRegion(region)">{{ region.region_key }} <span *ngIf="region.region_desc">- {{ region.region_desc }}</span></a></li>
+                <li *ngFor="let region of regions"><a (click)="selectRegion(region)">{{ region.region_key }} <span *ngIf="region.description">- {{ region.description }}</span></a></li>
               </ul>
             </div>
 

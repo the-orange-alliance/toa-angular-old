@@ -103,7 +103,7 @@ export class EventsComponent implements OnInit {
   selectRegion(region: any) {
     if (this.current_region.region_key !== region.region_key) {
       this.current_region = region;
-      if (this.current_region.region_desc) {
+      if (this.current_region.description) {
         this.event_filter.filterArray(this.current_region.region_key);
         this.events = this.event_filter.getFilteredArray();
       } else {

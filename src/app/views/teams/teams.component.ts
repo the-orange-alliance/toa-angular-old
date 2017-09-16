@@ -39,7 +39,7 @@ export class TeamsComponent implements OnInit {
 
   ngOnInit(): void {
     this.ftc.getAllTeams().subscribe((data) => {
-      this.teams_count = data[0].TeamsCount;
+      this.teams_count = data[0].team_count;
       this.pages = [];
       for (let i = 0; i < Math.ceil(this.teams_count / TEAMS_PER_PAGE); i++) {
         this.pages.push({ index: (i) });
@@ -88,7 +88,7 @@ export class TeamsComponent implements OnInit {
     } else {
       this.cur_page = page_index;
     }
-    this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page+1) * TEAMS_PER_PAGE));
+    this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
   }
 
   incIndex() {
@@ -102,11 +102,11 @@ export class TeamsComponent implements OnInit {
   selectRegion(region: any) {
     if (this.current_region.region_key !== region.region_key) {
       this.current_region = region;
-      if (this.current_region.region_desc) {
+      if (this.current_region.description) {
         this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
         this.current_teams = this.teams_filter.getFilteredArray();
       } else {
-        this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page+1) * TEAMS_PER_PAGE));
+        this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
       }
     }
   }
@@ -114,11 +114,11 @@ export class TeamsComponent implements OnInit {
   selectLeague(league: any) {
     if (this.current_league.region_key !== league.league_key) {
       this.current_league = league;
-      if (this.current_league.league_desc) {
+      if (this.current_league.description) {
         this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
         this.current_teams = this.teams_filter.getFilteredArray();
       } else {
-        this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page+1) * TEAMS_PER_PAGE));
+        this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
       }
     }
   }
@@ -128,7 +128,7 @@ export class TeamsComponent implements OnInit {
       this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
       this.current_teams = this.teams_filter.getFilteredArray();
     } else {
-      this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page+1) * TEAMS_PER_PAGE));
+      this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
     }
   }
 
@@ -137,7 +137,7 @@ export class TeamsComponent implements OnInit {
       this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
       this.current_teams = this.teams_filter.getFilteredArray();
     } else {
-      this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page+1) * TEAMS_PER_PAGE));
+      this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
     }
   }
 
@@ -146,7 +146,7 @@ export class TeamsComponent implements OnInit {
     this.current_region = this.regions[this.regions.length - 1];
     this.team_query = null;
     this.location_query = null;
-    this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page+1) * TEAMS_PER_PAGE));
+    this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
   }
 
 }
