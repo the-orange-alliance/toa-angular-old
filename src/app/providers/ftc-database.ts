@@ -14,7 +14,7 @@ export class FTCDatabase {
     const auth_header = new Headers({
       'X-Application-Origin': 'TOA'
     });
-    return this.http.get('http://theorangealliance.org:8009/apiv2' + url, { headers: auth_header });
+    return this.http.get('http://theorangealliance.org/apiv2' + url, { headers: auth_header });
   }
 
   public getAnnouncements() {
