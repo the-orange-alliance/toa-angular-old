@@ -28,7 +28,7 @@ export class TeamComponent implements OnInit {
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router) {
     this.team_key = this.route.snapshot.params['team_key'];
-    this.current_season = { season_key: '1617', season_desc: 'Velocity Vortex' };
+    this.current_season = { season_key: '1718', season_desc: 'Relic Recovery' };
     this.qual_matches = [];
     this.quarters_matches = [];
     this.semis_matches = [];

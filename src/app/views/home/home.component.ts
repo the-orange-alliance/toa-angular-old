@@ -81,9 +81,9 @@ export class HomeComponent {
     }, (err) => {
       console.log(err);
     });
-    this.ftc.getSeasonEvents('1617').subscribe((data) => {
+    this.ftc.getSeasonEvents('1718').subscribe((data) => {
       const today = new Date();
-      const next_week = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const next_week = new Date(today.getTime() + 4 * 24 * 60 * 60 * 1000);
       this.current_events = [];
       for (const event of data) {
         if (this.isInDateRange(new Date(event.start_date), new Date(event.end_date), today, next_week)) {

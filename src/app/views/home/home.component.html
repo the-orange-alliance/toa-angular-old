@@ -49,7 +49,7 @@
         </tbody>
         <tbody *ngIf="current_events.length > 0">
         <tr *ngFor="let event of current_events">
-          <td>{{ event.event_name }}</td>
+          <td><a (click)="openEvent(event.event_key, $event)">{{ event.event_name }}</a></td>
           <td>{{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</td>
         </tr>
         </tbody>
@@ -61,7 +61,7 @@
 
   <div class="row">
     <div class="col-xs-12 col-md-8 col-md-offset-2">
-      <h3 class="mar-0">2016-2017 FTC Recap</h3>
+      <h3 class="mar-0">2017-2018 FTC Statistics</h3>
       <h3 class="mar-0"><small *ngIf="match_count"> {{ match_count }} Matches</small></h3>
     </div>
   </div>
