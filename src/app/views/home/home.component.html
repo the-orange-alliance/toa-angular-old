@@ -52,7 +52,8 @@
         <tr *ngFor="let event of current_events">
           <td>{{ event.region_key }}</td>
           <td><a href="/events/{{ event.event_key }}">{{ event.event_name }}</a></td>
-          <td>{{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</td>
+          <td *ngIf="event.start_date != event.end_date">{{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</td>
+          <td *ngIf="event.start_date == event.end_date">{{ event.start_date | date :  "mediumDate"}}</td>
         </tr>
         </tbody>
       </table>

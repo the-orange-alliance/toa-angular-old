@@ -37,7 +37,8 @@
               <span class="fa fa-calendar"></span>
             </div>
             <div class="col-xs-10 col-md-11">
-              {{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}
+              <span *ngIf="event.start_date != event.end_date">{{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span>
+              <span *ngIf="event.start_date == event.end_date">{{ event.start_date | date :  "mediumDate"}}</span>
             </div>
           </div>
 
@@ -46,7 +47,8 @@
               <span class="fa fa-location-arrow"></span>
             </div>
             <div class="col-xs-10 col-md-11">
-              <a href="https://www.google.com/maps/search/{{ event.venue }} in {{ event.city }}, {{ event.state_prov }}" target="_blank">{{ event.venue }} in {{ event.city }}, {{ event.state_prov }}</a>
+              <span *ngIf="event.venue"><a href="https://www.google.com/maps/search/{{ event.venue }} in {{ event.city }}, {{ event.state_prov }}" target="_blank">{{ event.venue }} in {{ event.city }}, {{ event.state_prov }}</a></span>
+              <span *ngIf="event.venue == null">{{ event.city }}, {{ event.state_prov }}</span>
             </div>
           </div>
 
@@ -55,7 +57,7 @@
               <span class="fa fa-globe"></span>
             </div>
             <div class="col-xs-10 col-md-11">
-              <span *ngIf="event.event_website"><a href="{{ event.event_website }}" target="_blank">{{ event.event_website }}</a></span>
+              <span *ngIf="event.event_website"><a href="{{ event.event_website }}" target="_blank">Website</a></span>
               <span *ngIf="event.event_website == null"><i>Website N/A</i></span>
             </div>
           </div>
