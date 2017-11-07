@@ -7,6 +7,7 @@
   </div>
 
   <div class="row">
+
     <div *ngIf="match_data" class="col-xs-12 col-md-6 pad-bot-25">
 
       <table class="match-table">
@@ -109,179 +110,12 @@
       </div>
 
     </div>
-  </div>
 
-  <div class="row">
+    <!-- SWITCH STATEMENT BASICALLY HERE -->
 
-    <div class="col-xs-12 col-md-6">
-      <table class="match-table">
-        <thead>
-        <tr>
-          <th colspan="12">Auton Details</th>
-        </tr>
-        <tr>
-          <th colspan="3">Red Alliance</th>
-          <th colspan="6">Field</th>
-          <th colspan="3">Blue Alliance</th>
-        </tr>
-        </thead>
-        <tbody *ngIf="!match_details">
-        <tr>
-          <td colspan="12"><i>There is no available auton detail for this match.</i></td>
-        </tr>
-        </tbody>
-        <tbody *ngIf="match_details">
-        <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_part_cen == 0">0</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_part_cen != 0">{{ match_details.red_auto_part_cen }} ( +{{ match_details.red_auto_part_cen * 15 }} )</td>
-          <td colspan="6">Auto Center Vortex</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_part_cen == 0">0</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_part_cen != 0">{{ match_details.blue_auto_part_cen }} ( +{{ match_details.blue_auto_part_cen * 15 }} )</td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_part_cor == 0">0</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_part_cor != 0">{{ match_details.red_auto_part_cor }} ( +{{ match_details.red_auto_part_cor * 5 }} )</td>
-          <td colspan="6">Auto Corner Vortex</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_part_cor == 0">0</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_part_cor != 0">{{ match_details.blue_auto_part_cor }} ( +{{ match_details.blue_auto_part_cor * 5 }} )</td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_beacons == 0">None</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_beacons == 1"><img src="../../../assets/imgs/Beacon.png"> ( +30 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_beacons == 2"><img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> ( +60 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_beacons == 3"><img src="../../../assets/imgs/Beacon.png">  <img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> ( +90 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_beacons == 4"><img src="../../../assets/imgs/Beacon.png">  <img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> ( +120 )</td>
-          <td colspan="6">Auto Beacons</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_beacons == 0">None</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_beacons == 1"><img src="../../../assets/imgs/Beacon.png"> ( +30 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_beacons == 2"><img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> ( +60 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_beacons == 3"><img src="../../../assets/imgs/Beacon.png">  <img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> ( +90 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_beacons == 4"><img src="../../../assets/imgs/Beacon.png">  <img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> ( +120 )</td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_cap.data[0] == 1"><img src="../../../assets/imgs/CheckMark.png"> ( +5 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_cap.data[0] == 0"><img src="../../../assets/imgs/x.png"></td>
-          <td colspan="6">Cap Ball on Floor</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_cap.data[0] == 1"><img src="../../../assets/imgs/CheckMark.png"> ( +5 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_cap.data[0] == 0"><img src="../../../assets/imgs/x.png"></td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_robot_one == 0">Not Parked</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_robot_one == 1">On Center Vortex ( +5 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_robot_one == 2">Completely On Center Vortex ( +10 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_robot_one == 3">On Corner Ramp ( +5 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_robot_one == 4">Completely On Corner Ramp ( +10 )</td>
-          <td colspan="6">Robot One Parked</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_robot_one == 0">Not Parked</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_robot_one == 1">On Center Vortex ( +5 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_robot_one == 2">Completely On Center Vortex ( +10 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_robot_one == 3">On Corner Ramp ( +5 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_robot_one == 4">Completely On Corner Ramp ( +10 )</td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_robot_two == 0">Not Parked</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_robot_two == 1">On Center Vortex ( +5 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_robot_two == 2">Completely On Center Vortex ( +10 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_robot_two == 3">On Corner Ramp ( +5 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_auto_robot_two == 4">Completely On Corner Ramp ( +10 )</td>
-          <td colspan="6">Robot Two Parked</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_robot_two == 0">Not Parked</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_robot_two == 1">On Center Vortex ( +5 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_robot_two == 2">Completely On Center Vortex ( +10 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_robot_two == 3">On Corner Ramp ( +5 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_auto_robot_two == 4">Completely On Corner Ramp ( +10 )</td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red"><strong>{{ match_data.red_auto_score }}</strong></td>
-          <td colspan="6"><strong>Auto Total</strong></td>
-          <td colspan="3" class="blue"><strong>{{ match_data.blue_auto_score }}</strong></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="col-xs-12 col-md-6">
-      <table class="match-table">
-        <thead>
-        <tr>
-          <th colspan="12">Teleop Details</th>
-        </tr>
-        <tr>
-          <th colspan="3">Red Alliance</th>
-          <th colspan="6">Field</th>
-          <th colspan="3">Blue Alliance</th>
-        </tr>
-        </thead>
-        <tbody *ngIf="!match_details">
-        <tr>
-          <td colspan="12"><i>There is no available teleop detail for this match.</i></td>
-        </tr>
-        </tbody>
-        <tbody *ngIf="match_details">
-        <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_part_cen == 0">0</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_part_cen != 0">{{ match_details.red_driver_part_cen }} ( +{{ match_details.red_driver_part_cen * 5 }} )</td>
-          <td colspan="6">Tele Center Vortex</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_part_cen == 0">0</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_part_cen != 0">{{ match_details.blue_driver_part_cen }} ( +{{ match_details.blue_driver_part_cen * 5 }} )</td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_part_cor == 0">0</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_part_cor != 0">{{ match_details.red_driver_part_cor }} ( +{{ match_details.red_driver_part_cor * 1 }} )</td>
-          <td colspan="6">Tele Corner Vortex</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_part_cor == 0">0</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_part_cor != 0">{{ match_details.blue_driver_part_cor }} ( +{{ match_details.blue_driver_part_cor * 1 }} )</td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_beacons == 0">None</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_beacons == 1"><img src="../../../assets/imgs/Beacon.png"> ( +10 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_beacons == 2"><img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> ( +20 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_beacons == 3"><img src="../../../assets/imgs/Beacon.png">  <img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> ( +30 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_beacons == 4"><img src="../../../assets/imgs/Beacon.png">  <img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> ( +40 )</td>
-          <td colspan="6">Tele Beacons</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_beacons == 0">None</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_beacons == 1"><img src="../../../assets/imgs/Beacon.png"> ( +10 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_beacons == 2"><img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> ( +20 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_beacons == 3"><img src="../../../assets/imgs/Beacon.png">  <img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> ( +30 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_beacons == 4"><img src="../../../assets/imgs/Beacon.png">  <img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> <img src="../../../assets/imgs/Beacon.png"> ( +40 )</td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_cap == 0">Not Scored</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_cap == 1">Low ( +10 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_cap == 2">High ( +20 )</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_driver_cap == 3">Capping ( +40 )</td>
-          <td colspan="6">Cap Ball</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_cap == 0">Not Scored</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_cap == 1">Low ( +10 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_cap == 2">High ( +20 )</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_driver_cap == 3">Capping ( +40 )</td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red"><strong>{{ match_data.red_tele_score + match_data.red_end_score }}</strong></td>
-          <td colspan="6"><strong>Teleop Total</strong></td>
-          <td colspan="3" class="blue"><strong>{{ match_data.blue_tele_score + match_data.blue_end_score }}</strong></td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_minor_penalty == 0">0</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_minor_penalty != 0">{{ match_details.red_minor_penalty }} ( +{{ match_details.red_minor_penalty * 10 }} )</td>
-          <td colspan="6">Minor Penalty</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_minor_penalty == 0">0</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_minor_penalty != 0">{{ match_details.blue_minor_penalty }} ( +{{ match_details.blue_minor_penalty * 10 }} )</td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red" *ngIf="match_details.red_major_penalty == 0">0</td>
-          <td colspan="3" class="red" *ngIf="match_details.red_major_penalty != 0">{{ match_details.red_major_penalty }} ( +{{ match_details.red_major_penalty * 40 }} )</td>
-          <td colspan="6">Major Penalty</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_major_penalty == 0">0</td>
-          <td colspan="3" class="blue" *ngIf="match_details.blue_major_penalty != 0">{{ match_details.blue_major_penalty }} ( +{{ match_details.blue_major_penalty * 40 }} )</td>
-        </tr>
-        <tr>
-          <td colspan="3" class="red"><strong>{{ match_data.red_penalty }}</strong></td>
-          <td colspan="6"><strong>Penalty Total</strong></td>
-          <td colspan="3" class="blue"><strong>{{ match_data.blue_penalty }}</strong></td>
-        </tr>
-        </tbody>
-      </table>
+    <div class="row" *ngIf="match_data && match_details && match_stations">
+      <velocity-vortex *ngIf="getMatchSeason() == 1617" [match_data]="match_data" [match_details]="match_details" [match_stations]="match_stations"></velocity-vortex>
+      <relic-recovery *ngIf="getMatchSeason() == 1718" [match_data]="match_data" [match_details]="match_details" [match_stations]="match_stations"></relic-recovery>
     </div>
 
   </div>
