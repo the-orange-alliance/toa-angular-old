@@ -83,11 +83,11 @@ export class HomeComponent {
     });
     this.ftc.getSeasonEvents('1718').subscribe((data) => {
       const today = new Date();
-      const now = new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000);
-      const next_week = new Date(today.getTime() + 4 * 24 * 60 * 60 * 1000);
       this.current_events = [];
       for (const event of data) {
-        if (this.isInDateRange(new Date(event.start_date), new Date(event.end_date), now, next_week)) {
+        let week_start = this.getStartOfWeek(new Date(event.start_date));
+        let week_end = this.getEndofWeek(new Date(event.end_date));
+        if (this.isBetweenDates(week_start, week_end, today)) {
           this.current_events.push(event);
         }
       }
@@ -107,13 +107,18 @@ export class HomeComponent {
     });
   }
 
-  isBetweenDates(start_date, end_date, today) {
-    return (today <= end_date && today >= start_date);
+  getStartOfWeek(d) {
+    let day = d.getDay();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + (day == 0?-6:1)-day );
   }
 
-  isInDateRange(start_date, end_date, today, next_week) {
-    return (start_date >= today && start_date <= next_week) ||
-      (today >= start_date && today <= end_date);
+  getEndofWeek(d) {
+    let day = d.getDay();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + (day == 0?0:7)-day );
+  }
+
+  isBetweenDates(start_date, end_date, today) {
+    return (today <= end_date && today >= start_date);
   }
 
   getBestMatch(matches: any) {
