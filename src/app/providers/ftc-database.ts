@@ -122,4 +122,12 @@ export class FTCDatabase {
     );
   }
 
+  public getAllStreams() {
+    return this.request('/events/streams').map(res => res.json());
+  }
+
+  public getEventStream(event_key: string) {
+    return this.request('/event/' + event_key + "/stream").map(res => res.json());
+  }
+
 }

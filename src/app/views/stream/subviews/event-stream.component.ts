@@ -1,7 +1,7 @@
 /**
  * Created by Kyle Flynn on 11/9/2017.
  */
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FTCDatabase } from '../../../providers/ftc-database';
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { StreamType } from "../streaming.component";
@@ -12,20 +12,23 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './event-stream.component.html',
   providers: [FTCDatabase]
 })
-export class EventStreamComponent {
+export class EventStreamComponent implements OnInit {
 
   private stream: any;
   private safe_url: SafeResourceUrl;
   private event_key: any;
 
-  constructor(private sanitizer:DomSanitizer, private route: ActivatedRoute) {
+  constructor(private ftc: FTCDatabase, private sanitizer:DomSanitizer, private route: ActivatedRoute) {
     this.event_key = route.snapshot.params['event_key'];
-    this.stream = {
-      url: 'https://www.youtube.com/embed/AQBh9soLSkI?rel=0',
-      type: StreamType.YOUTUBE,
-      event_key: '1617-FIM-CAN'
-    };
-    this.safe_url = sanitizer.bypassSecurityTrustResourceUrl(this.stream.url);
+  }
+
+  ngOnInit() {
+    this.ftc.getEventStream(this.event_key).subscribe((data) => {
+      this.stream = data;
+      this.safe_url = this.sanitizer.bypassSecurityTrustResourceUrl(this.stream.stream_url);
+    }, (err) => {
+      console.log(err);
+    });
   }
 
 }

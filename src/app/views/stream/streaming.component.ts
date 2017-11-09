@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
@@ -13,19 +13,23 @@ export class StreamType {
   templateUrl: './streaming.component.html',
   providers: [FTCDatabase]
 })
-export class StreamingComponent {
+export class StreamingComponent implements OnInit {
 
-  private stream: any;
-  private safe_url: SafeResourceUrl;
+  private streams: any[];
 
-  constructor(private sanitizer:DomSanitizer) {
-    this.stream = {
-      url: 'https://player.twitch.tv/?channel=taketv',
-      // url: 'https://www.youtube.com/embed/AQBh9soLSkI?rel=0',
-      type: StreamType.TWITCH,
-      event_key: '1617-FIM-CAN'
-    };
-    this.safe_url = sanitizer.bypassSecurityTrustResourceUrl(this.stream.url);
+  constructor(private ftc: FTCDatabase, private sanitizer:DomSanitizer) {}
+
+  ngOnInit() {
+    this.ftc.getAllStreams().subscribe((data) => {
+      this.streams = data;
+
+      for (let stream of this.streams) {
+        stream.safe_url = this.sanitizer.bypassSecurityTrustResourceUrl(stream.stream_url);
+      }
+
+    }, (err) => {
+      console.log(err);
+    });
   }
 
 }
