@@ -26,6 +26,7 @@ import { TermsComponent } from './views/terms/terms.component';
 import { MatchesComponent } from './views/matches/matches.component';
 import { VelocityVortexComponent } from "./views/matches/years/1617/1617-velocity-vortex.component";
 import {RelicRecoveryComponent} from "./views/matches/years/1718/1718-relic-recovery-component";
+import {EventStreamComponent} from "./views/stream/subviews/event-stream.component";
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {RelicRecoveryComponent} from "./views/matches/years/1718/1718-relic-reco
     StreamingComponent,
     TermsComponent,
     MatchesComponent,
+    EventStreamComponent,
     VelocityVortexComponent,
     RelicRecoveryComponent
   ],
