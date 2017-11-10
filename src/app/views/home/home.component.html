@@ -252,5 +252,26 @@
     </div>
   </div>
 
+  <div *ngIf="match_count && match_insights" class="row" style="display: none;">
+    <div class="col-xs-12 col-md-8 col-md-offset-2 mar-top-20">
+      <table class="stats-table table table-responsive table-striped">
+        <thead>
+        <tr>
+          <td>Name</td>
+          <td>Average</td>
+          <td>Times Possible</td>
+        </tr>
+        </thead>
+        <tbody *ngIf="insights">
+        <tr *ngFor="let stat of insights" >
+          <td>{{ stat.field }}</td>
+          <td>{{ stat.value }}</td>
+          <td>{{ match_count }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </main>
 <!-- MAIN CONTAINER -->

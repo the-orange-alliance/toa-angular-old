@@ -14,7 +14,8 @@ export class FTCDatabase {
     const auth_header = new Headers({
       'X-Application-Origin': 'TOA'
     });
-    return this.http.get('https://theorangealliance.org/apiv2' + url, { headers: auth_header });
+    // return this.http.get('https://theorangealliance.org/apiv2' + url, { headers: auth_header });
+    return this.http.get('http://localhost:8080/apiv2' + url, { headers: auth_header });
   }
 
   public getAnnouncements() {
@@ -55,6 +56,10 @@ export class FTCDatabase {
 
   public getAllMatches(year?: number) {
     return this.request('/matches/' + (year == null ? this.year : year) + '/count').map(res => res.json());
+  }
+
+  public getInsights(year?: number) {
+    return this.request('/matches/' + (year == null ? this.year : year) + '/insights').map(res => res.json());
   }
 
   public getHighScoreQual(year?: number) {

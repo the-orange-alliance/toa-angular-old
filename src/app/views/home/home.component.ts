@@ -18,6 +18,9 @@ export class HomeComponent {
   normal_match: any;
   match_count: number;
 
+  match_insights: any;
+  insights: any;
+
   constructor(private router: Router, private ftc: FTCDatabase) {
     this.ftc.getAllMatches().subscribe((match_data) => {
       this.match_count = match_data[0].match_count;
@@ -100,6 +103,22 @@ export class HomeComponent {
         if (this.isBetweenDates(new Date(announcement.publish_date), new Date(announcement.end_date), today)) {
           this.current_announcement = announcement;
           break;
+        }
+      }
+    }, (err) => {
+      console.log(err);
+    });
+    this.ftc.getInsights().subscribe((data) => {
+      this.match_insights = data[0];
+      this.insights = [];
+      let i = 0;
+      for (let field in this.match_insights) {
+        if (this.match_insights.hasOwnProperty(field)) {
+          this.insights[i] = {
+            'field': field,
+            'value': this.match_insights[field]
+          };
+          i++;
         }
       }
     }, (err) => {
