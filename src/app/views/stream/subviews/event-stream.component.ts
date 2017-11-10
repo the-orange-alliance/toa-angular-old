@@ -14,9 +14,9 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class EventStreamComponent implements OnInit {
 
-  private stream: any;
-  private safe_url: SafeResourceUrl;
-  private event_key: any;
+  stream: any;
+  safe_url: SafeResourceUrl;
+  event_key: any;
 
   constructor(private ftc: FTCDatabase, private sanitizer:DomSanitizer, private route: ActivatedRoute) {
     this.event_key = route.snapshot.params['event_key'];

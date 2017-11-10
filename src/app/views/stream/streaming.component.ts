@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FTCDatabase } from '../../providers/ftc-database';
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 export class StreamType {
   static YOUTUBE = 0;
@@ -15,7 +15,7 @@ export class StreamType {
 })
 export class StreamingComponent implements OnInit {
 
-  private streams: any[];
+  streams: any[];
 
   constructor(private ftc: FTCDatabase, private sanitizer:DomSanitizer) {}
 
