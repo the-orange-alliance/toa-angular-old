@@ -18,7 +18,7 @@ export class EventStreamComponent implements OnInit {
   safe_url: SafeResourceUrl;
   event_key: any;
 
-  constructor(private ftc: FTCDatabase, private sanitizer:DomSanitizer, private route: ActivatedRoute) {
+  constructor(private ftc: FTCDatabase, private sanitizer: DomSanitizer, private route: ActivatedRoute) {
     this.event_key = route.snapshot.params['event_key'];
   }
 
