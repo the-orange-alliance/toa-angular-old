@@ -39,11 +39,11 @@
   <div *ngFor="let route of api_routes" class="row">
     <div class="col-xs-12">
       <h3 style="color: orange" *ngIf="route.base == 'BASE'">Base</h3>
-      <P>{{ route.route }} - {{ route.route_description }}</P>
+      <P>{{ route.route }} - {{ route.route_desc }}</P>
       <ul>
-        <p>{{ route.example_example }}</p>
+        <p>{{ route.example }}</p>
         <ul>
-          {{ route.route_notes }}
+          {{ route.notes }}
         </ul>
       </ul>
     </div>
