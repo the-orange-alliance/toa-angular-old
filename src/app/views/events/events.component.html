@@ -2,6 +2,7 @@
 <main class="container">
   <div class="row">
     <div class="col-xs-12 col-md-8">
+      <h1 class="centered"> Events </h1>
       <p class="lead">
         Welcome to The Orange Alliance! Select a year, district, and event to view official scores from FIRST Tech Challenge.
       </p>
@@ -68,7 +69,7 @@
   <hr>
 
   <div class="row">
-    <div *ngFor="let week of weeks" class="col-xs-12">
+    <div *ngFor="let week of weeks" class="col-xs-12 col-sm-6 col-lg-4">
       <div *ngIf="getEventsByWeek(week).length > 0" class="panel panel-warning">
         <div class="panel-heading">
           <div class="panel-title">
