@@ -115,8 +115,8 @@
         </tr>
         </thead>
         <tbody *ngIf="current_teams.length > 0">
-          <tr *ngFor="let team of current_teams; let i = index;">
-            <td *ngIf="i < current_teams.length / 2"><a href="/teams/{{ team.team_number }}">{{ team.team_number }}</a></td>
+          <tr *ngFor="let team of current_teams; let i = index;"  class="clickable-row" (click)="clickToTeam(team.team_number)">
+            <td *ngIf="i < current_teams.length / 2"><a class="arow" href="/teams/{{ team.team_number }}">{{ team.team_number }}</a></td>
             <td *ngIf="i < current_teams.length / 2">{{ team.team_name_short }}</td>
             <td *ngIf="i < current_teams.length / 2">{{ team.city }}, {{ team.state_prov }}, {{ team.country }}</td>
           </tr>
@@ -134,8 +134,8 @@
         </tr>
         </thead>
         <tbody *ngIf="current_teams.length > 0">
-        <tr *ngFor="let team of current_teams; let i = index;">
-          <td *ngIf="i >= current_teams.length / 2"><a href="/teams/{{ team.team_number }}">{{ team.team_number }}</a></td>
+        <tr class="clickable-row" *ngFor="let team of current_teams; let i = index;" (click)="clickToTeam(team.team_number)">
+          <td *ngIf="i >= current_teams.length / 2"><a class="arow" href="/teams/{{ team.team_number }}">{{ team.team_number }}</a></td>
           <td *ngIf="i >= current_teams.length / 2">{{ team.team_name_short }}</td>
           <td *ngIf="i >= current_teams.length / 2">{{ team.city }}, {{ team.state_prov }}, {{ team.country }}</td>
         </tr>
@@ -169,6 +169,15 @@
       </nav>
     </div>
   </div>
-
+  <style>
+  .clickable-row:hover {
+    background-color: #DDD;
+  }
+  .clickable-row >> td {
+    pointer-events: none;
+    cursor: pointer !important;
+  }
+  </style>
 </main>
+
 <!-- MAIN CONTAINER -->
