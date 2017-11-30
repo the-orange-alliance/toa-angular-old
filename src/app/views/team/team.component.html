@@ -34,42 +34,46 @@
         </div>
       </div>
     </div>
-
     <div class="col-xs-12 col-sm-9 col-lg-10">
+      <div class="card">
+        <div class="card-container">
+        <div class="row">
+          <div class="col-xs-12">
+            <h1 class="centered"><b><span *ngIf="team?.team_name_short">{{ team.team_name_short }}</span> (<span *ngIf="team?.team_key">{{ team.team_key }}</span>)</b></h1>
+          </div>
+        </div>
 
-      <div class="row">
-        <div class="col-xs-12">
-          <h2>Team <span *ngIf="team?.team_key">{{ team.team_key }}</span> - <span *ngIf="team?.team_name_short">{{ team.team_name_short }}</span></h2>
+        <div class="row">
+          <div class="col-sm-12">
+            <blockquote>
+              <em>Part of the {{ team.region_key }} Region</em>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <span><span class="fa fa-map-marker"></span> From <span *ngIf="team?.city">{{ team.city }}</span>, <span *ngIf="team?.state_prov">{{ team.state_prov }}</span>, <span *ngIf="team?.country">{{ team.country }}</span></span>
+          </div>
+          <div class="col-xs-12">
+            <span><span class="fa fa-info-circle"></span> aka <em>{{ team.team_name_long }}</em></span>
+          </div>
+          <div class="col-xs-12">
+            <span><span class="fa fa-globe"></span> <span *ngIf="team.website">{{ team.website }}</span><span *ngIf="!team.website"><i>Website N/A</i></span></span>
+          </div>
+          <div class="col-xs-12">
+            <span><span class="fa fa-calendar"></span> Rookie Year: {{ team.rookie_year }}</span>
+          </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-sm-12">
-          <blockquote>
-            <em>Part of the {{ team.region_key }} Region</em>
-          </blockquote>
-        </div>
       </div>
-
-      <div class="row">
-        <div class="col-xs-12">
-          <span><span class="fa fa-map-marker"></span> From <span *ngIf="team?.city">{{ team.city }}</span>, <span *ngIf="team?.state_prov">{{ team.state_prov }}</span>, <span *ngIf="team?.country">{{ team.country }}</span></span>
-        </div>
-        <div class="col-xs-12">
-          <span><span class="fa fa-info-circle"></span> aka <em>{{ team.team_name_long }}</em></span>
-        </div>
-        <div class="col-xs-12">
-          <span><span class="fa fa-globe"></span> <span *ngIf="team.website">{{ team.website }}</span><span *ngIf="!team.website"><i>Website N/A</i></span></span>
-        </div>
-        <div class="col-xs-12">
-          <span><span class="fa fa-calendar"></span> Rookie Year: {{ team.rookie_year }}</span>
-        </div>
-      </div>
-
-      <div *ngIf="team.events" class="row">
+      <br/>
+      <div *ngIf="team.events" class="row ">
 
         <div *ngFor="let event of team.events" class="col-xs-12 pad-bot-25">
-          <div class="col-xs-12 col-sm-4">
+          <!--  THEREDDKING WAS HERE :P -->
+          <div class="col-xs-12 col-sm-4 card">
+            <div class="card-container">
             <h3 id="{{ event.event_key }}"><a *ngIf="event.division_name == null" routerLink="/events/{{ event.event_key }}">{{ event.event_name }}</a>
               <a *ngIf="event.division_name" routerLink="/events/{{ event.event_key }}">{{ event.event_name }} - {{ event.division_name }} Division</a></h3>
             <div>
@@ -87,6 +91,7 @@
                 <li *ngFor="let award of event.awards">{{ award.award_name }}</li>
               </ul>
             </div>
+          </div>
           </div>
           <div class="col-xs-12 col-sm-8">
             <table class="match-table">

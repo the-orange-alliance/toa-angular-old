@@ -107,9 +107,16 @@ td, th {
 .match-winner {
   font-weight: bold;
 }
+.red.match-winner {
+  background-color: #ffe5e5;
+}
+.blue.match-winner {
+  background-color: #e5e5ff;
+}
 
 .current-team {
-  text-decoration: underline;
+  color: black;
+  font-weight: 600;
 }
 
 .allow-expand {
