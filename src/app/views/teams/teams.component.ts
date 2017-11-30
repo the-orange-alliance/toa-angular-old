@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { TeamFilter } from '../../util/team-utils';
 
+
 const TEAMS_PER_PAGE = 500;
 
 @Component({
@@ -148,5 +149,7 @@ export class TeamsComponent implements OnInit {
     this.location_query = null;
     this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
   }
-
+  clickToTeam(number) {
+    window.location.href = "/teams/" + number;
+  }
 }
