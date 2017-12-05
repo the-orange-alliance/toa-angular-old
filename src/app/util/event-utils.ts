@@ -138,11 +138,11 @@ export class EventSorter {
   
   public sortRev(items, left, right) {
   
-	  this.sort(items, left, right);
-	  // reverse order
-      for (let i=0; i<(right+1-left)/2; i++) {
-		  this.swap(items, left+i, right-i);
-	  }
+	this.sort(items, left, right);
+	// reverse order
+    for (let i=0; i<(right+1-left)/2; i++) {
+		this.swap(items, left+i, right-i);
+	}
 
     return items;
   }
