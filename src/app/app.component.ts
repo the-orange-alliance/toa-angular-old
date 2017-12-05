@@ -43,7 +43,6 @@ export class TheOrangeAllianceComponent {
       console.log(err);
     });
   }
-
   performSearch(): void {
     if (this.search) {
       this.teams_filter.filterArray(null, this.search, null, null);

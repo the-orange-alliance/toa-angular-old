@@ -3,11 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { MatchSorter, MatchType } from '../../util/match-utils';
 import { EventSorter } from '../../util/event-utils';
+import { TheOrangeAllianceGlobals } from '../../app.globals';
 
 @Component({
   selector: 'toa-team',
   templateUrl: './team.component.html',
-  providers: [FTCDatabase]
+  providers: [FTCDatabase,TheOrangeAllianceGlobals]
 })
 export class TeamComponent implements OnInit {
 
@@ -26,7 +27,7 @@ export class TeamComponent implements OnInit {
   seasons: any;
   current_season: any;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router) {
+  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private globaltoa:TheOrangeAllianceGlobals) {
     this.team_key = this.route.snapshot.params['team_key'];
     this.current_season = { season_key: '1718', season_desc: 'Relic Recovery' };
     this.qual_matches = [];
@@ -57,11 +58,12 @@ export class TeamComponent implements OnInit {
         }, (err) => {
           console.log(err);
         });
-
+        this.globaltoa.setTitle(this.team.team_name_short + " (" + this.team.team_key +")");
       }
     }, (err) => {
       console.log(err);
     });
+
   }
 
   getTeamSeasons(season_data: any) {
@@ -98,7 +100,7 @@ export class TeamComponent implements OnInit {
   }
 
   getEventMatches() {
-    this.team.events = this.event_sorter.sort(this.team.events, 0, this.team.events.length - 1);
+    this.team.events = this.event_sorter.sortRev(this.team.events, 0, this.team.events.length - 1);
 
     for (const event of this.team.events) {
       this.ftc.getEventMatches(event.event_key, this.convertSeason(this.current_season)).subscribe((data) => {
@@ -191,6 +193,11 @@ export class TeamComponent implements OnInit {
     } else {
       return teams[station];
     }
+  }
+  getStationHref(match_data, station: number): string {
+    const teams = match_data.teams.toString().split(',');
+    const stations = match_data.station_status.toString().split(',');
+    return teams[station];
   }
 
   getStationLength(match_data): number {

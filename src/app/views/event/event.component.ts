@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { EventParser } from '../../util/event-utils';
+import { TheOrangeAllianceGlobals } from '../../app.globals';
 
 @Component({
-  providers: [FTCDatabase],
+  providers: [FTCDatabase,TheOrangeAllianceGlobals],
   selector: 'toa-event',
   templateUrl: './event.component.html'
 })
@@ -14,10 +15,10 @@ export class EventComponent implements OnInit {
 
   event_key: string;
   event: any;
-
+  totalteams: any;
   view_type: string;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router) {
+  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private globaltoa:TheOrangeAllianceGlobals) {
     this.event_key = this.route.snapshot.params['event_key'];
     this.event = [];
   }
@@ -34,6 +35,8 @@ export class EventComponent implements OnInit {
         this.event.teams = data[6];
         this.select('matches');
         this.event_parser = new EventParser(this.event);
+        this.totalteams =  this.event.teams.length;
+        this.globaltoa.setTitle(this.event.event_name);
       }, (err) => {
         console.log(err);
       });
