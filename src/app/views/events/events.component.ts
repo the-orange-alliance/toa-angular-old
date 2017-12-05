@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { SeasonParser } from '../../util/season-utils';
 import { EventFilter } from '../../util/event-utils';
+import { TheOrangeAllianceGlobals } from '../../app.globals';
 
 @Component({
-  providers: [FTCDatabase],
+  providers: [FTCDatabase,TheOrangeAllianceGlobals],
   selector: 'toa-events',
   templateUrl: './events.component.html'
 })
@@ -23,7 +24,9 @@ export class EventsComponent implements OnInit {
 
   event_filter: EventFilter;
 
-  constructor(private ftc: FTCDatabase, private router: Router) {}
+  constructor(private ftc: FTCDatabase, private router: Router, private globaltoa:TheOrangeAllianceGlobals) {
+    this.globaltoa.setTitle("Events");
+  }
 
   ngOnInit(): void {
     this.ftc.getSeasonEvents('1718').subscribe( (data) => {
