@@ -73,9 +73,14 @@ export class EventMatchesComponent implements OnInit {
       return teams[station];
     }
   }
+  getStationHref(match_data, station: number): string {
+    const teams = match_data.teams.toString().split(',');
+    const stations = match_data.station_status.toString().split(',');
+    return teams[station];
+  }
 
   openTeamPage(team: any) {
-    this.router.navigate(['/teams', team]);
+    this.router.navigate(['/teams', team.replace("[*]","")]);
   }
 
   getNumberOfTeams(match_data) {

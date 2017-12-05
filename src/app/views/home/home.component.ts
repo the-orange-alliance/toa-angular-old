@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { MatchParser } from '../../util/match-utils';
+import { TheOrangeAllianceGlobals } from '../../app.globals';
 
 @Component({
   selector: 'toa-home',
   templateUrl: './home.component.html',
-  providers: [FTCDatabase]
+  providers: [FTCDatabase,TheOrangeAllianceGlobals]
 })
 export class HomeComponent {
 
@@ -21,7 +22,8 @@ export class HomeComponent {
   match_insights: any;
   insights: any;
 
-  constructor(private router: Router, private ftc: FTCDatabase) {
+  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa:TheOrangeAllianceGlobals) {
+    this.globaltoa.setTitle("Home")
     this.ftc.getAllMatches().subscribe((match_data) => {
       this.match_count = match_data[0].match_count;
     }, (err) => {

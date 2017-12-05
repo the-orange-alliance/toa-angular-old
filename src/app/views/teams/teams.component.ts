@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { TeamFilter } from '../../util/team-utils';
+import { TheOrangeAllianceGlobals } from '../../app.globals';
 
 
 const TEAMS_PER_PAGE = 500;
@@ -9,7 +10,7 @@ const TEAMS_PER_PAGE = 500;
 @Component({
   selector: 'toa-teams',
   templateUrl: './teams.component.html',
-  providers: [FTCDatabase]
+  providers: [FTCDatabase,TheOrangeAllianceGlobals]
 })
 export class TeamsComponent implements OnInit {
 
@@ -30,12 +31,13 @@ export class TeamsComponent implements OnInit {
   current_league: any;
   current_teams: any;
 
-  constructor(private router: Router, private ftc: FTCDatabase) {
+  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa:TheOrangeAllianceGlobals) {
     this.regions = [];
     this.leagues = [];
 
     this.location_query = null;
     this.team_query = null;
+    this.globaltoa.setTitle("Teams");
   }
 
   ngOnInit(): void {
