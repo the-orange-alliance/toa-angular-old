@@ -114,7 +114,7 @@ export class EventSorter {
 
     return items;
   }
-
+  
   private partition(items, pivot, left, right) {
     const pivotValue = items[pivot];
     let partitionIndex = left;
@@ -129,11 +129,22 @@ export class EventSorter {
     this.swap(items, right, partitionIndex);
     return partitionIndex;
   }
-
+  
   private swap(items, index1, index2) {
     const temp = items[index1];
     items[index1] = items[index2];
     items[index2] = temp;
   }
+  
+  public sortRev(items, left, right) {
+  
+	  this.sort(items, left, right);
+	  // reverse order
+      for (let i=0; i<(right+1-left)/2; i++) {
+		  this.swap(items, left+i, right-i);
+	  }
 
+    return items;
+  }
+  
 }

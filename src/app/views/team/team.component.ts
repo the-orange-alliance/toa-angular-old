@@ -100,7 +100,7 @@ export class TeamComponent implements OnInit {
   }
 
   getEventMatches() {
-    this.team.events = this.event_sorter.sort(this.team.events, 0, this.team.events.length - 1);
+    this.team.events = this.event_sorter.sortRev(this.team.events, 0, this.team.events.length - 1);
 
     for (const event of this.team.events) {
       this.ftc.getEventMatches(event.event_key, this.convertSeason(this.current_season)).subscribe((data) => {
