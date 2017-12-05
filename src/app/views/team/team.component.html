@@ -80,7 +80,10 @@
               <span><span class="fa fa-map-marker"></span> {{ event.city }}, {{ event.state_prov }}, {{ event.country }}</span>
             </div>
             <div>
-              <span><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span>
+	  
+	      <!--    <span><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span> -->
+              <span *ngIf="event.start_date == event.end_date"><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} </span>
+			  <span *ngIf="event.start_date != event.end_date"><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span>
             </div>
             <div *ngIf="event.ranking">
               <span>Overall team {{ team_key }} was <b>Rank {{ event.ranking.rank }}</b> with a record of <b>{{ event.ranking.wins }}-{{ event.ranking.losses }}-{{ event.ranking.ties }}</b></span>
@@ -589,3 +592,4 @@
 
   </div>
 </main>
+
