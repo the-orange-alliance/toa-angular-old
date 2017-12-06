@@ -194,15 +194,62 @@ export class TeamComponent implements OnInit {
       return teams[station];
     }
   }
+  getStationTeam(match_data, station: number): string {
+    const teams = match_data.teams.toString().split(',');
+    const stations = match_data.station_status.toString().split(',');
+
+    return teams[station];
+  }
+  getStationLength(match_data): number {
+    return match_data.teams.toString().split(',').length;
+  }
+  
+  getTeamResult(match, team:number): string {
+    //return team.toString();
+	if (match.red_score) { // match score exists
+	  if (match.red_score == match.blue_score) {
+	    return "T";
+	  }
+	  if (match.red_score > match.blue_score) {
+	    if (this.getStationLength(match) == 6) {
+		  if ((team.toString() == this.getStationTeam(match,0)) ||(team.toString() == this.getStationTeam(match,1)) ||(team.toString() == this.getStationTeam(match,2))) {
+		    return "W";
+		  } else {
+			return "L";
+		  }
+		} else {
+		  if ((team.toString() == this.getStationTeam(match,0)) ||(team.toString() == this.getStationTeam(match,1))) {
+		    return "W";
+		  } else {
+			return "L";
+		  }
+		}
+	  } else {
+	  	if (this.getStationLength(match) == 6) {
+		  if ((team.toString() == this.getStationTeam(match,0)) ||(team.toString() == this.getStationTeam(match,1)) ||(team.toString() == this.getStationTeam(match,2))) {
+		    return "L";
+		  } else {
+			return "W";
+		  }
+		} else {
+		  if ((team.toString() == this.getStationTeam(match,0)) ||(team.toString() == this.getStationTeam(match,1))) {
+		    return "L";
+		  } else {
+			return "W";
+		  }
+		}
+	  }
+	} else {
+	  return " "; // no match score yet
+	}
+  }
   getStationHref(match_data, station: number): string {
     const teams = match_data.teams.toString().split(',');
     const stations = match_data.station_status.toString().split(',');
     return teams[station];
   }
 
-  getStationLength(match_data): number {
-    return match_data.teams.toString().split(',').length;
-  }
+
 
   isCurrentTeam(match_data, station: number): boolean {
     return match_data.teams.toString().split(',')[station] === this.team_key;
