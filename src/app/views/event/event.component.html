@@ -38,7 +38,7 @@
             </div>
             <div class="col-xs-10 col-md-11">
               <span *ngIf="event.start_date != event.end_date">{{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span>
-              <span *ngIf="event.start_date == event.end_date">{{ event.start_date | date :  "mediumDate"}}</span>
+              <span *ngIf="event.start_date == event.end_date">{{ event.start_date | date :  "mediumDate"}} </span>
             </div>
           </div>
 
@@ -67,7 +67,9 @@
     </div>
   </div>
 
-  <div class="row">
+  <h3 *ngIf="totalteams==0">NO RESULTS HAVE BEEN REPORTED FOR THIS EVENT.</h3>
+	
+  <div class="row" *ngIf="totalteams>0">
     <div class="col-xs-12">
       <ul class="nav nav-tabs">
         <li role="presentation" [class.active]="isSelected('matches')"><a (click)="select('matches')">Results</a></li>
@@ -79,7 +81,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="totalteams>0">
 
     <toa-event-rankings *ngIf="isSelected('rankings')" [event]="event" [rankings]="event.rankings"></toa-event-rankings>
     <toa-event-teams *ngIf="isSelected('teams')" [event]="event"></toa-event-teams>
@@ -87,6 +89,8 @@
     <toa-event-awards *ngIf="isSelected('awards')" [event]="event"></toa-event-awards>
 
   </div>
+  
+
 
 </main>
 <!-- MAIN CONTAINER -->
