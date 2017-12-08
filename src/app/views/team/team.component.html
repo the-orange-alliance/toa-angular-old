@@ -16,7 +16,7 @@
         </div>
 
         <br/>
- 
+
         <div class="row">
           <div class="col-xs-12">
             <div class="well">
@@ -80,7 +80,7 @@
               <span><span class="fa fa-map-marker"></span> {{ event.city }}, {{ event.state_prov }}, {{ event.country }}</span>
             </div>
             <div>
-	  
+
 	      <!--    <span><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span> -->
               <span *ngIf="event.start_date == event.end_date"><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} </span>
 			  <span *ngIf="event.start_date != event.end_date"><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span>
@@ -101,7 +101,7 @@
               <thead>
                 <tr class="visible-lg">
                   <th>Match</th>
-                  <th>Result</th>				  
+                  <th>Result</th>
                   <th>
                     <span class="fa fa-play-circle-o  "></span>
                   </th>
@@ -175,7 +175,7 @@
                 <td rowspan="2">
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
-				
+
                 <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
                   <a href="/teams/{{ getStationHref(match, 0) }}" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
                 </td>
@@ -619,7 +619,7 @@
           </div>
         </div>
         <small><strong>Bold</strong> is Winning Alliance</small><br>
-        <small><u>Underline</u> is Selected Team</small><br>
+        <small><strong>Bold and Black</strong> is Selected Team</small><br>
         <small>* is Surrogate</small>
       </div>
 
