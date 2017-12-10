@@ -20,13 +20,13 @@
         <tbody *ngIf="getNumberOfTeams() == 6">
         <tr class="red">
           <td colspan="2" class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
-            <a href="/teams/{{ getStation(0) }}">{{ getStation(0) }}</a>
+            <a href="/teams/{{ getStationHref(0) }}">{{ getStation(0) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
-            <a href="/teams/{{ getStation(1) }}">{{ getStation(1) }}</a>
+            <a href="/teams/{{ getStationHref(1) }}">{{ getStation(1) }}</a>
           </td>
           <td colspan="2" class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
-            <a href="/teams/{{ getStation(2) }}">{{ getStation(2) }}</a>
+            <a href="/teams/{{ getStationHref(2) }}">{{ getStation(2) }}</a>
           </td>
           <td class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
             {{ match_data.red_score }}
@@ -34,13 +34,13 @@
         </tr>
         <tr class="blue">
           <td colspan="2" class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
-            <a href="/teams/{{ getStation(3) }}">{{ getStation(3) }}</a>
+            <a href="/teams/{{ getStationHref(3) }}">{{ getStation(3) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
-            <a href="/teams/{{ getStation(4) }}">{{ getStation(4) }}</a>
+            <a href="/teams/{{ getStationHref(4) }}">{{ getStation(4) }}</a>
           </td>
           <td colspan="2" class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
-            <a href="/teams/{{ getStation(5) }}">{{ getStation(5) }}</a>
+            <a href="/teams/{{ getStationHref(5) }}">{{ getStation(5) }}</a>
           </td>
           <td class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
             {{ match_data.blue_score }}
@@ -50,10 +50,10 @@
         <tbody *ngIf="getNumberOfTeams() == 4">
         <tr class="red">
           <td colspan="3" class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
-            <a href="/teams/{{ getStation(0) }}">{{ getStation(0) }}</a>
+            <a href="/teams/{{ getStationHref(0) }}">{{ getStation(0) }}</a>
           </td>
           <td colspan="3" class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
-            <a href="/teams/{{ getStation(1) }}">{{ getStation(1) }}</a>
+            <a href="/teams/{{ getStationHref(1) }}">{{ getStation(1) }}</a>
           </td>
           <td class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
             {{ match_data.red_score }}
@@ -61,10 +61,10 @@
         </tr>
         <tr class="blue">
           <td colspan="3" class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
-            <a href="/teams/{{ getStation(2) }}">{{ getStation(2) }}</a>
+            <a href="/teams/{{ getStationHref(2) }}">{{ getStation(2) }}</a>
           </td>
           <td colspan="3" class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
-            <a href="/teams/{{ getStation(3) }}">{{ getStation(3) }}</a>
+            <a href="/teams/{{ getStationHref(3) }}">{{ getStation(3) }}</a>
           </td>
           <td class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
             {{ match_data.blue_score }}
