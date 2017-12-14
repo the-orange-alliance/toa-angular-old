@@ -16,6 +16,9 @@ export class EventComponent implements OnInit {
   event_key: string;
   event: any;
   totalteams: any;
+  totalmatches: any;
+  totalrankings: any;
+  totalawards: any;
   view_type: string;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private globaltoa:TheOrangeAllianceGlobals) {
@@ -33,9 +36,20 @@ export class EventComponent implements OnInit {
         this.event.rankings = data[4];
         this.event.awards = data[5];
         this.event.teams = data[6];
-        this.select('matches');
+		
+		if (this.event.rankings.length>0) {
+		  this.select('rankings');
+		} else if (this.event.matches.length>0) {
+		  this.select('matches')
+		} else {
+		  this.select('teams');
+		}
+		
         this.event_parser = new EventParser(this.event);
         this.totalteams =  this.event.teams.length;
+		this.totalmatches =  this.event.matches.length;
+		this.totalrankings =  this.event.rankings.length;
+		this.totalawards =  this.event.awards.length;
         this.globaltoa.setTitle(this.event.event_name);
       }, (err) => {
         console.log(err);
