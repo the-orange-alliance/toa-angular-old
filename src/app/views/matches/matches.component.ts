@@ -55,15 +55,15 @@ export class MatchesComponent implements OnInit {
   getStationHref(station: number): string {
     return this.match_stations[station].team_key;
   }
-  
-  getStation(station: number): string {
+
+  /*getStation(station: status): string {
     const stations = this.match_data.station_status.toString().split(',');
-    if (stations[number] === '0') {
+    if (stations[status] === '0') {
       return this.match_stations[station].team_key + '*';
     } else {
       return this.match_stations[station].team_key + '*';
     }
-  }
+  }*/
 
   getNumberOfTeams() {
     return this.match_stations.length;
