@@ -18,6 +18,7 @@ export class MatchesComponent implements OnInit {
   match_details: any;
   match_stations: any;
   match_event: any;
+  stations: any;
 
   constructor(private ftc: FTCDatabase, private router: Router, private route: ActivatedRoute) {
     this.match_key = this.route.snapshot.params['match_key'];
@@ -29,6 +30,7 @@ export class MatchesComponent implements OnInit {
       if (!match_data[0][0]) {
         this.router.navigate(['/not-found']);
       } else {
+        this.stations = match_data.station_status;
         this.match_data = match_data[0][0];
         this.match_details = match_data[1][0];
         this.match_stations = match_data[2];
@@ -56,14 +58,14 @@ export class MatchesComponent implements OnInit {
     return this.match_stations[station].team_key;
   }
 
-  /*getStation(station: status): string {
-    const stations = this.match_data.station_status.toString().split(',');
-    if (stations[status] === '0') {
+  getStation(station: number): string {
+    const stat = stations.toString().split(',');
+    if (stat[status] === '0') {
       return this.match_stations[station].team_key + '*';
     } else {
       return this.match_stations[station].team_key + '*';
     }
-  }*/
+  }
 
   getNumberOfTeams() {
     return this.match_stations.length;
