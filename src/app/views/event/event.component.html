@@ -72,11 +72,13 @@
   <div class="row" *ngIf="totalteams>0">
     <div class="col-xs-12">
       <ul class="nav nav-tabs">
-        <li role="presentation" [class.active]="isSelected('matches')"><a (click)="select('matches')">Results</a></li>
-        <li role="presentation" [class.active]="isSelected('rankings')"><a (click)="select('rankings')">Rankings</a></li>
-        <li role="presentation" [class.active]="isSelected('awards')"><a (click)="select('awards')">Awards</a></li>
-        <li role="presentation" [class.active]="isSelected('teams')"><a (click)="select('teams')">Teams <span class="badge" [innerHTML]="totalteams"></span></a></li>
-        <!--<li role="presentation" [class.active]="isSelected('advancement')"><a (click)="select('adancment')">Advancement</a></li>-->
+
+        <li role="presentation" [class.active]="isSelected('rankings')"><a (click)="select('rankings')">Rankings <span class="badge" [innerHTML]="totalrankings"></span></a></li>
+        <li role="presentation" [class.active]="isSelected('matches')"><a (click)="select('matches')">Matches <span class="badge" [innerHTML]="totalmatches"></span></a></li>
+        <li role="presentation" [class.active]="isSelected('awards')"><a (click)="select('awards')">Awards <span class="badge" [innerHTML]="totalawards"></span></a></li>
+		<li role="presentation" [class.active]="isSelected('teams')"><a (click)="select('teams')">Teams <span class="badge" [innerHTML]="totalteams"></span></a></li>
+
+        <!--<li role="presentation" [class.active]="isSelected('advancement')"><a (click)="select('advancement')">Advancement</a></li>-->
       </ul>
     </div>
   </div>
