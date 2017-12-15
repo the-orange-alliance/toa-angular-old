@@ -30,7 +30,7 @@ export class MatchesComponent implements OnInit {
       if (!match_data[0][0]) {
         this.router.navigate(['/not-found']);
       } else {
-        this.stations = match_data.station_status;
+        /*this.stations = match_data.station_status;*/
         this.match_data = match_data[0][0];
         this.match_details = match_data[1][0];
         this.match_stations = match_data[2];
@@ -54,18 +54,18 @@ export class MatchesComponent implements OnInit {
     }
   }
 
-  getStationHref(station: number): string {
+  getStation(station: number): string {
     return this.match_stations[station].team_key;
   }
 
-  getStation(station: number): string {
+  /*getStation(station: number): string {
     const stat = stations.toString().split(',');
     if (stat[status] === '0') {
       return this.match_stations[station].team_key + '*';
     } else {
       return this.match_stations[station].team_key + '*';
     }
-  }
+  }*/
 
   getNumberOfTeams() {
     return this.match_stations.length;
