@@ -58,7 +58,7 @@ export class MatchesComponent implements OnInit {
     return this.match_stations[station].team_key;
   }
 
-  getStation(station: status): string {
+  getStation(station: number): string {
     const stat = stations.toString().split(',');
     if (stat[status] === '0') {
       return this.match_stations[station].team_key + '*';
