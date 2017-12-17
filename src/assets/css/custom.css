@@ -120,11 +120,15 @@ td, th {
 }
 
 .allow-expand {
-  width: auto;
+  /*width: auto;*/
+  min-width: 100%;
+  overflow-x: auto;
 }
 
 .allow-expand > .panel {
-  width: inherit;
+  /*width: inherit;*/
+  min-width: 100%;
+  overflow: auto;
 }
 
 .allow-expand > .panel > .panel-body{

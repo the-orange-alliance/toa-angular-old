@@ -206,7 +206,7 @@ export class TeamComponent implements OnInit {
   
   getTeamResult(match, team:number): string {
     //return team.toString();
-	if (match.red_score) { // match score exists
+	if (match.red_score!=null) { // match score exists
 	  if (match.red_score == match.blue_score) {
 	    return "T";
 	  }
