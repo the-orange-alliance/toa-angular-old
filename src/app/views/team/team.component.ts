@@ -158,8 +158,24 @@ export class TeamComponent implements OnInit {
     for (const event of this.team.events) {
       const awards = [];
       for (const award of this.team.awards) {
-        if (event.event_key === award.event_key) {
-          awards.push(award);
+		if (event.event_key === award.event_key) {
+		  if (award.award_name.substring(0,7) == "Inspire") {
+            awards.push(award);
+		  }
+        }
+      }
+	  for (const award of this.team.awards) {
+		if (event.event_key === award.event_key) {
+		  if (award.award_name.substr(-8,8) == "Alliance") {
+            awards.push(award);
+		  }
+        }
+      }
+	  for (const award of this.team.awards) {
+		if (event.event_key === award.event_key) {
+		  if ((award.award_name.substring(0,7) != "Inspire") && (award.award_name.substr(-8,8) != "Alliance")) {
+            awards.push(award);
+		  }
         }
       }
       event.awards = awards;
