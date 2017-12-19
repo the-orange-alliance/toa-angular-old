@@ -93,8 +93,8 @@
         <div class="panel-body">
           <div *ngFor="let event of getEventsByWeek(week)">
             <a *ngIf="week.week == 'CMP' || week.week == 'CMPHOU' || week.week == 'CMPDET' || week.week == 'CMPSTL' || week.week == 'ESR' || week.week == 'SSR' || week.week == 'NSR' || week.week == 'WSR'" href="/events/{{ event.event_key }}">{{ event.division_name }} Division</a>
-            <a *ngIf="event.division_name == null" href="/events/{{ event.event_key }}">{{ event.event_name }}</a>
-            <a *ngIf="event.division_name && week.week != 'CMP' && week.week != 'CMPHOU' && week.week != 'CMPDET' && week.week != 'CMPSTL' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'" href="/events/{{ event.event_key }}">{{ event.event_name }} - {{ event.division_name }} Division</a>
+            <a *ngIf="event.division_name == null" href="/events/{{ event.event_key }}">{{ event.region_key}} : {{ event.event_name }}</a>
+            <a *ngIf="event.division_name && week.week != 'CMP' && week.week != 'CMPHOU' && week.week != 'CMPDET' && week.week != 'CMPSTL' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'" href="/events/{{ event.event_key }}">{{ event.region_key}} : {{ event.event_name }} -&nbsp{{ event.division_name }} Division</a>  
           </div>
         </div>
       </div>
