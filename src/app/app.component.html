@@ -19,19 +19,31 @@
     </ul>
     <form class="navbar-form navbar-left">
       <div class="form-group">
-        <input id="ftc_search" (keyup)="performSearch()" (focus)="performSearch()" [(ngModel)]="search" [ngModelOptions]="{standalone: true}" type="text" class="form-control dropdown-toggle" placeholder="Team # or Event" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <input id="showSearch" class="form-control dropdown-toggle" type="text" placeholder="Team # or Event">
       </div>
-      <ul id="search" class="dropdown-menu search-results" aria-labelledby="ftc_search">
-        <li><a (click)="hideDropdown()">Close <span class="fa fa-close"></span></a></li>
-        <li *ngFor="let result of team_search_results"><a href="/teams/{{result.team_key}}">{{ result.team_key }} - {{ result.team_name_short }}</a></li>
-        <li *ngFor="let result of event_search_results"><a href="/events/{{result.event_key}}">[{{ result.event_key }}] {{ result.start_date | date : "y" }} {{ result.event_name }}</a></li>
-        <li *ngIf="team_search_results.length <= 0"><a><i>No team results</i></a></li>
-        <li *ngIf="event_search_results.length <= 0"><a><i>No event results</i></a></li>
-      </ul>
     </form>
+
   </div>
 
 </nav>
+
+<!-- SEARCH -->
+
+<div id="qnimate" class="off">
+     <div id="searchrr" class="open">
+     <button data-widget="remove" id="removeSearch" class="close" type="button">×</button>
+     <form>
+        <input id="ftc_search" (keyup)="performSearch()" (focus)="performSearch()" [(ngModel)]="search" [ngModelOptions]="{standalone: true}" type="text" placeholder="Team # or Event">
+       <ul id="search" class="search-results" aria-labelledby="ftc_search">
+         <li *ngFor="let result of team_search_results"><a href="/teams/{{result.team_key}}">{{ result.team_key }} - {{ result.team_name_short }}</a></li>
+         <li *ngFor="let result of event_search_results"><a href="/events/{{result.event_key}}">[{{ result.event_key }}] {{ result.start_date | date : "y" }} {{ result.event_name }}</a></li>
+       </ul>
+     </form>
+     <small style="text-align: center; color: rgb(0, 0, 0); position: absolute; left: 0px; right: 0px; bottom: 70px; font-size: 16px;">The Orange Alliance</small>
+     <!-- Thanks to IamGurdeepOsahan -->
+     </div>
+ </div>
+
 <!-- NAVBAR -->
 
 <div class="pad-top-50 mar-top-25">
