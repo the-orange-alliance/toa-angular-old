@@ -32,3 +32,82 @@
 .centered {
   text-align: center;
 }
+
+
+.popup-box-on {
+    display: block !important;
+}
+.off {
+    display: none;
+}
+#searchrr.open {
+    opacity: 1;
+    transform: translate(0px, 0px) scale(1, 1);
+}
+#searchrr {
+    background-color: #fff;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    transition: all 0.5s ease-in-out 0s;
+    width: 100%;
+    z-index: 2000;
+
+}
+#searchrr .close {
+    color: #be5254;
+    font-size: 40px;
+    opacity: 1;
+    padding: 10px 17px;
+    position: fixed;
+    right: 15px;
+    top: 15px;
+}
+button.close {
+    background: transparent none repeat scroll 0 0;
+    border: 0 none;
+    cursor: pointer;
+}
+.close {
+    float: right;
+    font-weight: bold;
+    line-height: 1;
+    text-shadow: 0 1px 0 #fff;
+}
+#searchrr input[type="text"] {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 0 none;
+    color: #333;
+    font-size: 6vh;
+    font-weight: 300;
+    margin-left: 5%;
+    margin-right: 5%;
+    outline: medium none;
+    padding-left: 30px;
+    padding-right: 30px;
+    position: absolute;
+    text-align: center;
+    top: 10%;
+    width: 90%;
+    border-top: 1px solid orange;
+  	border-bottom: 2px solid orange;
+  	border-left: 0px solid transparent;
+  	border-right: 0px solid transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

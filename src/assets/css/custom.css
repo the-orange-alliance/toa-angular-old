@@ -351,14 +351,23 @@ a:hover {
   justify-content: center;
   align-items: center;
 }
-
 .search-results {
   padding-top: 10px;
   padding-bottom: 10px;
-  max-width: 196px !important;
   text-wrap: normal;
-  overflow-x: hidden;
-  background-color: #fff !important;
+  width:100%;
+  text-align: center;
+  list-style-type: none;
+  font-size: 20px;
+  font-weight: 300;
+  margin: -51px auto 0;
+  outline: medium none;
+  padding-left: 30px;
+  padding-right: 30px;
+  position: absolute;
+  text-align: center;
+  top: 30%;
+  width: 100%;
 }
 
 .search-results > li, .search-results > li > a, .search-results > li > a:link, .search-results > li > a:visited {
