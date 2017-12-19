@@ -69,8 +69,10 @@
   <hr>
 
   <div class="row">
-    <div *ngFor="let week of weeks" class="col-xs-12 col-sm-6 col-lg-4">
-      <div *ngIf="getEventsByWeek(week).length > 0" class="panel panel-warning">
+    <div *ngFor="let week of weeks" >
+      <ng-container *ngIf="getEventsByWeek(week).length > 0" >
+	  <div class="col-xs-12 col-sm-6 col-lg-4">
+	    <div class="panel panel-warning">
         <div class="panel-heading">
           <div class="panel-title">
             <b *ngIf="week.week != 'CMPHOU' && week.week != 'CMPSTL' && week.week != 'CMPDET' && week.week != 'CMP' && week.week != 'SPR' && week.week != 'FOC' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'">{{ week.start_date | date :  "mediumDate"}} - {{ week.end_date | date :  "mediumDate" }}</b>
@@ -94,10 +96,13 @@
           <div *ngFor="let event of getEventsByWeek(week)">
             <a *ngIf="week.week == 'CMP' || week.week == 'CMPHOU' || week.week == 'CMPDET' || week.week == 'CMPSTL' || week.week == 'ESR' || week.week == 'SSR' || week.week == 'NSR' || week.week == 'WSR'" href="/events/{{ event.event_key }}">{{ event.division_name }} Division</a>
             <a *ngIf="event.division_name == null" href="/events/{{ event.event_key }}">{{ event.region_key}} : {{ event.event_name }}</a>
-            <a *ngIf="event.division_name && week.week != 'CMP' && week.week != 'CMPHOU' && week.week != 'CMPDET' && week.week != 'CMPSTL' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'" href="/events/{{ event.event_key }}">{{ event.region_key}} : {{ event.event_name }} -&nbsp{{ event.division_name }} Division</a>  
+            <a *ngIf="event.division_name && week.week != 'CMP' && week.week != 'CMPHOU' && week.week != 'CMPDET' && week.week != 'CMPSTL' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'" href="/events/{{ event.event_key }}">{{ event.region_key}} : {{ event.event_name }} - {{ event.division_name }} Division</a>  
+
           </div>
         </div>
-      </div>
+        </div>
+	    </div>
+      </ng-container>
     </div>
   </div>
 
