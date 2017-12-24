@@ -13,7 +13,6 @@ export class TeamFilter {
   public filterArray(region_query: string, name_query: string, location_query: string, league_query: string) {
     if (region_query || name_query || location_query || league_query) {
       this.teams_filtered = this.teams.filter((team) => {
-
         const team_number = (team.team_number + '' || 'null').toLowerCase();
         const team_school = (team.team_name_long + '' || 'null').toLowerCase();
         const team_name = (team.team_name_short + '' || 'null').toLowerCase();
@@ -36,10 +35,16 @@ export class TeamFilter {
           region_query = region_query.toLowerCase();
           contains_region = (team_region === region_query);
         }
-
+        // Search functionality
         if (name_query) {
           name_query = name_query.toLowerCase();
-          contains_number = (team_number.indexOf(name_query) > -1);
+          contains_number = false;
+          var quieres = name_query.split(" ");
+          // console.log(quieres);
+          for (var q =0;q<quieres.length;q+=1) {
+            contains_number = contains_number || (team_number.indexOf(quieres[q]) > -1);
+          }
+          // So searching "3113 - Some Disassembly Required" but "Some 113" should still match.
           contains_name = (team_name.indexOf(name_query) > -1);
           contains_school = (team_school.indexOf(name_query) > -1);
         }

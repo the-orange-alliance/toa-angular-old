@@ -15,6 +15,8 @@ export class TheOrangeAllianceComponent {
   teams: any;
   teams_filter: TeamFilter;
 
+  isMoreSearch: any;
+
   events: any;
   events_filter: EventFilter;
 
@@ -51,15 +53,17 @@ export class TheOrangeAllianceComponent {
       this.teams = this.teams_filter.getFilteredArray();
       this.events = this.events_filter.getFilteredArray();
       document.getElementById('search').style.display = 'block';
-      if (this.teams.length < 4) {
-        this.team_search_results = this.teams.splice(0, this.teams.length);
+
+      // SO there are obviously going to be more search results than 8, but let's try and make it more readable.
+      let eventLength = this.events.length;
+      let teamsLength = this.teams.length;
+      //Prioritize Teams but max 8 results but min 2 of each
+      this.team_search_results = this.teams.splice(0, Math.min(teamsLength,Math.min(8,Math.max(8-eventLength,2))));
+      this.event_search_results = this.events.splice(0, 8 - this.team_search_results.length);
+      if(teamsLength + eventLength > 8) {
+        this.isMoreSearch = teamsLength + eventLength - 8;
       } else {
-        this.team_search_results = this.teams.splice(0, 4);
-      }
-      if (this.events.length < 4) {
-        this.event_search_results = this.events.splice(0, this.events.length);
-      } else {
-        this.event_search_results = this.events.splice(0, 4);
+        this.isMoreSearch = 0
       }
     } else {
       document.getElementById("search").style.display = "none";
