@@ -37,6 +37,8 @@
        <ul id="search" class="search-results" aria-labelledby="ftc_search">
          <li *ngFor="let result of team_search_results"><a href="/teams/{{result.team_key}}">{{ result.team_key }} - {{ result.team_name_short }}</a></li>
          <li *ngFor="let result of event_search_results"><a href="/events/{{result.event_key}}">[{{ result.event_key }}] {{ result.start_date | date : "y" }} {{ result.event_name }}</a></li>
+
+         <li *ngIf="isMoreSearch > 0" style="color:gray !important;"><i>{{isMoreSearch}} more results...</i></li>
        </ul>
      </form>
      <small style="text-align: center; color: rgb(0, 0, 0); position: absolute; left: 0px; right: 0px; bottom: 70px; font-size: 16px;">The Orange Alliance</small>
