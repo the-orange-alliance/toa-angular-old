@@ -41,14 +41,10 @@ export class TeamsComponent implements OnInit {
     this.team_query = null;
     this.globaltoa.setTitle("Teams");
   }
-
   ngOnInit(): void {
     this.ftc.getAllTeams().subscribe((data) => {
       this.teams_count = data[0].team_count;
-      this.pages = [];
-      for (let i = 0; i < Math.ceil(this.teams_count / TEAMS_PER_PAGE); i++) {
-        this.pages.push({ index: (i) });
-      }
+      this.updateNagivationBars();
       this.getAllTeams();
     }, (err) => {
       console.log(err);
@@ -69,6 +65,13 @@ export class TeamsComponent implements OnInit {
     }, (err) => {
       console.log(err);
     });
+  }
+
+  updateNagivationBars () : void {
+    this.pages = [];
+    for (let i = 0; i < Math.ceil(this.teams_count / TEAMS_PER_PAGE); i++) {
+      this.pages.push({ index: (i) });
+    }
   }
 
   openTeam(team_number): void {
@@ -138,9 +141,13 @@ export class TeamsComponent implements OnInit {
     if (this.team_query !== null && this.team_query.length > 0) {
       this.teams_filter.filterArray(this.current_region.region_key, this.team_query, this.location_query, this.current_league.league_key);
       this.current_teams = this.teams_filter.getFilteredArray();
+      this.teams_count = this.current_teams.length;
     } else {
-      this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
+      // this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
+
+      this.teams_count = this.teams.length;
     }
+    this.updateNagivationBars();
   }
 
   queryLocation() {
@@ -157,10 +164,8 @@ export class TeamsComponent implements OnInit {
     this.current_region = this.regions[this.regions.length - 1];
     this.team_query = null;
     this.location_query = null;
-    this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
-  }
-  clickToTeam(number) {
-    // TODO REPEAT FUNCTION CHANGE TO openTeam
-    window.location.href = "/teams/" + number;
+    // this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
+    this.teams_count = this.teams.length
+    this.updateNagivationBars();
   }
 }
