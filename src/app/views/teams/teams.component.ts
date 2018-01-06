@@ -27,6 +27,8 @@ export class TeamsComponent implements OnInit {
   location_query: string;
   team_query: string;
 
+
+
   current_region: any;
   current_league: any;
   current_teams: any;
@@ -78,6 +80,12 @@ export class TeamsComponent implements OnInit {
       this.teams = data;
       this.teams_filter = new TeamFilter(this.teams);
       this.getTeams(0);
+      // #IF GET REQUESTS THEN SEARCH!
+      var $get = this.globaltoa.retrieveGET();
+      if ("q" in $get) {
+        this.team_query = $get["q"];
+        this.queryTeam();
+      }
     }, (err) => {
       console.log(err);
     });
@@ -152,6 +160,7 @@ export class TeamsComponent implements OnInit {
     this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
   }
   clickToTeam(number) {
+    // TODO REPEAT FUNCTION CHANGE TO openTeam
     window.location.href = "/teams/" + number;
   }
 }
