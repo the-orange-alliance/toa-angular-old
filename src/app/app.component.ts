@@ -3,12 +3,13 @@ import { FTCDatabase } from './providers/ftc-database';
 import { TeamFilter } from './util/team-utils';
 import { Router } from '@angular/router';
 import {EventFilter} from "./util/event-utils";
+import { TheOrangeAllianceGlobals } from './app.globals';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [FTCDatabase]
+  providers: [FTCDatabase,TheOrangeAllianceGlobals]
 })
 export class TheOrangeAllianceComponent {
 
@@ -26,7 +27,7 @@ export class TheOrangeAllianceComponent {
 
   current_year: any;
 
-  constructor(private router: Router, private ftc: FTCDatabase) {
+  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa:TheOrangeAllianceGlobals) {
     this.current_year = new Date().getFullYear();
     this.team_search_results = [];
     this.event_search_results = [];
@@ -69,7 +70,6 @@ export class TheOrangeAllianceComponent {
       document.getElementById("search").style.display = "none";
     }
   }
-
   expandDropdown(e) {
 
     if (document.getElementsByClassName('collapsed')[0] !== null) {

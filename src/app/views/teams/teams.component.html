@@ -115,7 +115,7 @@
         </tr>
         </thead>
         <tbody *ngIf="current_teams.length > 0">
-          <tr *ngFor="let team of current_teams; let i = index;"  class="clickable-row" (click)="clickToTeam(team.team_number)">
+          <tr *ngFor="let team of current_teams; let i = index;"  class="clickable-row" (click)="openTeam(team.team_number)">
             <td *ngIf="i < current_teams.length / 2"><a class="arow" href="/teams/{{ team.team_number }}">{{ team.team_number }}</a></td>
             <td *ngIf="i < current_teams.length / 2">{{ team.team_name_short }}</td>
             <td *ngIf="i < current_teams.length / 2">{{ team.city }}, {{ team.state_prov }}, {{ team.country }}</td>
@@ -134,7 +134,7 @@
         </tr>
         </thead>
         <tbody *ngIf="current_teams.length > 0">
-        <tr class="clickable-row" *ngFor="let team of current_teams; let i = index;" (click)="clickToTeam(team.team_number)">
+        <tr class="clickable-row" *ngFor="let team of current_teams; let i = index;" (click)="openTeam(team.team_number)">
           <td *ngIf="i >= current_teams.length / 2"><a class="arow" href="/teams/{{ team.team_number }}">{{ team.team_number }}</a></td>
           <td *ngIf="i >= current_teams.length / 2">{{ team.team_name_short }}</td>
           <td *ngIf="i >= current_teams.length / 2">{{ team.city }}, {{ team.state_prov }}, {{ team.country }}</td>
