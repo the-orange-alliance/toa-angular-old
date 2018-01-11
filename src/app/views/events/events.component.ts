@@ -36,6 +36,7 @@ export class EventsComponent implements OnInit {
       if (this.events.length > 0) {
         this.organizeEventsByWeek();
       }
+
     }, (err) => {
       console.log(err);
     });
