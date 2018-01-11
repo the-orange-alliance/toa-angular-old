@@ -75,7 +75,7 @@
 	    <div class="panel panel-warning">
         <div class="panel-heading">
           <div class="panel-title">
-            <b *ngIf="week.week != 'CMPHOU' && week.week != 'CMPSTL' && week.week != 'CMPDET' && week.week != 'CMP' && week.week != 'SPR' && week.week != 'FOC' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'">{{ week.start_date | date :  "mediumDate"}} - {{ week.end_date | date :  "mediumDate" }}</b>
+            <b *ngIf="week.week != 'CMPHOU' && week.week != 'CMPSTL' && week.week != 'CMPDET' && week.week != 'CMP' && week.week != 'SPR' && week.week != 'FOC' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'">Week {{ week.week }}</b>
             <b *ngIf="week.week == 'CMP'">FIRST Championship</b>
             <b *ngIf="week.week == 'CMPHOU'">FIRST Championship - Houston</b>
             <b *ngIf="week.week == 'CMPSTL'">FIRST Championship - St. Louis</b>
@@ -89,7 +89,7 @@
             <span class="badge">{{ getEventsByWeek(week).length }}</span>
             <br/>
             <small *ngIf="week.week == 'CMP' || week.week == 'CMPHOU' || week.week == 'CMPDET' || week.week == 'CMPSTL' || week.week == 'ESR' || week.week == 'SSR' || week.week == 'NSR' || week.week == 'WSR' || week.week == 'FOC'">{{ week.start_date | date :  "mediumDate"}} - {{ week.end_date | date :  "mediumDate" }}</small>
-            <small *ngIf="week.week != 'CMP' && week.week != 'CMPHOU' && week.week != 'CMPDET' && week.week != 'CMPSTL' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR' && week.week != 'FOC'">Week {{ week.week }}</small>
+            <small *ngIf="week.week != 'CMP' && week.week != 'CMPHOU' && week.week != 'CMPDET' && week.week != 'CMPSTL' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR' && week.week != 'FOC'">{{ week.start_date | date :  "mediumDate"}} - {{ week.end_date | date :  "mediumDate" }}</small>
           </div>
         </div>
         <div class="panel-body">

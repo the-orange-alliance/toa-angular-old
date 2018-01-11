@@ -56,7 +56,7 @@ export class EventsComponent implements OnInit {
     });
 
   }
-
+  
   organizeEventsByWeek(): void {
     this.weeks = [];
     let cur_week = null;
@@ -64,12 +64,26 @@ export class EventsComponent implements OnInit {
       if (event.week_key !== cur_week) {
         this.weeks.push({
           'week': event.week_key,
-          'start_date': event.start_date,
-          'end_date': event.end_date
+          'start_date': this.getMonday(event.start_date),
+          'end_date': this.getSunday(event.start_date)
         });
         cur_week = event.week_key;
       }
     }
+  }
+  
+  getMonday(d) {
+    d = new Date(d);
+    var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+    return new Date(d.setDate(diff));
+  }
+  
+  getSunday(d) {
+    d = new Date(d);
+    var day = d.getDay(),
+      diff = d.getDate() +6 - day + (day == 0 ? -6:1); // adjust when day is sunday
+    return new Date(d.setDate(diff));
   }
 
   getEventsByWeek(week: any): any {
