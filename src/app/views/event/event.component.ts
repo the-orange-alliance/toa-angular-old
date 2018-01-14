@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { EventParser } from '../../util/event-utils';
+import { MatchParser, MatchSorter, MatchType } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 
 @Component({
@@ -12,6 +13,7 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 export class EventComponent implements OnInit {
 
   event_parser: EventParser;
+  match_sorter: MatchSorter;
 
   event_key: string;
   event: any;
@@ -43,6 +45,19 @@ export class EventComponent implements OnInit {
 		  this.select('matches')
 		} else {
 		  this.select('teams');
+		}
+		
+		if (this.event.matches) {
+			this.match_sorter = new MatchSorter();
+			this.event.matches = this.match_sorter.sort(this.event.matches, 0, this.event.matches.length - 1);
+
+			for (const match of this.event.matches) {
+				if (match.tournament_level === MatchType.SEMIS_MATCH_1 ||
+                    match.tournament_level === MatchType.SEMIS_MATCH_2 ||
+					match.tournament_level === MatchType.FINALS_MATCH) {
+					this.select('matches');
+				}
+			}
 		}
 		
         this.event_parser = new EventParser(this.event);
