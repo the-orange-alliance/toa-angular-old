@@ -87,7 +87,8 @@ export class HomeComponent {
       console.log(err);
     });
     this.ftc.getSeasonEvents('1718').subscribe((data) => {
-      const today = new Date();
+      var today = new Date();
+	  today = new Date(today.getFullYear(), today.getMonth(), today.getDate() ); /** remove fractional day */
       this.current_events = [];
       for (const event of data) {
         let week_start = this.getStartOfWeek(new Date(event.start_date));
