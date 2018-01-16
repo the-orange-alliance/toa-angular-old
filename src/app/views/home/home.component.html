@@ -52,8 +52,8 @@
         <tr *ngFor="let event of current_events">
           <td>{{ event.region_key }}</td>
           <td>
-            <a *ngIf="event.division_name == null" href="/events/{{ event.event_key }}">{{ event.event_name }}</a>
-            <a *ngIf="event.division_name" href="/events/{{ event.event_key }}">{{ event.event_name }} - {{ event.division_name }} Division</a>
+            <a *ngIf="event.division_name == null" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }}'>{{ event.event_name }}</a>
+            <a *ngIf="event.division_name" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }}'>{{ event.event_name }} - {{ event.division_name }} Division</a>
           </td>
           <td *ngIf="event.start_date != event.end_date">{{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</td>
           <td *ngIf="event.start_date == event.end_date">{{ event.start_date | date :  "mediumDate"}}</td>
