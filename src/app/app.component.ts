@@ -27,11 +27,15 @@ export class TheOrangeAllianceComponent {
 
   current_year: any;
 
+
   constructor(private router: Router, private ftc: FTCDatabase, private globaltoa:TheOrangeAllianceGlobals) {
     this.current_year = new Date().getFullYear();
     this.team_search_results = [];
     this.event_search_results = [];
+    var x = this;
+    document.addEventListener('keydown', function(e) {x.performSearchCallback(e,x)});
 
+    console.log("CREATED DOM DOM DOM");
     this.ftc.getEveryTeam().subscribe((data) => {
       this.teams = data;
       this.teams_filter = new TeamFilter(this.teams);
@@ -46,8 +50,23 @@ export class TheOrangeAllianceComponent {
       console.log(err);
     });
   }
+  performSearchCallback(event,r) : void {
+    console.log("HELLO TYPED " + event.keyCode);
+    if (event.keyCode == 27) {
+      document.getElementById("removeSearch").click();
+    } else if(event.keyCode == 13) {
+      if(r.team_search_results.length > 0) {
+        window.location.href = "teams/" + r.team_search_results[0].team_key; // +  "?q=" + r.search;
+        document.getElementById("removeSearch").click();
+      } else if(r.event_search_results.length > 0){
+        window.location.href = "events/" + r.event_search_results[0].event_key; // + "?q=" + r.search;;
+        document.getElementById("removeSearch").click();
+      }
+    }
+  }
   performSearch(): void {
     if (this.search) {
+      (<HTMLInputElement>document.getElementById("showSearch")).value = this.search;
       this.teams_filter.filterArray(null, this.search, null, null);
       this.events_filter.searchFilter(this.search);
 
@@ -92,6 +111,9 @@ export class TheOrangeAllianceComponent {
 
   }
 
+  openEvent(event_name): void {
+    this.router.navigate(['/events', event_name]);
+  }
   openTeam(team_number): void {
     this.router.navigate(['/teams', team_number]);
   }
