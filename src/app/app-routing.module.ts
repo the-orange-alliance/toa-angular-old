@@ -14,7 +14,8 @@ import { StreamingComponent } from './views/stream/streaming.component';
 import { TermsComponent } from './views/terms/terms.component';
 import { PageNotFoundComponent } from './views/404/404.component';
 import { MatchesComponent } from './views/matches/matches.component';
-import { EventStreamComponent } from "./views/stream/subviews/event-stream.component";
+import { EventStreamComponent } from './views/stream/subviews/event-stream.component';
+import { LiveDocsComponent } from './views/livedocs/livedocs.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'teams', component: TeamsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'apidocs', component: ApiDocsComponent },
+  { path: 'livedocs', component: LiveDocsComponent },
   { path: 'privacy', component: PrivacyComponent },
   { path: 'ranking', component: RankingComponent },
   { path: 'stream', component: StreamingComponent },
