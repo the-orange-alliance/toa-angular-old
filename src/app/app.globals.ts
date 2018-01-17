@@ -30,4 +30,4 @@ export class TheOrangeAllianceGlobals {
       }
       return $_GET;
     }
-}
+  }

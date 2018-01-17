@@ -35,6 +35,7 @@ export class TeamComponent implements OnInit {
     this.semis_matches = [];
     this.finals_matches = [];
     this.event_sorter = new EventSorter();
+
   }
 
   ngOnInit(): void {
@@ -221,7 +222,7 @@ export class TeamComponent implements OnInit {
   getStationLength(match_data): number {
     return match_data.teams.toString().split(',').length;
   }
-  
+
   getTeamResult(match, team:number): string {
     //return team.toString();
 	if (match.red_score!=null) { // match score exists

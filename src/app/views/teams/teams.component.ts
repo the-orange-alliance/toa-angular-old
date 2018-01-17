@@ -87,6 +87,7 @@ export class TeamsComponent implements OnInit {
       var $get = this.globaltoa.retrieveGET();
       if ("q" in $get) {
         this.team_query = $get["q"];
+
         this.queryTeam();
       }
     }, (err) => {
@@ -144,7 +145,6 @@ export class TeamsComponent implements OnInit {
       this.teams_count = this.current_teams.length;
     } else {
       // this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
-
       this.teams_count = this.teams.length;
     }
     this.updateNagivationBars();
