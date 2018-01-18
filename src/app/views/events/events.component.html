@@ -88,16 +88,20 @@
             <b *ngIf="week.week == 'FOC'">Festival of Champions</b>
             <span class="badge">{{ getEventsByWeek(week).length }}</span>
             <br/>
-            <small *ngIf="week.week == 'CMP' || week.week == 'CMPHOU' || week.week == 'CMPDET' || week.week == 'CMPSTL' || week.week == 'ESR' || week.week == 'SSR' || week.week == 'NSR' || week.week == 'WSR' || week.week == 'FOC'">{{ week.start_date | date :  "mediumDate"}} - {{ week.end_date | date :  "mediumDate" }}</small>
-            <small *ngIf="week.week != 'CMP' && week.week != 'CMPHOU' && week.week != 'CMPDET' && week.week != 'CMPSTL' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR' && week.week != 'FOC'">{{ week.start_date | date :  "mediumDate"}} - {{ week.end_date | date :  "mediumDate" }}</small>
+            <small>{{ week.start_date | date :  "mediumDate"}} - {{ week.end_date | date :  "mediumDate" }}</small>
           </div>
         </div>
         <div class="panel-body">
           <div *ngFor="let event of getEventsByWeek(week)">
-            <a *ngIf="week.week == 'CMP' || week.week == 'CMPHOU' || week.week == 'CMPDET' || week.week == 'CMPSTL' || week.week == 'ESR' || week.week == 'SSR' || week.week == 'NSR' || week.week == 'WSR'" href="/events/{{ event.event_key }}">{{ event.division_name }} Division</a>
+		  
+            <!-- <a *ngIf="week.week == 'CMP' || week.week == 'CMPHOU' || week.week == 'CMPDET' || week.week == 'CMPSTL' || week.week == 'ESR' || week.week == 'SSR' || week.week == 'NSR' || week.week == 'WSR'" href="/events/{{ event.event_key }}">{{ event.division_name }} Division</a> -->
+			
             <a *ngIf="event.division_name == null && event.start_date != event.end_date" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }} from {{ event.start_date | date :  "mediumDate"}} to {{ event.end_date | date :  "mediumDate"}}'>{{ event.region_key}} : {{ event.event_name }}</a>
-            <a *ngIf="event.division_name == null" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }} on {{ event.start_date | date :  "mediumDate"}}'>{{ event.region_key}} : {{ event.event_name }}</a>
+			
+            <a *ngIf="event.division_name == null && event.start_date == event.end_date" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }} on {{ event.start_date | date :  "mediumDate"}}'>{{ event.region_key}} : {{ event.event_name }}</a>
+			
             <a *ngIf="event.division_name && week.week != 'CMP' && week.week != 'CMPHOU' && week.week != 'CMPDET' && week.week != 'CMPSTL' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'" href="/events/{{ event.event_key }}">{{ event.region_key}} : {{ event.event_name }} - {{ event.division_name }} Division</a>
+			
             <!-- <p *ngIf="event.teams != null"> NONE </p> In the future TODO when API gets changed -->
           </div>
         </div>
