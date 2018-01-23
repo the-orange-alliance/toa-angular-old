@@ -198,7 +198,6 @@
       <td colspan="6">Minor Penalty</td>
 	  <td colspan="3" class="blue" *ngIf="match_details.red_min_pen == 0">0</td>
       <td colspan="3" class="blue" *ngIf="match_details.red_min_pen != 0">{{ match_details.red_min_pen }} ( +{{ match_details.red_min_pen * 10 }} )</td>
-
     </tr>
     <tr>
 	  <td colspan="3" class="red" *ngIf="match_details.blue_maj_pen == 0">0</td>
@@ -206,12 +205,10 @@
       <td colspan="6">Major Penalty</td>
 	  <td colspan="3" class="blue" *ngIf="match_details.red_maj_pen == 0">0</td>
       <td colspan="3" class="blue" *ngIf="match_details.red_maj_pen != 0">{{ match_details.red_maj_pen }} ( +{{ match_details.red_maj_pen * 40 }} )</td>
-
     </tr>
     <tr>
-      <td colspan="3" class="red"><strong>{{ match_data.red_penalty }}</strong></td>
+      <td colspan="3" class="red"><strong>{{ match_data.blue_penalty }}</strong></td>
       <td colspan="6"><strong>Penalty Total</strong></td>
-      <td colspan="3" class="blue"><strong>{{ match_data.blue_penalty }}</strong></td>
     </tr>
     </tbody>
   </table>
