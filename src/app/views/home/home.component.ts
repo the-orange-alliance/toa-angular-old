@@ -31,7 +31,7 @@ export class HomeComponent {
     });
     this.ftc.getHighScoreQual().subscribe((data) => {
       this.qual_match = this.getBestMatch(data);
-      this.ftc.getStations(this.qual_match.match_key).subscribe((qual_data) => {
+      this.ftc.getStations(this.qual_match.match_key).subscribe((qual_data: any) => {
         let teams = '';
         for (const station of qual_data) {
           teams += station.team_key + ',';
@@ -50,7 +50,7 @@ export class HomeComponent {
     });
     this.ftc.getHighScoreElim().subscribe((elim_data) => {
       this.elim_match = this.getBestMatch(elim_data);
-      this.ftc.getStations(this.elim_match.match_key).subscribe((data) => {
+      this.ftc.getStations(this.elim_match.match_key).subscribe((data: any) => {
         let teams = '';
         for (const station of data) {
           teams += station.team_key + ',';
@@ -69,7 +69,7 @@ export class HomeComponent {
     });
     this.ftc.getHighScoreWithPenalty().subscribe((match_data) => {
       this.normal_match = this.getBestMatch(match_data);
-      this.ftc.getStations(this.normal_match.match_key).subscribe((data) => {
+      this.ftc.getStations(this.normal_match.match_key).subscribe((data: any) => {
         let teams = '';
         for (const station of data) {
           teams += station.team_key + ',';
@@ -86,7 +86,7 @@ export class HomeComponent {
     }, (err) => {
       console.log(err);
     });
-    this.ftc.getSeasonEvents('1718').subscribe((data) => {
+    this.ftc.getSeasonEvents('1718').subscribe((data: any) => {
       var today = new Date();
 	  today = new Date(today.getFullYear(), today.getMonth(), today.getDate() ); /** remove fractional day */
       this.current_events = [];
@@ -100,7 +100,7 @@ export class HomeComponent {
     }, (err) => {
       console.log(err);
     });
-    this.ftc.getAnnouncements().subscribe((data) => {
+    this.ftc.getAnnouncements().subscribe((data: any) => {
       const today = new Date();
       for (let announcement of data) {
         if (this.isBetweenDates(new Date(announcement.publish_date), new Date(announcement.end_date), today)) {

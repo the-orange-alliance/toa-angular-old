@@ -79,7 +79,7 @@ export class TeamsComponent implements OnInit {
   }
 
   getAllTeams(): void {
-    this.ftc.getEveryTeam().subscribe((data) => {
+    this.ftc.getEveryTeam().subscribe((data: any[]) => {
       this.teams = data;
       this.teams_filter = new TeamFilter(this.teams);
       this.getTeams(0);

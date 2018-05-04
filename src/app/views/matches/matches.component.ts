@@ -27,6 +27,7 @@ export class MatchesComponent implements OnInit {
   ngOnInit() {
     const season_split = this.match_key.toString().split('-')[0];
     this.ftc.getMatchDetail(this.match_key).subscribe((match_data) => {
+      console.log(match_data);
       if (!match_data[0][0]) {
         this.router.navigate(['/not-found']);
       } else {

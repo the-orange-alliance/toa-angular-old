@@ -23,7 +23,7 @@ export class StreamingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ftc.getAllStreams().subscribe((data) => {
+    this.ftc.getAllStreams().subscribe((data: any[]) => {
       this.streams = data;
 
       for (let stream of this.streams) {
