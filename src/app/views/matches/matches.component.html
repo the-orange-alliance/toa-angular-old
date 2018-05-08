@@ -113,10 +113,19 @@
 
     <!-- SWITCH STATEMENT BASICALLY HERE -->
 
-    <div class="row" *ngIf="match_data && match_details && match_stations">
-      <velocity-vortex *ngIf="getMatchSeason() == 1617" [match_data]="match_data" [match_details]="match_details" [match_stations]="match_stations"></velocity-vortex>
-      <relic-recovery *ngIf="getMatchSeason() == 1718" [match_data]="match_data" [match_details]="match_details" [match_stations]="match_stations"></relic-recovery>
-    </div>
+      <div class="row" *ngIf="match_data && match_details">
+       <velocity-vortex *ngIf="getMatchSeason() == 1617" [match_data]="match_data" [match_details]="match_details" [match_stations]="match_stations"></velocity-vortex>
+       <relic-recovery *ngIf="getMatchSeason() == 1718" [match_data]="match_data" [match_details]="match_details" [match_stations]="match_stations"></relic-recovery>
+     </div>
+ 
+     <div class="row" *ngIf="match_data && !match_details">
+       <velocity-vortex *ngIf="getMatchSeason() == 1617" [match_data]="match_data" [match_stations]="match_stations"></velocity-vortex>
+       <relic-recovery *ngIf="getMatchSeason() == 1718" [match_data]="match_data" [match_stations]="match_stations"></relic-recovery>
+     </div>
+
+     <div class="row" *ngIf="!match_data">
+       <h2>No match data found</h2>
+     </div>
 
   </div>
 
