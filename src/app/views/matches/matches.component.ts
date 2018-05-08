@@ -33,11 +33,20 @@ export class MatchesComponent implements OnInit {
         /*this.stations = match_data.station_status;*/
         this.match_data = match_data[0][0];
         this.match_details = match_data[1][0];
+        this.match_details = null;
         this.match_stations = match_data[2];
-
-        this.ftc.getEventName(this.match_data.event_key).subscribe((data) => {
+        if(this.match_details == null) {
+          console.log("match details are null");
+        }
+        if(this.match_data == null)
+        {
+          console.log("match_data is null");
+        }
+        else {
+          this.ftc.getEventName(this.match_data.event_key).subscribe((data) => {
           this.match_event = data[0];
         });
+        }
       }
     }, (err) => {
       console.log(err);

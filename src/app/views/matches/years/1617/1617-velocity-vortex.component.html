@@ -1,5 +1,5 @@
 <div class="col-xs-12 col-md-6">
-    <table class="match-table">
+    <table class="match-table" *ngIf="match_details; else no_match_details">
       <thead>
       <tr>
         <th colspan="12">Auton Details</th>
@@ -86,7 +86,7 @@
   </div>
 
 <div class="col-xs-12 col-md-6">
-    <table class="match-table">
+    <table class="match-table" *ngIf="match_details">
       <thead>
       <tr>
         <th colspan="12">Teleop Details</th>
@@ -167,4 +167,8 @@
       </tr>
       </tbody>
     </table>
+
+    <ng-template #no_match_details>
+      <h2>No match details found</h2>
+    </ng-template>
   </div>
