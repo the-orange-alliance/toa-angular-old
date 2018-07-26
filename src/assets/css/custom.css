@@ -654,11 +654,11 @@ a:hover {
   left: 50%;
   margin: 90px 0;
   transform: translate(-50%, 0);
-  box-shadow: 0 10px 0 0 #ff6873 inset;
+  border-top: 10px solid #dc7f00;
   background-color: #fefffa;
   /* max-width: 450px; */
   min-width: 50%;
-  padding: 30px;
+  padding: 10px 30px 30px 30px;
   font-family: sans-serif;
 }
 
@@ -718,7 +718,7 @@ a:hover {
 .events-ul li i:before, ul li i:after {
   content: "";
   position: absolute;
-  background-color: #ff6873;
+  background-color: #dc7f00;
   width: 3px;
   height: 9px;
 }
