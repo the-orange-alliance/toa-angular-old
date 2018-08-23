@@ -1,58 +1,39 @@
-# Folders created by Angular, Node.js, or IntelliJ
-node_modules/
-dist/
-.idea/
-.idea/jsLibraryMappings.xml
-.idea/vcs.xml
-public/
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
+# compiled output
+/dist
+/tmp
+/out-tsc
 
-# Folder config file
-Desktop.ini
+# dependencies
+/node_modules
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-# Windows shortcuts
-*.lnk
-
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.nohup.out
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
 npm-debug.log
+yarn-error.log
+testem.log
+/typings
 
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-.idea/vcs.xml
+# System Files
+.DS_Store
+Thumbs.db
