@@ -60,7 +60,7 @@ import {AppMaterialModule} from './material.module';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
   ],
   providers: [FTCDatabase],
   bootstrap: [TheOrangeAllianceComponent]

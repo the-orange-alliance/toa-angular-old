@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { MatIconModule, MatIconRegistry } from '@angular/material';
 import {
+  MdcAppBarModule,
+  MdcTabIndicatorModule,
+  MdcTabBarModule,
+  MdcTabScrollerModule,
+  MdcIconButtonModule,
   MdcButtonModule,
   MdcCardModule,
   MdcCheckboxModule,
@@ -28,6 +33,12 @@ import {DomSanitizer} from '@angular/platform-browser';
 
 @NgModule({
   exports: [
+    MatIconModule,
+    MdcAppBarModule,
+    MdcTabIndicatorModule,
+    MdcTabBarModule,
+    MdcTabScrollerModule,
+    MdcIconButtonModule,
     MdcButtonModule,
     MdcCardModule,
     MdcCheckboxModule,
@@ -50,7 +61,6 @@ import {DomSanitizer} from '@angular/platform-browser';
     MdcTextFieldModule,
     MdcThemeModule,
     MdcTypographyModule,
-    // MatIconModule
   ]
 })
 
