@@ -1,0 +1,18 @@
+<main class="container">
+
+  <h1>Streaming</h1>
+
+  <div class="row">
+    <div *ngIf="stream" class="col-xs-12 col-md-10 col-md-offset-1">
+
+      <iframe *ngIf="stream.stream_type == 1" [src]="safe_url" frameborder="0" allowfullscreen scrolling="no" height="480" width="720"></iframe>
+      <iframe *ngIf="stream.stream_type == 0" [src]="safe_url" frameborder="0" allowfullscreen width="720" height="480"></iframe>
+
+    </div>
+
+    <div *ngIf="!stream" class="col-xs-12 col-md-10 col-md-offset-1">
+      There is no livestream for this event.
+    </div>
+  </div>
+
+</main>

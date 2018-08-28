@@ -1,0 +1,98 @@
+<!-- MAIN CONTAINER -->
+<main class="container">
+
+  <nav aria-label="...">
+    <ul class="pager mar-top-0">
+      <li class="previous"><a routerLink="/events"><span aria-hidden="true">&larr;</span> {{ event.start_date | date : "y" }} Events</a></li>
+    </ul>
+  </nav>
+
+  <div class="row">
+
+    <div class="col-xs-12 col-md-6">
+      <h3 *ngIf="event.division_name == null">{{ event.start_date | date : "y" }} {{ event.event_name }}</h3>
+      <h3 *ngIf="event.division_name">{{ event.start_date | date : "y" }} {{ event.event_name }} - {{ event.division_name }} Division</h3>
+      <p class="lead">
+        <small>Basic information about the {{ event.event_name }} can be found in the information chart. All times and dates displayed here, and on the event's individual result pages, are local to the event.</small>
+      </p>
+    </div>
+
+    <div class="col-xs-12 col-md-6">
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="fa fa-globe"></span> Event Information</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-2 col-md-1">
+              <span class="fa fa-code"></span>
+            </div>
+            <div class="col-xs-10 col-md-11">
+              {{ event.event_key }}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-2 col-md-1">
+              <span class="fa fa-calendar"></span>
+            </div>
+            <div class="col-xs-10 col-md-11">
+              <span *ngIf="event.start_date != event.end_date">{{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span>
+              <span *ngIf="event.start_date == event.end_date">{{ event.start_date | date :  "mediumDate"}} </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-2 col-md-1">
+              <span class="fa fa-location-arrow"></span>
+            </div>
+            <div class="col-xs-10 col-md-11">
+              <span *ngIf="event.venue"><a href="https://www.google.com/maps/search/{{ event.venue }} in {{ event.city }}, {{ event.state_prov }}" target="_blank">{{ event.venue }} in {{ event.city }}, {{ event.state_prov }}</a></span>
+              <span *ngIf="event.venue == null">{{ event.city }}, {{ event.state_prov }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-2 col-md-1">
+              <span class="fa fa-globe"></span>
+            </div>
+            <div class="col-xs-10 col-md-11">
+              <span *ngIf="event.event_website"><a href="{{ event.event_website }}" target="_blank">Website</a></span>
+              <span *ngIf="event.event_website == null"><i>Website N/A</i></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 *ngIf="totalteams==0">NO RESULTS HAVE BEEN REPORTED FOR THIS EVENT.</h3>
+
+  <div class="row" *ngIf="totalteams>0">
+    <div class="col-xs-12">
+      <ul class="nav nav-tabs">
+
+        <li role="presentation" [class.active]="isSelected('rankings')"><a (click)="select('rankings')">Rankings <span class="badge" [innerHTML]="totalrankings"></span></a></li>
+        <li role="presentation" [class.active]="isSelected('matches')"><a (click)="select('matches')">Matches <span class="badge" [innerHTML]="totalmatches"></span></a></li>
+        <li role="presentation" [class.active]="isSelected('awards')"><a (click)="select('awards')">Awards <span class="badge" [innerHTML]="totalawards"></span></a></li>
+		<li role="presentation" [class.active]="isSelected('teams')"><a (click)="select('teams')">Teams <span class="badge" [innerHTML]="totalteams"></span></a></li>
+
+        <!--<li role="presentation" [class.active]="isSelected('advancement')"><a (click)="select('advancement')">Advancement</a></li>-->
+      </ul>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="totalteams>0">
+
+    <toa-event-rankings *ngIf="isSelected('rankings')" [event]="event" [rankings]="event.rankings"></toa-event-rankings>
+    <toa-event-teams *ngIf="isSelected('teams')" [event]="event"></toa-event-teams>
+    <toa-event-matches *ngIf="isSelected('matches')" [matches]="event.matches.stations"></toa-event-matches>
+    <toa-event-awards *ngIf="isSelected('awards')" [event]="event"></toa-event-awards>
+
+  </div>
+
+
+
+</main>
+<!-- MAIN CONTAINER -->

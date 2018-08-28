@@ -1,0 +1,34 @@
+@import "~@angular-mdc/theme/material";
+
+.counting-card-content {
+  margin-left: 60px;
+  padding: 14px;
+}
+
+.counting-card-title {
+  font-weight: 600;
+  color: #000;
+}
+
+.counting-card-info {
+  color: #747474;
+}
+
+.counting-card-icon {
+  background: #f57c00;
+  margin-left: 10px;
+  border-radius: 50px;
+  color: #FFFFFF;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.counting-card-icon mat-icon {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
