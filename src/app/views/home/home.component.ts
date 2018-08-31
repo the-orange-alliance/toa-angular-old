@@ -8,7 +8,7 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
   selector: 'toa-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  providers: [FTCDatabase,TheOrangeAllianceGlobals]
+  providers: [FTCDatabase, TheOrangeAllianceGlobals]
 })
 export class HomeComponent {
 
@@ -18,7 +18,9 @@ export class HomeComponent {
   qual_match: any;
   elim_match: any;
   normal_match: any;
+
   match_count: number;
+  teams_count: number;
 
   match_insights: any;
   insights: any;
@@ -26,8 +28,13 @@ export class HomeComponent {
   week_start: any;
   week_end: any;
 
-  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa:TheOrangeAllianceGlobals) {
-    this.globaltoa.setTitle("Home")
+  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa: TheOrangeAllianceGlobals) {
+    this.globaltoa.setTitle('Home');
+    this.ftc.getAllTeams().subscribe((data) => {
+      this.teams_count = data[0].team_count;
+    }, (err) => {
+      console.log(err);
+    });
     this.ftc.getAllMatches().subscribe((match_data) => {
       this.match_count = match_data[0].match_count;
     }, (err) => {
@@ -92,12 +99,12 @@ export class HomeComponent {
     });
     this.ftc.getSeasonEvents('1718').subscribe((data: any) => {
       let today = new Date();
-	  today = new Date(today.getFullYear(), today.getMonth(), today.getDate() ); /** remove fractional day */
+      today = new Date(today.getFullYear(), today.getMonth(), today.getDate() ); /** remove fractional day */
       this.current_events = [];
       for (const event of data) {
         this.week_start = this.getStartOfWeek(new Date(event.start_date));
         this.week_end = this.getEndofWeek(new Date(event.end_date));
-        if (this.isBetweenDates(this.week_start, this.week_start, today)) {
+        if (this.isBetweenDates(this.week_start, this.week_end, today)) {
           this.current_events.push(event);
         }
       }
@@ -106,7 +113,7 @@ export class HomeComponent {
     });
     this.ftc.getAnnouncements().subscribe((data: any) => {
       const today = new Date();
-      for (let announcement of data) {
+      for (const announcement of data) {
         if (this.isBetweenDates(new Date(announcement.publish_date), new Date(announcement.end_date), today)) {
           this.current_announcement = announcement;
           break;
@@ -119,7 +126,7 @@ export class HomeComponent {
       this.match_insights = data[0];
       this.insights = [];
       let i = 0;
-      for (let field in this.match_insights) {
+      for (const field in this.match_insights) {
         if (this.match_insights.hasOwnProperty(field)) {
           this.insights[i] = {
             'field': field,
@@ -134,13 +141,13 @@ export class HomeComponent {
   }
 
   getStartOfWeek(d) {
-    let day = d.getDay();
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + (day == 0?-6:1)-day );
+    const day = d.getDay();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + (day == 0 ? -6 : 1) - day );
   }
 
   getEndofWeek(d) {
-    let day = d.getDay();
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + (day == 0?0:7)-day );
+    const day = d.getDay();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + (day == 0 ? 0 : 7) - day );
   }
 
   isBetweenDates(start_date, end_date, today) {

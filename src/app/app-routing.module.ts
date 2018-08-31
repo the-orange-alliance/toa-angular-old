@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './views/home/home.component';
+import { AccountComponent } from './views/account/account.component';
 import { EventsComponent } from './views/events/events.component';
 import { TeamComponent } from './views/team/team.component';
 import { TeamsComponent } from './views/teams/teams.component';
@@ -19,6 +20,7 @@ import { LiveDocsComponent } from './views/livedocs/livedocs.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'account', component: AccountComponent },
   { path: 'events', component: EventsComponent },
   { path: 'teams', component: TeamsComponent },
   { path: 'about', component: AboutComponent },

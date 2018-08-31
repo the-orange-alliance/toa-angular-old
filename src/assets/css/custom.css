@@ -9,63 +9,6 @@ body {
   padding: 10px;
 }
 
-.primary {
-  color: #ff9800;
-}
-
-table.match-table {
-  display: table;
-  padding: 3px 0;
-  width: 100%;
-  max-width: 100%;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-table.match-table>thead {
-  display: table-header-group;
-  vertical-align: middle;
-  border-color: inherit;
-  background-color: #f0f0f0;
-}
-
-table.match-table>caption+thead>tr:first-child>th, table.match-table>colgroup+thead>tr:first-child>th, table.match-table>thead:first-child>tr:first-child>th, table.match-table>caption+thead>tr:first-child>td, table.match-table>colgroup+thead>tr:first-child>td, table.match-table>thead:first-child>tr:first-child>td {
-  border-top: 0;
-}
-
-table.match-table>thead>tr>th, table.match-table>thead>tr>td {
-  border-bottom-width: 2px;
-}
-
-table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
-  border: 1px solid #ddd;
-}
-
-table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
-  padding: 5px;
-}
-
-table.match-table>thead>tr>th {
-  vertical-align: bottom;
-  border-bottom: 2px solid #ddd;
-}
-
-table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
-  padding: 8px;
-  line-height: 1.42857143;
-  vertical-align: middle;
-  border-top: 1px solid #ddd;
-}
-
-table.match-table th, table.oprTable th {
-  font-weight: bold;
-  text-align: center;
-  vertical-align: middle !important;
-  padding: 3px;
-}
-
 table.stats-table {
   margin-bottom: 0;
 }
@@ -84,13 +27,6 @@ table.teams-table>thead {
   border-bottom: 2px solid #ddd;
 }
 
-tr {
-  text-align: center;
-}
-
-th {
-  text-align: left;
-}
 
 td, th {
   padding: 0;
@@ -274,6 +210,7 @@ footer>div>div>p>a:hover, footer>div>div>p>a:active {
 
 /* Bootstrap overrides */
 
+/*
 .navbar-nav {
   margin-top: 0;
   margin-bottom: 0;
@@ -321,19 +258,20 @@ footer>div>div>p>a:hover, footer>div>div>p>a:active {
   background: none !important;
 }
 
+*/
 .dropdown-menu {
   left: inherit;
   padding-top: 0;
   padding-bottom: 0;
   overflow-y: auto;
-  max-height: 500px;
+  max-height: 400px;
 }
 
 a:hover {
   cursor: pointer;
 }
 
-.pagination>li>a {
+.pagination>li:not(.disabled)>a {
   color: #ff9800 !important;
 }
 

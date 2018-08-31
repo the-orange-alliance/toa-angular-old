@@ -1,8 +1,19 @@
 /* Global Styles */
-$mdc-theme-primary: #F89808; // change primary color example
-$mdc-theme-secondary: #F89808; // change secondary color example
-
+@import "constants";
 @import "~@angular-mdc/theme/material";
+
+.primary {
+  color: $mdc-theme-primary;
+}
+
+.bg-primary {
+  background: $mdc-theme-primary!important;
+  color: #fff!important;
+}
+
+.gray {
+  color: #747474;
+}
 
 .logo-icon {
   height: 20px;
@@ -23,11 +34,6 @@ $mdc-theme-secondary: #F89808; // change secondary color example
   @include mdc-theme-prop(color, text-secondary-on-background);
   padding: 8px 1rem;
 }
-
-//mdc-drawer {
-//  background: #fff;
-//  //min-height: 100%;
-//}
 
 .item-profile {
   height: 80px!important;
@@ -102,4 +108,115 @@ html, body {
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 15px;
   margin: 15px 15px 15px 0;
+}
+
+
+
+/* ==========================================================================
+   Link Card
+   ========================================================================== */
+
+.link-card {
+  max-width: 300px;
+}
+.link-card-content {
+  margin-left: 60px;
+  padding: 14px;
+}
+
+.link-card-title {
+  font-weight: 600;
+  color: #000;
+}
+
+.link-card-icon {
+  background: $mdc-theme-primary;
+  margin-left: 10px;
+  border-radius: 50px;
+  color: #FFFFFF;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.link-card-icon mat-icon {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* ==========================================================================
+   Team Item
+   ========================================================================== */
+
+.item-team {
+  height: 80px!important;
+  padding-left: 10px!important;
+}
+
+.item-team img {
+  height: 50px!important;
+  margin-right: 15px;
+}
+
+
+/* ==========================================================================
+   Match Item Table
+   ========================================================================== */
+
+table.match-table {
+  display: table;
+  padding: 3px 0;
+  width: 100%;
+  max-width: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table.match-table>thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+  background-color: #f0f0f0;
+}
+
+table.match-table>caption+thead>tr:first-child>th, table.match-table>colgroup+thead>tr:first-child>th, table.match-table>thead:first-child>tr:first-child>th, table.match-table>caption+thead>tr:first-child>td, table.match-table>colgroup+thead>tr:first-child>td, table.match-table>thead:first-child>tr:first-child>td {
+  border-top: 0;
+}
+
+table.match-table>thead>tr>th, table.match-table>thead>tr>td {
+  border-bottom-width: 2px;
+}
+
+table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
+  border: 1px solid #ddd;
+}
+
+table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
+  padding: 5px;
+}
+
+table.match-table>thead>tr>th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd;
+}
+
+table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: middle;
+  border-top: 1px solid #ddd;
+}
+
+table.match-table th, table.oprTable th {
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle !important;
+  padding: 3px;
 }

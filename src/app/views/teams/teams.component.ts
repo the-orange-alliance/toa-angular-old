@@ -5,11 +5,12 @@ import { TeamFilter } from '../../util/team-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 
 
-const TEAMS_PER_PAGE = 500;
+const TEAMS_PER_PAGE = 400;
 
 @Component({
   selector: 'toa-teams',
   templateUrl: './teams.component.html',
+  styleUrls: ['./teams.component.scss'],
   providers: [FTCDatabase,TheOrangeAllianceGlobals]
 })
 export class TeamsComponent implements OnInit {
@@ -39,7 +40,7 @@ export class TeamsComponent implements OnInit {
 
     this.location_query = null;
     this.team_query = null;
-    this.globaltoa.setTitle("Teams");
+    this.globaltoa.setTitle('Teams');
   }
   ngOnInit(): void {
     this.ftc.getAllTeams().subscribe((data) => {
@@ -67,7 +68,7 @@ export class TeamsComponent implements OnInit {
     });
   }
 
-  updateNagivationBars () : void {
+  updateNagivationBars() {
     this.pages = [];
     for (let i = 0; i < Math.ceil(this.teams_count / TEAMS_PER_PAGE); i++) {
       this.pages.push({ index: (i) });
@@ -84,9 +85,9 @@ export class TeamsComponent implements OnInit {
       this.teams_filter = new TeamFilter(this.teams);
       this.getTeams(0);
       // #IF GET REQUESTS THEN SEARCH!
-      var $get = this.globaltoa.retrieveGET();
-      if ("q" in $get) {
-        this.team_query = $get["q"];
+      const $get = this.globaltoa.retrieveGET();
+      if ('q' in $get) {
+        this.team_query = $get['q'];
 
         this.queryTeam();
       }
@@ -164,8 +165,8 @@ export class TeamsComponent implements OnInit {
     this.current_region = this.regions[this.regions.length - 1];
     this.team_query = null;
     this.location_query = null;
-    // this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
-    this.teams_count = this.teams.length
+    this.current_teams = this.teams.slice((this.cur_page * TEAMS_PER_PAGE), ((this.cur_page + 1) * TEAMS_PER_PAGE));
+    this.teams_count = this.teams.length;
     this.updateNagivationBars();
   }
 }

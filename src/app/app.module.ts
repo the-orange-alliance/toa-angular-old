@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { TheOrangeAllianceComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
+import { AccountComponent } from './views/account/account.component';
 import { EventsComponent } from './views/events/events.component';
 import { TeamsComponent } from './views/teams/teams.component';
 import { EventComponent } from './views/event/event.component';
@@ -26,14 +27,15 @@ import { StreamingComponent } from './views/stream/streaming.component';
 import { TermsComponent } from './views/terms/terms.component';
 import { MatchesComponent } from './views/matches/matches.component';
 import { VelocityVortexComponent } from './views/matches/years/1617/1617-velocity-vortex.component';
-import {RelicRecoveryComponent} from './views/matches/years/1718/1718-relic-recovery-component';
-import {EventStreamComponent} from './views/stream/subviews/event-stream.component';
-import {AppMaterialModule} from './material.module';
+import { RelicRecoveryComponent } from './views/matches/years/1718/1718-relic-recovery-component';
+import { EventStreamComponent } from './views/stream/subviews/event-stream.component';
+import { AppMaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
     TheOrangeAllianceComponent,
     HomeComponent,
+    AccountComponent,
     EventsComponent,
     TeamsComponent,
     EventComponent,

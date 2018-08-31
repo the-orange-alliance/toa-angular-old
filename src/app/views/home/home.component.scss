@@ -1,4 +1,4 @@
-@import "~@angular-mdc/theme/material";
+@import "../../../constants";
 
 .counting-card-content {
   margin-left: 60px;
@@ -15,7 +15,7 @@
 }
 
 .counting-card-icon {
-  background: #f57c00;
+  background: $mdc-theme-primary;
   margin-left: 10px;
   border-radius: 50px;
   color: #FFFFFF;

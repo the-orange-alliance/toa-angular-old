@@ -2,9 +2,9 @@ import {Component, NgZone, ViewChild} from '@angular/core';
 import { FTCDatabase } from './providers/ftc-database';
 import { TeamFilter } from './util/team-utils';
 import { Router } from '@angular/router';
-import {EventFilter} from "./util/event-utils";
+import {EventFilter} from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
-import {MdcAppBar} from "@angular-mdc/web";
+import {MdcAppBar} from '@angular-mdc/web';
 
 const SMALL_WIDTH_BREAKPOINT = 1240;
 
@@ -12,7 +12,7 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [FTCDatabase,TheOrangeAllianceGlobals]
+  providers: [FTCDatabase, TheOrangeAllianceGlobals]
 })
 
 export class TheOrangeAllianceComponent {
@@ -34,17 +34,17 @@ export class TheOrangeAllianceComponent {
   private _mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
   @ViewChild(MdcAppBar) appBar: MdcAppBar;
 
-  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa:TheOrangeAllianceGlobals, private _ngZone: NgZone) {
+  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa: TheOrangeAllianceGlobals, private _ngZone: NgZone) {
     this._mediaMatcher.addListener(mql => this._ngZone.run(() => this._mediaMatcher = mql));
 
 
     this.current_year = new Date().getFullYear();
     this.team_search_results = [];
     this.event_search_results = [];
-    var x = this;
-    document.addEventListener('keydown', function(e) {x.performSearchCallback(e,x)});
+    const x = this;
+    document.addEventListener('keydown', function(e) {x.performSearchCallback(e, x)});
 
-    console.log("CREATED DOM DOM DOM");
+    console.log('CREATED DOM DOM DOM');
     this.ftc.getEveryTeam().subscribe((data) => {
       this.teams = data;
       this.teams_filter = new TeamFilter(this.teams);
@@ -60,24 +60,24 @@ export class TheOrangeAllianceComponent {
     });
   }
 
-  performSearchCallback(event,r) : void {
-    console.log("HELLO TYPED " + event.keyCode);
-    if (event.keyCode == 27) {
-      document.getElementById("removeSearch").click();
-    } else if(event.keyCode == 13) {
-      if(r.team_search_results.length > 0) {
-        window.location.href = "teams/" + r.team_search_results[0].team_key; // +  "?q=" + r.search;
-        document.getElementById("removeSearch").click();
-      } else if(r.event_search_results.length > 0){
-        window.location.href = "events/" + r.event_search_results[0].event_key; // + "?q=" + r.search;;
-        document.getElementById("removeSearch").click();
+  performSearchCallback(event, r): void {
+    console.log('HELLO TYPED ' + event.keyCode);
+    if (event.keyCode === 27) {
+      document.getElementById('removeSearch').click();
+    } else if (event.keyCode === 13) {
+      if (r.team_search_results.length > 0) {
+        window.location.href = 'teams/' + r.team_search_results[0].team_key; // +  "?q=" + r.search;
+        document.getElementById('removeSearch').click();
+      } else if (r.event_search_results.length > 0) {
+        window.location.href = 'events/' + r.event_search_results[0].event_key; // + "?q=" + r.search;;
+        document.getElementById('removeSearch').click();
       }
     }
   }
 
   performSearch(): void {
     if (this.search) {
-      (<HTMLInputElement>document.getElementById("showSearch")).value = this.search;
+      // (<HTMLInputElement>document.getElementById("showSearch")).value = this.search;
       this.teams_filter.filterArray(null, this.search, null, null);
       this.events_filter.searchFilter(this.search);
 
@@ -86,19 +86,19 @@ export class TheOrangeAllianceComponent {
       document.getElementById('search').style.display = 'block';
 
       // SO there are obviously going to be more search results, but let's try and make it more readable.
-      let eventLength = this.events.length;
-      let teamsLength = this.teams.length;
-      //Prioritize Teams but max results but min 2 of each
-	  var maxResults = 16;
-      this.team_search_results = this.teams.splice(0, Math.min(teamsLength,Math.min(maxResults,Math.max(maxResults-eventLength,2))));
+      const eventLength = this.events.length;
+      const teamsLength = this.teams.length;
+      // Prioritize Teams but max results but min 2 of each
+      const maxResults = 16;
+      this.team_search_results = this.teams.splice(0, Math.min(teamsLength, Math.min(maxResults, Math.max(maxResults - eventLength, 2))));
       this.event_search_results = this.events.splice(0, maxResults - this.team_search_results.length);
-      if(teamsLength + eventLength > maxResults) {
+      if (teamsLength + eventLength > maxResults) {
         this.isMoreSearch = teamsLength + eventLength - maxResults;
       } else {
         this.isMoreSearch = 0
       }
     } else {
-      document.getElementById("search").style.display = "none";
+      document.getElementById('search').style.display = 'none';
     }
   }
   expandDropdown(e) {
@@ -131,7 +131,7 @@ export class TheOrangeAllianceComponent {
   }
 
   hideDropdown() {
-    document.getElementById("search").style.display = "none";
+    document.getElementById('search').style.display = 'none';
   }
 
   isScreenSmall(): boolean {

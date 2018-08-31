@@ -6,64 +6,56 @@
     <div class="row">
       <div class="col-6 p-1">
         <mdc-card class="toa-card counting-card">
-          <mdc-card-primary-action mdc-ripple>
-            <div class="counting-card-icon">
-              <mat-icon svgIcon="account-group"></mat-icon>
-            </div>
-            <div class="counting-card-content">
-              <div class="counting-card-title">8177</div>
-              <div class="counting-card-info">Teams</div>
-            </div>
-          </mdc-card-primary-action>
+          <div class="counting-card-icon">
+            <mat-icon svgIcon="account-group"></mat-icon>
+          </div>
+          <div class="counting-card-content">
+            <div class="counting-card-title">{{ teams_count ? teams_count : 0 }}</div>
+            <div class="counting-card-info">Teams</div>
+          </div>
         </mdc-card>
       </div>
 
       <div class="col-6 p-1">
         <mdc-card class="toa-card counting-card">
-          <mdc-card-primary-action mdc-ripple>
-            <div class="counting-card-icon">
-              <mat-icon svgIcon="gamepad-variant"></mat-icon>
-            </div>
-            <div class="counting-card-content">
-              <div class="counting-card-title" *ngIf="match_count">{{ match_count }}</div>
-              <div class="counting-card-info">Matches</div>
-            </div>
-          </mdc-card-primary-action>
+          <div class="counting-card-icon">
+            <mat-icon svgIcon="gamepad-variant"></mat-icon>
+          </div>
+          <div class="counting-card-content">
+            <div class="counting-card-title">{{ match_count ? match_count : 0 }}</div>
+            <div class="counting-card-info">Matches</div>
+          </div>
         </mdc-card>
       </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-4" *ngIf="week_start && week_end && current_events">
       <div class="p-1 col-12">
         <mdc-card class="toa-card">
           <div class="toa-card-header pb-0" mdcSubtitle2>This Week's Events</div>
           <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ this.week_start | date :  "mediumDate" }} - {{ this.week_end | date :  "mediumDate" }}</div>
-          <table class="table table-striped" *ngIf="current_events">
+          <div *ngIf="current_events.length <= 0">
+            <mdc-list-divider></mdc-list-divider>
+            <p class="pt-4 text-center toa-card-subtitle" >There are no events occurring this week.</p>
+          </div>
+
+          <table class="table table-striped" *ngIf="current_events.length > 0">
             <thead>
-            <tr>
-              <th class="text-center">Region</th>
-              <th class="text-center">Dates</th>
-              <th class="text-center">Dates</th>
-            </tr>
+              <tr>
+                <th class="text-center">Region</th>
+                <th class="text-center">Event</th>
+                <th class="text-center">Dates</th>
+              </tr>
             </thead>
-            <tbody *ngIf="current_events.length <= 0">
-            <tr>
-              <td colspan="3">
-                <div class="toa-card-subtitle text-center" mdcBody2>
-                  There are no events occurring this week.
-                </div>
-              </td>
-            </tr>
-            </tbody>
             <tbody *ngIf="current_events.length > 0">
-            <tr *ngFor="let event of current_events">
-              <td>{{ event.region_key }}</td>
-              <td>
-                <a *ngIf="event.division_name == null" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }}'>{{ event.event_name }}</a>
-                <a *ngIf="event.division_name" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }}'>{{ event.event_name }} - {{ event.division_name }} Division</a>
-              </td>
-              <td *ngIf="event.start_date != event.end_date">{{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</td>
-              <td *ngIf="event.start_date == event.end_date">{{ event.start_date | date :  "mediumDate"}}</td>
-            </tr>
+              <tr *ngFor="let event of current_events">
+                <td>{{ event.region_key }}</td>
+                <td>
+                  <a *ngIf="event.division_name == null" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }}'>{{ event.event_name }}</a>
+                  <a *ngIf="event.division_name" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }}'>{{ event.event_name }} - {{ event.division_name }} Division</a>
+                </td>
+                <td *ngIf="event.start_date != event.end_date">{{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</td>
+                <td *ngIf="event.start_date == event.end_date">{{ event.start_date | date :  "mediumDate"}}</td>
+              </tr>
             </tbody>
           </table>
         </mdc-card>

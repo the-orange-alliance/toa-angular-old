@@ -1,16 +1,5 @@
-/**
- * Created by Kyle Flynn on 5/29/2017.
- */
-$(document).ready(function () {
-  $("nav").find(".toggleable").on("click", "a", function () {
-    $('.navbar-collapse.in').collapse('hide');
-  });
-});
-
-
-
-/* FOR THE SEARCH FUNCTION */
 $(function(){
+  // Search function
   $("#showSearch").click(function(e) {
     e.preventDefault();
     $('#qnimate').addClass('popup-box-on');
@@ -21,4 +10,4 @@ $(function(){
     e.preventDefault();
     $('#qnimate').removeClass('popup-box-on');
   });
-})
+});

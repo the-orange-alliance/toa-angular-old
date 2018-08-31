@@ -8,6 +8,10 @@ import { Router } from '@angular/router';
 })
 export class PageNotFoundComponent {
 
-  constructor(private router: Router) {}
+  random: number;
 
+  constructor(private router: Router) {
+    const max = 3;
+    this.random = Math.floor(Math.random() * (max - 1) + 1);
+  }
 }

@@ -39,9 +39,9 @@ export class TeamFilter {
         if (name_query) {
           name_query = name_query.toLowerCase();
           contains_number = false;
-          var quieres = name_query.split(" ");
+          const quieres = name_query.split(' ');
           // console.log(quieres);
-          for (var q =0;q<quieres.length;q+=1) {
+          for (let q = 0; q < quieres.length; q += 1) {
             contains_number = contains_number || (team_number.indexOf(quieres[q]) > -1);
           }
           // So searching "3113 - Some Disassembly Required" but "Some 113" should still match.

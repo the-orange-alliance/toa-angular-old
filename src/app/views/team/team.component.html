@@ -1,130 +1,120 @@
-<main class="container">
-  <div class="row" *ngIf="team">
+<h2>Team #{{ (team?.team_key) ? team.team_key : team_key }}</h2>
 
-    <div class="col-xs-12 col-sm-3 col-lg-2">
-      <div id="info">
-        <div *ngIf="seasons" class="row clearfix">
-          <div *ngIf="team.rookie_year" class="dropdown col-xs-12">
-            <button *ngIf="current_season" class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              <span>{{ getSeasonString(current_season) }}</span>
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="ftc_district">
-              <li *ngFor="let season of seasons"><a (click)="selectSeason(season)">{{ getSeasonString(season) }}</a></li>
+<div class="row" *ngIf="team">
+  <div class="col-xs-12 col-sm-3 col-lg-3 pb-5">
+    <mdc-card class="toa-card">
+      <div class="w-100 p-3">
+        <div *ngIf="seasons && team.rookie_year" class="dropdown">
+          <button *ngIf="current_season" class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span>{{ getSeasonString(current_season) }}</span>
+            <span class="caret"></span>
+          </button>
+
+          <ul class="dropdown-menu" aria-labelledby="ftc_season">
+            <mdc-menu-item *ngFor="let season of seasons" (click)="selectSeason(season)">{{ getSeasonString(season) }}</mdc-menu-item>
+          </ul>
+        </div>
+
+        <ul *ngIf="team.events" class="nav flex-column mt-2" style="padding-left: 0.75rem">
+          <li class="nav-item">
+            <a href="teams/{{ team.team_key }}#info">Team Info</a>
+          </li>
+          <li class="nav-item mt-1">
+            Event Results
+            <ul class="nav flex-column">
+              <li class="nav-item"><a *ngFor="let event of team.events" href="teams/{{ team.team_key }}#{{ event.event_key }}" class="nav-link">{{ event.event_name }}</a></li>
             </ul>
-          </div>
+          </li>
+        </ul>
+      </div>
+    </mdc-card>
+  </div>
+
+  <div class="col-xs-12 col-sm-9 col-lg-9">
+    <mdc-card class="toa-card" id="info">
+      <div class="toa-card-header" mdcHeadline5>#{{ team.team_key}} - {{ team.team_name_short }}</div>
+      <mdc-list-divider></mdc-list-divider>
+      <div class="p-3">
+        <div class="team-state d-flex align-content-center flex-wrap">
+          <mat-icon svgIcon="compass"></mat-icon>
+          <p>Part of the {{ team.region_key }} Region</p>
         </div>
 
-        <br/>
+        <div class="team-state d-flex align-content-center flex-wrap">
+          <mat-icon svgIcon="map-marker"></mat-icon>
+          <p>{{ team.city }}, {{ team.state_prov ? team.state_prov + ', ' : '' }}{{ team.country }}</p>
+        </div>
 
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="well">
-              <ul *ngIf="team.events" class="nav">
-                <li><a href="teams/{{ team.team_key }}#info">Team Info</a></li>
-                <li>
-                  Event Results
-                  <ul class="nav">
-                    <li><a *ngFor="let event of team.events" href="teams/{{ team.team_key }}#{{ event.event_key }}">{{ event.event_name }}</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div class="team-state d-flex align-content-center flex-wrap" *ngIf="team.rookie_year && team.rookie_year !== 0">
+          <mat-icon svgIcon="airballoon"></mat-icon>
+          <p>Rookie Year: {{ team.rookie_year }}</p>
+        </div>
+
+        <div class="team-state d-flex align-content-center flex-wrap" *ngIf="team.website">
+          <mat-icon svgIcon="earth"></mat-icon>
+          <p>Website: {{ team.website }}</p>
+        </div>
+
+        <div class="team-state d-flex align-content-center flex-wrap" *ngIf="team.robot_name">
+          <mat-icon svgIcon="robot"></mat-icon>
+          <p>Robot Name: {{ team.robot_name }}</p>
+        </div>
+
+        <div class="team-state d-flex align-content-center flex-wrap" *ngIf="team.awards && team.awards.length > 0 && current_season && current_season.description">
+          <mat-icon svgIcon="trophy"></mat-icon>
+          <p>{{ team.awards.length }} awards in {{ current_season.description }}</p>
         </div>
       </div>
-    </div>
-    <div class="col-xs-12 col-sm-9 col-lg-10">
-      <div class="card">
-        <div class="card-container">
-        <div class="row">
-          <div class="col-xs-12">
-            <h1 class="centered"><b><span *ngIf="team?.team_name_short">{{ team.team_name_short }}</span> (<span *ngIf="team?.team_key">{{ team.team_key }}</span>)</b></h1>
-          </div>
-        </div>
+    </mdc-card>
 
-        <div class="row">
-          <div class="col-sm-12">
-            <blockquote>
-              <em>Part of the {{ team.region_key }} Region</em>
-            </blockquote>
-          </div>
-        </div>
+    <div *ngIf="team.events">
+      <h1 class="pt-5 pb-1" mdcHeadline5>Event Results</h1>
+      <div *ngFor="let event of team.events" id="{{ event.event_key }}" class="col-xs-12 pb-4">
+        <mdc-card class="toa-card">
+          <a class="toa-card-header pb-0" routerLink="/events/{{ event.event_key }}" mdcHeadline5>{{ event.division_name ? event.event_name + ' - ' + event.division_name + ' Division' : event.event_name}}</a>
+          <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ event.city }}, {{ event.state_prov ? event.state_prov + ', ' : ''}}{{ event.country }} on {{ event.start_date | date :  "mediumDate"}}</div>
 
-        <div class="row">
-          <div class="col-xs-12">
-            <span><span class="fa fa-map-marker"></span> From <span *ngIf="team?.city">{{ team.city }}</span>, <span *ngIf="team?.state_prov">{{ team.state_prov }}</span>, <span *ngIf="team?.country">{{ team.country }}</span></span>
-          </div>
-          <div class="col-xs-12">
-            <span><span class="fa fa-info-circle"></span> aka <em>{{ team.team_name_long }}</em></span>
-          </div>
-          <div class="col-xs-12">
-            <span><span class="fa fa-globe"></span> <span *ngIf="team.website">{{ team.website }}</span><span *ngIf="!team.website"><i>Website N/A</i></span></span>
-          </div>
-          <div class="col-xs-12">
-            <span><span class="fa fa-calendar"></span> Rookie Year: {{ team.rookie_year }}</span>
-          </div>
-        </div>
-      </div>
-      </div>
-      <br/>
-      <div *ngIf="team.events" class="row ">
+          <mdc-list-divider></mdc-list-divider>
 
-        <div *ngFor="let event of team.events" class="col-xs-12 pad-bot-25">
-          <!--  THEREDDKING WAS HERE :P -->
-          <div class="col-xs-12 col-sm-4 card">
-            <div class="card-container">
-            <h3 id="{{ event.event_key }}"><a *ngIf="event.division_name == null" routerLink="/events/{{ event.event_key }}">{{ event.event_name }}</a>
-              <a *ngIf="event.division_name" routerLink="/events/{{ event.event_key }}">{{ event.event_name }} - {{ event.division_name }} Division</a></h3>
-            <div>
-              <span><span class="fa fa-map-marker"></span> {{ event.city }}, {{ event.state_prov }}, {{ event.country }}</span>
-            </div>
-            <div>
-
-	      <!--    <span><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span> -->
-              <span *ngIf="event.start_date == event.end_date"><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} </span>
-			  <span *ngIf="event.start_date != event.end_date"><span class="fa fa-calendar"></span> {{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span>
-            </div> <br>
+          <div class="p-3">
             <div *ngIf="event.ranking">
-              <span><b>Qual Rank #{{ event.ranking.rank }}</b> with a record of <b>{{ event.ranking.wins }}-{{ event.ranking.losses }}-{{ event.ranking.ties }}</b></span>
-            </div> <br>
+              <p><b>Qual Rank #{{ event.ranking.rank }}</b> with a record of <b>{{ event.ranking.wins }}-{{ event.ranking.losses }}-{{ event.ranking.ties }}</b></p>
+            </div>
             <div *ngIf="event.awards && event.awards.length > 0">
-              <span><b>Awards:</b></span>
+              <p><b>{{event.awards.length }} Awards:</b></p>
               <ul>
                 <li *ngFor="let award of event.awards">{{ award.award_name }}</li>
               </ul>
             </div>
-          </div>
-          </div>
-          <div class="col-xs-12 col-sm-8">
+
             <table class="match-table">
               <thead>
-                <tr class="visible-lg">
-                  <th>Match</th>
-                  <th>Result</th>
-                  <th>
-                    <span class="fa fa-play-circle-o  "></span>
-                  </th>
+              <tr class="d-none d-lg-table-row d-xl-table-row">
+                <th>Match</th>
+                <th>Result</th>
+                <th>
+                  <span class="fa fa-play-circle-o  "></span>
+                </th>
 
-                  <th colspan="6">Red Alliance</th>
-                  <th colspan="6">Blue Alliance</th>
-                  <th colspan="2">Scores</th>
-                </tr>
-                <tr class="hidden-lg">
-                  <th rowspan="2">Match</th>
-				  <th rowspan="2">Res</th>
-				  <th rowspan="2">
-                    <span class="fa fa-play-circle-o  "></span>
-                  </th>
-                  <th colspan="12">Red Alliance</th>
-                  <th colspan="2">Red Score</th>
-                </tr>
-                <tr class="hidden-lg">
-                  <th colspan="12">Blue Alliance</th>
-                  <th colspan="2">Blue Score</th>
-                </tr>
+                <th colspan="6">Red Alliance</th>
+                <th colspan="6">Blue Alliance</th>
+                <th colspan="2">Scores</th>
+              </tr>
+              <tr class="d-lg-none d-xl-none">
+                <th rowspan="2">Match</th>
+                <th rowspan="2">Res</th>
+                <th rowspan="2">
+                  <span class="fa fa-play-circle-o  "></span>
+                </th>
+                <th colspan="12">Red Alliance</th>
+                <th colspan="2">Red Score</th>
+              </tr>
+              <tr class="d-lg-none d-xl-none">
+                <th colspan="12">Blue Alliance</th>
+                <th colspan="2">Blue Score</th>
+              </tr>
               </thead>
-			  
+
               <tbody *ngIf="event.match_data && event.match_data.length <= 0">
               <tr>
                 <td colspan="18"><i>There is no available match data for {{ team_key }} this event.</i></td>
@@ -137,12 +127,12 @@
               </tr>
               </tbody>
               <tbody *ngFor="let match of event.finals_matches">
-              <tr *ngIf="getStationLength(match) == 6" class="visible-lg">
-			    <td>
+              <tr *ngIf="getStationLength(match) == 6" class="d-none d-lg-table-row d-xl-table-row">
+                <td>
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-			    <td> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}                </td>
+                <td> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}                </td>
                 <td>
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
@@ -172,12 +162,12 @@
                 </td>
               </tr>
 
-              <tr *ngIf="getStationLength(match) == 4" class="visible-lg">
-			    <td>
+              <tr *ngIf="getStationLength(match) == 4" class="d-none d-lg-table-row d-xl-table-row">
+                <td>
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-			    <td> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}                </td>
+                <td> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}                </td>
                 <td>
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
@@ -201,12 +191,12 @@
                 </td>
               </tr>
 
-              <tr *ngIf="getStationLength(match) == 6" class="hidden-lg">
-			    <td rowspan="2">
+              <tr *ngIf="getStationLength(match) == 6" class="d-lg-none d-xl-none">
+                <td rowspan="2">
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-				<td rowspan="2"> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}                </td>
+                <td rowspan="2"> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}                </td>
                 <td rowspan="2">
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
@@ -223,7 +213,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr *ngIf="getStationLength(match) == 6" class="hidden-lg">
+              <tr *ngIf="getStationLength(match) == 6" class="d-lg-none d-xl-none">
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStationHref(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
@@ -238,12 +228,12 @@
                 </td>
               </tr>
 
-              <tr *ngIf="getStationLength(match) == 4" class="hidden-lg">
-			    <td rowspan="2">
+              <tr *ngIf="getStationLength(match) == 4" class="d-lg-none d-xl-none">
+                <td rowspan="2">
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-				<td rowspan="2"> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}                </td>
+                <td rowspan="2"> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}                </td>
                 <td rowspan="2">
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
@@ -257,7 +247,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr *ngIf="getStationLength(match) == 4" class="hidden-lg">
+              <tr *ngIf="getStationLength(match) == 4" class="d-lg-none d-xl-none">
                 <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStationHref(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
@@ -269,7 +259,7 @@
                 </td>
               </tr>
               </tbody>
-			  
+
 
               <tbody *ngIf="event.semis_matches && event.semis_matches.length > 0">
               <tr>
@@ -277,12 +267,12 @@
               </tr>
               </tbody>
               <tbody *ngFor="let match of event.semis_matches">
-              <tr *ngIf="getStationLength(match) == 6" class="visible-lg">
-			    <td>
+              <tr *ngIf="getStationLength(match) == 6" class="d-none d-lg-table-row d-xl-table-row">
+                <td>
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-			    <td> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}                </td>
+                <td> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}                </td>
                 <td>
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
@@ -312,12 +302,12 @@
                 </td>
               </tr>
 
-              <tr *ngIf="getStationLength(match) == 4" class="visible-lg">
-			    <td>
+              <tr *ngIf="getStationLength(match) == 4" class="d-none d-lg-table-row d-xl-table-row">
+                <td>
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-			    <td> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}                </td>
+                <td> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}                </td>
                 <td>
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
@@ -341,12 +331,12 @@
                 </td>
               </tr>
 
-              <tr *ngIf="getStationLength(match) == 6" class="hidden-lg">
-			    <td rowspan="2">
+              <tr *ngIf="getStationLength(match) == 6" class="d-lg-none d-xl-none">
+                <td rowspan="2">
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-				<td rowspan="2"> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}                </td>
+                <td rowspan="2"> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}                </td>
                 <td rowspan="2">
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
@@ -363,7 +353,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr *ngIf="getStationLength(match) == 6" class="hidden-lg">
+              <tr *ngIf="getStationLength(match) == 6" class="d-lg-none d-xl-none">
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStationHref(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
@@ -378,12 +368,12 @@
                 </td>
               </tr>
 
-              <tr *ngIf="getStationLength(match) == 4" class="hidden-lg">
-			    <td rowspan="2">
+              <tr *ngIf="getStationLength(match) == 4" class="d-lg-none d-xl-none">
+                <td rowspan="2">
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-				<td rowspan="2"> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}                </td>
+                <td rowspan="2"> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}                </td>
                 <td rowspan="2">
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
@@ -397,7 +387,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr *ngIf="getStationLength(match) == 4" class="hidden-lg">
+              <tr *ngIf="getStationLength(match) == 4" class="d-lg-none d-xl-none">
                 <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStationHref(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
@@ -409,19 +399,19 @@
                 </td>
               </tr>
               </tbody>
-			  
-			  <tbody *ngIf="event.quarters_matches && event.quarters_matches.length > 0">
+
+              <tbody *ngIf="event.quarters_matches && event.quarters_matches.length > 0">
               <tr>
                 <th colspan="18">Quarterfinal Matches</th>
               </tr>
               </tbody>
               <tbody *ngFor="let match of event.quarters_matches">
-              <tr *ngIf="getStationLength(match) == 6" class="visible-lg">
-			    <td>
+              <tr *ngIf="getStationLength(match) == 6" class="d-none d-lg-table-row d-xl-table-row">
+                <td>
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-			    <td> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}                </td>
+                <td> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}                </td>
                 <td>
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
@@ -451,12 +441,12 @@
                 </td>
               </tr>
 
-              <tr *ngIf="getStationLength(match) == 4" class="visible-lg">
-			    <td>
+              <tr *ngIf="getStationLength(match) == 4" class="d-none d-lg-table-row d-xl-table-row">
+                <td>
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-			    <td> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}                </td>
+                <td> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}                </td>
                 <td>
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
@@ -480,12 +470,12 @@
                 </td>
               </tr>
 
-              <tr *ngIf="getStationLength(match) == 6" class="hidden-lg">
-			    <td rowspan="2">
+              <tr *ngIf="getStationLength(match) == 6" class="d-lg-none d-xl-none">
+                <td rowspan="2">
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-				<td rowspan="2"> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}                </td>
+                <td rowspan="2"> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}                </td>
                 <td rowspan="2">
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
@@ -502,7 +492,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr *ngIf="getStationLength(match) == 6" class="hidden-lg">
+              <tr *ngIf="getStationLength(match) == 6" class="d-lg-none d-xl-none">
                 <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStationHref(match, 3) }}" [class.current-team]="isCurrentTeam(match, 3)">{{ getStation(match, 3) }}</a>
                 </td>
@@ -517,12 +507,12 @@
                 </td>
               </tr>
 
-              <tr *ngIf="getStationLength(match) == 4" class="hidden-lg">
-			    <td rowspan="2">
+              <tr *ngIf="getStationLength(match) == 4" class="d-lg-none d-xl-none">
+                <td rowspan="2">
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-				<td rowspan="2"> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}                </td>
+                <td rowspan="2"> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}                </td>
                 <td rowspan="2">
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
@@ -536,7 +526,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr *ngIf="getStationLength(match) == 4" class="hidden-lg">
+              <tr *ngIf="getStationLength(match) == 4" class="d-lg-none d-xl-none">
                 <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStationHref(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
@@ -548,19 +538,19 @@
                 </td>
               </tr>
               </tbody>
-			  
+
               <tbody *ngIf="event.qual_matches && event.qual_matches.length > 0">
               <tr>
                 <th colspan="18">Qualification Matches</th>
               </tr>
               </tbody>
               <tbody *ngFor="let match of event.qual_matches">
-              <tr class="visible-lg">
-			    <td>
+              <tr class="d-none d-lg-table-row d-xl-table-row">
+                <td>
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-			    <td> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}
+                <td> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}
                 </td>
                 <td>
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
@@ -585,17 +575,17 @@
                   {{ match.blue_score }}
                 </td>
               </tr>
-              <tr class="hidden-lg">
-			    <td rowspan="2">
+              <tr class="d-lg-none d-xl-none">
+                <td rowspan="2">
                   <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
                 </td>
-				<td rowspan="2"> <!-- MatchResult -->
-				  {{ getTeamResult(match, team_key) }}
+                <td rowspan="2"> <!-- MatchResult -->
+                  {{ getTeamResult(match, team_key) }}
                 </td>
                 <td rowspan="2">
                   <span *ngIf="match.video_url"><a class="fa fa-play-circle-o"></a></span>
                 </td>
-				
+
                 <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
                   <a href="/teams/{{ getStationHref(match, 0) }}" [class.current-team]="isCurrentTeam(match, 0)">{{ getStation(match, 0) }}</a>
                 </td>
@@ -606,7 +596,7 @@
                   {{ match.red_score }}
                 </td>
               </tr>
-              <tr class="hidden-lg">
+              <tr class="d-lg-none d-xl-none">
                 <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
                   <a href="/teams/{{ getStationHref(match, 2) }}" [class.current-team]="isCurrentTeam(match, 2)">{{ getStation(match, 2) }}</a>
                 </td>
@@ -618,18 +608,15 @@
                 </td>
               </tr>
               </tbody>
-
             </table>
           </div>
-        </div>
-
-        <small><strong>Bold</strong> is Winning Alliance</small><br>
-        <small><strong>Bold and Black</strong> is Selected Team</small><br>
-        <small>* is Surrogate match for that team</small><br>
-		<small>Empty is team was DQ or no-show</small>
+        </mdc-card>
       </div>
 
+      <small><strong>Bold</strong> is Winning Alliance</small><br>
+      <small><strong>Bold and Black</strong> is Selected Team</small><br>
+      <small>* is Surrogate match for that team</small><br>
+      <small>Empty is team was DQ or no-show</small>
     </div>
-
   </div>
-</main>
+</div>
