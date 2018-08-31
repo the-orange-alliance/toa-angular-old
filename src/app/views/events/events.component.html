@@ -48,7 +48,6 @@
 </mdc-card>
 -->
 
-
 <div style="display: flex; flex-wrap: nowrap">
   <button mdc-icon-button iconOn="keyboard_arrow_left" iconOff="keyboard_arrow_left" (click)="tabsBarScroller.incrementScroll(0)"></button>
   <mdc-tab-bar #tabsBar>
@@ -69,38 +68,29 @@
       <h1 mdcHeadline6>{{ getWeekName(week.week) }}<h1 mdcSubtitle1>{{ week.start_date | date :  "mediumDate"}} - {{ week.end_date | date :  "mediumDate" }}</h1></h1>
     </div>
 
-    <mdc-list #twoline [lines]="2">
-      <div *ngFor="let event of getEventsByWeek(week)">
+    <mdc-list [lines]="2">
+      <div *ngFor="let event of getEventsByWeek(week)" class="no-underline">
 
-        <mdc-list-item interactive *ngIf="event.division_name == null && event.start_date == event.end_date">
-          <mdc-list-item-text>
-            <span>{{ event.event_name }}</span>
-            <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} on {{ event.start_date | date :  "mediumDate"}}</span>
-          </mdc-list-item-text>
-        </mdc-list-item>
+        <a href="/events/{{ event.event_key }}">
+          <mdc-list-item interactive *ngIf="event.start_date == event.end_date">
+            <mdc-list-item-text>
+              <span>{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
+              <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} on {{ event.start_date | date :  "mediumDate"}}</span>
+            </mdc-list-item-text>
+          </mdc-list-item>
+        </a>
 
-        <mdc-list-item interactive *ngIf="event.division_name == null && event.start_date != event.end_date">
-          <mdc-list-item-text>
-            <span>{{ event.event_name }}</span>
-            <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} from {{ event.start_date | date :  "mediumDate"}} to {{ event.end_date | date :  "mediumDate"}}</span>
-          </mdc-list-item-text>
-        </mdc-list-item>
+        <a href="/events/{{ event.event_key }}">
+          <mdc-list-item interactive *ngIf="event.start_date != event.end_date">
+            <mdc-list-item-text>
+              <span>{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
+              <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} from {{ event.start_date | date :  "mediumDate"}} to {{ event.end_date | date :  "mediumDate"}}</span>
+            </mdc-list-item-text>
+          </mdc-list-item>
+        </a>
 
-
-        <mdc-list-item interactive *ngIf="event.division_name && event.start_date == event.end_date">
-          <mdc-list-item-text>
-            <span>{{ event.event_name }} - {{ event.division_name }} Division</span>
-            <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} on {{ event.start_date | date :  "mediumDate"}}</span>
-          </mdc-list-item-text>
-        </mdc-list-item>
-
-        <mdc-list-item interactive *ngIf="event.division_name && event.start_date != event.end_date">
-          <mdc-list-item-text>
-            <span>{{ event.event_name }} - {{ event.division_name }} Division</span>
-            <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} from {{ event.start_date | date :  "mediumDate"}} to {{ event.end_date | date :  "mediumDate"}}</span>
-          </mdc-list-item-text>
-        </mdc-list-item>
       </div>
     </mdc-list>
+
   </div>
 </div>

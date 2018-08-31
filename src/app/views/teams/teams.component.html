@@ -80,7 +80,7 @@
       <mdc-list>
         <div *ngFor="let team of current_teams; let i = index;">
           <mdc-list-item *ngIf="i < current_teams.length / 2" class="item-team" (click)="openTeam(team.team_number)">
-            <img *ngIf="team.logo_url" class="rounded-circle" src="current_teams.logo_url" />
+            <img *ngIf="team.logo_url" class="rounded-circle" [src]="team.logo_url" />
             <img *ngIf="!team.logo_url" class="rounded-circle" src="../../../assets/imgs/hashtag.png" />
             <div>
               <mdc-list-item-text>

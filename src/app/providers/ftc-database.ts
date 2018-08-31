@@ -79,6 +79,10 @@ export class FTCDatabase {
     return this.request('/events/');
   }
 
+  public getEventTypes() {
+    return this.request('/event-types');
+  }
+
   public getSeasonEvents(season: any) {
     return this.request('/events/season/' + season);
   }

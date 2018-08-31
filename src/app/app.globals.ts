@@ -21,7 +21,7 @@ export class TheOrangeAllianceGlobals {
       const $_GET = {},
       args = window.location.search.substr(1).split(/&/);
       console.log(window.location.search);
-      for (const i = 0; i < args.length; i++) {
+      for (let i = 0; i < args.length; i++) {
           const tmp = args[i].split(/=/);
           if (tmp[0].length === 0) {
               $_GET[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp.slice(1).join('').replace('+', ' '));

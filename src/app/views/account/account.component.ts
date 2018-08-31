@@ -6,18 +6,11 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 @Component({
   selector: 'toa-account',
   templateUrl: './account.component.html',
-  providers: [FTCDatabase,TheOrangeAllianceGlobals]
+  providers: [FTCDatabase, TheOrangeAllianceGlobals]
 })
 export class AccountComponent {
 
-  ver_routes: any;
-
-  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa:TheOrangeAllianceGlobals) {
+  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa: TheOrangeAllianceGlobals) {
     this.globaltoa.setTitle('myTOA');
-    this.ftc.getWebChangelog().subscribe((data) => {
-      this.ver_routes = data;
-    }, (err) => {
-      console.log(err);
-    });
   }
 }

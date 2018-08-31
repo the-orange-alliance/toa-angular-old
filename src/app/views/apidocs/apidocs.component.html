@@ -7,16 +7,18 @@
   <h1 mdcHeadline5>Gaining Access to TOA API</h1>
   <p>In order to gain access to TOA API, you need to first gain access to an API key. Once you have that key, you must set two custom headers with every GET request. You must set <code>X-Application-Origin</code> to the name of your application. Secondly, you must set <code>X-TOA-Key</code> to your API key. </p>
 
-  <div class="col-12 mt-2">
-    <mdc-card class="toa-card link-card">
-      <div class="link-card-icon">
-        <mat-icon svgIcon="link"></mat-icon>
-      </div>
-      <div class="link-card-content">
-        <div class="link-card-title">Apply for an API Key</div>
-        <div class="gray">Related Link</div>
-      </div>
-    </mdc-card>
+  <div class="no-underline col-12 mt-2">
+    <a href="https://goo.gl/forms/u3E1sMuCNT9UcPmH3" target="_blank">
+      <mdc-card class="toa-card link-card">
+        <div class="link-card-icon">
+          <mat-icon svgIcon="link"></mat-icon>
+        </div>
+        <div class="link-card-content">
+          <div class="link-card-title">Apply for an API Key</div>
+          <div class="gray">Related Link</div>
+        </div>
+      </mdc-card>
+    </a>
   </div>
 
   <h1 mdcHeadline5 class="mt-4">API Access Levels</h1>
@@ -76,17 +78,3 @@
     </tr>
   </tbody>
 </table>
-
-<!--
-<div *ngFor="let route of api_routes">
-  <div class="col-xs-12">
-    <p><strong>{{ route.route }}</strong> - {{ route.route_desc }}</p>
-    <ul>
-      <p>{{ route.example }}</p>
-      <ul>
-        {{ route.notes }}
-      </ul>
-    </ul>
-  </div>
-</div>
--->

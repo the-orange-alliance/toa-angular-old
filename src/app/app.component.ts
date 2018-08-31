@@ -61,7 +61,7 @@ export class TheOrangeAllianceComponent {
   }
 
   performSearchCallback(event, r): void {
-    console.log('HELLO TYPED ' + event.keyCode);
+    // console.log('HELLO TYPED ' + event.keyCode);
     if (event.keyCode === 27) {
       document.getElementById('removeSearch').click();
     } else if (event.keyCode === 13) {

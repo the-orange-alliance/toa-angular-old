@@ -30,34 +30,39 @@
     </div>
     <div class="row mt-4" *ngIf="week_start && week_end && current_events">
       <div class="p-1 col-12">
-        <mdc-card class="toa-card">
-          <div class="toa-card-header pb-0" mdcSubtitle2>This Week's Events</div>
-          <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ this.week_start | date :  "mediumDate" }} - {{ this.week_end | date :  "mediumDate" }}</div>
+        <mdc-card class="toa-card p-0">
+          <div class="p-2">
+            <div class="toa-card-header pb-0" mdcSubtitle2>This Week's Events</div>
+            <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ this.week_start | date :  "mediumDate" }} - {{ this.week_end | date :  "mediumDate" }}</div>
+          </div>
+
+          <mdc-list-divider></mdc-list-divider>
+
           <div *ngIf="current_events.length <= 0">
-            <mdc-list-divider></mdc-list-divider>
             <p class="pt-4 text-center toa-card-subtitle" >There are no events occurring this week.</p>
           </div>
 
-          <table class="table table-striped" *ngIf="current_events.length > 0">
-            <thead>
-              <tr>
-                <th class="text-center">Region</th>
-                <th class="text-center">Event</th>
-                <th class="text-center">Dates</th>
-              </tr>
-            </thead>
-            <tbody *ngIf="current_events.length > 0">
-              <tr *ngFor="let event of current_events">
-                <td>{{ event.region_key }}</td>
-                <td>
-                  <a *ngIf="event.division_name == null" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }}'>{{ event.event_name }}</a>
-                  <a *ngIf="event.division_name" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }}'>{{ event.event_name }} - {{ event.division_name }} Division</a>
-                </td>
-                <td *ngIf="event.start_date != event.end_date">{{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</td>
-                <td *ngIf="event.start_date == event.end_date">{{ event.start_date | date :  "mediumDate"}}</td>
-              </tr>
-            </tbody>
-          </table>
+          <mdc-list [lines]="2" *ngIf="current_events.length > 0">
+            <div *ngFor="let event of current_events" class="no-underline">
+
+              <a href="/events/{{ event.event_key }}">
+                <mdc-list-item interactive class="pl-4" *ngIf="event.start_date == event.end_date">
+                  <mdc-list-item-text>
+                    <span>{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
+                    <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} on {{ event.start_date | date :  "mediumDate"}}</span>
+                  </mdc-list-item-text>
+                </mdc-list-item>
+
+                <mdc-list-item interactive class="pl-4" *ngIf="event.start_date != event.end_date">
+                  <mdc-list-item-text>
+                    <span>{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
+                    <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} from {{ event.start_date | date :  "mediumDate"}} to {{ event.end_date | date :  "mediumDate"}}</span>
+                  </mdc-list-item-text>
+                </mdc-list-item>
+              </a>
+
+            </div>
+          </mdc-list>
         </mdc-card>
       </div>
     </div>
