@@ -9,10 +9,9 @@ import { TeamsComponent } from './views/teams/teams.component';
 import { EventComponent } from './views/event/event.component';
 import { AboutComponent } from './views/about/about.component';
 import { ApiDocsComponent } from './views/apidocs/apidocs.component';
-import { PrivacyComponent } from './views/privacy/privacy.component';
 import { RankingComponent } from './views/ranking/ranking.component';
 import { StreamingComponent } from './views/stream/streaming.component';
-import { TermsComponent } from './views/terms/terms.component';
+import { PrivacyTermsComponent } from './views/privacy_terms/PrivacyTerms.component';
 import { PageNotFoundComponent } from './views/404/404.component';
 import { MatchesComponent } from './views/matches/matches.component';
 import { LiveDocsComponent } from './views/livedocs/livedocs.component';
@@ -25,14 +24,15 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'apidocs', component: ApiDocsComponent },
   { path: 'livedocs', component: LiveDocsComponent },
-  { path: 'privacy', component: PrivacyComponent },
   { path: 'ranking', component: RankingComponent },
   { path: 'stream', component: StreamingComponent },
-  { path: 'terms', component: TermsComponent },
+  { path: 'privacy-terms', component: PrivacyTermsComponent },
   { path: 'events/:event_key', component: EventComponent },
   { path: 'teams/:team_key', component: TeamComponent },
   { path: 'matches/:match_key', component: MatchesComponent },
   { path: 'not-found', component: PageNotFoundComponent },
+  { path: 'terms', redirectTo: '/privacy-terms', pathMatch: 'full' },
+  { path: 'privacy', redirectTo: '/privacy-terms', pathMatch: 'full' },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

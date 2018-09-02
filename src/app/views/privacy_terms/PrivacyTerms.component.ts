@@ -3,16 +3,14 @@ import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 
 @Component({
-  selector: 'toa-privacy',
-  templateUrl: './privacy.component.html',
+  selector: 'toa-terms',
+  templateUrl: './privacy-terms.component.html',
   providers: [FTCDatabase]
 })
-export class PrivacyComponent {
-
+export class PrivacyTermsComponent {
 
   constructor(private router: Router) {
 
   }
-
 
 }
