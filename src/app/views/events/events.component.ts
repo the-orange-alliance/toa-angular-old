@@ -133,11 +133,19 @@ export class EventsComponent implements OnInit {
       } else {
         this.events = this.event_filter.getOriginalArray();
       }
+      this.organizeEventsByWeek()
     }
   }
 
   getSeason(season_data: any): string {
     return (new SeasonParser(season_data)).toString();
+  }
+
+  clearFilter() {
+    this.current_season = this.seasons[this.seasons.length - 1];
+    this.current_region = this.regions[this.regions.length - 1];
+    this.events = this.event_filter.getOriginalArray();
+    this.organizeEventsByWeek()
   }
 
   public getWeekName(week): string {

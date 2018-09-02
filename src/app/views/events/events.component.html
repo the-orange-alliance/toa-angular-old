@@ -102,9 +102,7 @@
     <mdc-card class="toa-card">
       <mdc-tab-bar #tabbar class="w-100">
         <mdc-tab-scroller>
-          <div *ngFor="let week of weeks; let i = index">
-            <mdc-tab *ngIf="getEventsByWeek(week).length > 0" [label]="getWeekName(week.week)" (click)="select(i)"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ getEventsByWeek(week).length }}</span></mdc-tab>
-          </div>
+          <mdc-tab *ngFor="let week of weeks; let i = index" [label]="getWeekName(week.week)" (click)="select(i)"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ getEventsByWeek(week).length }}</span></mdc-tab>
         </mdc-tab-scroller>
       </mdc-tab-bar>
       <div class="mt-4">
