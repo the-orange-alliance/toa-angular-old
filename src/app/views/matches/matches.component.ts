@@ -34,14 +34,12 @@ export class MatchesComponent implements OnInit {
         this.match_data = match_data[0][0];
         this.match_details = match_data[1][0];
         this.match_stations = match_data[2];
-        if(this.match_details == null) {
-          console.log("match details are null");
+        if (this.match_details == null) {
+          console.log('match details are null');
         }
-        if(this.match_data == null)
-        {
-          console.log("match_data is null");
-        }
-        else {
+        if (this.match_data == null) {
+          console.log('match_data is null');
+        } else {
           this.ftc.getEventName(this.match_data.event_key).subscribe((data) => {
           this.match_event = data[0];
         });
@@ -53,9 +51,9 @@ export class MatchesComponent implements OnInit {
   }
 
   getMatchSeason(): number {
-    let match = this.match_key.substr(0, 4);
+    const match = this.match_key.substr(0, 4);
     try {
-      let match_season = parseInt(match);
+      const match_season = parseInt(match);
       return match_season;
     } catch (e) {
       return 0;

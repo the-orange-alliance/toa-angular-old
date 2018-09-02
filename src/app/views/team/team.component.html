@@ -35,32 +35,32 @@
       <div class="toa-card-header" mdcHeadline5>#{{ team.team_key}} - {{ team.team_name_short }}</div>
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3">
-        <div class="team-state d-flex align-content-center flex-wrap">
+        <div class="info-state d-flex align-content-center flex-wrap">
           <mat-icon svgIcon="compass"></mat-icon>
           <p>Part of the {{ team.region_key }} Region</p>
         </div>
 
-        <div class="team-state d-flex align-content-center flex-wrap">
+        <div class="info-state d-flex align-content-center flex-wrap">
           <mat-icon svgIcon="map-marker"></mat-icon>
           <p>{{ team.city }}, {{ team.state_prov ? team.state_prov + ', ' : '' }}{{ team.country }}</p>
         </div>
 
-        <div class="team-state d-flex align-content-center flex-wrap" *ngIf="team.rookie_year && team.rookie_year !== 0">
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.rookie_year && team.rookie_year !== 0">
           <mat-icon svgIcon="airballoon"></mat-icon>
           <p>Rookie Year: {{ team.rookie_year }}</p>
         </div>
 
-        <div class="team-state d-flex align-content-center flex-wrap" *ngIf="team.website">
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website">
           <mat-icon svgIcon="earth"></mat-icon>
           <p>Website: {{ team.website }}</p>
         </div>
 
-        <div class="team-state d-flex align-content-center flex-wrap" *ngIf="team.robot_name">
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.robot_name">
           <mat-icon svgIcon="robot"></mat-icon>
           <p>Robot Name: {{ team.robot_name }}</p>
         </div>
 
-        <div class="team-state d-flex align-content-center flex-wrap" *ngIf="team.awards && team.awards.length > 0 && current_season && current_season.description">
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.awards && team.awards.length > 0 && current_season && current_season.description">
           <mat-icon svgIcon="trophy"></mat-icon>
           <p>{{ team.awards.length }} awards in {{ current_season.description }}</p>
         </div>

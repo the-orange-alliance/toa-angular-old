@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../../../providers/ftc-database';
 
 @Component({
-  selector: 'relic-recovery',
+  selector: 'toa-relic-recovery',
   templateUrl: './1718-relic-recovery.component.html',
   providers: [FTCDatabase]
 })

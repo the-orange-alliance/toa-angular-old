@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { FTCDatabase } from '../../providers/ftc-database';
 import { SeasonParser } from '../../util/season-utils';
 import { EventFilter } from '../../util/event-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
+import {MdcTabBar} from '@angular-mdc/web';
 
 @Component({
-  providers: [FTCDatabase,TheOrangeAllianceGlobals],
+  providers: [FTCDatabase, TheOrangeAllianceGlobals],
   selector: 'toa-events',
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss']
@@ -18,6 +19,7 @@ export class EventsComponent implements OnInit {
   regions: any;
   events: any;
 
+  view_week: number;
   weeks: any;
 
   current_season: any;
@@ -25,8 +27,10 @@ export class EventsComponent implements OnInit {
 
   event_filter: EventFilter;
 
-  constructor(private ftc: FTCDatabase, private router: Router, private globaltoa:TheOrangeAllianceGlobals) {
-    this.globaltoa.setTitle("Events");
+  @ViewChild('tabbar') tabbar: MdcTabBar;
+
+  constructor(private ftc: FTCDatabase, private router: Router, private globaltoa: TheOrangeAllianceGlobals) {
+    this.globaltoa.setTitle('Events');
   }
 
   ngOnInit(): void {
@@ -62,7 +66,7 @@ export class EventsComponent implements OnInit {
   organizeEventsByWeek(): void {
     this.weeks = [];
     let cur_week = null;
-    for (let event of this.events) {
+    for (const event of this.events) {
       if (event.week_key !== cur_week) {
         this.weeks.push({
           'week': event.week_key,
@@ -72,26 +76,27 @@ export class EventsComponent implements OnInit {
         cur_week = event.week_key;
       }
     }
+    this.select(0);
   }
 
   getMonday(d) {
     d = new Date(d);
-    var day = d.getDay(),
-      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+    const day = d.getDay(),
+      diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
     return new Date(d.setDate(diff));
   }
 
   getSunday(d) {
     d = new Date(d);
-    var day = d.getDay(),
-      diff = d.getDate() +6 - day + (day == 0 ? -6:1); // adjust when day is sunday
+    const day = d.getDay(),
+      diff = d.getDate() + 6 - day + (day === 0 ? -6 : 1); // adjust when day is sunday
     return new Date(d.setDate(diff));
   }
 
   getEventsByWeek(week: any): any {
-    let filtered_events = [];
-    for (let event of this.events) {
-      if (event.week_key == week.week) {
+    const filtered_events = [];
+    for (const event of this.events) {
+      if (event.week_key === week.week) {
         filtered_events.push(event);
       }
     }
@@ -103,7 +108,6 @@ export class EventsComponent implements OnInit {
   }
 
   selectSeason(season: any) {
-    alert(this.getSeason(this.seasons));
     if (this.current_season.season_key !== season.season_key) {
       this.current_season = season;
       this.ftc.getSeasonEvents(this.current_season.season_key).subscribe( (data) => {
@@ -136,7 +140,7 @@ export class EventsComponent implements OnInit {
     return (new SeasonParser(season_data)).toString();
   }
 
-  public getWeekName(week) : string {
+  public getWeekName(week): string {
     switch (week) {
       case 'CMP':
         return 'FIRST Championship';
@@ -161,5 +165,18 @@ export class EventsComponent implements OnInit {
       default:
         return 'Week ' + week;
     }
+  }
+
+  public select(index) {
+    if (this.weeks && this.weeks.length > index) {
+      if (this.tabbar) {
+        this.tabbar.activateTab(index);
+      }
+      this.view_week = index;
+    }
+  }
+
+  public isSelected(index): boolean {
+    return this.view_week === index;
   }
 }

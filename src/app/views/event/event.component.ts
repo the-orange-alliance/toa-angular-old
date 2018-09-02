@@ -17,10 +17,13 @@ export class EventComponent implements OnInit {
   match_sorter: MatchSorter;
 
   regions: any;
+  seasons: any;
+  event_types: any;
 
   event_key: string;
   event: any;
   event_type_name: string;
+  event_season_name: string;
   totalteams: any;
   totalmatches: any;
   totalrankings: any;
@@ -68,9 +71,20 @@ export class EventComponent implements OnInit {
           this.totalawards = this.event.awards.length;
 
           this.ftc.getEventTypes().subscribe((types) => {
-            const typeObj = types.filter(obj => obj.event_type_key === this.event.event_type_key);
+            this.event_types = types;
+            const typeObj = this.event_types.filter(obj => obj.event_type_key === this.event.event_type_key);
             if (typeObj && typeObj[0] && typeObj[0].description) {
               this.event_type_name = typeObj[0].description;
+            }
+          }, (err) => {
+            console.log(err);
+          });
+
+          this.ftc.getAllSeasons().subscribe( (seasons) => {
+            this.seasons = seasons;
+            const seasonObj = this.seasons.filter(obj => obj.season_key === this.event.season_key);
+            if (seasonObj && seasonObj[0] && seasonObj[0].description) {
+              this.event_season_name = seasonObj[0].description;
             }
           }, (err) => {
             console.log(err);

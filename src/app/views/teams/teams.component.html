@@ -29,7 +29,7 @@
 <div class="row w-100">
   <div class="col-12">
     <mdc-card class="toa-card" *ngIf="current_teams">
-      <div class="toa-card-header pb-0">Team Filter Options</div>
+      <div class="toa-card-header pb-0">Filter Options</div>
       <div class="toa-card-subtitle pt-0" mdcSubtitle2 *ngIf="current_teams">({{ current_teams.length }} Results)</div>
 
       <mdc-list-divider></mdc-list-divider>
@@ -44,11 +44,11 @@
 
         <div *ngIf="current_region" class="col-md-4 col-xs-12 filter-row dropdown">
           <div class="filter-info">Region: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          {{ current_region.description ? current_region.region_key + " - " + current_region.description :  current_region.region_key}}
+          {{ current_region.description ? current_region.region_key + " - " + current_region.description :  current_region.region_key }}
           <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="ftc_district">
-            <mdc-menu-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.region_key + " - " + region.description :  region.region_key}}</mdc-menu-item>
+            <mdc-menu-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.region_key + " - " + region.description :  region.region_key }}</mdc-menu-item>
           </ul>
         </div>
 

@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FTCDatabase } from '../../providers/ftc-database';
+import {TheOrangeAllianceGlobals} from '../../app.globals';
 
 @Component({
   selector: 'toa-livedocs',
   templateUrl: './livedocs.component.html',
-  providers: [FTCDatabase]
+  providers: [TheOrangeAllianceGlobals]
 })
 export class LiveDocsComponent {
 
-  constructor(private router: Router, private ftc: FTCDatabase) {
-
+  constructor(private router: Router, private globaltoa: TheOrangeAllianceGlobals) {
+    this.globaltoa.setTitle('DataSync');
   }
 }

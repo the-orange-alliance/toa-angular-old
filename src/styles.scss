@@ -142,6 +142,19 @@ mdc-drawer mdc-list a {
 
 
 /* ==========================================================================
+   Info State
+   ========================================================================== */
+
+.info-state p {
+  margin: 3px 0 10px 10px;;
+}
+
+.info-state mat-icon {
+  color: $mdc-theme-primary;
+}
+
+
+/* ==========================================================================
    Basic Card
    ========================================================================== */
 
@@ -219,14 +232,16 @@ mdc-drawer mdc-list a {
    ========================================================================== */
 
 table.match-table {
-  display: table;
   padding: 3px 0;
   width: 100%;
   max-width: 100%;
   background-color: #fff;
-  border: 1px solid #ddd;
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+table.match-table>tbody {
+  border-top-width: 1px!important;
 }
 
 table.match-table>thead {
@@ -234,18 +249,6 @@ table.match-table>thead {
   vertical-align: middle;
   border-color: inherit;
   background-color: #f0f0f0;
-}
-
-table.match-table>caption+thead>tr:first-child>th, table.match-table>colgroup+thead>tr:first-child>th, table.match-table>thead:first-child>tr:first-child>th, table.match-table>caption+thead>tr:first-child>td, table.match-table>colgroup+thead>tr:first-child>td, table.match-table>thead:first-child>tr:first-child>td {
-  border-top: 0;
-}
-
-table.match-table>thead>tr>th, table.match-table>thead>tr>td {
-  border-bottom-width: 2px;
-}
-
-table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
-  border: 1px solid #ddd;
 }
 
 table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {

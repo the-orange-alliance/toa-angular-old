@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../../../providers/ftc-database';
 
 @Component({
-  selector: 'velocity-vortex',
+  selector: 'toa-velocity-vortex',
   templateUrl: './1617-velocity-vortex.component.html',
   providers: [FTCDatabase]
 })

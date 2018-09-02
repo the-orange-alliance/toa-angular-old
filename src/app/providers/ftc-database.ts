@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import 'rxjs/add/observable/forkJoin'
-import {forkJoin} from "rxjs/observable/forkJoin";
+import { forkJoin } from 'rxjs';
 
 @Injectable()
 export class FTCDatabase {
@@ -137,7 +136,7 @@ export class FTCDatabase {
   }
 
   public getEventStream(event_key: string) {
-    return this.request('/event/' + event_key + "/stream");
+    return this.request('/event/' + event_key + '/stream');
   }
 
 }

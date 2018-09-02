@@ -72,7 +72,7 @@ export class EventFilter {
         const event_city = (event.city + '' || 'null').toLowerCase();
         const event_state_prov = (event.state_prov + '' || 'null').toLowerCase();
         const event_country = (event.country + '' || 'null').toLowerCase();
-        const event_name = (event.event_name || "null").toLowerCase();
+        const event_name = (event.event_name || 'null').toLowerCase();
 
         const contains_region = (event_region.indexOf(query) > -1);
         const contains_city = (event_city.indexOf(query) > -1);
@@ -85,7 +85,7 @@ export class EventFilter {
     } else {
       this.events_filtered = this.events;
     }
-    this.events_filtered.sort(function(a,b){
+    this.events_filtered.sort(function(a, b) {
       return (new Date(b.start_date).getTime() - new Date(a.start_date).getTime());
     });
   }
@@ -141,13 +141,11 @@ export class EventSorter {
   }
 
   public sortRev(items, left, right) {
-
-	this.sort(items, left, right);
-	// reverse order
-    for (let i=0; i<(right+1-left)/2; i++) {
-		this.swap(items, left+i, right-i);
-	}
-
+    this.sort(items, left, right);
+    // reverse order
+    for (let i = 0; i < (right + 1 - left) / 2; i++) {
+      this.swap(items, left + i, right - i);
+    }
     return items;
   }
 

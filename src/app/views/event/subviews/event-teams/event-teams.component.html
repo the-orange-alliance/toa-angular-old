@@ -8,7 +8,7 @@
             <img *ngIf="!team.logo_url" class="rounded-circle" src="../../../../../assets/imgs/hashtag.png" />
             <div>
               <mdc-list-item-text>
-                <span>#{{ team.team_number }} - {{ team.team_name_short }}</span>
+                <span class="black">#{{ team.team_number }} - {{ team.team_name_short }}</span>
                 <span class="mdc-list-item__secondary-text">{{ team.city }}, {{ team.state_prov ? team.state_prov + ', ' : '' }}{{ team.country }}</span>
               </mdc-list-item-text>
             </div>

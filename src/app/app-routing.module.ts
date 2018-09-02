@@ -15,7 +15,6 @@ import { StreamingComponent } from './views/stream/streaming.component';
 import { TermsComponent } from './views/terms/terms.component';
 import { PageNotFoundComponent } from './views/404/404.component';
 import { MatchesComponent } from './views/matches/matches.component';
-import { EventStreamComponent } from './views/stream/subviews/event-stream.component';
 import { LiveDocsComponent } from './views/livedocs/livedocs.component';
 
 const routes: Routes = [
@@ -33,7 +32,6 @@ const routes: Routes = [
   { path: 'events/:event_key', component: EventComponent },
   { path: 'teams/:team_key', component: TeamComponent },
   { path: 'matches/:match_key', component: MatchesComponent },
-  { path: 'stream/:event_key', component: EventStreamComponent },
   { path: 'not-found', component: PageNotFoundComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }

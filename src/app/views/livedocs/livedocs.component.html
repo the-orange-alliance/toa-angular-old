@@ -1,24 +1,86 @@
-<main class="container">
+<h2>DataSync - Live Events</h2>
+<div class="row">
+  <div class="col-12">
+    The Orange Alliance (TOA) supports live FTC events reporting team lists, match schedules, qualification match results, alliance selections, and elimination round results. This is accomplished by running the TOA DataSync uploader program in the background on the scoring system computer.<br><br>
+    If you are an FTC affiliate partner and want to report live event results, please do the following:<br><br>
+    <ol>
+      <li>
+        <b>Request a TOA Event Write Key</b> for your event by filling out <a href="https://docs.google.com/forms/d/e/1FAIpQLSe6V7oj_lpfaTdgjUCrBg8P-ggnC_eh0vF6b01sMr9AOjF7_g/viewform">this google form</a>. Please do this at least a few days in advance of your event if possible. You will receive an email with your Event ID and Event API Write Key.<br><br>
+      </li>
+      <li>
+        <b>Download the latest release of the TOA DataSync uploader</b> at <a href="https://github.com/orange-alliance/TOA-DataSync/releases">this link</a>. Download the zip file, copy it to the computer that will be running the FTC scoring system at your event, and uncompress it. The scoring system computer will need to have internet access to upload live event results.<br><br>
+      </li>
+      <li>
+        <b>Follow the simple instructions here.</b>
+      </li>
+    </ol>
 
-  <h1>Live Events</h1>
-    <div class="row">
-    <div class="col-xs-12">
-      The Orange Alliance (TOA) supports live FTC events reporting team lists, match schedules, qualification match results, alliance selections, and elimination round results. This is accomplished by running the TOA DataSync uploader program in the background on the scoring system computer.<br><br>
-	  	  
-	  If you are an FTC affiliate partner and want to report live event results, please do the following:<br><br>
-	  <ol>
-	  <li>
-		<b>Request a TOA Event Write Key</b> for your event by filling out <a href="https://docs.google.com/forms/d/e/1FAIpQLSe6V7oj_lpfaTdgjUCrBg8P-ggnC_eh0vF6b01sMr9AOjF7_g/viewform">this google form</a>. Please do this at least a few days in advance of your event if possible. You will receive an email with your Event ID and Event API Write Key.<br><br>
-	  </li>
-	  <li>
-		<b>Download the latest release of the TOA DataSync uploader</b> at <a href="https://github.com/orange-alliance/TOA-DataSync/releases">this link</a>. Download the zip file, copy it to the computer that will be running the FTC scoring system at your event, and uncompress it. The scoring system computer will need to have internet access to upload live event results.<br><br>
-	  </li>
-	  <li>
-		<b>Follow the simple instructions</b> at <a href="https://docs.google.com/document/d/1fSdBXXRTmZvWZXSr1ieZB4vJNWNUefXYdbUPU6TyhsM">this link</a>.
-	  </li>		
-	  </ol>
+    <h1 mdcHeadline4 class="mt-5">Instructions</h1>
+    <h1 mdcHeadline6 class="mt-2">Prerequisites</h1>
+    In order to utilize TOA’s DataSync, you must run this program alongside the main scoring laptop.<br/>
+    You must have a stable internet connection able to connect to <a href="https://www.theorangealliance.org" target="_blank">https://www.theorangealliance.org</a> Profit.
 
+    <h1 mdcHeadline6 class="mt-3">Pre-Event Setup</h1>
+    Open the TOA DataSync (currently v1.1.1-BETA), and make sure you know your event API key, and your event id as listed on TOA.<br/>
+    Follow the steps on the setup screen that looks oddly similar to the following.
+    <br/>
+    Once your credentials are entered, test your connection by hitting the Test Connection button. Once clicked, there are a few responses that could be output from the program.<br/>
+    If your program returns a status code 403, then that means you have entered incorrect credentials. This may be an incorrect API key, or an incorrect event code.<br/>
+    If your program returns a status code 503, then that means something internal within the API has happened. This error shouldn’t happen.<br/>
+    If your program returns a connection refused, then that means you do not have a valid connection to the API. This could mean the API is down, or your internet is unavailable.<br/>
+    <br/>
+    Once your connection is successful, you will be able to select the location of your scoring system’s root directory. For this directory test to be successful, you must Modify/Edit your event information from within the scoring system FIRST.<br/>
+    When the text becomes green saying your directory is valid, you may move on to the teams tab.
+
+    <div class="no-underline col-12 mt-2">
+      <a href="https://goo.gl/forms/u3E1sMuCNT9UcPmH3" target="_blank">
+        <mdc-card class="toa-card link-card">
+          <div class="link-card-icon">
+            <mat-icon svgIcon="link"></mat-icon>
+          </div>
+          <div class="link-card-content">
+            <div class="link-card-title">Apply for an API Key</div>
+            <div class="gray">Related Link</div>
+          </div>
+        </mdc-card>
+      </a>
     </div>
-  </div>
 
-</main>
+    <h1 mdcHeadline6 class="mt-3">Teams Tab</h1>
+    The teams tab is only meant to be used if information is incorrect in TOA’s databases, such as a team not showing up to your event. Inside of this table view, you can see the differences between TOA’s posted teams, and the teams from your event.
+    <br/>
+    If you have a team not show up, or a last-minute addition, follow these steps:<br/>
+    Make sure the team list is correct in the scoring system. Add/drop your desired teams in the scoring system.<br/>
+    Do a import of teams by TOA, and then an import by scoring system. Notice if there is any difference between the two view types.<br/>
+    If there is a difference, then purge TOA’s Event Participant table by clicking the purge button.<br/>
+    After a purge, import your teams by scoring system, and then upload that list to TOA.
+
+    <h1 mdcHeadline6 class="mt-3">Matches Tab</h1>
+    The matches tab is a fairly simple, yet important interface. There are two important processes that take place here:<br/>
+    Uploading your match schedule to TOA<br/>
+    Once your matches are completed, upload the results to TOA
+
+    <h1 mdcHeadline6 class="mt-3">Uploading Your Match Schedule</h1>
+    Once your match schedule is generated on the scoring system, you can upload your match schedule to TOA. Be warned, once you upload your schedule to TOA, the schedule will be available to the public.<br/>
+    To upload your match schedule, do the following:<br/>
+    Press the “Import from Scoring System” button. Once you do this, make sure the matches present in the DataSync match up with your match schedule. If they do not, contact a TOA admin.<br/>
+    Post your match schedule by pressing the “Upload Schedule” button.<br/>
+    After you upload your match schedule, head over to the Auto-Sync tab section to enable AutoSync to TOA.
+
+    <h1 mdcHeadline6 class="mt-3">Upload Your Match Results to TOA</h1>
+    With AutoSync on, the DataSync will automatically update from the scoring system every 30 seconds. In terms of matches, every cycle will check if the match results have been saved and uploaded to TOA. The DataSync should put matches in an upload queue once they are completed. However, this process can be manual:<br/>
+    If you have AutoSync enabled, skip this step. Hit “Re-Sync Match Schedule” which will redo the match import from the scoring system, and determine which matches are completed.<br/>
+    On a completed match, hit the “Upload” button to upload this match to TOA.<br/>
+    <b>NOTE: IF YOU NEED TO GO BACK INTO THE SCORING SYSTEM AND RE-SAVE A MATCH RESULT DUE TO A SCORING ERROR, YOU MUST RE-UPLOAD THE MATCH TO TOA MANUALLY.</b>
+
+    <h1 mdcHeadline6 class="mt-3">Eliminations</h1>
+    In order to get eliminations matches to upload to TOA, you must do 2 special steps every time the scoring system populates a new match. For example, initially the scoring system populates Semis 1 Match 1, and Semis 2 Match 1. You must repeat these steps every time the scoring system gives you a new match (e.g. Semis 1 Match 2).<br/>
+    Hit “ReSync match schedule” on the matches tab.<br/>
+    Hit upload schedule to TOA.<br/>
+    If you have auto sync enabled, the DataSync will automatically upload your eliminations scores when they are saved in the scoring system.
+
+    <h1 mdcHeadline6 class="mt-3">Rankings Tab</h1>
+    The rankings tab is even more simple, yet also just as important.<br/>
+    The rankings should be AutoSync’d with the match results, but as of v1.3.9-BETA, this issue should theoretically be fixed. If people are complaining, hit the “Import Rankings from Scoring system” button then upload the rankings to TOA.
+  </div>
+</div>

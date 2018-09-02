@@ -48,14 +48,14 @@
               <a href="/events/{{ event.event_key }}">
                 <mdc-list-item interactive class="pl-4" *ngIf="event.start_date == event.end_date">
                   <mdc-list-item-text>
-                    <span>{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
+                    <span class="black">{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
                     <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} on {{ event.start_date | date :  "mediumDate"}}</span>
                   </mdc-list-item-text>
                 </mdc-list-item>
 
                 <mdc-list-item interactive class="pl-4" *ngIf="event.start_date != event.end_date">
                   <mdc-list-item-text>
-                    <span>{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
+                    <span class="black">{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
                     <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} from {{ event.start_date | date :  "mediumDate"}} to {{ event.end_date | date :  "mediumDate"}}</span>
                   </mdc-list-item-text>
                 </mdc-list-item>

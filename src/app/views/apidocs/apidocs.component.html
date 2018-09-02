@@ -1,25 +1,7 @@
-<h2>API Docs</h2>
+<h2>API</h2>
 
-<div class="col-xs-12">
+<div class="col-12">
   <p>The goal of TOA API is to provide us, and potential outside users a way to query our databases. </p>
-  <p>The Base URL for accessing anything related to our API is <a href="http://theorangealliance.org/apiv2">http://theorangealliance.org/apiv2</a></p>
-
-  <h1 mdcHeadline5>Gaining Access to TOA API</h1>
-  <p>In order to gain access to TOA API, you need to first gain access to an API key. Once you have that key, you must set two custom headers with every GET request. You must set <code>X-Application-Origin</code> to the name of your application. Secondly, you must set <code>X-TOA-Key</code> to your API key. </p>
-
-  <div class="no-underline col-12 mt-2">
-    <a href="https://goo.gl/forms/u3E1sMuCNT9UcPmH3" target="_blank">
-      <mdc-card class="toa-card link-card">
-        <div class="link-card-icon">
-          <mat-icon svgIcon="link"></mat-icon>
-        </div>
-        <div class="link-card-content">
-          <div class="link-card-title">Apply for an API Key</div>
-          <div class="gray">Related Link</div>
-        </div>
-      </mdc-card>
-    </a>
-  </div>
 
   <h1 mdcHeadline5 class="mt-4">API Access Levels</h1>
   <div class="row">
@@ -39,11 +21,44 @@
       <li class="list-group-item  border-0">There is no limit on rates</li>
     </mdc-card>
   </div>
-
   <p>* Every request is tracked</p>
-  <p>* All data is returned in JSON format</p>
+
+  <h1 mdcHeadline5>API v3</h1>
+  <h1 mdcHeadline6>Authentication</h1>
+  <p>The API only ever responds with JSON data, therefore the API will only respond to requests that are looking for JSON. To currectly request JSON from the API, set the <code>Content-Type</code> header of your request to be <code>application/json</code>.<br/>
+    Two custom request headers must be sent with every request you make: <code>X-TOA-Key</code> and <code>X-Application-Origin</code>. <code>X-TOA-Key</code> should be the value of your API key, and X-Application-Origin should be the name of your application. Without either of these headers, your request will be denied by the API.</p>
+  <div class="no-underline col-12 mt-1">
+    <a href="https://goo.gl/forms/u3E1sMuCNT9UcPmH3" target="_blank">
+      <mdc-card class="toa-card link-card">
+        <div class="link-card-icon">
+          <mat-icon svgIcon="link"></mat-icon>
+        </div>
+        <div class="link-card-content">
+          <div class="link-card-title">Apply for an API Key</div>
+          <div class="gray">Related Link</div>
+        </div>
+      </mdc-card>
+    </a>
+  </div>
+
+  <p class="mt-2">All requests should be made (using SSL) to the base URL <a href="https://theorangealliance.org/apiv3">https://theorangealliance.org/apiv3</a>.
+    To see complete details of data accessible via APIv3, please see the <a href="https://orange-alliance.github.io/TOA-API" target="_blank">full documentation</a></p>
+  <div class="no-underline col-12 mt-1">
+    <a href="https://orange-alliance.github.io/TOA-API" target="_blank">
+      <mdc-card class="toa-card link-card">
+        <div class="link-card-icon">
+          <mat-icon svgIcon="link"></mat-icon>
+        </div>
+        <div class="link-card-content">
+          <div class="link-card-title">API Full Documentation</div>
+          <div class="gray">Related Link</div>
+        </div>
+      </mdc-card>
+    </a>
+  </div>
 </div>
 
+<!--
 <h1 mdcHeadline5 class="mt-4">API Route</h1>
 
 <table class="table table-bordered">
@@ -78,3 +93,4 @@
     </tr>
   </tbody>
 </table>
+-->
