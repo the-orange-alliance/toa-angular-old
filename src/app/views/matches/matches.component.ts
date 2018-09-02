@@ -12,6 +12,8 @@ import { FTCDatabase } from '../../providers/ftc-database';
 })
 export class MatchesComponent implements OnInit {
 
+  noData: boolean;
+
   match_key: any;
 
   match_data: any;
@@ -28,7 +30,7 @@ export class MatchesComponent implements OnInit {
     const season_split = this.match_key.toString().split('-')[0];
     this.ftc.getMatchDetail(this.match_key).subscribe((match_data) => {
       if (!match_data[0][0]) {
-        this.router.navigate(['/not-found']);
+        this.noData = true;
       } else {
         /*this.stations = match_data.station_status;*/
         this.match_data = match_data[0][0];
