@@ -1,0 +1,81 @@
+<div *ngIf="event">
+  <h2>{{ event.start_date | date : "y" }} {{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</h2>
+
+  <div class="row" *ngIf="regions">
+    <div class="col-12 col-sm-9 mt-3">
+      <mdc-card class="toa-card">
+        <div class="toa-card-header" mdcHeadline5>Event Information</div>
+        <mdc-list-divider></mdc-list-divider>
+        <div class="p-3">
+          <div class="info-state d-flex align-content-center flex-wrap">
+            <mat-icon svgIcon="calendar"></mat-icon>
+            <p>{{event.start_date == event.end_date ? (event.start_date | date :  "mediumDate") : (event.start_date | date :  "mediumDate") + ' - ' + (event.end_date | date :  "mediumDate")}}</p>
+          </div>
+          <div class="info-state d-flex align-content-center flex-wrap">
+            <mat-icon svgIcon="map-marker"></mat-icon>
+            <p style="text-transform: capitalize">{{ event.venue ? event.venue + ',' : ''}} {{ event.city }}, {{ event.state_prov ? event.state_prov + ', ' : '' }}{{ fixCountry(event.country) }}</p>
+          </div>
+          <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event_type_name">
+            <mat-icon svgIcon="calendar-question"></mat-icon>
+            <p>{{ event_type_name }}</p>
+          </div>
+          <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event.event_website">
+            <mat-icon svgIcon="earth"></mat-icon>
+            <p><a [href]="event.event_website" target="_blank">View event's website</a></p>
+          </div>
+          <div class="info-state d-flex align-content-center flex-wrap">
+            <mat-icon svgIcon="code-tags"></mat-icon>
+            <p>Event Key: </p><p><code>{{ event_key }}</code></p>
+          </div>
+        </div>
+      </mdc-card>
+    </div>
+
+    <div class="col-12 col-sm-3 mt-3" *ngIf="event.alliance_count || event.fields || event_season_name">
+      <mdc-card class="toa-card h-100">
+        <div class="toa-card-header" mdcHeadline5>Game Information</div>
+        <mdc-list-divider></mdc-list-divider>
+        <div class="p-3">
+          <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event_season_name">
+            <mat-icon svgIcon="gamepad-variant"></mat-icon>
+            <p>{{ event_season_name }}</p>
+          </div>
+          <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event.alliance_count">
+            <mat-icon svgIcon="human-handsup"></mat-icon>
+            <p>{{ event.alliance_count > 1 ? event.alliance_count + ' Alliances' : 'One Alliance'}}</p>
+          </div>
+          <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event.fields">
+            <mat-icon svgIcon="soccer-field"></mat-icon>
+            <p>{{ event.fields > 1 ? event.fields + ' Fields' : 'One Field'}}</p>
+          </div>
+        </div>
+      </mdc-card>
+    </div>
+  </div>
+
+  <div class="mt-5 row" *ngIf="totalteams <= 0">
+    <h4 class="col-12"> NO RESULTS HAVE BEEN REPORTED FOR THIS EVENT.</h4>
+  </div>
+
+  <div class="mt-5 row" *ngIf="totalteams && totalteams > 0">
+    <div class="col-12">
+      <mdc-card class="toa-card">
+        <mdc-tab-bar class="w-100">
+          <mdc-tab-scroller>
+            <mdc-tab label="Rankings" (click)="select('rankings')"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalrankings }}</span></mdc-tab>
+            <mdc-tab label="Matches" (click)="select('matches')"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalmatches }}</span></mdc-tab>
+            <mdc-tab label="Teams" (click)="select('teams')"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalteams }}</span></mdc-tab>
+            <mdc-tab label="Awards" (click)="select('awards')"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalawards }}</span></mdc-tab>
+          </mdc-tab-scroller>
+        </mdc-tab-bar>
+        <div class="mt-4">
+          <toa-event-rankings *ngIf="isSelected('rankings')" [event]="event" [rankings]="event.rankings"></toa-event-rankings>
+          <toa-event-teams *ngIf="isSelected('teams')" [event]="event"></toa-event-teams>
+          <toa-event-matches *ngIf="isSelected('matches')" [matches]="event.matches.stations"></toa-event-matches>
+          <toa-event-awards *ngIf="isSelected('awards')" [event]="event"></toa-event-awards>
+        </div>
+      </mdc-card>
+    </div>
+  </div>
+
+</div>

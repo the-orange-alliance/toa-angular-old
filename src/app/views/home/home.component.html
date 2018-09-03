@@ -1,0 +1,263 @@
+<h2>Home</h2>
+<p>The Orange Alliance is a project to help make FTC match, event, and team information more accessible.</p>
+
+<div class="row w-100">
+  <div class="col-sm-12 col-lg-6 p-3">
+    <div class="row">
+      <div class="col-6 p-1">
+        <mdc-card class="toa-card counting-card">
+          <div class="counting-card-icon">
+            <mat-icon svgIcon="account-group"></mat-icon>
+          </div>
+          <div class="counting-card-content">
+            <div class="counting-card-title">{{ teams_count ? teams_count : 0 }}</div>
+            <div class="counting-card-info">Teams</div>
+          </div>
+        </mdc-card>
+      </div>
+
+      <div class="col-6 p-1">
+        <mdc-card class="toa-card counting-card">
+          <div class="counting-card-icon">
+            <mat-icon svgIcon="gamepad-variant"></mat-icon>
+          </div>
+          <div class="counting-card-content">
+            <div class="counting-card-title">{{ match_count ? match_count : 0 }}</div>
+            <div class="counting-card-info">Matches</div>
+          </div>
+        </mdc-card>
+      </div>
+    </div>
+    <div class="row mt-4" *ngIf="week_start && week_end && current_events">
+      <div class="p-1 col-12">
+        <mdc-card class="toa-card p-0">
+          <div class="p-2">
+            <div class="toa-card-header pb-0" mdcSubtitle2>This Week's Events</div>
+            <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ this.week_start | date :  "mediumDate" }} - {{ this.week_end | date :  "mediumDate" }}</div>
+          </div>
+
+          <mdc-list-divider></mdc-list-divider>
+
+          <div *ngIf="current_events.length <= 0">
+            <p class="pt-4 text-center toa-card-subtitle" >There are no events occurring this week.</p>
+          </div>
+
+          <mdc-list [lines]="2" *ngIf="current_events.length > 0">
+            <div *ngFor="let event of current_events" class="no-underline">
+
+              <a href="/events/{{ event.event_key }}">
+                <mdc-list-item interactive class="pl-4" *ngIf="event.start_date == event.end_date">
+                  <mdc-list-item-text>
+                    <span class="black">{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
+                    <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} on {{ event.start_date | date :  "mediumDate"}}</span>
+                  </mdc-list-item-text>
+                </mdc-list-item>
+
+                <mdc-list-item interactive class="pl-4" *ngIf="event.start_date != event.end_date">
+                  <mdc-list-item-text>
+                    <span class="black">{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
+                    <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} from {{ event.start_date | date :  "mediumDate"}} to {{ event.end_date | date :  "mediumDate"}}</span>
+                  </mdc-list-item-text>
+                </mdc-list-item>
+              </a>
+
+            </div>
+          </mdc-list>
+        </mdc-card>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-lg-6 p-3">
+    <div class="row">
+      <div class="p-1 col-12">
+        <mdc-card class="toa-card">
+          <div class="toa-card-header pb-0" mdcSubtitle2>Leaderboard</div>
+          <div class="toa-card-subtitle pt-0" mdcSubtitle2>Relic Recovery 2017 - 2018</div>
+          <mdc-list-divider></mdc-list-divider>
+          <div class="p-3">
+            <div class="row" *ngIf="qual_match && qual_match.teams">
+              <div class="col-12">
+                <h1 class="mb-0" mdcHeadline6>Highest Scoring Qualification Match</h1>
+                <h1 class="mt-0" mdcSubtitle1>(Penalty Free)</h1>
+                <h1 *ngIf="qual_match.event" mdcBody2><a class="text-primary" (click)="openEvent(qual_match.event_key, $event)">{{ qual_match.event.event_name }}<span *ngIf="qual_match.event.division_name"> - {{ qual_match.event.division_name }}</span></a>
+                  <a (click)="openMatchDetails(qual_match.match_key)"> <h1 mdcCaption>{{ qual_match.match_name }}</h1></a></h1>
+                <table class="match-table">
+                  <thead>
+                  <tr>
+                    <th colspan="2">Teams</th>
+                    <th>Score</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="red">
+                    <td class="red" [class.match-winner]="qual_match.red_score >= qual_match.blue_score">
+                      <a href="/teams/{{ getStation(qual_match, 0) }}">{{ getStation(qual_match, 0) }}</a>
+                    </td>
+                    <td class="red" [class.match-winner]="qual_match.red_score >= qual_match.blue_score">
+                      <a href="/teams/{{ getStation(qual_match, 1) }}">{{ getStation(qual_match, 1) }}</a>
+                    </td>
+                    <td class="red" [class.match-winner]="qual_match.red_score >= qual_match.blue_score">
+                      {{ qual_match.red_score }}
+                    </td>
+                  </tr>
+                  <tr class="blue">
+                    <td class="blue" [class.match-winner]="qual_match.red_score <= qual_match.blue_score">
+                      <a href="/teams/{{ getStation(qual_match, 2) }}">{{ getStation(qual_match, 2) }}</a>
+                    </td>
+                    <td class="blue" [class.match-winner]="qual_match.red_score <= qual_match.blue_score">
+                      <a href="/teams/{{ getStation(qual_match, 3) }}">{{ getStation(qual_match, 3) }}</a>
+                    </td>
+                    <td class="blue" [class.match-winner]="qual_match.red_score <= qual_match.blue_score">
+                      {{ qual_match.blue_score }}
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row mt-2" *ngIf="elim_match && elim_match.teams">
+              <div class="col-12 mt-2">
+                <h1 class="mb-0" mdcHeadline6>Highest Scoring Elimination Match</h1>
+                <h1 class="mt-0" mdcSubtitle1>(Penalty Free)</h1>
+                <h1 *ngIf="elim_match.event" mdcBody2><a class="text-primary" (click)="openEvent(elim_match.event_key, $event)">{{ elim_match.event.event_name }}<span *ngIf="elim_match.event.division_name"> - {{ elim_match.event.division_name }}</span></a>
+                  <a (click)="openMatchDetails(elim_match.match_key)"> <h1 mdcCaption>{{ elim_match.match_name }}</h1></a></h1>
+                <table class="match-table">
+                  <thead>
+                  <tr>
+                    <th colspan="6">Teams</th>
+                    <th>Score</th>
+                  </tr>
+                  </thead>
+                  <tbody *ngIf="getNumberOfTeams(elim_match) == 6">
+                  <tr class="red">
+                    <td colspan="2" class="red" [class.match-winner]="elim_match.red_score >= elim_match.blue_score">
+                      <a href="/teams/{{ getStation(elim_match, 0) }}">{{ getStation(elim_match, 0) }}</a>
+                    </td>
+                    <td colspan="2" class="red" [class.match-winner]="qual_match.red_score >= elim_match.blue_score">
+                      <a href="/teams/{{ getStation(elim_match, 1) }}">{{ getStation(elim_match, 1) }}</a>
+                    </td>
+                    <td colspan="2" class="red" [class.match-winner]="elim_match.red_score >= elim_match.blue_score">
+                      <a href="/teams/{{ getStation(elim_match, 2) }}">{{ getStation(elim_match, 2) }}</a>
+                    </td>
+                    <td class="red" [class.match-winner]="elim_match.red_score >= elim_match.blue_score">
+                      {{ elim_match.red_score }}
+                    </td>
+                  </tr>
+                  <tr class="blue">
+                    <td colspan="2" class="blue" [class.match-winner]="elim_match.red_score <= elim_match.blue_score">
+                      <a href="/teams/{{ getStation(elim_match, 3) }}">{{ getStation(elim_match, 3) }}</a>
+                    </td>
+                    <td colspan="2" class="blue" [class.match-winner]="elim_match.red_score <= elim_match.blue_score">
+                      <a href="/teams/{{ getStation(elim_match, 4) }}">{{ getStation(elim_match, 4) }}</a>
+                    </td>
+                    <td colspan="2" class="blue" [class.match-winner]="elim_match.red_score <= elim_match.blue_score">
+                      <a href="/teams/{{ getStation(elim_match, 5) }}">{{ getStation(elim_match, 5) }}</a>
+                    </td>
+                    <td class="blue" [class.match-winner]="elim_match.red_score <= elim_match.blue_score">
+                      {{ elim_match.blue_score }}
+                    </td>
+                  </tr>
+                  </tbody>
+                  <tbody *ngIf="getNumberOfTeams(elim_match) == 4">
+                  <tr class="red">
+                    <td colspan="3" class="red" [class.match-winner]="elim_match.red_score >= elim_match.blue_score">
+                      <a href="/teams/{{ getStation(elim_match, 0) }}">{{ getStation(elim_match, 0) }}</a>
+                    </td>
+                    <td colspan="3" class="red" [class.match-winner]="elim_match.red_score >= elim_match.blue_score">
+                      <a href="/teams/{{ getStation(elim_match, 1) }}">{{ getStation(elim_match, 1) }}</a>
+                    </td>
+                    <td class="red" [class.match-winner]="elim_match.red_score >= elim_match.blue_score">
+                      {{ elim_match.red_score }}
+                    </td>
+                  </tr>
+                  <tr class="blue">
+                    <td colspan="3" class="blue" [class.match-winner]="elim_match.red_score <= elim_match.blue_score">
+                      <a href="/teams/{{ getStation(elim_match, 2) }}">{{ getStation(elim_match, 2) }}</a>
+                    </td>
+                    <td colspan="3" class="blue" [class.match-winner]="qual_match.red_score <= elim_match.blue_score">
+                      <a href="/teams/{{ getStation(elim_match, 3) }}">{{ getStation(elim_match, 3) }}</a>
+                    </td>
+                    <td class="blue" [class.match-winner]="elim_match.red_score <= elim_match.blue_score">
+                      {{ elim_match.blue_score }}
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row mt-2" *ngIf="normal_match && normal_match.teams">
+              <div class="col-12 mt-2">
+                <h1 class="mb-0" mdcHeadline6>Highest Scoring Match</h1>
+                <h1 class="mt-0" mdcSubtitle1>(With Penalties)</h1>
+                <h1 *ngIf="normal_match.event" mdcBody2><a class="text-primary" (click)="openEvent(normal_match.event_key, $event)">{{ normal_match.event.event_name }}<span *ngIf="normal_match.event.division_name"> - {{ normal_match.event.division_name }}</span></a>
+                  <a (click)="openMatchDetails(normal_match.match_key)"> <h1 mdcCaption>{{ normal_match.match_name }}</h1></a></h1>
+                <table class="match-table">
+                  <thead>
+                  <tr>
+                    <th colspan="6">Teams</th>
+                    <th>Score</th>
+                  </tr>
+                  </thead>
+                  <tbody *ngIf="getNumberOfTeams(normal_match) == 6">
+                  <tr class="red">
+                    <td colspan="2" class="red" [class.match-winner]="normal_match.red_score >= normal_match.blue_score">
+                      <a href="/teams/{{ getStation(normal_match, 0) }}">{{ getStation(normal_match, 0) }}</a>
+                    </td>
+                    <td colspan="2" class="red" [class.match-winner]="qual_match.red_score >= normal_match.blue_score">
+                      <a href="/teams/{{ getStation(normal_match, 1) }}">{{ getStation(normal_match, 1) }}</a>
+                    </td>
+                    <td colspan="2" class="red" [class.match-winner]="elim_match.red_score >= normal_match.blue_score">
+                      <a href="/teams/{{ getStation(normal_match, 2) }}">{{ getStation(normal_match, 2) }}</a>
+                    </td>
+                    <td class="red" [class.match-winner]="normal_match.red_score >= normal_match.blue_score">
+                      {{ normal_match.red_score }}
+                    </td>
+                  </tr>
+                  <tr class="blue">
+                    <td colspan="2" class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
+                      <a href="/teams/{{ getStation(normal_match, 3) }}">{{ getStation(normal_match, 3) }}</a>
+                    </td>
+                    <td colspan="2" class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
+                      <a href="/teams/{{ getStation(normal_match, 4) }}">{{ getStation(normal_match, 4) }}</a>
+                    </td>
+                    <td colspan="2" class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
+                      <a href="/teams/{{ getStation(normal_match, 5) }}">{{ getStation(normal_match, 5) }}</a>
+                    </td>
+                    <td class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
+                      {{ normal_match.blue_score }}
+                    </td>
+                  </tr>
+                  </tbody>
+                  <tbody *ngIf="getNumberOfTeams(normal_match) == 4">
+                  <tr class="red">
+                    <td colspan="3" class="red" [class.match-winner]="normal_match.red_score >= normal_match.blue_score">
+                      <a href="/teams/{{ getStation(normal_match, 0) }}">{{ getStation(normal_match, 0) }}</a>
+                    </td>
+                    <td colspan="3" class="red" [class.match-winner]="normal_match.red_score >= normal_match.blue_score">
+                      <a href="/teams/{{ getStation(normal_match, 1) }}">{{ getStation(normal_match, 1) }}</a>
+                    </td>
+                    <td class="red" [class.match-winner]="normal_match.red_score >= normal_match.blue_score">
+                      {{ normal_match.red_score }}
+                    </td>
+                  </tr>
+                  <tr class="blue">
+                    <td colspan="3" class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
+                      <a href="/teams/{{ getStation(normal_match, 2) }}">{{ getStation(normal_match, 2) }}</a>
+                    </td>
+                    <td colspan="3" class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
+                      <a href="/teams/{{ getStation(normal_match, 3) }}">{{ getStation(normal_match, 3) }}</a>
+                    </td>
+                    <td class="blue" [class.match-winner]="normal_match.red_score <= normal_match.blue_score">
+                      {{ normal_match.blue_score }}
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </mdc-card>
+      </div>
+    </div>
+  </div>
+</div>

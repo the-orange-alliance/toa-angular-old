@@ -1,0 +1,20 @@
+<div class="col-12">
+  <mdc-list-group>
+    <mdc-list>
+      <div *ngFor="let award of event.awards" class="no-underline">
+        <a href="/teams/{{ award.team_key }}">
+          <mdc-list-item class="item-team">
+            <img *ngIf="award.award_key.startsWith('WIN') && award.award_key.length == 4" class="rounded-circle" src="../../../../../assets/imgs/trophy.png" />
+            <img *ngIf="!(award.award_key.startsWith('WIN') && award.award_key.length == 4)" class="rounded-circle" src="../../../../../assets/imgs/trophy_star.png" />
+            <div>
+              <mdc-list-item-text>
+                <span class="black">#{{ award.team_key }}</span>
+                <span class="mdc-list-item__secondary-text">{{ award.award_name }}</span>
+              </mdc-list-item-text>
+            </div>
+          </mdc-list-item>
+        </a>
+      </div>
+    </mdc-list>
+  </mdc-list-group>
+</div>

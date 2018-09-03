@@ -1,0 +1,26 @@
+<div class="col-12">
+  <table class="table table-responsive d-md-table d-sm-block">
+    <thead class="thead-light">
+      <tr>
+        <th>Rank</th>
+        <th>Team</th>
+        <th>Record (W-L-T)</th>
+        <th>Qualification Points</th>
+        <th>Ranking Points</th>
+        <th>Highest Score</th>
+        <th>Matches Played</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="rankings">
+      <tr *ngFor="let rank of rankings" >
+        <td>{{ rank.rank }}</td>
+        <td><a href="/teams/{{ rank.team_key }}">{{ rank.team_key }}</a></td>
+        <td>{{ rank.wins }} - {{ rank.losses }} - {{ rank.ties }}</td>
+        <td>{{ rank.qualifying_points }}</td>
+        <td>{{ rank.ranking_points }}</td>
+        <td>{{ rank.highest_qual_score }}</td>
+        <td>{{ rank.played }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

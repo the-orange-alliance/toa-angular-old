@@ -1,20 +1,134 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!-- AppBar -->
+<mdc-app-bar #appbar fixed class="col">
+  <mdc-app-bar-row>
+    <mdc-app-bar-section align="start" title="The Orange Alliance">
+      <mat-icon svgIcon="menu" (click)="appdrawer.open()" *ngIf="isScreenSmall() || appbar.isCollapsed()"></mat-icon>
+    </mdc-app-bar-section>
+    <mdc-app-bar-section align="end">
+      <a mdcAppBarActionItem id="showSearch" title="Search">
+        <mat-icon class="white-icon" svgIcon="magnify"></mat-icon>
+      </a>
+    </mdc-app-bar-section>
+  </mdc-app-bar-row>
+</mdc-app-bar>
 
+<!-- Search -->
+<div id="qnimate" class="off">
+  <div id="searchrr" class="open">
+    <button data-widget="remove" id="removeSearch" class="close" type="button">×</button>
+    <form>
+      <input id="ftc_search" (keyup)="performSearch()" (focus)="performSearch()" [(ngModel)]="search" [ngModelOptions]="{standalone: true}" type="text" placeholder="Team # or Event">
+      <ul id="search" class="search-results" aria-labelledby="ftc_search">
+        <li *ngFor="let result of team_search_results"><a href="/teams/{{result.team_key}}">{{ result.team_key }} - {{ result.team_name_short }}</a></li>
+        <li *ngFor="let result of event_search_results"><a href="/events/{{result.event_key}}">[{{ result.event_key }}] {{ result.start_date | date : "y" }} {{ result.event_name }}</a></li>
+        <li *ngIf="this.teams && this.teams.length > 0"><a href="/teams?q={{search}}"><i  style="color:gray !important;">Show all {{this.teams.length}} teams</i></a></li>
+      </ul>
+    </form>
+    <small style="text-align: center; color: rgb(0, 0, 0); position: absolute; left: 0px; right: 0px; bottom: 70px; font-size: 16px;">The Orange Alliance</small>
+  </div>
+</div>
+
+<!-- Drawer -->
+<div class="mdc-top-app-bar--fixed-adjust">
+  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || appbar.isCollapsed() ? 'temporary' : 'permanent'"
+              [closeOnClick]="false" fixed>
+    <mdc-drawer-content>
+      <mdc-list-group>
+        <mdc-list>
+          <mdc-list-item class="item-profile">
+            <div>
+              <mdc-list-item-text>
+                <span>Hello Guest!</span>
+                <span class="mdc-list-item__secondary-text">
+                  	<button mdc-button dense>Login</button>•<button mdc-button dense>Register</button>
+                </span>
+              </mdc-list-item-text>
+            </div>
+            <!--
+            <mat-icon mdcListItemGraphic>
+              <img class="rounded-circle" src="https://avatars3.githubusercontent.com/u/16443111?s=460&v=4" height="50" />
+            </mat-icon>
+            <div>
+              <mdc-list-item-text>
+                <span>Hello Ofek!</span>
+                <span class="mdc-list-item__secondary-text">ofek.ashery@gmail.com</span>
+              </mdc-list-item-text>
+            </div>
+            -->
+          </mdc-list-item>
+
+          <mdc-list-divider></mdc-list-divider>
+
+          <a mdc-list-item routerLink="/home" routerLinkActive="mdc-list-item--activated">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="home"></mat-icon>Home
+          </a>
+          <a mdc-list-item routerLink="/account" routerLinkActive="mdc-list-item--activated">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="star"></mat-icon>myTOA
+          </a>
+          <a mdc-list-item routerLink="/teams" routerLinkActive="mdc-list-item--activated">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="account-group"></mat-icon>Teams
+          </a>
+          <a mdc-list-item routerLink="/events" routerLinkActive="mdc-list-item--activated">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="calendar"></mat-icon>Events
+          </a>
+          <a mdc-list-item routerLink="/stream" routerLinkActive="mdc-list-item--activated">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="video"></mat-icon>Streaming
+          </a>
+          <a mdc-list-item routerLink="/apidocs" routerLinkActive="mdc-list-item--activated">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="code-tags"></mat-icon>API
+          </a>
+
+          <mdc-list-divider></mdc-list-divider>
+
+          <a mdc-list-item routerLink="/livedocs" routerLinkActive="mdc-list-item--activated">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="progress-upload"></mat-icon>DataSync
+          </a>
+          <a mdc-list-item href="https://github.com/orange-alliance" target="_blank">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="github-circle"></mat-icon>GitHub
+          </a>
+          <a mdc-list-item href="https://discord.gg/5fH66UV" target="_blank">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="discord"></mat-icon>Discord
+          </a>
+          <a mdc-list-item href="https://www.facebook.com/theorangealliance" target="_blank">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="facebook"></mat-icon>Facebook
+          </a>
+          <a mdc-list-item href="https://play.google.com/store/apps/details?id=com.theorangealliance.android" target="_blank">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="android-head"></mat-icon>Android App
+          </a>
+
+          <mdc-list-divider></mdc-list-divider>
+
+          <a mdc-list-item routerLink="/about" routerLinkActive="mdc-list-item--activated">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="information-outline"></mat-icon>About
+          </a>
+          <a mdc-list-item routerLink="/privacy-terms" routerLinkActive="mdc-list-item--activated">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="lifebuoy"></mat-icon>Privacy & Terms
+          </a>
+
+          <mdc-list-divider></mdc-list-divider>
+
+          <a href="https://revrobotics.com/" target="_blank" class="pl-5 pr-5 pt-3 pb-3" mdc-list-item>
+            <img class="img-fit-w" src="../assets/imgs/powered_by_rev.png" title="Powered by REV" />
+          </a>
+
+        </mdc-list>
+      </mdc-list-group>
+    </mdc-drawer-content>
+  </mdc-drawer>
+
+  <div class="toa-page">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-105262657-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!-- FOOTER CONTAINER -->

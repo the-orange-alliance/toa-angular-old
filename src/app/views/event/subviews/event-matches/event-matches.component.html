@@ -1,0 +1,476 @@
+<div class="col-12">
+  <table class="match-table table table-responsive d-sm-table d-block">
+    <thead class="thead-light">
+      <tr class="d-none d-lg-table-row d-xl-table-row">
+        <th class="p-0">
+          <mat-icon svgIcon="play-circle-outline"></mat-icon>
+        </th>
+        <th>Match</th>
+        <th colspan="6">Red Alliance</th>
+        <th colspan="6">Blue Alliance</th>
+        <th colspan="2">Scores</th>
+      </tr>
+      <tr class="d-lg-none d-xl-none">
+        <th class="p-0" rowspan="2">
+          <mat-icon svgIcon="play-circle-outline"></mat-icon>
+        </th>
+        <th rowspan="2">Match</th>
+        <th colspan="12">Red Alliance</th>
+        <th colspan="2">Red Score</th>
+      </tr>
+      <tr class="d-lg-none d-xl-none">
+        <th colspan="12">Blue Alliance</th>
+        <th colspan="2">Blue Score</th>
+      </tr>
+    </thead>
+
+    <tbody *ngIf="finals_matches && finals_matches.length > 0">
+      <tr>
+        <th colspan="18">Finals Matches</th>
+      </tr>
+    </tbody>
+    <tbody *ngFor="let match of finals_matches">
+      <tr *ngIf="getNumberOfTeams(match) == 6" class="d-none d-lg-table-row d-xl-table-row">
+        <td>
+          <span *ngIf="match.video_url"><a><mat-icon svgIcon="gamepad-variant"></mat-icon></a></span>
+        </td>
+        <td>
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 4) }}">{{ getStation(match, 4) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 5) }}">{{ getStation(match, 5) }}</a>
+        </td>
+        <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+        <td class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 6" class="d-lg-none d-xl-none">
+        <td rowspan="2">
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td rowspan="2">
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 6" class="d-lg-none d-xl-none">
+        <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 4) }}">{{ getStation(match, 4) }}</a>
+        </td>
+        <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 5) }}">{{ getStation(match, 5) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 4" class="d-none d-lg-table-row d-xl-table-row">
+        <td>
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td>
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+        <td class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 4" class="d-lg-none d-xl-none">
+        <td rowspan="2">
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td rowspan="2">
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 4" class="d-lg-none d-xl-none">
+        <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+    </tbody>
+
+    <tbody *ngIf="semis_matches && semis_matches.length > 0">
+      <tr>
+        <th colspan="18">Semifinal Matches</th>
+      </tr>
+    </tbody>
+    <tbody *ngFor="let match of semis_matches">
+      <tr *ngIf="getNumberOfTeams(match) == 6" class="d-none d-lg-table-row d-xl-table-row">
+        <td>
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td>
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 4) }}">{{ getStation(match, 4) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 5) }}">{{ getStation(match, 5) }}</a>
+        </td>
+        <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+        <td class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 6" class="d-lg-none d-xl-none">
+        <td rowspan="2">
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td rowspan="2">
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 6" class="d-lg-none d-xl-none">
+        <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 4) }}">{{ getStation(match, 4) }}</a>
+        </td>
+        <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 5) }}">{{ getStation(match, 5) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 4" class="d-none d-lg-table-row d-xl-table-row">
+        <td>
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td>
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+        <td class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 4" class="d-lg-none d-xl-none">
+        <td rowspan="2">
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td rowspan="2">
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 4" class="d-lg-none d-xl-none">
+        <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+    </tbody>
+
+    <tbody *ngIf="quarters_matches && quarters_matches.length > 0">
+      <tr>
+        <th colspan="18">Quarterfinal Matches</th>
+      </tr>
+    </tbody>
+    <tbody *ngFor="let match of quarters_matches">
+      <tr *ngIf="getNumberOfTeams(match) == 6" class="d-none d-lg-table-row d-xl-table-row">
+        <td>
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td>
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 4) }}">{{ getStation(match, 4) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 5) }}">{{ getStation(match, 5) }}</a>
+        </td>
+        <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+        <td class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 6" class="d-lg-none d-xl-none">
+        <td rowspan="2">
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td rowspan="2">
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="4" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 6" class="d-lg-none d-xl-none">
+        <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 4) }}">{{ getStation(match, 4) }}</a>
+        </td>
+        <td colspan="4" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 5) }}">{{ getStation(match, 5) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 4" class="d-none d-lg-table-row d-xl-table-row">
+        <td>
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td>
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+        <td class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 4" class="d-lg-none d-xl-none">
+        <td rowspan="2">
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td rowspan="2">
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+      </tr>
+      <tr *ngIf="getNumberOfTeams(match) == 4" class="d-lg-none d-xl-none">
+        <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+    </tbody>
+
+    <tbody *ngIf="qual_matches && qual_matches.length > 0">
+      <tr>
+        <th colspan="18">Qualification Matches</th>
+      </tr>
+    </tbody>
+    <tbody *ngFor="let match of qual_matches">
+      <tr class="d-none d-lg-table-row d-xl-table-row">
+        <td>
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td>
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="3" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="3" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+        <td class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+      <tr class="d-lg-none d-xl-none">
+        <td rowspan="2">
+          <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        </td>
+        <td rowspan="2">
+          <a href="/matches/{{ match.match_key }}">{{ match.match_name }}</a>
+        </td>
+        <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 0) }}">{{ getStation(match, 0) }}</a>
+        </td>
+        <td colspan="6" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 1) }}">{{ getStation(match, 1) }}</a>
+        </td>
+        <td colspan="2" class="red" [class.match-winner]="match.red_score >= match.blue_score">
+          {{ match.red_score }}
+        </td>
+      </tr>
+      <tr class="d-lg-none d-xl-none">
+        <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 2) }}">{{ getStation(match, 2) }}</a>
+        </td>
+        <td colspan="6" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          <a href="/teams/{{ getStationHref(match, 3) }}">{{ getStation(match, 3) }}</a>
+        </td>
+        <td colspan="2" class="blue" [class.match-winner]="match.red_score <= match.blue_score">
+          {{ match.blue_score }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <small><strong>Bold</strong> is Winning Alliance</small><br>
+  <small>* is Surrogate</small>
+</div>
