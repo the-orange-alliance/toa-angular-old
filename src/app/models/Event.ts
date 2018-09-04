@@ -1,3 +1,8 @@
+import Match from "./Match";
+import Ranking from "./Ranking";
+import AwardRecipient from "./AwardRecipient";
+import EventParticipant from "./EventParticipant";
+
 export default class Event implements ISerializable {
   private _eventKey: string;
   private _seasonKey: string;
@@ -26,6 +31,12 @@ export default class Event implements ISerializable {
   private _advanceSpots: number;
   private _advanceEvent: string;
 
+  // Supplemental fields that are not crucial to the model
+  private _matches: Match[];
+  private _rankings: Ranking[];
+  private _awards: AwardRecipient[];
+  private _teams: EventParticipant[];
+
   constructor() {
     this._eventKey = "";
     this._seasonKey = "";
@@ -53,6 +64,11 @@ export default class Event implements ISerializable {
     this._fieldCount = 0;
     this._advanceSpots = 0;
     this._advanceEvent = "";
+
+    this._matches = [];
+    this._rankings = [];
+    this._awards = [];
+    this._teams = [];
   }
 
   toJSON(): object {
@@ -323,5 +339,37 @@ export default class Event implements ISerializable {
 
   set advanceEvent(value: string) {
     this._advanceEvent = value;
+  }
+
+  get matches(): Match[] {
+    return this._matches;
+  }
+
+  set matches(value: Match[]) {
+    this._matches = value;
+  }
+
+  get rankings(): Ranking[] {
+    return this._rankings;
+  }
+
+  set rankings(value: Ranking[]) {
+    this._rankings = value;
+  }
+
+  get awards(): AwardRecipient[] {
+    return this._awards;
+  }
+
+  set awards(value: AwardRecipient[]) {
+    this._awards = value;
+  }
+
+  get teams(): EventParticipant[] {
+    return this._teams;
+  }
+
+  set teams(value: EventParticipant[]) {
+    this._teams = value;
   }
 }

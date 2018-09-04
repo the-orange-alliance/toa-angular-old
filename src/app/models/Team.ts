@@ -1,3 +1,6 @@
+import Ranking from "./Ranking";
+import AwardRecipient from "./AwardRecipient";
+
 export default class Team implements ISerializable {
   private _teamKey: number;
   private _regionKey: string;
@@ -13,6 +16,10 @@ export default class Team implements ISerializable {
   private _rookieYear: number;
   private _website: string;
 
+  private _events: Event[];
+  private _rankings: Ranking[];
+  private _awards: AwardRecipient[];
+
   constructor() {
     this._teamKey = 0;
     this._regionKey = "";
@@ -27,6 +34,10 @@ export default class Team implements ISerializable {
     this._country = "";
     this._rookieYear = 0;
     this._website = "";
+
+    this._events = [];
+    this._rankings = [];
+    this._awards = [];
   }
 
   toJSON(): object {
@@ -167,5 +178,29 @@ export default class Team implements ISerializable {
 
   set website(value: string) {
     this._website = value;
+  }
+
+  get events(): Event[] {
+    return this._events;
+  }
+
+  set events(value: Event[]) {
+    this._events = value;
+  }
+
+  get rankings(): Ranking[] {
+    return this._rankings;
+  }
+
+  set rankings(value: Ranking[]) {
+    this._rankings = value;
+  }
+
+  get awards(): AwardRecipient[] {
+    return this._awards;
+  }
+
+  set awards(value: AwardRecipient[]) {
+    this._awards = value;
   }
 }

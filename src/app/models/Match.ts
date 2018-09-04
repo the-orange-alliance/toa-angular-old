@@ -1,3 +1,6 @@
+import MatchDetails from "./MatchDetails";
+import MatchParticipant from "./MatchParticipant";
+
 export default class Match implements ISerializable {
   private _matchKey: string;
   private _eventKey: string;
@@ -21,6 +24,9 @@ export default class Match implements ISerializable {
   private _blueEndScore: number;
   private _videoURL: string;
 
+  private _matchDetails: MatchDetails;
+  private _matchParticipants: MatchParticipant[];
+
   constructor() {
     this._matchKey = "";
     this._eventKey = "";
@@ -43,6 +49,9 @@ export default class Match implements ISerializable {
     this._redTeleScore = 0;
     this._blueTeleScore = 0;
     this._videoURL = "";
+
+    this._matchDetails = new MatchDetails();
+    this._matchParticipants = [];
   }
 
   toJSON(): object {
@@ -263,5 +272,21 @@ export default class Match implements ISerializable {
 
   set videoURL(value: string) {
     this._videoURL = value;
+  }
+  
+  get details(): MatchDetails {
+    return this._matchDetails;
+  }
+
+  set details(value: MatchDetails) {
+    this._matchDetails = value;
+  }
+
+  get participants(): MatchParticipant[] {
+    return this._matchParticipants;
+  }
+
+  set participants(value: MatchParticipant[]) {
+    this._matchParticipants = value;
   }
 }

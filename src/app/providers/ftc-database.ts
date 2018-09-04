@@ -13,6 +13,10 @@ import EventType from '../models/EventType';
 import MatchParticipant from '../models/MatchParticipant';
 import Match from '../models/Match';
 import EventLiveStream from '../models/EventLiveStream';
+import Ranking from '../models/Ranking';
+import AwardRecipient from '../models/AwardRecipient';
+import EventParticipant from '../models/EventParticipant';
+import * as GameData from "../models/game-specifics/GameData";
 
 @Injectable()
 export class FTCDatabase {
@@ -130,7 +134,7 @@ export class FTCDatabase {
     });
   }
 
-  public getSeasonEvents(season: any): Promise<Event[]> {
+  public getSeasonEvents(season: string): Promise<Event[]> {
     return new Promise<Event[]>((resolve, reject) => {
       this.request("/event?season_key=" + season).then((data: any[]) => {
         resolve(data.map((result: any) => new Event().fromJSON(result)));
@@ -138,27 +142,40 @@ export class FTCDatabase {
     });
   }
 
-  /* TODO - Implement in Model */
-  public getEvent(eventKey, year?: number) {
-    return forkJoin(
-      this.request('/event/' + eventKey),
-      this.request('/event/' + eventKey + '/matches'),
-      this.request('/event/' + eventKey + '/matches/stations'),
-      this.request('/event/' + eventKey + '/alliances'),
-      this.request('/event/' + eventKey + '/rankings'),
-      this.request('/event/' + eventKey + '/awards'),
-      this.request('/event/' + eventKey + '/teams')
-    );
+  public getEvent(eventKey: string): Promise<Event> {
+    return new Promise<Event>((resolve, reject) => {
+      const promises: Promise<any>[] = [];
+      promises.push(this.request("/event/" + event));
+      promises.push(this.request("/event/" + event + "/matches"));
+      promises.push(this.request("/event/" + event + "/matches/participants"));
+      promises.push(this.request("/event/" + event + "/rankings"));
+      promises.push(this.request("/event/" + event + "/awards"));
+      promises.push(this.request("/event/" + event + "/teams"));
+      Promise.all(promises).then((data: any[]) => {
+        const event: Event = new Event().fromJSON(data[0]);
+        event.matches = data[1].map((matchJSON: any) => new Match().fromJSON(matchJSON));
+        // TODO - Implement participants.
+        event.rankings = data[3].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
+        event.awards = data[4].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
+        event.teams = data[5].map((teamJSON: any) => new EventParticipant().fromJSON(teamJSON));
+        resolve(event);
+      }).catch((error: any) => reject(error));
+    });
   }
 
-  /* TODO - Implement in Model */
-  public getTeam(teamNumber: number, year?: number) {
-    return forkJoin(
-      this.request('/team/' + teamNumber),
-      this.request('/team/' + teamNumber + '/' + (year == null ? this.year : year) + '/events'),
-      this.request('/team/' + teamNumber + '/' + (year == null ? this.year : year) + '/results'),
-      this.request('/team/' + teamNumber + '/' + (year == null ? this.year : year) + '/awards')
-    );
+  public getTeam(teamNumber: number): Promise<Team> {
+    return new Promise<Team>((resolve, reject) => {
+      const promises: Promise<any>[] = [];
+      promises.push(this.request("/team/" + teamNumber));
+      promises.push(this.request("/team/" + teamNumber + "/results"));
+      promises.push(this.request("/team/" + teamNumber + "/awards"));
+      Promise.all(promises).then((data: any[]) => {
+        const team: Team = new Team().fromJSON(data[0]);
+        team.rankings = data[1].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
+        team.awards = data[2].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
+        resolve(team);
+      }).catch((error: any) => reject(error));
+    });
   }
 
   public getMatchParticipants(matchKey: string): Promise<MatchParticipant[]> {
@@ -185,13 +202,19 @@ export class FTCDatabase {
     });
   }
 
-  /* TODO - Implement in Model */
-  public getMatchDetails(matchKey: string) {
-    return forkJoin(
-      this.request('/match/' + matchKey),
-      this.request('/match/' + matchKey + '/details'),
-      this.request('/match/' + matchKey + '/stations')
-    );
+  public getMatchDetails(matchKey: string): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      const promises: Promise<any>[] = [];
+      promises.push(this.request("/match/" + matchKey));
+      promises.push(this.request("/match/" + matchKey + "/details"));
+      promises.push(this.request("/match/" + matchKey + "/participants"));
+      Promise.all(promises).then((data: any[]) => {
+        const match: Match = new Match().fromJSON(data[0]);
+        match.details = GameData.getMatchDetails(matchKey.split("-")[0]).fromJSON(data[1]);
+        match.participants = data[2].map((participantJSON: any) => new MatchParticipant().fromJSON(participantJSON));
+        resolve(match);
+      }).catch((error: any) => reject(error));
+    });
   }
 
   public getAllStreams(): Promise<EventLiveStream[]> {
