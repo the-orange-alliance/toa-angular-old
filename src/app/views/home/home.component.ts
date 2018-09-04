@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { MatchParser } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
+import WebAnnouncement from '../../models/WebAnnouncement';
+import Event from '../../models/Event';
 
 @Component({
   selector: 'toa-home',
@@ -12,8 +14,8 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 })
 export class HomeComponent {
 
-  current_announcement: any;
-  current_events: any;
+  public currentAnnouncement: WebAnnouncement;
+  public currentEvents: Event[];
 
   qual_match: any;
   elim_match: any;
@@ -97,30 +99,28 @@ export class HomeComponent {
     }, (err) => {
       console.log(err);
     });
-    this.ftc.getSeasonEvents('1718').subscribe((data: any) => {
+    this.ftc.getSeasonEvents('1718').then((events: Event[]) => {
       let today = new Date();
       today = new Date(today.getFullYear(), today.getMonth(), today.getDate() ); /** remove fractional day */
-      this.current_events = [];
-      for (const event of data) {
-        this.week_start = this.getStartOfWeek(new Date(event.start_date));
-        this.week_end = this.getEndofWeek(new Date(event.end_date));
+      this.currentEvents = [];
+      for (const event of events) {
+        this.week_start = this.getStartOfWeek(new Date(event.startDate));
+        this.week_end = this.getEndofWeek(new Date(event.endDate));
         if (this.isBetweenDates(this.week_start, this.week_end, today)) {
-          this.current_events.push(event);
+          this.currentEvents.push(event);
         }
       }
     }, (err) => {
       console.log(err);
     });
-    this.ftc.getAnnouncements().subscribe((data: any) => {
+    this.ftc.getAnnouncements().then((announcements: WebAnnouncement[]) => {
       const today = new Date();
-      for (const announcement of data) {
-        if (this.isBetweenDates(new Date(announcement.publish_date), new Date(announcement.end_date), today)) {
-          this.current_announcement = announcement;
+      for (const announcement of announcements) {
+        if (announcement.isActive) {
+          this.currentAnnouncement = announcement;
           break;
         }
       }
-    }, (err) => {
-      console.log(err);
     });
     this.ftc.getInsights().subscribe((data) => {
       this.match_insights = data[0];
