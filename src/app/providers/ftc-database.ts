@@ -103,19 +103,28 @@ export class FTCDatabase {
     });
   }
 
-  /* TODO - Implement in API */
-  public getHighScoreQual(year?: number) {
-    return this.request('/matches/' + (year == null ? this.year : year) + '/high-scores/qual-no-penalty');
+  public getHighScoreQual(): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.request("/match/high-scores?type=quals").then((data: any) => {
+        resolve(data.map((result: any) => new Match().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  /* TODO - Implement in API */
-  public getHighScoreElim(year?: number) {
-    return this.request('/matches/' + (year == null ? this.year : year) + '/high-scores/elim-no-penalty');
+  public getHighScoreElim(): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.request("/match/high-scores?type=elims").then((data: any) => {
+        resolve(data.map((result: any) => new Match().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  /* TODO - Implement in API */
-  public getHighScoreWithPenalty(year?: number) {
-    return this.request('/matches/' + (year == null ? this.year : year) + '/high-scores/with-penalty');
+  public getHighScoreWithPenalty(): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.request("/match/high-scores?type=all").then((data: any) => {
+        resolve(data.map((result: any) => new Match().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
   public getAllEvents(): Promise<Event[]> {
