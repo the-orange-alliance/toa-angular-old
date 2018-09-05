@@ -228,8 +228,10 @@ export class FTCDatabase {
       promises.push(this.request("/match/" + matchKey + "/participants"));
       Promise.all(promises).then((data: any[]) => {
         const match: Match = new Match().fromJSON(data[0][0]);
-        match.details = GameData.getMatchDetails(matchKey.split("-")[0]).fromJSON(data[1][0]);
+        match.details = GameData.getMatchDetails(matchKey.split("-")[0]).fromJSON(data[1][0] || {});
         match.participants = data[2].map((participantJSON: any) => new MatchParticipant().fromJSON(participantJSON));
+
+        console.log(match);
         resolve(match);
       }).catch((error: any) => reject(error));
     });

@@ -8,16 +8,13 @@ import Match from '../../../../models/Match';
 
 @Component({
   selector: 'toa-velocity-vortex',
-  templateUrl: './1617-velocity-vortex.component.html',
-  providers: [FTCDatabase]
+  templateUrl: './1617-velocity-vortex.component.html'
 })
 export class VelocityVortexComponent {
 
   @Input() match: Match;
 
-  constructor(private ftc: FTCDatabase, private router: Router, private route: ActivatedRoute) {
-
-  }
+  constructor(private router: Router) {}
 
   openTeamPage(teamKey: number) {
     this.router.navigate(['/teams', teamKey]);
