@@ -28,7 +28,7 @@ export class MatchesComponent implements OnInit {
 
   ngOnInit() {
     const season_split = this.match_key.toString().split('-')[0];
-    this.ftc.getMatchDetail(this.match_key).subscribe((match_data) => {
+    this.ftc.getMatchDetails(this.match_key).then((match_data) => {
       if (!match_data[0][0]) {
         this.noData = true;
       } else {
@@ -36,16 +36,6 @@ export class MatchesComponent implements OnInit {
         this.match_data = match_data[0][0];
         this.match_details = match_data[1][0];
         this.match_stations = match_data[2];
-        if (this.match_details == null) {
-          console.log('match details are null');
-        }
-        if (this.match_data == null) {
-          console.log('match_data is null');
-        } else {
-          this.ftc.getEventName(this.match_data.event_key).subscribe((data) => {
-          this.match_event = data[0];
-        });
-        }
       }
     }, (err) => {
       console.log(err);

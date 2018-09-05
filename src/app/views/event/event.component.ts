@@ -4,6 +4,10 @@ import { FTCDatabase } from '../../providers/ftc-database';
 import { EventParser } from '../../util/event-utils';
 import { MatchSorter, MatchType } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
+import Event from '../../models/Event';
+import EventType from '../../models/EventType';
+import Season from '../../models/Season';
+import Region from '../../models/Region';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -30,7 +34,6 @@ export class EventComponent implements OnInit {
   totalawards: any;
   view_type: string;
 
-
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private globaltoa: TheOrangeAllianceGlobals) {
     this.event_key = this.route.snapshot.params['event_key'];
     this.event = [];
@@ -38,7 +41,7 @@ export class EventComponent implements OnInit {
 
   ngOnInit() {
     if (this.event_key) {
-      this.ftc.getEvent(this.event_key).subscribe((data) => {
+      this.ftc.getEvent(this.event_key).then((data: Event) => {
 
         if (data[0].length !== 0) {
           this.event = data[0][0];
@@ -70,7 +73,7 @@ export class EventComponent implements OnInit {
           this.totalrankings = this.event.rankings.length;
           this.totalawards = this.event.awards.length;
 
-          this.ftc.getEventTypes().subscribe((types) => {
+          this.ftc.getEventTypes().then((types: EventType[]) => {
             this.event_types = types;
             const typeObj = this.event_types.filter(obj => obj.event_type_key === this.event.event_type_key);
             if (typeObj && typeObj[0] && typeObj[0].description) {
@@ -80,7 +83,7 @@ export class EventComponent implements OnInit {
             console.log(err);
           });
 
-          this.ftc.getAllSeasons().subscribe( (seasons) => {
+          this.ftc.getAllSeasons().then((seasons: Season[]) => {
             this.seasons = seasons;
             const seasonObj = this.seasons.filter(obj => obj.season_key === this.event.season_key);
             if (seasonObj && seasonObj[0] && seasonObj[0].description) {
@@ -97,7 +100,7 @@ export class EventComponent implements OnInit {
         console.log(err);
       });
 
-      this.ftc.getAllRegions().subscribe( (data) => {
+      this.ftc.getAllRegions().then((data: Region[]) => {
         this.regions = data;
       }, (err) => {
         console.log(err);

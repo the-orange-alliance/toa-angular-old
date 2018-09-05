@@ -6,21 +6,12 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 @Component({
   selector: 'toa-about',
   templateUrl: './about.component.html',
-  providers: [FTCDatabase, TheOrangeAllianceGlobals]
+  providers: [TheOrangeAllianceGlobals]
 })
 export class AboutComponent {
 
-  ver_routes: any;
-
-  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa: TheOrangeAllianceGlobals) {
+  constructor(private router: Router, private globaltoa: TheOrangeAllianceGlobals) {
     this.globaltoa.setTitle('About');
-    this.ftc.getWebChangelog().subscribe((data) => {
-      this.ver_routes = data;
-    }, (err) => {
-      console.log(err);
-    });
-    console.log('Want to help develop TOA?');
-    console.log('Join the discord!');
-    console.log('https://discord.gg/5fH66UV');
   }
+
 }

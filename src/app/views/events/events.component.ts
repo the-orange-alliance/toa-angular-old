@@ -6,6 +6,9 @@ import { SeasonParser } from '../../util/season-utils';
 import { EventFilter } from '../../util/event-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import {MdcTabBar} from '@angular-mdc/web';
+import Event from '../../models/Event';
+import Season from '../../models/Season';
+import Region from '../../models/Region';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -34,7 +37,7 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ftc.getSeasonEvents('1718').subscribe( (data) => {
+    this.ftc.getSeasonEvents('1718').then((data: Event[]) => {
       this.weeks = [];
       this.events = data;
       this.event_filter = new EventFilter(this.events);
@@ -46,14 +49,14 @@ export class EventsComponent implements OnInit {
       console.log(err);
     });
 
-    this.ftc.getAllSeasons().subscribe( (data) => {
+    this.ftc.getAllSeasons().then((data: Season[]) => {
       this.seasons = data;
       this.current_season = this.seasons[this.seasons.length - 1];
     }, (err) => {
       console.log(err);
     });
 
-    this.ftc.getAllRegions().subscribe( (data) => {
+    this.ftc.getAllRegions().then((data: Region[]) => {
       this.regions = data;
       this.regions.push({ region_key: 'All Regions' });
       this.current_region = this.regions[this.regions.length - 1];
@@ -110,7 +113,7 @@ export class EventsComponent implements OnInit {
   selectSeason(season: any) {
     if (this.current_season.season_key !== season.season_key) {
       this.current_season = season;
-      this.ftc.getSeasonEvents(this.current_season.season_key).subscribe( (data) => {
+      this.ftc.getSeasonEvents(this.current_season.season_key).then((data: Event[]) => {
         this.weeks = [];
         this.events = data;
         this.event_filter = new EventFilter(this.events);

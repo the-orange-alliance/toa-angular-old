@@ -43,15 +43,15 @@ export class TeamsComponent implements OnInit {
     this.globaltoa.setTitle('Teams');
   }
   ngOnInit(): void {
-    this.ftc.getAllTeams().subscribe((data) => {
-      this.teams_count = data[0].team_count;
+    this.ftc.getTeamSize().then((data) => {
+      this.teams_count = data;
       this.updateNagivationBars();
       this.getAllTeams();
     }, (err) => {
       console.log(err);
     });
 
-    this.ftc.getAllRegions().subscribe( (data) => {
+    this.ftc.getAllRegions().then( (data) => {
       this.regions = data;
       this.regions.push({ region_key: 'All Regions' });
       this.current_region = this.regions[this.regions.length - 1];
@@ -59,7 +59,7 @@ export class TeamsComponent implements OnInit {
       console.log(err);
     });
 
-    this.ftc.getAllLeagues().subscribe( (data) => {
+    this.ftc.getAllLeagues().then( (data) => {
       this.leagues = data;
       this.leagues.push({ league_key: 'All Leagues' });
       this.current_league = this.leagues[this.leagues.length - 1];
@@ -80,7 +80,7 @@ export class TeamsComponent implements OnInit {
   }
 
   getAllTeams(): void {
-    this.ftc.getEveryTeam().subscribe((data: any[]) => {
+    this.ftc.getAllTeams().then((data: any[]) => {
       this.teams = data;
       this.teams_filter = new TeamFilter(this.teams);
       this.getTeams(0);

@@ -42,7 +42,7 @@ export class TeamComponent implements OnInit {
 
   ngOnInit(): void {
     this.years = [];
-    this.ftc.getTeam(this.team_key).subscribe((data) => {
+    this.ftc.getTeam(this.team_key).then((data) => {
       console.log(data);
       if (!data[0][0]) {
         this.router.navigate(['/not-found']);
@@ -58,7 +58,7 @@ export class TeamComponent implements OnInit {
         this.getEventMatches();
 
         if (this.team.rookie_year) {
-          this.ftc.getAllSeasons().subscribe((data) => {
+          this.ftc.getAllSeasons().then((data) => {
             this.seasons = this.getTeamSeasons(data).reverse();
           }, (err) => {
             console.log(err);
@@ -97,7 +97,7 @@ export class TeamComponent implements OnInit {
   selectSeason(season: any) {
     this.current_season = season;
     this.team.events = [];
-    this.ftc.getTeamEvents(this.team_key, this.convertSeason(this.current_season)).subscribe((data) => {
+    this.ftc.getTeamEvents(this.team_key, this.convertSeason(this.current_season)).then((data) => {
       this.team.events = data;
       this.getEventMatches();
     }, (err) => {
@@ -108,9 +108,8 @@ export class TeamComponent implements OnInit {
 
   getEventMatches() {
     this.team.events = this.event_sorter.sortRev(this.team.events, 0, this.team.events.length - 1);
-
     for (const event of this.team.events) {
-      this.ftc.getEventMatches(event.event_key, this.convertSeason(this.current_season)).subscribe((data) => {
+      this.ftc.getEventMatches(event.event_key).then((data) => {
         event.match_data = data;
         event.match_data = this.sortAndFind(event);
 

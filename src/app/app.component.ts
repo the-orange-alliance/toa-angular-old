@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import {EventFilter} from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
 import {MdcAppBar} from '@angular-mdc/web';
+import Team from './models/Team';
+import Event from './models/Event';
 
 const SMALL_WIDTH_BREAKPOINT = 1240;
 
@@ -17,17 +19,17 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
 
 export class TheOrangeAllianceComponent {
 
-  teams: any;
-  teams_filter: TeamFilter;
+  teams: Team[];
+  teamsFilter: TeamFilter;
 
   isMoreSearch: any;
 
-  events: any;
-  events_filter: EventFilter;
+  events: Event[];
+  eventsFilter: EventFilter;
 
   search: any;
-  team_search_results: any;
-  event_search_results: any;
+  teamSearchResults: Team[];
+  eventSearchResults: Event[];
 
   current_year: any;
 
@@ -37,31 +39,28 @@ export class TheOrangeAllianceComponent {
   constructor(private router: Router, private ftc: FTCDatabase, private globaltoa: TheOrangeAllianceGlobals, private _ngZone: NgZone) {
     this._mediaMatcher.addListener(mql => this._ngZone.run(() => this._mediaMatcher = mql));
 
-
     this.current_year = new Date().getFullYear();
-    this.team_search_results = [];
-    this.event_search_results = [];
+    this.teamSearchResults = [];
+    this.eventSearchResults = [];
     const x = this;
     document.addEventListener('keydown', function(e) {x.performSearchCallback(e, x)});
 
-    console.log('CREATED DOM DOM DOM');
-    this.ftc.getEveryTeam().subscribe((data) => {
+    this.ftc.getAllTeams().then((data: Team[]) => {
       this.teams = data;
-      this.teams_filter = new TeamFilter(this.teams);
-    }, (err) => {
-      console.log(err);
+      this.teamsFilter = new TeamFilter(this.teams);
+    }).catch((error: any) => {
+      console.log(error);
     });
 
-    this.ftc.getAllEvents().subscribe((data) => {
-         this.events = data;
-         this.events_filter = new EventFilter(this.events);
-    }, (err) => {
-      console.log(err);
+    this.ftc.getAllEvents().then((data: Event[]) => {
+      this.events = data;
+      this.eventsFilter = new EventFilter(this.events);
+    }).catch((error: any) => {
+      console.log(error);
     });
   }
 
   performSearchCallback(event, r): void {
-    // console.log('HELLO TYPED ' + event.keyCode);
     if (event.keyCode === 27) {
       document.getElementById('removeSearch').click();
     } else if (event.keyCode === 13) {
@@ -78,11 +77,11 @@ export class TheOrangeAllianceComponent {
   performSearch(): void {
     if (this.search) {
       // (<HTMLInputElement>document.getElementById("showSearch")).value = this.search;
-      this.teams_filter.filterArray(null, this.search, null, null);
-      this.events_filter.searchFilter(this.search);
+      this.teamsFilter.filterArray(null, this.search, null, null);
+      this.eventsFilter.searchFilter(this.search);
 
-      this.teams = this.teams_filter.getFilteredArray();
-      this.events = this.events_filter.getFilteredArray();
+      this.teams = this.teamsFilter.getFilteredArray();
+      this.events = this.eventsFilter.getFilteredArray();
       document.getElementById('search').style.display = 'block';
 
       // SO there are obviously going to be more search results, but let's try and make it more readable.
@@ -90,19 +89,19 @@ export class TheOrangeAllianceComponent {
       const teamsLength = this.teams.length;
       // Prioritize Teams but max results but min 2 of each
       const maxResults = 16;
-      this.team_search_results = this.teams.splice(0, Math.min(teamsLength, Math.min(maxResults, Math.max(maxResults - eventLength, 2))));
-      this.event_search_results = this.events.splice(0, maxResults - this.team_search_results.length);
+      this.teamSearchResults = this.teams.splice(0, Math.min(teamsLength, Math.min(maxResults, Math.max(maxResults - eventLength, 2))));
+      this.eventSearchResults = this.events.splice(0, maxResults - this.teamSearchResults.length);
       if (teamsLength + eventLength > maxResults) {
         this.isMoreSearch = teamsLength + eventLength - maxResults;
       } else {
-        this.isMoreSearch = 0
+        this.isMoreSearch = 0;
       }
     } else {
       document.getElementById('search').style.display = 'none';
     }
   }
-  expandDropdown(e) {
 
+  expandDropdown(e) {
     if (document.getElementsByClassName('collapsed')[0] !== null) {
       if (e.srcElement.classList.contains('dropdown-toggle')) {
         e.srcElement.parentElement.classList.add('open');
@@ -110,17 +109,14 @@ export class TheOrangeAllianceComponent {
         e.srcElement.setAttribute('aria-expanded', 'true');
       }
     }
-
   }
 
   collapseDropdown(e) {
-
     if (document.getElementsByClassName('collapsed')[0] !== null) {
       e.path[0].classList.remove('open');
       e.fromElement.children[0].setAttribute('aria-expanded', 'false');
       e.fromElement.children[0].classList.remove('dropdown-active');
     }
-
   }
 
   openEvent(event_name): void {

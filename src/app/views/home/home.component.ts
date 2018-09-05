@@ -5,6 +5,9 @@ import { MatchParser } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import WebAnnouncement from '../../models/WebAnnouncement';
 import Event from '../../models/Event';
+import Team from '../../models/Team';
+import Match from '../../models/Match';
+import MatchParticipant from '../../models/MatchParticipant';
 
 @Component({
   selector: 'toa-home',
@@ -32,38 +35,33 @@ export class HomeComponent {
 
   constructor(private router: Router, private ftc: FTCDatabase, private globaltoa: TheOrangeAllianceGlobals) {
     this.globaltoa.setTitle('Home');
-    this.ftc.getAllTeams().subscribe((data) => {
-      this.teams_count = data[0].team_count;
-    }, (err) => {
-      console.log(err);
+    this.ftc.getTeamSize().then((data: number) => {
+      this.teams_count = data;
+    }).catch((error: any) => {
+      console.log(error);
     });
-    this.ftc.getAllMatches().subscribe((match_data) => {
-      this.match_count = match_data[0].match_count;
-    }, (err) => {
-      console.log(err);
+    this.ftc.getMatchSize().then((data: number) => {
+      this.match_count = data;
+    }).catch((error: any) => {
+      console.log(error);
     });
-    this.ftc.getHighScoreQual().subscribe((data) => {
+    this.ftc.getHighScoreQual().then((data: Match) => {
       this.qual_match = this.getBestMatch(data);
-      this.ftc.getStations(this.qual_match.match_key).subscribe((qual_data: any) => {
+      this.ftc.getMatchParticipants(this.qual_match.match_key).then((qual_data: MatchParticipant[]) => {
         let teams = '';
         for (const station of qual_data) {
-          teams += station.team_key + ',';
+          teams += station.teamKey + ',';
         }
         this.qual_match.teams = teams.toString().substring(0, teams.length - 1);
       }, (err) => {
         console.log(err);
       });
-      this.ftc.getEventName(this.qual_match.event_key).subscribe((name) => {
-        this.qual_match.event = name[0];
-      }, (err) => {
-        console.log(err);
-      });
     }, (err) => {
       console.log(err);
     });
-    this.ftc.getHighScoreElim().subscribe((elim_data) => {
+    this.ftc.getHighScoreElim().then((elim_data) => {
       this.elim_match = this.getBestMatch(elim_data);
-      this.ftc.getStations(this.elim_match.match_key).subscribe((data: any) => {
+      this.ftc.getMatchParticipants(this.elim_match.match_key).then((data: any) => {
         let teams = '';
         for (const station of data) {
           teams += station.team_key + ',';
@@ -72,27 +70,17 @@ export class HomeComponent {
       }, (err) => {
         console.log(err);
       });
-      this.ftc.getEventName(this.elim_match.event_key).subscribe((name) => {
-        this.elim_match.event = name[0];
-      }, (err) => {
-        console.log(err);
-      });
     }, (err) => {
       console.log(err);
     });
-    this.ftc.getHighScoreWithPenalty().subscribe((match_data) => {
+    this.ftc.getHighScoreWithPenalty().then((match_data) => {
       this.normal_match = this.getBestMatch(match_data);
-      this.ftc.getStations(this.normal_match.match_key).subscribe((data: any) => {
+      this.ftc.getMatchParticipants(this.normal_match.match_key).then((data: any) => {
         let teams = '';
         for (const station of data) {
           teams += station.team_key + ',';
         }
         this.normal_match.teams = teams.toString().substring(0, teams.length - 1);
-      }, (err) => {
-        console.log(err);
-      });
-      this.ftc.getEventName(this.normal_match.event_key).subscribe((name) => {
-        this.normal_match.event = name[0];
       }, (err) => {
         console.log(err);
       });
@@ -121,22 +109,6 @@ export class HomeComponent {
           break;
         }
       }
-    });
-    this.ftc.getInsights().subscribe((data) => {
-      this.match_insights = data[0];
-      this.insights = [];
-      let i = 0;
-      for (const field in this.match_insights) {
-        if (this.match_insights.hasOwnProperty(field)) {
-          this.insights[i] = {
-            'field': field,
-            'value': this.match_insights[field]
-          };
-          i++;
-        }
-      }
-    }, (err) => {
-      console.log(err);
     });
   }
 
