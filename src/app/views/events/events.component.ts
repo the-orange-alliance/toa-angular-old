@@ -18,136 +18,123 @@ import Region from '../../models/Region';
 })
 export class EventsComponent implements OnInit {
 
-  seasons: any;
-  regions: any;
-  events: any;
+  seasons: Season[];
+  regions: Region[];
+  events: Event[];
 
-  view_week: number;
-  weeks: any;
+  weekNumber: number;
+  weeks: any[];
 
-  current_season: any;
-  current_region: any;
+  currentSeason: Season;
+  currentRegion: Region;
 
-  event_filter: EventFilter;
+  eventFilter: EventFilter;
 
   @ViewChild('tabbar') tabbar: MdcTabBar;
 
-  constructor(private ftc: FTCDatabase, private router: Router, private globaltoa: TheOrangeAllianceGlobals) {
-    this.globaltoa.setTitle('Events');
+  constructor(private ftc: FTCDatabase, private router: Router, private app: TheOrangeAllianceGlobals) {
+    this.app.setTitle('Events');
   }
 
   ngOnInit(): void {
     this.ftc.getSeasonEvents('1718').then((data: Event[]) => {
       this.weeks = [];
       this.events = data;
-      this.event_filter = new EventFilter(this.events);
+      this.eventFilter = new EventFilter(this.events);
       if (this.events.length > 0) {
         this.organizeEventsByWeek();
       }
-
-    }, (err) => {
-      console.log(err);
     });
-
     this.ftc.getAllSeasons().then((data: Season[]) => {
       this.seasons = data;
-      this.current_season = this.seasons[this.seasons.length - 1];
-    }, (err) => {
-      console.log(err);
+      this.currentSeason = this.seasons[this.seasons.length - 1];
     });
-
     this.ftc.getAllRegions().then((data: Region[]) => {
+      const allRegions: Region = new Region();
+      allRegions.regionKey = "All Regions";
       this.regions = data;
-      this.regions.push({ region_key: 'All Regions' });
-      this.current_region = this.regions[this.regions.length - 1];
-    }, (err) => {
-      console.log(err);
+      this.regions.push(allRegions);
+      this.currentRegion = this.regions[this.regions.length - 1];
     });
-
   }
 
   organizeEventsByWeek(): void {
     this.weeks = [];
-    let cur_week = null;
+    let currentWeek = null;
     for (const event of this.events) {
-      if (event.week_key !== cur_week) {
+      if (event.weekKey !== currentWeek) {
         this.weeks.push({
-          'week': event.week_key,
-          'start_date': this.getMonday(event.start_date),
-          'end_date': this.getSunday(event.start_date)
+          'week': event.weekKey,
+          'startDate': this.getMonday(event.startDate),
+          'endDate': this.getSunday(event.endDate)
         });
-        cur_week = event.week_key;
+        currentWeek = event.weekKey;
       }
     }
     this.select(0);
   }
 
-  getMonday(d) {
+  getMonday(d: any): Date {
     d = new Date(d);
     const day = d.getDay(),
       diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
     return new Date(d.setDate(diff));
   }
 
-  getSunday(d) {
+  getSunday(d: any): Date {
     d = new Date(d);
     const day = d.getDay(),
       diff = d.getDate() + 6 - day + (day === 0 ? -6 : 1); // adjust when day is sunday
     return new Date(d.setDate(diff));
   }
 
-  getEventsByWeek(week: any): any {
-    const filtered_events = [];
+  getEventsByWeek(week: any): Event[] {
+    const filteredEvents = [];
     for (const event of this.events) {
-      if (event.week_key === week.week) {
-        filtered_events.push(event);
+      if (event.weekKey === week.week) {
+        filteredEvents.push(event);
       }
     }
-    return filtered_events;
+    return filteredEvents;
   }
 
-  openEvent(event_key): void {
-    this.router.navigate(['/events', event_key]);
+  openEvent(eventKey): void {
+    this.router.navigate(['/events', eventKey]);
   }
 
-  selectSeason(season: any) {
-    if (this.current_season.season_key !== season.season_key) {
-      this.current_season = season;
-      this.ftc.getSeasonEvents(this.current_season.season_key).then((data: Event[]) => {
+  selectSeason(season: Season) {
+    if (this.currentSeason.seasonKey !== season.seasonKey) {
+      this.currentSeason = season;
+      console.log(this.currentSeason);
+      this.ftc.getSeasonEvents(this.currentSeason.seasonKey).then((data: Event[]) => {
         this.weeks = [];
         this.events = data;
-        this.event_filter = new EventFilter(this.events);
-        this.current_region = this.regions[this.regions.length - 1];
+        this.eventFilter = new EventFilter(this.events);
+        this.currentRegion = this.regions[this.regions.length - 1];
         if (this.events.length > 0) {
           this.organizeEventsByWeek();
         }
-      }, (err) => {
-        console.log(err);
       });
     }
   }
 
-  selectRegion(region: any) {
-    if (this.current_region.region_key !== region.region_key) {
-      this.current_region = region;
-      if (this.current_region.description) {
-        this.event_filter.filterArray(this.current_region.region_key);
-        this.events = this.event_filter.getFilteredArray();
+  selectRegion(region: Region) {
+    if (this.currentRegion.regionKey !== region.regionKey) {
+      this.currentRegion = region;
+      if (this.currentRegion.description) {
+        this.eventFilter.filterArray(this.currentRegion.regionKey);
+        this.events = this.eventFilter.getFilteredArray();
       } else {
-        this.events = this.event_filter.getOriginalArray();
+        this.events = this.eventFilter.getOriginalArray();
       }
       this.organizeEventsByWeek()
     }
   }
 
-  getSeason(season_data: any): string {
-    return (new SeasonParser(season_data)).toString();
-  }
-
   clearFilter() {
-    this.current_season = this.seasons[this.seasons.length - 1];
-    this.current_region = this.regions[this.regions.length - 1];
-    this.events = this.event_filter.getOriginalArray();
+    this.currentSeason = this.seasons[this.seasons.length - 1];
+    this.currentRegion = this.regions[this.regions.length - 1];
+    this.events = this.eventFilter.getOriginalArray();
     this.organizeEventsByWeek()
   }
 
@@ -183,11 +170,11 @@ export class EventsComponent implements OnInit {
       if (this.tabbar) {
         this.tabbar.activateTab(index);
       }
-      this.view_week = index;
+      this.weekNumber = index;
     }
   }
 
   public isSelected(index): boolean {
-    return this.view_week === index;
+    return this.weekNumber === index;
   }
 }

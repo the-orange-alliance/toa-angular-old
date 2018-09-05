@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Match from '../../models/Match';
+import Team from '../../models/Team';
 
 @Component({
   selector: 'match-table',
@@ -8,4 +9,5 @@ import Match from '../../models/Match';
 })
 export class MatchTableComponent {
   @Input() match: Match;
+  @Input() team?: Team;
 }

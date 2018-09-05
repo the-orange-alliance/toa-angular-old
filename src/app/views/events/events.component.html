@@ -8,23 +8,23 @@
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3 row">
 
-        <div *ngIf="current_season" class="col-md-4 col-xs-12 filter-row dropdown">
-          <div class="filter-info">Region: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          {{ getSeason(current_season)}}
+        <div *ngIf="currentSeason" class="col-md-4 col-xs-12 filter-row dropdown">
+          <div class="filter-info">Season: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          ({{ currentSeason.seasonKey }}) - ({{ currentSeason.description }})
           <span class="caret"></span>
         </button>
           <ul class="dropdown-menu" aria-labelledby="ftc_season">
-            <mdc-menu-item *ngFor="let season of seasons" (click)="selectSeason(season)">{{ getSeason(season) }}</mdc-menu-item>
+            <mdc-menu-item *ngFor="let season of seasons" (click)="selectSeason(season)">({{ season.seasonKey }}) - ({{ season.description }})</mdc-menu-item>
           </ul>
         </div>
 
-        <div *ngIf="current_region" class="col-md-4 col-xs-12 filter-row dropdown">
+        <div *ngIf="currentRegion" class="col-md-4 col-xs-12 filter-row dropdown">
           <div class="filter-info">Region: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          {{ current_region.description ? current_region.region_key + " - " + current_region.description :  current_region.region_key}}
+          {{ currentRegion.description ? currentRegion.regionKey + " - " + currentRegion.description :  currentRegion.regionKey}}
           <span class="caret"></span>
         </button>
           <ul class="dropdown-menu" aria-labelledby="ftc_district">
-            <mdc-menu-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.region_key + " - " + region.description :  region.region_key }}</mdc-menu-item>
+            <mdc-menu-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.regionKey + " - " + region.description :  region.regionKey }}</mdc-menu-item>
           </ul>
         </div>
 
@@ -109,7 +109,7 @@
         <div *ngFor="let week of weeks; let i = index">
           <div *ngIf="isSelected(i)">
             <div class="pt-t pl-3">
-              <h1 mdcHeadline6>{{ getWeekName(week.week) }}<h1 mdcSubtitle1>{{ week.start_date | date :  "mediumDate"}} - {{ week.end_date | date :  "mediumDate" }}</h1></h1>
+              <h1 mdcHeadline6>{{ getWeekName(week.week) }}<h1 mdcSubtitle1>{{ week.startDate | date :  "mediumDate"}} - {{ week.endDate | date :  "mediumDate" }}</h1></h1>
             </div>
 
             <mdc-list-divider></mdc-list-divider>
@@ -117,20 +117,20 @@
             <mdc-list [lines]="2">
               <div *ngFor="let event of getEventsByWeek(week)" class="no-underline">
 
-                <a href="/events/{{ event.event_key }}">
-                  <mdc-list-item interactive *ngIf="event.start_date == event.end_date">
+                <a href="/events/{{ event.eventKey }}">
+                  <mdc-list-item interactive *ngIf="event.startDate === event.endDate">
                     <mdc-list-item-text>
-                      <span class="black">{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
-                      <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} on {{ event.start_date | date :  "mediumDate"}}</span>
+                      <span class="black">{{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }}</span>
+                      <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.stateProv != null ? event.stateProv + ', ' : '' }} {{ event.country }} on {{ event.startDate | date :  "mediumDate"}}</span>
                     </mdc-list-item-text>
                   </mdc-list-item>
                 </a>
 
-                <a href="/events/{{ event.event_key }}">
+                <a href="/events/{{ event.eventKey }}">
                   <mdc-list-item interactive *ngIf="event.start_date != event.end_date">
                     <mdc-list-item-text>
-                      <span class="black">{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
-                      <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} from {{ event.start_date | date :  "mediumDate"}} to {{ event.end_date | date :  "mediumDate"}}</span>
+                      <span class="black">{{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }}</span>
+                      <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.stateProv != null ? event.stateProv + ', ' : '' }} {{ event.country }} from {{ event.startDate | date :  "mediumDate"}} to {{ event.endDate | date :  "mediumDate"}}</span>
                     </mdc-list-item-text>
                   </mdc-list-item>
                 </a>

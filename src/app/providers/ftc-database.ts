@@ -181,14 +181,14 @@ export class FTCDatabase {
     });
   }
 
-  public getTeam(teamNumber: number): Promise<Team> {
+  public getTeam(teamNumber: number, seasonKey: string): Promise<Team> {
     return new Promise<Team>((resolve, reject) => {
       const promises: Promise<any>[] = [];
       promises.push(this.request("/team/" + teamNumber));
-      promises.push(this.request("/team/" + teamNumber + "/results"));
-      promises.push(this.request("/team/" + teamNumber + "/awards"));
+      promises.push(this.request("/team/" + teamNumber + "/results/" + seasonKey));
+      promises.push(this.request("/team/" + teamNumber + "/awards/" + seasonKey));
       Promise.all(promises).then((data: any[]) => {
-        const team: Team = new Team().fromJSON(data[0]);
+        const team: Team = new Team().fromJSON(data[0][0]);
         team.rankings = data[1].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
         team.awards = data[2].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
         resolve(team);
@@ -207,7 +207,7 @@ export class FTCDatabase {
   public getTeamEvents(teamNumber: number, seasonKey: string): Promise<Event[]> {
     return new Promise<Event[]>((resolve, reject) => {
       this.request("/team/" + teamNumber + "/events/" + seasonKey).then((data: any[]) => {
-        resolve(data.map((result: any) => new Event().fromJSON(result)));
+        resolve(data.map((result: any) => new Event().fromJSON(result.event)));
       }).catch((err: any) => reject(err));
     });
   }

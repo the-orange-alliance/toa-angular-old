@@ -1,28 +1,28 @@
-<h2>Team #{{ (team?.team_key) ? team.team_key : team_key }}</h2>
+<h2>Team #{{ (team?.teamKey) ? team.teamKey : teamKey }}</h2>
 
 <div class="row" *ngIf="team">
   <div class="col-xs-12 col-sm-3 col-lg-3 pb-5">
     <mdc-card class="toa-card">
       <div class="w-100 p-3">
-        <div *ngIf="seasons && team.rookie_year" class="dropdown">
-          <button *ngIf="current_season" class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <span>{{ getSeasonString(current_season) }}</span>
+        <div *ngIf="seasons && team.rookieYear" class="dropdown">
+          <button *ngIf="currentSeason" class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span>{{ currentSeason.description }}</span>
             <span class="caret"></span>
           </button>
 
           <ul class="dropdown-menu" aria-labelledby="ftc_season">
-            <mdc-menu-item *ngFor="let season of seasons" (click)="selectSeason(season)">{{ getSeasonString(season) }}</mdc-menu-item>
+            <mdc-menu-item *ngFor="let season of seasons" (click)="selectSeason(season)">{{ season.description }}</mdc-menu-item>
           </ul>
         </div>
 
         <ul *ngIf="team.events" class="nav flex-column mt-2" style="padding-left: 0.75rem">
           <li class="nav-item">
-            <a href="teams/{{ team.team_key }}#info">Team Info</a>
+            <a href="teams/{{ team.teamKey }}#info">Team Info</a>
           </li>
           <li class="nav-item mt-1">
             Event Results
             <ul class="nav flex-column">
-              <li class="nav-item"><a *ngFor="let event of team.events" href="teams/{{ team.team_key }}#{{ event.event_key }}" class="nav-link">{{ event.event_name }}</a></li>
+              <li class="nav-item"><a *ngFor="let event of team.events" href="teams/{{ team.teamKey }}#{{ event.eventKey }}" class="nav-link">{{ event.eventName }}</a></li>
             </ul>
           </li>
         </ul>
@@ -32,22 +32,22 @@
 
   <div class="col-xs-12 col-sm-9 col-lg-9">
     <mdc-card class="toa-card" id="info">
-      <div class="toa-card-header" mdcHeadline5>#{{ team.team_key}} - {{ team.team_name_short }}</div>
+      <div class="toa-card-header" mdcHeadline5>#{{ team.teamKey }} - {{ team.teamNameShort }}</div>
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3">
         <div class="info-state d-flex align-content-center flex-wrap">
           <mat-icon svgIcon="compass"></mat-icon>
-          <p>Part of the {{ team.region_key }} Region</p>
+          <p>Part of the {{ team.regionKey }} Region</p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap">
           <mat-icon svgIcon="map-marker"></mat-icon>
-          <p>{{ team.city }}, {{ team.state_prov ? team.state_prov + ', ' : '' }}{{ team.country }}</p>
+          <p>{{ team.city }}, {{ team.stateProv ? team.stateProv + ', ' : '' }}{{ team.country }}</p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.rookie_year && team.rookie_year !== 0">
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.rookieYear && team.rookieYear !== 0">
           <mat-icon svgIcon="airballoon"></mat-icon>
-          <p>Rookie Year: {{ team.rookie_year }}</p>
+          <p>Rookie Year: {{ team.rookieYear }}</p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website">
@@ -55,24 +55,24 @@
           <p>Website: {{ team.website }}</p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.robot_name">
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.robotName">
           <mat-icon svgIcon="robot"></mat-icon>
-          <p>Robot Name: {{ team.robot_name }}</p>
+          <p>Robot Name: {{ team.robotName }}</p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.awards && team.awards.length > 0 && current_season && current_season.description">
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.awards && team.awards.length > 0 && currentSeason && currentSeason.description">
           <mat-icon svgIcon="trophy"></mat-icon>
-          <p>{{ team.awards.length }} awards in {{ current_season.description }}</p>
+          <p>{{ team.awards.length }} awards in {{ currentSeason.description }}</p>
         </div>
       </div>
     </mdc-card>
 
     <div *ngIf="team.events">
       <h1 class="pt-5 pb-1" mdcHeadline5>Event Results</h1>
-      <div *ngFor="let event of team.events" id="{{ event.event_key }}" class="col-xs-12 pb-4">
+      <div *ngFor="let event of team.events" id="{{ event.eventKey }}" class="col-xs-12 pb-4">
         <mdc-card class="toa-card">
-          <a class="toa-card-header pb-0" routerLink="/events/{{ event.event_key }}" mdcHeadline5>{{ event.division_name ? event.event_name + ' - ' + event.division_name + ' Division' : event.event_name}}</a>
-          <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ event.city }}, {{ event.state_prov ? event.state_prov + ', ' : ''}}{{ event.country }} on {{ event.start_date | date :  "mediumDate"}}</div>
+          <a class="toa-card-header pb-0" routerLink="/events/{{ event.eventKey }}" mdcHeadline5>{{ event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName}}</a>
+          <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : ''}}{{ event.country }} on {{ event.startDate | date :  "mediumDate"}}</div>
 
           <mdc-list-divider></mdc-list-divider>
 
@@ -83,7 +83,7 @@
             <div *ngIf="event.awards && event.awards.length > 0">
               <p><b>{{event.awards.length }} Awards:</b></p>
               <ul>
-                <li *ngFor="let award of event.awards">{{ award.award_name }}</li>
+                <li *ngFor="let award of event.awards">{{ award.awardName }}</li>
               </ul>
             </div>
 
@@ -117,7 +117,7 @@
 
               <tbody *ngIf="event.match_data && event.match_data.length <= 0">
               <tr>
-                <td colspan="18"><i>There is no available match data for {{ team_key }} this event.</i></td>
+                <td colspan="18"><i>There is no available match data for {{ teamKey }} this event.</i></td>
               </tr>
               </tbody>
 

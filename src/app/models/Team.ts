@@ -1,5 +1,6 @@
 import Ranking from "./Ranking";
 import AwardRecipient from "./AwardRecipient";
+import Event from "./Event";
 
 export default class Team implements ISerializable {
   private _teamKey: number;
