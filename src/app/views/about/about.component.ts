@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { FTCDatabase } from '../../providers/ftc-database';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 
 @Component({
@@ -10,8 +8,8 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 })
 export class AboutComponent {
 
-  constructor(private router: Router, private globaltoa: TheOrangeAllianceGlobals) {
-    this.globaltoa.setTitle('About');
+  constructor(private app: TheOrangeAllianceGlobals) {
+    this.app.setTitle('About');
   }
 
 }

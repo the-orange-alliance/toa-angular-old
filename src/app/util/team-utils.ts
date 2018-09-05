@@ -1,10 +1,12 @@
+import Team from "../models/Team";
+
 /**
  * Created by Kyle Flynn on 7/30/2017.
  */
 export class TeamFilter {
 
-  private teams: any;
-  private teams_filtered: any;
+  private teams: Team[];
+  private teamsFiltered: Team[];
 
   constructor(teams: any) {
     this.teams = teams;
@@ -12,14 +14,14 @@ export class TeamFilter {
 
   public filterArray(region_query: string, name_query: string, location_query: string, league_query: string) {
     if (region_query || name_query || location_query || league_query) {
-      this.teams_filtered = this.teams.filter((team) => {
-        const team_number = (team.team_number + '' || 'null').toLowerCase();
-        const team_school = (team.team_name_long + '' || 'null').toLowerCase();
-        const team_name = (team.team_name_short + '' || 'null').toLowerCase();
-        const team_region = (team.region_key + '' || 'null').toLowerCase();
-        const team_league = (team.league_key + '' || 'null').toLowerCase();
+      this.teamsFiltered = this.teams.filter((team: Team) => {
+        const team_number = (team.teamNumber + '' || 'null').toLowerCase();
+        const team_school = (team.teamNameLong + '' || 'null').toLowerCase();
+        const team_name = (team.teamNameShort + '' || 'null').toLowerCase();
+        const team_region = (team.regionKey + '' || 'null').toLowerCase();
+        const team_league = (team.leagueKey + '' || 'null').toLowerCase();
         const team_city = (team.city + '' || 'null').toLowerCase();
-        const team_state_prov = (team.state_prov + '' || 'null').toLowerCase();
+        const team_state_prov = (team.stateProv + '' || 'null').toLowerCase();
         const team_country = (team.country + '' || 'null').toLowerCase();
 
         let contains_region = false;
@@ -65,7 +67,7 @@ export class TeamFilter {
         || contains_league || contains_city || contains_state_prov || contains_country;
       });
     } else {
-      this.teams_filtered = this.teams;
+      this.teamsFiltered = this.teams;
     }
   }
 
@@ -74,7 +76,7 @@ export class TeamFilter {
   }
 
   public getFilteredArray() {
-    return this.teams_filtered;
+    return this.teamsFiltered;
   }
 
 }

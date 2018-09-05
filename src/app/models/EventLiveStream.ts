@@ -1,9 +1,13 @@
+import { SafeResourceUrl } from "@angular/platform-browser";
+
 export default class EventLiveStream implements ISerializable {
   private _streamKey: string;
   private _eventKey: string;
   private _streamType: number;
   private _isActive: boolean;
   private _streamURL: string;
+
+  private _safeURL: SafeResourceUrl;
 
   constructor() {
     this._streamKey = "";
@@ -71,5 +75,13 @@ export default class EventLiveStream implements ISerializable {
 
   set streamURL(value: string) {
     this._streamURL = value;
+  }
+  
+  get safeURL(): SafeResourceUrl {
+    return this._safeURL;
+  }
+
+  set safeURL(value: SafeResourceUrl) {
+    this._safeURL = value;
   }
 }
