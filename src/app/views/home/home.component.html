@@ -11,7 +11,7 @@
           </div>
           <div class="counting-card-content">
             <div class="counting-card-title">{{ teamsCount ? teamsCount : 0 }}</div>
-            <div class="counting-card-info">Teams</div>
+            <div class="counting-card-info">Active Teams</div>
           </div>
         </mdc-card>
       </div>
@@ -23,7 +23,7 @@
           </div>
           <div class="counting-card-content">
             <div class="counting-card-title">{{ matchCount ? matchCount : 0 }}</div>
-            <div class="counting-card-info">Matches</div>
+            <div class="counting-card-info">Matches Played</div>
           </div>
         </mdc-card>
       </div>
@@ -33,7 +33,7 @@
         <mdc-card class="toa-card p-0">
           <div class="p-2">
             <div class="toa-card-header pb-0" mdcSubtitle2>This Week's Events</div>
-            <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ weekStart | date :  "mediumDate" }} - {{ weekEnd | date :  "mediumDate" }}</div>
+            <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ today | date :  "mediumDate" }}</div>
           </div>
 
           <mdc-list-divider></mdc-list-divider>

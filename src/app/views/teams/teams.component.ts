@@ -7,13 +7,13 @@ import Team from '../../models/Team';
 import League from '../../models/League';
 import Region from '../../models/Region';
 
-const TEAMS_PER_PAGE = 400;
+const TEAMS_PER_PAGE = 100;
 
 @Component({
   selector: 'toa-teams',
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.scss'],
-  providers: [FTCDatabase,TheOrangeAllianceGlobals]
+  providers: [FTCDatabase, TheOrangeAllianceGlobals]
 })
 export class TeamsComponent implements OnInit {
 
@@ -56,8 +56,7 @@ export class TeamsComponent implements OnInit {
     });
     this.ftc.getAllRegions().then((data: Region[]) => {
       const allRegions = new Region();
-      allRegions.regionKey = "ALL";
-      allRegions.description = "All Regions";
+      allRegions.regionKey = 'All Regions';
       this.regions = data;
       this.regions.push(allRegions);
       this.currentRegion = this.regions[this.regions.length - 1];
@@ -65,8 +64,7 @@ export class TeamsComponent implements OnInit {
 
     this.ftc.getAllLeagues().then((data: League[]) => {
       const allLeagues = new League();
-      allLeagues.leagueKey = "ALL";
-      allLeagues.description = "All Leagues";
+      allLeagues.leagueKey = 'All Leagues';
       this.leagues = data;
       this.leagues.push(allLeagues);
       this.currentLeague = this.leagues[this.leagues.length - 1];

@@ -48,15 +48,11 @@ export class TheOrangeAllianceComponent {
     this.ftc.getAllTeams().then((data: Team[]) => {
       this.teams = data;
       this.teamsFilter = new TeamFilter(this.teams);
-    }).catch((error: any) => {
-      console.log(error);
     });
 
     this.ftc.getAllEvents().then((data: Event[]) => {
       this.events = data;
       this.eventsFilter = new EventFilter(this.events);
-    }).catch((error: any) => {
-      console.log(error);
     });
   }
 
@@ -76,14 +72,11 @@ export class TheOrangeAllianceComponent {
 
   performSearch(): void {
     if (this.search) {
-      // (<HTMLInputElement>document.getElementById("showSearch")).value = this.search;
       this.teamsFilter.filterArray(null, this.search, null, null);
       this.eventsFilter.searchFilter(this.search);
-
       this.teams = this.teamsFilter.getFilteredArray();
       this.events = this.eventsFilter.getFilteredArray();
       document.getElementById('search').style.display = 'block';
-
       // SO there are obviously going to be more search results, but let's try and make it more readable.
       const eventLength = this.events.length;
       const teamsLength = this.teams.length;

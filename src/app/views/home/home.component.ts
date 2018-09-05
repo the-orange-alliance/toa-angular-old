@@ -25,10 +25,12 @@ export class HomeComponent {
   public matchCount: number;
   public teamsCount: number;
 
+  public today: Date;
   public weekStart: Date;
   public weekEnd: Date;
 
   constructor(private router: Router, private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals) {
+    this.today = new Date();
     this.currentEvents = [];
     this.app.setTitle('Home');
     this.ftc.getTeamSize().then((data: number) => {
