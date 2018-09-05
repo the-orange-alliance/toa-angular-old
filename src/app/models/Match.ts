@@ -106,7 +106,34 @@ export default class Match implements ISerializable {
     match.redEndScore = json.red_end_score;
     match.blueEndScore = json.blue_end_Score;
     match.videoURL = json.video_url;
+    match.participants = typeof json.participants !== "undefined" ? json.participants.map((participantJSON: any) => new MatchParticipant().fromJSON(participantJSON)) : []
     return match;
+  }
+
+
+  public getShortName(): string {
+    switch (this.tournamentLevel) {
+      case 0:
+        return "Practice Match";
+      case 1:
+        return "Qualification Match";
+      case 21:
+        return "Quarterfinal Match";
+      case 22:
+        return "Quarterfinal Match";
+      case 23:
+        return "Quarterfinal Match";
+      case 24:
+        return "Quarterfinal Match";
+      case 31:
+        return "Semifinals Match";
+      case 32:
+        return "Semifinals Match";
+      case 4:
+        return "Finals Match";
+      default:
+        return "Match";
+    }
   }
 
   get matchKey(): string {
@@ -276,7 +303,7 @@ export default class Match implements ISerializable {
   set videoURL(value: string) {
     this._videoURL = value;
   }
-  
+
   get details(): MatchDetails {
     return this._matchDetails;
   }

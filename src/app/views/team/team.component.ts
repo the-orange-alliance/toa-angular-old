@@ -43,7 +43,7 @@ export class TeamComponent implements OnInit {
     this.eventSorter = new EventSorter();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.years = [];
     this.ftc.getTeam(this.teamKey, "1718").then((data: Team) => {
       if (!data) {
@@ -65,7 +65,7 @@ export class TeamComponent implements OnInit {
     });
   }
 
-  getTeamSeasons(seasons: Season[]) {
+  public getTeamSeasons(seasons: Season[]) {
     const year_code = parseInt((this.team.rookieYear + '').toString().substring(2, 4));
     const second_code = year_code + 1;
     let rookie_season_id = '';
@@ -86,7 +86,7 @@ export class TeamComponent implements OnInit {
     }
   }
 
-  selectSeason(season: any) {
+  public selectSeason(season: any) {
     this.currentSeason = season;
     this.team.events = [];
     this.ftc.getTeamEvents(this.teamKey, this.currentSeason.seasonKey).then((data: Event[]) => {
@@ -97,46 +97,19 @@ export class TeamComponent implements OnInit {
     });
   }
 
-  getEventMatches() {
+  private getEventMatches() {
     this.team.events = this.eventSorter.sortRev(this.team.events, 0, this.team.events.length - 1);
     for (const event of this.team.events) {
       this.ftc.getEventMatches(event.eventKey).then((data: Match[]) => {
         event.matches = data;
         event.matches = this.sortAndFind(event);
-
-        for (const match of event.matches) {
-          if (match.tournamentLevel === MatchType.QUALS_MATCH) {
-            this.qualMatches.push(match);
-          }
-          if (match.tournamentLevel === MatchType.QUARTERS_MATCH_1 ||
-            match.tournamentLevel === MatchType.QUARTERS_MATCH_2 ||
-            match.tournamentLevel === MatchType.QUARTERS_MATCH_3 ||
-            match.tournamentLevel === MatchType.QUARTERS_MATCH_4) {
-            this.quartersMatches.push(match);
-          }
-          if (match.tournamentLevel === MatchType.SEMIS_MATCH_1 ||
-            match.tournamentLevel === MatchType.SEMIS_MATCH_2 ) {
-            this.semisMatches.push(match);
-          }
-          if (match.tournamentLevel === MatchType.FINALS_MATCH) {
-            this.finalsMatches.push(match);
-          }
-        }
-
-        // TODO - Make matches about of event object... Maybe do this in the API somehow?
-
-        this.qualMatches = [];
-        this.quartersMatches = [];
-        this.semisMatches = [];
-        this.finalsMatches = [];
-
         this.getEventRankings();
         this.getEventAwards();
       });
     }
   }
 
-  getEventRankings() {
+  private getEventRankings() {
     for (const ranking of this.team.rankings) {
       for (const event of this.team.events) {
         if (ranking.eventKey === event.eventKey) {
@@ -146,7 +119,7 @@ export class TeamComponent implements OnInit {
     }
   }
 
-  getEventAwards() {
+  private getEventAwards() {
     for (const event of this.team.events) {
       const awards = [];
       for (const award of this.team.awards) {
@@ -177,102 +150,19 @@ export class TeamComponent implements OnInit {
     }
   }
 
-  sortAndFind(event: Event) {
-    let team_matches = [];
+  private sortAndFind(event: Event): Match[] {
+    let teamMatches = [];
     for (const match of event.matches) {
       for (const team of match.participants) {
         if (team.teamKey === this.teamKey) {
-          team_matches.push(match);
+          teamMatches.push(match);
         }
       }
     }
 
     const sorter = new MatchSorter();
-    team_matches = sorter.sort(team_matches, 0, team_matches.length - 1);
-    return team_matches;
-  }
-
-  convertSeason(season: any) {
-    return season.season_key;
-  }
-
-  getStation(match_data, station: number): string {
-    const teams = match_data.teams.toString().split(',');
-    const stations = match_data.station_status.toString().split(',');
-    if (stations[station] === '4') {
-      return '';
-    } else if (stations[station] === '0') {
-      return teams[station] + '*';
-    } else {
-      return teams[station];
-    }
-  }
-
-  getStationTeam(match_data, station: number): string {
-    const teams = match_data.teams.toString().split(',');
-    const stations = match_data.station_status.toString().split(',');
-
-    return teams[station];
-  }
-
-  getStationLength(match_data): number {
-    return match_data.teams.toString().split(',').length;
-  }
-
-  getTeamResult(match, team: number): string {
-    // return team.toString();
-    if (match.red_score != null) { // match score exists
-      if (match.red_score === match.blue_score) {
-        return 'T';
-      }
-      if (match.red_score > match.blue_score) {
-        if (this.getStationLength(match) === 6) {
-          if ((team.toString() === this.getStationTeam(match, 0))
-            || (team.toString() === this.getStationTeam(match, 1))
-            || (team.toString() === this.getStationTeam(match, 2))) {
-            return 'W';
-          } else {
-            return 'L';
-          }
-        } else {
-          if ((team.toString() === this.getStationTeam(match, 0))
-            || (team.toString() === this.getStationTeam(match, 1))) {
-            return 'W';
-          } else {
-            return 'L';
-          }
-        }
-      } else {
-        if (this.getStationLength(match) === 6) {
-          if ((team.toString() === this.getStationTeam(match, 0))
-            || (team.toString() === this.getStationTeam(match, 1))
-            || (team.toString() === this.getStationTeam(match, 2))) {
-            return 'L';
-          } else {
-            return 'W';
-          }
-        } else {
-          if ((team.toString() === this.getStationTeam(match, 0))
-            || (team.toString() === this.getStationTeam(match, 1))) {
-            return 'L';
-          } else {
-            return 'W';
-          }
-        }
-      }
-    } else {
-      return ' '; // no match score yet
-    }
-  }
-
-  getStationHref(match_data, station: number): string {
-    const teams = match_data.teams.toString().split(',');
-    const stations = match_data.station_status.toString().split(',');
-    return teams[station];
-  }
-
-  isCurrentTeam(match_data, station: number): boolean {
-    return match_data.teams.toString().split(',')[station] === this.teamKey;
+    teamMatches = sorter.sort(teamMatches, 0, teamMatches.length - 1);
+    return teamMatches;
   }
 
   openTeamPage(team_number: any) {

@@ -1,3 +1,5 @@
+import Match from "../models/Match";
+
 /**
  * Created by Kyle Flynn on 5/28/2017.
  */
@@ -29,30 +31,30 @@ export class MatchType {
 
 export class MatchParser {
 
-  match_data: any;
+  match: Match;
 
-  constructor(match_data: any) {
+  constructor(match: any) {
     // 1617-FIM-CMP0-E002
-    this.match_data = match_data;
+    this.match = match;
   }
 
   getSeasonID(): string {
-    return this.match_data.match_key.toString().split('-')[0];
+    return this.match.matchKey.toString().split('-')[0];
   }
 
   getRegionID(): string {
-    return this.match_data.match_key.toString().split('-')[1];
+    return this.match.matchKey.toString().split('-')[1];
   }
 
   getEventID(): string {
-    const split = this.match_data.match_key.toString().split('-');
+    const split = this.match.matchKey.toString().split('-');
     return split[0] + '-' + split[1] + '-' + split[2];
   }
 
   toString() {
     let output = '';
 
-    switch (this.match_data.tournament_level) {
+    switch (this.match.tournamentLevel) {
       case MatchType.PRACTICE_MATCH:
         output += 'Practice Match ';
         break;
@@ -86,7 +88,7 @@ export class MatchParser {
   }
 
   getMatchNumber(): number {
-    const match_string = this.match_data.match_key.toString().split('-')[3];
+    const match_string = this.match.matchKey.toString().split('-')[3];
     const match_number = match_string.substring(1, match_string.length);
     let number = '';
     for (let i = 0; i < match_number.length; i++) {
@@ -104,7 +106,7 @@ export class MatchSorter {
 
   constructor() {}
 
-  public sort(items, left, right) {
+  public sort(items: Match[], left, right) {
     let pivot, partitionIndex;
 
     if (left < right) {
@@ -118,7 +120,7 @@ export class MatchSorter {
     return items;
   }
 
-  private partition(items, pivot, left, right) {
+  private partition(items: Match[], pivot, left, right) {
     const pivotValue = items[pivot];
     let partitionIndex = left;
 
@@ -139,20 +141,20 @@ export class MatchSorter {
     items[index2] = temp;
   }
 
-  private shouldSwap(match1, match2) {
+  private shouldSwap(match1: Match, match2: Match) {
     const parser_1 = new MatchParser(match1);
     const parser_2 = new MatchParser(match2);
 
-    if (match1.tournament_level === match2.tournament_level) {
+    if (match1.tournamentLevel === match2.tournamentLevel) {
       return parser_1.getMatchNumber() < parser_2.getMatchNumber() ? -1 : 1;
     } else {
-      if (match1.tournament_level === MatchType.FINALS_MATCH) {
+      if (match1.tournamentLevel === MatchType.FINALS_MATCH) {
         return 1;
       }
-      if (match2.tournament_level === MatchType.FINALS_MATCH) {
+      if (match2.tournamentLevel === MatchType.FINALS_MATCH) {
         return -1;
       }
-      return match1.tournament_level < match2.tournament_level ? -1 : 1;
+      return match1.tournamentLevel < match2.tournamentLevel ? -1 : 1;
     }
 
   }
