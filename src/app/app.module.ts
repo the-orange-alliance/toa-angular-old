@@ -28,6 +28,7 @@ import { MatchesComponent } from './views/matches/matches.component';
 import { VelocityVortexComponent } from './views/matches/years/1617/1617-velocity-vortex.component';
 import { RelicRecoveryComponent } from './views/matches/years/1718/1718-relic-recovery-component';
 import { AppMaterialModule } from './material.module';
+import { MatchTableComponent } from './components/match-table/match-table.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AppMaterialModule } from './material.module';
     PrivacyTermsComponent,
     MatchesComponent,
     VelocityVortexComponent,
-    RelicRecoveryComponent
+    RelicRecoveryComponent,
+    MatchTableComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'the-orange-alliance'}),

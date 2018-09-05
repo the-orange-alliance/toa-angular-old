@@ -1,5 +1,6 @@
 import MatchDetails from "./MatchDetails";
 import MatchParticipant from "./MatchParticipant";
+import Event from "./Event";
 
 export default class Match implements ISerializable {
   private _matchKey: string;
@@ -24,6 +25,7 @@ export default class Match implements ISerializable {
   private _blueEndScore: number;
   private _videoURL: string;
 
+  private _event: Event;
   private _matchDetails: MatchDetails;
   private _matchParticipants: MatchParticipant[];
 
@@ -50,6 +52,7 @@ export default class Match implements ISerializable {
     this._blueTeleScore = 0;
     this._videoURL = "";
 
+    this._event = new Event();
     this._matchDetails = new MatchDetails();
     this._matchParticipants = [];
   }
@@ -288,5 +291,13 @@ export default class Match implements ISerializable {
 
   set participants(value: MatchParticipant[]) {
     this._matchParticipants = value;
+  }
+
+  get event(): Event {
+    return this._event;
+  }
+
+  set event(value: Event) {
+    this._event = value;
   }
 }

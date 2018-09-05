@@ -29,9 +29,10 @@ export class FTCDatabase {
     return new Promise<any[]>((resolve, reject) => {
       const authHeader = new HttpHeaders({
         'X-Application-Origin': 'TOA',
-        'X-TOA-Key': 'lYjKJfe4dpfGm9SRPgsEotVC9morohaABU9hQAkXL8k='
+        'X-TOA-Key': 'lYjKJfe4dpfGm9SRPgsEotVC9morohaABU9hQAkXL8k=',
+        "Content-Type": "application/json"
       });
-      this.http.get('http://theorangealliance.org:8008/api' + url, { headers: authHeader }).subscribe((data: any[]) => {
+      this.http.get('http://127.0.0.1:8008/api' + url, { headers: authHeader }).subscribe((data: any[]) => {
         resolve(data);
       }, (err: any) => {
         reject(err);
@@ -82,7 +83,7 @@ export class FTCDatabase {
   public getTeamSize(): Promise<number> {
     return new Promise<number>((resolve, reject) => {
       this.request("/team/size").then((data: any) => {
-        resolve(parseInt(data));
+        resolve(parseInt(data.result));
       }).catch((err: any) => reject(err));
     });
   }
@@ -98,7 +99,7 @@ export class FTCDatabase {
   public getMatchSize(): Promise<number> {
     return new Promise<number>((resolve, reject) => {
       this.request("/match/size").then((data: any) => {
-        resolve(parseInt(data));
+        resolve(parseInt(data.result));
       }).catch((err: any) => reject(err));
     });
   }
@@ -106,7 +107,7 @@ export class FTCDatabase {
   public getHighScoreQual(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.request("/match/high-scores?type=quals").then((data: any) => {
-        resolve(data.map((result: any) => new Match().fromJSON(result)));
+        resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
       }).catch((err: any) => reject(err));
     });
   }
@@ -114,7 +115,7 @@ export class FTCDatabase {
   public getHighScoreElim(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.request("/match/high-scores?type=elims").then((data: any) => {
-        resolve(data.map((result: any) => new Match().fromJSON(result)));
+        resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
       }).catch((err: any) => reject(err));
     });
   }
@@ -122,7 +123,7 @@ export class FTCDatabase {
   public getHighScoreWithPenalty(): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       this.request("/match/high-scores?type=all").then((data: any) => {
-        resolve(data.map((result: any) => new Match().fromJSON(result)));
+        resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
       }).catch((err: any) => reject(err));
     });
   }
@@ -147,6 +148,14 @@ export class FTCDatabase {
     return new Promise<Event[]>((resolve, reject) => {
       this.request("/event?season_key=" + season).then((data: any[]) => {
         resolve(data.map((result: any) => new Event().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
+  public getEventBasic(eventKey: string): Promise<Event> {
+    return new Promise<Event>((resolve, reject) => {
+      this.request("/event/" + eventKey).then((data: any[]) => {
+        resolve(data.map((result: any) => new Event().fromJSON(result))[0]);
       }).catch((err: any) => reject(err));
     });
   }
