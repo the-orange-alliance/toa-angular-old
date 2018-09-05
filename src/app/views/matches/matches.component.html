@@ -1,7 +1,8 @@
-<h2 *ngIf="match_data && match_event"><a class="black" href="/events/{{ match_event.event_key }}">{{ match_event.division_name ? match_event.event_name + ' - ' + match_event.division_name + ' Division' : match_event.event_name }}</a> <small> {{ match_data.match_name }}</small></h2>
-<h2 *ngIf="this.noData">No match data found</h2>
+<h2 *ngIf="match && event"><a class="black" href="/events/{{ event.eventKey }}">{{ event.divisionName ? event.eventName +
+    ' - ' + event.divisionName + ' Division' : event.eventName }}</a> <small> {{ match.matchName }}</small></h2>
+<h2 *ngIf="noData">No match data found</h2>
 
-<div class="row" *ngIf="match_data">
+<div class="row" *ngIf="match">
   <div class="col-12 col-sm-5 mt-3">
     <mdc-card class="toa-card h-100">
       <div class="toa-card-header" mdcHeadline5>Match Information</div>
@@ -9,12 +10,13 @@
       <div class="p-3">
         <div class="info-state d-flex align-content-center flex-wrap">
           <mat-icon svgIcon="code-tags"></mat-icon>
-          <p>Match Key: </p><p><code>{{ match_data.match_key }}</code></p>
+          <p>Match Key: </p>
+          <p><code>{{ match.matchKey }}</code></p>
         </div>
         <div class="info-state d-flex align-content-center flex-wrap">
           <mat-icon svgIcon="play-circle-outline"></mat-icon>
-          <p *ngIf="match_data.video_url"><a href="{{ match_data.video_url }}">{{ match_data.video_url }}</a></p>
-          <p *ngIf="!match_data.video_url"><i>No video available.</i></p>
+          <p *ngIf="match.videoURL"><a href="{{ match.videoURL }}">{{ match.videoURL }}</a></p>
+          <p *ngIf="!match.videoURL"><i>No video available.</i></p>
         </div>
       </div>
     </mdc-card>
@@ -25,83 +27,15 @@
       <div class="toa-card-header" mdcHeadline5>Overview</div>
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3">
-        <table class="match-table">
-          <thead>
-          <tr>
-            <th colspan="6">Teams</th>
-            <th>Score</th>
-          </tr>
-          </thead>
-          <tbody *ngIf="getNumberOfTeams() == 6">
-          <tr class="red">
-            <td colspan="2" class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
-              <a href="/teams/{{ getStation(0) }}">{{ getStation(0) }}</a>
-            </td>
-            <td colspan="2" class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
-              <a href="/teams/{{ getStation(1) }}">{{ getStation(1) }}</a>
-            </td>
-            <td colspan="2" class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
-              <a href="/teams/{{ getStation(2) }}">{{ getStation(2) }}</a>
-            </td>
-            <td class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
-              {{ match_data.red_score }}
-            </td>
-          </tr>
-          <tr class="blue">
-            <td colspan="2" class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
-              <a href="/teams/{{ getStation(3) }}">{{ getStation(3) }}</a>
-            </td>
-            <td colspan="2" class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
-              <a href="/teams/{{ getStation(4) }}">{{ getStation(4) }}</a>
-            </td>
-            <td colspan="2" class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
-              <a href="/teams/{{ getStation(5) }}">{{ getStation(5) }}</a>
-            </td>
-            <td class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
-              {{ match_data.blue_score }}
-            </td>
-          </tr>
-          </tbody>
-          <tbody *ngIf="getNumberOfTeams() == 4">
-          <tr class="red">
-            <td colspan="3" class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
-              <a href="/teams/{{ getStation(0) }}">{{ getStation(0) }}</a>
-            </td>
-            <td colspan="3" class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
-              <a href="/teams/{{ getStation(1) }}">{{ getStation(1) }}</a>
-            </td>
-            <td class="red" [class.match-winner]="match_data.red_score >= match_data.blue_score">
-              {{ match_data.red_score }}
-            </td>
-          </tr>
-          <tr class="blue">
-            <td colspan="3" class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
-              <a href="/teams/{{ getStation(2) }}">{{ getStation(2) }}</a>
-            </td>
-            <td colspan="3" class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
-              <a href="/teams/{{ getStation(3) }}">{{ getStation(3) }}</a>
-            </td>
-            <td class="blue" [class.match-winner]="match_data.red_score <= match_data.blue_score">
-              {{ match_data.blue_score }}
-            </td>
-          </tr>
-          </tbody>
-        </table>
+        <match-table [match]="match"></match-table>
       </div>
     </mdc-card>
   </div>
 </div>
 
-
-  <div class="mt-5">
-    <!-- SWITCH STATEMENT BASICALLY HERE -->
-    <div *ngIf="match_data && match_details">
-      <toa-velocity-vortex *ngIf="getMatchSeason() === 1617" [match_data]="match_data" [match_details]="match_details" [match_stations]="match_stations"></toa-velocity-vortex>
-      <toa-relic-recovery *ngIf="getMatchSeason() === 1718" [match_data]="match_data" [match_details]="match_details" [match_stations]="match_stations"></toa-relic-recovery>
-    </div>
-
-    <div *ngIf="match_data && !match_details">
-      <toa-velocity-vortex *ngIf="getMatchSeason() === 1617" [match_data]="match_data" [match_stations]="match_stations"></toa-velocity-vortex>
-      <toa-relic-recovery *ngIf="getMatchSeason() === 1718" [match_data]="match_data" [match_stations]="match_stations"></toa-relic-recovery>
-    </div>
+<div class="mt-5">
+  <div *ngIf="match">
+    <toa-velocity-vortex *ngIf="getMatchSeason() === 1617" [match]="match"></toa-velocity-vortex>
+    <toa-relic-recovery *ngIf="getMatchSeason() === 1718" [match]="match"></toa-relic-recovery>
   </div>
+</div>
