@@ -1,7 +1,8 @@
 <a href="/teams/{{ team.teamKey }}" class="no-underline">
   <mdc-list-item class="item-team">
-    <img *ngIf="team.logo_url" class="rounded-circle" [src]="team.logo_url" />
-    <img *ngIf="!team.logo_url" class="rounded-circle" src="../../../assets/imgs/hashtag.png" />
+    <!-- <img *ngIf="team.logo_url" class="rounded-circle" [src]="team.logo_url" />
+    <img *ngIf="!team.logo_url" class="rounded-circle" src="../../../assets/imgs/hashtag.png" /> -->
+    <img class="rounded-circle" src="../../../assets/imgs/hashtag.png" />
     <div>
       <mdc-list-item-text>
         <span class="black">#{{ team.teamNumber }} - {{ team.teamNameShort }}</span>
