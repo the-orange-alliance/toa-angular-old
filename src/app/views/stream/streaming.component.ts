@@ -3,6 +3,7 @@ import { FTCDatabase } from '../../providers/ftc-database';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import {Router} from '@angular/router';
+import EventLiveStream from '../../models/EventLiveStream';
 
 export class StreamType {
   static YOUTUBE = 0;
@@ -18,31 +19,25 @@ export class StreamType {
 })
 export class StreamingComponent implements OnInit {
 
-  streams: any[];
+  streams: EventLiveStream[];
 
-  constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer, private globaltoa: TheOrangeAllianceGlobals) {
-    this.globaltoa.setTitle('Streaming');
+  constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer, private app: TheOrangeAllianceGlobals) {
+    this.app.setTitle('Streaming');
   }
 
   ngOnInit() {
-    this.ftc.getAllStreams().subscribe((data: any[]) => {
+    this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       this.streams = data;
 
       for (const stream of this.streams) {
-        stream.safe_url = this.sanitizer.bypassSecurityTrustResourceUrl(stream.stream_url);
+        stream.safeURL = this.sanitizer.bypassSecurityTrustResourceUrl(stream.streamURL);
 
         const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        const match = stream.stream_url.match(regExp);
+        const match = stream.streamURL.match(regExp);
         if (match && match[2].length === 11) {
-          stream.full_url = 'https://www.youtube.com/watch?v=' + match[2];
-        } else {
-          console.clear();
-          console.log(match)
+          stream.streamURL = 'https://www.youtube.com/watch?v=' + match[2];
         }
       }
-      console.log(this.streams);
-    }, (err) => {
-      console.log(err);
     });
   }
 

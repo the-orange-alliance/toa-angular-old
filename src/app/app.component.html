@@ -19,9 +19,9 @@
     <form>
       <input id="ftc_search" (keyup)="performSearch()" (focus)="performSearch()" [(ngModel)]="search" [ngModelOptions]="{standalone: true}" type="text" placeholder="Team # or Event">
       <ul id="search" class="search-results" aria-labelledby="ftc_search">
-        <li *ngFor="let result of team_search_results"><a href="/teams/{{result.team_key}}">{{ result.team_key }} - {{ result.team_name_short }}</a></li>
-        <li *ngFor="let result of event_search_results"><a href="/events/{{result.event_key}}">[{{ result.event_key }}] {{ result.start_date | date : "y" }} {{ result.event_name }}</a></li>
-        <li *ngIf="this.teams && this.teams.length > 0"><a href="/teams?q={{search}}"><i  style="color:gray !important;">Show all {{this.teams.length}} teams</i></a></li>
+        <li *ngFor="let result of teamSearchResults"><a href="/teams/{{result.teamKey}}">{{ result.teamKey }} - {{ result.teamNameShort }}</a></li>
+        <li *ngFor="let result of eventSearchResults"><a href="/events/{{result.eventKey}}">{{ result.startDate | date : "y" }} {{ result.divisionName ? result.eventName + ' - ' +  result.divisionName + ' Division' : result.eventName }} <span class="badge bg-primary" *ngIf="result.isLive">LIVE</span></a></li>
+        <li *ngIf="this.teams && this.teams.length > 0"><a href="/teams?q={{search}}"><i  style="color:gray !important;">Show all {{teams.length}} teams</i></a></li>
       </ul>
     </form>
     <small style="text-align: center; color: rgb(0, 0, 0); position: absolute; left: 0px; right: 0px; bottom: 70px; font-size: 16px;">The Orange Alliance</small>
@@ -35,7 +35,7 @@
     <mdc-drawer-content>
       <mdc-list-group>
         <mdc-list>
-          <mdc-list-item class="item-profile">
+          <!-- <mdc-list-item class="item-profile">
             <div>
               <mdc-list-item-text>
                 <span>Hello Guest!</span>
@@ -44,7 +44,6 @@
                 </span>
               </mdc-list-item-text>
             </div>
-            <!--
             <mat-icon mdcListItemGraphic>
               <img class="rounded-circle" src="https://avatars3.githubusercontent.com/u/16443111?s=460&v=4" height="50" />
             </mat-icon>
@@ -54,17 +53,16 @@
                 <span class="mdc-list-item__secondary-text">ofek.ashery@gmail.com</span>
               </mdc-list-item-text>
             </div>
-            -->
-          </mdc-list-item>
+          </mdc-list-item> -->
 
-          <mdc-list-divider></mdc-list-divider>
+          <!-- <mdc-list-divider></mdc-list-divider> -->
 
           <a mdc-list-item routerLink="/home" routerLinkActive="mdc-list-item--activated">
             <mat-icon class="mdc-list-item__graphic" svgIcon="home"></mat-icon>Home
           </a>
-          <a mdc-list-item routerLink="/account" routerLinkActive="mdc-list-item--activated">
+          <!-- <a mdc-list-item routerLink="/account" routerLinkActive="mdc-list-item--activated">
             <mat-icon class="mdc-list-item__graphic" svgIcon="star"></mat-icon>myTOA
-          </a>
+          </a> -->
           <a mdc-list-item routerLink="/teams" routerLinkActive="mdc-list-item--activated">
             <mat-icon class="mdc-list-item__graphic" svgIcon="account-group"></mat-icon>Teams
           </a>
@@ -131,4 +129,3 @@
   ga('send', 'pageview');
 
 </script>
-<!-- FOOTER CONTAINER -->

@@ -1,0 +1,9 @@
+<a href="/events/{{ event.eventKey }}" class="no-underline">
+  <mdc-list-item interactive>
+    <mdc-list-item-text>
+      <span class="black">{{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} <span class="badge bg-primary" *ngIf="event.isLive">LIVE</span></span>
+      <span class="mdc-list-item__secondary-text" *ngIf="event.start_date == event.end_date">{{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : '' }} {{ event.country }} on {{ event.startDate | date :  "mediumDate"}}</span>
+      <span class="mdc-list-item__secondary-text" *ngIf="event.start_date != event.end_date">{{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : '' }} {{ event.country }} from {{ event.startDate | date :  "mediumDate"}} to {{ event.endDate | date :  "mediumDate"}}</span>
+    </mdc-list-item-text>
+  </mdc-list-item>
+</a>

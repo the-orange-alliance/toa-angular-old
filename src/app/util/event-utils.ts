@@ -1,3 +1,5 @@
+import Event from '../models/Event';
+
 /**
  * Created by Kyle Flynn on 7/21/2017.
  */
@@ -41,8 +43,8 @@ export class EventParser {
 
 export class EventFilter {
 
-  private events: any;
-  private events_filtered: any;
+  private events: Event[];
+  private eventsFiltered: Event[];
 
   constructor(events: any) {
     this.events = events;
@@ -50,43 +52,45 @@ export class EventFilter {
 
   public filterArray(query: string) {
     if (query && query.trim() !== '' && query !== null) {
-      this.events_filtered = this.events.filter((event) => {
+      this.eventsFiltered = this.events.filter((event: Event) => {
         query = query.toLowerCase();
-        const region = (event.region_key || 'null').toLowerCase();
+        const region = (event.regionKey || 'null').toLowerCase();
 
         const contains_region = (region.indexOf(query) > -1);
 
         return contains_region;
       });
     } else {
-      this.events_filtered = this.events;
+      this.eventsFiltered = this.events;
     }
   }
 
   public searchFilter(query: string) {
     if (query && query.trim() !== '' && query !== null) {
-      this.events_filtered = this.events.filter((event) => {
+      this.eventsFiltered = this.events.filter((event) => {
         query = query.toLowerCase();
 
-        const event_region = (event.region_key || 'null').toLowerCase();
+        const event_region = (event.regionKey || 'null').toLowerCase();
         const event_city = (event.city + '' || 'null').toLowerCase();
-        const event_state_prov = (event.state_prov + '' || 'null').toLowerCase();
+        const event_state_prov = (event.stateProv + '' || 'null').toLowerCase();
         const event_country = (event.country + '' || 'null').toLowerCase();
-        const event_name = (event.event_name || 'null').toLowerCase();
+        const event_name = (event.eventName || 'null').toLowerCase();
+        const event_key = (event.eventKey || 'null').toLowerCase();
 
         const contains_region = (event_region.indexOf(query) > -1);
         const contains_city = (event_city.indexOf(query) > -1);
         const contains_state_prov = (event_state_prov.indexOf(query) > -1);
         const contains_country = (event_country.indexOf(query) > -1);
         const contains_name = (event_name.indexOf(query) > -1);
+        const some_key = event_key === query;
 
-        return contains_region || contains_city || contains_state_prov || contains_country || contains_name;
+        return contains_region || contains_city || contains_state_prov || contains_country || contains_name || some_key;
       });
     } else {
-      this.events_filtered = this.events;
+      this.eventsFiltered = this.events;
     }
-    this.events_filtered.sort(function(a, b) {
-      return (new Date(b.start_date).getTime() - new Date(a.start_date).getTime());
+    this.eventsFiltered.sort((a: Event, b: Event) => {
+      return (new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
     });
   }
 
@@ -95,8 +99,7 @@ export class EventFilter {
   }
 
   public getFilteredArray() {
-    console.log(this.events_filtered);
-    return this.events_filtered;
+    return this.eventsFiltered;
   }
 
 }
@@ -105,7 +108,7 @@ export class EventSorter {
 
   constructor() {}
 
-  public sort(items, left, right) {
+  public sort(items: Event[], left, right) {
     let pivot, partitionIndex;
 
     if (left < right) {
@@ -119,13 +122,13 @@ export class EventSorter {
     return items;
   }
 
-  private partition(items, pivot, left, right) {
+  private partition(items: Event[], pivot, left, right) {
     const pivotValue = items[pivot];
     let partitionIndex = left;
 
     for (let i = left; i < right; i++) {
       // -1 means items[i] < pivotValue, 1 means items[i] > pivotValue
-      if (items[i].start_date < pivotValue.start_date || new EventParser(pivotValue).getDivisionID() === 0) {
+      if (new Date(items[i].startDate) < new Date(pivotValue.startDate) || pivotValue.divisionKey === '0') {
         this.swap(items, i, partitionIndex);
         partitionIndex++;
       }
@@ -140,7 +143,7 @@ export class EventSorter {
     items[index2] = temp;
   }
 
-  public sortRev(items, left, right) {
+  public sortRev(items: Event[], left, right) {
     this.sort(items, left, right);
     // reverse order
     for (let i = 0; i < (right + 1 - left) / 2; i++) {

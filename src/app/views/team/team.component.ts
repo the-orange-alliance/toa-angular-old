@@ -5,6 +5,10 @@ import { MatchSorter, MatchType } from '../../util/match-utils';
 import { EventSorter } from '../../util/event-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import {$} from 'protractor';
+import Team from '../../models/Team';
+import Match from '../../models/Match';
+import Season from '../../models/Season';
+import Event from '../../models/Event';
 
 @Component({
   selector: 'toa-team',
@@ -14,67 +18,55 @@ import {$} from 'protractor';
 })
 export class TeamComponent implements OnInit {
 
-  event_sorter: EventSorter;
+  eventSorter: EventSorter;
 
-  team: any;
-  team_key: any;
+  team: Team;
+  teamKey: number;
 
   years: any;
 
-  qual_matches: any;
-  quarters_matches: any;
-  semis_matches: any;
-  finals_matches: any;
+  qualMatches: Match[];
+  quartersMatches: Match[];
+  semisMatches: Match[];
+  finalsMatches: Match[];
 
-  seasons: any;
-  current_season: any;
+  seasons: Season[];
+  currentSeason: Season;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private globaltoa: TheOrangeAllianceGlobals) {
-    this.team_key = this.route.snapshot.params['team_key'];
-    this.current_season = { season_key: '1718', description: 'Relic Recovery' };
-    this.qual_matches = [];
-    this.quarters_matches = [];
-    this.semis_matches = [];
-    this.finals_matches = [];
-    this.event_sorter = new EventSorter();
-
+  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals) {
+    this.teamKey = this.route.snapshot.params['team_key'];
+    // this.currentSeason = { season_key: '1718', description: 'Relic Recovery' };
+    this.qualMatches = [];
+    this.quartersMatches = [];
+    this.semisMatches = [];
+    this.finalsMatches = [];
+    this.eventSorter = new EventSorter();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.years = [];
-    this.ftc.getTeam(this.team_key).subscribe((data) => {
-      console.log(data);
-      if (!data[0][0]) {
+    this.ftc.getTeam(this.teamKey, "1718").then((data: Team) => {
+      if (!data) {
         this.router.navigate(['/not-found']);
       } else {
-        this.team = data[0][0];
-        this.team.events = data[1];
-        this.team.rankings = data[2];
-        this.team.awards = data[3];
-        for (let i = this.team.rookie_year; i <= new Date().getFullYear(); i++) {
+        this.team = data;
+        for (let i = this.team.rookieYear; i <= new Date().getFullYear(); i++) {
           this.years.push(i);
         }
         this.years.reverse();
-        this.getEventMatches();
-
-        if (this.team.rookie_year) {
-          this.ftc.getAllSeasons().subscribe((data) => {
+        if (this.team.rookieYear) {
+          this.ftc.getAllSeasons().then((data: Season[]) => {
             this.seasons = this.getTeamSeasons(data).reverse();
-          }, (err) => {
-            console.log(err);
+            this.selectSeason(this.seasons[0]);
           });
         }
-
-        this.globaltoa.setTitle(this.team.team_name_short + ' (' + this.team.team_key + ')');
+        this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamKey + ')');
       }
-    }, (err) => {
-      console.log(err);
     });
-
   }
 
-  getTeamSeasons(season_data: any) {
-    const year_code = parseInt((this.team.rookie_year + '').toString().substring(2, 4));
+  public getTeamSeasons(seasons: Season[]) {
+    const year_code = parseInt((this.team.rookieYear + '').toString().substring(2, 4));
     const second_code = year_code + 1;
     let rookie_season_id = '';
     if (year_code < 10) {
@@ -87,102 +79,68 @@ export class TeamComponent implements OnInit {
     } else {
       rookie_season_id += '' + second_code;
     }
-    for (let i = 0; i < season_data.length; i++) {
-      if (rookie_season_id === season_data[i].season_key) {
-        return season_data.splice(i, season_data.length - 1);
+    for (let i = 0; i < seasons.length; i++) {
+      if (rookie_season_id === seasons[i].seasonKey) {
+        return seasons.splice(i, seasons.length - 1);
       }
     }
   }
 
-  selectSeason(season: any) {
-    this.current_season = season;
+  public selectSeason(season: any) {
+    this.currentSeason = season;
     this.team.events = [];
-    this.ftc.getTeamEvents(this.team_key, this.convertSeason(this.current_season)).subscribe((data) => {
+    this.ftc.getTeamEvents(this.teamKey, this.currentSeason.seasonKey).then((data: Event[]) => {
       this.team.events = data;
       this.getEventMatches();
-    }, (err) => {
-      console.log(err);
+    }).catch(() => {
       this.team.events = [];
     });
   }
 
-  getEventMatches() {
-    this.team.events = this.event_sorter.sortRev(this.team.events, 0, this.team.events.length - 1);
-
+  private getEventMatches() {
+    this.team.events = this.eventSorter.sortRev(this.team.events, 0, this.team.events.length - 1);
     for (const event of this.team.events) {
-      this.ftc.getEventMatches(event.event_key, this.convertSeason(this.current_season)).subscribe((data) => {
-        event.match_data = data;
-        event.match_data = this.sortAndFind(event);
-
-        for (const match of event.match_data) {
-          if (match.tournament_level === MatchType.QUALS_MATCH) {
-            this.qual_matches.push(match);
-          }
-          if (match.tournament_level === MatchType.QUARTERS_MATCH_1 ||
-            match.tournament_level === MatchType.QUARTERS_MATCH_2 ||
-            match.tournament_level === MatchType.QUARTERS_MATCH_3 ||
-            match.tournament_level === MatchType.QUARTERS_MATCH_4) {
-            this.quarters_matches.push(match);
-          }
-          if (match.tournament_level === MatchType.SEMIS_MATCH_1 ||
-            match.tournament_level === MatchType.SEMIS_MATCH_2 ) {
-            this.semis_matches.push(match);
-          }
-          if (match.tournament_level === MatchType.FINALS_MATCH) {
-            this.finals_matches.push(match);
-          }
-        }
-
-        event.qual_matches = this.qual_matches;
-        event.quarters_matches = this.quarters_matches;
-        event.semis_matches = this.semis_matches;
-        event.finals_matches = this.finals_matches;
-
-        this.qual_matches = [];
-        this.quarters_matches = [];
-        this.semis_matches = [];
-        this.finals_matches = [];
-
+      this.ftc.getEventMatches(event.eventKey).then((data: Match[]) => {
+        event.matches = data;
+        event.matches = this.sortAndFind(event);
         this.getEventRankings();
         this.getEventAwards();
-      }, (err) => {
-        console.log(err);
       });
     }
   }
 
-  getEventRankings() {
+  private getEventRankings() {
     for (const ranking of this.team.rankings) {
       for (const event of this.team.events) {
-        if (ranking.event_key === event.event_key) {
-          event.ranking = ranking;
+        if (ranking.eventKey === event.eventKey) {
+          event.rankings = [ranking];
         }
       }
     }
   }
 
-  getEventAwards() {
+  private getEventAwards() {
     for (const event of this.team.events) {
       const awards = [];
       for (const award of this.team.awards) {
-        if (event.event_key === award.event_key) {
-          if (award.award_name.substring(0, 7) === 'Inspire') {
+        if (event.eventKey === award.eventKey) {
+          if (award.awardName.substring(0, 7) === 'Inspire') {
             awards.push(award);
           }
         }
       }
 
       for (const award of this.team.awards) {
-        if (event.event_key === award.event_key) {
-          if (award.award_name.substr(-8, 8) === 'Alliance') {
+        if (event.eventKey === award.eventKey) {
+          if (award.awardName.substr(-8, 8) === 'Alliance') {
             awards.push(award);
           }
         }
       }
 
       for (const award of this.team.awards) {
-        if (event.event_key === award.event_key) {
-          if ((award.award_name.substring(0, 7) !== 'Inspire') && (award.award_name.substr(-8, 8) !== 'Alliance')) {
+        if (event.eventKey === award.eventKey) {
+          if ((award.awardName.substring(0, 7) !== 'Inspire') && (award.awardName.substr(-8, 8) !== 'Alliance')) {
             awards.push(award);
           }
         }
@@ -192,103 +150,19 @@ export class TeamComponent implements OnInit {
     }
   }
 
-  sortAndFind(event_data: any) {
-    let team_matches = [];
-    for (const match of event_data.match_data) {
-      for (const team of match.teams.split(',')) {
-        if (team === this.team_key) {
-          team_matches.push(match);
+  private sortAndFind(event: Event): Match[] {
+    let teamMatches = [];
+    for (const match of event.matches) {
+      for (const team of match.participants) {
+        if (team.teamKey === this.teamKey) {
+          teamMatches.push(match);
         }
       }
     }
 
     const sorter = new MatchSorter();
-    team_matches = sorter.sort(team_matches, 0, team_matches.length - 1);
-    return team_matches;
-  }
-
-  convertSeason(season: any) {
-    return season.season_key;
-  }
-
-  getStation(match_data, station: number): string {
-    const teams = match_data.teams.toString().split(',');
-    const stations = match_data.station_status.toString().split(',');
-    if (stations[station] === '4') {
-      return '';
-    } else if (stations[station] === '0') {
-      return teams[station] + '*';
-    } else {
-      return teams[station];
-    }
-  }
-
-  getStationTeam(match_data, station: number): string {
-    const teams = match_data.teams.toString().split(',');
-    const stations = match_data.station_status.toString().split(',');
-
-    return teams[station];
-  }
-
-  getStationLength(match_data): number {
-    return match_data.teams.toString().split(',').length;
-  }
-
-  getTeamResult(match, team: number): string {
-    // return team.toString();
-    if (match.red_score != null) { // match score exists
-      if (match.red_score === match.blue_score) {
-        return 'T';
-      }
-      if (match.red_score > match.blue_score) {
-        if (this.getStationLength(match) === 6) {
-          if ((team.toString() === this.getStationTeam(match, 0))
-            || (team.toString() === this.getStationTeam(match, 1))
-            || (team.toString() === this.getStationTeam(match, 2))) {
-            return 'W';
-          } else {
-            return 'L';
-          }
-        } else {
-          if ((team.toString() === this.getStationTeam(match, 0))
-            || (team.toString() === this.getStationTeam(match, 1))) {
-            return 'W';
-          } else {
-            return 'L';
-          }
-        }
-      } else {
-        if (this.getStationLength(match) === 6) {
-          if ((team.toString() === this.getStationTeam(match, 0))
-            || (team.toString() === this.getStationTeam(match, 1))
-            || (team.toString() === this.getStationTeam(match, 2))) {
-            return 'L';
-          } else {
-            return 'W';
-          }
-        } else {
-          if ((team.toString() === this.getStationTeam(match, 0))
-            || (team.toString() === this.getStationTeam(match, 1))) {
-            return 'L';
-          } else {
-            return 'W';
-          }
-        }
-      }
-    } else {
-      return ' '; // no match score yet
-    }
-  }
-  getStationHref(match_data, station: number): string {
-    const teams = match_data.teams.toString().split(',');
-    const stations = match_data.station_status.toString().split(',');
-    return teams[station];
-  }
-
-
-
-  isCurrentTeam(match_data, station: number): boolean {
-    return match_data.teams.toString().split(',')[station] === this.team_key;
+    teamMatches = sorter.sort(teamMatches, 0, teamMatches.length - 1);
+    return teamMatches;
   }
 
   openTeamPage(team_number: any) {

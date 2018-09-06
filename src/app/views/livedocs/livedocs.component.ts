@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import {TheOrangeAllianceGlobals} from '../../app.globals';
 
 @Component({
@@ -9,7 +8,7 @@ import {TheOrangeAllianceGlobals} from '../../app.globals';
 })
 export class LiveDocsComponent {
 
-  constructor(private router: Router, private globaltoa: TheOrangeAllianceGlobals) {
-    this.globaltoa.setTitle('DataSync');
+  constructor(private app: TheOrangeAllianceGlobals) {
+    this.app.setTitle('DataSync');
   }
 }

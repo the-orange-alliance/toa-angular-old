@@ -5,15 +5,15 @@
     <div *ngFor="let stream of streams" class="col-md-4 col-sm-12 p-3">
       <mdc-card class="stream-card">
         <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" *ngIf="stream.safe_url" [src]="stream.safe_url" allowfullscreen></iframe>
+          <iframe class="embed-responsive-item" *ngIf="stream.safeURL" [src]="stream.safeURL" allowfullscreen></iframe>
         </div>
         <div class="stream-card__primary">
-          <h2 class="stream-card__title" mdcHeadline6>{{ stream.event_key }}</h2>
+          <h2 class="stream-card__title" mdcHeadline6>{{ stream.eventKey }}</h2>
         </div>
         <mdc-card-actions>
           <mdc-card-action-icons>
-            <a (click)="openEvent(stream.stream_key)" class="mr-2"><mat-icon svgIcon="information-outline"></mat-icon></a>
-            <a *ngIf="stream.full_url" [href]="stream.full_url" target="_blank" style="color: currentColor"><mat-icon svgIcon="open-in-new"></mat-icon></a>
+            <a (click)="openEvent(stream.eventKey)" class="mr-2"><mat-icon svgIcon="information-outline"></mat-icon></a>
+            <a *ngIf="stream.streamURL" [href]="stream.streamURL" target="_blank" style="color: currentColor"><mat-icon svgIcon="open-in-new"></mat-icon></a>
           </mdc-card-action-icons>
         </mdc-card-actions>
       </mdc-card>

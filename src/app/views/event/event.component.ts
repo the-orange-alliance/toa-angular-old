@@ -4,6 +4,10 @@ import { FTCDatabase } from '../../providers/ftc-database';
 import { EventParser } from '../../util/event-utils';
 import { MatchSorter, MatchType } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
+import Event from '../../models/Event';
+import EventType from '../../models/EventType';
+import Season from '../../models/Season';
+import Region from '../../models/Region';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -21,7 +25,7 @@ export class EventComponent implements OnInit {
   event_types: any;
 
   event_key: string;
-  event: any;
+  event: Event;
   event_type_name: string;
   event_season_name: string;
   totalteams: any;
@@ -30,30 +34,22 @@ export class EventComponent implements OnInit {
   totalawards: any;
   view_type: string;
 
-
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private globaltoa: TheOrangeAllianceGlobals) {
     this.event_key = this.route.snapshot.params['event_key'];
-    this.event = [];
   }
 
   ngOnInit() {
     if (this.event_key) {
-      this.ftc.getEvent(this.event_key).subscribe((data) => {
+      this.ftc.getEvent(this.event_key).then((data: Event) => {
 
-        if (data[0].length !== 0) {
-          this.event = data[0][0];
-          this.event.matches = data[1];
-          this.event.matches.stations = data[2];
-          this.event.alliances = data[3];
-          this.event.rankings = data[4];
-          this.event.awards = data[5];
-          this.event.teams = data[6];
+        if (data != null) {
+          this.event = data;
 
-          this.globaltoa.setTitle(this.event.event_name);
+          this.globaltoa.setTitle(this.event.eventName);
 
-          if (this.event.rankings.length > 0) {
+          if (this.event.rankings && this.event.rankings.length > 0) {
             this.select('rankings');
-          } else if (this.event.matches.length > 0) {
+          } else if (this.event.matches && this.event.matches.length > 0) {
             this.select('matches')
           } else {
             this.select('teams');
@@ -70,9 +66,9 @@ export class EventComponent implements OnInit {
           this.totalrankings = this.event.rankings.length;
           this.totalawards = this.event.awards.length;
 
-          this.ftc.getEventTypes().subscribe((types) => {
+          this.ftc.getEventTypes().then((types: EventType[]) => {
             this.event_types = types;
-            const typeObj = this.event_types.filter(obj => obj.event_type_key === this.event.event_type_key);
+            const typeObj = this.event_types.filter(obj => obj.eventTypeKey === this.event.eventTypeKey);
             if (typeObj && typeObj[0] && typeObj[0].description) {
               this.event_type_name = typeObj[0].description;
             }
@@ -80,10 +76,10 @@ export class EventComponent implements OnInit {
             console.log(err);
           });
 
-          this.ftc.getAllSeasons().subscribe( (seasons) => {
+          this.ftc.getAllSeasons().then((seasons: Season[]) => {
             this.seasons = seasons;
-            const seasonObj = this.seasons.filter(obj => obj.season_key === this.event.season_key);
-            if (seasonObj && seasonObj[0] && seasonObj[0].description) {
+            const seasonObj = this.seasons.filter(obj => obj.seasonKey === this.event.seasonKey);
+            if (seasonObj && seasonObj.length === 1 && seasonObj[0] && seasonObj[0].description) {
               this.event_season_name = seasonObj[0].description;
             }
           }, (err) => {
@@ -97,7 +93,7 @@ export class EventComponent implements OnInit {
         console.log(err);
       });
 
-      this.ftc.getAllRegions().subscribe( (data) => {
+      this.ftc.getAllRegions().then((data: Region[]) => {
         this.regions = data;
       }, (err) => {
         console.log(err);
@@ -115,7 +111,7 @@ export class EventComponent implements OnInit {
   }
 
   fixCountry(country) {
-    const region = this.regions.filter(obj => obj.region_key === country);
+    const region = this.regions.filter(obj => obj.regionKey === country);
 
     if (region[0] && country.toUpperCase() !== 'USA') {
       return region[0].description

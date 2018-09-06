@@ -8,23 +8,23 @@
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3 row">
 
-        <div *ngIf="current_season" class="col-md-4 col-xs-12 filter-row dropdown">
-          <div class="filter-info">Region: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          {{ getSeason(current_season)}}
+        <div *ngIf="currentSeason" class="col-md-4 col-xs-12 filter-row dropdown">
+          <div class="filter-info">Season: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          20{{ currentSeason.seasonKey.substring(2, 4) }} - {{ currentSeason.description }}
           <span class="caret"></span>
         </button>
           <ul class="dropdown-menu" aria-labelledby="ftc_season">
-            <mdc-menu-item *ngFor="let season of seasons" (click)="selectSeason(season)">{{ getSeason(season) }}</mdc-menu-item>
+            <mdc-menu-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-menu-item>
           </ul>
         </div>
 
-        <div *ngIf="current_region" class="col-md-4 col-xs-12 filter-row dropdown">
+        <div *ngIf="currentRegion" class="col-md-4 col-xs-12 filter-row dropdown">
           <div class="filter-info">Region: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          {{ current_region.description ? current_region.region_key + " - " + current_region.description :  current_region.region_key}}
+          {{ currentRegion.description ? currentRegion.regionKey + " - " + currentRegion.description :  currentRegion.regionKey}}
           <span class="caret"></span>
         </button>
           <ul class="dropdown-menu" aria-labelledby="ftc_district">
-            <mdc-menu-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.region_key + " - " + region.description :  region.region_key }}</mdc-menu-item>
+            <mdc-menu-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.regionKey + " - " + region.description :  region.regionKey }}</mdc-menu-item>
           </ul>
         </div>
 
@@ -50,91 +50,27 @@
   </div>
 </div>
 
-<!--
-<mdc-card class="toa-card">
-  <div class="toa-card-header pb-0" mdcSubtitle2>Filter Options</div>
-  <mdc-list-divider></mdc-list-divider>
-  <div class="row">
-    <div class="col-xs-4">
-      <span>Year: </span>
-    </div>
-    <div *ngIf="seasons" class="dropdown col-xs-8">
-      <mdc-select #season_select placeholder="Simple Select" (change)="selectSeason(season_select.value)">
-        <option *ngFor="let season of seasons; let i = index" [value]="season" [selected]="i == seasons.length-1">{{ getSeason(season) }}</option>
-      </mdc-select>
-&lt;!&ndash;
-      <mdc-select #select placeholder="Favorite food" ngModel #demoSelectModel="ngModel" name="food" (change)="onChange($event)"
-                  (selectionChange)="onSelectionChange($event)">
-        <option *ngFor="let food of foods" [value]="food.value" [disabled]="food.disabled">
-          {{food.description}}
-        </option>
-      </mdc-select>
-&ndash;&gt;
-
-      <button class="btn btn-default dropdown-toggle" type="button" id="ftc_year" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        {{ getSeason(current_season) }}
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="ftc_year">
-        <li *ngFor="let season of seasons"><a (click)="selectSeason(season)" >{{ getSeason(season) }}</a></li>
-      </ul>
-    </div>
-
-    <div class="col-xs-4">
-      <span>Region: </span>
-    </div>
-    <div *ngIf="regions" class="dropdown col-xs-8">
-      <button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        {{ current_region.region_key }} <span *ngIf="current_region.description">- {{ current_region.description}}</span>
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="ftc_district">
-        <li *ngFor="let region of regions"><a (click)="selectRegion(region)">{{ region.region_key }} <span *ngIf="region.description">- {{ region.description }}</span></a></li>
-      </ul>
-    </div>
-  </div>
-
-</mdc-card>
--->
-
-<div class="mt-5 row" *ngIf="weeks && weeks.length > 0">
+<div class="mt-5 row" *ngIf="availableWeeks && availableWeeks.length > 0">
   <div class="col-12">
     <mdc-card class="toa-card">
       <mdc-tab-bar #tabbar class="w-100">
         <mdc-tab-scroller>
-          <mdc-tab *ngFor="let week of weeks; let i = index" [label]="getWeekName(week.week)" (click)="select(i)"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ getEventsByWeek(week).length }}</span></mdc-tab>
+          <mdc-tab *ngFor="let week of availableWeeks; let i = index" [label]="getWeekName(week.weekKey)" (click)="select(i)">
+            <span class="ml-1 badge badge-pill badge-primary bg-primary">{{ getEventsByWeek(week).length }}</span>
+          </mdc-tab>
         </mdc-tab-scroller>
       </mdc-tab-bar>
       <div class="mt-4">
-        <div *ngFor="let week of weeks; let i = index">
+        <div *ngFor="let week of availableWeeks; let i = index">
           <div *ngIf="isSelected(i)">
             <div class="pt-t pl-3">
-              <h1 mdcHeadline6>{{ getWeekName(week.week) }}<h1 mdcSubtitle1>{{ week.start_date | date :  "mediumDate"}} - {{ week.end_date | date :  "mediumDate" }}</h1></h1>
+              <h1 mdcHeadline6>{{ getWeekName(week.weekKey) }}<h1 mdcSubtitle1>{{ week.startDate | date :  "mediumDate"}} - {{ week.endDate | date :  "mediumDate" }}</h1></h1>
             </div>
 
             <mdc-list-divider></mdc-list-divider>
 
             <mdc-list [lines]="2">
-              <div *ngFor="let event of getEventsByWeek(week)" class="no-underline">
-
-                <a href="/events/{{ event.event_key }}">
-                  <mdc-list-item interactive *ngIf="event.start_date == event.end_date">
-                    <mdc-list-item-text>
-                      <span class="black">{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
-                      <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} on {{ event.start_date | date :  "mediumDate"}}</span>
-                    </mdc-list-item-text>
-                  </mdc-list-item>
-                </a>
-
-                <a href="/events/{{ event.event_key }}">
-                  <mdc-list-item interactive *ngIf="event.start_date != event.end_date">
-                    <mdc-list-item-text>
-                      <span class="black">{{ event.division_name ? event.event_name + ' - ' +  event.division_name + ' Division' : event.event_name }}</span>
-                      <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.state_prov != null ? event.state_prov + ', ' : '' }} {{ event.country }} from {{ event.start_date | date :  "mediumDate"}} to {{ event.end_date | date :  "mediumDate"}}</span>
-                    </mdc-list-item-text>
-                  </mdc-list-item>
-                </a>
-              </div>
+              <toa-event-item *ngFor="let event of getEventsByWeek(week)" [event]="event"></toa-event-item>
             </mdc-list>
           </div>
         </div>
