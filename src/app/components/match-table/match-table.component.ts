@@ -13,19 +13,22 @@ export class MatchTableComponent {
   @Input() team?: Team;
 
   public getMatchResultString(match: Match): string {
-    let teamStation: number = 0;
+    let teamStation = 0;
     for (const participant of match.participants) {
-      if (participant.teamKey === this.team.teamKey) {
-        teamStation = participant.station; 
+      // Again, don't know why === isn't working, it's probably a type error?
+      if (participant.teamKey == this.team.teamKey) {
+        teamStation = participant.station;
         break;
       }
     }
     if (teamStation < 20 && match.redScore > match.blueScore) {
-      return "W";
-    } else if (match.redScore === match.blueScore) {
-      return "T";
+      return 'W';
+    } else if (match.redScore == match.blueScore) {
+      return 'T';
+    } else if (teamStation > 20 && match.redScore < match.blueScore) {
+      return 'W';
     } else {
-      return "L";
+      return 'L';
     }
   }
 

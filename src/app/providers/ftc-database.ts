@@ -162,7 +162,6 @@ export class FTCDatabase {
       const promises: Promise<any>[] = [];
       promises.push(this.request('/event/' + eventKey));
       promises.push(this.request('/event/' + eventKey + '/matches'));
-      promises.push(this.request('/event/' + eventKey + '/matches/participants'));
       promises.push(this.request('/event/' + eventKey + '/rankings'));
       promises.push(this.request('/event/' + eventKey + '/awards'));
       promises.push(this.request('/event/' + eventKey + '/teams'));
@@ -170,10 +169,9 @@ export class FTCDatabase {
         if (data[0]) {
           const event: Event = new Event().fromJSON(data[0][0]);
           event.matches = data[1].map((matchJSON: any) => new Match().fromJSON(matchJSON));
-          // TODO - Implement participants.
-          event.rankings = data[3].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
-          event.awards = data[4].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
-          event.teams = data[5].map((teamJSON: any) => new EventParticipant().fromJSON(teamJSON));
+          event.rankings = data[2].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
+          event.awards = data[3].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
+          event.teams = data[4].map((teamJSON: any) => new EventParticipant().fromJSON(teamJSON));
           resolve(event);
         } else {
           resolve(null);
