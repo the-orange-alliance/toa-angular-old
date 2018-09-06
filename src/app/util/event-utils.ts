@@ -1,4 +1,4 @@
-import Event from "../models/Event";
+import Event from '../models/Event';
 
 /**
  * Created by Kyle Flynn on 7/21/2017.
@@ -97,7 +97,6 @@ export class EventFilter {
   }
 
   public getFilteredArray() {
-    console.log(this.eventsFiltered);
     return this.eventsFiltered;
   }
 
@@ -127,7 +126,7 @@ export class EventSorter {
 
     for (let i = left; i < right; i++) {
       // -1 means items[i] < pivotValue, 1 means items[i] > pivotValue
-      if (new Date(items[i].startDate) < new Date(pivotValue.startDate) || pivotValue.divisionKey === "0") {
+      if (new Date(items[i].startDate) < new Date(pivotValue.startDate) || pivotValue.divisionKey === '0') {
         this.swap(items, i, partitionIndex);
         partitionIndex++;
       }

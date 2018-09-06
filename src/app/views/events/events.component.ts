@@ -2,13 +2,13 @@ import {Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { FTCDatabase } from '../../providers/ftc-database';
-import { SeasonParser } from '../../util/season-utils';
-import { EventFilter } from '../../util/event-utils';
+import { EventFilter, EventSorter } from '../../util/event-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import {MdcTabBar} from '@angular-mdc/web';
 import Event from '../../models/Event';
 import Season from '../../models/Season';
 import Region from '../../models/Region';
+import Week from '../../models/Week';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -23,24 +23,28 @@ export class EventsComponent implements OnInit {
   events: Event[];
 
   weekNumber: number;
-  weeks: any[];
+  weeks: Map<string, Week>;
+  availableWeeks: Week[];
 
   currentSeason: Season;
   currentRegion: Region;
 
   eventFilter: EventFilter;
+  eventSorter: EventSorter;
 
   @ViewChild('tabbar') tabbar: MdcTabBar;
 
   constructor(private ftc: FTCDatabase, private router: Router, private app: TheOrangeAllianceGlobals) {
     this.app.setTitle('Events');
+    this.weeks = new Map<string, Week>();
   }
 
   ngOnInit(): void {
     this.ftc.getSeasonEvents('1718').then((data: Event[]) => {
-      this.weeks = [];
       this.events = data;
       this.eventFilter = new EventFilter(this.events);
+      this.eventSorter = new EventSorter();
+      this.events = this.eventSorter.sort(this.events, 0, this.events.length - 1);
       if (this.events.length > 0) {
         this.organizeEventsByWeek();
       }
@@ -51,7 +55,7 @@ export class EventsComponent implements OnInit {
     });
     this.ftc.getAllRegions().then((data: Region[]) => {
       const allRegions: Region = new Region();
-      allRegions.regionKey = "All Regions";
+      allRegions.regionKey = 'All Regions';
       this.regions = data;
       this.regions.push(allRegions);
       this.currentRegion = this.regions[this.regions.length - 1];
@@ -59,18 +63,17 @@ export class EventsComponent implements OnInit {
   }
 
   organizeEventsByWeek(): void {
-    this.weeks = [];
-    let currentWeek = null;
+    this.weeks.clear();
     for (const event of this.events) {
-      if (event.weekKey !== currentWeek) {
-        this.weeks.push({
-          'week': event.weekKey,
-          'startDate': this.getMonday(event.startDate),
-          'endDate': this.getSunday(event.endDate)
+      if (typeof this.weeks.get(event.weekKey) === 'undefined') {
+        this.weeks.set(event.weekKey, {
+          weekKey: event.weekKey,
+          startDate: event.startDate,
+          endDate: event.endDate
         });
-        currentWeek = event.weekKey;
       }
     }
+    this.availableWeeks = Array.from(this.weeks.values());
     this.select(0);
   }
 
@@ -88,10 +91,10 @@ export class EventsComponent implements OnInit {
     return new Date(d.setDate(diff));
   }
 
-  getEventsByWeek(week: any): Event[] {
+  getEventsByWeek(week: Week): Event[] {
     const filteredEvents = [];
     for (const event of this.events) {
-      if (event.weekKey === week.week) {
+      if (event.weekKey === week.weekKey) {
         filteredEvents.push(event);
       }
     }
@@ -105,11 +108,10 @@ export class EventsComponent implements OnInit {
   selectSeason(season: Season) {
     if (this.currentSeason.seasonKey !== season.seasonKey) {
       this.currentSeason = season;
-      console.log(this.currentSeason);
       this.ftc.getSeasonEvents(this.currentSeason.seasonKey).then((data: Event[]) => {
-        this.weeks = [];
         this.events = data;
         this.eventFilter = new EventFilter(this.events);
+        this.events = this.eventSorter.sort(this.events, 0, this.events.length - 1);
         this.currentRegion = this.regions[this.regions.length - 1];
         if (this.events.length > 0) {
           this.organizeEventsByWeek();
@@ -127,7 +129,7 @@ export class EventsComponent implements OnInit {
       } else {
         this.events = this.eventFilter.getOriginalArray();
       }
-      this.organizeEventsByWeek()
+      this.organizeEventsByWeek();
     }
   }
 
@@ -166,7 +168,7 @@ export class EventsComponent implements OnInit {
   }
 
   public select(index) {
-    if (this.weeks && this.weeks.length > index) {
+    if (this.weeks && this.weeks.size > index) {
       if (this.tabbar) {
         this.tabbar.activateTab(index);
       }

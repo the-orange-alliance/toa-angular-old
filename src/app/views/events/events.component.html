@@ -97,19 +97,21 @@
 </mdc-card>
 -->
 
-<div class="mt-5 row" *ngIf="weeks && weeks.length > 0">
+<div class="mt-5 row" *ngIf="availableWeeks && availableWeeks.length > 0">
   <div class="col-12">
     <mdc-card class="toa-card">
       <mdc-tab-bar #tabbar class="w-100">
         <mdc-tab-scroller>
-          <mdc-tab *ngFor="let week of weeks; let i = index" [label]="getWeekName(week.week)" (click)="select(i)"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ getEventsByWeek(week).length }}</span></mdc-tab>
+          <mdc-tab *ngFor="let week of availableWeeks; let i = index" [label]="getWeekName(week.weekKey)" (click)="select(i)">
+            <span class="ml-1 badge badge-pill badge-primary bg-primary">{{ getEventsByWeek(week).length }}</span>
+          </mdc-tab>
         </mdc-tab-scroller>
       </mdc-tab-bar>
       <div class="mt-4">
-        <div *ngFor="let week of weeks; let i = index">
+        <div *ngFor="let week of availableWeeks; let i = index">
           <div *ngIf="isSelected(i)">
             <div class="pt-t pl-3">
-              <h1 mdcHeadline6>{{ getWeekName(week.week) }}<h1 mdcSubtitle1>{{ week.startDate | date :  "mediumDate"}} - {{ week.endDate | date :  "mediumDate" }}</h1></h1>
+              <h1 mdcHeadline6>{{ getWeekName(week.weekKey) }}<h1 mdcSubtitle1>{{ week.startDate | date :  "mediumDate"}} - {{ week.endDate | date :  "mediumDate" }}</h1></h1>
             </div>
 
             <mdc-list-divider></mdc-list-divider>
@@ -127,7 +129,7 @@
                 </a>
 
                 <a href="/events/{{ event.eventKey }}">
-                  <mdc-list-item interactive *ngIf="event.start_date != event.end_date">
+                  <mdc-list-item interactive *ngIf="event.startDate !== event.endDate">
                     <mdc-list-item-text>
                       <span class="black">{{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }}</span>
                       <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.stateProv != null ? event.stateProv + ', ' : '' }} {{ event.country }} from {{ event.startDate | date :  "mediumDate"}} to {{ event.endDate | date :  "mediumDate"}}</span>
