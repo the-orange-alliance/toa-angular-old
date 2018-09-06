@@ -60,7 +60,7 @@ import { MatchTableComponent } from './components/match-table/match-table.compon
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    AppMaterialModule,
+    AppMaterialModule
   ],
   providers: [FTCDatabase],
   bootstrap: [TheOrangeAllianceComponent]

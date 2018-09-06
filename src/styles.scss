@@ -298,6 +298,28 @@ table.match-table tr {
   font-weight: 600;
 }
 
+/* ==========================================================================
+   Virtual Scroll
+   ========================================================================== */
+.virtual-scroll-container {
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: 20px;
+}
+
+.virtual-scroll-filler {
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+
+.virtual-scroll-view {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
 
 /* ==========================================================================
    Search
