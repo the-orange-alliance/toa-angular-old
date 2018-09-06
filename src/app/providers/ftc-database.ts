@@ -29,8 +29,7 @@ export class FTCDatabase {
         'X-TOA-Key': 'lYjKJfe4dpfGm9SRPgsEotVC9morohaABU9hQAkXL8k=',
         'Content-Type': 'application/json'
       });
-      // this.http.get('http://127.0.0.1:8008/api' + url, { headers: authHeader }).subscribe((data: any[]) => {
-      this.http.get('http://theorangealliance.org:8008/api' + url, { headers: authHeader }).subscribe((data: any[]) => {
+      this.http.get('http://127.0.0.1:8008/api' + url, { headers: authHeader }).subscribe((data: any[]) => {
         resolve(data);
       }, (err: any) => {
         reject(err);
@@ -252,5 +251,4 @@ export class FTCDatabase {
       }).catch((err: any) => reject(err));
     });
   }
-
 }
