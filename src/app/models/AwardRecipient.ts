@@ -1,4 +1,4 @@
-import Award from "./Award";
+import Award from './Award';
 
 export default class AwardRecipient implements ISerializable {
   private _awardsKey: string;
@@ -11,12 +11,12 @@ export default class AwardRecipient implements ISerializable {
   private _award: Award;
 
   constructor() {
-    this._awardsKey = "";
-    this._eventKey = "";
-    this._awardKey = "";
+    this._awardsKey = '';
+    this._eventKey = '';
+    this._awardKey = '';
     this._teamKey = 0;
-    this._receiverName = "";
-    this._awardName = "";
+    this._receiverName = '';
+    this._awardName = '';
     this._award = new Award();
   }
 
@@ -40,6 +40,7 @@ export default class AwardRecipient implements ISerializable {
     award.teamKey = json.team_key;
     award.receiverName = json.receiver_name;
     award.awardName = json.award_name;
+    award.award = new Award().fromJSON(json.award);
     return award;
   }
 

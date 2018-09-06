@@ -43,25 +43,7 @@
           </div>
 
           <mdc-list [lines]="2" *ngIf="currentEvents.length > 0">
-            <div *ngFor="let event of currentEvents" class="no-underline">
-
-              <a href="/events/{{ event.eventKey }}">
-                <mdc-list-item interactive class="pl-4" *ngIf="event.startDate == event.endDate">
-                  <mdc-list-item-text>
-                    <span class="black">{{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }}</span>
-                    <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.StateProv != null ? event.stateProv + ', ' : '' }} {{ event.country }} on {{ event.startDate | date :  "mediumDate"}}</span>
-                  </mdc-list-item-text>
-                </mdc-list-item>
-
-                <mdc-list-item interactive class="pl-4" *ngIf="event.startDate != event.endDate">
-                  <mdc-list-item-text>
-                    <span class="black">{{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }}</span>
-                    <span class="mdc-list-item__secondary-text">{{ event.city }}, {{ event.stateProv != null ? event.stateProv + ', ' : '' }} {{ event.country }} from {{ event.startDate | date :  "mediumDate"}} to {{ event.endDate | date :  "mediumDate"}}</span>
-                  </mdc-list-item-text>
-                </mdc-list-item>
-              </a>
-
-            </div>
+            <toa-event-item *ngFor="let event of currentEvents" [event]="event"></toa-event-item>
           </mdc-list>
         </mdc-card>
       </div>

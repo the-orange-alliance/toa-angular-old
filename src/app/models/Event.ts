@@ -1,7 +1,7 @@
-import Match from "./Match";
-import Ranking from "./Ranking";
-import AwardRecipient from "./AwardRecipient";
-import EventParticipant from "./EventParticipant";
+import Match from './Match';
+import Ranking from './Ranking';
+import AwardRecipient from './AwardRecipient';
+import EventParticipant from './EventParticipant';
 
 export default class Event implements ISerializable {
   private _eventKey: string;
@@ -38,32 +38,32 @@ export default class Event implements ISerializable {
   private _teams: EventParticipant[];
 
   constructor() {
-    this._eventKey = "";
-    this._seasonKey = "";
-    this._regionKey = "";
-    this._leagueKey = "";
-    this._eventCode = "";
-    this._eventTypeKey = "";
+    this._eventKey = '';
+    this._seasonKey = '';
+    this._regionKey = '';
+    this._leagueKey = '';
+    this._eventCode = '';
+    this._eventTypeKey = '';
     this._eventRegionNumber = 0;
-    this._divisionKey = "";
-    this._divisionName = "";
-    this._eventName = "";
-    this._startDate = "";
-    this._endDate = "";
-    this._weekKey = "";
-    this._city = "";
-    this._stateProv = "";
-    this._country = "";
-    this._venue = "";
-    this._website = "";
-    this._timeZone = "";
+    this._divisionKey = '';
+    this._divisionName = '';
+    this._eventName = '';
+    this._startDate = '';
+    this._endDate = '';
+    this._weekKey = '';
+    this._city = '';
+    this._stateProv = '';
+    this._country = '';
+    this._venue = '';
+    this._website = '';
+    this._timeZone = '';
     this._isActive = false;
     this._isPublic = false;
-    this._activeTournamentLevel = "";
+    this._activeTournamentLevel = '';
     this._allianceCount = 0;
     this._fieldCount = 0;
     this._advanceSpots = 0;
-    this._advanceEvent = "";
+    this._advanceEvent = '';
 
     this._matches = [];
     this._rankings = [];

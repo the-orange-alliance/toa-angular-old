@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { forkJoin } from 'rxjs';
 import WebAnnouncement from '../models/WebAnnouncement';
-import { resolve } from 'url';
-import { reject } from 'q';
 import Season from '../models/Season';
 import Region from '../models/Region';
 import League from '../models/League';
@@ -163,20 +160,24 @@ export class FTCDatabase {
   public getEvent(eventKey: string): Promise<Event> {
     return new Promise<Event>((resolve, reject) => {
       const promises: Promise<any>[] = [];
-      promises.push(this.request('/event/' + event));
-      promises.push(this.request('/event/' + event + '/matches'));
-      promises.push(this.request('/event/' + event + '/matches/participants'));
-      promises.push(this.request('/event/' + event + '/rankings'));
-      promises.push(this.request('/event/' + event + '/awards'));
-      promises.push(this.request('/event/' + event + '/teams'));
+      promises.push(this.request('/event/' + eventKey));
+      promises.push(this.request('/event/' + eventKey + '/matches'));
+      promises.push(this.request('/event/' + eventKey + '/matches/participants'));
+      promises.push(this.request('/event/' + eventKey + '/rankings'));
+      promises.push(this.request('/event/' + eventKey + '/awards'));
+      promises.push(this.request('/event/' + eventKey + '/teams'));
       Promise.all(promises).then((data: any[]) => {
-        const event: Event = new Event().fromJSON(data[0]);
-        event.matches = data[1].map((matchJSON: any) => new Match().fromJSON(matchJSON));
-        // TODO - Implement participants.
-        event.rankings = data[3].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
-        event.awards = data[4].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
-        event.teams = data[5].map((teamJSON: any) => new EventParticipant().fromJSON(teamJSON));
-        resolve(event);
+        if (data[0]) {
+          const event: Event = new Event().fromJSON(data[0][0]);
+          event.matches = data[1].map((matchJSON: any) => new Match().fromJSON(matchJSON));
+          // TODO - Implement participants.
+          event.rankings = data[3].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
+          event.awards = data[4].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
+          event.teams = data[5].map((teamJSON: any) => new EventParticipant().fromJSON(teamJSON));
+          resolve(event);
+        } else {
+          resolve(null);
+        }
       }).catch((error: any) => reject(error));
     });
   }
@@ -250,5 +251,4 @@ export class FTCDatabase {
       }).catch((err: any) => reject(err));
     });
   }
-
 }

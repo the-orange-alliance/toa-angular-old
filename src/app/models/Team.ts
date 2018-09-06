@@ -1,6 +1,6 @@
-import Ranking from "./Ranking";
-import AwardRecipient from "./AwardRecipient";
-import Event from "./Event";
+import Ranking from './Ranking';
+import AwardRecipient from './AwardRecipient';
+import Event from './Event';
 
 export default class Team implements ISerializable {
   private _teamKey: number;
@@ -23,18 +23,18 @@ export default class Team implements ISerializable {
 
   constructor() {
     this._teamKey = 0;
-    this._regionKey = "";
-    this._leagueKey = "";
+    this._regionKey = '';
+    this._leagueKey = '';
     this._teamNumber = 0;
-    this._teamNameShort = "";
-    this._teamNameLong = "";
-    this._robotName = "";
-    this._city = "";
-    this._stateProv = "";
+    this._teamNameShort = '';
+    this._teamNameLong = '';
+    this._robotName = '';
+    this._city = '';
+    this._stateProv = '';
     this._zipCode = 0;
-    this._country = "";
+    this._country = '';
     this._rookieYear = 0;
-    this._website = "";
+    this._website = '';
 
     this._events = [];
     this._rankings = [];

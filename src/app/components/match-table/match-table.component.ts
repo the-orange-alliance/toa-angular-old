@@ -30,7 +30,7 @@ export class MatchTableComponent {
   }
 
   public getParticipantString(match: Match, index: number): string {
-    return match.participants[index].teamKey.toString() + (match.participants[index].stationStatus === 0 ?  + "*" : "");
+    return match.participants[index].teamKey.toString() + (match.participants[index].stationStatus === 0 ?  + '*' : '');
   }
 
   public isSelectedTeam(match: Match, index: number): boolean {

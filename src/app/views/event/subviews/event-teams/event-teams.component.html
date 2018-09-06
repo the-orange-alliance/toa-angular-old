@@ -1,19 +1,8 @@
 <div class="col-12">
   <mdc-list-group>
     <mdc-list>
-      <div *ngFor="let team of event.teams" class="no-underline">
-        <a href="/teams/{{ team.team_key }}">
-          <mdc-list-item class="item-team" (click)="openTeam(team.team_number)">
-            <img *ngIf="team.logo_url" class="rounded-circle" [src]="team.logo_url" />
-            <img *ngIf="!team.logo_url" class="rounded-circle" src="../../../../../assets/imgs/hashtag.png" />
-            <div>
-              <mdc-list-item-text>
-                <span class="black">#{{ team.team_number }} - {{ team.team_name_short }}</span>
-                <span class="mdc-list-item__secondary-text">{{ team.city }}, {{ team.state_prov ? team.state_prov + ', ' : '' }}{{ team.country }}</span>
-              </mdc-list-item-text>
-            </div>
-          </mdc-list-item>
-        </a>
+      <div *ngFor="let team of teams">
+        <toa-team-item [team]="team.team"></toa-team-item>
       </div>
     </mdc-list>
   </mdc-list-group>

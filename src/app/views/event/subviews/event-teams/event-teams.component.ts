@@ -10,7 +10,7 @@ import { TeamSorter } from '../../../../util/team-utils';
 })
 export class EventTeamsComponent implements OnInit {
 
-  @Input() event: any;
+  @Input() teams: any;
 
   team_sorter: TeamSorter;
 
@@ -19,8 +19,8 @@ export class EventTeamsComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.event.teams) {
-      this.event.teams = this.team_sorter.sort(this.event.teams, 0, this.event.teams.length - 1);
+    if (this.teams) {
+      this.teams = this.team_sorter.sort(this.teams, 0, this.teams.length - 1);
     }
   }
 

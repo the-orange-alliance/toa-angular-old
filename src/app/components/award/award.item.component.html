@@ -1,0 +1,12 @@
+<a href="/teams/{{ award.teamKey }}" class="no-underline">
+  <mdc-list-item class="item-team">
+    <img *ngIf="award.awardKey.startsWith('WIN') && award.awardKey.length == 4" class="rounded-circle" src="../../../assets/imgs/trophy.png" />
+    <img *ngIf="!(award.awardKey.startsWith('WIN') && award.awardKey.length == 4)" class="rounded-circle" src="../../../assets/imgs/trophy_star.png" />
+    <div>
+      <mdc-list-item-text>
+        <span class="black">#{{ award.teamKey }} {{ award.award.awardDescription ? '- ' + award.awardName : '' }}</span>
+        <span class="mdc-list-item__secondary-text">{{ award.award.awardDescription ? award.award.awardDescription : award.awardName }}</span>
+      </mdc-list-item-text>
+    </div>
+  </mdc-list-item>
+</a>

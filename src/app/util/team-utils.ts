@@ -105,7 +105,7 @@ export class TeamSorter {
 
     for (let i = left; i < right; i++) {
       // -1 means items[i] < pivotValue, 1 means items[i] > pivotValue
-      if (items[i].team_number < pivotValue.team_number) {
+      if (items[i].teamNumber < pivotValue.teamNumber) {
         this.swap(items, i, partitionIndex);
         partitionIndex++;
       }

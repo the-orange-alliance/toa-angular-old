@@ -75,14 +75,16 @@ export class EventFilter {
         const event_state_prov = (event.stateProv + '' || 'null').toLowerCase();
         const event_country = (event.country + '' || 'null').toLowerCase();
         const event_name = (event.eventName || 'null').toLowerCase();
+        const event_key = (event.eventKey || 'null').toLowerCase();
 
         const contains_region = (event_region.indexOf(query) > -1);
         const contains_city = (event_city.indexOf(query) > -1);
         const contains_state_prov = (event_state_prov.indexOf(query) > -1);
         const contains_country = (event_country.indexOf(query) > -1);
         const contains_name = (event_name.indexOf(query) > -1);
+        const some_key = event_key === query;
 
-        return contains_region || contains_city || contains_state_prov || contains_country || contains_name;
+        return contains_region || contains_city || contains_state_prov || contains_country || contains_name || some_key;
       });
     } else {
       this.eventsFiltered = this.events;

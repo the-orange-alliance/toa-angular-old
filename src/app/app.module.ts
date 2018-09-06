@@ -30,6 +30,11 @@ import { RelicRecoveryComponent } from './views/matches/years/1718/1718-relic-re
 import { AppMaterialModule } from './material.module';
 import { MatchTableComponent } from './components/match-table/match-table.component';
 
+import { MatchTableComponent } from './components/match-table/match-table.component';
+import { EventItemComponent } from './components/event/event.item.component';
+import { TeamItemComponent } from './components/team/team.item.component';
+import { AwardItemComponent } from './components/award/award.item.component';
+
 @NgModule({
   declarations: [
     TheOrangeAllianceComponent,
@@ -53,7 +58,10 @@ import { MatchTableComponent } from './components/match-table/match-table.compon
     MatchesComponent,
     VelocityVortexComponent,
     RelicRecoveryComponent,
-    MatchTableComponent
+    MatchTableComponent,
+    EventItemComponent,
+    TeamItemComponent,
+    AwardItemComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'the-orange-alliance'}),

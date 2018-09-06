@@ -25,7 +25,7 @@ export class EventComponent implements OnInit {
   event_types: any;
 
   event_key: string;
-  event: any;
+  event: Event;
   event_type_name: string;
   event_season_name: string;
   totalteams: any;
@@ -36,27 +36,20 @@ export class EventComponent implements OnInit {
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private globaltoa: TheOrangeAllianceGlobals) {
     this.event_key = this.route.snapshot.params['event_key'];
-    this.event = [];
   }
 
   ngOnInit() {
     if (this.event_key) {
       this.ftc.getEvent(this.event_key).then((data: Event) => {
 
-        if (data[0].length !== 0) {
-          this.event = data[0][0];
-          this.event.matches = data[1];
-          this.event.matches.stations = data[2];
-          this.event.alliances = data[3];
-          this.event.rankings = data[4];
-          this.event.awards = data[5];
-          this.event.teams = data[6];
+        if (data != null) {
+          this.event = data;
 
-          this.globaltoa.setTitle(this.event.event_name);
+          this.globaltoa.setTitle(this.event.eventName);
 
-          if (this.event.rankings.length > 0) {
+          if (this.event.rankings && this.event.rankings.length > 0) {
             this.select('rankings');
-          } else if (this.event.matches.length > 0) {
+          } else if (this.event.matches && this.event.matches.length > 0) {
             this.select('matches')
           } else {
             this.select('teams');
@@ -75,7 +68,7 @@ export class EventComponent implements OnInit {
 
           this.ftc.getEventTypes().then((types: EventType[]) => {
             this.event_types = types;
-            const typeObj = this.event_types.filter(obj => obj.event_type_key === this.event.event_type_key);
+            const typeObj = this.event_types.filter(obj => obj.eventTypeKey === this.event.eventTypeKey);
             if (typeObj && typeObj[0] && typeObj[0].description) {
               this.event_type_name = typeObj[0].description;
             }
@@ -85,8 +78,8 @@ export class EventComponent implements OnInit {
 
           this.ftc.getAllSeasons().then((seasons: Season[]) => {
             this.seasons = seasons;
-            const seasonObj = this.seasons.filter(obj => obj.season_key === this.event.season_key);
-            if (seasonObj && seasonObj[0] && seasonObj[0].description) {
+            const seasonObj = this.seasons.filter(obj => obj.seasonKey === this.event.seasonKey);
+            if (seasonObj && seasonObj.length === 1 && seasonObj[0] && seasonObj[0].description) {
               this.event_season_name = seasonObj[0].description;
             }
           }, (err) => {
@@ -118,7 +111,7 @@ export class EventComponent implements OnInit {
   }
 
   fixCountry(country) {
-    const region = this.regions.filter(obj => obj.region_key === country);
+    const region = this.regions.filter(obj => obj.regionKey === country);
 
     if (region[0] && country.toUpperCase() !== 'USA') {
       return region[0].description

@@ -36,6 +36,7 @@ export default class EventParticipant implements ISerializable {
     participant.teamKey = json.team_key;
     participant.isActive = json.is_active;
     participant.cardStatus = json.card_status;
+    participant.team = new Team().fromJSON(json.team);
     return participant;
   }
 
