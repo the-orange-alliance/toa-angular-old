@@ -77,8 +77,8 @@
           <mdc-list-divider></mdc-list-divider>
 
           <div class="p-3">
-            <div *ngIf="event.ranking">
-              <p><b>Qual Rank #{{ event.ranking.rank }}</b> with a record of <b>{{ event.ranking.wins }}-{{ event.ranking.losses }}-{{ event.ranking.ties }}</b></p>
+            <div *ngIf="event.rankings && event.rankings.length > 0">
+              <p><b>Qual Rank #{{ event.rankings[0].rank }}</b> with a record of <b>{{ event.rankings[0].wins }}-{{ event.rankings[0].losses }}-{{ event.rankings[0].ties }}</b></p>
             </div>
             <div *ngIf="event.awards && event.awards.length > 0">
               <p><b>{{event.awards.length }} Awards:</b></p>
