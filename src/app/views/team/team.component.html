@@ -6,12 +6,12 @@
       <div class="w-100 p-3">
         <div *ngIf="seasons && team.rookieYear" class="dropdown">
           <button *ngIf="currentSeason" class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <span>{{ currentSeason.description }}</span>
+            20{{ currentSeason.seasonKey.substring(2, 4) }} - {{ currentSeason.description }}
             <span class="caret"></span>
           </button>
 
           <ul class="dropdown-menu" aria-labelledby="ftc_season">
-            <mdc-menu-item *ngFor="let season of seasons" (click)="selectSeason(season)">{{ season.description }}</mdc-menu-item>
+            <mdc-menu-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-menu-item>
           </ul>
         </div>
 

@@ -52,8 +52,7 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="ftc_district">
-            <mdc-menu-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ?
-              region.regionKey + " - " + region.description : region.regionKey }}</mdc-menu-item>
+            <mdc-menu-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}</mdc-menu-item>
           </ul>
         </div>
 
@@ -130,13 +129,13 @@
                 <li class="{{currentPage === 0 ? 'page-item disabled' : 'page-item'}}">
                   <a class="page-link" (click)="getTeams(decIndex())">Previous</a>
                 </li>
-    
+
                 <li *ngFor="let page of pages" [class.active]="currentPage === page.index">
                   <a class="page-link" (click)="getTeams(page.index)">{{ page.index + 1 }}
                     <span *ngIf="currentPage === page.index" class="sr-only">(current)</span>
                   </a>
                 </li>
-    
+
                 <li class="{{currentPage + 1 === pages.length ? 'page-item disabled' : 'page-item'}}">
                   <a class="page-link" (click)="getTeams(incIndex())">Next</a>
                 </li>
