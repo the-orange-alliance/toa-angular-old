@@ -21,9 +21,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <mdc-dialog-body class="modal-body mt-0">
+      <mdc-dialog-body class="modal-body mt-0" style="overflow-y: initial !important">
         <mdc-text-field #searchInput id="ftc_search" (keyup)="performSearch()" label="Team # or Event" [(ngModel)]="search" [fullwidth]="true"></mdc-text-field>
-        <div class="row mt-4" *ngIf="search">
+        <div class="row mt-4" *ngIf="search" style="max-height: calc(100vh - 200px); overflow-y: auto">
           <div class="col-md-6 col-12">
             <div mdcHeadline5 class="black">Teams</div>
             <mdc-list *ngIf="teamSearchResults">

@@ -43,8 +43,6 @@ export class TheOrangeAllianceComponent {
     this.current_year = new Date().getFullYear();
     this.teamSearchResults = [];
     this.eventSearchResults = [];
-    const x = this;
-    document.addEventListener('keydown', function(e) {x.performSearchCallback(e, x)});
 
     this.ftc.getAllTeams().then((data: Team[]) => {
       this.teams = data;
@@ -57,24 +55,10 @@ export class TheOrangeAllianceComponent {
     });
   }
 
-  performSearchCallback(event, r): void {
-    if (event.keyCode === 27) {
-      document.getElementById('removeSearch').click();
-    } else if (event.keyCode === 13) {
-      if (r.team_search_results.length > 0) {
-        window.location.href = 'teams/' + r.team_search_results[0].team_key; // +  "?q=" + r.search;
-        document.getElementById('removeSearch').click();
-      } else if (r.event_search_results.length > 0) {
-        window.location.href = 'events/' + r.event_search_results[0].event_key; // + "?q=" + r.search;;
-        document.getElementById('removeSearch').click();
-      }
-    }
-  }
-
   performSearch(): void {
     const maxResults = 8;
 
-    if (this.search) {
+    if (this.teamsFilter && this.eventsFilter && this.search) {
       this.teamsFilter.filterArray(null, this.search, null, null);
       this.eventsFilter.searchFilter(this.search);
       this.teams = this.teamsFilter.getFilteredArray();
@@ -91,24 +75,6 @@ export class TheOrangeAllianceComponent {
     } else {
       this.teamSearchResults = [];
       this.eventSearchResults = [];
-    }
-  }
-
-  expandDropdown(e) {
-    if (document.getElementsByClassName('collapsed')[0] !== null) {
-      if (e.srcElement.classList.contains('dropdown-toggle')) {
-        e.srcElement.parentElement.classList.add('open');
-        e.srcElement.classList.add('dropdown-active');
-        e.srcElement.setAttribute('aria-expanded', 'true');
-      }
-    }
-  }
-
-  collapseDropdown(e) {
-    if (document.getElementsByClassName('collapsed')[0] !== null) {
-      e.path[0].classList.remove('open');
-      e.fromElement.children[0].setAttribute('aria-expanded', 'false');
-      e.fromElement.children[0].classList.remove('dropdown-active');
     }
   }
 
