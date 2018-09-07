@@ -1,6 +1,6 @@
-import MatchDetails from "./MatchDetails";
-import MatchParticipant from "./MatchParticipant";
-import Event from "./Event";
+import MatchDetails from './MatchDetails';
+import MatchParticipant from './MatchParticipant';
+import Event from './Event';
 
 export default class Match implements ISerializable {
   private _matchKey: string;
@@ -30,16 +30,16 @@ export default class Match implements ISerializable {
   private _matchParticipants: MatchParticipant[];
 
   constructor() {
-    this._matchKey = "";
-    this._eventKey = "";
+    this._matchKey = '';
+    this._eventKey = '';
     this._tournamentLevel = 0;
-    this._scheduledTime = "";
-    this._matchName = "";
+    this._scheduledTime = '';
+    this._matchName = '';
     this._playNumber = 0;
     this._fieldNumber = 0;
-    this._prestartTime = "";
+    this._prestartTime = '';
     this._prestartCount = 0;
-    this._cycleTime = "";
+    this._cycleTime = '';
     this._redScore = 0;
     this._blueScore = 0;
     this._redPenalty = 0;
@@ -50,7 +50,7 @@ export default class Match implements ISerializable {
     this._blueEndScore = 0;
     this._redTeleScore = 0;
     this._blueTeleScore = 0;
-    this._videoURL = "";
+    this._videoURL = '';
 
     this._event = new Event();
     this._matchDetails = new MatchDetails();
@@ -106,7 +106,7 @@ export default class Match implements ISerializable {
     match.redEndScore = json.red_end_score;
     match.blueEndScore = json.blue_end_Score;
     match.videoURL = json.video_url;
-    match.participants = typeof json.participants !== "undefined" ? json.participants.map((participantJSON: any) => new MatchParticipant().fromJSON(participantJSON)) : []
+    match.participants = typeof json.participants !== 'undefined' ? json.participants.map((participantJSON: any) => new MatchParticipant().fromJSON(participantJSON)) : []
     return match;
   }
 
@@ -114,25 +114,25 @@ export default class Match implements ISerializable {
   public getShortName(): string {
     switch (this.tournamentLevel) {
       case 0:
-        return "Practice Match";
+        return 'Practice Match';
       case 1:
-        return "Qualification Match";
+        return 'Qualification Match';
       case 21:
-        return "Quarterfinal Match";
+        return 'Quarterfinal Match';
       case 22:
-        return "Quarterfinal Match";
+        return 'Quarterfinal Match';
       case 23:
-        return "Quarterfinal Match";
+        return 'Quarterfinal Match';
       case 24:
-        return "Quarterfinal Match";
+        return 'Quarterfinal Match';
       case 31:
-        return "Semifinals Match";
+        return 'Semifinals Match';
       case 32:
-        return "Semifinals Match";
+        return 'Semifinals Match';
       case 4:
-        return "Finals Match";
+        return 'Finals Match';
       default:
-        return "Match";
+        return 'Match';
     }
   }
 
