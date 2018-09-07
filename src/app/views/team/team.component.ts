@@ -45,16 +45,16 @@ export class TeamComponent implements OnInit {
 
   public ngOnInit(): void {
     this.years = [];
-    this.ftc.getTeam(this.teamKey, "1718").then((data: Team) => {
-      if (!data) {
+    this.ftc.getTeam(this.teamKey, '1718').then((team: Team) => {
+      if (!team) {
         this.router.navigate(['/not-found']);
       } else {
-        this.team = data;
+        this.team = team;
         for (let i = this.team.rookieYear; i <= new Date().getFullYear(); i++) {
           this.years.push(i);
         }
         this.years.reverse();
-        if (this.team.rookieYear) {
+        if (this.team.rookieYear >= 0) {
           this.ftc.getAllSeasons().then((data: Season[]) => {
             this.seasons = this.getTeamSeasons(data).reverse();
             this.selectSeason(this.seasons[0]);
@@ -65,8 +65,8 @@ export class TeamComponent implements OnInit {
     });
   }
 
-  public getTeamSeasons(seasons: Season[]) {
-    const year_code = parseInt((this.team.rookieYear + '').toString().substring(2, 4));
+  public getTeamSeasons(seasons: Season[]): Season[] {
+    const year_code = parseInt((this.team.rookieYear + '').toString().substring(2, 4), 10);
     const second_code = year_code + 1;
     let rookie_season_id = '';
     if (year_code < 10) {
@@ -84,6 +84,7 @@ export class TeamComponent implements OnInit {
         return seasons.splice(i, seasons.length - 1);
       }
     }
+    return seasons;
   }
 
   public selectSeason(season: any) {

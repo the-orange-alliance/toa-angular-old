@@ -80,7 +80,7 @@ export class FTCDatabase {
   public getTeamSize(): Promise<number> {
     return new Promise<number>((resolve, reject) => {
       this.request('/team/size').then((data: any) => {
-        resolve(parseInt(data.result));
+        resolve(parseInt(data.result, 10));
       }).catch((err: any) => reject(err));
     });
   }
