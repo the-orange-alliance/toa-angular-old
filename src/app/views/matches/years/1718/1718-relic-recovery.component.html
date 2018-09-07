@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="match.details">
   <div class="col-12 col-md-6 p-2">
     <mdc-card class="toa-card">
       <div class="toa-card-header" mdcHeadline5>Auton Details</div>
@@ -7,51 +7,46 @@
         <div class="w-100">
           <table class="match-table">
             <thead>
-            <tr>
-              <th colspan="3">Red Alliance</th>
-              <th colspan="6">Field</th>
-              <th colspan="3">Blue Alliance</th>
-            </tr>
+              <tr>
+                <th colspan="3">Red Alliance</th>
+                <th colspan="6">Field</th>
+                <th colspan="3">Blue Alliance</th>
+              </tr>
             </thead>
-            <tbody *ngIf="!match.details">
-            <tr>
-              <td colspan="12"><i>There is no available auton detail for this match.</i></td>
-            </tr>
-            </tbody>
-            <tbody *ngIf="match.details">
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redAutoJewels == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redAutoJewels != 0">{{ match.details.redAutoJewels }} ( +{{ match.details.redAutoJewels * 30 }} )</td>
-              <td colspan="6">Single Jewel Remaining</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueAutoJewels == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueAutoJewels != 0">{{ match.details.blueAutoJewels }} ( +{{ match.details.blueAutoJewels * 30 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redAutoGlyphs == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redAutoGlyphs != 0">{{ match.details.redAutoGlyphs }} ( +{{ match.details.redAutoGlyphs * 15 }} )</td>
-              <td colspan="6">Auto Glyphs</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueAutoGlyphs == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueAutoGlyphs != 0">{{ match.details.blueAutoGlyphs}} ( +{{ match.details.blueAutoGlyphs * 15 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redAutoKeys == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redAutoKeys != 0">{{ match.details.redAutoKeys }} ( +{{ match.details.redAutoKeys * 30 }} )</td>
-              <td colspan="6">Cryptobox Keys</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueAutoKeys == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueAutoKeys != 0">{{ match.details.blueAutoKeys}} ( +{{ match.details.blueAutoKeys * 30 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redAutoParks == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redAutoParks != 0">{{ match.details.redAutoParks }} ( +{{ match.details.redAutoParks * 10 }} )</td>
-              <td colspan="6">Robots in Safe Zone</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueAutoParks == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueAutoParks != 0">{{ match.details.blueAutoParks}} ( +{{ match.details.blueAutoParks * 10 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red"><strong>{{ match.redAutoScore }}</strong></td>
-              <td colspan="6"><strong>Auton Total</strong></td>
-              <td colspan="3" class="blue"><strong>{{ match.blueAutoScore }}</strong></td>
-            </tr>
+            <tbody>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoJewels == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoJewels != 0">{{ match.details.redAutoJewels }} ( +{{ match.details.redAutoJewels * 30 }} )</td>
+                <td colspan="6">Single Jewel Remaining</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoJewels == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoJewels != 0">{{ match.details.blueAutoJewels }} ( +{{ match.details.blueAutoJewels * 30 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoGlyphs == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoGlyphs != 0">{{ match.details.redAutoGlyphs }} ( +{{ match.details.redAutoGlyphs * 15 }} )</td>
+                <td colspan="6">Auto Glyphs</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoGlyphs == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoGlyphs != 0">{{ match.details.blueAutoGlyphs}} ( +{{ match.details.blueAutoGlyphs * 15 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoKeys == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoKeys != 0">{{ match.details.redAutoKeys }} ( +{{ match.details.redAutoKeys * 30 }} )</td>
+                <td colspan="6">Cryptobox Keys</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoKeys == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoKeys != 0">{{ match.details.blueAutoKeys}} ( +{{ match.details.blueAutoKeys * 30 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoParks == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoParks != 0">{{ match.details.redAutoParks }} ( +{{ match.details.redAutoParks * 10 }} )</td>
+                <td colspan="6">Robots in Safe Zone</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoParks == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoParks != 0">{{ match.details.blueAutoParks}} ( +{{ match.details.blueAutoParks * 10 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red"><strong>{{ match.redAutoScore }}</strong></td>
+                <td colspan="6"><strong>Auton Total</strong></td>
+                <td colspan="3" class="blue"><strong>{{ match.blueAutoScore }}</strong></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -67,51 +62,46 @@
         <div class="w-100">
           <table class="match-table">
             <thead>
-            <tr>
-              <th colspan="3">Red Alliance</th>
-              <th colspan="6">Field</th>
-              <th colspan="3">Blue Alliance</th>
-            </tr>
+              <tr>
+                <th colspan="3">Red Alliance</th>
+                <th colspan="6">Field</th>
+                <th colspan="3">Blue Alliance</th>
+              </tr>
             </thead>
-            <tbody *ngIf="!match.details">
-            <tr>
-              <td colspan="12"><i>There is no available teleop detail for this match.</i></td>
-            </tr>
-            </tbody>
-            <tbody *ngIf="match.details">
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redTeleGlyphs == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redTeleGlyphs != 0">{{ match.details.redTeleGlyphs }} ( +{{ match.details.redTeleGlyphs * 2 }} )</td>
-              <td colspan="6">Glyphs</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueTeleGlyphs == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueTeleGlyphs != 0">{{ match.details.blueTeleGlyphs }} ( +{{ match.details.blueTeleGlyphs * 2 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redTeleRows == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redTeleRows != 0">{{ match.details.redTeleRows }} ( +{{ match.details.redTeleRows * 10 }} )</td>
-              <td colspan="6">Rows in Cryptoboxes</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueTeleRows == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueTeleRows != 0">{{ match.details.blueTeleRows }} ( +{{ match.details.blueTeleRows * 10 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redTeleColumns == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redTeleColumns != 0">{{ match.details.redTeleColumns }} ( +{{ match.details.redTeleColumns * 20 }} )</td>
-              <td colspan="6">Columns in Cryptoboxes</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueTeleColumns == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueTeleColumns != 0">{{ match.details.blueTeleColumns }} ( +{{ match.details.blueTeleColumns * 20 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redTeleCypher == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redTeleCypher != 0">{{ match.details.redTeleCypher }} ( +{{ match.details.redTeleCypher * 30 }} )</td>
-              <td colspan="6">Cryptoboxes Ciphers</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueTeleCypher == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueTeleCypher != 0">{{ match.details.blueTeleCypher }} ( +{{ match.details.blueTeleCypher * 30 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red"><strong>{{ match.redTeleScore  }}</strong></td>
-              <td colspan="6"><strong>Teleop Total</strong></td>
-              <td colspan="3" class="blue"><strong>{{ match.blueTeleScore  }}</strong></td>
-            </tr>
+            <tbody>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleGlyphs == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleGlyphs != 0">{{ match.details.redTeleGlyphs }} ( +{{ match.details.redTeleGlyphs * 2 }} )</td>
+                <td colspan="6">Glyphs</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleGlyphs == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleGlyphs != 0">{{ match.details.blueTeleGlyphs }} ( +{{ match.details.blueTeleGlyphs * 2 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleRows == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleRows != 0">{{ match.details.redTeleRows }} ( +{{ match.details.redTeleRows * 10 }} )</td>
+                <td colspan="6">Rows in Cryptoboxes</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleRows == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleRows != 0">{{ match.details.blueTeleRows }} ( +{{ match.details.blueTeleRows * 10 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleColumns == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleColumns != 0">{{ match.details.redTeleColumns }} ( +{{ match.details.redTeleColumns * 20 }} )</td>
+                <td colspan="6">Columns in Cryptoboxes</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleColumns == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleColumns != 0">{{ match.details.blueTeleColumns }} ( +{{ match.details.blueTeleColumns * 20 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleCypher == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleCypher != 0">{{ match.details.redTeleCypher }} ( +{{ match.details.redTeleCypher * 30 }} )</td>
+                <td colspan="6">Cryptoboxes Ciphers</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleCypher == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleCypher != 0">{{ match.details.blueTeleCypher }} ( +{{ match.details.blueTeleCypher * 30 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red"><strong>{{ match.redTeleScore  }}</strong></td>
+                <td colspan="6"><strong>Teleop Total</strong></td>
+                <td colspan="3" class="blue"><strong>{{ match.blueTeleScore  }}</strong></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -127,58 +117,53 @@
         <div class="w-100">
           <table class="match-table">
             <thead>
-            <tr>
-              <th colspan="3">Red Alliance</th>
-              <th colspan="6">Field</th>
-              <th colspan="3">Blue Alliance</th>
-            </tr>
+              <tr>
+                <th colspan="3">Red Alliance</th>
+                <th colspan="6">Field</th>
+                <th colspan="3">Blue Alliance</th>
+              </tr>
             </thead>
-            <tbody *ngIf="!match.details">
-            <tr>
-              <td colspan="12"><i>There is no available endgame detail for this match.</i></td>
-            </tr>
-            </tbody>
-            <tbody *ngIf="match.details">
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redEndRelic1 == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redEndRelic1 != 0">{{ match.details.redEndRelic1 }} ( +{{ match.details.redEndRelic1 * 10 }} )</td>
-              <td colspan="6">Relics in Zone 1</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueEndRelic1 == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueEndRelic1 != 0">{{ match.details.blueEndRelic1 }} ( +{{ match.details.blueEndRelic1 * 10 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redEndRelic2 == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redEndRelic2 != 0">{{ match.details.redEndRelic2 }} ( +{{ match.details.redEndRelic2 * 20 }} )</td>
-              <td colspan="6">Relics in Zone 2</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueEndRelic2 == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueEndRelic2 != 0">{{ match.details.blueEndRelic2 }} ( +{{ match.details.blueEndRelic2 * 20 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redEndRelic3 == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redEndRelic3 != 0">{{ match.details.redEndRelic3 }} ( +{{ match.details.redEndRelic3 * 40 }} )</td>
-              <td colspan="6">Relics in Zone 3</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueEndRelic3 == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueEndRelic3 != 0">{{ match.details.blueEndRelic3 }} ( +{{ match.details.blueEndRelic3 * 40 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redEndRelicStanding == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redEndRelicStanding != 0">{{ match.details.redEndRelicStanding }} ( +{{ match.details.redEndRelicStanding * 15 }} )</td>
-              <td colspan="6">Relics Upright</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueEndRelicStanding == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueEndRelicStanding != 0">{{ match.details.blueEndRelicStanding }} ( +{{ match.details.blueEndRelicStanding * 15 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.redEndRobotBalances == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.redEndRobotBalances != 0">{{ match.details.redEndRobotBalances }} ( +{{ match.details.redEndRobotBalances * 20 }} )</td>
-              <td colspan="6">Robots Balanced</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueEndRobotBalances == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.blueEndRobotBalances != 0">{{ match.details.blueEndRobotBalances }} ( +{{ match.details.blueEndRobotBalances * 20 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red"><strong>{{  match.redEndScore }}</strong></td>
-              <td colspan="6"><strong>End Game Total</strong></td>
-              <td colspan="3" class="blue"><strong>{{  match.blueEndScore }}</strong></td>
-            </tr>
+            <tbody>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redEndRelic1 == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redEndRelic1 != 0">{{ match.details.redEndRelic1 }} ( +{{ match.details.redEndRelic1 * 10 }} )</td>
+                <td colspan="6">Relics in Zone 1</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueEndRelic1 == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueEndRelic1 != 0">{{ match.details.blueEndRelic1 }} ( +{{ match.details.blueEndRelic1 * 10 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redEndRelic2 == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redEndRelic2 != 0">{{ match.details.redEndRelic2 }} ( +{{ match.details.redEndRelic2 * 20 }} )</td>
+                <td colspan="6">Relics in Zone 2</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueEndRelic2 == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueEndRelic2 != 0">{{ match.details.blueEndRelic2 }} ( +{{ match.details.blueEndRelic2 * 20 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redEndRelic3 == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redEndRelic3 != 0">{{ match.details.redEndRelic3 }} ( +{{ match.details.redEndRelic3 * 40 }} )</td>
+                <td colspan="6">Relics in Zone 3</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueEndRelic3 == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueEndRelic3 != 0">{{ match.details.blueEndRelic3 }} ( +{{ match.details.blueEndRelic3 * 40 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redEndRelicStanding == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redEndRelicStanding != 0">{{ match.details.redEndRelicStanding }} ( +{{ match.details.redEndRelicStanding * 15 }} )</td>
+                <td colspan="6">Relics Upright</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueEndRelicStanding == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueEndRelicStanding != 0">{{ match.details.blueEndRelicStanding }} ( +{{ match.details.blueEndRelicStanding * 15 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redEndRobotBalances == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redEndRobotBalances != 0">{{ match.details.redEndRobotBalances }} ( +{{ match.details.redEndRobotBalances * 20 }} )</td>
+                <td colspan="6">Robots Balanced</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueEndRobotBalances == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueEndRobotBalances != 0">{{ match.details.blueEndRobotBalances }} ( +{{ match.details.blueEndRobotBalances * 20 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red"><strong>{{  match.redEndScore }}</strong></td>
+                <td colspan="6"><strong>End Game Total</strong></td>
+                <td colspan="3" class="blue"><strong>{{  match.blueEndScore }}</strong></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -195,37 +180,32 @@
         <div class="w-100">
           <table class="match-table">
             <thead>
-            <tr>
-              <th colspan="3">Red Alliance</th>
-              <th colspan="6">Field</th>
-              <th colspan="3">Blue Alliance</th>
-            </tr>
+              <tr>
+                <th colspan="3">Red Alliance</th>
+                <th colspan="6">Field</th>
+                <th colspan="3">Blue Alliance</th>
+              </tr>
             </thead>
-            <tbody *ngIf="!match.details">
-            <tr>
-              <td colspan="12"><i>There is no available penalty detail for this match.</i></td>
-            </tr>
-            </tbody>
-            <tbody *ngIf="match.details">
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.blueMinPen == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.blueMinPen != 0">{{ match.details.blueMinPen }} ( +{{ match.details.blueMinPen * 10 }} )</td>
-              <td colspan="6">Minor Penalty</td>
-              <td colspan="3" class="blue" *ngIf="match.details.redMinPen == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.redMinPen != 0">{{ match.details.redMinPen }} ( +{{ match.details.redMinPen * 10 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red" *ngIf="match.details.blueMajPen == 0">0</td>
-              <td colspan="3" class="red" *ngIf="match.details.blueMajPen != 0">{{ match.details.blueMajPen }} ( +{{ match.details.blueMajPen * 40 }} )</td>
-              <td colspan="6">Major Penalty</td>
-              <td colspan="3" class="blue" *ngIf="match.details.redMajPen == 0">0</td>
-              <td colspan="3" class="blue" *ngIf="match.details.redMajPen != 0">{{ match.details.redMajPen }} ( +{{ match.details.redMajPen * 40 }} )</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="red"><strong>{{ match.bluePenalty }}</strong></td>
-              <td colspan="6"><strong>Penalty Total</strong></td>
-              <td colspan="3" class="blue"><strong>{{ match.redPenalty }}</strong></td>
-            </tr>
+            <tbody>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.blueMinPen == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.blueMinPen != 0">{{ match.details.blueMinPen }} ( +{{ match.details.blueMinPen * 10 }} )</td>
+                <td colspan="6">Minor Penalty</td>
+                <td colspan="3" class="blue" *ngIf="match.details.redMinPen == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.redMinPen != 0">{{ match.details.redMinPen }} ( +{{ match.details.redMinPen * 10 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.blueMajPen == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.blueMajPen != 0">{{ match.details.blueMajPen }} ( +{{ match.details.blueMajPen * 40 }} )</td>
+                <td colspan="6">Major Penalty</td>
+                <td colspan="3" class="blue" *ngIf="match.details.redMajPen == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.redMajPen != 0">{{ match.details.redMajPen }} ( +{{ match.details.redMajPen * 40 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red"><strong>{{ match.bluePenalty }}</strong></td>
+                <td colspan="6"><strong>Penalty Total</strong></td>
+                <td colspan="3" class="blue"><strong>{{ match.redPenalty }}</strong></td>
+              </tr>
             </tbody>
           </table>
         </div>

@@ -1,174 +1,196 @@
-<div class="col-xs-12 col-md-6">
-    <table class="match-table">
-      <thead>
-      <tr>
-        <th colspan="12">Auton Details</th>
-      </tr>
-      <tr>
-        <th colspan="3">Red Alliance</th>
-        <th colspan="6">Field</th>
-        <th colspan="3">Blue Alliance</th>
-      </tr>
-      </thead>  
-      <tbody *ngIf="!match.details">
-      <tr>
-        <td colspan="12"><i>There is no available auton detail for this match.</i></td>
-      </tr>
-      </tbody>
-      <tbody *ngIf="match.details">
-      <tr>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoPartCen == 0">0</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoPartCen != 0">{{ match.details.redAutoPartCen }} ( +{{ match.details.redAutoPartCen * 15 }} )</td>
-        <td colspan="6">Auto Center Vortex</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoPartCen == 0">0</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoPartCen != 0">{{ match.details.blueAutoPartCen }} ( +{{ match.details.blueAutoPartCen * 15 }} )</td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoPartCor == 0">0</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoPartCor != 0">{{ match.details.redAutoPartCor }} ( +{{ match.details.redAutoPartCor * 5 }} )</td>
-        <td colspan="6">Auto Corner Vortex</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoPartCor == 0">0</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoPartCor != 0">{{ match.details.blueAutoPartCor }} ( +{{ match.details.blueAutoPartCor * 5 }} )</td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoBeacons == 0">None</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoBeacons == 1"><img src="../../../../../assets/imgs/Beacon.png"> ( +30 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoBeacons == 2"><img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +60 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoBeacons == 3"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +90 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoBeacons == 4"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +120 )</td>
-        <td colspan="6">Auto Beacons</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoBeacons == 0">None</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoBeacons == 1"><img src="../../../../../assets/imgs/Beacon.png"> ( +30 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoBeacons == 2"><img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +60 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoBeacons == 3"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +90 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoBeacons == 4"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +120 )</td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoCap == true"><img src="../../../../../assets/imgs/CheckMark.png"> ( +5 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoCap == false"><img src="../../../../../assets/imgs/x.png"></td>
-        <td colspan="6">Cap Ball on Floor</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoCap == true"><img src="../../../../../assets/imgs/CheckMark.png"> ( +5 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoCap == false"><img src="../../../../../assets/imgs/x.png"></td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoRobot1 == 0">Not Parked</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoRobot1 == 1">On Center Vortex ( +5 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoRobot1 == 2">Completely On Center Vortex ( +10 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoRobot1 == 3">On Corner Ramp ( +5 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoRobot1 == 4">Completely On Corner Ramp ( +10 )</td>
-        <td colspan="6">Robot One Parked</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 0">Not Parked</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 1">On Center Vortex ( +5 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 2">Completely On Center Vortex ( +10 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 3">On Corner Ramp ( +5 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 4">Completely On Corner Ramp ( +10 )</td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoRobot2 == 0">Not Parked</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoRobot2 == 1">On Center Vortex ( +5 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoRobot2 == 2">Completely On Center Vortex ( +10 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoRobot2 == 3">On Corner Ramp ( +5 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redAutoRobot2 == 4">Completely On Corner Ramp ( +10 )</td>
-        <td colspan="6">Robot Two Parked</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 0">Not Parked</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 1">On Center Vortex ( +5 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 2">Completely On Center Vortex ( +10 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 3">On Corner Ramp ( +5 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 4">Completely On Corner Ramp ( +10 )</td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red"><strong>{{ match.redAutoScore }}</strong></td>
-        <td colspan="6"><strong>Auto Total</strong></td>
-        <td colspan="3" class="blue"><strong>{{ match.blueAutoScore }}</strong></td>
-      </tr>
-      </tbody>
-    </table>
+<div class="row" *ngIf="match.details">
+  <div class="col-12 col-md-6 p-2">
+    <mdc-card class="toa-card">
+      <div class="toa-card-header" mdcHeadline5>Auton Details</div>
+      <mdc-list-divider></mdc-list-divider>
+      <div class="p-3">
+        <div class="w-100">
+          <table class="match-table">
+            <thead>
+              <tr>
+                <th colspan="3">Red Alliance</th>
+                <th colspan="6">Field</th>
+                <th colspan="3">Blue Alliance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoPartCen == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoPartCen != 0">{{ match.details.redAutoPartCen }} ( +{{ match.details.redAutoPartCen * 15 }} )</td>
+                <td colspan="6">Auto Center Vortex</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoPartCen == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoPartCen != 0">{{ match.details.blueAutoPartCen }} ( +{{ match.details.blueAutoPartCen * 15 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoPartCor == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoPartCor != 0">{{ match.details.redAutoPartCor }} ( +{{ match.details.redAutoPartCor * 5 }} )</td>
+                <td colspan="6">Auto Corner Vortex</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoPartCor == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoPartCor != 0">{{ match.details.blueAutoPartCor }} ( +{{ match.details.blueAutoPartCor * 5 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoBeacons == 0">None</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoBeacons == 1"><img src="../../../../../assets/imgs/Beacon.png"> ( +30 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoBeacons == 2"><img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +60 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoBeacons == 3"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +90 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoBeacons == 4"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +120 )</td>
+                <td colspan="6">Auto Beacons</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoBeacons == 0">None</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoBeacons == 1"><img src="../../../../../assets/imgs/Beacon.png"> ( +30 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoBeacons == 2"><img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +60 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoBeacons == 3"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +90 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoBeacons == 4"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +120 )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoCap == true"><img src="../../../../../assets/imgs/CheckMark.png"> ( +5 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoCap == false"><img src="../../../../../assets/imgs/x.png"></td>
+                <td colspan="6">Cap Ball on Floor</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoCap == true"><img src="../../../../../assets/imgs/CheckMark.png"> ( +5 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoCap == false"><img src="../../../../../assets/imgs/x.png"></td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoRobot1 == 0">Not Parked</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoRobot1 == 1">On Center Vortex ( +5 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoRobot1 == 2">Completely On Center Vortex ( +10 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoRobot1 == 3">On Corner Ramp ( +5 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoRobot1 == 4">Completely On Corner Ramp ( +10 )</td>
+                <td colspan="6">Robot One Parked</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 0">Not Parked</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 1">On Center Vortex ( +5 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 2">Completely On Center Vortex ( +10 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 3">On Corner Ramp ( +5 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 4">Completely On Corner Ramp ( +10 )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoRobot2 == 0">Not Parked</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoRobot2 == 1">On Center Vortex ( +5 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoRobot2 == 2">Completely On Center Vortex ( +10 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoRobot2 == 3">On Corner Ramp ( +5 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redAutoRobot2 == 4">Completely On Corner Ramp ( +10 )</td>
+                <td colspan="6">Robot Two Parked</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 0">Not Parked</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 1">On Center Vortex ( +5 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 2">Completely On Center Vortex ( +10 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 3">On Corner Ramp ( +5 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueAutoRobot2 == 4">Completely On Corner Ramp ( +10 )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red"><strong>{{ match.redAutoScore }}</strong></td>
+                <td colspan="6"><strong>Auto Total</strong></td>
+                <td colspan="3" class="blue"><strong>{{ match.blueAutoScore }}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mdc-card>
   </div>
 
-<div class="col-xs-12 col-md-6">
-    <table class="match-table" *ngIf="match.details">
-      <thead>
-      <tr>
-        <th colspan="12">Teleop Details</th>
-      </tr>
-      <tr>
-        <th colspan="3">Red Alliance</th>
-        <th colspan="6">Field</th>
-        <th colspan="3">Blue Alliance</th>
-      </tr>
-      </thead>
-      <tbody *ngIf="!match.details">
-      <tr>
-        <td colspan="12"><i>There is no available teleop detail for this match.</i></td>
-      </tr>
-      </tbody>
-      <tbody *ngIf="match.details">
-      <tr>
-        <td colspan="3" class="red" *ngIf="match.details.redTelePartCen == 0">0</td>
-        <td colspan="3" class="red" *ngIf="match.details.redTelePartCen != 0">{{ match.details.redTelePartCen }} ( +{{ match.details.redTelePartCen * 5 }} )</td>
-        <td colspan="6">Tele Center Vortex</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTelePartCen == 0">0</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTelePartCen != 0">{{ match.details.blueTelePartCen }} ( +{{ match.details.blueTelePartCen * 5 }} )</td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red" *ngIf="match.details.redTelePartCor == 0">0</td>
-        <td colspan="3" class="red" *ngIf="match.details.redTelePartCor != 0">{{ match.details.redTelePartCor }} ( +{{ match.details.redTelePartCor * 1 }} )</td>
-        <td colspan="6">Tele Corner Vortex</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTelePartCor == 0">0</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTelePartCor != 0">{{ match.details.blueTelePartCor }} ( +{{ match.details.blueTelePartCor * 1 }} )</td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red" *ngIf="match.details.redTeleBeacons == 0">None</td>
-        <td colspan="3" class="red" *ngIf="match.details.redTeleBeacons == 1"><img src="../../../../../assets/imgs/Beacon.png"> ( +10 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redTeleBeacons == 2"><img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +20 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redTeleBeacons == 3"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +30 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redTeleBeacons == 4"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +40 )</td>
-        <td colspan="6">Tele Beacons</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTeleBeacons == 0">None</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTeleBeacons == 1"><img src="../../../../../assets/imgs/Beacon.png"> ( +10 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTeleBeacons == 2"><img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +20 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTeleBeacons == 3"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +30 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTeleBeacons == 4"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +40 )</td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red" *ngIf="match.details.redTeleCap == 0">Not Scored</td>
-        <td colspan="3" class="red" *ngIf="match.details.redTeleCap == 1">Low ( +10 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redTeleCap == 2">High ( +20 )</td>
-        <td colspan="3" class="red" *ngIf="match.details.redTeleCap == 3">Capping ( +40 )</td>
-        <td colspan="6">Cap Ball</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTeleCap == 0">Not Scored</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTeleCap == 1">Low ( +10 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTeleCap == 2">High ( +20 )</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueTeleCap == 3">Capping ( +40 )</td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red"><strong>{{ match.redTeleScore + match.redEndScore }}</strong></td>
-        <td colspan="6"><strong>Teleop Total</strong></td>
-        <td colspan="3" class="blue"><strong>{{ match.blueTeleScore + match.blueEndScore }}</strong></td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red" *ngIf="match.details.redMinPen == 0">0</td>
-        <td colspan="3" class="red" *ngIf="match.details.redMinPen != 0">{{ match.details.redMinPen }} ( +{{ match.details.redMinPen * 10 }} )</td>
-        <td colspan="6">Minor Penalty</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueMinPen == 0">0</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueMinPen != 0">{{ match.details.blueMinPen }} ( +{{ match.details.blueMinPen * 10 }} )</td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red" *ngIf="match.details.redMajPen == 0">0</td>
-        <td colspan="3" class="red" *ngIf="match.details.redMajPen != 0">{{ match.details.redMajPen }} ( +{{ match.details.redMajPen * 40 }} )</td>
-        <td colspan="6">Major Penalty</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueMajPen == 0">0</td>
-        <td colspan="3" class="blue" *ngIf="match.details.blueMajPen != 0">{{ match.details.blueMajPen }} ( +{{ match.details.blueMajPen * 40 }} )</td>
-      </tr>
-      <tr>
-        <td colspan="3" class="red"><strong>{{ match.redPenalty }}</strong></td>
-        <td colspan="6"><strong>Penalty Total</strong></td>
-        <td colspan="3" class="blue"><strong>{{ match.bluePenalty }}</strong></td>
-      </tr>
-      </tbody>
-    </table>
-
-    <ng-template #noMatchDetails>
-      <h2>No match details found</h2>
-    </ng-template>
+  <div class="col-12 col-md-6 p-2">
+    <mdc-card class="toa-card">
+      <div class="toa-card-header" mdcHeadline5>Teleop Details</div>
+      <mdc-list-divider></mdc-list-divider>
+      <div class="p-3">
+        <div class="w-100">
+          <table class="match-table">
+            <thead>
+              <tr>
+                <th colspan="3">Red Alliance</th>
+                <th colspan="6">Field</th>
+                <th colspan="3">Blue Alliance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redTelePartCen == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTelePartCen != 0">{{ match.details.redTelePartCen }} ( +{{ match.details.redTelePartCen * 5 }} )</td>
+                <td colspan="6">Tele Center Vortex</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTelePartCen == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTelePartCen != 0">{{ match.details.blueTelePartCen }} ( +{{ match.details.blueTelePartCen * 5 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redTelePartCor == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTelePartCor != 0">{{ match.details.redTelePartCor }} ( +{{ match.details.redTelePartCor * 1 }} )</td>
+                <td colspan="6">Tele Corner Vortex</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTelePartCor == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTelePartCor != 0">{{ match.details.blueTelePartCor }} ( +{{ match.details.blueTelePartCor * 1 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleBeacons == 0">None</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleBeacons == 1"><img src="../../../../../assets/imgs/Beacon.png"> ( +10 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleBeacons == 2"><img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +20 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleBeacons == 3"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +30 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleBeacons == 4"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +40 )</td>
+                <td colspan="6">Tele Beacons</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleBeacons == 0">None</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleBeacons == 1"><img src="../../../../../assets/imgs/Beacon.png"> ( +10 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleBeacons == 2"><img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +20 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleBeacons == 3"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +30 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleBeacons == 4"><img src="../../../../../assets/imgs/Beacon.png">  <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> <img src="../../../../../assets/imgs/Beacon.png"> ( +40 )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleCap == 0">Not Scored</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleCap == 1">Low ( +10 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleCap == 2">High ( +20 )</td>
+                <td colspan="3" class="red" *ngIf="match.details.redTeleCap == 3">Capping ( +40 )</td>
+                <td colspan="6">Cap Ball</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleCap == 0">Not Scored</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleCap == 1">Low ( +10 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleCap == 2">High ( +20 )</td>
+                <td colspan="3" class="blue" *ngIf="match.details.blueTeleCap == 3">Capping ( +40 )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red"><strong>{{ match.redTeleScore + match.redEndScore }}</strong></td>
+                <td colspan="6"><strong>Teleop Total</strong></td>
+                <td colspan="3" class="blue"><strong>{{ match.blueTeleScore + match.blueEndScore }}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mdc-card>
   </div>
+
+
+  <div class="col-12 col-md-6 p-2">
+    <mdc-card class="toa-card">
+      <div class="toa-card-header pb-0" mdcHeadline5>Penalty Details</div>
+      <div class="toa-card-subtitle pt-0" mdcSubtitle2>(points received due to opposing alliance penalties)</div>
+      <mdc-list-divider></mdc-list-divider>
+      <div class="p-3">
+        <div class="w-100">
+          <table class="match-table">
+            <thead>
+              <tr>
+                <th colspan="3">Red Alliance</th>
+                <th colspan="6">Field</th>
+                <th colspan="3">Blue Alliance</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="match.details">
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.blueMinPen == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.blueMinPen != 0">{{ match.details.blueMinPen }} ( +{{ match.details.blueMinPen * 10 }} )</td>
+                <td colspan="6">Minor Penalty</td>
+                <td colspan="3" class="blue" *ngIf="match.details.redMinPen == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.redMinPen != 0">{{ match.details.redMinPen }} ( +{{ match.details.redMinPen * 10 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red" *ngIf="match.details.blueMajPen == 0">0</td>
+                <td colspan="3" class="red" *ngIf="match.details.blueMajPen != 0">{{ match.details.blueMajPen }} ( +{{ match.details.blueMajPen * 40 }} )</td>
+                <td colspan="6">Major Penalty</td>
+                <td colspan="3" class="blue" *ngIf="match.details.redMajPen == 0">0</td>
+                <td colspan="3" class="blue" *ngIf="match.details.redMajPen != 0">{{ match.details.redMajPen }} ( +{{ match.details.redMajPen * 40 }} )</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="red"><strong>{{ match.redPenalty }}</strong></td>
+                <td colspan="6"><strong>Penalty Total</strong></td>
+                <td colspan="3" class="blue"><strong>{{ match.bluePenalty }}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mdc-card>
+  </div>
+</div>
