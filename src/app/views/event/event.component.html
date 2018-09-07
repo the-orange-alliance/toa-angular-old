@@ -62,10 +62,10 @@
       <mdc-card class="toa-card">
         <mdc-tab-bar class="w-100">
           <mdc-tab-scroller>
-            <mdc-tab label="Rankings" (click)="select('rankings')"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalrankings }}</span></mdc-tab>
-            <mdc-tab label="Matches" (click)="select('matches')"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalmatches }}</span></mdc-tab>
-            <mdc-tab label="Teams" (click)="select('teams')"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalteams }}</span></mdc-tab>
-            <mdc-tab label="Awards" (click)="select('awards')"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalawards }}</span></mdc-tab>
+            <mdc-tab label="Rankings" (click)="select('rankings')" *ngIf="totalrankings > 0"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalrankings }}</span></mdc-tab>
+            <mdc-tab label="Matches" (click)="select('matches')" *ngIf="totalmatches > 0"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalmatches }}</span></mdc-tab>
+            <mdc-tab label="Teams" (click)="select('teams')" *ngIf="totalteams > 0"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalteams }}</span></mdc-tab>
+            <mdc-tab label="Awards" (click)="select('awards')" *ngIf="totalawards > 0"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalawards }}</span></mdc-tab>
           </mdc-tab-scroller>
         </mdc-tab-bar>
         <div class="mt-4">

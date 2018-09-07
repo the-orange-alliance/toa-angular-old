@@ -6,7 +6,7 @@
     <div>
       <mdc-list-item-text>
         <span class="black">#{{ team.teamNumber }} - {{ team.teamNameShort }}</span>
-        <span class="mdc-list-item__secondary-text">{{ team.city }}, {{ team.stateProv ? team.stateProv + ', ' : '' }}{{ team.country }}</span>
+        <span class="mdc-list-item__secondary-text" style="text-transform: capitalize">{{ team.city }}, {{ team.stateProv ? team.stateProv + ', ' : '' }}{{ team.country }}</span>
       </mdc-list-item-text>
     </div>
   </mdc-list-item>

@@ -9,6 +9,7 @@ import Team from '../../models/Team';
 import Match from '../../models/Match';
 import Season from '../../models/Season';
 import Event from '../../models/Event';
+import Region from '../../models/Region';
 
 @Component({
   selector: 'toa-team',
@@ -22,6 +23,8 @@ export class TeamComponent implements OnInit {
 
   team: Team;
   teamKey: number;
+
+  regions: any;
 
   years: any;
 
@@ -62,6 +65,11 @@ export class TeamComponent implements OnInit {
         }
         this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamKey + ')');
       }
+    });
+    this.ftc.getAllRegions().then((data: Region[]) => {
+      this.regions = data;
+    }, (err) => {
+      console.log(err);
     });
   }
 
@@ -178,5 +186,18 @@ export class TeamComponent implements OnInit {
     const code_one = season.season_key.toString().substring(0, 2);
     const code_two = season.season_key.toString().substring(2, 4);
     return '20' + code_one + '/20' + code_two + (season.description ? ' - ' + season.description : '');
+  }
+
+  fixCountry(country) {
+    if (this.regions) {
+      const region = this.regions.filter(obj => obj.regionKey === country);
+      if (region.length === 1 && region[0].description && country.toUpperCase() !== 'USA') {
+        return region[0].description
+      } else {
+        return country;
+      }
+    } else {
+      return country;
+    }
   }
 }

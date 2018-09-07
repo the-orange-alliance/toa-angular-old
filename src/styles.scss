@@ -328,33 +328,8 @@ table.match-table tr {
    Search
    ========================================================================== */
 
-  .search-results {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-wrap: normal;
-    width: 100%;
-    text-align: center;
-    list-style-type: none;
-    font-size: 20px;
-    font-weight: 300;
-    margin: -51px auto 0;
-    outline: medium none;
-    padding-left: 30px;
-    padding-right: 30px;
-    position: absolute;
-    text-align: center;
-    top: 30%;
-    width: 100%;
-  }
-
-  .search-results>li, .search-results>li>a, .search-results>li>a:link, .search-results>li>a:visited {
-    background-color: #fff !important;
-    color: #ff9800 !important;
-  }
-
-  .search-results>li>a:hover {
-    background-color: #f8f8f8 !important;
-    color: #ff9800 !important;
+  #ftc_search input{
+    font-size: 35px
   }
 
 /* ==========================================================================

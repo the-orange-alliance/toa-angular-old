@@ -42,7 +42,7 @@
             <p class="pt-4 text-center toa-card-subtitle" >There are no events occurring this week.</p>
           </div>
 
-          <mdc-list [lines]="2" *ngIf="currentEvents.length > 0">
+          <mdc-list *ngIf="currentEvents.length > 0">
             <toa-event-item *ngFor="let event of currentEvents" [event]="event"></toa-event-item>
           </mdc-list>
         </mdc-card>

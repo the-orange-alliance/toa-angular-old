@@ -22,7 +22,7 @@
           <li class="nav-item mt-1">
             Event Results
             <ul class="nav flex-column">
-              <li class="nav-item"><a *ngFor="let event of team.events" href="teams/{{ team.teamKey }}#{{ event.eventKey }}" class="nav-link">{{ event.eventName }}</a></li>
+              <li class="nav-item"><a *ngFor="let event of team.events" href="teams/{{ team.teamKey }}#{{ event.eventKey }}" class="nav-link">{{ event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName}}</a></li>
             </ul>
           </li>
         </ul>
@@ -42,7 +42,7 @@
 
         <div class="info-state d-flex align-content-center flex-wrap">
           <mat-icon svgIcon="map-marker"></mat-icon>
-          <p>{{ team.city }}, {{ team.stateProv ? team.stateProv + ', ' : '' }}{{ team.country }}</p>
+          <p style="text-transform: capitalize">{{ team.city }}, {{ team.stateProv ? team.stateProv + ', ' : '' }}{{ fixCountry(team.country) }}</p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.rookieYear && team.rookieYear !== 0">
@@ -72,7 +72,7 @@
       <div *ngFor="let event of team.events" id="{{ event.eventKey }}" class="col-xs-12 pb-4">
         <mdc-card class="toa-card">
           <a class="toa-card-header pb-0" routerLink="/events/{{ event.eventKey }}" mdcHeadline5>{{ event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName}}</a>
-          <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : ''}}{{ event.country }} on {{ event.startDate | date :  "mediumDate"}}</div>
+          <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : ''}}{{ fixCountry(event.country) }} on {{ event.startDate | date :  "mediumDate"}}</div>
 
           <mdc-list-divider></mdc-list-divider>
 

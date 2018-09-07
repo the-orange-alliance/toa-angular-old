@@ -4,7 +4,7 @@ import { TeamFilter } from './util/team-utils';
 import { Router } from '@angular/router';
 import {EventFilter} from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
-import {MdcAppBar} from '@angular-mdc/web';
+import { MdcAppBar, MdcTextField } from '@angular-mdc/web';
 import Team from './models/Team';
 import Event from './models/Event';
 
@@ -35,6 +35,7 @@ export class TheOrangeAllianceComponent {
 
   private _mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
   @ViewChild(MdcAppBar) appBar: MdcAppBar;
+  @ViewChild('searchInput') searchInput: MdcTextField;
 
   constructor(private router: Router, private ftc: FTCDatabase, private globaltoa: TheOrangeAllianceGlobals, private _ngZone: NgZone) {
     this._mediaMatcher.addListener(mql => this._ngZone.run(() => this._mediaMatcher = mql));
@@ -71,26 +72,25 @@ export class TheOrangeAllianceComponent {
   }
 
   performSearch(): void {
+    const maxResults = 8;
+
     if (this.search) {
       this.teamsFilter.filterArray(null, this.search, null, null);
       this.eventsFilter.searchFilter(this.search);
       this.teams = this.teamsFilter.getFilteredArray();
       this.events = this.eventsFilter.getFilteredArray();
-      document.getElementById('search').style.display = 'block';
-      // SO there are obviously going to be more search results, but let's try and make it more readable.
       const eventLength = this.events.length;
       const teamsLength = this.teams.length;
-      // Prioritize Teams but max results but min 2 of each
-      const maxResults = 16;
-      this.teamSearchResults = this.teams.splice(0, Math.min(teamsLength, Math.min(maxResults, Math.max(maxResults - eventLength, 2))));
-      this.eventSearchResults = this.events.splice(0, maxResults - this.teamSearchResults.length);
+      this.teamSearchResults = this.teams.splice(0, maxResults);
+      this.eventSearchResults = this.events.splice(0, maxResults);
       if (teamsLength + eventLength > maxResults) {
         this.isMoreSearch = teamsLength + eventLength - maxResults;
       } else {
         this.isMoreSearch = 0;
       }
     } else {
-      document.getElementById('search').style.display = 'none';
+      this.teamSearchResults = [];
+      this.eventSearchResults = [];
     }
   }
 

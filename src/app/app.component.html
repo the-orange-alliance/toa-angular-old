@@ -5,7 +5,7 @@
       <mat-icon svgIcon="menu" (click)="appdrawer.open()" *ngIf="isScreenSmall() || appbar.isCollapsed()"></mat-icon>
     </mdc-app-bar-section>
     <mdc-app-bar-section align="end">
-      <a mdcAppBarActionItem id="showSearch" title="Search">
+      <a mdcAppBarActionItem title="Search" data-toggle="modal" [attr.data-target]="'#searchmodal'" id="showSearch" (click)="searchInput.select()">
         <mat-icon class="white-icon" svgIcon="magnify"></mat-icon>
       </a>
     </mdc-app-bar-section>
@@ -13,18 +13,32 @@
 </mdc-app-bar>
 
 <!-- Search -->
-<div id="qnimate" class="off">
-  <div id="searchrr" class="open">
-    <button data-widget="remove" id="removeSearch" class="close" type="button">×</button>
-    <form>
-      <input id="ftc_search" (keyup)="performSearch()" (focus)="performSearch()" [(ngModel)]="search" [ngModelOptions]="{standalone: true}" type="text" placeholder="Team # or Event">
-      <ul id="search" class="search-results" aria-labelledby="ftc_search">
-        <li *ngFor="let result of teamSearchResults"><a href="/teams/{{result.teamKey}}">{{ result.teamKey }} - {{ result.teamNameShort }}</a></li>
-        <li *ngFor="let result of eventSearchResults"><a href="/events/{{result.eventKey}}">{{ result.startDate | date : "y" }} {{ result.divisionName ? result.eventName + ' - ' +  result.divisionName + ' Division' : result.eventName }} <span class="badge bg-primary" *ngIf="result.isLive">LIVE</span></a></li>
-        <li *ngIf="this.teams && this.teams.length > 0"><a href="/teams?q={{search}}"><i  style="color:gray !important;">Show all {{teams.length}} teams</i></a></li>
-      </ul>
-    </form>
-    <small style="text-align: center; color: rgb(0, 0, 0); position: absolute; left: 0px; right: 0px; bottom: 70px; font-size: 16px;">The Orange Alliance</small>
+<div class="modal fade" id="searchmodal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered h-75">
+    <div class="modal-content w-100 h-100">
+      <div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 1.5rem 1.5rem 0 1.5rem!important">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <mdc-dialog-body class="modal-body mt-0">
+        <mdc-text-field #searchInput id="ftc_search" (keyup)="performSearch()" label="Team # or Event" [(ngModel)]="search" [fullwidth]="true"></mdc-text-field>
+        <div class="row mt-4" *ngIf="search">
+          <div class="col-md-6 col-12">
+            <div mdcHeadline5 class="black">Teams</div>
+            <mdc-list *ngIf="teamSearchResults">
+              <toa-team-item *ngFor="let result of teamSearchResults" [team]="result"></toa-team-item>
+            </mdc-list>
+            <p *ngIf="teamSearchResults.length === 0">No teams found</p>
+          </div>
+          <div class="col-md-6 col-12">
+            <div mdcHeadline5 class="black">Events</div>
+            <toa-event-item *ngFor="let result of eventSearchResults" [event]="result"></toa-event-item>
+            <p *ngIf="eventSearchResults.length === 0">No events found</p>
+          </div>
+        </div>
+      </mdc-dialog-body>
+    </div>
   </div>
 </div>
 
@@ -100,7 +114,7 @@
             <mat-icon class="mdc-list-item__graphic" svgIcon="information-outline"></mat-icon>About
           </a>
           <a mdc-list-item routerLink="/privacy-terms" routerLinkActive="mdc-list-item--activated">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="lifebuoy"></mat-icon>Privacy & Terms
+            <mat-icon class="mdc-list-item__graphic" svgIcon="gavel"></mat-icon>Privacy & Terms
           </a>
 
           <mdc-list-divider></mdc-list-divider>

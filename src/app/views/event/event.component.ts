@@ -113,7 +113,7 @@ export class EventComponent implements OnInit {
   fixCountry(country) {
     const region = this.regions.filter(obj => obj.regionKey === country);
 
-    if (region[0] && country.toUpperCase() !== 'USA') {
+    if (region.length === 1 && region[0].description && country.toUpperCase() !== 'USA') {
       return region[0].description
     } else {
       return country;
