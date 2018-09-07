@@ -35,6 +35,7 @@ export class TeamComponent implements OnInit {
 
   seasons: Season[];
   currentSeason: Season;
+  thisSeason: Season;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals) {
     this.teamKey = this.route.snapshot.params['team_key'];
@@ -61,6 +62,7 @@ export class TeamComponent implements OnInit {
           this.ftc.getAllSeasons().then((data: Season[]) => {
             this.seasons = this.getTeamSeasons(data).reverse();
             this.selectSeason(this.seasons[0]);
+            this.thisSeason = this.seasons[0];
           });
         }
         this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamKey + ')');
