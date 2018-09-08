@@ -42,7 +42,7 @@
 
         <div class="info-state d-flex align-content-center flex-wrap">
           <mat-icon svgIcon="map-marker"></mat-icon>
-          <p style="text-transform: capitalize">{{ team.city }}, {{ team.stateProv ? team.stateProv + ', ' : '' }}{{ fixCountry(team.country) }}</p>
+          <p style="text-transform: capitalize"><a href="https://www.google.com/maps/search/?api=1&query={{ (team.city + ', ' + (team.stateProv ? team.stateProv + ', ' : '') + fixCountry(team.country)).replace(' ', '+') }}" target="_blank">{{ team.city + ', ' + (team.stateProv ? team.stateProv + ', ' : '') + fixCountry(team.country) }}</a></p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.rookieYear && team.rookieYear !== 0">

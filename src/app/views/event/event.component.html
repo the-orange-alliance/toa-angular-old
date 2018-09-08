@@ -13,7 +13,7 @@
           </div>
           <div class="info-state d-flex align-content-center flex-wrap">
             <mat-icon svgIcon="map-marker"></mat-icon>
-            <p style="text-transform: capitalize">{{ event.venue ? event.venue + ',' : ''}} {{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : '' }}{{ fixCountry(event.country) }}</p>
+            <p style="text-transform: capitalize"><a href="https://www.google.com/maps/search/?api=1&query={{ ((event.venue ? event.venue + ', ' : '') + event.city + ', ' + (event.stateProv ? event.stateProv + ', ' : '') + fixCountry(event.country)).replace(' ', '+') }}" target="_blank">{{ (event.venue ? event.venue + ', ' : '') + event.city + ', ' + (event.stateProv ? event.stateProv + ', ' : '') + fixCountry(event.country) }}</a></p>
           </div>
           <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event_type_name">
             <mat-icon svgIcon="calendar-question"></mat-icon>
