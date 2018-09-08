@@ -5,7 +5,7 @@
       <mat-icon svgIcon="menu" (click)="appdrawer.open()" *ngIf="isScreenSmall() || appbar.isCollapsed()"></mat-icon>
     </mdc-app-bar-section>
     <mdc-app-bar-section align="end">
-      <a mdcAppBarActionItem title="Search" data-toggle="modal" [attr.data-target]="'#searchmodal'" id="showSearch" (click)="searchInput.select()">
+      <a mdcAppBarActionItem title="Search" data-toggle="modal" [attr.data-target]="'#searchmodal'" id="showSearch">
         <mat-icon class="white-icon" svgIcon="magnify"></mat-icon>
       </a>
     </mdc-app-bar-section>
