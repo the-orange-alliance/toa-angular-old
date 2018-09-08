@@ -202,4 +202,14 @@ export class TeamComponent implements OnInit {
       return country;
     }
   }
+
+  scrollToEvent(id: string) {
+    const element = document.getElementById(id);
+    window.scroll({
+      behavior: 'smooth',
+      left: 0,
+      top: element.offsetTop + 65
+    });
+
+  }
 }

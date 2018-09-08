@@ -22,7 +22,7 @@
           <li class="nav-item mt-1">
             Event Results
             <ul class="nav flex-column">
-              <li class="nav-item"><a *ngFor="let event of team.events" href="teams/{{ team.teamKey }}#{{ event.eventKey }}" class="nav-link">{{ event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName}}</a></li>
+              <li class="nav-item"><a *ngFor="let event of team.events" (click)="scrollToEvent(event.eventKey)" class="nav-link">{{ event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName}}</a></li>
             </ul>
           </li>
         </ul>
