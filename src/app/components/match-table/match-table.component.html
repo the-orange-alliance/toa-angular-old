@@ -143,7 +143,7 @@
       </td>
       <td>{{ getMatchResultString(match) }}</td>
       <td>
-        <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+        <span *ngIf="match.videoURL"><a [href]="match.videoURL" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
       </td>
       <td colspan="3" class="red" [class.match-winner]="match.redScore >= match.blueScore">
           <a href="/teams/{{ match.participants[0].teamKey }}" [class.current-team]="isSelectedTeam(match, 0)">{{ getParticipantString(match, 0) }}</a>
@@ -172,17 +172,16 @@
   <thead>
     <tr class="d-none d-lg-table-row d-xl-table-row">
       <th>Match</th>
-      <th>
+      <th class="p-0">
         <mat-icon svgIcon="play-circle-outline"></mat-icon>
       </th>
-
       <th colspan="6">Red Alliance</th>
       <th colspan="6">Blue Alliance</th>
       <th colspan="2">Scores</th>
     </tr>
     <tr class="d-lg-none d-xl-none">
       <th rowspan="2">Match</th>
-      <th rowspan="2">
+      <th class="p-0" rowspan="2">
         <mat-icon svgIcon="play-circle-outline"></mat-icon>
       </th>
       <th colspan="12">Red Alliance</th>
@@ -204,10 +203,10 @@
       <th colspan="18">{{ match.getShortName() }}es</th>
     </tr>
     <tr *ngIf="match.participants && match.participants.length == 6" class="d-none d-lg-table-row d-xl-table-row">
-      <td>
+      <td rowspan="2">
         <a href="/matches/{{ match.matchKey }}">{{ match.matchName }}</a>
       </td>
-      <td>
+      <td rowspan="2">
         <span *ngIf="match.videoURL"><a [href]="match.videoURL" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
       </td>
       <td colspan="2" class="red" [class.match-winner]="match.redScore >= match.blueScore">
@@ -235,13 +234,47 @@
         {{ match.blueScore }}
       </td>
     </tr>
-
-    <tr *ngIf="match.participants.length === 4" class="d-none d-lg-table-row d-xl-table-row">
-      <td>
+    <tr *ngIf="match.participants && match.participants.length == 6" class="d-lg-none d-xl-none">
+      <td rowspan="2">
         <a href="/matches/{{ match.matchKey }}">{{ match.matchName }}</a>
       </td>
-      <td>
-        <span *ngIf="match.video_url"><a [href]="match.video_url" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+      <td rowspan="2">
+        <span *ngIf="match.videoURL"><a [href]="match.videoURL" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+      </td>
+      <td colspan="4" class="red" [class.match-winner]="match.redScore >= match.blueScore">
+        <a href="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantString(match, 0) }}</a>
+      </td>
+      <td colspan="4" class="red" [class.match-winner]="match.redScore >= match.blueScore">
+        <a href="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantString(match, 1) }}</a>
+      </td>
+      <td colspan="4" class="red" [class.match-winner]="match.redScore >= match.blueScore">
+        <a href="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantString(match, 2) }}</a>
+      </td>
+      <td colspan="2" class="red" [class.match-winner]="match.redScore >= match.blueScore">
+        {{ match.redScore }}
+      </td>
+    </tr>
+    <tr *ngIf="match.participants && match.participants.length == 6" class="d-lg-none d-xl-none">
+      <td colspan="4" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
+        <a href="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantString(match, 2) }}</a>
+      </td>
+      <td colspan="4" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
+        <a href="/teams/{{ match.participants[4].teamKey }}">{{ getParticipantString(match, 3) }}</a>
+      </td>
+      <td colspan="4" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
+        <a href="/teams/{{ match.participants[5].teamKey }}">{{ getParticipantString(match, 5) }}</a>
+      </td>
+      <td colspan="2" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
+        {{ match.blueScore }}
+      </td>
+    </tr>
+
+    <tr *ngIf="match.participants.length === 4" class="d-none d-lg-table-row d-xl-table-row">
+      <td rowspan="2">
+        <a href="/matches/{{ match.matchKey }}">{{ match.matchName }}</a>
+      </td>
+      <td rowspan="2">
+        <span *ngIf="match.videoURL"><a [href]="match.videoURL" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
       </td>
       <td colspan="3" class="red" [class.match-winner]="match.redScore >= match.blueScore">
           <a href="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantString(match, 0) }}</a>
@@ -259,6 +292,34 @@
         {{ match.redScore }}
       </td>
       <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
+        {{ match.blueScore }}
+      </td>
+    </tr>
+    <tr *ngIf="match.participants && match.participants.length == 4" class="d-lg-none d-xl-none">
+      <td rowspan="2">
+        <a href="/matches/{{ match.matchKey }}">{{ match.matchName }}</a>
+      </td>
+      <td rowspan="2">
+        <span *ngIf="match.videoURL"><a [href]="match.videoURL" target="_blank"><mat-icon svgIcon="play-circle-outline"></mat-icon></a></span>
+      </td>
+      <td colspan="6" class="red" [class.match-winner]="match.redScore >= match.blueScore">
+        <a href="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantString(match, 0) }}</a>
+      </td>
+      <td colspan="6" class="red" [class.match-winner]="match.redScore >= match.blueScore">
+        <a href="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantString(match, 1) }}</a>
+      </td>
+      <td colspan="2" class="red" [class.match-winner]="match.redScore >= match.blueScore">
+        {{ match.redScore }}
+      </td>
+    </tr>
+    <tr *ngIf="match.participants && match.participants.length == 4" class="d-lg-none d-xl-none">
+      <td colspan="6" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
+        <a href="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantString(match, 2) }}</a>
+      </td>
+      <td colspan="6" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
+        <a href="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantString(match, 3) }}</a>
+      </td>
+      <td colspan="2" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
         {{ match.blueScore }}
       </td>
     </tr>
