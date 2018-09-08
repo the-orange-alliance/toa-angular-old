@@ -15,8 +15,7 @@ export class MatchTableComponent {
   public getMatchResultString(match: Match): string {
     let teamStation = 0;
     for (const participant of match.participants) {
-      // Again, don't know why === isn't working, it's probably a type error?
-      if (participant.teamKey === this.team.teamKey) {
+      if (participant.teamKey == this.team.teamKey) { // === isn't working
         teamStation = participant.station;
         break;
       }
@@ -40,6 +39,6 @@ export class MatchTableComponent {
   }
 
   public isSelectedTeam(match: Match, index: number): boolean {
-    return match.participants[index].teamKey == this.team.teamKey;
+    return match.participants[index].teamKey == this.team.teamKey; // === isn't working
   }
 }
