@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "prestart": "ng build --prod && ngc",
-    "build": "ng build",
+    "build": "ng build --prod",
     "start": "ng serve",
     "test": "ng test",
     "lint": "ng lint",
