@@ -149,12 +149,12 @@ export class MatchSorter {
       return parser_1.getMatchNumber() < parser_2.getMatchNumber() ? -1 : 1;
     } else {
       if (match1.tournamentLevel === MatchType.FINALS_MATCH) {
-        return 1;
-      }
-      if (match2.tournamentLevel === MatchType.FINALS_MATCH) {
         return -1;
       }
-      return match1.tournamentLevel < match2.tournamentLevel ? -1 : 1;
+      if (match2.tournamentLevel === MatchType.FINALS_MATCH) {
+        return 1;
+      }
+      return match1.tournamentLevel > match2.tournamentLevel ? -1 : 1;
     }
 
   }

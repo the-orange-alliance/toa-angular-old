@@ -98,7 +98,7 @@
   </tr>
   </tbody>
   <tbody *ngFor="let match of matchList; let i = index;">
-  <tr *ngIf="i > 0 && match.tournamentLevel !== matchList[i - 1].tournamentLevel || i === 0">
+  <tr *ngIf="i > 0 && match.getShortName() !== matchList[i - 1].getShortName() || i === 0">
     <th colspan="18">{{ match.getShortName() }}es</th>
   </tr>
   <tr *ngIf="match.participants && match.participants.length == 6" class="d-none d-lg-table-row d-xl-table-row">
@@ -257,7 +257,7 @@
   </tr>
   </tbody>
   <tbody *ngFor="let match of matchList; let i = index;">
-  <tr *ngIf="i > 0 && match.tournamentLevel !== matchList[i - 1].tournamentLevel || i === 0">
+  <tr *ngIf="i > 0 && match.getShortName() !== matchList[i - 1].getShortName() || i === 0">
     <th colspan="18">{{ match.getShortName() }}es</th>
   </tr>
   <tr *ngIf="match.participants && match.participants.length == 6" class="d-none d-lg-table-row d-xl-table-row">
