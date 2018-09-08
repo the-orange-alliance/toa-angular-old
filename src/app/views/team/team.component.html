@@ -60,7 +60,7 @@
           <p>Robot Name: {{ team.robotName }}</p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.awards && team.awards.length > 0 && thisSeason === currentSeason && thisSeason.description">
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.awards && team.awards.length > 0 && thisSeason && thisSeason === currentSeason && thisSeason.description">
           <mat-icon svgIcon="trophy"></mat-icon>
           <p>{{ team.awards.length }} awards in {{ thisSeason.description }}</p>
         </div>
