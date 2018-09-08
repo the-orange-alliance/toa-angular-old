@@ -26,10 +26,9 @@ export class FTCDatabase {
     return new Promise<any[]>((resolve, reject) => {
       const authHeader = new HttpHeaders({
         'X-Application-Origin': 'TOA-WebApp-1819',
-        'X-TOA-Key': 'lYjKJfe4dpfGm9SRPgsEotVC9morohaABU9hQAkXL8k=',
         'Content-Type': 'application/json'
       });
-      this.http.get('http://theorangealliance.org:8008/api' + url, { headers: authHeader }).subscribe((data: any[]) => {
+      this.http.get('https://theorangealliance.org/api' + url, { headers: authHeader }).subscribe((data: any[]) => {
         resolve(data);
       }, (err: any) => {
         reject(err);
