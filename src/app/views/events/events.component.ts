@@ -65,7 +65,7 @@ export class EventsComponent implements OnInit {
   organizeEventsByWeek(): void {
     this.weeks.clear();
     for (const event of this.events) {
-      if (typeof this.weeks.get(event.weekKey) === 'undefined') {
+      if (this.weeks.get(event.weekKey) === undefined) {
         this.weeks.set(event.weekKey, {
           weekKey: event.weekKey,
           startDate: event.startDate,
