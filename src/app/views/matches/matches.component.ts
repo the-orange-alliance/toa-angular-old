@@ -1,11 +1,9 @@
-/**
- * Created by Kyle Flynn on 8/27/2017.
- */
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import Match from '../../models/Match';
 import Event from '../../models/Event';
+import { TheOrangeAllianceGlobals } from '../../app.globals';
 
 @Component({
   selector: 'toa-match',
@@ -14,26 +12,25 @@ import Event from '../../models/Event';
 })
 export class MatchesComponent implements OnInit {
 
-  noData: boolean;
-
   matchKey: any;
 
   match: Match;
   event: Event;
 
-  constructor(private ftc: FTCDatabase, private router: Router, private route: ActivatedRoute) {
+  constructor(private ftc: FTCDatabase, private router: Router, private route: ActivatedRoute, private app: TheOrangeAllianceGlobals) {
     this.matchKey = this.route.snapshot.params['match_key'];
   }
 
   ngOnInit() {
     this.ftc.getMatchDetails(this.matchKey).then((match: Match) => {
-      if (!match) {
-        this.noData = true;
-      } else {
+      if (match) {
         this.match = match;
         this.ftc.getEventBasic(match.eventKey).then((event: Event) => {
           this.event = event;
+          this.app.setTitle(this.match.matchName + ' - ' + this.event.eventName);
         });
+      } else {
+        this.router.navigate(['/not-found']);
       }
     });
   }

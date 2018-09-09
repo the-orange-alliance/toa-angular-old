@@ -28,28 +28,18 @@ export class TeamComponent implements OnInit {
 
   years: any;
 
-  qualMatches: Match[];
-  quartersMatches: Match[];
-  semisMatches: Match[];
-  finalsMatches: Match[];
-
   seasons: Season[];
   currentSeason: Season;
   thisSeason: Season;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals) {
     this.teamKey = this.route.snapshot.params['team_key'];
-    // this.currentSeason = { season_key: '1718', description: 'Relic Recovery' };
-    this.qualMatches = [];
-    this.quartersMatches = [];
-    this.semisMatches = [];
-    this.finalsMatches = [];
     this.eventSorter = new EventSorter();
   }
 
   public ngOnInit(): void {
     this.years = [];
-    this.ftc.getTeam(this.teamKey, '1718').then((team: Team) => {
+    this.ftc.getTeam(this.teamKey, this.ftc.year).then((team: Team) => {
       if (!team) {
         this.router.navigate(['/not-found']);
       } else {

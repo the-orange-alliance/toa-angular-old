@@ -1,13 +1,11 @@
-<div class="row">
-  <div class="col-12 text-center">
-    <span class="big-text">Error 404</span>
-  </div>
-  <div class="col-12 text-center">
-    <span class="big-text">Page Not Found</span>
-  </div>
-  <div class="col-12 text-center">
+<div class="row align-items-center">
+  <div class="col-md-3 col-sm-12">
     <img src="../../../assets/imgs/404-1.png" class="img-fit-w" *ngIf="random == 1"/>
     <img src="../../../assets/imgs/404-2.png" class="img-fit-w" *ngIf="random == 2"/>
     <img src="../../../assets/imgs/404-3.png" class="img-fit-w" *ngIf="random == 3"/>
+  </div>
+  <div class="col-md-9 col-sm-12">
+    <h2>Page Not found</h2>
+    <p>Looks like you've followed a broken link or entered team/event/match that doesn't exist.</p>
   </div>
 </div>

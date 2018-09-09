@@ -18,7 +18,7 @@ import * as GameData from '../models/game-specifics/GameData';
 @Injectable()
 export class FTCDatabase {
 
-  private year = 1718;
+  public year = '1718';
 
   constructor(private http: HttpClient) {}
 
@@ -186,10 +186,14 @@ export class FTCDatabase {
       promises.push(this.request('/team/' + teamNumber + '/results/' + seasonKey));
       promises.push(this.request('/team/' + teamNumber + '/awards/' + seasonKey));
       Promise.all(promises).then((data: any[]) => {
-        const team: Team = new Team().fromJSON(data[0][0]);
-        team.rankings = data[1].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
-        team.awards = data[2].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
-        resolve(team);
+        if (data[0][0]) {
+          const team: Team = new Team().fromJSON(data[0][0]);
+          team.rankings = data[1].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
+          team.awards = data[2].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
+          resolve(team);
+        } else {
+          resolve(null);
+        }
       }).catch((error: any) => reject(error));
     });
   }
@@ -225,10 +229,14 @@ export class FTCDatabase {
       promises.push(this.request('/match/' + matchKey + '/details'));
       promises.push(this.request('/match/' + matchKey + '/participants'));
       Promise.all(promises).then((data: any[]) => {
-        const match: Match = new Match().fromJSON(data[0][0]);
-        match.details = GameData.getMatchDetails(matchKey.split('-')[0]).fromJSON(data[1][0] || {});
-        match.participants = data[2].map((participantJSON: any) => new MatchParticipant().fromJSON(participantJSON));
-        resolve(match);
+        if (data[0][0]) {
+          const match: Match = new Match().fromJSON(data[0][0]);
+          match.details = GameData.getMatchDetails(matchKey.split('-')[0]).fromJSON(data[1][0] || {});
+          match.participants = data[2].map((participantJSON: any) => new MatchParticipant().fromJSON(participantJSON));
+          resolve(match);
+        } else {
+          resolve(null);
+        }
       }).catch((error: any) => reject(error));
     });
   }

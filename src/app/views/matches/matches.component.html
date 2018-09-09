@@ -1,5 +1,5 @@
-<h2 *ngIf="match && event"><a class="black" href="/events/{{ event.eventKey }}">{{ event.divisionName ? event.eventName +
-    ' - ' + event.divisionName + ' Division' : event.eventName }}</a> <small> {{ match.matchName }}</small></h2>
+<h2 *ngIf="match && event">{{ match.matchName }} <small><a class="black" href="/events/{{ event.eventKey }}">{{ event.divisionName ? event.eventName +
+    ' - ' + event.divisionName + ' Division' : event.eventName }}</a></small></h2>
 <h2 *ngIf="noData">No match data found</h2>
 
 <div class="row" *ngIf="match">
@@ -15,7 +15,7 @@
         </div>
         <div class="info-state d-flex align-content-center flex-wrap">
           <mat-icon svgIcon="play-circle-outline"></mat-icon>
-          <p *ngIf="match.videoURL"><a href="{{ match.videoURL }}">{{ match.videoURL }}</a></p>
+          <p *ngIf="match.videoURL"><a href="{{ match.videoURL }}" target="_blank">Watch</a></p>
           <p *ngIf="!match.videoURL"><i>No video available.</i></p>
         </div>
       </div>

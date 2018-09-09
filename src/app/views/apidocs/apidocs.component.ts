@@ -7,7 +7,7 @@ import {TheOrangeAllianceGlobals} from '../../app.globals';
   providers: [TheOrangeAllianceGlobals]
 })
 export class ApiDocsComponent {
-  
+
   constructor(private app: TheOrangeAllianceGlobals) {
     this.app.setTitle('API Docs');
   }

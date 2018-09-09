@@ -12,7 +12,7 @@ export class PageNotFoundComponent {
 
   constructor(private app: TheOrangeAllianceGlobals) {
     this.app.setTitle('404');
-    const max = 3;
-    this.random = Math.floor(Math.random() * (max - 1) + 1);
+    const images = 3;
+    this.random = Math.floor(Math.random() * images + 1);
   }
 }

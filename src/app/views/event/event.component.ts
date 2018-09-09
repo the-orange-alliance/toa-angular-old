@@ -34,18 +34,17 @@ export class EventComponent implements OnInit {
   totalawards: any;
   view_type: string;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private globaltoa: TheOrangeAllianceGlobals) {
+  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals) {
     this.event_key = this.route.snapshot.params['event_key'];
   }
 
   ngOnInit() {
     if (this.event_key) {
       this.ftc.getEvent(this.event_key).then((data: Event) => {
-
-        if (data != null) {
+        if (data) {
           this.event = data;
 
-          this.globaltoa.setTitle(this.event.eventName);
+          this.app.setTitle(this.event.eventName);
 
           if (this.event.rankings && this.event.rankings.length > 0) {
             this.select('rankings');
@@ -86,9 +85,8 @@ export class EventComponent implements OnInit {
             console.log(err);
           });
         } else {
-          // TODO: Event not found
+          this.router.navigate(['/not-found']);
         }
-
       }, (err) => {
         console.log(err);
       });
@@ -98,7 +96,6 @@ export class EventComponent implements OnInit {
       }, (err) => {
         console.log(err);
       });
-
     }
   }
 
