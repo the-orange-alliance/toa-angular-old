@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {TheOrangeAllianceGlobals} from '../../app.globals';
 
 @Component({
   selector: 'toa-page-not-found',
@@ -8,6 +8,11 @@ import { Router } from '@angular/router';
 })
 export class PageNotFoundComponent {
 
-  constructor(private router: Router) {}
+  random: number;
 
+  constructor(private app: TheOrangeAllianceGlobals) {
+    this.app.setTitle('404');
+    const images = 3;
+    this.random = Math.floor(Math.random() * images + 1);
+  }
 }

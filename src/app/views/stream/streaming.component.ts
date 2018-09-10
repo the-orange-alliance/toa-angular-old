@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FTCDatabase } from '../../providers/ftc-database';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
+import {Router} from '@angular/router';
+import EventLiveStream from '../../models/EventLiveStream';
 
 export class StreamType {
   static YOUTUBE = 0;
@@ -12,27 +14,34 @@ export class StreamType {
 @Component({
   selector: 'toa-streaming',
   templateUrl: './streaming.component.html',
-  providers: [FTCDatabase,TheOrangeAllianceGlobals]
+  styleUrls: ['./streaming.component.scss'],
+  providers: [FTCDatabase, TheOrangeAllianceGlobals]
 })
 export class StreamingComponent implements OnInit {
 
-  streams: any[];
+  streams: EventLiveStream[];
 
-  constructor(private ftc: FTCDatabase, private sanitizer:DomSanitizer, private globaltoa:TheOrangeAllianceGlobals) {
-    this.globaltoa.setTitle("Streaming");
+  constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer, private app: TheOrangeAllianceGlobals) {
+    this.app.setTitle('Streaming');
   }
 
   ngOnInit() {
-    this.ftc.getAllStreams().subscribe((data: any[]) => {
+    this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       this.streams = data;
 
-      for (let stream of this.streams) {
-        stream.safe_url = this.sanitizer.bypassSecurityTrustResourceUrl(stream.stream_url);
-      }
+      for (const stream of this.streams) {
+        stream.safeURL = this.sanitizer.bypassSecurityTrustResourceUrl(stream.streamURL);
 
-    }, (err) => {
-      console.log(err);
+        const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = stream.streamURL.match(regExp);
+        if (match && match[2].length === 11) {
+          stream.streamURL = 'https://www.youtube.com/watch?v=' + match[2];
+        }
+      }
     });
   }
 
+  openEvent(event_key): void {
+    this.router.navigate(['/events', event_key]);
+  }
 }

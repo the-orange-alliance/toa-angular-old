@@ -1,98 +1,81 @@
-<!-- MAIN CONTAINER -->
-<main class="container">
+<div *ngIf="event">
+  <h2>{{ event.startDate | date : "y" }} {{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} <span class="badge bg-primary" *ngIf="event.isLive">LIVE</span></h2>
 
-  <nav aria-label="...">
-    <ul class="pager mar-top-0">
-      <li class="previous"><a routerLink="/events"><span aria-hidden="true">&larr;</span> {{ event.start_date | date : "y" }} Events</a></li>
-    </ul>
-  </nav>
-
-  <div class="row">
-
-    <div class="col-xs-12 col-md-6">
-      <h3 *ngIf="event.division_name == null">{{ event.start_date | date : "y" }} {{ event.event_name }}</h3>
-      <h3 *ngIf="event.division_name">{{ event.start_date | date : "y" }} {{ event.event_name }} - {{ event.division_name }} Division</h3>
-      <p class="lead">
-        <small>Basic information about the {{ event.event_name }} can be found in the information chart. All times and dates displayed here, and on the event's individual result pages, are local to the event.</small>
-      </p>
-    </div>
-
-    <div class="col-xs-12 col-md-6">
-      <div class="panel panel-warning">
-        <div class="panel-heading">
-          <h3 class="panel-title"><span class="fa fa-globe"></span> Event Information</h3>
+  <div class="row" *ngIf="regions">
+    <div class="col-md-7 col-sm-12 mt-3">
+      <mdc-card class="toa-card">
+        <div class="toa-card-header" mdcHeadline5>Event Information</div>
+        <mdc-list-divider></mdc-list-divider>
+        <div class="p-3">
+          <div class="info-state d-flex align-content-center flex-wrap">
+            <mat-icon svgIcon="calendar"></mat-icon>
+            <p>{{ event.startDate == event.endDate ? (event.startDate | date :  "mediumDate") : (event.startDate | date :  "mediumDate") + ' - ' + (event.endDate | date :  "mediumDate") }}</p>
+          </div>
+          <div class="info-state d-flex align-content-center flex-wrap">
+            <mat-icon svgIcon="map-marker"></mat-icon>
+            <p style="text-transform: capitalize"><a href="https://www.google.com/maps/search/?api=1&query={{ ((event.venue ? event.venue + ', ' : '') + event.city + ', ' + (event.stateProv ? event.stateProv + ', ' : '') + fixCountry(event.country)).replace(' ', '+') }}" target="_blank">{{ (event.venue ? event.venue + ', ' : '') + event.city + ', ' + (event.stateProv ? event.stateProv + ', ' : '') + fixCountry(event.country) }}</a></p>
+          </div>
+          <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event_type_name">
+            <mat-icon svgIcon="calendar-question"></mat-icon>
+            <p>{{ event_type_name }}</p>
+          </div>
+          <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event.website">
+            <mat-icon svgIcon="earth"></mat-icon>
+            <p><a [href]="event.website" target="_blank">View event's website</a></p>
+          </div>
+          <div class="info-state d-flex align-content-center flex-wrap">
+            <mat-icon svgIcon="code-tags"></mat-icon>
+            <p>Event Key: </p><p><code>{{ event_key }}</code></p>
+          </div>
         </div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-xs-2 col-md-1">
-              <span class="fa fa-code"></span>
-            </div>
-            <div class="col-xs-10 col-md-11">
-              {{ event.event_key }}
-            </div>
-          </div>
+      </mdc-card>
+    </div>
 
-          <div class="row">
-            <div class="col-xs-2 col-md-1">
-              <span class="fa fa-calendar"></span>
-            </div>
-            <div class="col-xs-10 col-md-11">
-              <span *ngIf="event.start_date != event.end_date">{{ event.start_date | date :  "mediumDate"}} - {{ event.end_date | date :  "mediumDate" }}</span>
-              <span *ngIf="event.start_date == event.end_date">{{ event.start_date | date :  "mediumDate"}} </span>
-            </div>
+    <div class="col-md-5 col-sm-12 mt-3" *ngIf="event.allianceCount || event.fieldCount || event_season_name">
+      <mdc-card class="toa-card h-100">
+        <div class="toa-card-header" mdcHeadline5>Game Information</div>
+        <mdc-list-divider></mdc-list-divider>
+        <div class="p-3">
+          <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event_season_name">
+            <mat-icon svgIcon="gamepad-variant"></mat-icon>
+            <p>{{ event_season_name }}</p>
           </div>
-
-          <div class="row">
-            <div class="col-xs-2 col-md-1">
-              <span class="fa fa-location-arrow"></span>
-            </div>
-            <div class="col-xs-10 col-md-11">
-              <span *ngIf="event.venue"><a href="https://www.google.com/maps/search/{{ event.venue }} in {{ event.city }}, {{ event.state_prov }}" target="_blank">{{ event.venue }} in {{ event.city }}, {{ event.state_prov }}</a></span>
-              <span *ngIf="event.venue == null">{{ event.city }}, {{ event.state_prov }}</span>
-            </div>
+          <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event.allianceCount">
+            <mat-icon svgIcon="human-handsup"></mat-icon>
+            <p>{{ event.allianceCount > 1 ? event.allianceCount + ' Alliances' : 'One Alliance'}}</p>
           </div>
-
-          <div class="row">
-            <div class="col-xs-2 col-md-1">
-              <span class="fa fa-globe"></span>
-            </div>
-            <div class="col-xs-10 col-md-11">
-              <span *ngIf="event.event_website"><a href="{{ event.event_website }}" target="_blank">Website</a></span>
-              <span *ngIf="event.event_website == null"><i>Website N/A</i></span>
-            </div>
+          <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event.fieldCount">
+            <mat-icon svgIcon="soccer-field"></mat-icon>
+            <p>{{ event.fieldCount > 1 ? event.fieldCount + ' Fields' : 'One Field'}}</p>
           </div>
-
         </div>
-      </div>
+      </mdc-card>
     </div>
   </div>
 
-  <h3 *ngIf="totalteams==0">NO RESULTS HAVE BEEN REPORTED FOR THIS EVENT.</h3>
-	
-  <div class="row" *ngIf="totalteams>0">
-    <div class="col-xs-12">
-      <ul class="nav nav-tabs">
+  <div class="mt-5 row" *ngIf="totalteams <= 0">
+    <h4 class="col-12"> NO RESULTS HAVE BEEN REPORTED FOR THIS EVENT.</h4>
+  </div>
 
-        <li role="presentation" [class.active]="isSelected('rankings')"><a (click)="select('rankings')">Rankings <span class="badge" [innerHTML]="totalrankings"></span></a></li>
-        <li role="presentation" [class.active]="isSelected('matches')"><a (click)="select('matches')">Matches <span class="badge" [innerHTML]="totalmatches"></span></a></li>
-        <li role="presentation" [class.active]="isSelected('awards')"><a (click)="select('awards')">Awards <span class="badge" [innerHTML]="totalawards"></span></a></li>
-		<li role="presentation" [class.active]="isSelected('teams')"><a (click)="select('teams')">Teams <span class="badge" [innerHTML]="totalteams"></span></a></li>
-
-        <!--<li role="presentation" [class.active]="isSelected('advancement')"><a (click)="select('advancement')">Advancement</a></li>-->
-      </ul>
+  <div class="mt-5 row" *ngIf="totalteams && totalteams > 0">
+    <div class="col-12">
+      <mdc-card class="toa-card">
+        <mdc-tab-bar class="w-100">
+          <mdc-tab-scroller>
+            <mdc-tab label="Rankings" (click)="select('rankings')" *ngIf="totalrankings > 0"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalrankings }}</span></mdc-tab>
+            <mdc-tab label="Matches" (click)="select('matches')" *ngIf="totalmatches > 0"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalmatches }}</span></mdc-tab>
+            <mdc-tab label="Teams" (click)="select('teams')" *ngIf="totalteams > 0"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalteams }}</span></mdc-tab>
+            <mdc-tab label="Awards" (click)="select('awards')" *ngIf="totalawards > 0"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalawards }}</span></mdc-tab>
+          </mdc-tab-scroller>
+        </mdc-tab-bar>
+        <div class="mt-4">
+          <toa-event-rankings *ngIf="isSelected('rankings')" [event]="event" [rankings]="event.rankings"></toa-event-rankings>
+          <toa-event-teams *ngIf="isSelected('teams')" [teams]="event.teams"></toa-event-teams>
+          <toa-event-matches *ngIf="isSelected('matches')" [matches]="event.matches"></toa-event-matches>
+          <toa-event-awards *ngIf="isSelected('awards')" [event]="event"></toa-event-awards>
+        </div>
+      </mdc-card>
     </div>
   </div>
 
-  <div class="row" *ngIf="totalteams>0">
-
-    <toa-event-rankings *ngIf="isSelected('rankings')" [event]="event" [rankings]="event.rankings"></toa-event-rankings>
-    <toa-event-teams *ngIf="isSelected('teams')" [event]="event"></toa-event-teams>
-    <toa-event-matches *ngIf="isSelected('matches')" [matches]="event.matches.stations"></toa-event-matches>
-    <toa-event-awards *ngIf="isSelected('awards')" [event]="event"></toa-event-awards>
-
-  </div>
-  
-
-
-</main>
-<!-- MAIN CONTAINER -->
+</div>

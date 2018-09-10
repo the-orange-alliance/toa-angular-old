@@ -1,138 +1,259 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import 'rxjs/add/observable/forkJoin'
-import {forkJoin} from "rxjs/observable/forkJoin";
+import WebAnnouncement from '../models/WebAnnouncement';
+import Season from '../models/Season';
+import Region from '../models/Region';
+import League from '../models/League';
+import Team from '../models/Team';
+import Event from '../models/Event';
+import EventType from '../models/EventType';
+import MatchParticipant from '../models/MatchParticipant';
+import Match from '../models/Match';
+import EventLiveStream from '../models/EventLiveStream';
+import Ranking from '../models/Ranking';
+import AwardRecipient from '../models/AwardRecipient';
+import EventParticipant from '../models/EventParticipant';
+import * as GameData from '../models/game-specifics/GameData';
 
 @Injectable()
 export class FTCDatabase {
 
-  year = 1718;
+  public year = '1718';
 
   constructor(private http: HttpClient) {}
 
-  private request(url: string) {
-    const auth_header = new HttpHeaders({
-      'X-Application-Origin': 'TOA'
+  private request(url: string): Promise<any[]> {
+    return new Promise<any[]>((resolve, reject) => {
+      const authHeader = new HttpHeaders({
+        'X-Application-Origin': 'TOA-WebApp-1819',
+        'Content-Type': 'application/json'
+      });
+      this.http.get('https://theorangealliance.org/api' + url, { headers: authHeader }).subscribe((data: any[]) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
     });
-    return this.http.get('https://theorangealliance.org/apiv2' + url, { headers: auth_header });
-    // return this.http.get('http://localhost:8009/apiv2' + url, { headers: auth_header });
   }
 
-  public getAnnouncements() {
-    return this.request('/web/announcements');
+  public getAnnouncements(): Promise<WebAnnouncement[]> {
+    return new Promise<WebAnnouncement[]>((resolve, reject) => {
+      this.request('/web/announcements').then((data: any[]) => {
+        resolve(data.map((result: any) => new WebAnnouncement().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getWebChangelog() {
-    return this.request('/web/changelog');
+  public getAllSeasons(): Promise<Season[]> {
+    return new Promise<Season[]>((resolve, reject) => {
+      this.request('/seasons').then((data: any[]) => {
+        resolve(data.map((result: any) => new Season().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getAPIDoc() {
-    return this.request('/web/doc');
+  public getAllRegions(): Promise<Region[]> {
+    return new Promise<Region[]>((resolve, reject) => {
+      this.request('/regions').then((data: any[]) => {
+        resolve(data.map((result: any) => new Region().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getAllSeasons() {
-    return this.request('/seasons');
+  public getAllLeagues(): Promise<League[]> {
+    return new Promise<League[]>((resolve, reject) => {
+      this.request('/leagues').then((data: any[]) => {
+        resolve(data.map((result: any) => new League().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getAllRegions() {
-    return this.request('/regions');
+  public getAllTeams(): Promise<Team[]> {
+    return new Promise<Team[]>((resolve, reject) => {
+      this.request('/team').then((data: any[]) => {
+        resolve(data.map((result: any) => new Team().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getAllLeagues() {
-    return this.request('/leagues');
+  public getTeamSize(): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+      this.request('/team/size').then((data: any) => {
+        resolve(parseInt(data.result, 10));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getEveryTeam() {
-    return this.request('/teams');
+  public getTeams(startingRow: number): Promise<Team[]> {
+    return new Promise<Team[]>((resolve, reject) => {
+      this.request('/team?start=' + startingRow).then((data: any) => {
+        resolve(data.map((result: any) => new Team().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getAllTeams() {
-    return this.request('/teams/count');
+  public getMatchSize(): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+      this.request('/match/size').then((data: any) => {
+        resolve(parseInt(data.result, 10));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getTeams(starting_row: number) {
-    return this.request('/teams/' + starting_row);
+  public getHighScoreQual(): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.request('/match/high-scores?type=quals').then((data: any) => {
+        resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getAllMatches(year?: number) {
-    return this.request('/matches/' + (year == null ? this.year : year) + '/count');
+  public getHighScoreElim(): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.request('/match/high-scores?type=elims').then((data: any) => {
+        resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getInsights(year?: number) {
-    return this.request('/matches/' + (year == null ? this.year : year) + '/insights');
+  public getHighScoreWithPenalty(): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.request('/match/high-scores?type=all').then((data: any) => {
+        resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getHighScoreQual(year?: number) {
-    return this.request('/matches/' + (year == null ? this.year : year) + '/high-scores/qual-no-penalty');
+  public getAllEvents(): Promise<Event[]> {
+    return new Promise<Event[]>((resolve, reject) => {
+      this.request('/event').then((data: any[]) => {
+        resolve(data.map((result: any) => new Event().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getHighScoreElim(year?: number) {
-    return this.request('/matches/' + (year == null ? this.year : year) + '/high-scores/elim-no-penalty');
+  public getEventTypes(): Promise<EventType[]> {
+    return new Promise<EventType[]>((resolve, reject) => {
+      this.request('/event-types').then((data: any[]) => {
+        resolve(data.map((result: any) => new EventType().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getHighScoreWithPenalty(year?: number) {
-    return this.request('/matches/' + (year == null ? this.year : year) + '/high-scores/with-penalty');
+  public getSeasonEvents(season: string): Promise<Event[]> {
+    return new Promise<Event[]>((resolve, reject) => {
+      this.request('/event?season_key=' + season).then((data: any[]) => {
+        resolve(data.map((result: any) => new Event().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getAllEvents() {
-    return this.request('/events/');
+  public getEventBasic(eventKey: string): Promise<Event> {
+    return new Promise<Event>((resolve, reject) => {
+      this.request('/event/' + eventKey).then((data: any[]) => {
+        resolve(data.map((result: any) => new Event().fromJSON(result))[0]);
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getSeasonEvents(season: any) {
-    return this.request('/events/season/' + season);
+  public getEvent(eventKey: string): Promise<Event> {
+    return new Promise<Event>((resolve, reject) => {
+      const promises: Promise<any>[] = [];
+      promises.push(this.request('/event/' + eventKey));
+      promises.push(this.request('/event/' + eventKey + '/matches'));
+      promises.push(this.request('/event/' + eventKey + '/rankings'));
+      promises.push(this.request('/event/' + eventKey + '/awards'));
+      promises.push(this.request('/event/' + eventKey + '/teams'));
+      Promise.all(promises).then((data: any[]) => {
+        if (data[0]) {
+          const event: Event = new Event().fromJSON(data[0][0]);
+          event.matches = data[1].map((matchJSON: any) => new Match().fromJSON(matchJSON));
+          event.rankings = data[2].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
+          event.awards = data[3].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
+          event.teams = data[4].map((teamJSON: any) => new EventParticipant().fromJSON(teamJSON));
+          resolve(event);
+        } else {
+          resolve(null);
+        }
+      }).catch((error: any) => reject(error));
+    });
   }
 
-  public getEvent(event_key, year?: number) {
-    return forkJoin(
-      this.request('/event/' + event_key),
-      this.request('/event/' + event_key + '/matches'),
-      this.request('/event/' + event_key + '/matches/stations'),
-      this.request('/event/' + event_key + '/alliances'),
-      this.request('/event/' + event_key + '/rankings'),
-      this.request('/event/' + event_key + '/awards'),
-      this.request('/event/' + event_key + '/teams')
-    );
+  public getTeam(teamNumber: number, seasonKey: string): Promise<Team> {
+    return new Promise<Team>((resolve, reject) => {
+      const promises: Promise<any>[] = [];
+      promises.push(this.request('/team/' + teamNumber));
+      promises.push(this.request('/team/' + teamNumber + '/results/' + seasonKey));
+      promises.push(this.request('/team/' + teamNumber + '/awards/' + seasonKey));
+      Promise.all(promises).then((data: any[]) => {
+        if (data[0][0]) {
+          const team: Team = new Team().fromJSON(data[0][0]);
+          team.rankings = data[1].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
+          team.awards = data[2].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
+          resolve(team);
+        } else {
+          resolve(null);
+        }
+      }).catch((error: any) => reject(error));
+    });
   }
 
-  public getTeam(team_number: number, year?: number) {
-    return forkJoin(
-      this.request('/team/' + team_number),
-      this.request('/team/' + team_number + '/' + (year == null ? this.year : year) + '/events'),
-      this.request('/team/' + team_number + '/' + (year == null ? this.year : year) + '/results'),
-      this.request('/team/' + team_number + '/' + (year == null ? this.year : year) + '/awards')
-    );
+  public getMatchParticipants(matchKey: string): Promise<MatchParticipant[]> {
+    return new Promise<MatchParticipant[]>((resolve, reject) => {
+      this.request('/match/' + matchKey + '/participants').then((data: any[]) => {
+        resolve(data.map((result: any) => new MatchParticipant().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getStations(match_key: string, year?: number) {
-    return this.request('/match/' + match_key + '/stations');
+  public getTeamEvents(teamNumber: number, seasonKey: string): Promise<Event[]> {
+    return new Promise<Event[]>((resolve, reject) => {
+      this.request('/team/' + teamNumber + '/events/' + seasonKey).then((data: any[]) => {
+        resolve(data.map((result: any) => new Event().fromJSON(result.event)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getTeamEvents(team_number: number, year?: number) {
-    return this.request('/team/' + team_number + '/' + (year == null ? this.year : year) + '/events');
+  public getEventMatches(eventKey: string): Promise<Match[]> {
+    return new Promise<Match[]>((resolve, reject) => {
+      this.request('/event/' + eventKey + '/matches').then((data: any[]) => {
+        resolve(data.map((result: any) => new Match().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getEventName(event_key) {
-    return this.request('/event/' +  event_key);
+  public getMatchDetails(matchKey: string): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      const promises: Promise<any>[] = [];
+      promises.push(this.request('/match/' + matchKey));
+      promises.push(this.request('/match/' + matchKey + '/details'));
+      promises.push(this.request('/match/' + matchKey + '/participants'));
+      Promise.all(promises).then((data: any[]) => {
+        if (data[0][0]) {
+          const match: Match = new Match().fromJSON(data[0][0]);
+          match.details = GameData.getMatchDetails(matchKey.split('-')[0]).fromJSON(data[1][0] || {});
+          match.participants = data[2].map((participantJSON: any) => new MatchParticipant().fromJSON(participantJSON));
+          resolve(match);
+        } else {
+          resolve(null);
+        }
+      }).catch((error: any) => reject(error));
+    });
   }
 
-  public getEventMatches(event_key: string, year?: number) {
-    return this.request('/event/' + event_key + '/matches/stations');
+  public getAllStreams(): Promise<EventLiveStream[]> {
+    return new Promise<EventLiveStream[]>((resolve, reject) => {
+      this.request('/streams').then((data: any[]) => {
+        resolve(data.map((result: any) => new EventLiveStream().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
 
-  public getMatchDetail(match_key: string, year?: number) {
-    return forkJoin(
-      this.request('/match/' + match_key),
-      this.request('/match/' + match_key + '/details'),
-      this.request('/match/' + match_key + '/stations')
-    );
+  public getEventStreams(eventKey: string): Promise<EventLiveStream[]> {
+    return new Promise<EventLiveStream[]>((resolve, reject) => {
+      this.request('/event/' + eventKey).then((data: any[]) => {
+        resolve(data.map((result: any) => new EventLiveStream().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
   }
-
-  public getAllStreams() {
-    return this.request('/events/streams');
-  }
-
-  public getEventStream(event_key: string) {
-    return this.request('/event/' + event_key + "/stream");
-  }
-
 }

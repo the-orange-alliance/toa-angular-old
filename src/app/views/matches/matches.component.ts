@@ -1,9 +1,9 @@
-/**
- * Created by Kyle Flynn on 8/27/2017.
- */
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
+import Match from '../../models/Match';
+import Event from '../../models/Event';
+import { TheOrangeAllianceGlobals } from '../../app.globals';
 
 @Component({
   selector: 'toa-match',
@@ -12,71 +12,37 @@ import { FTCDatabase } from '../../providers/ftc-database';
 })
 export class MatchesComponent implements OnInit {
 
-  match_key: any;
+  matchKey: any;
 
-  match_data: any;
-  match_details: any;
-  match_stations: any;
-  match_event: any;
-  stations: any;
+  match: Match;
+  event: Event;
 
-  constructor(private ftc: FTCDatabase, private router: Router, private route: ActivatedRoute) {
-    this.match_key = this.route.snapshot.params['match_key'];
+  constructor(private ftc: FTCDatabase, private router: Router, private route: ActivatedRoute, private app: TheOrangeAllianceGlobals) {
+    this.matchKey = this.route.snapshot.params['match_key'];
   }
 
   ngOnInit() {
-    const season_split = this.match_key.toString().split('-')[0];
-    this.ftc.getMatchDetail(this.match_key).subscribe((match_data) => {
-      if (!match_data[0][0]) {
-        this.router.navigate(['/not-found']);
-      } else {
-        /*this.stations = match_data.station_status;*/
-        this.match_data = match_data[0][0];
-        this.match_details = match_data[1][0];
-        this.match_stations = match_data[2];
-        if(this.match_details == null) {
-          console.log("match details are null");
-        }
-        if(this.match_data == null)
-        {
-          console.log("match_data is null");
-        }
-        else {
-          this.ftc.getEventName(this.match_data.event_key).subscribe((data) => {
-          this.match_event = data[0];
+    this.ftc.getMatchDetails(this.matchKey).then((match: Match) => {
+      if (match) {
+        this.match = match;
+        this.ftc.getEventBasic(match.eventKey).then((event: Event) => {
+          this.event = event;
+          this.app.setTitle(this.match.matchName + ' - ' + this.event.eventName);
         });
-        }
+      } else {
+        this.router.navigate(['/not-found']);
       }
-    }, (err) => {
-      console.log(err);
     });
   }
 
   getMatchSeason(): number {
-    let match = this.match_key.substr(0, 4);
+    const match = this.matchKey.substr(0, 4);
     try {
-      let match_season = parseInt(match);
-      return match_season;
+      const seasonKey = parseInt(match);
+      return seasonKey;
     } catch (e) {
       return 0;
     }
-  }
-
-  getStation(station: number): string {
-    return this.match_stations[station].team_key;
-  }
-
-  /*getStation(station: number): string {
-    const stat = stations.toString().split(',');
-    if (stat[status] === '0') {
-      return this.match_stations[station].team_key + '*';
-    } else {
-      return this.match_stations[station].team_key + '*';
-    }
-  }*/
-
-  getNumberOfTeams() {
-    return this.match_stations.length;
   }
 
 }

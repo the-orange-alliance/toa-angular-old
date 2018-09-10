@@ -1,110 +1,80 @@
-<!-- MAIN CONTAINER -->
-<main class="container">
-  <div class="row">
-    <div class="col-xs-12 col-md-8">
-      <h1 class="centered"> Events </h1>
-      <p class="lead">
-        Welcome to The Orange Alliance! Select a year, district, and event to view official scores from FIRST Tech Challenge.
-      </p>
-    </div>
+<h2>Events</h2>
 
-    <div class="col-xs-12 col-md-4">
+<div class="row w-100">
+  <div class="col-12">
+    <mdc-card class="toa-card" *ngIf="weeks">
+      <div class="toa-card-header">Filter Options</div>
 
-      <div class="panel panel-warning">
-        <div class="panel-heading">
-          <div class="panel-title">
-            <b>Filter Options</b>
-          </div>
+      <mdc-list-divider></mdc-list-divider>
+      <div class="p-3 row">
+
+        <div *ngIf="currentSeason" class="col-md-4 col-xs-12 filter-row dropdown">
+          <div class="filter-info">Season: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          20{{ currentSeason.seasonKey.substring(2, 4) }} - {{ currentSeason.description }}
+          <span class="caret"></span>
+        </button>
+          <ul class="dropdown-menu" aria-labelledby="ftc_season">
+            <mdc-menu-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-menu-item>
+          </ul>
         </div>
-        <div class="panel-body">
 
-          <div class="row">
-            <div class="col-xs-4">
-              <span>Year: </span>
-            </div>
-            <div *ngIf="seasons" class="dropdown col-xs-8">
-              <button class="btn btn-default dropdown-toggle" type="button" id="ftc_year" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{ getSeason(current_season) }}
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="ftc_year">
-                <li *ngFor="let season of seasons"><a (click)="selectSeason(season)">{{ getSeason(season) }}</a></li>
-              </ul>
-            </div>
-
-            <div class="col-xs-4">
-              <span>Region: </span>
-            </div>
-            <div *ngIf="regions" class="dropdown col-xs-8">
-              <button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{ current_region.region_key }} <span *ngIf="current_region.description">- {{ current_region.description}}</span>
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="ftc_district">
-                <li *ngFor="let region of regions"><a (click)="selectRegion(region)">{{ region.region_key }} <span *ngIf="region.description">- {{ region.description }}</span></a></li>
-              </ul>
-            </div>
-
-            <!--<div class="col-xs-4">-->
-            <!--<span>Event: </span>-->
-            <!--</div>-->
-            <!--<div class="dropdown col-xs-8">-->
-            <!--<button class="btn btn-default dropdown-toggle" type="button" id="ftc_event" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-            <!--All Events-->
-            <!--<span class="caret"></span>-->
-            <!--</button>-->
-            <!--<ul class="dropdown-menu" aria-labelledby="ftc_event">-->
-            <!--<li><a href="#">Events Here lol</a></li>-->
-            <!--</ul>-->
-            <!--</div>-->
-          </div>
-
+        <div *ngIf="currentRegion" class="col-md-4 col-xs-12 filter-row dropdown">
+          <div class="filter-info">Region: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          {{ currentRegion.description ? currentRegion.regionKey + " - " + currentRegion.description : currentRegion.regionKey }}
+          <span class="caret"></span>
+        </button>
+          <ul class="dropdown-menu" aria-labelledby="ftc_district">
+            <mdc-menu-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}</mdc-menu-item>
+          </ul>
         </div>
+
+        <!--
+          <div *ngIf="current_league" class="col-md-4 col-xs-12 filter-row dropdown">
+            <div class="filter-info">League: </div>
+            <button class="btn btn-default dropdown-toggle" type="button" id="ftc_league" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              {{ current_league.description ? current_league.league_key + " - " + current_league.description :  current_league.league_key}}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="ftc_league">
+              <mdc-menu-item *ngFor="let league of leagues" (click)="selectLeague(league)">{{ league.description ? league.league_key + " - " + league.description :  league.league_key}}</mdc-menu-item>
+            </ul>
+          </div>
+        -->
       </div>
 
-    </div>
+      <mdc-list-divider></mdc-list-divider>
 
+      <button mdc-button (click)="clearFilter()">Clear Filter</button>
+
+    </mdc-card>
   </div>
+</div>
 
-  <div class="events-div">
-    <ul  class="events-ul">
-      <ng-container *ngFor="let week of weeks" class="events-li">
-        <li *ngIf="getEventsByWeek(week).length > 0">
-            <input type="checkbox" checked>
-            <i></i>
-            <h3>
-              <b *ngIf="week.week != 'CMPHOU' && week.week != 'CMPSTL' && week.week != 'CMPDET' && week.week != 'CMP' && week.week != 'SPR' && week.week != 'FOC' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'">Week {{ week.week }}</b>
-              <b *ngIf="week.week == 'CMP'">FIRST Championship</b>
-              <b *ngIf="week.week == 'CMPHOU'">FIRST Championship - Houston</b>
-              <b *ngIf="week.week == 'CMPSTL'">FIRST Championship - St. Louis</b>
-              <b *ngIf="week.week == 'CMPDET'">FIRST Championship - Detroit</b>
-              <b *ngIf="week.week == 'ESR'">East Super Regional Championship</b>
-              <b *ngIf="week.week == 'NSR'">North Super Regional Championship</b>
-              <b *ngIf="week.week == 'SSR'">South Super Regional Championship</b>
-              <b *ngIf="week.week == 'WSR'">West Super Regional Championship</b>
-              <b *ngIf="week.week == 'SPR'">Super Regionals</b>
-              <b *ngIf="week.week == 'FOC'">Festival of Champions</b>
+<div class="mt-5 row" *ngIf="availableWeeks && availableWeeks.length > 0">
+  <div class="col-12">
+    <mdc-card class="toa-card">
+      <mdc-tab-bar #tabbar class="w-100">
+        <mdc-tab-scroller>
+          <mdc-tab *ngFor="let week of availableWeeks; let i = index" [label]="getWeekName(week.weekKey)" (click)="select(i)">
+            <span class="ml-1 badge badge-pill badge-primary bg-primary">{{ getEventsByWeek(week).length }}</span>
+          </mdc-tab>
+        </mdc-tab-scroller>
+      </mdc-tab-bar>
+      <div class="mt-4">
+        <div *ngFor="let week of availableWeeks; let i = index">
+          <div *ngIf="isSelected(i)">
+            <div class="pt-t pl-3">
+              <h1 mdcHeadline6>{{ getWeekName(week.weekKey) }}<h1 mdcSubtitle1>{{ week.startDate | date :  "mediumDate"}} - {{ week.endDate | date :  "mediumDate" }}</h1></h1>
+            </div>
 
-              <!-- <br/> -->
-              <small style="margin-left:10px">{{ week.start_date | date :  "mediumDate"}} - {{ week.end_date | date :  "mediumDate" }}</small>
-              <span class="badge" style="margin-left:10px">{{ getEventsByWeek(week).length }}</span>
-            </h3>
-            <div class="event-container">
-              <div *ngFor="let event of getEventsByWeek(week)">
-                <!-- <a *ngIf="week.week == 'CMP' || week.week == 'CMPHOU' || week.week == 'CMPDET' || week.week == 'CMPSTL' || week.week == 'ESR' || week.week == 'SSR' || week.week == 'NSR' || week.week == 'WSR'" href="/events/{{ event.event_key }}">{{ event.division_name }} Division</a> -->
+            <mdc-list-divider></mdc-list-divider>
 
-                <a *ngIf="event.division_name == null && event.start_date != event.end_date" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }} from {{ event.start_date | date :  "mediumDate"}} to {{ event.end_date | date :  "mediumDate"}}'>{{ event.region_key}} : {{ event.event_name }}</a>
-
-                <a *ngIf="event.division_name == null && event.start_date == event.end_date" href="/events/{{ event.event_key }}" data-toggle="tooltip" title='In {{ event.city }}, {{ event.state_prov }} on {{ event.start_date | date :  "mediumDate"}}'>{{ event.region_key}} : {{ event.event_name }}</a>
-
-                <a *ngIf="event.division_name && week.week != 'CMP' && week.week != 'CMPHOU' && week.week != 'CMPDET' && week.week != 'CMPSTL' && week.week != 'ESR' && week.week != 'SSR' && week.week != 'NSR' && week.week != 'WSR'" href="/events/{{ event.event_key }}">{{ event.region_key}} : {{ event.event_name }} - {{ event.division_name }} Division</a>
-
-                <!-- <p *ngIf="event.teams != null"> NONE </p> In the future TODO when API gets changed -->
-              </div>
+            <mdc-list [lines]="2">
+              <toa-event-item *ngFor="let event of getEventsByWeek(week)" [event]="event"></toa-event-item>
+            </mdc-list>
           </div>
-      </li>
-    </ng-container>
-    </ul>
+        </div>
+      </div>
+    </mdc-card>
   </div>
-</main>
-<!-- MAIN CONTAINER -->
+</div>

@@ -1,23 +1,9 @@
-<div class="col-xs-12 col-md-10 col-md-offset-1 mar-top-10">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title"><span class="fa fa-calendar"></span> Event Awards</h3>
-    </div>
-    <div class="panel-body pad-0">
-      <table class="stats-table table table-responsive table-striped">
-        <thead>
-        <tr>
-          <td>Award Name</td>
-          <td>Recipient</td>
-        </tr>
-        </thead>
-        <tbody *ngIf="event">
-        <tr *ngFor="let award of event.awards">
-          <td><b *ngIf="award.award_desc && !award.award_name">{{ award.award_desc }}</b><b *ngIf="award.award_name">{{ award.award_name }}</b></td>
-          <td><a href="/teams/{{ award.team_key }}">{{ award.team_key }}</a> <i *ngIf="award.receiver_name">({{ award.receiver_name }})</i></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="col-12">
+  <mdc-list-group>
+    <mdc-list>
+      <div *ngFor="let award of event.awards">
+        <toa-award-item [award]="award"></toa-award-item>
+      </div>
+    </mdc-list>
+  </mdc-list-group>
 </div>
