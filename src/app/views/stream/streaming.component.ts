@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import {Router} from '@angular/router';
 import EventLiveStream from '../../models/EventLiveStream';
+import Event from '../../models/Event';
 
 export class StreamType {
   static YOUTUBE = 0;
@@ -30,6 +31,12 @@ export class StreamingComponent implements OnInit {
       this.streams = data;
 
       for (const stream of this.streams) {
+        this.ftc.getEventBasic(stream.eventKey).then((event: Event) => {
+          stream.eventName = event.eventName;
+        }, (err) => {
+          console.log(err);
+        });
+
         stream.safeURL = this.sanitizer.bypassSecurityTrustResourceUrl(stream.streamURL);
 
         const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;

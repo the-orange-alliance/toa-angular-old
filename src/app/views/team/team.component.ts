@@ -40,9 +40,7 @@ export class TeamComponent implements OnInit {
   public ngOnInit(): void {
     this.years = [];
     this.ftc.getTeam(this.teamKey, this.ftc.year).then((team: Team) => {
-      if (!team) {
-        this.router.navigate(['/not-found']);
-      } else {
+      if (team) {
         this.team = team;
         for (let i = this.team.rookieYear; i <= new Date().getFullYear(); i++) {
           this.years.push(i);
@@ -56,6 +54,8 @@ export class TeamComponent implements OnInit {
           });
         }
         this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamKey + ')');
+      } else {
+        this.router.navigate(['/not-found']);
       }
     });
     this.ftc.getAllRegions().then((data: Region[]) => {
