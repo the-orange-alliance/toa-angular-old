@@ -50,9 +50,14 @@
           <p>Rookie Year: {{ team.rookieYear }}</p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website">
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website && !beautifulURL(team.website).startsWith('www.facebook.com/')">
           <mat-icon svgIcon="earth"></mat-icon>
-          <p>Website: {{ team.website }}</p>
+          <p>Website: <a href="{{ team.website }}">{{ beautifulURL(team.website) }}</a></p>
+        </div>
+
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website && beautifulURL(team.website).startsWith('www.facebook.com/')">
+          <mat-icon svgIcon="facebook"></mat-icon>
+          <p>Facebook: <a href="{{ team.website }}">@{{ beautifulURL(team.website).replace("www.facebook.com/", "") }}</a></p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.robotName">

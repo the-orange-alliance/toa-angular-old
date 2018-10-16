@@ -193,6 +193,15 @@ export class TeamComponent implements OnInit {
     }
   }
 
+  beautifulURL(website: string) {
+    website = website.substr( website.indexOf(':') + 3 ); // Taking off the http/s
+    if (website.endsWith("/") || website.endsWith("?") || website.endsWith("#")) { // Taking off unnecessary chars
+      website = website.substr( 0, website.length - 2 );
+    }
+
+    return website.startsWith("www.") ? website : "www."+website;
+  }
+
   scrollToEvent(id: string) {
     const element = document.getElementById(id);
     window.scroll({

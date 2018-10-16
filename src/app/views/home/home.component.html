@@ -4,6 +4,12 @@
 <div class="row m-0">
   <div class="col-sm-12 col-lg-6 p-3">
     <div class="row">
+      <div class="col-12 p-1 mb-3" *ngIf="currentAnnouncement">
+        <mdc-card class="toa-card p-0">
+          <h1 class="toa-card-header pt-3 mb-0 pb-0" mdcHeadline6>{{ currentAnnouncement.title }}</h1>
+          <div class="toa-card-subtitle p-3" mdcBody2>{{ currentAnnouncement.text }}</div>
+        </mdc-card>
+      </div>
       <div class="col-6 p-1">
         <mdc-card class="toa-card counting-card">
           <div class="counting-card-icon">
@@ -28,7 +34,7 @@
         </mdc-card>
       </div>
     </div>
-    <div class="row mt-4" *ngIf="weekStart && weekEnd && currentEvents">
+    <div class="row mt-3" *ngIf="weekStart && weekEnd && currentEvents">
       <div class="p-1 col-12">
         <mdc-card class="toa-card p-0">
           <div class="p-2">

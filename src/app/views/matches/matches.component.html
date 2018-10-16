@@ -1,6 +1,6 @@
 <h2 *ngIf="match && event">{{ match.matchName }} <small><a class="black" href="/events/{{ event.eventKey }}">{{ event.divisionName ? event.eventName +
     ' - ' + event.divisionName + ' Division' : event.eventName }}</a></small></h2>
-<h2 *ngIf="noData">No match data found</h2>
+<!--<h2 *ngIf="noData">No match data found</h2>-->
 
 <div class="row" *ngIf="match">
   <div class="col-12 col-sm-5 mt-3">
