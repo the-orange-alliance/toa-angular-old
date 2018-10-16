@@ -6,7 +6,6 @@ html, body {
   margin: 0;
   height: 100%;
   background: #F5F6F7;
-  overflow-x: hidden;
 }
 
 .row {
@@ -56,6 +55,11 @@ a:hover {
 
 .table-no-border-top thead td  {
   border-top: none;
+}
+
+.scroll-top-fab {
+  z-index: 0;
+  color: #fff;
 }
 
 /* ==========================================================================
