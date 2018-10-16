@@ -96,6 +96,13 @@ a:hover {
    Drawer
    ========================================================================== */
 
+.toa-drawer--fixed {
+  position: fixed;
+  overflow-y: auto;
+  top: auto;
+  padding-bottom: 64px;
+}
+
 mdc-drawer mdc-list .mdc-list-item--activated {
   color: $mdc-theme-primary!important;
 }
@@ -135,7 +142,7 @@ mdc-drawer mdc-list a {
     padding-bottom: 64px;
   }
   .toa-page {
-    margin-left: 240px;
+    margin-left: 256px;
     margin-right: 0;
     padding-left: 20px;
   }

@@ -52,8 +52,8 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="ftc_district">
-            <mdc-menu-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ?
-              region.regionKey + " - " + region.description : region.regionKey }}</mdc-menu-item>
+            <mdc-list-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ?
+              region.regionKey + " - " + region.description : region.regionKey }}</mdc-list-item>
           </ul>
         </div>
 
@@ -65,7 +65,7 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="ftc_league">
-            <mdc-menu-item *ngFor="let league of leagues" (click)="selectLeague(league)">{{ league.description ? league.league_key + " - " + league.description :  league.league_key}}</mdc-menu-item>
+            <mdc-list-item *ngFor="let league of leagues" (click)="selectLeague(league)">{{ league.description ? league.league_key + " - " + league.description :  league.league_key}}</mdc-list-item>
           </ul>
         </div>
       -->
@@ -133,7 +133,7 @@
   </div>
 </div>
 
-<button mdc-fab position='bottom-right' class="scroll-top-fab" (click)="scrollTo('body')">
+<button mdc-fab position='bottomRight' class="scroll-top-fab" (click)="scrollTo('body')">
   <mdc-icon>navigation</mdc-icon>
 </button>
 

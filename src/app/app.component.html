@@ -1,16 +1,17 @@
 <!-- AppBar -->
-<mdc-app-bar #appbar fixed class="col">
-  <mdc-app-bar-row>
-    <mdc-app-bar-section align="start" title="The Orange Alliance">
-      <mat-icon svgIcon="menu" (click)="appdrawer.open()" *ngIf="isScreenSmall() || appbar.isCollapsed()"></mat-icon>
-    </mdc-app-bar-section>
-    <mdc-app-bar-section align="end">
+<mdc-top-app-bar #topAppBar fixed class="col">
+  <mdc-top-app-bar-row>
+    <mdc-top-app-bar-section align="start" title="The Orange Alliance">
+      <!--<mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">menu</mdc-icon>-->
+      <mat-icon svgIcon="menu" (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()"></mat-icon>
+    </mdc-top-app-bar-section>
+    <mdc-top-app-bar-section align="end">
       <a mdcAppBarActionItem title="Search" data-toggle="modal" [attr.data-target]="'#searchmodal'" id="showSearch">
         <mat-icon class="white-icon" svgIcon="magnify"></mat-icon>
       </a>
-    </mdc-app-bar-section>
-  </mdc-app-bar-row>
-</mdc-app-bar>
+    </mdc-top-app-bar-section>
+  </mdc-top-app-bar-row>
+</mdc-top-app-bar>
 
 <!-- Search -->
 <div class="modal fade" id="searchmodal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -21,7 +22,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <mdc-dialog-body class="modal-body mt-0" style="overflow-y: initial !important">
+      <mdc-dialog-container class="modal-body mt-0" style="overflow-y: initial !important">
         <mdc-text-field #searchInput id="ftc_search" (change)="performSearch()" label="Team # or Event" [(ngModel)]="search" [fullwidth]="true"></mdc-text-field>
         <div class="row mt-4" *ngIf="search" style="max-height: calc(100vh - 200px); overflow-y: auto">
           <div class="col-md-6 col-12">
@@ -37,15 +38,14 @@
             <p *ngIf="eventSearchResults.length === 0">No events found</p>
           </div>
         </div>
-      </mdc-dialog-body>
+      </mdc-dialog-container>
     </div>
   </div>
 </div>
 
 <!-- Drawer -->
 <div class="mdc-top-app-bar--fixed-adjust">
-  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || appbar.isCollapsed() ? 'temporary' : 'permanent'"
-              [closeOnClick]="false" fixed>
+  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || topAppBar.isCollapsed() ? 'modal' : 'permanent'" class="toa-drawer--fixed">
     <mdc-drawer-content>
       <mdc-list-group>
         <mdc-list>
@@ -101,9 +101,11 @@
           <a mdc-list-item href="https://discord.gg/5fH66UV" target="_blank">
             <mat-icon class="mdc-list-item__graphic" svgIcon="discord"></mat-icon>Discord
           </a>
+<!--
           <a mdc-list-item href="https://www.facebook.com/theorangealliance" target="_blank">
             <mat-icon class="mdc-list-item__graphic" svgIcon="facebook"></mat-icon>Facebook
           </a>
+-->
           <a mdc-list-item href="https://play.google.com/store/apps/details?id=com.theorangealliance.android" target="_blank">
             <mat-icon class="mdc-list-item__graphic" svgIcon="android-head"></mat-icon>Android App
           </a>
@@ -119,7 +121,7 @@
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a href="https://revrobotics.com/" target="_blank" class="pl-5 pr-5 pt-3 pb-3" mdc-list-item>
+          <a href="https://revrobotics.com/" target="_blank" class="p-4" mdc-list-item>
             <img class="img-fit-w" src="../assets/imgs/powered_by_rev.png" title="Powered by REV" />
           </a>
 

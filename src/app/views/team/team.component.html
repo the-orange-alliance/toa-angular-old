@@ -11,7 +11,7 @@
           </button>
 
           <ul class="dropdown-menu" aria-labelledby="ftc_season">
-            <mdc-menu-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-menu-item>
+            <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-list-item>
           </ul>
         </div>
 

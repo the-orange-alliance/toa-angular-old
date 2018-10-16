@@ -4,7 +4,7 @@ import { TeamFilter } from './util/team-utils';
 import { Router } from '@angular/router';
 import {EventFilter} from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
-import { MdcAppBar, MdcTextField } from '@angular-mdc/web';
+import { MdcTopAppBar, MdcTextField } from '@angular-mdc/web';
 import Team from './models/Team';
 import Event from './models/Event';
 
@@ -34,7 +34,7 @@ export class TheOrangeAllianceComponent {
   current_year: any;
 
   private _mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
-  @ViewChild(MdcAppBar) appBar: MdcAppBar;
+  @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
   @ViewChild('searchInput') searchInput: MdcTextField;
 
   constructor(private router: Router, private ftc: FTCDatabase, private globaltoa: TheOrangeAllianceGlobals, private _ngZone: NgZone) {
