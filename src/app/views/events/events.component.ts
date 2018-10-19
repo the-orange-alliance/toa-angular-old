@@ -40,18 +40,20 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ftc.getSeasonEvents('1718').then((data: Event[]) => {
-      this.events = data;
-      this.eventFilter = new EventFilter(this.events);
-      this.eventSorter = new EventSorter();
-      this.events = this.eventSorter.sort(this.events, 0, this.events.length - 1);
-      if (this.events.length > 0) {
-        this.organizeEventsByWeek();
-      }
-    });
     this.ftc.getAllSeasons().then((data: Season[]) => {
-      this.seasons = data;
-      this.currentSeason = this.seasons[this.seasons.length - 1];
+      this.seasons = data.reverse();
+      this.currentSeason = this.seasons[0];
+
+      this.ftc.getSeasonEvents(this.currentSeason.seasonKey).then((data: Event[]) => {
+        this.events = data;
+        this.eventFilter = new EventFilter(this.events);
+        this.eventSorter = new EventSorter();
+        this.events = this.eventSorter.sort(this.events, 0, this.events.length - 1);
+        if (this.events.length > 0) {
+          this.organizeEventsByWeek();
+        }
+      });
+
     });
     this.ftc.getAllRegions().then((data: Region[]) => {
       const allRegions: Region = new Region();

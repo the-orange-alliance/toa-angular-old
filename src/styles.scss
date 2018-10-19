@@ -96,6 +96,10 @@ a:hover {
    Drawer
    ========================================================================== */
 
+.mdc-list-group .mdc-list {
+   padding: 8px 0!important;
+}
+
 .toa-drawer--fixed {
   position: fixed;
   overflow-y: auto;

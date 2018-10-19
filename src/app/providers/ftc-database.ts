@@ -18,7 +18,7 @@ import * as GameData from '../models/game-specifics/GameData';
 @Injectable()
 export class FTCDatabase {
 
-  public year = '1718';
+  public year = '1819';
 
   constructor(private http: HttpClient) {}
 

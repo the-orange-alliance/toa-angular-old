@@ -66,7 +66,7 @@ export class HomeComponent {
         this.highScoreAll.event = event;
       });
     });
-    this.ftc.getSeasonEvents("1718").then((events: Event[]) => {
+    this.ftc.getSeasonEvents(this.ftc.year).then((events: Event[]) => {
       let today = new Date();
       today = new Date(today.getFullYear(), today.getMonth(), today.getDate() ); /** remove fractional day */
       this.currentEvents = [];
