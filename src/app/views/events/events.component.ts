@@ -73,6 +73,8 @@ export class EventsComponent implements OnInit {
           startDate: event.startDate,
           endDate: event.endDate
         });
+      } else {
+        this.weeks.get(event.weekKey).endDate = event.endDate;
       }
     }
     this.availableWeeks = Array.from(this.weeks.values());
@@ -165,7 +167,11 @@ export class EventsComponent implements OnInit {
       case 'FOC':
         return 'Festival of Champions';
       default:
-        return 'Week ' + week;
+        if (week.match("-?\\d+(\\.\\d+)?")) { // match a number with optional '-' and decimal.
+          return 'Week ' + week;
+        } else {
+          return week;
+        }
     }
   }
 
