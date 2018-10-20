@@ -71,7 +71,9 @@ export class FTCDatabase {
   public getAllTeams(): Promise<Team[]> {
     return new Promise<Team[]>((resolve, reject) => {
       this.request('/team').then((data: any[]) => {
-        resolve(data.map((result: any) => new Team().fromJSON(result)));
+        resolve(
+          data.map((result: any) => new Team().fromJSON(result))
+          .sort((a: Team, b: Team) => (a.teamNumber - b.teamNumber)));
       }).catch((err: any) => reject(err));
     });
   }
