@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import {TheOrangeAllianceGlobals} from '../../app.globals';
+import { TheOrangeAllianceGlobals } from '../../app.globals';
 
 @Component({
   selector: 'toa-page-not-found',
   templateUrl: './404.component.html',
   styleUrls: ['./404.component.css']
 })
+
 export class PageNotFoundComponent {
 
   random: number;

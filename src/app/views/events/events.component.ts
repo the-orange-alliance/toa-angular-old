@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { EventFilter, EventSorter } from '../../util/event-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import {MdcTabBar} from '@angular-mdc/web';
+import { MdcTabBar } from '@angular-mdc/web';
 import Event from '../../models/Event';
 import Season from '../../models/Season';
 import Region from '../../models/Region';

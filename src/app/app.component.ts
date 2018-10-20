@@ -22,20 +22,18 @@ export class TheOrangeAllianceComponent {
   teams: Team[];
   teamsFilter: TeamFilter;
 
-  isMoreSearch: any;
-
   events: Event[];
   eventsFilter: EventFilter;
 
   search: any;
   teamSearchResults: Team[];
   eventSearchResults: Event[];
+  isMoreSearch: any;
 
   current_year: any;
 
   private _mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
   @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
-  @ViewChild('searchInput') searchInput: MdcTextField;
 
   constructor(private router: Router, private ftc: FTCDatabase, private globaltoa: TheOrangeAllianceGlobals, private _ngZone: NgZone) {
     this._mediaMatcher.addListener(mql => this._ngZone.run(() => this._mediaMatcher = mql));
@@ -91,5 +89,13 @@ export class TheOrangeAllianceComponent {
 
   isScreenSmall(): boolean {
     return this._mediaMatcher.matches;
+  }
+
+  focusSearchInput(searchInput: MdcTextField): void {
+    // When the modal opens, it takes the focus
+    // We'll wait 4ms until it opens
+    setTimeout(function () {
+      searchInput.focus();
+    }, 400);
   }
 }
