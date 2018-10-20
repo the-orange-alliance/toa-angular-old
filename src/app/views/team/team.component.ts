@@ -53,7 +53,11 @@ export class TeamComponent implements OnInit {
             this.thisSeason = this.seasons[0];
           });
         }
-        this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamKey + ')');
+        if (this.team.teamNameShort !== null){
+          this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamKey + ')');
+        } else {
+          this.app.setTitle('Team ' + this.team.teamKey);
+        }
       } else {
         this.router.navigate(['/not-found']);
       }
