@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { TheOrangeAllianceComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
+import { AddDataComponent } from './views/add-data/add-data.component';
 import { AccountComponent } from './views/account/account.component';
 import { EventsComponent } from './views/events/events.component';
 import { TeamsComponent } from './views/teams/teams.component';
@@ -37,6 +38,7 @@ import { AwardItemComponent } from './components/award/award.item.component';
   declarations: [
     TheOrangeAllianceComponent,
     HomeComponent,
+    AddDataComponent,
     AccountComponent,
     EventsComponent,
     TeamsComponent,
