@@ -74,7 +74,7 @@
             </div>
             <div class="row mt-2" *ngIf="highScoreElim && highScoreElim.participants">
               <div class="col-12 mt-2">
-                <h1 class="mb-0" mdcHeadline6>Highest Scoring Elimination Match</h1>
+                <h1 class="mb-0" mdcHeadlin6>Highest Scoring Elimination Match</h1>
                 <h1 class="mt-0" mdcSubtitle1>(Penalty Free)</h1>
                 <h1 *ngIf="highScoreElim.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreElim.eventKey, $event)">{{ highScoreElim.event.eventName }}<span *ngIf="highScoreElim.event.divisionName"> - {{ highScoreElim.event.divisionName }}</span></a>
                   <a (click)="openMatchDetails(highScoreElim.matchKey)"> <h1 mdcCaption>{{ highScoreElim.matchName }}</h1></a></h1>
