@@ -14,6 +14,7 @@ import Ranking from '../models/Ranking';
 import AwardRecipient from '../models/AwardRecipient';
 import EventParticipant from '../models/EventParticipant';
 import * as GameData from '../models/game-specifics/GameData';
+import { TeamSorter } from '../util/team-utils';
 
 @Injectable()
 export class FTCDatabase {
@@ -69,11 +70,11 @@ export class FTCDatabase {
   }
 
   public getAllTeams(): Promise<Team[]> {
+    const sorter = new TeamSorter()
     return new Promise<Team[]>((resolve, reject) => {
       this.request('/team').then((data: any[]) => {
         resolve(
-          data.map((result: any) => new Team().fromJSON(result))
-          .sort((a: Team, b: Team) => (a.teamNumber - b.teamNumber)));
+          sorter.sort(data.map((result: any) => new Team().fromJSON(result)), 0, data.length - 1))
       }).catch((err: any) => reject(err));
     });
   }
