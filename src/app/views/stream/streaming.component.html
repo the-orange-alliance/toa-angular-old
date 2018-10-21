@@ -4,7 +4,7 @@
   <div class="row w-100" *ngIf="streams.length > 0">
     <div *ngFor="let stream of streams" class="col-md-4 col-sm-12 p-3">
       <mdc-card class="toa-card p-0">
-        <div class="embed-responsive embed-responsive-16by9">
+        <div class="embed-responsive embed-responsive-16by9" style="border-radius:6px 6px 0 0">
           <iframe class="embed-responsive-item" *ngIf="stream.safeURL" [src]="stream.safeURL" allowfullscreen></iframe>
         </div>
         <div class="stream-card__primary">
