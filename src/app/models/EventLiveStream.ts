@@ -9,6 +9,7 @@ export default class EventLiveStream implements ISerializable {
   private _eventName: string;
 
   private _safeURL: SafeResourceUrl;
+  private _fullURL: string;
 
   constructor() {
     this._streamKey = '';
@@ -16,6 +17,7 @@ export default class EventLiveStream implements ISerializable {
     this._streamType = 0;
     this._isActive = false;
     this._streamURL = '';
+    this._fullURL = '';
   }
 
   toJSON(): object {
@@ -84,6 +86,14 @@ export default class EventLiveStream implements ISerializable {
 
   set safeURL(value: SafeResourceUrl) {
     this._safeURL = value;
+  }
+
+  get fullURL(): string {
+    return this._fullURL;
+  }
+
+  set fullURL(value: string) {
+    this._fullURL = value;
   }
 
   get eventName(): string {
