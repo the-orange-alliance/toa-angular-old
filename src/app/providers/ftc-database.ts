@@ -198,6 +198,14 @@ export class FTCDatabase {
     });
   }
 
+  public getTeamAwards(teamNumber: number, seasonKey: string): Promise<AwardRecipient[]> {
+    return new Promise<AwardRecipient[]>((resolve, reject) => {
+      this.request('/team/' + teamNumber + '/awards/' + seasonKey).then((data: any[]) => {
+        resolve(data.map((result: any) => new AwardRecipient().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
   public getMatchParticipants(matchKey: string): Promise<MatchParticipant[]> {
     return new Promise<MatchParticipant[]>((resolve, reject) => {
       this.request('/match/' + matchKey + '/participants').then((data: any[]) => {

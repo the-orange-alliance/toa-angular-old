@@ -10,6 +10,7 @@ import Match from '../../models/Match';
 import Season from '../../models/Season';
 import Event from '../../models/Event';
 import Region from '../../models/Region';
+import AwardRecipient from "../../models/AwardRecipient";
 
 @Component({
   selector: 'toa-team',
@@ -42,6 +43,7 @@ export class TeamComponent implements OnInit {
     this.ftc.getTeam(this.teamKey, this.ftc.year).then((team: Team) => {
       if (team) {
         this.team = team;
+        this.team.awards = []; // Remove the awards, they arrive later
         for (let i = this.team.rookieYear; i <= new Date().getFullYear(); i++) {
           this.years.push(i);
         }
@@ -100,6 +102,12 @@ export class TeamComponent implements OnInit {
     }).catch(() => {
       this.team.events = [];
     });
+    this.ftc.getTeamAwards(this.teamKey, this.currentSeason.seasonKey).then((data: AwardRecipient[]) => {
+      this.team.awards = data;
+    }).catch(() => {
+      this.team.awards = [];
+    });
+
   }
 
   private getEventMatches() {
@@ -127,27 +135,10 @@ export class TeamComponent implements OnInit {
   private getEventAwards() {
     for (const event of this.team.events) {
       const awards = [];
-      for (const award of this.team.awards) {
-        if (event.eventKey === award.eventKey) {
-          if (award.awardName.substring(0, 7) === 'Inspire') {
-            awards.push(award);
-          }
-        }
-      }
 
       for (const award of this.team.awards) {
         if (event.eventKey === award.eventKey) {
-          if (award.awardName.substr(-8, 8) === 'Alliance') {
-            awards.push(award);
-          }
-        }
-      }
-
-      for (const award of this.team.awards) {
-        if (event.eventKey === award.eventKey) {
-          if ((award.awardName.substring(0, 7) !== 'Inspire') && (award.awardName.substr(-8, 8) !== 'Alliance')) {
-            awards.push(award);
-          }
+          awards.push(award);
         }
       }
 
