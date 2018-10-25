@@ -1,9 +1,5 @@
 @import "~@angular-mdc/theme/material";
-
-.stream-card {
-  margin: 28px;
-  border-radius: 6px;
-}
+@import "../../../assets/../constants";
 
 .stream-card__primary {
   padding: 1rem;

@@ -1,20 +1,16 @@
 <h2>Home</h2>
 <p>The Orange Alliance is a project to help make FTC match, event, and team information more accessible.</p>
 
-<div class="row w-100">
-  <div class="col-6 p-1">
-    <div class="row mt-4" *ngIf="currentAnnouncement">
-      <div class="p-1 col-12">
+<div class="row m-0">
+  <div class="col-sm-12 col-lg-6 p-3">
+    <div class="row">
+      <div class="col-12 p-1 mb-3" *ngIf="currentAnnouncement">
         <mdc-card class="toa-card p-0">
-          <div class="p-2">
-            <h1  class="mb-0" mdcHeadline6>{{ currentAnnouncement.title }}</h1>
-          </div>
-          <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ currentAnnouncement.text }}</div>
+          <h1 class="toa-card-header pt-3 mb-0 pb-0" mdcHeadline6>{{ currentAnnouncement.title }}</h1>
+          <div class="toa-card-subtitle p-3" mdcBody2>{{ currentAnnouncement.text }}</div>
         </mdc-card>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12 col-lg-6 p-3">
+      <div class="col-6 p-1">
         <mdc-card class="toa-card counting-card">
           <div class="counting-card-icon">
             <mat-icon svgIcon="account-group"></mat-icon>
@@ -26,7 +22,7 @@
         </mdc-card>
       </div>
 
-      <div class="col-sm-12 col-lg-6 p-3">
+      <div class="col-6 p-1">
         <mdc-card class="toa-card counting-card">
           <div class="counting-card-icon">
             <mat-icon svgIcon="gamepad-variant"></mat-icon>
@@ -38,7 +34,7 @@
         </mdc-card>
       </div>
     </div>
-    <div class="row mt-4" *ngIf="weekStart && weekEnd && currentEvents">
+    <div class="row mt-3" *ngIf="weekStart && weekEnd && currentEvents">
       <div class="p-1 col-12">
         <mdc-card class="toa-card p-0">
           <div class="p-2">

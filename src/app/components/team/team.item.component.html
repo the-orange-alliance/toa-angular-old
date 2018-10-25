@@ -5,7 +5,8 @@
     <img class="rounded-circle" src="../../../assets/imgs/hashtag.png" />
     <div>
       <mdc-list-item-text>
-        <span class="black">#{{ team.teamNumber }} - {{ team.teamNameShort }}</span>
+        <span class="black" *ngIf="team.teamNameShort">#{{ team.teamNumber }} - {{ team.teamNameShort }}</span>
+        <span class="black" *ngIf="!team.teamNameShort">Team #{{ team.teamNumber }}</span>
         <span class="mdc-list-item__secondary-text" style="text-transform: capitalize">{{ team.city }}, {{ team.stateProv ? team.stateProv + ', ' : '' }}{{ team.country }}</span>
       </mdc-list-item-text>
     </div>

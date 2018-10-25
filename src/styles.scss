@@ -6,7 +6,6 @@ html, body {
   margin: 0;
   height: 100%;
   background: #F5F6F7;
-  overflow-x: hidden;
 }
 
 .row {
@@ -58,6 +57,11 @@ a:hover {
   border-top: none;
 }
 
+.toa-fab {
+  z-index: 0;
+  color: #fff!important;
+}
+
 /* ==========================================================================
    Colors
    ========================================================================== */
@@ -91,6 +95,17 @@ a:hover {
 /* ==========================================================================
    Drawer
    ========================================================================== */
+
+.mdc-list-group .mdc-list {
+   padding: 8px 0!important;
+}
+
+.toa-drawer--fixed {
+  position: fixed;
+  overflow-y: auto;
+  top: auto;
+  padding-bottom: 64px;
+}
 
 mdc-drawer mdc-list .mdc-list-item--activated {
   color: $mdc-theme-primary!important;
@@ -131,7 +146,7 @@ mdc-drawer mdc-list a {
     padding-bottom: 64px;
   }
   .toa-page {
-    margin-left: 240px;
+    margin-left: 256px;
     margin-right: 0;
     padding-left: 20px;
   }

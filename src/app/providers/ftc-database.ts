@@ -18,7 +18,7 @@ import * as GameData from '../models/game-specifics/GameData';
 @Injectable()
 export class FTCDatabase {
 
-  public year = '1718';
+  public year = '1819';
 
   constructor(private http: HttpClient) {}
 
@@ -195,6 +195,14 @@ export class FTCDatabase {
           resolve(null);
         }
       }).catch((error: any) => reject(error));
+    });
+  }
+
+  public getTeamAwards(teamNumber: number, seasonKey: string): Promise<AwardRecipient[]> {
+    return new Promise<AwardRecipient[]>((resolve, reject) => {
+      this.request('/team/' + teamNumber + '/awards/' + seasonKey).then((data: any[]) => {
+        resolve(data.map((result: any) => new AwardRecipient().fromJSON(result)));
+      }).catch((err: any) => reject(err));
     });
   }
 

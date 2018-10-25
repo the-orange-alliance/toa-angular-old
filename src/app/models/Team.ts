@@ -10,6 +10,7 @@ export default class Team implements ISerializable {
   private _teamNameShort: string;
   private _teamNameLong: string;
   private _robotName: string;
+  private _lastActive: string;
   private _city: string;
   private _stateProv: string;
   private _zipCode: number;
@@ -29,6 +30,7 @@ export default class Team implements ISerializable {
     this._teamNameShort = '';
     this._teamNameLong = '';
     this._robotName = '';
+    this._lastActive = '';
     this._city = '';
     this._stateProv = '';
     this._zipCode = 0;
@@ -50,6 +52,7 @@ export default class Team implements ISerializable {
       team_name_short: this.teamNameShort,
       team_name_long: this.teamNameLong,
       robot_name: this.robotName,
+      last_active: this.lastActive,
       city: this.city,
       state_prov: this.stateProv,
       zip_code: this.zipCode,
@@ -68,6 +71,7 @@ export default class Team implements ISerializable {
     team.teamNameShort = json.team_name_short;
     team.teamNameLong = json.team_name_long;
     team.robotName = json.robot_name;
+    team.lastActive = json.last_active;
     team.city = json.city;
     team.stateProv = json.state_prov;
     team.zipCode = json.zip_code;
@@ -131,6 +135,14 @@ export default class Team implements ISerializable {
 
   set robotName(value: string) {
     this._robotName = value;
+  }
+
+  get lastActive(): string {
+    return this._lastActive;
+  }
+
+  set lastActive(value: string) {
+    this._lastActive = value;
   }
 
   get city(): string {

@@ -1,16 +1,17 @@
 <!-- AppBar -->
-<mdc-app-bar #appbar fixed class="col">
-  <mdc-app-bar-row>
-    <mdc-app-bar-section align="start" title="The Orange Alliance">
-      <mat-icon svgIcon="menu" (click)="appdrawer.open()" *ngIf="isScreenSmall() || appbar.isCollapsed()"></mat-icon>
-    </mdc-app-bar-section>
-    <mdc-app-bar-section align="end">
-      <a mdcAppBarActionItem title="Search" data-toggle="modal" [attr.data-target]="'#searchmodal'" id="showSearch">
+<mdc-top-app-bar #topAppBar fixed class="col">
+  <mdc-top-app-bar-row>
+    <mdc-top-app-bar-section align="start" title="The Orange Alliance">
+      <!--<mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">menu</mdc-icon>-->
+      <mat-icon svgIcon="menu" (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()"></mat-icon>
+    </mdc-top-app-bar-section>
+    <mdc-top-app-bar-section align="end">
+      <a mdcAppBarActionItem title="Search" data-toggle="modal" [attr.data-target]="'#searchmodal'" (click)="focusSearchInput(searchInput)">
         <mat-icon class="white-icon" svgIcon="magnify"></mat-icon>
       </a>
-    </mdc-app-bar-section>
-  </mdc-app-bar-row>
-</mdc-app-bar>
+    </mdc-top-app-bar-section>
+  </mdc-top-app-bar-row>
+</mdc-top-app-bar>
 
 <!-- Search -->
 <div class="modal fade" id="searchmodal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -21,9 +22,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <mdc-dialog-body class="modal-body mt-0" style="overflow-y: initial !important">
+      <div class="modal-body pt-0" style="overflow-y: initial !important">
         <mdc-text-field #searchInput id="ftc_search" (change)="performSearch()" label="Team # or Event" [(ngModel)]="search" [fullwidth]="true"></mdc-text-field>
-        <div class="row mt-4" *ngIf="search" style="max-height: calc(100vh - 200px); overflow-y: auto">
+        <div mdcSubtitle1>Press Enter to search</div>
+        <div class="row mt-3" *ngIf="search" style="max-height: calc(100vh - 215px); overflow-y: auto">
           <div class="col-md-6 col-12">
             <div mdcHeadline5 class="black">Teams</div>
             <mdc-list *ngIf="teamSearchResults">
@@ -37,15 +39,14 @@
             <p *ngIf="eventSearchResults.length === 0">No events found</p>
           </div>
         </div>
-      </mdc-dialog-body>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Drawer -->
 <div class="mdc-top-app-bar--fixed-adjust">
-  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || appbar.isCollapsed() ? 'temporary' : 'permanent'"
-              [closeOnClick]="false" fixed>
+  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || topAppBar.isCollapsed() ? 'modal' : 'permanent'" class="toa-drawer--fixed">
     <mdc-drawer-content>
       <mdc-list-group>
         <mdc-list>
@@ -64,7 +65,7 @@
             <div>
               <mdc-list-item-text>
                 <span>Hello Ofek!</span>
-                <span class="mdc-list-item__secondary-text">ofek.ashery@gmail.com</span>
+                <span class="mdc-list-item__secondary-text">email@gmail.com</span>
               </mdc-list-item-text>
             </div>
           </mdc-list-item> -->
@@ -92,21 +93,36 @@
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a mdc-list-item routerLink="/livedocs" routerLinkActive="mdc-list-item--activated">
+          <a mdc-list-item routerLink="/add-data" routerLinkActive="mdc-list-item--activated">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="upload"></mat-icon>Add Data
+          </a>
+<!--
+          <a mdc-list-item routerLink="/livedocs" routerLinkActive="mdc-list-item&#45;&#45;activated">
             <mat-icon class="mdc-list-item__graphic" svgIcon="progress-upload"></mat-icon>DataSync
           </a>
+-->
+          <a mdc-list-item href="https://play.google.com/store/apps/details?id=com.theorangealliance.android" target="_blank">
+            <mat-icon class="mdc-list-item__graphic" svgIcon="android-head"></mat-icon>Android App
+          </a>
+
           <a mdc-list-item href="https://github.com/orange-alliance" target="_blank">
             <mat-icon class="mdc-list-item__graphic" svgIcon="github-circle"></mat-icon>GitHub
           </a>
           <a mdc-list-item href="https://discord.gg/5fH66UV" target="_blank">
             <mat-icon class="mdc-list-item__graphic" svgIcon="discord"></mat-icon>Discord
           </a>
-          <a mdc-list-item href="https://www.facebook.com/theorangealliance" target="_blank">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="facebook"></mat-icon>Facebook
-          </a>
-          <a mdc-list-item href="https://play.google.com/store/apps/details?id=com.theorangealliance.android" target="_blank">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="android-head"></mat-icon>Android App
-          </a>
+
+          <div class="text-center w-100 pb-2">
+            <a mdc-button href="https://www.facebook.com/theorangealliance" target="_blank">
+              <mat-icon svgIcon="facebook"></mat-icon>
+            </a>
+            <a mdc-button href="https://www.twitter.com/toalliance" target="_blank">
+              <mat-icon svgIcon="twitter"></mat-icon>
+            </a>
+            <a mdc-button href="https://www.instagram.com/toalliance" target="_blank">
+              <mat-icon svgIcon="instagram"></mat-icon>
+            </a>
+          </div>
 
           <mdc-list-divider></mdc-list-divider>
 
@@ -119,7 +135,7 @@
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a href="https://revrobotics.com/" target="_blank" class="pl-5 pr-5 pt-3 pb-3" mdc-list-item>
+          <a href="https://revrobotics.com/" target="_blank" class="p-4" mdc-list-item>
             <img class="img-fit-w" src="../assets/imgs/powered_by_rev.png" title="Powered by REV" />
           </a>
 
@@ -132,14 +148,3 @@
     <router-outlet></router-outlet>
   </div>
 </div>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-105262657-1', 'auto');
-  ga('send', 'pageview');
-
-</script>

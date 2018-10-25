@@ -2,7 +2,7 @@
 <h6 mdcHeadline6 *ngIf="currentTeams && currentTeams.length > 0">{{ currentTeams[0].teamNumber }}-{{
   currentTeams[currentTeams.length-1].teamNumber }}</h6>
 
-<div class="row w-100" *ngIf="currentTeams && pages">
+<div class="row w-100" *ngIf="currentTeams && currentTeams.length > 0 && pages">
   <div class="col-xs-10 col-xs-offset-1 table-responsive">
     <div class="">
       <nav class="d-flex justify-content-xl-center  justify-content-lg-center  justify-content-md-center justify-content-start"
@@ -52,7 +52,8 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="ftc_district">
-            <mdc-menu-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}</mdc-menu-item>
+            <mdc-list-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ?
+              region.regionKey + " - " + region.description : region.regionKey }}</mdc-list-item>
           </ul>
         </div>
 
@@ -64,7 +65,7 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="ftc_league">
-            <mdc-menu-item *ngFor="let league of leagues" (click)="selectLeague(league)">{{ league.description ? league.league_key + " - " + league.description :  league.league_key}}</mdc-menu-item>
+            <mdc-list-item *ngFor="let league of leagues" (click)="selectLeague(league)">{{ league.description ? league.league_key + " - " + league.description :  league.league_key}}</mdc-list-item>
           </ul>
         </div>
       -->
@@ -78,74 +79,65 @@
   </div>
 </div>
 
-<div id="teams-scroll-container" (scroll)="updateScrollPosition($event)" class="virtual-scroll-container" *ngIf="currentTeams">
-  <div class="row virtual-scroll-view" [style.top]="leftScroll.getTopOffset() + 'px'">
-    <div class="col-xs-12 col-md-6">
-      <mdc-list-group>
-        <mdc-list>
-          <div *ngFor="let team of leftScroll.getRenderedItems(); let i = index; trackBy: trackByKey;">
-            <mdc-list-item class="item-team" (click)="openTeam(team.teamNumber)">
-              <img *ngIf="team.logo_url" class="rounded-circle" [src]="team.logo_url" />
-              <img *ngIf="!team.logo_url" class="rounded-circle" src="../../../assets/imgs/hashtag.png" />
-              <div>
-                <mdc-list-item-text>
-                  <span>#{{ team.teamNumber }} - {{ team.teamNameShort }}</span>
-                  <span class="mdc-list-item__secondary-text">{{ team.city }}, {{ team.stateProv ? team.stateProv + ',
-                    ' : '' }}{{ team.country }}</span>
-                </mdc-list-item-text>
-              </div>
-            </mdc-list-item>
-          </div>
-        </mdc-list>
-      </mdc-list-group>
-    </div>
-
-    <div class="col-xs-12 col-md-6">
-      <mdc-list-group>
-        <mdc-list>
-          <div *ngFor="let team of rightScroll.getRenderedItems(); let i = index; trackBy: trackByKey;">
-            <mdc-list-item class="item-team" (click)="openTeam(team.teamNumber)">
-              <img *ngIf="team.logo_url" class="rounded-circle" src="currentTeams.logo_url" />
-              <img *ngIf="!team.logo_url" class="rounded-circle" src="../../../assets/imgs/hashtag.png" />
-              <div>
-                <mdc-list-item-text>
-                  <span>#{{ team.teamNumber }} - {{ team.teamNameShort }}</span>
-                  <span class="mdc-list-item__secondary-text">{{ team.city }}, {{ team.stateProv ? team.stateProv + ',
-                    ' : '' }}{{ team.country }}</span>
-                </mdc-list-item-text>
-              </div>
-            </mdc-list-item>
-          </div>
-        </mdc-list>
-      </mdc-list-group>
-    </div>
-
-    <div class="row w-100" *ngIf="currentTeams && pages">
-        <div class="col-xs-10 col-xs-offset-1 table-responsive">
-          <div class="">
-            <nav class="d-flex justify-content-xl-center  justify-content-lg-center  justify-content-md-center justify-content-start"
-              aria-label="Page navigation">
-              <ul class="pagination ">
-                <li class="{{currentPage === 0 ? 'page-item disabled' : 'page-item'}}">
-                  <a class="page-link" (click)="getTeams(decIndex())">Previous</a>
-                </li>
-
-                <li *ngFor="let page of pages" [class.active]="currentPage === page.index">
-                  <a class="page-link" (click)="getTeams(page.index)">{{ page.index + 1 }}
-                    <span *ngIf="currentPage === page.index" class="sr-only">(current)</span>
-                  </a>
-                </li>
-
-                <li class="{{currentPage + 1 === pages.length ? 'page-item disabled' : 'page-item'}}">
-                  <a class="page-link" (click)="getTeams(incIndex())">Next</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+<div class="row mt-4" *ngIf="currentTeams && currentTeams.length > 0">
+  <div class="col-12 col-md-6">
+    <mdc-list-group>
+      <mdc-list>
+        <div *ngFor="let team of leftSide">
+          <toa-team-item [team]="team"></toa-team-item>
         </div>
-      </div>
+      </mdc-list>
+    </mdc-list-group>
   </div>
 
+  <div class="col-12 col-md-6">
+    <mdc-list-group>
+      <mdc-list>
+        <div *ngFor="let team of rightSide">
+          <toa-team-item [team]="team"></toa-team-item>
+        </div>
+      </mdc-list>
+    </mdc-list-group>
+  </div>
+</div>
+
+<div *ngIf="currentTeams && currentTeams.length <= 0" class="row mt-4">
+  <div class="col-12 text-center">
+    <span><i>There are no teams that match that query.</i></span>
+  </div>
+</div>
+
+
+<div class="row w-100 mt-4" *ngIf="currentTeams && currentTeams.length > 0 && pages">
+  <div class="col-xs-10 col-xs-offset-1 table-responsive">
+    <div class="">
+      <nav class="d-flex justify-content-xl-center  justify-content-lg-center  justify-content-md-center justify-content-start"
+        aria-label="Page navigation">
+        <ul class="pagination ">
+          <li class="{{currentPage === 0 ? 'page-item disabled' : 'page-item'}}">
+            <a class="page-link" (click)="getTeams(decIndex())">Previous</a>
+          </li>
+
+          <li *ngFor="let page of pages" [class.active]="currentPage === page.index">
+            <a class="page-link" (click)="getTeams(page.index)">{{ page.index + 1 }}
+              <span *ngIf="currentPage === page.index" class="sr-only">(current)</span>
+            </a>
+          </li>
+
+          <li class="{{currentPage + 1 === pages.length ? 'page-item disabled' : 'page-item'}}">
+            <a class="page-link" (click)="getTeams(incIndex())">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<button mdc-fab position='bottomRight' class="toa-fab" (click)="scrollTo('body')">
+  <mdc-icon>navigation</mdc-icon>
+</button>
+
+<!--
   <div class="virtual-scroll-filler" [style.height]="(leftScroll.getListHeight()) + 'px'"></div>
 
   <div *ngIf="currentTeams && currentTeams.length <= 0" class="row">
@@ -153,3 +145,5 @@
       <span><i>There are no teams that match that query.</i></span>
     </div>
   </div>
+</div>
+-->

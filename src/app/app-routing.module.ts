@@ -15,10 +15,12 @@ import { PrivacyTermsComponent } from './views/privacy_terms/PrivacyTerms.compon
 import { PageNotFoundComponent } from './views/404/404.component';
 import { MatchesComponent } from './views/matches/matches.component';
 import { LiveDocsComponent } from './views/livedocs/livedocs.component';
+import { AddDataComponent } from "./views/add-data/add-data.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'account', component: AccountComponent },
+  { path: 'add-data', component: AddDataComponent },
   { path: 'events', component: EventsComponent },
   { path: 'teams', component: TeamsComponent },
   { path: 'about', component: AboutComponent },

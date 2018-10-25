@@ -10,6 +10,7 @@ import Match from '../../models/Match';
 import Season from '../../models/Season';
 import Event from '../../models/Event';
 import Region from '../../models/Region';
+import AwardRecipient from "../../models/AwardRecipient";
 
 @Component({
   selector: 'toa-team',
@@ -40,10 +41,9 @@ export class TeamComponent implements OnInit {
   public ngOnInit(): void {
     this.years = [];
     this.ftc.getTeam(this.teamKey, this.ftc.year).then((team: Team) => {
-      if (!team) {
-        this.router.navigate(['/not-found']);
-      } else {
+      if (team) {
         this.team = team;
+        this.team.awards = []; // Remove the awards, they arrive later
         for (let i = this.team.rookieYear; i <= new Date().getFullYear(); i++) {
           this.years.push(i);
         }
@@ -55,7 +55,13 @@ export class TeamComponent implements OnInit {
             this.thisSeason = this.seasons[0];
           });
         }
-        this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamKey + ')');
+        if (this.team.teamNameShort !== null){
+          this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamKey + ')');
+        } else {
+          this.app.setTitle('Team ' + this.team.teamKey);
+        }
+      } else {
+        this.router.navigate(['/not-found']);
       }
     });
     this.ftc.getAllRegions().then((data: Region[]) => {
@@ -96,6 +102,12 @@ export class TeamComponent implements OnInit {
     }).catch(() => {
       this.team.events = [];
     });
+    this.ftc.getTeamAwards(this.teamKey, this.currentSeason.seasonKey).then((data: AwardRecipient[]) => {
+      this.team.awards = data;
+    }).catch(() => {
+      this.team.awards = [];
+    });
+
   }
 
   private getEventMatches() {
@@ -123,27 +135,10 @@ export class TeamComponent implements OnInit {
   private getEventAwards() {
     for (const event of this.team.events) {
       const awards = [];
-      for (const award of this.team.awards) {
-        if (event.eventKey === award.eventKey) {
-          if (award.awardName.substring(0, 7) === 'Inspire') {
-            awards.push(award);
-          }
-        }
-      }
 
       for (const award of this.team.awards) {
         if (event.eventKey === award.eventKey) {
-          if (award.awardName.substr(-8, 8) === 'Alliance') {
-            awards.push(award);
-          }
-        }
-      }
-
-      for (const award of this.team.awards) {
-        if (event.eventKey === award.eventKey) {
-          if ((award.awardName.substring(0, 7) !== 'Inspire') && (award.awardName.substr(-8, 8) !== 'Alliance')) {
-            awards.push(award);
-          }
+          awards.push(award);
         }
       }
 
@@ -191,6 +186,15 @@ export class TeamComponent implements OnInit {
     } else {
       return country;
     }
+  }
+
+  beautifulURL(website: string) {
+    website = website.substr( website.indexOf(':') + 3 ); // Taking off the http/s
+    if (website.endsWith("/") || website.endsWith("?") || website.endsWith("#")) { // Taking off unnecessary chars
+      website = website.substr( 0, website.length - 2 );
+    }
+
+    return website.startsWith("www.") ? website : "www."+website;
   }
 
   scrollToEvent(id: string) {

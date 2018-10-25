@@ -11,7 +11,7 @@
           </button>
 
           <ul class="dropdown-menu" aria-labelledby="ftc_season">
-            <mdc-menu-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-menu-item>
+            <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-list-item>
           </ul>
         </div>
 
@@ -50,9 +50,19 @@
           <p>Rookie Year: {{ team.rookieYear }}</p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website">
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.lastActive < 1819">
+          <mat-icon svgIcon="calendar"></mat-icon>
+          <p>Last Active Year: 20{{ team.lastActive.substring(0, 2) }}</p>
+        </div>
+
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website && !beautifulURL(team.website).startsWith('www.facebook.com/')">
           <mat-icon svgIcon="earth"></mat-icon>
-          <p>Website: {{ team.website }}</p>
+          <p>Website: <a href="{{ team.website }}">{{ beautifulURL(team.website) }}</a></p>
+        </div>
+
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website && beautifulURL(team.website).startsWith('www.facebook.com/')">
+          <mat-icon svgIcon="facebook"></mat-icon>
+          <p>Facebook: <a href="{{ team.website }}">@{{ beautifulURL(team.website).replace("www.facebook.com/", "") }}</a></p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.robotName">
@@ -60,7 +70,7 @@
           <p>Robot Name: {{ team.robotName }}</p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.awards && team.awards.length > 0 && thisSeason && thisSeason === currentSeason && thisSeason.description">
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.awards && thisSeason && thisSeason.description">
           <mat-icon svgIcon="trophy"></mat-icon>
           <p>{{ team.awards.length }} awards in {{ thisSeason.description }}</p>
         </div>

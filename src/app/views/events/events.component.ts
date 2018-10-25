@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { EventFilter, EventSorter } from '../../util/event-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import {MdcTabBar} from '@angular-mdc/web';
+import { MdcTabBar } from '@angular-mdc/web';
 import Event from '../../models/Event';
 import Season from '../../models/Season';
 import Region from '../../models/Region';
@@ -40,18 +40,20 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ftc.getSeasonEvents('1718').then((data: Event[]) => {
-      this.events = data;
-      this.eventFilter = new EventFilter(this.events);
-      this.eventSorter = new EventSorter();
-      this.events = this.eventSorter.sort(this.events, 0, this.events.length - 1);
-      if (this.events.length > 0) {
-        this.organizeEventsByWeek();
-      }
-    });
     this.ftc.getAllSeasons().then((data: Season[]) => {
-      this.seasons = data;
-      this.currentSeason = this.seasons[this.seasons.length - 1];
+      this.seasons = data.reverse();
+      this.currentSeason = this.seasons[0];
+
+      this.ftc.getSeasonEvents(this.currentSeason.seasonKey).then((data: Event[]) => {
+        this.events = data;
+        this.eventFilter = new EventFilter(this.events);
+        this.eventSorter = new EventSorter();
+        this.events = this.eventSorter.sort(this.events, 0, this.events.length - 1);
+        if (this.events.length > 0) {
+          this.organizeEventsByWeek();
+        }
+      });
+
     });
     this.ftc.getAllRegions().then((data: Region[]) => {
       const allRegions: Region = new Region();
@@ -71,6 +73,8 @@ export class EventsComponent implements OnInit {
           startDate: event.startDate,
           endDate: event.endDate
         });
+      } else {
+        this.weeks.get(event.weekKey).endDate = event.endDate;
       }
     }
     this.availableWeeks = Array.from(this.weeks.values());
@@ -163,7 +167,11 @@ export class EventsComponent implements OnInit {
       case 'FOC':
         return 'Festival of Champions';
       default:
-        return 'Week ' + week;
+        if (week.match("-?\\d+(\\.\\d+)?")) { // match a number with optional '-' and decimal.
+          return 'Week ' + week;
+        } else {
+          return week;
+        }
     }
   }
 
