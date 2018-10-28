@@ -15,7 +15,7 @@ export class MatchTableComponent {
   public getMatchResultString(match: Match): string {
     let teamStation = 0;
     for (const participant of match.participants) {
-      if (participant.teamKey == this.team.teamKey) { // === isn't working
+      if (participant.teamKey === this.team.teamKey) {
         teamStation = participant.station;
         break;
       }

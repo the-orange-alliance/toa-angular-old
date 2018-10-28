@@ -3,7 +3,7 @@ import AwardRecipient from './AwardRecipient';
 import Event from './Event';
 
 export default class Team implements ISerializable {
-  private _teamKey: number;
+  private _teamKey: string;
   private _regionKey: string;
   private _leagueKey: string;
   private _teamNumber: number;
@@ -23,7 +23,7 @@ export default class Team implements ISerializable {
   private _awards: AwardRecipient[];
 
   constructor() {
-    this._teamKey = 0;
+    this._teamKey = '';
     this._regionKey = '';
     this._leagueKey = '';
     this._teamNumber = 0;
@@ -81,11 +81,11 @@ export default class Team implements ISerializable {
     return team;
   }
 
-  get teamKey(): number {
+  get teamKey(): string {
     return this._teamKey;
   }
 
-  set teamKey(value: number) {
+  set teamKey(value: string) {
     this._teamKey = value;
   }
 

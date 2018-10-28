@@ -179,12 +179,12 @@ export class FTCDatabase {
     });
   }
 
-  public getTeam(teamNumber: number, seasonKey: string): Promise<Team> {
+  public getTeam(teamKey: string, seasonKey: string): Promise<Team> {
     return new Promise<Team>((resolve, reject) => {
       const promises: Promise<any>[] = [];
-      promises.push(this.request('/team/' + teamNumber));
-      promises.push(this.request('/team/' + teamNumber + '/results/' + seasonKey));
-      promises.push(this.request('/team/' + teamNumber + '/awards/' + seasonKey));
+      promises.push(this.request('/team/' + teamKey));
+      promises.push(this.request('/team/' + teamKey + '/results/' + seasonKey));
+      promises.push(this.request('/team/' + teamKey + '/awards/' + seasonKey));
       Promise.all(promises).then((data: any[]) => {
         if (data[0][0]) {
           const team: Team = new Team().fromJSON(data[0][0]);
@@ -198,9 +198,17 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamAwards(teamNumber: number, seasonKey: string): Promise<AwardRecipient[]> {
+  public getTeamBasic(teamKey: string): Promise<Team> {
+    return new Promise<Team>((resolve, reject) => {
+      this.request('/team/' + teamKey).then((data: any[]) => {
+        resolve(new Team().fromJSON(data[0]));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
+  public getTeamAwards(teamKey: string, seasonKey: string): Promise<AwardRecipient[]> {
     return new Promise<AwardRecipient[]>((resolve, reject) => {
-      this.request('/team/' + teamNumber + '/awards/' + seasonKey).then((data: any[]) => {
+      this.request('/team/' + teamKey + '/awards/' + seasonKey).then((data: any[]) => {
         resolve(data.map((result: any) => new AwardRecipient().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });
@@ -214,9 +222,9 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamEvents(teamNumber: number, seasonKey: string): Promise<Event[]> {
+  public getTeamEvents(teamKey: string, seasonKey: string): Promise<Event[]> {
     return new Promise<Event[]>((resolve, reject) => {
-      this.request('/team/' + teamNumber + '/events/' + seasonKey).then((data: any[]) => {
+      this.request('/team/' + teamKey + '/events/' + seasonKey).then((data: any[]) => {
         resolve(data.map((result: any) => new Event().fromJSON(result.event)));
       }).catch((err: any) => reject(err));
     });
