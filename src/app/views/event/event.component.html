@@ -53,11 +53,11 @@
     </div>
   </div>
 
-  <div class="mt-5 row" *ngIf="totalteams <= 0">
+  <div class="mt-5 row" *ngIf="totalteams === 0 && totalmatches === 0 && totalrankings === 0">
     <h4 class="col-12"> NO RESULTS HAVE BEEN REPORTED FOR THIS EVENT.</h4>
   </div>
 
-  <div class="mt-5 row" *ngIf="totalteams && totalteams > 0">
+  <div class="mt-5 row" *ngIf="totalteams > 0 || totalmatches > 0 || totalrankings > 0">
     <div class="col-12">
       <mdc-card class="toa-card">
         <mdc-tab-bar class="w-100">
