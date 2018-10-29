@@ -16,6 +16,10 @@ a:hover {
   cursor: pointer;
 }
 
+*:focus {
+  outline:none !important;
+}
+
 .img-fit {
   max-height: 100%;
 }
@@ -96,9 +100,11 @@ a:hover {
    Drawer
    ========================================================================== */
 
+/*
 .mdc-list-group .mdc-list {
    padding: 8px 0!important;
 }
+*/
 
 .toa-drawer--fixed {
   position: fixed;

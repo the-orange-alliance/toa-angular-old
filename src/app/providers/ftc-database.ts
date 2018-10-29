@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import WebAnnouncement from '../models/WebAnnouncement';
 import Season from '../models/Season';
 import Region from '../models/Region';

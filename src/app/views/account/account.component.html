@@ -1,1 +1,22 @@
-<h2>myTOA</h2>
+<div class="row">
+  <h2 class="col-9">myTOA</h2>
+  <div class="col-3">
+    <button mdc-button primary (click)="signOut();">Logout</button>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-md-6 col-12">
+    <div mdcHeadline5 class="black">Teams</div>
+    <mdc-list *ngIf="teams">
+      <toa-team-item *ngFor="let team of teams" [team]="team"></toa-team-item>
+    </mdc-list>
+    <p *ngIf="teams && teams.length === 0">No teams found</p>
+  </div>
+  <div class="col-md-6 col-12">
+    <div mdcHeadline5 class="black">Events</div>
+    <mdc-list *ngIf="events">
+      <toa-event-item *ngFor="let event of events" [event]="event"></toa-event-item>
+    </mdc-list>
+    <p *ngIf="events && events.length === 0">No events found</p>
+  </div>
+</div>

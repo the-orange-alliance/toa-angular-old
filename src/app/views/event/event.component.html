@@ -1,5 +1,10 @@
 <div *ngIf="event">
-  <h2>{{ event.startDate | date : "y" }} {{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} <span class="badge bg-primary" *ngIf="event.isLive">LIVE</span></h2>
+  <div class="row">
+    <h2 [class.col-9]="user !== null" [class.col-12]="user === null">{{ event.startDate | date : "y" }} {{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} <span class="badge bg-primary" *ngIf="event.isLive">LIVE</span></h2>
+    <div *ngIf="user !== null" class="col-3">
+      <button mdc-button primary (click)="toggleEvent();" style="text-transform:initial">{{ favorite ? 'REMOVE FROM myTOA' : 'ADD TO myTOA' }}</button>
+    </div>
+  </div>
 
   <div class="row" *ngIf="regions">
     <div class="col-md-7 col-sm-12 mt-3">
@@ -13,7 +18,7 @@
           </div>
           <div class="info-state d-flex align-content-center flex-wrap">
             <mat-icon svgIcon="map-marker"></mat-icon>
-            <p style="text-transform: capitalize"><a href="https://www.google.com/maps/search/?api=1&query={{ ((event.venue ? event.venue + ', ' : '') + event.city + ', ' + (event.stateProv ? event.stateProv + ', ' : '') + fixCountry(event.country)).replace(' ', '+') }}" target="_blank">{{ (event.venue ? event.venue + ', ' : '') + event.city + ', ' + (event.stateProv ? event.stateProv + ', ' : '') + fixCountry(event.country) }}</a></p>
+            <p style="text-transform: capitalize"><a href="https://www.google.com/maps/search/?api=1&query={{ ((event.venue ? event.venue + ', ' : '') + event.city + ', ' + (event.stateProv ? event.stateProv + ', ' : '') + event.country) }}" target="_blank">{{ (event.venue ? event.venue + ', ' : '') + event.city + ', ' + (event.stateProv ? event.stateProv + ', ' : '') + event.country }}</a></p>
           </div>
           <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event_type_name">
             <mat-icon svgIcon="calendar-question"></mat-icon>

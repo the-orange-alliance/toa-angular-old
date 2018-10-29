@@ -1,8 +1,10 @@
-import {Component, NgZone, ViewChild} from '@angular/core';
+import { Component, NgZone, ViewChild } from '@angular/core';
 import { FTCDatabase } from './providers/ftc-database';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { TeamFilter } from './util/team-utils';
 import { Router } from '@angular/router';
-import {EventFilter} from './util/event-utils';
+import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
 import { MdcTopAppBar, MdcTextField } from '@angular-mdc/web';
 import Team from './models/Team';
@@ -32,10 +34,28 @@ export class TheOrangeAllianceComponent {
 
   current_year: any;
 
+  user = [];
+
   private _mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
   @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
 
-  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa: TheOrangeAllianceGlobals, private _ngZone: NgZone) {
+  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa: TheOrangeAllianceGlobals, private _ngZone: NgZone,
+              db: AngularFireDatabase, auth: AngularFireAuth) {
+    auth.authState.subscribe(user => {
+      if (user !== null && user !== undefined) {
+        this.user['email'] = user.email;
+        db.list(`Users/${user.uid}`).snapshotChanges()
+          .subscribe(items => {
+            items.forEach(element => {
+              this.user[element.key] = element.payload.val();
+            });
+            console.log(this.user)
+          });
+      } else {
+        this.user = null;
+      }
+    });
+
     this._mediaMatcher.addListener(mql => this._ngZone.run(() => this._mediaMatcher = mql));
 
     this.current_year = new Date().getFullYear();

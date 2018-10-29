@@ -1,4 +1,10 @@
-<h2>Team #{{ (team?.teamNumber) ? team.teamNumber : teamKey }}</h2>
+<div class="row">
+  <h2 [class.col-9]="user !== null" [class.col-12]="user === null">Team #{{ (team?.teamNumber) ? team.teamNumber : teamKey }}</h2>
+  <div *ngIf="user !== null" class="col-3">
+    <button mdc-button primary (click)="toggleTeam();" style="text-transform:initial">{{ favorite ? 'REMOVE FROM myTOA' : 'ADD TO myTOA' }}</button>
+  </div>
+</div>
+
 
 <div class="row" *ngIf="team">
   <div class="col-xs-12 col-sm-3 col-lg-3 pb-5">
