@@ -15,8 +15,6 @@ import Event from "../../models/Event";
 
 export class AccountComponent {
 
-  name: string;
-  email: string;
   user = [];
 
   teams: Team[];

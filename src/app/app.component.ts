@@ -44,12 +44,9 @@ export class TheOrangeAllianceComponent {
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
         this.user['email'] = user.email;
-        db.list(`Users/${user.uid}`).snapshotChanges()
-          .subscribe(items => {
-            items.forEach(element => {
-              this.user[element.key] = element.payload.val();
-            });
-            console.log(this.user)
+        db.object(`Users/${user.uid}/fullName`).snapshotChanges()
+          .subscribe(element => {
+            this.user['fullName'] = element.payload.val();
           });
       } else {
         this.user = null;
@@ -94,17 +91,6 @@ export class TheOrangeAllianceComponent {
       this.teamSearchResults = [];
       this.eventSearchResults = [];
     }
-  }
-
-  openEvent(event_name): void {
-    this.router.navigate(['/events', event_name]);
-  }
-  openTeam(team_number): void {
-    this.router.navigate(['/teams', team_number]);
-  }
-
-  hideDropdown() {
-    document.getElementById('search').style.display = 'none';
   }
 
   isScreenSmall(): boolean {
