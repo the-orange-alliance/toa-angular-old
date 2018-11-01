@@ -11,6 +11,8 @@ import Season from '../../models/Season';
 import Event from '../../models/Event';
 import Region from '../../models/Region';
 import AwardRecipient from "../../models/AwardRecipient";
+import {AngularFireAuth} from "angularfire2/auth";
+import {AngularFireDatabase} from "angularfire2/database";
 
 @Component({
   selector: 'toa-team',
@@ -23,7 +25,7 @@ export class TeamComponent implements OnInit {
   eventSorter: EventSorter;
 
   team: Team;
-  teamKey: number;
+  teamKey: string;
 
   regions: any;
 
@@ -33,9 +35,23 @@ export class TeamComponent implements OnInit {
   currentSeason: Season;
   thisSeason: Season;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals) {
+  user: any = null;
+  favorite: boolean;
+
+  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
+              public db: AngularFireDatabase, public auth: AngularFireAuth) {
     this.teamKey = this.route.snapshot.params['team_key'];
     this.eventSorter = new EventSorter();
+
+    auth.authState.subscribe(user => {
+      if (user !== null && user !== undefined) {
+        this.user = user;
+        db.object(`Users/${user.uid}/favTeams/${this.teamKey}`).snapshotChanges()
+          .subscribe(items => {
+            this.favorite = items !== null && items.payload.val() === true
+          });
+      }
+    });
   }
 
   public ngOnInit(): void {
@@ -191,7 +207,7 @@ export class TeamComponent implements OnInit {
   beautifulURL(website: string) {
     website = website.substr( website.indexOf(':') + 3 ); // Taking off the http/s
     if (website.endsWith("/") || website.endsWith("?") || website.endsWith("#")) { // Taking off unnecessary chars
-      website = website.substr( 0, website.length - 2 );
+      website = website.substr( 0, website.length - 1 );
     }
 
     return website.startsWith("www.") ? website : "www."+website;
@@ -204,6 +220,13 @@ export class TeamComponent implements OnInit {
       left: 0,
       top: element.offsetTop + 65
     });
+  }
 
+  toggleTeam(): void {
+    if (this.favorite) { // Remove from favorites
+      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).remove();
+    } else { // Add to favorites
+      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).set(true);
+    }
   }
 }

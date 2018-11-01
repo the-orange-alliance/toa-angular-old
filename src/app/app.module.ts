@@ -1,8 +1,13 @@
-import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from "../environments/environment";
 
 import { TheOrangeAllianceComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
@@ -33,6 +38,8 @@ import { MatchTableComponent } from './components/match-table/match-table.compon
 import { EventItemComponent } from './components/event/event.item.component';
 import { TeamItemComponent } from './components/team/team.item.component';
 import { AwardItemComponent } from './components/award/award.item.component';
+import { LoginComponent } from "./views/account/login/login.component";
+import { RegisterComponent } from "./views/account/register/register.component";
 
 @NgModule({
   declarations: [
@@ -40,6 +47,8 @@ import { AwardItemComponent } from './components/award/award.item.component';
     HomeComponent,
     AddDataComponent,
     AccountComponent,
+    LoginComponent,
+    RegisterComponent,
     EventsComponent,
     TeamsComponent,
     EventComponent,
@@ -64,7 +73,11 @@ import { AwardItemComponent } from './components/award/award.item.component';
     AwardItemComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'the-orange-alliance'}),
+    AngularFireModule.initializeApp(environment.firebase, 'T'),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+
+    BrowserModule.withServerTransition({appId: 'TOA-WebApp-1819'}),
     FormsModule,
     HttpClientModule,
     AppRoutingModule,

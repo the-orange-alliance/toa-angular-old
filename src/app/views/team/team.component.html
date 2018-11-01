@@ -1,4 +1,10 @@
-<h2>Team #{{ (team?.teamKey) ? team.teamKey : teamKey }}</h2>
+<div class="row">
+  <h2 [class.col-9]="user !== null" [class.col-12]="user === null">Team #{{ (team?.teamNumber) ? team.teamNumber : teamKey }}</h2>
+  <div *ngIf="user !== null" class="col-3">
+    <button mdc-button primary (click)="toggleTeam();" style="text-transform:initial">{{ favorite ? 'REMOVE FROM myTOA' : 'ADD TO myTOA' }}</button>
+  </div>
+</div>
+
 
 <div class="row" *ngIf="team">
   <div class="col-xs-12 col-sm-3 col-lg-3 pb-5">
@@ -6,12 +12,12 @@
       <div class="w-100 p-3">
         <div *ngIf="seasons && team.rookieYear" class="dropdown">
           <button *ngIf="currentSeason" class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            20{{ currentSeason.seasonKey.substring(2, 4) }} - {{ currentSeason.description }}
+            20{{ currentSeason.seasonKey.substring(0, 2) }}/{{ currentSeason.seasonKey.substring(2, 4) }} - {{ currentSeason.description }}
             <span class="caret"></span>
           </button>
 
           <ul class="dropdown-menu" aria-labelledby="ftc_season">
-            <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-list-item>
+            <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-list-item>
           </ul>
         </div>
 
@@ -32,7 +38,7 @@
 
   <div class="col-xs-12 col-sm-9 col-lg-9">
     <mdc-card class="toa-card" id="info">
-      <div class="toa-card-header" mdcHeadline5>#{{ team.teamKey }} - {{ team.teamNameShort }}</div>
+      <div class="toa-card-header" mdcHeadline5>#{{ team.teamNumber }} - {{ team.teamNameShort }}</div>
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3">
         <div class="info-state d-flex align-content-center flex-wrap">
@@ -45,14 +51,9 @@
           <p style="text-transform: capitalize"><a href="https://www.google.com/maps/search/?api=1&query={{ (team.city + ', ' + (team.stateProv ? team.stateProv + ', ' : '') + fixCountry(team.country)).replace(' ', '+') }}" target="_blank">{{ team.city + ', ' + (team.stateProv ? team.stateProv + ', ' : '') + fixCountry(team.country) }}</a></p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.rookieYear && team.rookieYear !== 0">
-          <mat-icon svgIcon="airballoon"></mat-icon>
-          <p>Rookie Year: {{ team.rookieYear }}</p>
-        </div>
-
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.lastActive < 1819">
-          <mat-icon svgIcon="calendar"></mat-icon>
-          <p>Last Active Year: 20{{ team.lastActive.substring(0, 2) }}</p>
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website && beautifulURL(team.website).startsWith('www.facebook.com/')">
+          <mat-icon svgIcon="facebook"></mat-icon>
+          <p>Facebook: <a href="{{ team.website }}">@{{ beautifulURL(team.website).replace("www.facebook.com/", "") }}</a></p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website && !beautifulURL(team.website).startsWith('www.facebook.com/')">
@@ -60,19 +61,24 @@
           <p>Website: <a href="{{ team.website }}">{{ beautifulURL(team.website) }}</a></p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website && beautifulURL(team.website).startsWith('www.facebook.com/')">
-          <mat-icon svgIcon="facebook"></mat-icon>
-          <p>Facebook: <a href="{{ team.website }}">@{{ beautifulURL(team.website).replace("www.facebook.com/", "") }}</a></p>
-        </div>
-
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.robotName">
           <mat-icon svgIcon="robot"></mat-icon>
           <p>Robot Name: {{ team.robotName }}</p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.awards && thisSeason && thisSeason.description">
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.rookieYear && team.rookieYear !== 0">
+          <mat-icon svgIcon="airballoon"></mat-icon>
+          <p>Rookie Year: {{ team.rookieYear }}</p>
+        </div>
+
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.lastActive < 1819">
+          <mat-icon svgIcon="chevron-left"></mat-icon>
+          <p>Last Active Year: 20{{ team.lastActive.substring(0, 2) }}</p>
+        </div>
+
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.awards && currentSeason && currentSeason.description">
           <mat-icon svgIcon="trophy"></mat-icon>
-          <p>{{ team.awards.length }} awards in {{ thisSeason.description }}</p>
+          <p>{{ team.awards.length }} awards in {{ currentSeason.description }}</p>
         </div>
       </div>
     </mdc-card>

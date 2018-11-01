@@ -1,14 +1,12 @@
 <a href="/teams/{{ team.teamKey }}" class="no-underline">
   <mdc-list-item class="item-team">
-    <!-- <img *ngIf="team.logo_url" class="rounded-circle" [src]="team.logo_url" />
-    <img *ngIf="!team.logo_url" class="rounded-circle" src="../../../assets/imgs/hashtag.png" /> -->
-    <img class="rounded-circle" src="../../../assets/imgs/hashtag.png" />
-    <div>
-      <mdc-list-item-text>
-        <span class="black" *ngIf="team.teamNameShort">#{{ team.teamNumber }} - {{ team.teamNameShort }}</span>
+    <div class="row mdc-list-item__text w-100">
+      <div class="col-3 black align-self-center text-center" mdcHeadline6>{{ team.teamNumber }}</div>
+      <div class="col-9">
+        <span class="black" *ngIf="team.teamNameShort">{{ team.teamNameShort }}</span>
         <span class="black" *ngIf="!team.teamNameShort">Team #{{ team.teamNumber }}</span>
         <span class="mdc-list-item__secondary-text" style="text-transform: capitalize">{{ team.city }}, {{ team.stateProv ? team.stateProv + ', ' : '' }}{{ team.country }}</span>
-      </mdc-list-item-text>
+      </div>
     </div>
   </mdc-list-item>
 </a>
