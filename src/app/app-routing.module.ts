@@ -16,10 +16,14 @@ import { PageNotFoundComponent } from './views/404/404.component';
 import { MatchesComponent } from './views/matches/matches.component';
 import { LiveDocsComponent } from './views/livedocs/livedocs.component';
 import { AddDataComponent } from "./views/add-data/add-data.component";
+import { LoginComponent } from "./views/account/login/login.component";
+import { RegisterComponent } from "./views/account/register/register.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'account', component: AccountComponent },
+  { path: 'account/login', component: LoginComponent },
+  { path: 'account/register', component: RegisterComponent },
   { path: 'add-data', component: AddDataComponent },
   { path: 'events', component: EventsComponent },
   { path: 'teams', component: TeamsComponent },

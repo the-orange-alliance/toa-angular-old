@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { EventParser } from '../../util/event-utils';
-import { MatchSorter, MatchType } from '../../util/match-utils';
+import { MatchSorter } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
+import { AngularFireAuth } from "angularfire2/auth";
+import { AngularFireDatabase } from "angularfire2/database";
 import Event from '../../models/Event';
 import EventType from '../../models/EventType';
 import Season from '../../models/Season';
@@ -20,7 +22,6 @@ export class EventComponent implements OnInit {
   event_parser: EventParser;
   match_sorter: MatchSorter;
 
-  regions: any;
   seasons: any;
   event_types: any;
 
@@ -34,8 +35,22 @@ export class EventComponent implements OnInit {
   totalawards: any;
   view_type: string;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals) {
+  user: any = null;
+  favorite: boolean;
+
+  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
+              public db: AngularFireDatabase, public auth: AngularFireAuth) {
     this.event_key = this.route.snapshot.params['event_key'];
+
+    auth.authState.subscribe(user => {
+        if (user !== null && user !== undefined) {
+          this.user = user;
+          db.object(`Users/${user.uid}/favEvents/${this.event_key}`).snapshotChanges()
+            .subscribe(items => {
+              this.favorite = items !== null && items.payload.val() === true
+            });
+        }
+      });
   }
 
   ngOnInit() {
@@ -90,13 +105,7 @@ export class EventComponent implements OnInit {
       }, (err) => {
         console.log(err);
       });
-
-      this.ftc.getAllRegions().then((data: Region[]) => {
-        this.regions = data;
-      }, (err) => {
-        console.log(err);
-      });
-    }
+      }
   }
 
   public select(view_type) {
@@ -107,13 +116,11 @@ export class EventComponent implements OnInit {
     return this.view_type === view_type;
   }
 
-  fixCountry(country) {
-    const region = this.regions.filter(obj => obj.regionKey === country);
-
-    if (region.length === 1 && region[0].description && country.toUpperCase() !== 'USA') {
-      return region[0].description
-    } else {
-      return country;
+  toggleEvent(): void {
+    if (this.favorite) { // Remove from favorites
+      this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).remove();
+    } else { // Add to favorites
+      this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).set(true);
     }
   }
 }

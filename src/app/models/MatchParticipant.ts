@@ -10,7 +10,7 @@ export const columns: string[] = [
 export default class MatchParticipant implements ISerializable {
  private _matchParticipantKey: string;
  private _matchKey: string;
- private _teamKey: number;
+ private _teamKey: string;
  private _station: number;
  private _stationStatus: number;
  private _refStatus: number;
@@ -18,7 +18,7 @@ export default class MatchParticipant implements ISerializable {
  constructor() {
    this._matchParticipantKey = "";
    this._matchKey = "";
-   this._teamKey = 0;
+   this._teamKey = "";
    this._station = 0;
    this._stationStatus = 0;
    this._refStatus = 0;
@@ -62,11 +62,11 @@ export default class MatchParticipant implements ISerializable {
     this._matchKey = value;
   }
 
-  get teamKey(): number {
+  get teamKey(): string {
     return this._teamKey;
   }
 
-  set teamKey(value: number) {
+  set teamKey(value: string) {
     this._teamKey = value;
   }
 

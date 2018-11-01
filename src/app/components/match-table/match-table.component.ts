@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input } from '@angular/core';
 import Match from '../../models/Match';
 import Team from '../../models/Team';
 
@@ -15,7 +14,7 @@ export class MatchTableComponent {
   public getMatchResultString(match: Match): string {
     let teamStation = 0;
     for (const participant of match.participants) {
-      if (participant.teamKey == this.team.teamKey) { // === isn't working
+      if (participant.teamKey === this.team.teamKey) {
         teamStation = participant.station;
         break;
       }
