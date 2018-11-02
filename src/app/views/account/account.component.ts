@@ -39,7 +39,7 @@ export class AccountComponent {
               items.forEach(element => {
                 this.user[element.key] = element.payload.val();
               });
-              
+
               let teams = this.user['favTeams'];
               for (let key in teams) {
                 if (teams[key] === true) {

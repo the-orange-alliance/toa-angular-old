@@ -1,6 +1,6 @@
-<h2 class="d-inline" *ngIf="match && event">{{ match.matchName }}</h2>
-<h5 class="d-inline pl-2" *ngIf="match && event"><a class="black" href="/events/{{ event.eventKey }}">{{ event.divisionName ? event.eventName +
-  ' - ' + event.divisionName + ' Division' : event.eventName }}</a></h5>
+<h2 class="d-inline" *ngIf="match">{{ match.matchName }}</h2>
+<h5 class="d-inline pl-2" *ngIf="match && match.event"><a class="black" href="/events/{{ match.event.eventKey }}">{{ match.event.divisionName ? match.event.eventName +
+  ' - ' + match.event.divisionName + ' Division' : match.event.eventName }}</a></h5>
 <!--<h2 *ngIf="noData">No match data found</h2>-->
 
 <div class="row mt-3" *ngIf="match">
@@ -37,5 +37,6 @@
   <div class="col-12 col-md-7" *ngIf="match">
     <toa-velocity-vortex *ngIf="getMatchSeason() === 1617" [match]="match"></toa-velocity-vortex>
     <toa-relic-recovery *ngIf="getMatchSeason() === 1718" [match]="match"></toa-relic-recovery>
+    <toa-rover-ruckus *ngIf="getMatchSeason() === 1819" [match]="match"></toa-rover-ruckus>
   </div>
 </div>

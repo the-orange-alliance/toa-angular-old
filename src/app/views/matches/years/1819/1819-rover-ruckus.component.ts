@@ -1,12 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { Router } from '@angular/router';
 import Match from '../../../../models/Match';
 
 @Component({
-  selector: 'toa-velocity-vortex',
-  templateUrl: './1617-velocity-vortex.component.html'
+  selector: 'toa-rover-ruckus',
+  templateUrl: './1819-rover-ruckus.component.html'
 })
-export class VelocityVortexComponent {
+export class RoverRuckusComponent {
 
   @Input() match: Match;
 

@@ -1,7 +1,7 @@
 <div class="row" *ngIf="match.details">
   <div class="col-12 p-2">
     <mdc-card class="toa-card">
-      <div class="toa-card-header" mdcHeadline5>Auton Details</div>
+      <div class="toa-card-header" mdcHeadline5>Autonomous Details</div>
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3">
         <div class="w-100">
@@ -44,7 +44,7 @@
               </tr>
               <tr>
                 <td colspan="3" class="red"><strong>{{ match.redAutoScore }}</strong></td>
-                <td colspan="6"><strong>Auton Total</strong></td>
+                <td colspan="6"><strong>Autonomous Total</strong></td>
                 <td colspan="3" class="blue"><strong>{{ match.blueAutoScore }}</strong></td>
               </tr>
             </tbody>
@@ -56,7 +56,7 @@
 
   <div class="col-12 p-2">
     <mdc-card class="toa-card">
-      <div class="toa-card-header" mdcHeadline5>Teleop Details</div>
+      <div class="toa-card-header" mdcHeadline5>Driver Controlled Details</div>
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3">
         <div class="w-100">
@@ -98,9 +98,9 @@
                 <td colspan="3" class="blue" *ngIf="match.details.blueTeleCypher != 0">{{ match.details.blueTeleCypher }} ( +{{ match.details.blueTeleCypher * 30 }} )</td>
               </tr>
               <tr>
-                <td colspan="3" class="red"><strong>{{ match.redTeleScore  }}</strong></td>
-                <td colspan="6"><strong>Teleop Total</strong></td>
-                <td colspan="3" class="blue"><strong>{{ match.blueTeleScore  }}</strong></td>
+                <td colspan="3" class="red"><strong>{{ match.redTeleScore }}</strong></td>
+                <td colspan="6"><strong>Driver Controlled Total</strong></td>
+                <td colspan="3" class="blue"><strong>{{ match.blueTeleScore }}</strong></td>
               </tr>
             </tbody>
           </table>
