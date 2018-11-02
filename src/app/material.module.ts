@@ -9,6 +9,7 @@ import {
   MdcElevationModule,
   MdcFabModule,
   MdcFormFieldModule,
+  MdcIconButtonModule,
   MdcIconModule,
   MdcLinearProgressModule,
   MdcListModule,
@@ -22,10 +23,10 @@ import {
   MdcTabBarModule,
   MdcTextFieldModule,
   MdcTopAppBarModule,
-  MdcTypographyModule,
+  MdcTypographyModule
 } from '@angular-mdc/web';
 
-import {DomSanitizer} from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @NgModule({
   exports: [
@@ -38,6 +39,7 @@ import {DomSanitizer} from '@angular/platform-browser';
     MdcElevationModule,
     MdcFabModule,
     MdcFormFieldModule,
+    MdcIconButtonModule,
     MdcIconModule,
     MdcLinearProgressModule,
     MdcListModule,
@@ -51,37 +53,7 @@ import {DomSanitizer} from '@angular/platform-browser';
     MdcTabBarModule,
     MdcTextFieldModule,
     MdcTopAppBarModule,
-    MdcTypographyModule,
-
-    /*
-        // MdcAppBarModule,
-        // MdcTabIndicatorModule,
-        // MdcTabBarModule,
-        // MdcTabScrollerModule,
-        // MdcIconButtonModule,
-        MdcButtonModule,
-        MdcCardModule,
-        MdcCheckboxModule,
-        MdcDialogModule,
-        MdcDrawerModule,
-        MdcElevationModule,
-        MdcFabModule,
-        MdcFormFieldModule,
-        MdcIconModule,
-        MdcLinearProgressModule,
-        MdcListModule,
-        MdcMenuModule,
-        MdcRadioModule,
-        MdcRippleModule,
-        MdcSelectModule,
-        MdcSliderModule,
-        MdcSnackbarModule,
-        MdcSwitchModule,
-        MdcTabModule,
-        MdcTextFieldModule,
-        MdcThemeModule,
-        MdcTypographyModule,
-    */
+    MdcTypographyModule
   ]
 })
 

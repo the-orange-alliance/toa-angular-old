@@ -99,6 +99,7 @@ export class EventComponent implements OnInit {
           }, (err) => {
             console.log(err);
           });
+
         } else {
           this.router.navigate(['/not-found']);
         }
