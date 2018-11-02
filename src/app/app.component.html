@@ -50,7 +50,7 @@
     <mdc-drawer-content>
       <mdc-list-item class="item-profile" disabled>
         <div *ngIf="!user">
-          <span>Hello Guest!</span>
+          <span>Hello, Guest!</span>
           <span class="mdc-list-item__secondary-text">
             <button mdc-button dense routerLink="/account/login">Login</button>
             <span>•</span>
@@ -63,7 +63,7 @@
             <img class="rounded-circle" src="https://avatars3.githubusercontent.com/u/16443111?s=460&v=4" height="50" />
           </mat-icon>
           <mdc-list-item-text>
-            <span style="text-transform: capitalize">Hello {{ user.fullName || 'User' }}!</span>
+            <span style="text-transform: capitalize">Hello, {{ user.fullName || 'User' }}!</span>
             <span class="mdc-list-item__secondary-text">{{ user.email }}</span>
           </mdc-list-item-text>
         </div>
