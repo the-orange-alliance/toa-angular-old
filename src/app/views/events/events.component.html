@@ -10,11 +10,11 @@
 
         <div *ngIf="currentSeason" class="col-md-4 col-xs-12 filter-row dropdown">
           <div class="filter-info">Season: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          20{{ currentSeason.seasonKey.substring(2, 4) }} - {{ currentSeason.description }}
+          20{{ currentSeason.seasonKey.substring(0, 2) }}/{{ currentSeason.seasonKey.substring(2, 4) }} - {{ currentSeason.description }}
           <span class="caret"></span>
         </button>
           <ul class="dropdown-menu" aria-labelledby="ftc_season">
-            <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-list-item>
+            <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-list-item>
           </ul>
         </div>
 

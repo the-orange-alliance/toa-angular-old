@@ -40,6 +40,7 @@ import { TeamItemComponent } from './components/team/team.item.component';
 import { AwardItemComponent } from './components/award/award.item.component';
 import { LoginComponent } from "./views/account/login/login.component";
 import { RegisterComponent } from "./views/account/register/register.component";
+import { RoverRuckusComponent } from "./views/matches/years/1819/1819-rover-ruckus.component";
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { RegisterComponent } from "./views/account/register/register.component";
     MatchesComponent,
     VelocityVortexComponent,
     RelicRecoveryComponent,
+    RoverRuckusComponent,
     MatchTableComponent,
     EventItemComponent,
     TeamItemComponent,

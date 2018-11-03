@@ -20,6 +20,8 @@ export class AccountComponent {
   teams: Team[];
   events: Event[];
 
+  loaded: boolean;
+
   constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase,
               db: AngularFireDatabase, public auth: AngularFireAuth) {
     this.app.setTitle('myTOA');
@@ -29,29 +31,34 @@ export class AccountComponent {
         this.user['email'] = user.email;
         db.list(`Users/${user.uid}`).snapshotChanges()
           .subscribe(items => {
-            this.teams = [];
-            this.events = [];
 
-            items.forEach(element => {
-              this.user[element.key] = element.payload.val();
-            });
+            if (!this.loaded) {
+              this.teams = [];
+              this.events = [];
 
-            let teams = this.user['favTeams'];
-            for (let key in teams){
-              if (teams[key] === true) {
-                this.ftc.getTeamBasic(key).then((team: Team) => {
-                  this.teams.push(team)
-                });
+              items.forEach(element => {
+                this.user[element.key] = element.payload.val();
+              });
+
+              let teams = this.user['favTeams'];
+              for (let key in teams) {
+                if (teams[key] === true) {
+                  this.ftc.getTeamBasic(key).then((team: Team) => {
+                    this.teams.push(team)
+                  });
+                }
               }
-            }
 
-            let events = this.user['favEvents'];
-            for (let key in events){
-              if (events[key] === true) {
-                this.ftc.getEventBasic(key).then((event: Event) => {
-                  this.events.push(event)
-                });
+              let events = this.user['favEvents'];
+              for (let key in events) {
+                if (events[key] === true) {
+                  this.ftc.getEventBasic(key).then((event: Event) => {
+                    this.events.push(event)
+                  });
+                }
               }
+
+              this.loaded = true;
             }
           });
       } else {

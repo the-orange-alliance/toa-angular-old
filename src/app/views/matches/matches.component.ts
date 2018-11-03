@@ -17,7 +17,6 @@ export class MatchesComponent implements OnInit {
   matchKey: any;
 
   match: Match;
-  event: Event;
   videoSafeURL: SafeResourceUrl;
 
   constructor(private ftc: FTCDatabase, private router: Router, private sanitizer: DomSanitizer, private route: ActivatedRoute, private app: TheOrangeAllianceGlobals) {
@@ -28,7 +27,6 @@ export class MatchesComponent implements OnInit {
     this.ftc.getMatchDetails(this.matchKey).then((match: Match) => {
       if (match) {
         this.match = match;
-
         if (match.videoURL != null) {
           let videoID = match.videoURL.match(/^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/);
           if (videoID && videoID[2].length == 11) {
@@ -37,8 +35,8 @@ export class MatchesComponent implements OnInit {
         }
 
         this.ftc.getEventBasic(match.eventKey).then((event: Event) => {
-          this.event = event;
-          this.app.setTitle(this.match.matchName + ' - ' + this.event.eventName);
+          this.match.event = event;
+          this.app.setTitle(this.match.matchName + ' - ' + this.match.event.eventName);
         });
       } else {
         this.router.navigate(['/not-found']);

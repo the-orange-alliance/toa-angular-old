@@ -1,15 +1,10 @@
-/**
- * Created by Kyle Flynn on 11/7/2017.
- */
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { FTCDatabase } from '../../../../providers/ftc-database';
 import Match from '../../../../models/Match';
 
 @Component({
   selector: 'toa-relic-recovery',
-  templateUrl: './1718-relic-recovery.component.html',
-  providers: [FTCDatabase]
+  templateUrl: './1718-relic-recovery.component.html'
 })
 export class RelicRecoveryComponent {
 

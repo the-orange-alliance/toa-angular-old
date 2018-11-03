@@ -1,12 +1,15 @@
 <div *ngIf="event">
   <div class="row">
     <h2 [class.col-9]="user !== null" [class.col-12]="user === null">{{ event.startDate | date : "y" }} {{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} <span class="badge bg-primary" *ngIf="event.isLive">LIVE</span></h2>
-    <div *ngIf="user !== null" class="col-3">
-      <button mdc-button primary (click)="toggleEvent();" style="text-transform:initial">{{ favorite ? 'REMOVE FROM myTOA' : 'ADD TO myTOA' }}</button>
+    <div *ngIf="user !== null" class="col-12 col-md-3">
+      <button mdc-button primary raised (click)="toggleEvent()" class="align-self-end icon-white text-white w-100" style="text-transform:initial; height: auto; padding: 5px">
+        <mdc-icon *ngIf="favorite" class="mr-1">favorite</mdc-icon>
+        <mdc-icon *ngIf="!favorite" class="mr-1">favorite_border</mdc-icon>
+        {{ favorite ? 'Remove from myTOA' : 'Add to myTOA' }}</button>
     </div>
   </div>
 
-  <div class="row" *ngIf="regions">
+  <div class="row mt-3">
     <div class="col-md-7 col-sm-12 mt-3">
       <mdc-card class="toa-card">
         <div class="toa-card-header" mdcHeadline5>Event Information</div>
