@@ -13,54 +13,54 @@
   <tbody *ngIf="match.participants && match.participants.length == 4">
     <tr class="red">
       <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-        <a href="/teams/{{ match.participants[0].teamKey }}">{{ match.participants[0].teamKey }}</a>
+        <a href="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantStringWithoutStatus(match, 0) }}</a>
       </td>
       <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-        <a href="/teams/{{ match.participants[1].teamKey }}">{{ match.participants[1].teamKey }}</a>
+        <a href="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantStringWithoutStatus(match, 1) }}</a>
       </td>
       <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-        {{ match.redScore }}
+        {{ match.redScore > -1 ? match.redScore : '?' }}
       </td>
     </tr>
     <tr class="blue">
       <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-        <a href="/teams/{{ match.participants[2].teamKey }}">{{ match.participants[2].teamKey }}</a>
+        <a href="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantStringWithoutStatus(match, 2) }}</a>
       </td>
       <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-        <a href="/teams/{{ match.participants[3].teamKey }}">{{ match.participants[3].teamKey }}</a>
+        <a href="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantStringWithoutStatus(match, 3) }}</a>
       </td>
       <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-        {{ match.blueScore }}
+        {{ match.blueScore > -1 ? match.blueScore : '?' }}
       </td>
     </tr>
   </tbody>
   <tbody *ngIf="match.participants && match.participants.length === 6">
     <tr class="red">
       <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-        <a href="/teams/{{ match.participants[0].teamKey }}">{{ match.participants[0].teamKey }}</a>
+        <a href="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantStringWithoutStatus(match, 0) }}</a>
       </td>
       <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-        <a href="/teams/{{ match.participants[1].teamKey }}">{{ match.participants[1].teamKey }}</a>
+        <a href="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantStringWithoutStatus(match, 1) }}</a>
       </td>
       <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-        <a href="/teams/{{ match.participants[2].teamKey }}">{{ match.participants[2].teamKey }}</a>
+        <a href="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantStringWithoutStatus(match, 2) }}</a>
       </td>
       <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-        {{ match.redScore }}
+        {{ match.redScore > -1 ? match.redScore : '?' }}
       </td>
     </tr>
     <tr class="blue">
       <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-        <a href="/teams/{{ match.participants[3].teamKey }}">{{ match.participants[3].teamKey }}</a>
+        <a href="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantStringWithoutStatus(match, 3) }}</a>
       </td>
       <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-        <a href="/teams/{{ match.participants[4].teamKey }}">{{ match.participants[4].teamKey }}</a>
+        <a href="/teams/{{ match.participants[4].teamKey }}">{{ getParticipantStringWithoutStatus(match, 4) }}</a>
       </td>
       <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-        <a href="/teams/{{ match.participants[5].teamKey }}">{{ match.participants[5].teamKey }}</a>
+        <a href="/teams/{{ match.participants[5].teamKey }}">{{ getParticipantStringWithoutStatus(match, 5) }}</a>
       </td>
       <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-        {{ match.blueScore }}
+        {{ match.blueScore > -1 ? match.blueScore : '?' }}
       </td>
     </tr>
   </tbody>
@@ -126,11 +126,14 @@
     <td colspan="2" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
       <a href="/teams/{{ match.participants[5].teamKey }}">{{ getParticipantString(match, 5) }}</a>
     </td>
-    <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-      {{ match.redScore }}
+    <td *ngIf="!(match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00'))" colspan="2" class="not-played">
+      SCHEDULED TIME: {{ match.scheduledTime | date: 'MMM d, h:mm a' }}
     </td>
-    <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-      {{ match.blueScore }}
+    <td class="red" [class.match-winner]="match.redScore >= match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
+      {{ match.redScore > -1 ? match.redScore : '?' }}
+    </td>
+    <td class="blue" [class.match-winner]="match.redScore <= match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
+      {{ match.blueScore > -1 ? match.blueScore : '?' }}
     </td>
   </tr>
   <tr *ngIf="match.participants && match.participants.length == 6" class="d-lg-none d-xl-none">
@@ -150,7 +153,7 @@
       <a href="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantString(match, 2) }}</a>
     </td>
     <td colspan="2" class="red" [class.match-winner]="match.redScore >= match.blueScore">
-      {{ match.redScore }}
+      {{ match.redScore > -1 ? match.redScore : '?' }}
     </td>
   </tr>
   <tr *ngIf="match.participants && match.participants.length == 6" class="d-lg-none d-xl-none">
@@ -164,7 +167,7 @@
       <a href="/teams/{{ match.participants[5].teamKey }}">{{ getParticipantString(match, 5) }}</a>
     </td>
     <td colspan="2" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-      {{ match.blueScore }}
+      {{ match.blueScore > -1 ? match.blueScore : '?' }}
     </td>
   </tr>
 
@@ -187,11 +190,14 @@
     <td colspan="3" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
       <a href="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantString(match, 3) }}</a>
     </td>
-    <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-      {{ match.redScore }}
+    <td *ngIf="!(match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00'))" colspan="2" class="not-played">
+      SCHEDULED TIME: {{ match.scheduledTime | date: 'MMM d, h:mm a' }}
     </td>
-    <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-      {{ match.blueScore }}
+    <td class="red" [class.match-winner]="match.redScore >= match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
+      {{ match.redScore > -1 ? match.redScore : '?' }}
+    </td>
+    <td class="blue" [class.match-winner]="match.redScore <= match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
+      {{ match.blueScore > -1 ? match.blueScore : '?' }}
     </td>
   </tr>
   <tr *ngIf="match.participants && match.participants.length == 4" class="d-lg-none d-xl-none">
@@ -208,7 +214,7 @@
       <a href="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantString(match, 1) }}</a>
     </td>
     <td colspan="2" class="red" [class.match-winner]="match.redScore >= match.blueScore">
-      {{ match.redScore }}
+      {{ match.redScore > -1 ? match.redScore : '?' }}
     </td>
   </tr>
   <tr *ngIf="match.participants && match.participants.length == 4" class="d-lg-none d-xl-none">
@@ -219,7 +225,7 @@
       <a href="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantString(match, 3) }}</a>
     </td>
     <td colspan="2" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-      {{ match.blueScore }}
+      {{ match.blueScore > -1 ? match.blueScore : '?' }}
     </td>
   </tr>
   </tbody>
@@ -288,10 +294,10 @@
       <a href="/teams/{{ match.participants[5].teamKey }}" [class.current-team]="isSelectedTeam(match, 5)">{{ getParticipantString(match, 5) }}</a>
     </td>
     <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-      {{ match.redScore }}
+      {{ match.redScore > -1 ? match.redScore : '?' }}
     </td>
     <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-      {{ match.blueScore }}
+      {{ match.blueScore > -1 ? match.blueScore : '?' }}
     </td>
   </tr>
   <tr *ngIf="match.participants && match.participants.length == 6" class="d-lg-none d-xl-none">
@@ -312,7 +318,7 @@
       <a href="/teams/{{ match.participants[2].teamKey }}" [class.current-team]="isSelectedTeam(match, 2)">{{ getParticipantString(match, 2) }}</a>
     </td>
     <td colspan="2" class="red" [class.match-winner]="match.redScore >= match.blueScore">
-      {{ match.redScore }}
+      {{ match.redScore > -1 ? match.redScore : '?' }}
     </td>
   </tr>
   <tr *ngIf="match.participants && match.participants.length == 6" class="d-lg-none d-xl-none">
@@ -326,7 +332,7 @@
       <a href="/teams/{{ match.participants[5].teamKey }}" [class.current-team]="isSelectedTeam(match, 5)">{{ getParticipantString(match, 5) }}</a>
     </td>
     <td colspan="2" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-      {{ match.blueScore }}
+      {{ match.blueScore > -1 ? match.blueScore : '?' }}
     </td>
   </tr>
 
@@ -350,11 +356,14 @@
     <td colspan="3" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
       <a href="/teams/{{ match.participants[3].teamKey }}" [class.current-team]="isSelectedTeam(match, 3)">{{ getParticipantString(match, 3) }}</a>
     </td>
-    <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-      {{ match.redScore }}
+    <td *ngIf="!(match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00'))" colspan="2" class="not-played">
+      SCHEDULED TIME: {{ match.scheduledTime | date: 'MMM d, h:mm a' }}
     </td>
-    <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-      {{ match.blueScore }}
+    <td class="red" [class.match-winner]="match.redScore >= match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
+      {{ match.redScore > -1 ? match.redScore : '?' }}
+    </td>
+    <td class="blue" [class.match-winner]="match.redScore <= match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
+      {{ match.blueScore > -1 ? match.blueScore : '?' }}
     </td>
   </tr>
   <tr *ngIf="match.participants && match.participants.length == 4" class="d-lg-none d-xl-none">
@@ -372,7 +381,7 @@
       <a href="/teams/{{ match.participants[1].teamKey }}" [class.current-team]="isSelectedTeam(match, 1)">{{ getParticipantString(match, 1) }}</a>
     </td>
     <td colspan="2" class="red" [class.match-winner]="match.redScore >= match.blueScore">
-      {{ match.redScore }}
+      {{ match.redScore > -1 ? match.redScore : '?' }}
     </td>
   </tr>
   <tr *ngIf="match.participants && match.participants.length == 4" class="d-lg-none d-xl-none">
@@ -383,7 +392,7 @@
       <a href="/teams/{{ match.participants[3].teamKey }}" [class.current-team]="isSelectedTeam(match, 3)">{{ getParticipantString(match, 3) }}</a>
     </td>
     <td colspan="2" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-      {{ match.blueScore }}
+      {{ match.blueScore > -1 ? match.blueScore : '?' }}
     </td>
   </tr>
   </tbody>
