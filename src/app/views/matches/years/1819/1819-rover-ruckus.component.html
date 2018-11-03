@@ -138,6 +138,11 @@
                 <td colspan="3" class="blue" *ngIf="match.details.blueEndComp == 0">0</td>
                 <td colspan="3" class="blue" *ngIf="match.details.blueEndComp != 0">{{ match.details.blueEndComp }} ( +{{ match.details.blueEndComp * 25 }} )</td>
               </tr>
+              <tr>
+                <td colspan="3" class="red"><strong>{{  match.redEndScore }}</strong></td>
+                <td colspan="6"><strong>End Game Total</strong></td>
+                <td colspan="3" class="blue"><strong>{{  match.blueEndScore }}</strong></td>
+              </tr>
             </tbody>
           </table>
         </div>
