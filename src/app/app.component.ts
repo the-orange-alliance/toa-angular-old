@@ -94,7 +94,7 @@ export class TheOrangeAllianceComponent {
   }
 
   isScreenSmall(): boolean {
-    return this._mediaMatcher.matches;
+    return this.router.url === '/stream' || this._mediaMatcher.matches;
   }
 
   focusSearchInput(searchInput: MdcTextField): void {

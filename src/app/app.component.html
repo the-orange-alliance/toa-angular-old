@@ -151,7 +151,7 @@
     </mdc-drawer-content>
   </mdc-drawer>
 
-  <div class="toa-page">
+  <div class="page" [class.toa-page]="router.url !== '/stream'">
     <router-outlet></router-outlet>
   </div>
 </div>

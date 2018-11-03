@@ -1,29 +1,44 @@
-<h2>Streaming</h2>
-
-<div *ngIf="streams">
-  <div class="row w-100" *ngIf="streams.length > 0">
-    <div *ngFor="let stream of streams" class="col-md-4 col-sm-12 p-3">
-      <mdc-card class="toa-card p-0">
-        <div class="embed-responsive embed-responsive-16by9" style="border-radius:6px 6px 0 0">
-          <iframe class="embed-responsive-item" *ngIf="stream.safeURL" [src]="stream.safeURL" allowfullscreen></iframe>
+<div *ngIf="streams" class="main">
+  <div class="row m-0">
+    <div class="row m-0 col-12" [class.col-lg-9]="showChat" *ngIf="streams.length > 0">
+      <div *ngFor="let stream of streams" class="col-md-6 col-sm-12 p-2">
+        <div class="item">
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" *ngIf="stream.safeURL" [src]="stream.safeURL" allowfullscreen></iframe>
+          </div>
+          <div class="info">
+            <h2 class="m-0" mdcHeadline6>{{ stream.streamName }}</h2>
+            <p class="m-0">{{ stream.startDateTime | date: 'MMM d, h:mm a' }} to {{ stream.endDateTime | date: 'MMM d, h:mm a' }} </p>
+            <button mdc-button *ngIf="stream.eventKey" (click)="openEvent(stream.eventKey)"><mdc-icon>equalizer</mdc-icon> Event results</button>
+            <!--<a *ngIf="stream.fullURL" [href]="stream.fullURL" target="_blank" style="color: currentColor" class="w-fit"><mat-icon svgIcon="open-in-new"></mat-icon></a>-->
+          </div>
         </div>
-        <div class="stream-card__primary">
-          <h2 class="stream-card__title" mdcHeadline6>{{ stream.eventName }}</h2>
-        </div>
-        <mdc-card-actions>
-          <mdc-card-action-icons>
-            <a *ngIf="stream.eventKey" (click)="openEvent(stream.eventKey)" class="mr-2"><mat-icon svgIcon="information-outline"></mat-icon></a>
-            <a *ngIf="stream.fullURL" [href]="stream.fullURL" target="_blank" style="color: currentColor"><mat-icon svgIcon="open-in-new"></mat-icon></a>
-          </mdc-card-action-icons>
-        </mdc-card-actions>
-      </mdc-card>
+      </div>
     </div>
-  </div>
-  <div class="row w-100" *ngIf="streams && streams.length <= 0">
-    There are currently no active streams.
+    <h5 class="text-center mt-5 col-12" [class.col-lg-9]="showChat" *ngIf="streams && streams.length <= 0">
+      There are currently no active streams.
+    </h5>
+    <div class="col-3 d-none d-lg-block p-0 m-0" *ngIf="showChat">
+      <iframe frameborder="0"
+              scrolling="no"
+              src="https://www.twitch.tv/embed/theorangealliance/chat"
+              height="600"
+              class="w-100">
+      </iframe>
+      <mdc-form-field>
+        <mdc-switch [(ngModel)]="showChat" class="mr-1"></mdc-switch>
+        <label>Show Chat?</label>
+      </mdc-form-field>
+    </div>
+    <mdc-form-field class="col-12" *ngIf="!showChat">
+      <mdc-switch [(ngModel)]="showChat" class="mr-1"></mdc-switch>
+      <label>Show Chat?</label>
+    </mdc-form-field>
   </div>
 </div>
 
+<!--
 <a mdc-fab href="/add-data" position='bottomRight' class="toa-fab">
   <mdc-icon>add</mdc-icon>
 </a>
+-->

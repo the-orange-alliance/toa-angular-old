@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { SafeResourceUrl } from "@angular/platform-browser/src/security/dom_sanitization_service";
 import EventLiveStream from '../../models/EventLiveStream';
 import Event from '../../models/Event';
-import { SafeResourceUrl } from "@angular/platform-browser/src/security/dom_sanitization_service";
 
 export class StreamType {
   static YOUTUBE = 0;
@@ -22,38 +22,20 @@ export class StreamType {
 export class StreamingComponent implements OnInit {
 
   streams: EventLiveStream[];
-  firstupdatesnow: EventLiveStream = new EventLiveStream();
+  showChat: boolean = true;
 
   constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer, private app: TheOrangeAllianceGlobals) {
     this.app.setTitle('Streaming');
-    // Set the FIRST Updates Now stream
-    this.firstupdatesnow.eventName = "FIRST Updates Now";
-    this.firstupdatesnow.streamURL = "https://player.twitch.tv/?channel=firstupdatesnow";
-    this.firstupdatesnow.fullURL = "https://twitch.tv/firstupdatesnow";
-    this.firstupdatesnow.safeURL = this.getSafeURL(this.firstupdatesnow.streamURL);
   }
 
   ngOnInit() {
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       this.streams = [];
-      this.streams.push(this.firstupdatesnow);
 
       for (const stream of data) {
-        if (stream.eventKey) {
-          this.ftc.getEventBasic(stream.eventKey).then((event: Event) => {
-            stream.eventName = event.eventName;
-          }, (err) => {
-            console.log(err);
-          });
-        }
 
         stream.safeURL = this.getSafeURL(stream.streamURL);
-
-        const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        const match = stream.streamURL.match(regExp);
-        if (match && match[2].length === 11) {
-          stream.fullURL = 'https://www.youtube.com/watch?v=' + match[2];
-        }
+        stream.fullURL = this.getFullURL(stream.streamURL);
 
         if (stream.isActive) {
           this.streams.push(stream);
@@ -64,6 +46,24 @@ export class StreamingComponent implements OnInit {
 
   getSafeURL(streamURL): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(streamURL);
+  }
+
+  getFullURL(streamURL: string) {
+    // YouTube
+    let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    let match = streamURL.match(regExp);
+    if (match && match[2].length === 11) {
+       return 'https://www.youtube.com/watch?v=' + match[2];
+    }
+
+    // Twitch
+    regExp = /^.*(twitch\.tv(|\/|)\?channel=|\&channel=)([^#\&\?]*).*/;
+    match = streamURL.match(regExp);
+    if (match && match[2]) {
+      return 'https://twitch.tv/' + match[2];
+    }
+
+    return null
   }
 
   openEvent(event_key): void {
