@@ -66,6 +66,10 @@ a:hover {
   color: #fff!important;
 }
 
+mdc-text-field .mdc-floating-label {
+  margin-bottom: 0;
+}
+
 /* ==========================================================================
    Colors
    ========================================================================== */
@@ -303,6 +307,11 @@ table.match-table tr {
 
 .blue {
   background-color: #eef;
+}
+
+.not-played {
+  //font-weight: bold;
+  font-style: italic;
 }
 
 .match-winner {

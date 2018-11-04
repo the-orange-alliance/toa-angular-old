@@ -6,7 +6,8 @@
       <mdc-text-field outlined class="mt-3" label="Email" [(ngModel)]="email" type="email" required></mdc-text-field>
       <mdc-text-field outlined class="mt-4" label="Password" [(ngModel)]="password" type="password" required></mdc-text-field>
       <mdc-text-field outlined class="mt-4" label="Confirm password" [(ngModel)]="confirmPassword" type="password" required></mdc-text-field>
-      <button mdc-button primary class="mt-4 text-white" (click)="onLoginEmail()">Sign Up</button>
+      <mdc-text-field outlined class="mt-4" label="Team #" [(ngModel)]="team"></mdc-text-field>
+      <button mdc-button primary class="mt-4 text-white" (click)="createUser()">Sign Up</button>
     </mdc-card>
   </div>
 </div>
