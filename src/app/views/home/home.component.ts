@@ -33,13 +33,13 @@ export class HomeComponent {
     this.today = new Date();
     this.currentEvents = [];
     this.app.setTitle('Home');
-    this.ftc.getTeamSize().then((data: number) => {
+    this.ftc.getTeamSize(this.ftc.year).then((data: number) => {
       this.teamsCount = data;
     });
     this.ftc.getMatchSize().then((data: number) => {
       this.matchCount = data;
     });
-    this.ftc.getHighScoreQual().then((data: Match) => {
+    this.ftc.getHighScoreQual(this.ftc.year).then((data: Match) => {
       this.highScoreQual = data;
       this.ftc.getMatchParticipants(this.highScoreQual.matchKey).then((participants: MatchParticipant[]) => {
         this.highScoreQual.participants = participants;
@@ -48,7 +48,7 @@ export class HomeComponent {
         this.highScoreQual.event = event;
       });
     });
-    this.ftc.getHighScoreElim().then((data: Match) => {
+    this.ftc.getHighScoreElim(this.ftc.year).then((data: Match) => {
       this.highScoreElim = data;
       this.ftc.getMatchParticipants(this.highScoreElim.matchKey).then((participants: MatchParticipant[]) => {
         this.highScoreElim.participants = participants;
@@ -57,7 +57,7 @@ export class HomeComponent {
         this.highScoreElim.event = event;
       });
     });
-    this.ftc.getHighScoreWithPenalty().then((data: Match) => {
+    this.ftc.getHighScoreWithPenalty(this.ftc.year).then((data: Match) => {
       this.highScoreAll = data;
       this.ftc.getMatchParticipants(this.highScoreAll.matchKey).then((participants: MatchParticipant[]) => {
         this.highScoreAll.participants = participants;
