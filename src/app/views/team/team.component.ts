@@ -27,8 +27,6 @@ export class TeamComponent implements OnInit {
   team: Team;
   teamKey: string;
 
-  regions: any;
-
   years: any;
 
   seasons: Season[];
@@ -79,11 +77,6 @@ export class TeamComponent implements OnInit {
       } else {
         this.router.navigate(['/not-found']);
       }
-    });
-    this.ftc.getAllRegions().then((data: Region[]) => {
-      this.regions = data;
-    }, (err) => {
-      console.log(err);
     });
   }
 
@@ -185,22 +178,13 @@ export class TeamComponent implements OnInit {
     this.router.navigate(['/matches', match_data.match_key]);
   }
 
-  getSeasonString(season: any) {
-    const code_one = season.season_key.toString().substring(0, 2);
-    const code_two = season.season_key.toString().substring(2, 4);
-    return '20' + code_one + '/20' + code_two + (season.description ? ' - ' + season.description : '');
-  }
-
-  fixCountry(country) {
-    if (this.regions) {
-      const region = this.regions.filter(obj => obj.regionKey === country);
-      if (region.length === 1 && region[0].description && country.toUpperCase() !== 'USA') {
-        return region[0].description
-      } else {
-        return country;
+  getSeasonString(seasonKey: string) {
+    for (const season of this.seasons) {
+      if (season.seasonKey === seasonKey) {
+        const code_one = season.seasonKey.toString().substring(0, 2);
+        const code_two = season.seasonKey.toString().substring(2, 4);
+        return '20' + code_one + '/' + code_two + (season.description ? ' - ' + season.description : '');
       }
-    } else {
-      return country;
     }
   }
 
