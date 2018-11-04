@@ -10,7 +10,7 @@
             <h2 class="m-0" mdcHeadline6>{{ stream.streamName }}</h2>
             <p class="m-0">{{ stream.startDateTime | date: 'MMM d, h:mm a' }} to {{ stream.endDateTime | date: 'MMM d, h:mm a' }} </p>
             <button mdc-button *ngIf="stream.eventKey" (click)="openEvent(stream.eventKey)"><mdc-icon>equalizer</mdc-icon> Event results</button>
-            <!--<a *ngIf="stream.fullURL" [href]="stream.fullURL" target="_blank" style="color: currentColor" class="w-fit"><mat-icon svgIcon="open-in-new"></mat-icon></a>-->
+            <!--<a *ngIf="stream.fullURL" [href]="stream.fullURL" target="_blank" style="color: currentColor" class="w-fit"><mdc-icon svgIcon="open-in-new"></mdc-icon></a>-->
           </div>
         </div>
       </div>

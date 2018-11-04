@@ -16,23 +16,23 @@
         <mdc-list-divider></mdc-list-divider>
         <div class="p-3">
           <div class="info-state d-flex align-content-center flex-wrap">
-            <mat-icon svgIcon="calendar"></mat-icon>
+            <mdc-icon svgIcon="calendar"></mdc-icon>
             <p>{{ event.startDate == event.endDate ? (event.startDate | date :  "mediumDate") : (event.startDate | date :  "mediumDate") + ' - ' + (event.endDate | date :  "mediumDate") }}</p>
           </div>
           <div class="info-state d-flex align-content-center flex-wrap">
-            <mat-icon svgIcon="map-marker"></mat-icon>
+            <mdc-icon svgIcon="map-marker"></mdc-icon>
             <p style="text-transform: capitalize"><a href="https://www.google.com/maps/search/?api=1&query={{ ((event.venue ? event.venue + ', ' : '') + event.city + ', ' + (event.stateProv ? event.stateProv + ', ' : '') + event.country) }}" target="_blank">{{ (event.venue ? event.venue + ', ' : '') + event.city + ', ' + (event.stateProv ? event.stateProv + ', ' : '') + event.country }}</a></p>
           </div>
           <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event_type_name">
-            <mat-icon svgIcon="calendar-question"></mat-icon>
+            <mdc-icon svgIcon="calendar-question"></mdc-icon>
             <p>{{ event_type_name }}</p>
           </div>
           <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event.website">
-            <mat-icon svgIcon="earth"></mat-icon>
+            <mdc-icon svgIcon="earth"></mdc-icon>
             <p><a [href]="event.website" target="_blank">View event's website</a></p>
           </div>
           <div class="info-state d-flex align-content-center flex-wrap">
-            <mat-icon svgIcon="code-tags"></mat-icon>
+            <mdc-icon svgIcon="code-tags"></mdc-icon>
             <p>Event Key: </p><p><code>{{ event_key }}</code></p>
           </div>
         </div>
@@ -45,15 +45,15 @@
         <mdc-list-divider></mdc-list-divider>
         <div class="p-3">
           <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event_season_name">
-            <mat-icon svgIcon="gamepad-variant"></mat-icon>
+            <mdc-icon svgIcon="gamepad-variant"></mdc-icon>
             <p>{{ event_season_name }}</p>
           </div>
           <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event.allianceCount">
-            <mat-icon svgIcon="human-handsup"></mat-icon>
+            <mdc-icon svgIcon="human-handsup"></mdc-icon>
             <p>{{ event.allianceCount > 1 ? event.allianceCount + ' Alliances' : 'One Alliance'}}</p>
           </div>
           <div class="info-state d-flex align-content-center flex-wrap" *ngIf="event.fieldCount">
-            <mat-icon svgIcon="soccer-field"></mat-icon>
+            <mdc-icon svgIcon="soccer-field"></mdc-icon>
             <p>{{ event.fieldCount > 1 ? event.fieldCount + ' Fields' : 'One Field'}}</p>
           </div>
         </div>

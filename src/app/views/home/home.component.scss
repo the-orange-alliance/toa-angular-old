@@ -26,9 +26,11 @@
   transform: translateY(-50%);
 }
 
-.counting-card-icon mat-icon {
+.counting-card-icon mdc-icon {
   position: absolute;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
+  height: 24px;
+  fill: white;
 }
