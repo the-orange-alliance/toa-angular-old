@@ -102,6 +102,6 @@ export class TheOrangeAllianceComponent {
     // We'll wait 4ms until it opens
     setTimeout(function () {
       searchInput.focus();
-    }, 400);
+    }, 600);
   }
 }

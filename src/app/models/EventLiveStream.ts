@@ -38,8 +38,8 @@ export default class EventLiveStream implements ISerializable {
       url: this.streamURL,
       channel_name: this.channelName,
       stream_name: this.streamName,
-      start_date_time: this.startDateTime,
-      end_date_time: this.endDateTime,
+      start_datetime: this.startDateTime,
+      end_datetime: this.endDateTime,
       channel_url: this.channelURL
     };
   }
@@ -53,8 +53,8 @@ export default class EventLiveStream implements ISerializable {
     stream.streamURL = json.url;
     stream.channelName = json.channel_name;
     stream.streamName = json.stream_name;
-    stream.startDateTime = json.start_date_time;
-    stream.endDateTime = json.end_date_time;
+    stream.startDateTime = json.start_datetime;
+    stream.endDateTime = json.end_datetime;
     stream.channelURL = json.channel_url;
     return stream;
   }
