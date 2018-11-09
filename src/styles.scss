@@ -66,6 +66,19 @@ a:hover {
   color: #fff!important;
 }
 
+mdc-text-field .mdc-floating-label {
+  margin-bottom: 0;
+}
+
+.mdc-top-app-bar .mdc-top-app-bar__navigation-icon {
+  color: #fff;
+}
+
+mdc-icon svg {
+  height: 24px;
+  width: 24px;
+}
+
 /* ==========================================================================
    Colors
    ========================================================================== */
@@ -142,8 +155,7 @@ mdc-drawer mdc-list a {
   margin-left: 15px;
 }
 
-.toa-page {
-  max-width: 1440px;
+.page {
   padding-top: 40px;
   padding-bottom: 45px;
 }
@@ -174,8 +186,17 @@ mdc-drawer mdc-list a {
   margin: 3px 0 10px 10px;;
 }
 
-.info-state mat-icon {
+.info-state mdc-icon {
   color: $mdc-theme-primary;
+  margin-right: 12px;
+  margin-left: 0;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  fill: $mdc-theme-primary;
 }
 
 
@@ -229,13 +250,16 @@ mdc-drawer mdc-list a {
   transform: translateY(-50%);
 }
 
-.link-card-icon mat-icon {
+.link-card-icon mdc-icon {
   position: absolute;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
+.link-card-icon mdc-icon svg {
+  fill: #fff;
+}
 
 /* ==========================================================================
    Team Item
@@ -304,6 +328,15 @@ table.match-table tr {
 
 .blue {
   background-color: #eef;
+}
+
+.not-played {
+  //font-weight: bold;
+  font-style: italic;
+}
+
+.play-icon svg {
+  fill: #007bff;
 }
 
 .match-winner {

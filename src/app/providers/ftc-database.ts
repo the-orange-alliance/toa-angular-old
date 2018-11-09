@@ -76,9 +76,9 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamSize(): Promise<number> {
+  public getTeamSize(lastActive): Promise<number> {
     return new Promise<number>((resolve, reject) => {
-      this.request('/team/size').then((data: any) => {
+      this.request('/team/size?last_active=' + lastActive).then((data: any) => {
         resolve(parseInt(data.result, 10));
       }).catch((err: any) => reject(err));
     });
@@ -100,25 +100,25 @@ export class FTCDatabase {
     });
   }
 
-  public getHighScoreQual(): Promise<Match> {
+  public getHighScoreQual(seasonKey: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
-      this.request('/match/high-scores?type=quals').then((data: any) => {
+      this.request('/match/high-scores?type=quals&season_key=' + seasonKey).then((data: any) => {
         resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
       }).catch((err: any) => reject(err));
     });
   }
 
-  public getHighScoreElim(): Promise<Match> {
+  public getHighScoreElim(seasonKey: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
-      this.request('/match/high-scores?type=elims').then((data: any) => {
+      this.request('/match/high-scores?type=elims&season_key=' + seasonKey).then((data: any) => {
         resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
       }).catch((err: any) => reject(err));
     });
   }
 
-  public getHighScoreWithPenalty(): Promise<Match> {
+  public getHighScoreWithPenalty(seasonKey: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
-      this.request('/match/high-scores?type=all').then((data: any) => {
+      this.request('/match/high-scores?type=all&season_key=' + seasonKey).then((data: any) => {
         resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
       }).catch((err: any) => reject(err));
     });

@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 import { FTCDatabase } from "../../providers/ftc-database";
 import { AngularFireAuth } from "angularfire2/auth";
 import { AngularFireDatabase } from "angularfire2/database";
+import { TeamSorter } from "../../util/team-utils";
+import { EventSorter } from "../../util/event-utils";
 import Team from "../../models/Team";
 import Event from "../../models/Event";
 
@@ -36,6 +38,9 @@ export class AccountComponent {
               this.teams = [];
               this.events = [];
 
+              let teamsSorter = new TeamSorter();
+              let eventsSorter = new EventSorter();
+
               items.forEach(element => {
                 this.user[element.key] = element.payload.val();
               });
@@ -45,6 +50,7 @@ export class AccountComponent {
                 if (teams[key] === true) {
                   this.ftc.getTeamBasic(key).then((team: Team) => {
                     this.teams.push(team)
+                    this.teams = teamsSorter.sort(this.teams, 0, this.teams.length - 1);
                   });
                 }
               }
@@ -54,6 +60,7 @@ export class AccountComponent {
                 if (events[key] === true) {
                   this.ftc.getEventBasic(key).then((event: Event) => {
                     this.events.push(event)
+                    this.events = eventsSorter.sort(this.events, 0, this.events.length - 1);
                   });
                 }
               }

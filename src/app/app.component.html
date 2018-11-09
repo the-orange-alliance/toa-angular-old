@@ -3,11 +3,11 @@
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="The Orange Alliance">
       <!--<mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">menu</mdc-icon>-->
-      <mat-icon svgIcon="menu" (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()"></mat-icon>
+      <mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()"></mdc-icon>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
-      <a mdcAppBarActionItem title="Search" data-toggle="modal" [attr.data-target]="'#searchmodal'" (click)="focusSearchInput(searchInput)">
-        <mat-icon class="icon-white" svgIcon="magnify"></mat-icon>
+      <a mdcTopAppBarActionItem title="Search" data-toggle="modal" [attr.data-target]="'#searchmodal'" (click)="focusSearchInput(searchInput)">
+        <mdc-icon class="icon-white" svgIcon="magnify"></mdc-icon>
       </a>
     </mdc-top-app-bar-section>
   </mdc-top-app-bar-row>
@@ -59,9 +59,9 @@
         </div>
 
         <div *ngIf="user" routerLink="/account" style="cursor:pointer">
-          <mat-icon mdcListItemGraphic *ngIf="false">
+          <mdc-icon mdcListItemGraphic *ngIf="false">
             <img class="rounded-circle" src="https://avatars3.githubusercontent.com/u/16443111?s=460&v=4" height="50" />
-          </mat-icon>
+          </mdc-icon>
           <mdc-list-item-text>
             <span style="text-transform: capitalize">Hello, {{ user.fullName || 'User' }}!</span>
             <span class="mdc-list-item__secondary-text">{{ user.email }}</span>
@@ -75,69 +75,64 @@
           <mdc-list-divider></mdc-list-divider>
 
           <a mdc-list-item routerLink="/home" routerLinkActive="mdc-list-item--activated">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="home"></mat-icon>Home
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="home"></mdc-icon>Home
           </a>
           <!-- <a mdc-list-item routerLink="/account" routerLinkActive="mdc-list-item--activated">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="star"></mat-icon>myTOA
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="star"></mdc-icon>myTOA
           </a> -->
           <a mdc-list-item routerLink="/teams" routerLinkActive="mdc-list-item--activated">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="account-group"></mat-icon>Teams
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="account-group"></mdc-icon>Teams
           </a>
           <a mdc-list-item routerLink="/events" routerLinkActive="mdc-list-item--activated">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="calendar"></mat-icon>Events
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="calendar"></mdc-icon>Events
           </a>
           <a mdc-list-item routerLink="/stream" routerLinkActive="mdc-list-item--activated">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="video"></mat-icon>Streaming
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="video"></mdc-icon>Streaming
           </a>
           <a mdc-list-item routerLink="/apidocs" routerLinkActive="mdc-list-item--activated">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="code-tags"></mat-icon>API
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="code-tags"></mdc-icon>API
           </a>
 
           <mdc-list-divider></mdc-list-divider>
 
           <a mdc-list-item routerLink="/add-data" routerLinkActive="mdc-list-item--activated">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="upload"></mat-icon>Add Data
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="upload"></mdc-icon>Add Data
           </a>
 <!--
           <a mdc-list-item routerLink="/livedocs" routerLinkActive="mdc-list-item&#45;&#45;activated">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="progress-upload"></mat-icon>DataSync
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="progress-upload"></mdc-icon>DataSync
           </a>
 -->
           <a mdc-list-item href="https://play.google.com/store/apps/details?id=com.theorangealliance.android" target="_blank">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="android-head"></mat-icon>Android App
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="android-head"></mdc-icon>Android App
           </a>
 
           <a mdc-list-item href="https://github.com/orange-alliance" target="_blank">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="github-circle"></mat-icon>GitHub
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="github-circle"></mdc-icon>GitHub
           </a>
-<!--
-          <a mdc-list-item href="https://discord.gg/5fH66UV" target="_blank">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="discord"></mat-icon>Discord
-          </a>
--->
 
           <div class="text-center w-100 pb-2">
-            <a mdc-button class="col-3" style="min-width: 30px" href="https://discord.gg/5fH66UV" target="_blank">
-              <mat-icon svgIcon="discord"></mat-icon>
+            <a mdcIconButton class="col-3" href="https://discord.gg/5fH66UV" target="_blank">
+              <mdc-icon svgIcon="discord"></mdc-icon>
             </a>
-            <a mdc-button class="col-3" style="min-width: 30px"  href="https://www.facebook.com/theorangealliance" target="_blank">
-              <mat-icon svgIcon="facebook"></mat-icon>
+            <a mdcIconButton class="col-3" href="https://www.facebook.com/theorangealliance" target="_blank">
+              <mdc-icon svgIcon="facebook"></mdc-icon>
             </a>
-            <a mdc-button class="col-3" style="min-width: 30px"  href="https://www.twitter.com/toalliance" target="_blank">
-              <mat-icon svgIcon="twitter"></mat-icon>
+            <a mdcIconButton class="col-3" href="https://www.twitter.com/toalliance" target="_blank">
+              <mdc-icon svgIcon="twitter"></mdc-icon>
             </a>
-            <a mdc-button class="col-3" style="min-width: 30px"  href="https://www.instagram.com/toalliance" target="_blank">
-              <mat-icon svgIcon="instagram"></mat-icon>
+            <a mdcIconButton class="col-3" href="https://www.instagram.com/toalliance" target="_blank">
+              <mdc-icon svgIcon="instagram"></mdc-icon>
             </a>
           </div>
 
           <mdc-list-divider></mdc-list-divider>
 
           <a mdc-list-item routerLink="/about" routerLinkActive="mdc-list-item--activated">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="information-outline"></mat-icon>About
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="information-outline"></mdc-icon>About
           </a>
           <a mdc-list-item routerLink="/privacy-terms" routerLinkActive="mdc-list-item--activated">
-            <mat-icon class="mdc-list-item__graphic" svgIcon="gavel"></mat-icon>Privacy & Terms
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="gavel"></mdc-icon>Privacy & Terms
           </a>
 
           <mdc-list-divider></mdc-list-divider>
@@ -151,7 +146,7 @@
     </mdc-drawer-content>
   </mdc-drawer>
 
-  <div class="toa-page">
+  <div class="page" [class.toa-page]="router.url !== '/stream'">
     <router-outlet></router-outlet>
   </div>
 </div>

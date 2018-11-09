@@ -6,7 +6,11 @@ export default class EventLiveStream implements ISerializable {
   private _streamType: number;
   private _isActive: boolean;
   private _streamURL: string;
-  private _eventName: string;
+  private _channelName: string;
+  private _streamName: string;
+  private _startDateTime: string;
+  private _endDateTime: string;
+  private _channelURL: string;
 
   private _safeURL: SafeResourceUrl;
   private _fullURL: string;
@@ -17,6 +21,11 @@ export default class EventLiveStream implements ISerializable {
     this._streamType = 0;
     this._isActive = false;
     this._streamURL = '';
+    this._channelName = '';
+    this._streamName = '';
+    this._startDateTime = '';
+    this._endDateTime = '';
+    this._channelURL = '';
     this._fullURL = '';
   }
 
@@ -26,7 +35,12 @@ export default class EventLiveStream implements ISerializable {
       event_key: this.eventKey,
       stream_type: this.streamType,
       is_active: this.isActive,
-      url: this.streamURL
+      url: this.streamURL,
+      channel_name: this.channelName,
+      stream_name: this.streamName,
+      start_date_time: this.startDateTime,
+      end_date_time: this.endDateTime,
+      channel_url: this.channelURL
     };
   }
 
@@ -37,6 +51,11 @@ export default class EventLiveStream implements ISerializable {
     stream.streamType = json.stream_type;
     stream.isActive = json.is_active;
     stream.streamURL = json.url;
+    stream.channelName = json.channel_name;
+    stream.streamName = json.stream_name;
+    stream.startDateTime = json.start_date_time;
+    stream.endDateTime = json.end_date_time;
+    stream.channelURL = json.channel_url;
     return stream;
   }
 
@@ -80,6 +99,47 @@ export default class EventLiveStream implements ISerializable {
     this._streamURL = value;
   }
 
+  get channelName(): string {
+    return this._channelName;
+  }
+
+  set channelName(value: string) {
+    this._channelName = value;
+  }
+
+  get streamName(): string {
+    return this._streamName;
+  }
+
+  set streamName(value: string) {
+    this._streamName = value;
+  }
+
+  get startDateTime(): string {
+    return this._startDateTime;
+  }
+
+  set startDateTime(value: string) {
+    this._startDateTime = value;
+  }
+
+  get endDateTime(): string {
+    return this._endDateTime;
+  }
+
+  set endDateTime(value: string) {
+    this._endDateTime = value;
+  }
+
+  get channelURL(): string {
+    return this._channelURL;
+  }
+
+  set channelURL(value: string) {
+    this._channelURL = value;
+  }
+
+
   get safeURL(): SafeResourceUrl {
     return this._safeURL;
   }
@@ -94,13 +154,5 @@ export default class EventLiveStream implements ISerializable {
 
   set fullURL(value: string) {
     this._fullURL = value;
-  }
-
-  get eventName(): string {
-    return this._eventName;
-  }
-
-  set eventName(value: string) {
-    this._eventName = value;
   }
 }

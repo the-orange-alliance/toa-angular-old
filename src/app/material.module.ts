@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule, MatIconRegistry } from '@angular/material';
 import {
+  MdcIconRegistry,
   MdcButtonModule,
   MdcCardModule,
   MdcCheckboxModule,
@@ -30,7 +30,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 @NgModule({
   exports: [
-    MatIconModule,
+    MdcIconModule,
     MdcButtonModule,
     MdcCardModule,
     MdcCheckboxModule,
@@ -58,7 +58,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 
 export class AppMaterialModule {
-  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
-    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/mdi.svg')); // Or whatever path you placed mdi.svg at
+  constructor(mdcIconRegistry: MdcIconRegistry, domSanitizer: DomSanitizer) {
+    mdcIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/mdi.svg')); // Or whatever path you placed mdi.svg at
   }
 }

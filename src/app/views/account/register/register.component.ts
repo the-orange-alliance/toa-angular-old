@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   email = '';
   password = '';
   confirmPassword = '';
+  team = '';
 
   constructor(public router: Router, public snackbar: MdcSnackbar,
               public db: AngularFireDatabase, public auth: AngularFireAuth) {
@@ -26,9 +27,10 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
-  onLoginEmail(): void {
+  createUser(): void {
     if (!this.name || this.name.trim().length < 4) {
       this.snackbar.show('You forgot to type your FULL NAME.', null, {multiline: true});
     } else if (this.password != this.confirmPassword) {
@@ -36,11 +38,15 @@ export class RegisterComponent implements OnInit {
     } else {
       this.auth.auth.createUserWithEmailAndPassword(this.email, this.password)
         .then((user) => {
-          this.db.object(`Users/${user.user.uid}/fullName`).set(this.name).then(value => {
+          let data = {};
+          data['fullName'] = this.name;
+          if (this.team && this.name.trim().length > 0) {
+            data['team'] = this.team;
+          }
+          this.db.object(`Users/${user.user.uid}`).set(data).then(value => {
             // To update the data in the menu
             // After the refresh, it will go to the account page through the function above(auth.authState.subscribe)
             window.location.reload(true);
-            // this.router.navigateByUrl('/account');
           });
         })
         .catch(error => {

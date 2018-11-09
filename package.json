@@ -13,7 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-mdc/web": "^0.40.2",
+    "@angular-mdc/web": "^0.41.0",
     "@angular/animations": "^6.0.0",
     "@angular/cdk": "^6.4.6",
     "@angular/common": "^6.0.0",
@@ -22,7 +22,6 @@
     "@angular/core": "^6.0.0",
     "@angular/forms": "^6.0.0",
     "@angular/http": "^6.0.0",
-    "@angular/material": "^6.4.6",
     "@angular/platform-browser": "^6.0.0",
     "@angular/platform-browser-dynamic": "^6.0.0",
     "@angular/platform-server": "^6.0.0",
