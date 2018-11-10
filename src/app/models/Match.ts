@@ -98,7 +98,7 @@ export default class Match implements ISerializable {
     match.redScore = json.red_score;
     match.blueScore = json.blue_score;
     match.redPenalty = json.red_penalty;
-    match.bluePenalty = json.red_penalty;
+    match.bluePenalty = json.blue_penalty;
     match.redAutoScore = json.red_auto_score;
     match.blueAutoScore = json.blue_auto_score;
     match.redTeleScore = json.red_tele_score;

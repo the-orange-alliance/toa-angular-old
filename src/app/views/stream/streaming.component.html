@@ -18,12 +18,10 @@
     <h5 class="text-center mt-5 col-12" [class.col-lg-9]="showChat" *ngIf="streams && streams.length <= 0">
       There are currently no active streams.
     </h5>
-    <div class="col-3 d-none d-lg-block p-0 m-0" *ngIf="showChat">
+    <div class="col-3 d-none d-lg-block chat" *ngIf="showChat">
       <iframe frameborder="0"
               scrolling="no"
-              src="https://www.twitch.tv/embed/theorangealliance/chat"
-              height="600"
-              class="w-100">
+              src="https://www.twitch.tv/embed/theorangealliance/chat">
       </iframe>
       <mdc-form-field>
         <mdc-switch [(ngModel)]="showChat" class="mr-1"></mdc-switch>
