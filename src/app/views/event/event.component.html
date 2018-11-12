@@ -39,7 +39,7 @@
       </mdc-card>
     </div>
 
-    <div class="col-md-5 col-sm-12 mt-3" *ngIf="event.allianceCount || event.fieldCount || event_season_name">
+    <div class="col-md-5 col-sm-12 mt-3" *ngIf="event.allianceCount || event.fieldCount || event_season_name || stream">
       <mdc-card class="toa-card h-100">
         <div class="toa-card-header" mdcHeadline5>Game Information</div>
         <mdc-list-divider></mdc-list-divider>
@@ -56,6 +56,9 @@
             <mdc-icon svgIcon="soccer-field"></mdc-icon>
             <p>{{ event.fieldCount > 1 ? event.fieldCount + ' Fields' : 'One Field'}}</p>
           </div>
+          <a mdc-button primary *ngIf="stream" href="/stream">
+            <mdc-icon svgIcon="video-outline" class="stream-icon"></mdc-icon> Live Stream Available!
+          </a>
         </div>
       </mdc-card>
     </div>
@@ -68,7 +71,7 @@
   <div class="mt-5 row" *ngIf="totalteams > 0 || totalmatches > 0 || totalrankings > 0">
     <div class="col-12">
       <mdc-card class="toa-card">
-        <mdc-tab-bar class="w-100">
+        <mdc-tab-bar class="w-100" [focusOnActivate]="false">
           <mdc-tab-scroller>
             <mdc-tab label="Rankings" (click)="select('rankings')" *ngIf="totalrankings > 0"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalrankings }}</span></mdc-tab>
             <mdc-tab label="Matches" (click)="select('matches')" *ngIf="totalmatches > 0"><span class="ml-1 badge badge-pill badge-primary bg-primary">{{ totalmatches }}</span></mdc-tab>
@@ -85,5 +88,4 @@
       </mdc-card>
     </div>
   </div>
-
 </div>

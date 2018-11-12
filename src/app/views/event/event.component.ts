@@ -9,7 +9,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 import Event from '../../models/Event';
 import EventType from '../../models/EventType';
 import Season from '../../models/Season';
-import Region from '../../models/Region';
+import EventLiveStream from "../../models/EventLiveStream";
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -34,6 +34,7 @@ export class EventComponent implements OnInit {
   totalrankings: any;
   totalawards: any;
   view_type: string;
+  stream: EventLiveStream;
 
   user: any = null;
   favorite: boolean;
@@ -79,6 +80,12 @@ export class EventComponent implements OnInit {
           this.totalmatches = this.event.matches.length;
           this.totalrankings = this.event.rankings.length;
           this.totalawards = this.event.awards.length;
+
+          this.ftc.getEventStreams(this.event_key).then((data: EventLiveStream[]) => {
+            if (data && data.length > 0) {
+              this.stream = data[0];
+            }
+          });
 
           this.ftc.getEventTypes().then((types: EventType[]) => {
             this.event_types = types;
