@@ -6,6 +6,7 @@
         <th>Team</th>
         <th>Record (W-L-T)</th>
         <th *ngIf="showQualPoints">Qualification Points</th>
+        <th *ngIf="showTieBreakerPoints">Tie Breaker Points</th>
         <th>Ranking Points</th>
         <th *ngIf="showHighScore">Highest Score</th>
         <th>Matches Played</th>
@@ -17,6 +18,7 @@
         <td><a href="/teams/{{ rank.teamKey }}">{{ rank.teamKey }}</a></td>
         <td>{{ rank.wins }} - {{ rank.losses }} - {{ rank.ties }}</td>
         <td *ngIf="showQualPoints">{{ rank.qualifyingPoints }}</td>
+        <td *ngIf="showTieBreakerPoints">{{ rank.tieBreakerPoints }}</td>
         <td>{{ rank.rankingPoints }}</td>
         <td *ngIf="showHighScore">{{ rank.highestQualScore }}</td>
         <td>{{ rank.played }}</td>

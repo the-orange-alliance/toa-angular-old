@@ -10,8 +10,9 @@ export default class Ranking implements ISerializable {
   private _highestQualScore: number;
   private _rankingPoints: number;
   private _qualifyingPoints: number;
-  private _played: number;
+  private _tieBreakerPoints: number;
   private _disqualified: number;
+  private _played: number;
 
   constructor() {
     this._rankKey = "";
@@ -25,6 +26,7 @@ export default class Ranking implements ISerializable {
     this._highestQualScore = 0;
     this._rankingPoints = 0;
     this._qualifyingPoints = 0;
+    this._tieBreakerPoints = 0;
     this._disqualified = 0;
     this._played = 0;
   }
@@ -42,6 +44,7 @@ export default class Ranking implements ISerializable {
       highest_qual_score: this.highestQualScore,
       ranking_points: this.rankingPoints,
       qualifying_points: this.qualifyingPoints,
+      tie_breaker_points: this.tieBreakerPoints,
       disqualified: this.disqualified,
       played: this.played
     };
@@ -60,6 +63,7 @@ export default class Ranking implements ISerializable {
     ranking.highestQualScore = json.highest_qual_score;
     ranking.rankingPoints = json.ranking_points;
     ranking.qualifyingPoints = json.qualifying_points;
+    ranking.tieBreakerPoints = json.tie_breaker_points;
     ranking.disqualified = json.disqualified;
     ranking.played = json.played;
     return ranking;
@@ -153,12 +157,12 @@ export default class Ranking implements ISerializable {
     this._qualifyingPoints = value;
   }
 
-  get played(): number {
-    return this._played;
+  get tieBreakerPoints(): number {
+    return this._tieBreakerPoints;
   }
 
-  set played(value: number) {
-    this._played = value;
+  set tieBreakerPoints(value: number) {
+    this._tieBreakerPoints = value;
   }
 
   get disqualified(): number {
@@ -167,5 +171,13 @@ export default class Ranking implements ISerializable {
 
   set disqualified(value: number) {
     this._disqualified = value;
+  }
+
+  get played(): number {
+    return this._played;
+  }
+
+  set played(value: number) {
+    this._played = value;
   }
 }

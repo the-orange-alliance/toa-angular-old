@@ -16,6 +16,7 @@ export class EventRankingsComponent implements OnInit {
   rank_sorter: RankSorter;
 
   showQualPoints: boolean = false;
+  showTieBreakerPoints: boolean = false;
   showHighScore: boolean = false;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute) {
@@ -28,6 +29,9 @@ export class EventRankingsComponent implements OnInit {
       for (const rank of this.rankings) {
         if (rank.qualifyingPoints && rank.qualifyingPoints > 0) {
           this.showQualPoints = true;
+        }
+        if (rank.tieBreakerPoints && rank.tieBreakerPoints > 0) {
+          this.showTieBreakerPoints = true;
         }
         if (rank.highestQualScore && rank.highestQualScore > 0) {
           this.showHighScore = true;
