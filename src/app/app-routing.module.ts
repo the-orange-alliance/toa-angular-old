@@ -14,7 +14,6 @@ import { StreamingComponent } from './views/stream/streaming.component';
 import { PrivacyTermsComponent } from './views/privacy_terms/PrivacyTerms.component';
 import { PageNotFoundComponent } from './views/404/404.component';
 import { MatchesComponent } from './views/matches/matches.component';
-import { LiveDocsComponent } from './views/livedocs/livedocs.component';
 import { AddDataComponent } from "./views/add-data/add-data.component";
 import { LoginComponent } from "./views/account/login/login.component";
 import { RegisterComponent } from "./views/account/register/register.component";
@@ -29,7 +28,6 @@ const routes: Routes = [
   { path: 'teams', component: TeamsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'apidocs', component: ApiDocsComponent },
-  { path: 'livedocs', component: LiveDocsComponent },
   { path: 'ranking', component: RankingComponent },
   { path: 'stream', component: StreamingComponent },
   { path: 'privacy-terms', component: PrivacyTermsComponent },
@@ -37,6 +35,7 @@ const routes: Routes = [
   { path: 'teams/:team_key', component: TeamComponent },
   { path: 'matches/:match_key', component: MatchesComponent },
   { path: 'not-found', component: PageNotFoundComponent },
+  { path: 'livedocs', redirectTo: 'https://github.com/orange-alliance/TOA-DataSync/wiki/DataSync-Documentation', pathMatch: 'full' },
   { path: 'terms', redirectTo: '/privacy-terms', pathMatch: 'full' },
   { path: 'privacy', redirectTo: '/privacy-terms', pathMatch: 'full' },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
