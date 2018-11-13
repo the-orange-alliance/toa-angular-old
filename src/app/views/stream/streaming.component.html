@@ -8,7 +8,7 @@
           </div>
           <div class="info">
             <h2 class="m-0" mdcHeadline6>{{ stream.streamName }}</h2>
-            <p class="m-0">{{ stream.startDateTime | date: 'MMM d, h:mm a' }} to {{ stream.endDateTime | date: 'MMM d, h:mm a' }} </p>
+            <p class="m-0">{{ stream.startDateTime | date: 'MMM d, HH:mm a' }} to {{ stream.endDateTime | date: 'MMM d, h:mm a' }} </p>
             <button mdc-button *ngIf="stream.eventKey" (click)="openEvent(stream.eventKey)"><mdc-icon>equalizer</mdc-icon> Event results</button>
             <!--<a *ngIf="stream.fullURL" [href]="stream.fullURL" target="_blank" style="color: currentColor" class="w-fit"><mdc-icon svgIcon="open-in-new"></mdc-icon></a>-->
           </div>
@@ -23,7 +23,7 @@
               scrolling="no"
               src="https://www.twitch.tv/embed/theorangealliance/chat">
       </iframe>
-      <mdc-form-field>
+      <mdc-form-field class="ml-3">
         <mdc-switch [(ngModel)]="showChat" class="mr-1"></mdc-switch>
         <label>Show Chat?</label>
       </mdc-form-field>
