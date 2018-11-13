@@ -63,7 +63,7 @@ export default class Ranking implements ISerializable {
     ranking.highestQualScore = json.highest_qual_score;
     ranking.rankingPoints = json.ranking_points;
     ranking.qualifyingPoints = json.qualifying_points;
-    ranking.tieBreakerPoints = json.tie_breaker_points;
+    ranking._tieBreakerPoints = json.tie_breaker_points;
     ranking.disqualified = json.disqualified;
     ranking.played = json.played;
     return ranking;
@@ -159,11 +159,13 @@ export default class Ranking implements ISerializable {
 
   get tieBreakerPoints(): number {
     return this._tieBreakerPoints;
+
   }
 
   set tieBreakerPoints(value: number) {
     this._tieBreakerPoints = value;
   }
+
 
   get disqualified(): number {
     return this._disqualified;
