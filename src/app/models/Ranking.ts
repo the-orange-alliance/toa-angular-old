@@ -10,6 +10,7 @@ export default class Ranking implements ISerializable {
   private _highestQualScore: number;
   private _rankingPoints: number;
   private _qualifyingPoints: number;
+  private _tieBreakerPoints: number;
   private _played: number;
   private _disqualified: number;
 
@@ -25,6 +26,7 @@ export default class Ranking implements ISerializable {
     this._highestQualScore = 0;
     this._rankingPoints = 0;
     this._qualifyingPoints = 0;
+    this._tieBreakerPoints = 0;
     this._disqualified = 0;
     this._played = 0;
   }
@@ -42,6 +44,7 @@ export default class Ranking implements ISerializable {
       highest_qual_score: this.highestQualScore,
       ranking_points: this.rankingPoints,
       qualifying_points: this.qualifyingPoints,
+      tie_breaker_points: this.tieBreakerPoints,
       disqualified: this.disqualified,
       played: this.played
     };
@@ -60,6 +63,7 @@ export default class Ranking implements ISerializable {
     ranking.highestQualScore = json.highest_qual_score;
     ranking.rankingPoints = json.ranking_points;
     ranking.qualifyingPoints = json.qualifying_points;
+    ranking._tieBreakerPoints = json.tie_breaker_points;
     ranking.disqualified = json.disqualified;
     ranking.played = json.played;
     return ranking;
@@ -151,6 +155,14 @@ export default class Ranking implements ISerializable {
 
   set qualifyingPoints(value: number) {
     this._qualifyingPoints = value;
+  }
+
+  get tieBreakerPoints(): number {
+    return this._tieBreakerPoints;
+  }
+
+  set tieBreakerPoints(value: number) {
+    this._tieBreakerPoints = value;
   }
 
   get played(): number {
