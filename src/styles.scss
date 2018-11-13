@@ -79,6 +79,10 @@ mdc-icon svg {
   width: 24px;
 }
 
+.list-header {
+  color: $mdc-theme-dark;
+  font-weight: bold;
+}
 /* ==========================================================================
    Colors
    ========================================================================== */
@@ -219,7 +223,11 @@ mdc-drawer mdc-list a {
   padding: 8px 1rem;
 }
 
-
+.outline-card {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: .75rem;
+  padding: 1rem;
+}
 
 /* ==========================================================================
    Link Card

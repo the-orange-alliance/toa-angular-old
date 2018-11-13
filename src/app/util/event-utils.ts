@@ -1,8 +1,5 @@
 import Event from '../models/Event';
 
-/**
- * Created by Kyle Flynn on 7/21/2017.
- */
 export class EventParser {
 
   event_data: any;

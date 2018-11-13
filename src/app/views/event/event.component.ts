@@ -9,7 +9,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 import Event from '../../models/Event';
 import EventType from '../../models/EventType';
 import Season from '../../models/Season';
-import EventLiveStream from "../../models/EventLiveStream";
+import EventLiveStream from '../../models/EventLiveStream';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -61,6 +61,7 @@ export class EventComponent implements OnInit {
           this.event = data;
 
           this.app.setTitle(this.event.eventName);
+          this.app.setDescription(this.event.eventName + 'details for the FIRST Tech Challenge from ' + new Date(this.event.startDate).getFullYear());
 
           if (this.event.rankings && this.event.rankings.length > 0) {
             this.select('rankings');
@@ -73,6 +74,10 @@ export class EventComponent implements OnInit {
           if (this.event.matches) {
             this.match_sorter = new MatchSorter();
             this.event.matches = this.match_sorter.sort(this.event.matches, 0, this.event.matches.length - 1);
+          }
+
+          if (this.event.awards) {
+            this.event.awards.sort((a,b) => (a.award.displayOrder > b.award.displayOrder) ? 1 : ((b.award.displayOrder > a.award.displayOrder) ? -1 : 0));
           }
 
           this.event_parser = new EventParser(this.event);

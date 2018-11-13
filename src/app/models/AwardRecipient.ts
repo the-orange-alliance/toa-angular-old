@@ -4,7 +4,7 @@ export default class AwardRecipient implements ISerializable {
   private _awardsKey: string;
   private _eventKey: string;
   private _awardKey: string;
-  private _teamKey: number;
+  private _teamKey: string;
   private _receiverName: string;
   private _awardName: string;
 
@@ -14,7 +14,7 @@ export default class AwardRecipient implements ISerializable {
     this._awardsKey = '';
     this._eventKey = '';
     this._awardKey = '';
-    this._teamKey = 0;
+    this._teamKey = '';
     this._receiverName = '';
     this._awardName = '';
     this._award = new Award();
@@ -68,11 +68,11 @@ export default class AwardRecipient implements ISerializable {
     this._awardKey = value;
   }
 
-  get teamKey(): number {
+  get teamKey(): string {
     return this._teamKey;
   }
 
-  set teamKey(value: number) {
+  set teamKey(value: string) {
     this._teamKey = value;
   }
 
