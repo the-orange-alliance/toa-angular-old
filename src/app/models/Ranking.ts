@@ -11,8 +11,8 @@ export default class Ranking implements ISerializable {
   private _rankingPoints: number;
   private _qualifyingPoints: number;
   private _tieBreakerPoints: number;
-  private _played: number;
   private _disqualified: number;
+  private _played: number;
 
   constructor() {
     this._rankKey = "";
@@ -159,10 +159,20 @@ export default class Ranking implements ISerializable {
 
   get tieBreakerPoints(): number {
     return this._tieBreakerPoints;
+
   }
 
   set tieBreakerPoints(value: number) {
     this._tieBreakerPoints = value;
+  }
+
+
+  get disqualified(): number {
+    return this._disqualified;
+  }
+
+  set disqualified(value: number) {
+    this._disqualified = value;
   }
 
   get played(): number {
@@ -171,13 +181,5 @@ export default class Ranking implements ISerializable {
 
   set played(value: number) {
     this._played = value;
-  }
-
-  get disqualified(): number {
-    return this._disqualified;
-  }
-
-  set disqualified(value: number) {
-    this._disqualified = value;
   }
 }
