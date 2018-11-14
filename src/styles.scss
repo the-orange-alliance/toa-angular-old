@@ -101,7 +101,11 @@ mdc-icon svg {
 }
 
 .black {
-  color: #000;
+  color: #000!important;;
+}
+
+.black:hover {
+  color: #000!important;
 }
 
 .icon-white {
