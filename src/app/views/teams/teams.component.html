@@ -1,149 +1,42 @@
 <h2>Teams</h2>
-<h6 mdcHeadline6 *ngIf="currentTeams && currentTeams.length > 0">{{ currentTeams[0].teamNumber }}-{{
-  currentTeams[currentTeams.length-1].teamNumber }}</h6>
 
-<div class="row w-100" *ngIf="currentTeams && currentTeams.length > 0 && pages">
-  <div class="col-xs-10 col-xs-offset-1 table-responsive">
-    <div class="">
-      <nav class="d-flex justify-content-xl-center  justify-content-lg-center  justify-content-md-center justify-content-start"
-        aria-label="Page navigation">
-        <ul class="pagination ">
-          <li class="{{currentPage === 0 ? 'page-item disabled' : 'page-item'}}">
-            <a class="page-link" (click)="getTeams(decIndex())">Previous</a>
-          </li>
-
-          <li *ngFor="let page of pages" [class.active]="currentPage === page.index">
-            <a class="page-link" (click)="getTeams(page.index)">{{ page.index + 1 }}
-              <span *ngIf="currentPage === page.index" class="sr-only">(current)</span>
-            </a>
-          </li>
-
-          <li class="{{currentPage + 1 === pages.length ? 'page-item disabled' : 'page-item'}}">
-            <a class="page-link" (click)="getTeams(incIndex())">Next</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</div>
-
-<div class="row w-100">
+<div class="row w-100 mt-3">
   <div class="col-12">
-    <mdc-card class="toa-card" *ngIf="currentTeams">
-      <div class="toa-card-header pb-0">Filter Options</div>
-      <div class="toa-card-subtitle pt-0" mdcSubtitle2 *ngIf="currentTeams">({{ currentTeams.length }} Results)</div>
+    <mdc-card class="toa-card p-3" *ngIf="currentTeams">
+        <mdc-text-field label="Filter by number, name, or location" [(ngModel)]="query" (change)="getTeams()" [fullwidth]="true"></mdc-text-field>
 
-      <mdc-list-divider></mdc-list-divider>
-      <div class="p-3 row">
-        <div class="col-md-4 col-xs-12">
-          <mdc-text-field label="Team # or Name" [(ngModel)]="teamQuery" (keyup)="queryTeam()" [fullwidth]="true"></mdc-text-field>
+        <div class="row mt-2" *ngIf="currentTeams && currentTeams.length > 0">
+          <div class="col-12 col-md-6">
+            <mdc-list-group>
+              <mdc-list>
+                <div *ngFor="let team of leftSide">
+                  <toa-team-item [team]="team"></toa-team-item>
+                </div>
+              </mdc-list>
+            </mdc-list-group>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <mdc-list-group>
+              <mdc-list>
+                <div *ngFor="let team of rightSide">
+                  <toa-team-item [team]="team"></toa-team-item>
+                </div>
+              </mdc-list>
+            </mdc-list-group>
+          </div>
+          <div mdcSubtitle1 class="pl-3 pt-1">({{ currentTeams.length }} Results)</div>
         </div>
 
-        <div class="col-md-4 col-xs-12">
-          <mdc-text-field label="City, State/Prov, Country" [(ngModel)]="locationQuery" (keyup)="queryLocation()"
-            [fullwidth]="true"></mdc-text-field>
+        <div *ngIf="currentTeams && currentTeams.length <= 0" class="row mt-4">
+          <div class="col-12 text-center">
+            <span><i>There are no teams that match that query.</i></span>
+          </div>
         </div>
-
-        <div *ngIf="currentRegion" class="col-md-4 col-xs-12 filter-row dropdown">
-          <div class="filter-info">Region: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_district"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            {{ currentRegion.description ? currentRegion.regionKey + " - " + currentRegion.description :
-            currentRegion.regionKey }}
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="ftc_district">
-            <mdc-list-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ?
-              region.regionKey + " - " + region.description : region.regionKey }}</mdc-list-item>
-          </ul>
-        </div>
-
-        <!--
-        <div *ngIf="current_league" class="col-md-4 col-xs-12 filter-row dropdown">
-          <div class="filter-info">League: </div>
-          <button class="btn btn-default dropdown-toggle" type="button" id="ftc_league" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            {{ current_league.description ? current_league.league_key + " - " + current_league.description :  current_league.league_key}}
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="ftc_league">
-            <mdc-list-item *ngFor="let league of leagues" (click)="selectLeague(league)">{{ league.description ? league.league_key + " - " + league.description :  league.league_key}}</mdc-list-item>
-          </ul>
-        </div>
-      -->
-      </div>
-
-      <mdc-list-divider></mdc-list-divider>
-
-      <button mdc-button (click)="clearFilter()">Clear Filter</button>
-
     </mdc-card>
-  </div>
-</div>
-
-<div class="row mt-4" *ngIf="currentTeams && currentTeams.length > 0">
-  <div class="col-12 col-md-6">
-    <mdc-list-group>
-      <mdc-list>
-        <div *ngFor="let team of leftSide">
-          <toa-team-item [team]="team"></toa-team-item>
-        </div>
-      </mdc-list>
-    </mdc-list-group>
-  </div>
-
-  <div class="col-12 col-md-6">
-    <mdc-list-group>
-      <mdc-list>
-        <div *ngFor="let team of rightSide">
-          <toa-team-item [team]="team"></toa-team-item>
-        </div>
-      </mdc-list>
-    </mdc-list-group>
-  </div>
-</div>
-
-<div *ngIf="currentTeams && currentTeams.length <= 0" class="row mt-4">
-  <div class="col-12 text-center">
-    <span><i>There are no teams that match that query.</i></span>
-  </div>
-</div>
-
-
-<div class="row w-100 mt-4" *ngIf="currentTeams && currentTeams.length > 0 && pages">
-  <div class="col-xs-10 col-xs-offset-1 table-responsive">
-    <div class="">
-      <nav class="d-flex justify-content-xl-center  justify-content-lg-center  justify-content-md-center justify-content-start"
-        aria-label="Page navigation">
-        <ul class="pagination ">
-          <li class="{{currentPage === 0 ? 'page-item disabled' : 'page-item'}}">
-            <a class="page-link" (click)="getTeams(decIndex())">Previous</a>
-          </li>
-
-          <li *ngFor="let page of pages" [class.active]="currentPage === page.index">
-            <a class="page-link" (click)="getTeams(page.index)">{{ page.index + 1 }}
-              <span *ngIf="currentPage === page.index" class="sr-only">(current)</span>
-            </a>
-          </li>
-
-          <li class="{{currentPage + 1 === pages.length ? 'page-item disabled' : 'page-item'}}">
-            <a class="page-link" (click)="getTeams(incIndex())">Next</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
   </div>
 </div>
 
 <button mdc-fab position='bottomRight' class="toa-fab" (click)="scrollTo('body')">
   <mdc-icon svgIcon="navigation"></mdc-icon>
 </button>
-
-<!--
-  <div class="virtual-scroll-filler" [style.height]="(leftScroll.getListHeight()) + 'px'"></div>
-
-  <div *ngIf="currentTeams && currentTeams.length <= 0" class="row">
-    <div class="col-xs-12 text-center">
-      <span><i>There are no teams that match that query.</i></span>
-    </div>
-  </div>
-</div>
--->
