@@ -78,7 +78,7 @@ export default class Match implements ISerializable {
       red_tele_score: this.redTeleScore,
       blue_tele_score: this.blueTeleScore,
       red_end_score: this.redEndScore,
-      blue_end_Score: this.blueEndScore,
+      blue_end_score: this.blueEndScore,
       video_url: this.videoURL
     };
   }
@@ -104,7 +104,7 @@ export default class Match implements ISerializable {
     match.redTeleScore = json.red_tele_score;
     match.blueTeleScore = json.blue_tele_score;
     match.redEndScore = json.red_end_score;
-    match.blueEndScore = json.blue_end_Score;
+    match.blueEndScore = json.blue_end_score;
     match.videoURL = json.video_url;
     match.participants = typeof json.participants !== 'undefined' ? json.participants.map((participantJSON: any) => new MatchParticipant().fromJSON(participantJSON)) : []
     return match;
