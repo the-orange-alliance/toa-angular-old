@@ -102,7 +102,7 @@ export class FTCDatabase {
 
   public getHighScoreQual(seasonKey: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
-      this.request('/match/high-scores?type=quals&season_key=' + seasonKey).then((data: any) => {
+      this.request('/match/high-scores?type=quals&season_key=' + seasonKey).then((data: any[]) => {
         resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
       }).catch((err: any) => reject(err));
     });
@@ -110,7 +110,7 @@ export class FTCDatabase {
 
   public getHighScoreElim(seasonKey: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
-      this.request('/match/high-scores?type=elims&season_key=' + seasonKey).then((data: any) => {
+      this.request('/match/high-scores?type=elims&season_key=' + seasonKey).then((data: any[]) => {
         resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
       }).catch((err: any) => reject(err));
     });
@@ -118,7 +118,7 @@ export class FTCDatabase {
 
   public getHighScoreWithPenalty(seasonKey: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
-      this.request('/match/high-scores?type=all&season_key=' + seasonKey).then((data: any) => {
+      this.request('/match/high-scores?type=all&season_key=' + seasonKey).then((data: any[]) => {
         resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
       }).catch((err: any) => reject(err));
     });
@@ -206,14 +206,6 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamAwards(teamKey: string, seasonKey: string): Promise<AwardRecipient[]> {
-    return new Promise<AwardRecipient[]>((resolve, reject) => {
-      this.request('/team/' + teamKey + '/awards/' + seasonKey).then((data: any[]) => {
-        resolve(data.map((result: any) => new AwardRecipient().fromJSON(result)));
-      }).catch((err: any) => reject(err));
-    });
-  }
-
   public getMatchParticipants(matchKey: string): Promise<MatchParticipant[]> {
     return new Promise<MatchParticipant[]>((resolve, reject) => {
       this.request('/match/' + matchKey + '/participants').then((data: any[]) => {
@@ -226,6 +218,22 @@ export class FTCDatabase {
     return new Promise<Event[]>((resolve, reject) => {
       this.request('/team/' + teamKey + '/events/' + seasonKey).then((data: any[]) => {
         resolve(data.map((result: any) => new Event().fromJSON(result.event)));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
+  public getTeamResults(teamKey: string, seasonKey: string): Promise<Ranking[]> {
+    return new Promise<Ranking[]>((resolve, reject) => {
+      this.request('/team/' + teamKey + '/results/' + seasonKey).then((data: any[]) => {
+        resolve(data.map((result: any) => new Ranking().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
+  public getTeamAwards(teamKey: string, seasonKey: string): Promise<AwardRecipient[]> {
+    return new Promise<AwardRecipient[]>((resolve, reject) => {
+      this.request('/team/' + teamKey + '/awards/' + seasonKey).then((data: any[]) => {
+        resolve(data.map((result: any) => new AwardRecipient().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });
   }
@@ -267,7 +275,7 @@ export class FTCDatabase {
 
   public getEventStreams(eventKey: string): Promise<EventLiveStream[]> {
     return new Promise<EventLiveStream[]>((resolve, reject) => {
-      this.request('/event/' + eventKey).then((data: any[]) => {
+      this.request('/event/' + eventKey + '/streams').then((data: any[]) => {
         resolve(data.map((result: any) => new EventLiveStream().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });
