@@ -1,6 +1,7 @@
 import Ranking from './Ranking';
 import AwardRecipient from './AwardRecipient';
 import Event from './Event';
+import Media from "./Media";
 
 export default class Team implements ISerializable {
   private _teamKey: string;
@@ -21,6 +22,7 @@ export default class Team implements ISerializable {
   private _events: Event[];
   private _rankings: Ranking[];
   private _awards: AwardRecipient[];
+  private _media: Media[];
 
   constructor() {
     this._teamKey = '';
@@ -41,6 +43,7 @@ export default class Team implements ISerializable {
     this._events = [];
     this._rankings = [];
     this._awards = [];
+    this._media = [];
   }
 
   toJSON(): object {
@@ -215,5 +218,13 @@ export default class Team implements ISerializable {
 
   set awards(value: AwardRecipient[]) {
     this._awards = value;
+  }
+
+  get media(): Media[] {
+    return this._media;
+  }
+
+  set media(value: Media[]) {
+    this._media = value;
   }
 }
