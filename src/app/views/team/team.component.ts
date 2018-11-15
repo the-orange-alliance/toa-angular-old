@@ -33,7 +33,7 @@ export class TeamComponent implements OnInit {
   view_type: string;
   user: any = null;
   favorite: boolean;
-  wlt: WLT;
+  wlt: WLT = null;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public db: AngularFireDatabase, public auth: AngularFireAuth) {
@@ -81,11 +81,6 @@ export class TeamComponent implements OnInit {
         this.router.navigate(['/not-found']);
       }
     });
-    this.ftc.getTeamWLT(this.teamKey, '1819').then((wlt: WLT) => {
-      if (wlt) {
-        this.wlt = wlt;
-      }
-    });
   }
 
   public getTeamSeasons(seasons: Season[]): Season[] {
@@ -118,10 +113,11 @@ export class TeamComponent implements OnInit {
       this.getEventMatches();
       this.getEventRankings();
       this.getEventAwards();
-      this.getTeamMedia()
     }).catch(() => {
       this.team.events = [];
     });
+    this.getTeamMedia();
+    this.getTeamWLT();
   }
 
   private getEventMatches() {
@@ -166,6 +162,15 @@ export class TeamComponent implements OnInit {
     this.team.media = null;
     this.ftc.getTeamMedia(this.teamKey, this.currentSeason.seasonKey).then((data: Media[]) => {
       this.team.media = data;
+    });
+  }
+
+  private getTeamWLT() {
+    this.wlt = null;
+    this.ftc.getTeamWLT(this.teamKey, this.currentSeason.seasonKey).then((wlt: WLT) => {
+      if (wlt) {
+        this.wlt = wlt;
+      }
     });
   }
 

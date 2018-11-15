@@ -77,7 +77,7 @@
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="wlt">
           <mdc-icon svgIcon="flag"></mdc-icon>
-          <p>Team {{ team.teamNumber }} is <b>{{ wlt.wins }}-{{ wlt.losses }}-{{wlt.ties}}</b> (W-L-T) this season</p>
+          <p><b>{{ wlt.wins }}-{{ wlt.losses }}-{{wlt.ties}}</b> (W-L-T) {{ getSeasonString(currentSeason.seasonKey, false) }} season</p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.lastActive < 1819">
