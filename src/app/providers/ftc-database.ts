@@ -14,7 +14,8 @@ import Ranking from '../models/Ranking';
 import AwardRecipient from '../models/AwardRecipient';
 import EventParticipant from '../models/EventParticipant';
 import * as GameData from '../models/game-specifics/GameData';
-import Media from "../models/Media";
+import Media from '../models/Media';
+import WLT from '../models/WLT';
 
 @Injectable()
 export class FTCDatabase {
@@ -203,6 +204,14 @@ export class FTCDatabase {
     return new Promise<Team>((resolve, reject) => {
       this.request('/team/' + teamKey).then((data: any[]) => {
         resolve(new Team().fromJSON(data[0]));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
+  public getTeamWLT(teamKey: string, seasonKey: string): Promise<WLT> {
+    return new Promise<WLT>((resolve, reject) => {
+      this.request('/team/' + teamKey + '/wlt?season_key=' + seasonKey).then((data: any[]) => {
+        resolve(new WLT().fromJSON(data[0]));
       }).catch((err: any) => reject(err));
     });
   }

@@ -13,6 +13,7 @@ import {AngularFireAuth} from "angularfire2/auth";
 import {AngularFireDatabase} from "angularfire2/database";
 import Ranking from "../../models/Ranking";
 import Media from "../../models/Media";
+import WLT from '../../models/WLT';
 
 @Component({
   selector: 'toa-team',
@@ -32,6 +33,7 @@ export class TeamComponent implements OnInit {
   view_type: string;
   user: any = null;
   favorite: boolean;
+  wlt: WLT;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public db: AngularFireDatabase, public auth: AngularFireAuth) {
@@ -77,6 +79,11 @@ export class TeamComponent implements OnInit {
         }
       } else {
         this.router.navigate(['/not-found']);
+      }
+    });
+    this.ftc.getTeamWLT(this.teamKey, '1819').then((wlt: WLT) => {
+      if (wlt) {
+        this.wlt = wlt;
       }
     });
   }
