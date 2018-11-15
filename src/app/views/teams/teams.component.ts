@@ -4,6 +4,7 @@ import { FTCDatabase } from '../../providers/ftc-database';
 import { TeamSorter } from '../../util/team-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import Team from '../../models/Team';
+import Region from '../../models/Region';
 
 const TEAMS_PER_PAGE = 500;
 
@@ -18,6 +19,7 @@ export class TeamsComponent implements OnInit {
   teams: Team[];
   currentTeams: Team[];
   teamsSorter: TeamSorter;
+  regions: Region[];
 
   query: string;
 
@@ -35,6 +37,9 @@ export class TeamsComponent implements OnInit {
       this.teams = data;
       this.getTeams();
     });
+    this.ftc.getAllRegions().then((data: Region[]) => {
+      this.regions = data
+    });
   }
 
   openTeam(team_number): void {
@@ -42,15 +47,29 @@ export class TeamsComponent implements OnInit {
   }
 
   getTeams() {
-    let query = this.query && this.query.trim().length > 0 ? this.query.toLowerCase() : null;
+    let query = this.query && this.query.trim().length > 0 ? this.query.toLowerCase().trim() : null;
     if (query) {
-      this.currentTeams = this.teams.filter(team => (
-        (team.teamNumber+'').includes(query) ||
-        (team.teamNameShort && team.teamNameShort.toLowerCase().includes(query)) ||
-        (team.city && team.city.toLowerCase().includes(query)) ||
-        (team.country && team.country.toLowerCase().includes(query)) ||
-        (team.regionKey && team.regionKey.toLowerCase() === query)
-      ))
+      let isRegion = false;
+      if (this.regions && query) {
+        for (let region of this.regions) {
+          if (region.regionKey.toLowerCase() === query) {
+            isRegion = true;
+          }
+        }
+      }
+
+      if (isRegion) {
+        this.currentTeams = this.teams.filter(team => (
+          team.regionKey.toLowerCase() === query
+        ));
+      } else {
+        this.currentTeams = this.teams.filter(team => (
+          (team.teamNumber+'').includes(query) ||
+          (team.teamNameShort && team.teamNameShort.toLowerCase().includes(query)) ||
+          (team.city && team.city.toLowerCase().includes(query)) ||
+          (team.country && team.country.toLowerCase().includes(query))
+        ));
+      }
     } else {
       this.currentTeams = this.teams;
     }
