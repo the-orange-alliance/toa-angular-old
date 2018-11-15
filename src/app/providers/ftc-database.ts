@@ -15,7 +15,7 @@ import AwardRecipient from '../models/AwardRecipient';
 import EventParticipant from '../models/EventParticipant';
 import * as GameData from '../models/game-specifics/GameData';
 import Media from '../models/Media';
-import WLT from '../models/WLT';
+import TeamSeasonRecord from '../models/TeamSeasonRecord';
 
 @Injectable()
 export class FTCDatabase {
@@ -208,10 +208,10 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamWLT(teamKey: string, seasonKey: string): Promise<WLT> {
-    return new Promise<WLT>((resolve, reject) => {
+  public getTeamWLT(teamKey: string, seasonKey: string): Promise<TeamSeasonRecord> {
+    return new Promise<TeamSeasonRecord>((resolve, reject) => {
       this.request('/team/' + teamKey + '/wlt?season_key=' + seasonKey).then((data: any[]) => {
-        resolve(new WLT().fromJSON(data[0]));
+        resolve(new TeamSeasonRecord().fromJSON(data[0]));
       }).catch((err: any) => reject(err));
     });
   }

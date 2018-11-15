@@ -13,7 +13,7 @@ import {AngularFireAuth} from "angularfire2/auth";
 import {AngularFireDatabase} from "angularfire2/database";
 import Ranking from "../../models/Ranking";
 import Media from "../../models/Media";
-import WLT from '../../models/WLT';
+import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 
 @Component({
   selector: 'toa-team',
@@ -33,7 +33,7 @@ export class TeamComponent implements OnInit {
   view_type: string;
   user: any = null;
   favorite: boolean;
-  wlt: WLT = null;
+  wlt: TeamSeasonRecord = null;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public db: AngularFireDatabase, public auth: AngularFireAuth) {
@@ -167,7 +167,7 @@ export class TeamComponent implements OnInit {
 
   private getTeamWLT() {
     this.wlt = null;
-    this.ftc.getTeamWLT(this.teamKey, this.currentSeason.seasonKey).then((wlt: WLT) => {
+    this.ftc.getTeamWLT(this.teamKey, this.currentSeason.seasonKey).then((wlt: TeamSeasonRecord) => {
       if (wlt) {
         this.wlt = wlt;
       }

@@ -1,4 +1,4 @@
-export default class WLT implements ISerializable {
+export default class TeamSeasonRecord implements ISerializable {
   private _wins: number;
   private _losses: number;
   private _ties: number;
@@ -17,12 +17,12 @@ export default class WLT implements ISerializable {
     };
   }
 
-  fromJSON(json: any): WLT {
-    const wlt: WLT = new WLT();
-    wlt.wins = json.wins;
-    wlt.ties = json.ties;
-    wlt.losses = json.losses;
-    return wlt;
+  fromJSON(json: any): TeamSeasonRecord {
+    const teamSeasonRecord: TeamSeasonRecord = new TeamSeasonRecord();
+    teamSeasonRecord.wins = json.wins;
+    teamSeasonRecord.ties = json.ties;
+    teamSeasonRecord.losses = json.losses;
+    return teamSeasonRecord;
   }
 
 
