@@ -16,6 +16,7 @@ export class TeamRobotComponent implements OnInit {
   github: Media;
   cad: Media;
   notebook: Media;
+  reveal: Media;
 
   images: Media[] = [];
 
@@ -36,7 +37,9 @@ export class TeamRobotComponent implements OnInit {
         if (media.mediaType === 2) {
           this.notebook = media;
         }
-
+        if (media.mediaType === 3) {
+          this.reveal = media;
+        }
         if (media.mediaType === 4) {
           this.images.push(media);
         }
