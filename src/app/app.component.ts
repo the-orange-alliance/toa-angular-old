@@ -37,7 +37,7 @@ export class TheOrangeAllianceComponent {
   private _mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
   @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
 
-  constructor(private router: Router, private ftc: FTCDatabase, private globaltoa: TheOrangeAllianceGlobals, private _ngZone: NgZone,
+  constructor(public router: Router, private ftc: FTCDatabase, private _ngZone: NgZone,
               db: AngularFireDatabase, auth: AngularFireAuth) {
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
