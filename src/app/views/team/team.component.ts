@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
-import { MatchSorter, MatchType } from '../../util/match-utils';
+import { MatchSorter } from '../../util/match-utils';
 import { EventSorter } from '../../util/event-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import {$} from 'protractor';
 import Team from '../../models/Team';
 import Match from '../../models/Match';
 import Season from '../../models/Season';
 import Event from '../../models/Event';
-import Region from '../../models/Region';
 import AwardRecipient from "../../models/AwardRecipient";
 import {AngularFireAuth} from "angularfire2/auth";
 import {AngularFireDatabase} from "angularfire2/database";
+import Ranking from "../../models/Ranking";
+import Media from "../../models/Media";
+import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 
 @Component({
   selector: 'toa-team',
@@ -23,18 +24,16 @@ import {AngularFireDatabase} from "angularfire2/database";
 export class TeamComponent implements OnInit {
 
   eventSorter: EventSorter;
-
   team: Team;
   teamKey: string;
-
   years: any;
-
   seasons: Season[];
   currentSeason: Season;
   thisSeason: Season;
-
+  view_type: string;
   user: any = null;
   favorite: boolean;
+  wlt: TeamSeasonRecord = null;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public db: AngularFireDatabase, public auth: AngularFireAuth) {
@@ -50,13 +49,17 @@ export class TeamComponent implements OnInit {
           });
       }
     });
+
+    this.select('results');
+
   }
 
   public ngOnInit(): void {
     this.years = [];
-    this.ftc.getTeam(this.teamKey, this.ftc.year).then((team: Team) => {
+    this.ftc.getTeamBasic(this.teamKey).then((team: Team) => {
       if (team) {
         this.team = team;
+        this.team.media = null;
         this.team.awards = []; // Remove the awards, they arrive later
         for (let i = this.team.rookieYear; i <= new Date().getFullYear(); i++) {
           this.years.push(i);
@@ -70,7 +73,7 @@ export class TeamComponent implements OnInit {
           });
         }
         if (this.team.teamNameShort !== null){
-          this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamKey + ')');
+          this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamNumber + ')');
         } else {
           this.app.setTitle('Team ' + this.team.teamKey);
         }
@@ -108,15 +111,13 @@ export class TeamComponent implements OnInit {
     this.ftc.getTeamEvents(this.teamKey, this.currentSeason.seasonKey).then((data: Event[]) => {
       this.team.events = data;
       this.getEventMatches();
+      this.getEventRankings();
+      this.getEventAwards();
     }).catch(() => {
       this.team.events = [];
     });
-    this.ftc.getTeamAwards(this.teamKey, this.currentSeason.seasonKey).then((data: AwardRecipient[]) => {
-      this.team.awards = data;
-    }).catch(() => {
-      this.team.awards = [];
-    });
-
+    this.getTeamMedia();
+    this.getTeamWLT();
   }
 
   private getEventMatches() {
@@ -125,34 +126,52 @@ export class TeamComponent implements OnInit {
       this.ftc.getEventMatches(event.eventKey).then((data: Match[]) => {
         event.matches = data;
         event.matches = this.sortAndFind(event);
-        this.getEventRankings();
-        this.getEventAwards();
       });
     }
   }
 
   private getEventRankings() {
-    for (const ranking of this.team.rankings) {
+    this.ftc.getTeamResults(this.teamKey, this.currentSeason.seasonKey).then((data: Ranking[]) => {
       for (const event of this.team.events) {
-        if (ranking.eventKey === event.eventKey) {
-          event.rankings = [ranking];
+        for (const ranking of data) {
+          if (ranking.eventKey === event.eventKey) {
+            event.rankings = [ranking];
+          }
         }
       }
-    }
+    });
   }
 
   private getEventAwards() {
-    for (const event of this.team.events) {
-      const awards = [];
-
-      for (const award of this.team.awards) {
-        if (event.eventKey === award.eventKey) {
-          awards.push(award);
+    this.ftc.getTeamAwards(this.teamKey, this.currentSeason.seasonKey).then((data: AwardRecipient[]) => {
+      this.team.awards = data;
+      for (const event of this.team.events) {
+        const awards = [];
+        for (const award of data) {
+          if (event.eventKey === award.eventKey) {
+            awards.push(award);
+          }
         }
+        event.awards = awards;
       }
+    });
+  }
 
-      event.awards = awards;
-    }
+  private getTeamMedia() {
+    this.select('results');
+    this.team.media = null;
+    this.ftc.getTeamMedia(this.teamKey, this.currentSeason.seasonKey).then((data: Media[]) => {
+      this.team.media = data;
+    });
+  }
+
+  private getTeamWLT() {
+    this.wlt = null;
+    this.ftc.getTeamWLT(this.teamKey, this.currentSeason.seasonKey).then((wlt: TeamSeasonRecord) => {
+      if (wlt) {
+        this.wlt = wlt;
+      }
+    });
   }
 
   private sortAndFind(event: Event): Match[] {
@@ -178,14 +197,18 @@ export class TeamComponent implements OnInit {
     this.router.navigate(['/matches', match_data.match_key]);
   }
 
-  getSeasonString(seasonKey: string) {
-    for (const season of this.seasons) {
-      if (season.seasonKey === seasonKey) {
-        const code_one = season.seasonKey.toString().substring(0, 2);
-        const code_two = season.seasonKey.toString().substring(2, 4);
-        return '20' + code_one + '/' + code_two + (season.description ? ' - ' + season.description : '');
+  getSeasonString(seasonKey: string, description: boolean) {
+    const code_one = seasonKey.toString().substring(0, 2);
+    const code_two = seasonKey.toString().substring(2, 4);
+
+    if (this.seasons) {
+      for (const season of this.seasons) {
+        if (season.seasonKey === seasonKey) {
+          return '20' + code_one + '/' + code_two + (description && season.description ? ' - ' + season.description : '');
+        }
       }
     }
+    return '20' + code_one + '/' + code_two;
   }
 
   beautifulURL(website: string) {
@@ -212,5 +235,13 @@ export class TeamComponent implements OnInit {
     } else { // Add to favorites
       this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).set(true);
     }
+  }
+
+  public select(view_type) {
+    this.view_type = view_type;
+  }
+
+  public isSelected(view_type): boolean {
+    return this.view_type === view_type;
   }
 }

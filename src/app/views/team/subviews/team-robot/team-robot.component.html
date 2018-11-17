@@ -1,0 +1,30 @@
+<div *ngIf="github || cad || notebook">
+  <div mdcHeadline6 class="mb-1">{{ team.teamNameShort }} ❤️ Open Source</div>
+
+  <a mdc-fab extended label="GitHub" class="text-white m-1" style="background-color: #24292e" *ngIf="github" [href]="github.mediaLink" target="_blank">
+    <mdc-icon svgIcon="github-circle"></mdc-icon>
+  </a>
+  <a mdc-fab extended label="CAD Design" class="text-white m-1" style="background-color: #9c27b0" *ngIf="cad" [href]="cad.mediaLink" target="_blank">
+    <mdc-icon svgIcon="drawing"></mdc-icon>
+  </a>
+  <a mdc-fab extended label="Engineering Notebook" class="text-white m-1" style="background-color: #0097a7" *ngIf="notebook" [href]="notebook.mediaLink" target="_blank">
+    <mdc-icon svgIcon="book"></mdc-icon>
+  </a>
+  <a mdc-fab extended label="Robot Reveal" class="text-white m-1" style="background-color: #b71c1c" *ngIf="reveal" [href]="reveal.mediaLink" target="_blank">
+    <mdc-icon svgIcon="youtube"></mdc-icon>
+  </a>
+</div>
+
+<mdc-list-divider class="mt-3 mb-3" *ngIf="(github || cad || notebook) && images.length > 0"></mdc-list-divider>
+
+<div *ngIf="images.length > 0">
+  <div mdcHeadline6>Photos</div>
+  <mdc-image-list [masonry]="true" [textProtection]="true" class="toa-image-list">
+    <mdc-image-list-item *ngFor="let image of images">
+      <img mdcImageListImage src="{{ image.mediaLink }}" />
+      <mdc-image-list-supporting *ngIf="image.mediaTitle">
+        <span mdcImageListLabel>{{ image.mediaTitle }}</span>
+      </mdc-image-list-supporting>
+    </mdc-image-list-item>
+  </mdc-image-list>
+</div>

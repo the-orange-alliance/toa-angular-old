@@ -274,6 +274,25 @@ mdc-drawer mdc-list a {
 }
 
 /* ==========================================================================
+   Image List
+   ========================================================================== */
+
+.toa-image-list {
+  @include mdc-image-list-masonry-columns(3);
+}
+
+@media (max-width: 599px) {
+  .toa-image-list {
+    @include mdc-image-list-standard-columns(2);
+  }
+
+  .toa-image-list {
+    @include mdc-image-list-masonry-columns(2);
+  }
+}
+
+
+/* ==========================================================================
    Team Item
    ========================================================================== */
 

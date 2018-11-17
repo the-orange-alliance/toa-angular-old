@@ -15,12 +15,12 @@
       <div class="w-100 p-3">
         <div *ngIf="seasons && team.rookieYear" class="dropdown">
           <button *ngIf="currentSeason" class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            {{ getSeasonString(currentSeason.seasonKey)}}
+            {{ getSeasonString(currentSeason.seasonKey, true)}}
             <span class="caret"></span>
           </button>
 
           <ul class="dropdown-menu" aria-labelledby="ftc_season">
-            <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">{{ getSeasonString(season.seasonKey)}}</mdc-list-item>
+            <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">{{ getSeasonString(season.seasonKey, true)}}</mdc-list-item>
           </ul>
         </div>
 
@@ -75,9 +75,14 @@
           <p>Rookie Year: {{ team.rookieYear }}</p>
         </div>
 
+        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="wlt">
+          <mdc-icon svgIcon="flag"></mdc-icon>
+          <p><b>{{ wlt.wins }}-{{ wlt.losses }}-{{wlt.ties}}</b> (W-L-T) {{ getSeasonString(currentSeason.seasonKey, false) }} season</p>
+        </div>
+
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.lastActive < 1819">
           <mdc-icon svgIcon="clock-end"></mdc-icon>
-          <p>Last Active Season: {{ getSeasonString(team.lastActive) }}</p>
+          <p>Last Active Season: {{ getSeasonString(team.lastActive, true) }}</p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.awards && currentSeason && currentSeason.description">
@@ -87,34 +92,19 @@
       </div>
     </mdc-card>
 
-    <div *ngIf="team.events">
-      <h1 class="pt-5 pb-1" mdcHeadline5>Event Results</h1>
-      <div *ngFor="let event of team.events" id="{{ event.eventKey }}" class="col-xs-12 pb-4">
-        <mdc-card class="toa-card">
-          <a class="toa-card-header pb-0" routerLink="/events/{{ event.eventKey }}" mdcHeadline5>{{ event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName}}</a>
-          <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : ''}}{{ event.country }} on {{ event.startDate | date :  "mediumDate"}}</div>
-
-          <mdc-list-divider></mdc-list-divider>
-
-          <div class="p-3">
-            <div *ngIf="event.rankings && event.rankings.length > 0">
-              <p><b>Qual Rank #{{ event.rankings[0].rank }}</b> with a record of <b>{{ event.rankings[0].wins }}-{{ event.rankings[0].losses }}-{{ event.rankings[0].ties }}</b></p>
-            </div>
-            <div *ngIf="event.awards && event.awards.length > 0">
-              <p><b>{{event.awards.length }} Awards:</b></p>
-              <ul>
-                <li *ngFor="let award of event.awards">{{ award.awardName }}</li>
-              </ul>
-            </div>
-            <match-table [matchList]="event.matches" [team]="team"></match-table>
-          </div>
-        </mdc-card>
-      </div>
-
-      <small><strong>Bold</strong> is Winning Alliance</small><br>
-      <small><strong>Bold and Black</strong> is Selected Team</small><br>
-      <small>* is Surrogate match for that team</small><br>
-      <small>Empty is team was DQ or no-show</small>
+    <div class="pt-5 pb-1" *ngIf="currentSeason && currentSeason.seasonKey">
+      <mdc-card class="toa-card">
+        <mdc-tab-bar class="w-100" [focusOnActivate]="false" [activeTabIndex]="isSelected('results') ? 0 : 1">
+          <mdc-tab-scroller>
+            <mdc-tab label="Event Results" (click)="select('results')"></mdc-tab>
+            <mdc-tab label="Robot" (click)="select('robot')" *ngIf="this.team.media && this.team.media.length > 0"></mdc-tab>
+          </mdc-tab-scroller>
+        </mdc-tab-bar>
+        <div class="mt-4 p-3">
+          <toa-team-results *ngIf="isSelected('results')" [team]="team" [season]="getSeasonString(currentSeason.seasonKey, false)"></toa-team-results>
+          <toa-team-robot *ngIf="isSelected('robot')" [team]="team"></toa-team-robot>
+        </div>
+      </mdc-card>
     </div>
   </div>
 </div>

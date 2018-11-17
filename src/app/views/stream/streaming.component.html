@@ -1,15 +1,16 @@
 <div *ngIf="streams" class="main">
   <div class="row m-0">
-    <div class="col-12 row pt-2 pr-2 mb-2" style="background: #fff2df">
+    <div class="col-12 row pt-2 pr-2 mb-2 d-none d-lg-flex" style="background: #fff2df">
       <div class="col-6">
         <b class="w-100 mb-0 ml-2">Streams Size</b>
         <mdc-slider class="w-100" [min]="1" [max]="12" [step]="1" #slider [discrete]="true" [markers]="true" [value]="6"></mdc-slider>
       </div>
-      <mdc-form-field class="col-6" *ngIf="!showChat">
-        <mdc-switch [(ngModel)]="showChat" class="mr-1"></mdc-switch>
-        <label>Show Chat?</label>
-      </mdc-form-field>
+      <div class="col-6">
+        <b class="w-100 mb-0 ml-2">Show Chat?</b>
+        <mdc-switch [(ngModel)]="showChat" class="w-100 mt-3"></mdc-switch>
+      </div>
     </div>
+
     <div class="row m-0 col-12" [class.col-lg-9]="showChat" *ngIf="streams.length > 0">
       <div *ngFor="let stream of streams" class="col-12 col-md-2 p-2" [class]="'col-sm-' + slider.value">
         <div class="item">
@@ -33,10 +34,6 @@
               scrolling="no"
               src="https://www.twitch.tv/embed/theorangealliance/chat">
       </iframe>
-      <mdc-form-field class="ml-3">
-        <mdc-switch [(ngModel)]="showChat" class="mr-1"></mdc-switch>
-        <label>Show Chat?</label>
-      </mdc-form-field>
     </div>
   </div>
 </div>

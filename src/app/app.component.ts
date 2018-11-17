@@ -2,7 +2,6 @@ import { Component, NgZone, ViewChild } from '@angular/core';
 import { FTCDatabase } from './providers/ftc-database';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { TeamFilter } from './util/team-utils';
 import { Router } from '@angular/router';
 import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
@@ -22,7 +21,6 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
 export class TheOrangeAllianceComponent {
 
   teams: Team[];
-  teamsFilter: TeamFilter;
 
   events: Event[];
   eventsFilter: EventFilter;
@@ -61,7 +59,6 @@ export class TheOrangeAllianceComponent {
 
     this.ftc.getAllTeams().then((data: Team[]) => {
       this.teams = data;
-      this.teamsFilter = new TeamFilter(this.teams);
     });
 
     this.ftc.getAllEvents().then((data: Event[]) => {
@@ -73,20 +70,17 @@ export class TheOrangeAllianceComponent {
   performSearch(): void {
     const maxResults = 8;
 
-    if (this.teamsFilter && this.eventsFilter && this.search) {
-      this.teamsFilter.filterArray(null, this.search, null, null);
+    if (this.eventsFilter && this.search) {
+      this.teamSearchResults = this.teams.filter(team => (
+        (team.teamNumber+'').includes(this.search) ||
+        (team.teamNameShort && team.teamNameShort.toLowerCase().includes(this.search))
+      ));
+      this.teamSearchResults = this.teamSearchResults.splice(0, maxResults);
+
       this.eventsFilter.searchFilter(this.search);
-      this.teams = this.teamsFilter.getFilteredArray();
-      this.events = this.eventsFilter.getFilteredArray();
-      const eventLength = this.events.length;
-      const teamsLength = this.teams.length;
-      this.teamSearchResults = this.teams.splice(0, maxResults);
-      this.eventSearchResults = this.events.splice(0, maxResults);
-      if (teamsLength + eventLength > maxResults) {
-        this.isMoreSearch = teamsLength + eventLength - maxResults;
-      } else {
-        this.isMoreSearch = 0;
-      }
+      this.eventSearchResults = this.eventsFilter.getFilteredArray();
+      this.eventSearchResults = this.eventSearchResults.splice(0, maxResults);
+
     } else {
       this.teamSearchResults = [];
       this.eventSearchResults = [];

@@ -4,6 +4,7 @@ import {
   MdcButtonModule,
   MdcCardModule,
   MdcCheckboxModule,
+  MdcChipsModule,
   MdcDialogModule,
   MdcDrawerModule,
   MdcElevationModule,
@@ -12,6 +13,7 @@ import {
   MdcIconButtonModule,
   MdcIconModule,
   MdcLinearProgressModule,
+  MdcImageListModule,
   MdcListModule,
   MdcMenuModule,
   MdcRadioModule,
@@ -34,6 +36,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MdcButtonModule,
     MdcCardModule,
     MdcCheckboxModule,
+    MdcChipsModule,
     MdcDialogModule,
     MdcDrawerModule,
     MdcElevationModule,
@@ -42,6 +45,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     MdcIconButtonModule,
     MdcIconModule,
     MdcLinearProgressModule,
+    MdcImageListModule,
     MdcListModule,
     MdcMenuModule,
     MdcRadioModule,
@@ -59,6 +63,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 export class AppMaterialModule {
   constructor(mdcIconRegistry: MdcIconRegistry, domSanitizer: DomSanitizer) {
-    mdcIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/mdi.svg')); // Or whatever path you placed mdi.svg at
+    mdcIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/mdi.svg'));
   }
 }

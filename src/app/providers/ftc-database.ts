@@ -14,6 +14,8 @@ import Ranking from '../models/Ranking';
 import AwardRecipient from '../models/AwardRecipient';
 import EventParticipant from '../models/EventParticipant';
 import * as GameData from '../models/game-specifics/GameData';
+import Media from '../models/Media';
+import TeamSeasonRecord from '../models/TeamSeasonRecord';
 
 @Injectable()
 export class FTCDatabase {
@@ -206,6 +208,14 @@ export class FTCDatabase {
     });
   }
 
+  public getTeamWLT(teamKey: string, seasonKey: string): Promise<TeamSeasonRecord> {
+    return new Promise<TeamSeasonRecord>((resolve, reject) => {
+      this.request('/team/' + teamKey + '/wlt?season_key=' + seasonKey).then((data: any[]) => {
+        resolve(new TeamSeasonRecord().fromJSON(data[0]));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
   public getMatchParticipants(matchKey: string): Promise<MatchParticipant[]> {
     return new Promise<MatchParticipant[]>((resolve, reject) => {
       this.request('/match/' + matchKey + '/participants').then((data: any[]) => {
@@ -234,6 +244,14 @@ export class FTCDatabase {
     return new Promise<AwardRecipient[]>((resolve, reject) => {
       this.request('/team/' + teamKey + '/awards/' + seasonKey).then((data: any[]) => {
         resolve(data.map((result: any) => new AwardRecipient().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
+  public getTeamMedia(teamKey: string, seasonKey: string): Promise<Media[]> {
+    return new Promise<Media[]>((resolve, reject) => {
+      this.request('/team/' + teamKey + '/media/' + seasonKey).then((data: any[]) => {
+        resolve(data.map((result: any) => new Media().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });
   }

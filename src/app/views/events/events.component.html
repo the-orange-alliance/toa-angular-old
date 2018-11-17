@@ -27,19 +27,6 @@
             <mdc-list-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}</mdc-list-item>
           </ul>
         </div>
-
-        <!--
-          <div *ngIf="current_league" class="col-md-4 col-xs-12 filter-row dropdown">
-            <div class="filter-info">League: </div>
-            <button class="btn btn-default dropdown-toggle" type="button" id="ftc_league" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              {{ current_league.description ? current_league.league_key + " - " + current_league.description :  current_league.league_key}}
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="ftc_league">
-              <mdc-list-item *ngFor="let league of leagues" (click)="selectLeague(league)">{{ league.description ? league.league_key + " - " + league.description :  league.league_key}}</mdc-list-item>
-            </ul>
-          </div>
-        -->
       </div>
 
       <mdc-list-divider></mdc-list-divider>
@@ -78,3 +65,29 @@
     </mdc-card>
   </div>
 </div>
+
+<!--
+<button mdc-fab position='bottomRight' class="toa-fab" data-toggle="modal" data-target="#filterModal">
+  <mdc-icon svgIcon="filter-outline"></mdc-icon>
+</button>
+
+&lt;!&ndash; Modal &ndash;&gt;
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div mdcDialogSurface class="modal-content border-0 ru">
+      <mdc-dialog-title>Filter Options</mdc-dialog-title>
+      <mdc-dialog-content>
+        <mdc-chip-set filter>
+          <mdc-chip *ngFor="let region of regions">
+            <mdc-chip-text>{{ region.description }}</mdc-chip-text>
+          </mdc-chip>
+        </mdc-chip-set>
+      </mdc-dialog-content>
+      <mdc-dialog-actions>
+        <button mdcDialogButton data-dismiss="modal">Cancel</button>
+        <button mdcDialogButton default data-dismiss="modal">Ok</button>
+      </mdc-dialog-actions>
+    </div>
+  </div>
+</div>
+-->

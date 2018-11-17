@@ -18,7 +18,6 @@ import { TeamsComponent } from './views/teams/teams.component';
 import { EventComponent } from './views/event/event.component';
 import { AboutComponent } from './views/about/about.component';
 import { ApiDocsComponent } from './views/apidocs/apidocs.component';
-import { LiveDocsComponent } from './views/livedocs/livedocs.component';
 
 import { FTCDatabase } from './providers/ftc-database';
 import { EventRankingsComponent } from './views/event/subviews/event-rankings/event-rankings.component';
@@ -41,6 +40,8 @@ import { AwardItemComponent } from './components/award/award.item.component';
 import { LoginComponent } from "./views/account/login/login.component";
 import { RegisterComponent } from "./views/account/register/register.component";
 import { RoverRuckusComponent } from "./views/matches/years/1819/1819-rover-ruckus.component";
+import { TeamRobotComponent } from "./views/team/subviews/team-robot/team-robot.component";
+import { TeamResultsComponent } from "./views/team/subviews/team-results/team-results.component";
 
 @NgModule({
   declarations: [
@@ -59,9 +60,10 @@ import { RoverRuckusComponent } from "./views/matches/years/1819/1819-rover-ruck
     EventMatchesComponent,
     EventTeamsComponent,
     EventAwardsComponent,
+    TeamRobotComponent,
+    TeamResultsComponent,
     PageNotFoundComponent,
     ApiDocsComponent,
-    LiveDocsComponent,
     RankingComponent,
     StreamingComponent,
     PrivacyTermsComponent,
@@ -69,6 +71,7 @@ import { RoverRuckusComponent } from "./views/matches/years/1819/1819-rover-ruck
     VelocityVortexComponent,
     RelicRecoveryComponent,
     RoverRuckusComponent,
+    TeamRobotComponent,
     MatchTableComponent,
     EventItemComponent,
     TeamItemComponent,
