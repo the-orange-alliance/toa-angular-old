@@ -135,7 +135,7 @@ export class HomeComponent {
 
   public willFUNstartSoon(): boolean {
     const diff = (new Date(this.firstupdatesnow.startDateTime).valueOf() - this.today.valueOf()) / 1000 / 60 / 60;// Convert milliseconds to hours
-    return diff <= 24;
+    return diff <= 24 && diff >= 0;
   }
 
   public isFUNonLive(): boolean {
