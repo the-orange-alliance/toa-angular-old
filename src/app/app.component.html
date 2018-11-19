@@ -1,5 +1,5 @@
 <!-- AppBar -->
-<mdc-top-app-bar #topAppBar fixed class="col">
+<mdc-top-app-bar #topAppBar fixed style="z-index: 7">
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="The Orange Alliance">
       <!--<mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">menu</mdc-icon>-->
@@ -12,37 +12,6 @@
     </mdc-top-app-bar-section>
   </mdc-top-app-bar-row>
 </mdc-top-app-bar>
-
-<!-- Search -->
-<div class="modal fade" id="searchmodal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered h-75">
-    <div class="modal-content w-100 h-100">
-      <div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 1.5rem 1.5rem 0 1.5rem!important">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body pt-0" style="overflow-y: initial !important">
-        <mdc-text-field #searchInput id="ftc_search" (change)="performSearch()" label="Team # or Event" [(ngModel)]="search" [fullwidth]="true"></mdc-text-field>
-        <div mdcSubtitle1>Press Enter to search</div>
-        <div class="row mt-3" *ngIf="search" style="max-height: calc(100vh - 215px); overflow-y: auto">
-          <div class="col-md-6 col-12">
-            <div mdcHeadline5 class="black">Teams</div>
-            <mdc-list *ngIf="teamSearchResults">
-              <toa-team-item *ngFor="let result of teamSearchResults" [team]="result"></toa-team-item>
-            </mdc-list>
-            <p *ngIf="teamSearchResults.length === 0">No teams found</p>
-          </div>
-          <div class="col-md-6 col-12">
-            <div mdcHeadline5 class="black">Events</div>
-            <toa-event-item *ngFor="let result of eventSearchResults" [event]="result"></toa-event-item>
-            <p *ngIf="eventSearchResults.length === 0">No events found</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Drawer -->
 <div class="mdc-top-app-bar--fixed-adjust">
@@ -89,22 +58,19 @@
           <a mdc-list-item routerLink="/stream" routerLinkActive="mdc-list-item--activated">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="video"></mdc-icon>Streaming
           </a>
-          <a mdc-list-item routerLink="/apidocs" routerLinkActive="mdc-list-item--activated">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="code-tags"></mdc-icon>API
-          </a>
 
           <mdc-list-divider></mdc-list-divider>
+
+          <a mdc-list-item href="https://play.google.com/store/apps/details?id=com.theorangealliance.android" target="_blank">
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="android-head"></mdc-icon>Android App
+          </a>
 
           <a mdc-list-item routerLink="/add-data" routerLinkActive="mdc-list-item--activated">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="upload"></mdc-icon>Add Data
           </a>
-<!--
-          <a mdc-list-item routerLink="/livedocs" routerLinkActive="mdc-list-item&#45;&#45;activated">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="progress-upload"></mdc-icon>DataSync
-          </a>
--->
-          <a mdc-list-item href="https://play.google.com/store/apps/details?id=com.theorangealliance.android" target="_blank">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="android-head"></mdc-icon>Android App
+
+          <a mdc-list-item routerLink="/apidocs" routerLinkActive="mdc-list-item--activated">
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="code-tags"></mdc-icon>API
           </a>
 
           <a mdc-list-item href="https://github.com/orange-alliance" target="_blank">
@@ -145,6 +111,36 @@
       </mdc-list-group>
     </mdc-drawer-content>
   </mdc-drawer>
+
+  <!-- Search -->
+  <div class="modal fade" id="searchmodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered h-75">
+      <div class="modal-content w-100 h-100">
+        <div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 1.5rem 1.5rem 0 1.5rem!important">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body pt-0" style="overflow-y: initial !important">
+          <mdc-text-field #searchInput id="ftc_search" (change)="performSearch()" label="Team # or Event" [(ngModel)]="search" [fullwidth]="true"></mdc-text-field>
+          <div class="row mt-3" *ngIf="search" style="max-height: calc(100vh - 215px); overflow-y: auto">
+            <div class="col-md-6 col-12">
+              <div mdcHeadline5 class="black">Teams</div>
+              <mdc-list *ngIf="teamSearchResults">
+                <toa-team-item *ngFor="let result of teamSearchResults" [team]="result"></toa-team-item>
+              </mdc-list>
+              <p *ngIf="teamSearchResults.length === 0">No teams found</p>
+            </div>
+            <div class="col-md-6 col-12">
+              <div mdcHeadline5 class="black">Events</div>
+              <toa-event-item *ngFor="let result of eventSearchResults" [event]="result"></toa-event-item>
+              <p *ngIf="eventSearchResults.length === 0">No events found</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="page" [class.toa-page]="router.url !== '/stream'">
     <router-outlet></router-outlet>
