@@ -158,10 +158,10 @@
   </tr>
   <tr *ngIf="match.participants && match.participants.length == 6" class="d-lg-none d-xl-none">
     <td colspan="4" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-      <a href="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantString(match, 2) }}</a>
+      <a href="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantString(match, 3) }}</a>
     </td>
     <td colspan="4" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-      <a href="/teams/{{ match.participants[4].teamKey }}">{{ getParticipantString(match, 3) }}</a>
+      <a href="/teams/{{ match.participants[4].teamKey }}">{{ getParticipantString(match, 4) }}</a>
     </td>
     <td colspan="4" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
       <a href="/teams/{{ match.participants[5].teamKey }}">{{ getParticipantString(match, 5) }}</a>
@@ -323,10 +323,10 @@
   </tr>
   <tr *ngIf="match.participants && match.participants.length == 6" class="d-lg-none d-xl-none">
     <td colspan="4" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-      <a href="/teams/{{ match.participants[3].teamKey }}" [class.current-team]="isSelectedTeam(match, 3)">{{ getParticipantString(match, 2) }}</a>
+      <a href="/teams/{{ match.participants[3].teamKey }}" [class.current-team]="isSelectedTeam(match, 3)">{{ getParticipantString(match, 3) }}</a>
     </td>
     <td colspan="4" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-      <a href="/teams/{{ match.participants[4].teamKey }}" [class.current-team]="isSelectedTeam(match, 4)">{{ getParticipantString(match, 3) }}</a>
+      <a href="/teams/{{ match.participants[4].teamKey }}" [class.current-team]="isSelectedTeam(match, 4)">{{ getParticipantString(match, 4) }}</a>
     </td>
     <td colspan="4" class="blue" [class.match-winner]="match.redScore <= match.blueScore">
       <a href="/teams/{{ match.participants[5].teamKey }}" [class.current-team]="isSelectedTeam(match, 5)">{{ getParticipantString(match, 5) }}</a>
