@@ -75,8 +75,9 @@ export class TeamComponent implements OnInit {
         if (this.team.teamNameShort !== null){
           this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamNumber + ')');
         } else {
-          this.app.setTitle('Team ' + this.team.teamKey);
+          this.app.setTitle('Team ' + this.team.teamNumber);
         }
+        this.app.setDescription(`Team information and competition results for FIRST Tech Challenge Team #${ this.team.teamNumber }`);
       } else {
         this.router.navigate(['/not-found']);
       }

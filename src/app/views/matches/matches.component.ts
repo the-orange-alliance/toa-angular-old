@@ -37,6 +37,7 @@ export class MatchesComponent implements OnInit {
         this.ftc.getEventBasic(match.eventKey).then((event: Event) => {
           this.match.event = event;
           this.app.setTitle(this.match.matchName + ' - ' + this.match.event.eventName);
+          this.app.setDescription(`Match results ${ this.match.videoURL ? 'and video ' : '' }for ${ this.match.matchName } at the ${ this.match.event.eventName } FIRST Tech Challenge`);
         });
       } else {
         this.router.navigate(['/not-found']);

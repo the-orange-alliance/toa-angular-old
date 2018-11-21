@@ -10,7 +10,7 @@
 
 
 <div class="row mt-3" *ngIf="team">
-  <div class="col-xs-12 col-sm-3 col-lg-3 pb-5">
+  <div class="col-12 col-md-3 pb-5">
     <mdc-card class="toa-card">
       <div class="w-100 p-3">
         <div *ngIf="seasons && team.rookieYear" class="dropdown">
@@ -39,7 +39,7 @@
     </mdc-card>
   </div>
 
-  <div class="col-xs-12 col-sm-9 col-lg-9">
+  <div class="col-12 col-md-9">
     <mdc-card class="toa-card" id="info">
       <div class="toa-card-header" [class.pb-1]="team.teamNameLong" mdcHeadline5>#{{ team.teamNumber }} - {{ team.teamNameShort }}</div>
       <div class="toa-card-subtitle pt-0" *ngIf="team.teamNameLong">{{ team.teamNameLong }}</div>
@@ -100,7 +100,7 @@
             <mdc-tab label="Robot" (click)="select('robot')" *ngIf="this.team.media && this.team.media.length > 0"></mdc-tab>
           </mdc-tab-scroller>
         </mdc-tab-bar>
-        <div class="mt-4 p-3">
+        <div class="mt-4 p-2">
           <toa-team-results *ngIf="isSelected('results')" [team]="team" [season]="getSeasonString(currentSeason.seasonKey, false)"></toa-team-results>
           <toa-team-robot *ngIf="isSelected('robot')" [team]="team"></toa-team-robot>
         </div>
