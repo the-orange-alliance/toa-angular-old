@@ -61,7 +61,7 @@ export class EventComponent implements OnInit {
           this.event = data;
 
           this.app.setTitle(this.event.eventName);
-          this.app.setDescription(this.event.eventName + 'details for the FIRST Tech Challenge from ' + new Date(this.event.startDate).getFullYear());
+          this.app.setDescription(`Event results for the ${new Date(this.event.startDate).getFullYear()} ${this.event.eventName} FIRST Tech Challenge in ${this.event.stateProv ? this.event.stateProv + ', ' + this.event.country : this.event.country }`);
 
           if (this.event.rankings && this.event.rankings.length > 0) {
             this.select('rankings');

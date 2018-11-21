@@ -1,27 +1,24 @@
 <div *ngIf="team.events && team.events.length > 0">
   <div *ngFor="let event of team.events" id="{{ event.eventKey }}" class="col-12 p-0 pb-4">
-    <div class="outline-card">
-      <a class="toa-card-header pb-0" routerLink="/events/{{ event.eventKey }}" mdcHeadline5>{{ event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName}}</a>
+    <div class="outline-card p-2">
+      <a routerLink="/events/{{ event.eventKey }}">
+        <h5 mdcHeadline5 class="toa-card-header mb-0 mdc-typography--headline5">
+          {{ event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName}}
+        </h5>
+      </a>
       <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : ''}}{{ event.country }} on {{ event.startDate | date :  "mediumDate"}}</div>
 
       <mdc-list-divider></mdc-list-divider>
 
-      <div class="p-3">
-<!--
-        <ul class="list-group list-group-flush mb-3" *ngIf="event.awards && event.awards.length > 0">
-          <li *ngIf="event.rankings && event.rankings.length > 0" class="list-group-item border-top-0"><b>Qual Rank #{{ event.rankings[0].rank }}</b> with a record of <b>{{ event.rankings[0].wins }}-{{ event.rankings[0].losses }}-{{ event.rankings[0].ties }}</b></li>
-          <li *ngFor="let award of event.awards" class="list-group-item">{{ award.awardName }}</li>
-        </ul>
--->
-        <mdc-list class="mb-2" [interactive]="false">
-          <mdc-list-item *ngIf="event.rankings && event.rankings.length > 0"><div><b>Qual Rank #{{ event.rankings[0].rank }}</b> with a record of <b>{{ event.rankings[0].wins }}-{{ event.rankings[0].losses }}-{{ event.rankings[0].ties }}</b></div></mdc-list-item>
-          <mdc-list-item *ngFor="let award of event.awards" class="h-100">
-            <mdc-icon mdcListItemGraphic svgIcon="trophy" class="mr-2"></mdc-icon>{{ award.awardName }}
-          </mdc-list-item>
-        </mdc-list>
-
-        <match-table [matchList]="event.matches" [team]="team"></match-table>
-      </div>
+      <mdc-list class="mb-2" [interactive]="false">
+        <mdc-list-item *ngIf="event.rankings && event.rankings.length > 0">
+          <div><b>Qual Rank #{{ event.rankings[0].rank }}</b> with a record of <b style="white-space: nowrap">{{ event.rankings[0].wins }}-{{ event.rankings[0].losses }}-{{ event.rankings[0].ties }}</b></div>
+        </mdc-list-item>
+        <mdc-list-item *ngFor="let award of event.awards" class="h-100">
+          <mdc-icon mdcListItemGraphic svgIcon="trophy" class="mr-2"></mdc-icon>{{ award.awardName }}
+        </mdc-list-item>
+      </mdc-list>
+      <match-table [matchList]="event.matches" [team]="team"></match-table>
     </div>
   </div>
 

@@ -30,6 +30,7 @@ export class TeamsComponent implements OnInit {
     this.query = null;
     this.teamsSorter = new TeamSorter();
     this.app.setTitle('Teams');
+    this.app.setDescription(`List of FIRST Tech Challenge teams`);
   }
 
   ngOnInit(): void {
