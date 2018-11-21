@@ -14,9 +14,9 @@ import { StreamingComponent } from './views/stream/streaming.component';
 import { PrivacyTermsComponent } from './views/privacy_terms/PrivacyTerms.component';
 import { PageNotFoundComponent } from './views/404/404.component';
 import { MatchesComponent } from './views/matches/matches.component';
-import { AddDataComponent } from "./views/add-data/add-data.component";
-import { LoginComponent } from "./views/account/login/login.component";
-import { RegisterComponent } from "./views/account/register/register.component";
+import { AddDataComponent } from './views/add-data/add-data.component';
+import { LoginComponent } from './views/account/login/login.component';
+import { RegisterComponent } from './views/account/register/register.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },

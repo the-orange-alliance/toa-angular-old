@@ -138,7 +138,7 @@ export class EventsComponent implements OnInit {
   }
 
   clearFilter() {
-    this.currentSeason = this.seasons[this.seasons.length - 1];
+    this.currentSeason = this.seasons[0];
     this.currentRegion = this.regions[this.regions.length - 1];
     this.events = this.eventFilter.getOriginalArray();
     this.organizeEventsByWeek()
@@ -167,7 +167,7 @@ export class EventsComponent implements OnInit {
       case 'FOC':
         return 'Festival of Champions';
       default:
-        if (week.match("-?\\d+(\\.\\d+)?")) { // match a number with optional '-' and decimal.
+        if (week.match('-?\\d+(\\.\\d+)?')) { // match a number with optional '-' and decimal.
           return 'Week ' + week;
         } else {
           return week;

@@ -37,11 +37,11 @@ import { MatchTableComponent } from './components/match-table/match-table.compon
 import { EventItemComponent } from './components/event/event.item.component';
 import { TeamItemComponent } from './components/team/team.item.component';
 import { AwardItemComponent } from './components/award/award.item.component';
-import { LoginComponent } from "./views/account/login/login.component";
-import { RegisterComponent } from "./views/account/register/register.component";
-import { RoverRuckusComponent } from "./views/matches/years/1819/1819-rover-ruckus.component";
-import { TeamRobotComponent } from "./views/team/subviews/team-robot/team-robot.component";
-import { TeamResultsComponent } from "./views/team/subviews/team-results/team-results.component";
+import { LoginComponent } from './views/account/login/login.component';
+import { RegisterComponent } from './views/account/register/register.component';
+import { RoverRuckusComponent } from './views/matches/years/1819/1819-rover-ruckus.component';
+import { TeamRobotComponent } from './views/team/subviews/team-robot/team-robot.component';
+import { TeamResultsComponent } from './views/team/subviews/team-results/team-results.component';
 
 @NgModule({
   declarations: [
