@@ -1,4 +1,4 @@
-import { Component, NgZone, ViewChild } from '@angular/core';
+import { Component, HostListener, NgZone, ViewChild } from '@angular/core';
 import { FTCDatabase } from './providers/ftc-database';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -25,10 +25,10 @@ export class TheOrangeAllianceComponent {
   events: Event[];
   eventsFilter: EventFilter;
 
-  search: any;
+  search: string;
   teamSearchResults: Team[];
   eventSearchResults: Event[];
-  isMoreSearch: any;
+  showSearch: boolean;
 
   current_year: any;
 
@@ -39,6 +39,10 @@ export class TheOrangeAllianceComponent {
 
   constructor(public router: Router, private ftc: FTCDatabase, private _ngZone: NgZone,
               db: AngularFireDatabase, auth: AngularFireAuth) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
+
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
         this.user['email'] = user.email;
@@ -68,19 +72,23 @@ export class TheOrangeAllianceComponent {
   }
 
   performSearch(): void {
-    const maxResults = 8;
+    const maxResults = 5;
+    const query = this.search && this.search.trim().length > 0 ? this.search.toLowerCase().trim() : null;
 
-    if (this.eventsFilter && this.search) {
+    if (query && this.teams && this.eventsFilter) {
       this.teamSearchResults = this.teams.filter(team => (
-        (team.teamNumber+'').includes(this.search) ||
-        (team.teamNameShort && team.teamNameShort.toLowerCase().includes(this.search))
+        String(team.teamNumber).includes(query) ||
+        (team.teamNameShort && team.teamNameShort.toLowerCase().includes(query))
       ));
       this.teamSearchResults = this.teamSearchResults.splice(0, maxResults);
 
-      this.eventsFilter.searchFilter(this.search);
+      this.eventsFilter.searchFilter(query);
       this.eventSearchResults = this.eventsFilter.getFilteredArray();
       this.eventSearchResults = this.eventSearchResults.splice(0, maxResults);
 
+      if (this.teamSearchResults.length > 0 || this.eventSearchResults.length > 0) {
+        this.showSearch = true;
+      }
     } else {
       this.teamSearchResults = [];
       this.eventSearchResults = [];
@@ -93,9 +101,41 @@ export class TheOrangeAllianceComponent {
 
   focusSearchInput(searchInput: MdcTextField): void {
     // When the modal opens, it takes the focus
-    // We'll wait 4ms until it opens
+    // We'll wait 6ms until it opens
     setTimeout(function () {
       searchInput.focus();
     }, 600);
   }
+
+  getBoldText(text: string): string {
+    let pattern = this.search.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    pattern = pattern.split(' ').filter((t) => {
+      return t.length > 0;
+    }).join('|');
+    let regex = new RegExp(pattern, 'gi');
+
+    return '<p>' + (this.search ? text.replace(regex, (match) => `<b>${match}</b>`) : text) + '</p>';
+  }
+
+  teamClicked(e, teamKey): void {
+    this.router.navigate(['/teams', teamKey]);
+    e.preventDefault();
+    e.stopPropagation();
+    this.showSearch = false;
+    this.search = '';
+  }
+
+  eventClicked(e, eventKey): void {
+    this.router.navigate(['/events', eventKey]);
+    e.preventDefault();
+    e.stopPropagation();
+    this.showSearch = false;
+    this.search = '';
+  }
+
+  @HostListener('document:click', ['$event']) clickedOutside($event){
+    this.showSearch = false;
+    console.log("CLICKED OUTSIDE");
+  }
+
 }

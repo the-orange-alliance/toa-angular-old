@@ -388,34 +388,60 @@ table.match-table tr {
 }
 
 /* ==========================================================================
-   Virtual Scroll
-   ========================================================================== */
-.virtual-scroll-container {
-  width: 100%;
-  position: relative;
-  overflow-x: hidden;
-  overflow-y: auto;
-  margin-top: 20px;
-}
-
-.virtual-scroll-filler {
-  position: absolute;
-  top: 0;
-  width: 1px;
-}
-
-.virtual-scroll-view {
-  position: absolute;
-  left: 0;
-  right: 0;
-}
-
-/* ==========================================================================
    Search
    ========================================================================== */
 
-#ftc_search input{
+.mobile-search input {
   font-size: 35px
+}
+
+.search-anchor {
+  position: relative;
+}
+
+.search-box {
+  width: 300px;
+  color: #fff!important;
+  box-shadow: none;
+  background-color: $mdc-theme-light!important;
+  border-radius: 4px;
+}
+
+.search-box input{
+  border: 0;
+  color: #fff!important;
+  caret-color: #fff!important;
+}
+
+.search-anchor .mdc-floating-label {
+  color: #fff!important;
+}
+
+.search-anchor .mdc-floating-label--float-above {
+  display: none;
+}
+
+.search-results {
+  left: 0;
+  right: 0;
+  position: absolute;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.search-anchor mdc-notched-outline {
+  display: none;
+}
+
+.search-anchor .mdc-list-item {
+  height: auto!important;
+  min-height: 48px;
+  padding: 16px;
+}
+
+.search-anchor .mdc-list-item p {
+  padding: 0;
+  margin: 0;
 }
 
 /* ==========================================================================

@@ -65,7 +65,7 @@ export class TeamsComponent implements OnInit {
         ));
       } else {
         this.currentTeams = this.teams.filter(team => (
-          (team.teamNumber+'').includes(query) ||
+          String(team.teamNumber).includes(query) ||
           (team.teamNameShort && team.teamNameShort.toLowerCase().includes(query)) ||
           (team.city && team.city.toLowerCase().includes(query)) ||
           (team.country && team.country.toLowerCase().includes(query))
