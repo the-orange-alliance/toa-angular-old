@@ -42,6 +42,7 @@ import { RegisterComponent } from './views/account/register/register.component';
 import { RoverRuckusComponent } from './views/matches/years/1819/1819-rover-ruckus.component';
 import { TeamRobotComponent } from './views/team/subviews/team-robot/team-robot.component';
 import { TeamResultsComponent } from './views/team/subviews/team-results/team-results.component';
+import { StreamItemComponent } from './views/stream/stream-item/stream-item.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { TeamResultsComponent } from './views/team/subviews/team-results/team-re
     EventAwardsComponent,
     TeamRobotComponent,
     TeamResultsComponent,
+    StreamItemComponent,
     PageNotFoundComponent,
     ApiDocsComponent,
     RankingComponent,

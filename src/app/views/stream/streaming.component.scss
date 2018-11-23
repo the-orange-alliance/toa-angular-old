@@ -1,36 +1,26 @@
-@import "~@angular-mdc/theme/material";
 @import "../../../assets/../constants";
 
 .main {
   /* Disable the .toa-page style */
   margin-top: -40px;
   margin-bottom: -45px;
-}
-
-.embed-responsive {
-  border-radius: .75rem .75rem 0 0;
-}
-
-.info {
-  border-radius: 0 0 .75rem .75rem;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-top: none;
-  padding: 1rem;
-  background: #fff;
+  height: calc(100vh - 64px);
 }
 
 .chat {
   height: 100%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  overflow-x: hidden;
-  padding: 64px 0 0 0;
+  margin: 0;
+  padding: 0;
   background: $twitch-chat-bg-color;
 }
 
 .chat iframe {
-  height: 85%;
+  height: 95%;
   width: 100%;
+}
+
+@media only screen and (max-width: 599px) {
+  .main {
+    height: calc(100vh - 56px);
+  }
 }

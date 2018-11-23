@@ -1,0 +1,45 @@
+<div class="stream embed-responsive embed-responsive-16by9" [style.height]="height==null ? '100%' : height">
+  <button mdc-button primary *ngIf="!stream" data-toggle="modal" [attr.data-target]="'#selectdialog'+ id" class="select-stream">Select stream</button>
+  <iframe class="embed-responsive-item" *ngIf="stream" [src]="stream.safeURL" allowfullscreen></iframe>
+  <div class="info row" *ngIf="stream">
+    <h2 mdcOverline>{{ stream.streamName }}</h2>
+    <div class="info-icons">
+      <div class="icon-tooltip">
+        <button mdc-button dense *ngIf="stream.eventKey" (click)="openEvent(stream.eventKey)">
+          <mdc-icon class="mr-0">equalizer</mdc-icon>
+        </button>
+        <span class="tooltiptext">Event Results</span>
+      </div>
+      <div class="icon-tooltip">
+        <button mdc-button dense (click)="stream = null">
+          <mdc-icon class="mr-0">close</mdc-icon>
+        </button>
+        <span class="tooltiptext">Close stream</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Select Stream -->
+<div class="modal fade" [id]="'selectdialog' + id" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div mdcDialogSurface class="modal-content border-0">
+      <mdc-dialog-title>Select Stream</mdc-dialog-title>
+      <mdc-dialog-content>
+        <mdc-list>
+          <mdc-radio-group [(ngModel)]="selectedStreamKey">
+            <mdc-list-item *ngFor="let _stream of streams; let i = index">
+              <mdc-radio mdcListItemGraphic [checked]="_stream.streamKey === streamKey3" [value]="_stream.streamKey"></mdc-radio>
+              {{ _stream.streamName }}
+            </mdc-list-item>
+          </mdc-radio-group>
+        </mdc-list>
+      </mdc-dialog-content>
+      <mdc-dialog-actions>
+        <button mdcDialogButton data-dismiss="modal">Cancel</button>
+        <button mdcDialogButton default data-dismiss="modal" (click)="stream = getStream(selectedStreamKey); selectedStreamKey=''">Select</button>
+      </mdc-dialog-actions>
+    </div>
+  </div>
+</div>
