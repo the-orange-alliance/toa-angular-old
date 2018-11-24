@@ -108,7 +108,7 @@ export class TheOrangeAllianceComponent {
   }
 
   getBoldText(text: string): string {
-    let pattern = this.search.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    let pattern = this.search.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
     pattern = pattern.split(' ').filter((t) => {
       return t.length > 0;
     }).join('|');
@@ -135,7 +135,6 @@ export class TheOrangeAllianceComponent {
 
   @HostListener('document:click', ['$event']) clickedOutside($event){
     this.showSearch = false;
-    console.log("CLICKED OUTSIDE");
   }
 
 }

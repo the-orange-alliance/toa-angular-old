@@ -14,7 +14,7 @@ export class StreamItemComponent implements OnInit {
 
   @Input() streams: EventLiveStream[];
   stream: EventLiveStream = null;
-  selectedStreamKey: string = "";
+  selectedStreamKey: string = '';
 
   constructor(public router: Router) {
 
