@@ -11,5 +11,6 @@ export class AddDataComponent {
 
   constructor(private app: TheOrangeAllianceGlobals) {
     this.app.setTitle('Add Data');
+    this.app.setDescription('Manage your favorite teams and events');
   }
 }

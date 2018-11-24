@@ -27,6 +27,8 @@ export class AccountComponent {
   constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase,
               db: AngularFireDatabase, public auth: AngularFireAuth) {
     this.app.setTitle('myTOA');
+    this.app.setDescription('Watch live FIRST Tech Challenge events')
+
 
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {

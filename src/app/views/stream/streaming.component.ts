@@ -24,6 +24,7 @@ export class StreamingComponent implements OnInit {
 
   constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer, private app: TheOrangeAllianceGlobals) {
     this.app.setTitle('Streaming');
+    this.app.setDescription('Watch live FIRST Tech Challenge events')
   }
 
   ngOnInit() {
