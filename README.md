@@ -15,11 +15,11 @@ The Orange Alliance is a project to centralize _FIRST_ Tech Challenge (FTC) Scou
 ![Home Page](https://user-images.githubusercontent.com/16443111/48767939-8986f800-ecc0-11e8-9d5f-0939dfb6efc5.png)
 
 ## Built with
-  - [Angular 6](https://angular.io)
-  - [Material Web Components for Angular](https://github.com/trimox/angular-mdc-web)
-  - [Bootstrap](https://getbootstrap.com)
-  - [Firebase](https://firebase.google.com)
-  - [MySQL](https://www.mysql.com)
+- [Angular 6](https://angular.io)
+- [Material Web Components for Angular](https://github.com/trimox/angular-mdc-web)
+- [Bootstrap](https://getbootstrap.com)
+- [Firebase](https://firebase.google.com)
+- [MySQL](https://www.mysql.com)
 
 And [more](https://github.com/orange-alliance/the-orange-alliance/blob/master/package.json)...
 
