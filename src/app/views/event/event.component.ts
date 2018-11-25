@@ -4,8 +4,8 @@ import { FTCDatabase } from '../../providers/ftc-database';
 import { EventParser } from '../../util/event-utils';
 import { MatchSorter } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import { AngularFireAuth } from "angularfire2/auth";
-import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 import Event from '../../models/Event';
 import EventType from '../../models/EventType';
 import Season from '../../models/Season';
@@ -77,7 +77,7 @@ export class EventComponent implements OnInit {
           }
 
           if (this.event.awards) {
-            this.event.awards.sort((a,b) => (a.award.displayOrder > b.award.displayOrder) ? 1 : ((b.award.displayOrder > a.award.displayOrder) ? -1 : 0));
+            this.event.awards.sort((a, b) => (a.award.displayOrder > b.award.displayOrder) ? 1 : ((b.award.displayOrder > a.award.displayOrder) ? -1 : 0));
           }
 
           this.event_parser = new EventParser(this.event);
@@ -117,7 +117,8 @@ export class EventComponent implements OnInit {
         }
       }, (err) => {
         console.log(err);
-      });
+        this.router.navigate(['/not-found']);
+      })
       }
   }
 

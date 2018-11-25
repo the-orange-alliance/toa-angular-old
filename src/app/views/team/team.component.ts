@@ -8,11 +8,11 @@ import Team from '../../models/Team';
 import Match from '../../models/Match';
 import Season from '../../models/Season';
 import Event from '../../models/Event';
-import AwardRecipient from "../../models/AwardRecipient";
-import {AngularFireAuth} from "angularfire2/auth";
-import {AngularFireDatabase} from "angularfire2/database";
-import Ranking from "../../models/Ranking";
-import Media from "../../models/Media";
+import AwardRecipient from '../../models/AwardRecipient';
+import {AngularFireAuth} from 'angularfire2/auth';
+import {AngularFireDatabase} from 'angularfire2/database';
+import Ranking from '../../models/Ranking';
+import Media from '../../models/Media';
 import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 
 @Component({
@@ -72,7 +72,7 @@ export class TeamComponent implements OnInit {
             this.thisSeason = this.seasons[0];
           });
         }
-        if (this.team.teamNameShort !== null){
+        if (this.team.teamNameShort !== null) {
           this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamNumber + ')');
         } else {
           this.app.setTitle('Team ' + this.team.teamNumber);
@@ -81,7 +81,10 @@ export class TeamComponent implements OnInit {
       } else {
         this.router.navigate(['/not-found']);
       }
-    });
+    }, (err) => {
+      console.log(err);
+      this.router.navigate(['/not-found']);
+    })
   }
 
   public getTeamSeasons(seasons: Season[]): Season[] {
