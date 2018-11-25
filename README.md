@@ -1,30 +1,41 @@
-# TheOrangeAlliance
+<div align="center">
+  <img width="100" height="100" src="https://theorangealliance.org/assets/imgs/favicon.png">
+  <h1>The Orange Alliance</h1>
+  <p>Webapp version of The Orange Alliance</p>
+  <small><a href="https://theorangealliance.org" target="_blank">Live version</a></small>
+</div>
 
-[The Orange Alliance](http://theorangealliance.org) is a single page web application (SPA) as well as a public REST API. It was inspired by [The Blue Alliance](http://thebluealliance.com), but we're not affiliated.
+## Introduction
 
-This project includes the front-end module of a full-stack web application. For further help on using Angular 6, check out their documentation [here.](https://angular.io/docs)
+The Orange Alliance is a project to centralize _FIRST_ Tech Challenge (FTC) Scouting Data so that anyone can have access to it. We are a project run by the FTC **community** and would love to have more people help with this project in anyway.
 
-[Chat with us on Discord](https://discord.gg/5fH66UV)
-
+[Chat with us on Discord](https://discord.gg/5fH66UV)<br/>
 [Like us on Facebook](https://www.facebook.com/theorangealliance/) 
 
-## Installing the dev tools
+![Home Page](https://user-images.githubusercontent.com/16443111/48767939-8986f800-ecc0-11e8-9d5f-0939dfb6efc5.png)
 
-The Orange Alliance was built using the Node.js platform. Before contributing, make sure you install the latest
-version of Node.js from [https://nodejs.org/en/](https://nodejs.org/en/).
+## Built with
+  - [Angular 6](https://angular.io)
+  - [Material Web Components for Angular](https://github.com/trimox/angular-mdc-web)
+  - [Bootstrap](https://getbootstrap.com)
+  - [Firebase](https://firebase.google.com)
+  - [MySQL](https://www.mysql.com)
 
-Once cloned, you will need to run `npm install` from the root directory of this project. The node package
-manager should install of the dependencies.
+And [more](https://github.com/orange-alliance/the-orange-alliance/blob/master/package.json)...
 
-## Development server
+## Running locally
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Setting up the project
+Clone the repository and run ``npm install``.
 
-## Build
+### Setting up Firebase
+You'll need to set up Firebase's Realtime Database properly in order to make this app work.
+You'll need to ֿfill the appropriate details in [environment.ts](https://github.com/orange-alliance/the-orange-alliance/blob/master/src/environments/environment.ts) and in [environment.prod.ts](https://github.com/orange-alliance/the-orange-alliance/blob/master/src/environments/environment.prod.ts).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Running the dev server
+Run ``ng serve`` for a dev server and navigate to [http://localhost:4200](http://localhost:4200).<br/>
+The app will automatically reload if you change any of the source files.
 
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Build
+Run ``ng build`` to build the project. The build artifacts will be stored in the ``public/`` directory.
+<br/>Use the ``--prod`` flag for a production build.

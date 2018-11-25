@@ -14,7 +14,7 @@ export class StreamItemComponent implements OnInit {
 
   @Input() streams: EventLiveStream[];
   stream: EventLiveStream = null;
-  selectedStreamKey: string = "";
+  selectedStreamKey: string = '';
 
   constructor(public router: Router) {
 
@@ -29,7 +29,6 @@ export class StreamItemComponent implements OnInit {
   }
 
   getStream(streamKey: string): EventLiveStream {
-    console.log(streamKey);
     for (let stream of this.streams) {
       if (stream.streamKey === streamKey) {
         return stream;
