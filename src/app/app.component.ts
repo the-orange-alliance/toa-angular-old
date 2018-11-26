@@ -2,7 +2,7 @@ import { Component, HostListener, NgZone, ViewChild } from '@angular/core';
 import { FTCDatabase } from './providers/ftc-database';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Router } from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
 import { MdcTopAppBar, MdcTextField } from '@angular-mdc/web';
@@ -69,6 +69,13 @@ export class TheOrangeAllianceComponent {
       this.events = data;
       this.eventsFilter = new EventFilter(this.events);
     });
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        (<any>window).ga('set', 'page', event.urlAfterRedirects);
+        (<any>window).ga('send', 'pageview');
+      }
+    });
   }
 
   performSearch(): void {
@@ -112,7 +119,7 @@ export class TheOrangeAllianceComponent {
     pattern = pattern.split(' ').filter((t) => {
       return t.length > 0;
     }).join('|');
-    let regex = new RegExp(pattern, 'gi');
+    const regex = new RegExp(pattern, 'gi');
 
     return '<p>' + (this.search ? text.replace(regex, (match) => `<b>${match}</b>`) : text) + '</p>';
   }
