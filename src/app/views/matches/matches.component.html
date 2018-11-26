@@ -1,5 +1,5 @@
 <h2 class="d-inline" *ngIf="match">{{ match.matchName }}</h2>
-<h5 class="d-inline pl-2" *ngIf="match && match.event"><a class="black" href="/events/{{ match.event.eventKey }}">{{ match.event.divisionName ? match.event.eventName +
+<h5 class="d-inline pl-2" *ngIf="match && match.event"><a class="black" routerLink="/events/{{ match.event.eventKey }}">{{ match.event.divisionName ? match.event.eventName +
   ' - ' + match.event.divisionName + ' Division' : match.event.eventName }}</a></h5>
 <!--<h2 *ngIf="noData">No match data found</h2>-->
 

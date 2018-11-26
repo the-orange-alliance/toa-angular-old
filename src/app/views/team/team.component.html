@@ -26,7 +26,7 @@
 
         <ul *ngIf="team.events" class="nav flex-column mt-2" style="padding-left: 0.75rem">
           <li class="nav-item">
-            <a href="teams/{{ team.teamKey }}#info">Team Info</a>
+            <a routerLink="teams/{{ team.teamKey }}#info">Team Info</a>
           </li>
           <li class="nav-item mt-1">
             Event Results

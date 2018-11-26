@@ -56,7 +56,7 @@
             <mdc-icon svgIcon="soccer-field"></mdc-icon>
             <p>{{ event.fieldCount > 1 ? event.fieldCount + ' Fields' : 'One Field'}}</p>
           </div>
-          <a mdc-button primary *ngIf="stream" href="/stream">
+          <a mdc-button primary *ngIf="stream" routerLink="/stream">
             <mdc-icon svgIcon="video-outline" class="stream-icon"></mdc-icon> Live Stream Available!
           </a>
         </div>
