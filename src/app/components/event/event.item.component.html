@@ -1,4 +1,4 @@
-<a href="/events/{{ event.eventKey }}" class="no-underline mdc-list--two-line">
+<a routerLink="/events/{{ event.eventKey }}" class="no-underline mdc-list--two-line">
   <mdc-list-item interactive>
     <mdc-list-item-text>
         <span class="black">{{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }}</span>
