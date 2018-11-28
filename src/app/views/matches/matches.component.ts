@@ -55,4 +55,12 @@ export class MatchesComponent implements OnInit {
     }
   }
 
+  sendAnalytic(category, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: this.router.url,
+      eventAction: action,
+      eventValue: 10
+    });
+  }
 }

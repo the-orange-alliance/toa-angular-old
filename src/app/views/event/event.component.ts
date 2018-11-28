@@ -137,4 +137,13 @@ export class EventComponent implements OnInit {
       this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).set(true);
     }
   }
+
+  sendAnalytic(category, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: this.router.url,
+      eventAction: action,
+      eventValue: 10
+    });
+  }
 }

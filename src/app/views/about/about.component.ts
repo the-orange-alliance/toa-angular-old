@@ -12,4 +12,13 @@ export class AboutComponent {
     this.app.setTitle('About');
   }
 
+  sendAnalytic(category, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: '/about',
+      eventAction: action,
+      eventValue: 10
+    });
+  }
+
 }

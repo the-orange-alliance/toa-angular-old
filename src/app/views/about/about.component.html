@@ -1,10 +1,10 @@
 <h2>About <b class="primary">The Orange Alliance</b></h2>
 
-<p>The Orange Alliance is a site to centralize <i>FIRST</i> Tech Challenge (FTC) Scouting Data so that anyone can have access to it.  We are a site run by the FTC community and would love to have more people help with this project in anyway.  Feel free to reach out to us through <a href="https://discord.gg/5fH66UV" target="_blank">Discord</a> or contact us at <a href="mailto:contact@theorangealliance.org" target="_blank">contact@theorangealliance.org</a>.</p>
-<p>The Orange Alliance was inspired by <a href="http://thebluealliance.com/" target="_blank">The Blue Alliance</a>, but we are not affiliated.</p>
+<p>The Orange Alliance is a site to centralize <i>FIRST</i> Tech Challenge (FTC) Scouting Data so that anyone can have access to it.  We are a site run by the FTC community and would love to have more people help with this project in anyway.  Feel free to reach out to us through <a href="https://discord.gg/5fH66UV" target="_blank" (click)="this.sendAnalytic('leaving', 'discord');">Discord</a> or contact us at <a href="mailto:contact@theorangealliance.org" target="_blank" (click)="this.sendAnalytic('email', 'contact@theorangealliance.org');">contact@theorangealliance.org</a>.</p>
+<p>The Orange Alliance was inspired by <a href="http://thebluealliance.com/" target="_blank" (click)="this.sendAnalytic('leaving', 'the blue alliance');">The Blue Alliance</a>, but we are not affiliated.</p>
 
 <h3 class="pt-3"><i>FIRST</i></h3>
-<p><i><a href="https://www.firstinspires.org/" target="_blank">FIRST</a></i> (For Inspiration and Recognition of Science and Technology) is a non-profit organization with the mission of inspiring young people to be science and technology leaders. With programs that involve students from kindergarten through high school, <i>FIRST</i> has become a world-wide phenomenon with teams from all six inhabited continents.</p>
+<p><i><a href="https://www.firstinspires.org/" target="_blank" (click)="this.sendAnalytic('leaving', 'FIRST website');">FIRST</a></i> (For Inspiration and Recognition of Science and Technology) is a non-profit organization with the mission of inspiring young people to be science and technology leaders. With programs that involve students from kindergarten through high school, <i>FIRST</i> has become a world-wide phenomenon with teams from all six inhabited continents.</p>
 
 <h3 class="pt-3">Meet The <b class="primary">Core Devs</b> of <b class="primary">The Orange Alliance</b></h3>
 <div class="row">
@@ -21,14 +21,14 @@
         Alex is the Orange Alliance Project Manager, Lead <i>FIRST</i> Technical Advisor for <i>FIRST</i> in Michigan, <i>FIRST</i> Tech Challenge and <i>FIRST</i> Robotics Competition.
         On the TOA app Alex concentrates on Database Architecture, Data storage and Data import.
         He is also one of the Developers for FTC's Official Scoring System.
-        Alex is the Owner of his own IT Consulting Firm, <a href="http://feragroup.com/" target="_blank">Fera Group, LLC</a>, based in Northern Michigan.
+        Alex is the Owner of his own IT Consulting Firm, <a href="http://feragroup.com/" target="_blank" (click)="this.sendAnalytic('leaving', 'fera group llc');">Fera Group, LLC</a>, based in Northern Michigan.
         Alex is a 10 year volunteer with <i>FIRST</i>, Alum and Mentor of <i>FIRST</i> Robotics Team 503.
       </div>
       <mdc-list-divider></mdc-list-divider>
       <mdc-card-actions>
         <mdc-card-action-icons>
-          <a href="https://github.com/afera15" target="_blank" class="p-1 text-black-50"><mdc-icon svgIcon="github-circle"></mdc-icon></a>
-          <a href="https://www.linkedin.com/in/alexfera/" target="_blank" class="p-1 text-black-50"><mdc-icon svgIcon="linkedin"></mdc-icon></a>
+          <a href="https://github.com/afera15" target="_blank" class="p-1 text-black-50" (click)="this.sendAnalytic('leaving', 'alex fera github');"><mdc-icon svgIcon="github-circle"></mdc-icon></a>
+          <a href="https://www.linkedin.com/in/alexfera/" target="_blank" class="p-1 text-black-50"(click)="this.sendAnalytic('leaving', 'alex fera linkedin');"><mdc-icon svgIcon="linkedin" ></mdc-icon></a>
         </mdc-card-action-icons>
       </mdc-card-actions>
     </mdc-card>
@@ -79,8 +79,8 @@
       <mdc-list-divider></mdc-list-divider>
       <mdc-card-actions>
         <mdc-card-action-icons>
-          <a href="https://github.com/kyle-flynn" target="_blank" class="p-1 text-black-50"><mdc-icon svgIcon="github-circle"></mdc-icon></a>
-          <a href="https://www.linkedin.com/in/kyle-flynn-a48719136" target="_blank" class="p-1 text-black-50"><mdc-icon svgIcon="linkedin"></mdc-icon></a>
+          <a href="https://github.com/kyle-flynn" target="_blank" class="p-1 text-black-50" (click)="this.sendAnalytic('leaving', 'kyle flynn github');"><mdc-icon svgIcon="github-circle"></mdc-icon></a>
+          <a href="https://www.linkedin.com/in/kyle-flynn-a48719136" target="_blank" class="p-1 text-black-50" (click)="this.sendAnalytic('leaving', 'kyle flynn linkedin');"><mdc-icon svgIcon="linkedin"></mdc-icon></a>
         </mdc-card-action-icons>
       </mdc-card-actions>
     </mdc-card>
@@ -96,7 +96,7 @@
         <h1 class="toa-card-subtitle pt-0" mdcSubtitle2>Developer & Graphic Designer</h1>
       </div>
       <div class="toa-card-subtitle p-3" mdcBody2>
-        Soren leads most non-web designing, is the lead developer for the TOA Data Importer and TOA API Tester, and assists in the development of other non-web applications.
+        Soren leads most non-web designing, is the current main developer for the TOA DataSync, a contributor to the Web and API apps, and assists in the development of several other applications.
         Soren is the Lead A/V Coordinator for FTC in FiM and helps run A/V for FRC in FiM.
         Soren helped developed the Vortex Counter, used widely across FiM in 2016-2017 Velocity Vortex FTC Game.
         Soren is the owner of SPZ Productions, a small video production company based in mid-Michigan.
@@ -106,8 +106,8 @@
       <mdc-list-divider></mdc-list-divider>
       <mdc-card-actions>
         <mdc-card-action-icons>
-          <a href="https://github.com/Techno11" target="_blank" class="p-1 text-black-50"><mdc-icon svgIcon="github-circle"></mdc-icon></a>
-          <a href="https://www.linkedin.com/in/spzproductions" target="_blank" class="p-1 text-black-50"><mdc-icon svgIcon="linkedin"></mdc-icon></a>
+          <a href="https://github.com/Techno11" target="_blank" class="p-1 text-black-50" (click)="this.sendAnalytic('leaving', 'soren zaiser github');"><mdc-icon svgIcon="github-circle"></mdc-icon></a>
+          <a href="https://www.linkedin.com/in/spzproductions" target="_blank" class="p-1 text-black-50" (click)="this.sendAnalytic('leaving', 'soren zaiser linkedin');"><mdc-icon svgIcon="linkedin"></mdc-icon></a>
         </mdc-card-action-icons>
       </mdc-card-actions>
     </mdc-card>
@@ -124,7 +124,7 @@
       </div>
       <div class="toa-card-subtitle p-3" mdcBody2>
         Bill hacks TOA code to add features and functionality. He mentored around 20 FTC teams for 6 years in Charlottesville Virginia
-        and was the Virginia State Compass Award winner in 2015-16. He also provides FTC software and 3D-printable resources online as <a href="http://cheer4ftc.blogspot.com/" target="_blank">CHEER4FTC</a>.
+        and was the Virginia State Compass Award winner in 2015-16. He also provides FTC software and 3D-printable resources online as <a href="http://cheer4ftc.blogspot.com/" target="_blank" (click)="this.sendAnalytic('leaving', 'cheer4ftc blogspot');">CHEER4FTC</a>.
         He's a big believer in using stats to evaluate FTC teams, has written papers comparing different statistical methods for FTC, and has released a free
         Android app that computes stats and match forecasts during live and archived FTC events.
         He has a Ph.D. in Electrical Engineering from the University of California, San Diego and was previously Vice President of Engineering at Qualcomm.
@@ -152,15 +152,15 @@
       </div>
       <div class="toa-card-subtitle p-3" mdcBody2>
         Ofek is a high school student and core developer for The Orange Alliance.
-        Ofek was the core developer of the <a href="https://play.google.com/store/apps/details?id=com.theorangealliance.android" target="_blank">TOA Android version</a>.
+        Ofek was the core developer of the <a href="https://play.google.com/store/apps/details?id=com.theorangealliance.android" target="_blank" (click)="this.sendAnalytic('leaving', 'ofek ashery toa android app');">TOA Android version</a>.
         Thanks to Ofek, The Orange Alliance has a new, modern look using Google's Material Design.
         In addition, he has been volunteering in <i>FIRST</i> for several years.
       </div>
       <mdc-list-divider></mdc-list-divider>
       <mdc-card-actions>
         <mdc-card-action-icons>
-          <a href="https://github.com/ofekashery" target="_blank" class="p-1 text-black-50"><mdc-icon svgIcon="github-circle"></mdc-icon></a>
-          <a href="https://www.linkedin.com/in/ofekashery" target="_blank" class="p-1 text-black-50"><mdc-icon svgIcon="linkedin"></mdc-icon></a>
+          <a href="https://github.com/ofekashery" target="_blank" class="p-1 text-black-50" (click)="this.sendAnalytic('leaving', 'ofek ashery github');"><mdc-icon svgIcon="github-circle"></mdc-icon></a>
+          <a href="https://www.linkedin.com/in/ofekashery" target="_blank" class="p-1 text-black-50" (click)="this.sendAnalytic('leaving', 'ofek ashery linkedin');"><mdc-icon svgIcon="linkedin"></mdc-icon></a>
         </mdc-card-action-icons>
       </mdc-card-actions>
     </mdc-card>
@@ -180,8 +180,8 @@
       <mdc-list-divider></mdc-list-divider>
       <mdc-card-actions>
         <mdc-card-action-icons>
-          <a href="https://github.com/TheReddKing" target="_blank" class="p-1 text-black-50"><mdc-icon svgIcon="github-circle"></mdc-icon></a>
-          <a href="https://www.linkedin.com/in/kevinfang21" target="_blank" class="p-1 text-black-50"><mdc-icon svgIcon="linkedin"></mdc-icon></a>
+          <a href="https://github.com/TheReddKing" target="_blank" class="p-1 text-black-50" (click)="this.sendAnalytic('leaving', 'kevin fang github');"><mdc-icon svgIcon="github-circle"></mdc-icon></a>
+          <a href="https://www.linkedin.com/in/kevinfang21" target="_blank" class="p-1 text-black-50" (click)="this.sendAnalytic('leaving', 'kevin fang linkedin');"><mdc-icon svgIcon="linkedin"></mdc-icon></a>
         </mdc-card-action-icons>
       </mdc-card-actions>
     </mdc-card>

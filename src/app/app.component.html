@@ -101,16 +101,16 @@
           </a>
 
           <div class="text-center w-100 pb-2">
-            <a mdcIconButton class="col-3" href="https://discord.gg/5fH66UV" target="_blank">
+            <a mdcIconButton class="col-3" href="https://discord.gg/5fH66UV" target="_blank" (click)="this.sendAnalytic('leaving', 'discord sidebar');">
               <mdc-icon svgIcon="discord"></mdc-icon>
             </a>
-            <a mdcIconButton class="col-3" href="https://www.facebook.com/theorangealliance" target="_blank">
+            <a mdcIconButton class="col-3" href="https://www.facebook.com/theorangealliance" target="_blank" (click)="this.sendAnalytic('leaving', 'facebook sidebar');">
               <mdc-icon svgIcon="facebook"></mdc-icon>
             </a>
-            <a mdcIconButton class="col-3" href="https://www.twitter.com/toalliance" target="_blank">
+            <a mdcIconButton class="col-3" href="https://www.twitter.com/toalliance" target="_blank" (click)="this.sendAnalytic('leaving', 'twitter sidebar');">
               <mdc-icon svgIcon="twitter"></mdc-icon>
             </a>
-            <a mdcIconButton class="col-3" href="https://www.instagram.com/toalliance" target="_blank">
+            <a mdcIconButton class="col-3" href="https://www.instagram.com/toalliance" target="_blank" (click)="this.sendAnalytic('leaving', 'instagram sidebar');">
               <mdc-icon svgIcon="instagram"></mdc-icon>
             </a>
           </div>
@@ -126,7 +126,7 @@
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a href="https://revrobotics.com/" target="_blank" class="p-4" mdc-list-item>
+          <a href="https://revrobotics.com/" target="_blank" class="p-4" mdc-list-item  (click)="this.sendAnalytic('leaving', 'leaving site', 'rev robotics logo');">
             <img class="img-fit-w" src="../assets/imgs/powered_by_rev.png" title="Powered by REV" />
           </a>
 

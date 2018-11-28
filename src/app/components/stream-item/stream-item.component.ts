@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router} from '@angular/router';
-import EventLiveStream from "../../../models/EventLiveStream";
+import EventLiveStream from "../../models/EventLiveStream";
 
 @Component({
   selector: 'toa-stream-item',
@@ -14,7 +14,7 @@ export class StreamItemComponent implements OnInit {
 
   @Input() streams: EventLiveStream[];
   stream: EventLiveStream = null;
-  selectedStreamKey: string = '';
+  selectedStreamKey = '';
 
   constructor(public router: Router) {
 
@@ -29,11 +29,21 @@ export class StreamItemComponent implements OnInit {
   }
 
   getStream(streamKey: string): EventLiveStream {
-    for (let stream of this.streams) {
+    for (const stream of this.streams) {
       if (stream.streamKey === streamKey) {
+        this.sendAnalytic('stream',  stream.eventKey + ', ' + stream.channelName + ', ' + stream.streamType);
         return stream;
       }
     }
     return null;
+  }
+
+  sendAnalytic(category, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: this.router.url,
+      eventAction: action,
+      eventValue: 10
+    });
   }
 }

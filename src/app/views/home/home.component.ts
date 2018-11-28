@@ -143,4 +143,13 @@ export class HomeComponent {
     const endDateTime = new Date(this.firstupdatesnow.endDateTime);
     return this.isBetweenDates(startDateTime, endDateTime, this.today)
   }
+
+  sendAnalytic(category, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: this.router.url,
+      eventAction: action,
+      eventValue: 10
+    });
+  }
 }

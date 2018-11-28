@@ -217,11 +217,11 @@ export class TeamComponent implements OnInit {
 
   beautifulURL(website: string) {
     website = website.substr( website.indexOf(':') + 3 ); // Taking off the http/s
-    if (website.endsWith("/") || website.endsWith("?") || website.endsWith("#")) { // Taking off unnecessary chars
+    if (website.endsWith('/') || website.endsWith('?') || website.endsWith('#')) { // Taking off unnecessary chars
       website = website.substr( 0, website.length - 1 );
     }
 
-    return website.startsWith("www.") ? website : "www."+website;
+    return website.startsWith('www.') ? website : 'www.'+website;
   }
 
   scrollToEvent(id: string) {
@@ -247,5 +247,14 @@ export class TeamComponent implements OnInit {
 
   public isSelected(view_type): boolean {
     return this.view_type === view_type;
+  }
+
+  sendAnalytic(category, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: this.router.url,
+      eventAction: action,
+      eventValue: 10
+    });
   }
 }

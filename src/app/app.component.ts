@@ -128,6 +128,7 @@ export class TheOrangeAllianceComponent {
     this.router.navigate(['/teams', teamKey]);
     e.preventDefault();
     e.stopPropagation();
+    this.sendAnalytic('search',  teamKey);
     this.showSearch = false;
     this.search = '';
   }
@@ -136,12 +137,22 @@ export class TheOrangeAllianceComponent {
     this.router.navigate(['/events', eventKey]);
     e.preventDefault();
     e.stopPropagation();
+    this.sendAnalytic('search',  eventKey);
     this.showSearch = false;
     this.search = '';
   }
 
-  @HostListener('document:click', ['$event']) clickedOutside($event){
+  @HostListener('document:click', ['$event']) clickedOutside($event) {
     this.showSearch = false;
+  }
+
+  sendAnalytic(category, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: this.router.url,
+      eventAction: action,
+      eventValue: 10
+    });
   }
 
 }
