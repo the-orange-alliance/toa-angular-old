@@ -2,7 +2,7 @@ import { Component, HostListener, NgZone, ViewChild } from '@angular/core';
 import { FTCDatabase } from './providers/ftc-database';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
-import {NavigationEnd, Router} from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
 import { MdcTopAppBar, MdcTextField } from '@angular-mdc/web';
