@@ -145,6 +145,19 @@ export class TheOrangeAllianceComponent {
   @HostListener('document:click', ['$event']) clickedOutside($event) {
     this.showSearch = false;
   }
+  navToTopSearch(): void {
+    if (this.teamSearchResults.length > 0) {
+      this.router.navigate(['/teams', this.teamSearchResults[0].teamKey]);
+      this.sendAnalytic('search',  this.teamSearchResults[0].teamKey);
+    } else if (this.eventSearchResults.length > 0) {
+      this.router.navigate(['/events', this.eventSearchResults[0].eventKey]);
+      this.sendAnalytic('search',  this.eventSearchResults[0].eventKey);
+    } else {
+      this.router.navigate(['/not-found']);
+    }
+    this.showSearch = false;
+    this.search = '';
+  }
 
   sendAnalytic(category, action): void {
     (<any>window).ga('send', 'event', {
