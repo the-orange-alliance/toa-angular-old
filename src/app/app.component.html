@@ -147,18 +147,24 @@
           </button>
         </div>
         <div class="modal-body pt-0" style="overflow-y: initial !important">
-          <mdc-text-field #searchInput class="mobile-search" (change)="performSearch()" (keydown.enter)="this.navToTopSearch();" label="Team # or Event" [(ngModel)]="search" [fullwidth]="true"></mdc-text-field>
+          <mdc-text-field #searchInput class="mobile-search"
+                          (change)="performSearch()"
+                          (keydown.enter)="this.navToTopSearch()"
+                          label="Team # or Event"
+                          [(ngModel)]="search"
+                          [fullwidth]="true">
+          </mdc-text-field>
           <div class="row mt-3" *ngIf="search" style="max-height: calc(100vh - 175px); overflow-y: auto">
             <div class="col-md-6 col-12">
               <div mdcHeadline5 class="black">Teams</div>
               <mdc-list *ngIf="teamSearchResults">
-                <toa-team-item *ngFor="let result of teamSearchResults" [team]="result"></toa-team-item>
+                <toa-team-item *ngFor="let result of teamSearchResults" [team]="result" data-dismiss="modal"></toa-team-item>
               </mdc-list>
               <p *ngIf="teamSearchResults.length === 0">No teams found</p>
             </div>
             <div class="col-md-6 col-12">
               <div mdcHeadline5 class="black">Events</div>
-              <toa-event-item *ngFor="let result of eventSearchResults" [event]="result"></toa-event-item>
+              <toa-event-item *ngFor="let result of eventSearchResults" [event]="result" data-dismiss="modal"></toa-event-item>
               <p *ngIf="eventSearchResults.length === 0">No events found</p>
             </div>
           </div>
