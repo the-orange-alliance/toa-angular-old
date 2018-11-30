@@ -29,8 +29,6 @@ export class HomeComponent {
   public firstupdatesnow: EventLiveStream;
 
   public today: Date;
-  public weekStart: Date;
-  public weekEnd: Date;
 
   constructor(private router: Router, private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals) {
     this.today = new Date();
@@ -77,19 +75,15 @@ export class HomeComponent {
     });
     this.ftc.getSeasonEvents(this.ftc.year).then((events: Event[]) => {
       let today = new Date();
-      today = new Date(today.getFullYear(), today.getMonth(), today.getDate() ); /** remove fractional day */
       this.currentEvents = [];
       for (const event of events) {
-        this.weekStart = this.getStartOfWeek(new Date(event.startDate));
-        this.weekEnd = this.getEndofWeek(new Date(event.endDate));
-        if (this.isBetweenDates(this.weekStart, this.weekEnd, today)) {
+        if (this.isBetweenDates(new Date(event.startDate), new Date(event.endDate), today)) {
           this.currentEvents.push(event);
         }
       }
     });
 
     this.ftc.getAnnouncements().then((announcements: WebAnnouncement[]) => {
-      const today = new Date();
       for (const announcement of announcements) {
         if (announcement.isActive) {
           this.currentAnnouncement = announcement;
@@ -107,18 +101,16 @@ export class HomeComponent {
     })
   }
 
-  private getStartOfWeek(d: Date): Date {
-    const day = d.getDay();
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + (day == 0 ? -6 : 1) - day);
-  }
-
-  private getEndofWeek(d: Date): Date {
-    const day = d.getDay();
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + (day == 0 ? 0 : 7) - day);
-  }
-
   private isBetweenDates(startDate: Date, endDate: Date, today: Date) {
-    return (today <= endDate && today >= startDate);
+    let startValue: number = this.removeFractionalDay(startDate).valueOf();
+    let endValue: number   = this.removeFractionalDay(endDate).valueOf();
+    let todayValue: number = this.removeFractionalDay(today).valueOf();
+
+    return (todayValue <= endValue && todayValue >= startValue);
+  }
+
+  private removeFractionalDay(date: Date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
 
   public openTeamPage(team: any) {
@@ -134,7 +126,7 @@ export class HomeComponent {
   }
 
   public willFUNstartSoon(): boolean {
-    const diff = (new Date(this.firstupdatesnow.startDateTime).valueOf() - this.today.valueOf()) / 1000 / 60 / 60;// Convert milliseconds to hours
+    const diff = (new Date(this.firstupdatesnow.startDateTime).valueOf() - this.today.valueOf()) / 1000 / 60 / 60; // Convert milliseconds to hours
     return diff <= 24 && diff >= 0;
   }
 
@@ -142,14 +134,5 @@ export class HomeComponent {
     const startDateTime = new Date(this.firstupdatesnow.startDateTime);
     const endDateTime = new Date(this.firstupdatesnow.endDateTime);
     return this.isBetweenDates(startDateTime, endDateTime, this.today)
-  }
-
-  sendAnalytic(category, action): void {
-    (<any>window).ga('send', 'event', {
-      eventCategory: category,
-      eventLabel: this.router.url,
-      eventAction: action,
-      eventValue: 10
-    });
   }
 }

@@ -34,18 +34,18 @@
         </mdc-card>
       </div>
     </div>
-    <div class="row mt-3" *ngIf="weekStart && weekEnd && currentEvents">
+    <div class="row mt-3" *ngIf="currentEvents">
       <div class="p-1 col-12">
         <mdc-card class="toa-card p-0">
           <div class="p-2">
-            <div class="toa-card-header pb-0" mdcSubtitle2>This Week's Events</div>
+            <div class="toa-card-header pb-0" mdcSubtitle2>Today's Events</div>
             <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ today | date :  "mediumDate" }}</div>
           </div>
 
           <mdc-list-divider></mdc-list-divider>
 
           <div *ngIf="currentEvents.length <= 0">
-            <p class="pt-4 text-center toa-card-subtitle" >There are no events occurring this week.</p>
+            <p class="pt-4 text-center toa-card-subtitle">There are no events occurring today.</p>
           </div>
 
           <mdc-list *ngIf="currentEvents.length > 0">
