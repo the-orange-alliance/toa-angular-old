@@ -49,7 +49,7 @@
           </div>
 
           <mdc-list *ngIf="currentEvents.length > 0">
-            <toa-event-item *ngFor="let event of currentEvents" [event]="event"></toa-event-item>
+            <toa-event-item *ngFor="let event of currentEvents" [event]="event" [hideLiveBadge]="true"></toa-event-item>
           </mdc-list>
         </mdc-card>
       </div>

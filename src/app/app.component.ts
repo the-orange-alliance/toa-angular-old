@@ -145,6 +145,7 @@ export class TheOrangeAllianceComponent {
   @HostListener('document:click', ['$event']) clickedOutside($event) {
     this.showSearch = false;
   }
+
   navToTopSearch(): void {
     if (this.teamSearchResults.length > 0) {
       this.router.navigate(['/teams', this.teamSearchResults[0].teamKey]);
