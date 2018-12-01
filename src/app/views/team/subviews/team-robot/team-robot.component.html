@@ -20,11 +20,13 @@
 <div *ngIf="images.length > 0">
   <div mdcHeadline6>Photos</div>
   <mdc-image-list [masonry]="true" [textProtection]="true" class="toa-image-list">
-    <mdc-image-list-item *ngFor="let image of images">
+    <mdc-image-list-item *ngFor="let image of images" class="w-100">
       <img mdcImageListImage src="{{ image.mediaLink }}" />
+<!--
       <mdc-image-list-supporting *ngIf="image.mediaTitle">
         <span mdcImageListLabel>{{ image.mediaTitle }}</span>
       </mdc-image-list-supporting>
+-->
     </mdc-image-list-item>
   </mdc-image-list>
 </div>
