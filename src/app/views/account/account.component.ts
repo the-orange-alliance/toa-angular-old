@@ -40,9 +40,6 @@ export class AccountComponent {
               this.teams = [];
               this.events = [];
 
-              let teamsSorter = new TeamSorter();
-              let eventsSorter = new EventSorter();
-
               items.forEach(element => {
                 this.user[element.key] = element.payload.val();
               });
@@ -51,8 +48,8 @@ export class AccountComponent {
               for (let key in teams) {
                 if (teams[key] === true) {
                   this.ftc.getTeamBasic(key).then((team: Team) => {
-                    this.teams.push(team)
-                    this.teams = teamsSorter.sort(this.teams, 0, this.teams.length - 1);
+                    this.teams.push(team);
+                    this.teams = new TeamSorter().sort(this.teams);
                   });
                 }
               }
@@ -62,7 +59,7 @@ export class AccountComponent {
                 if (events[key] === true) {
                   this.ftc.getEventBasic(key).then((event: Event) => {
                     this.events.push(event)
-                    this.events = eventsSorter.sort(this.events, 0, this.events.length - 1);
+                    this.events = new EventSorter().sort(this.events);
                   });
                 }
               }
@@ -74,7 +71,6 @@ export class AccountComponent {
         this.router.navigateByUrl('/account/login');
       }
     });
-
   }
 
   signOut(): void {

@@ -1,4 +1,5 @@
 import Event from '../models/Event';
+import Team from "../models/Team";
 
 export class EventParser {
 
@@ -103,50 +104,13 @@ export class EventFilter {
 
 export class EventSorter {
 
-  constructor() {}
-
-  public sort(items: Event[], left, right) {
-    let pivot, partitionIndex;
-
-    if (left < right) {
-      pivot = right;
-      partitionIndex = this.partition(items, pivot, left, right);
-
-      this.sort(items, left, partitionIndex - 1);
-      this.sort(items, partitionIndex + 1, right);
-    }
-
+  public sort(items: Event[]) {
+    items.sort(function (a, b) {
+      let date1 = new Date(a.startDate);
+      let date2 = new Date(b.startDate);
+      // new Date(items[i].startDate) < new Date(pivotValue.startDate) || pivotValue.divisionKey === '0'
+      return (date1 > date2) ? 1 : ((date2 > date1) ? -1 : 0);
+    });
     return items;
   }
-
-  private partition(items: Event[], pivot, left, right) {
-    const pivotValue = items[pivot];
-    let partitionIndex = left;
-
-    for (let i = left; i < right; i++) {
-      // -1 means items[i] < pivotValue, 1 means items[i] > pivotValue
-      if (new Date(items[i].startDate) < new Date(pivotValue.startDate) || pivotValue.divisionKey === '0') {
-        this.swap(items, i, partitionIndex);
-        partitionIndex++;
-      }
-    }
-    this.swap(items, right, partitionIndex);
-    return partitionIndex;
-  }
-
-  private swap(items, index1, index2) {
-    const temp = items[index1];
-    items[index1] = items[index2];
-    items[index2] = temp;
-  }
-
-  public sortRev(items: Event[], left, right) {
-    this.sort(items, left, right);
-    // reverse order
-    for (let i = 0; i < (right + 1 - left) / 2; i++) {
-      this.swap(items, left + i, right - i);
-    }
-    return items;
-  }
-
 }

@@ -23,7 +23,6 @@ import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 })
 export class TeamComponent implements OnInit {
 
-  eventSorter: EventSorter;
   team: Team;
   teamKey: string;
   years: any;
@@ -38,7 +37,6 @@ export class TeamComponent implements OnInit {
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public db: AngularFireDatabase, public auth: AngularFireAuth) {
     this.teamKey = this.route.snapshot.params['team_key'];
-    this.eventSorter = new EventSorter();
 
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
@@ -125,7 +123,7 @@ export class TeamComponent implements OnInit {
   }
 
   private getEventMatches() {
-    this.team.events = this.eventSorter.sortRev(this.team.events, 0, this.team.events.length - 1);
+    this.team.events = new EventSorter().sort(this.team.events).reverse();
     for (const event of this.team.events) {
       this.ftc.getEventMatches(event.eventKey).then((data: Match[]) => {
         event.matches = data;

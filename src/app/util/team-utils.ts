@@ -1,40 +1,11 @@
+import Team from "../models/Team";
+
 export class TeamSorter {
 
-  constructor() {}
-
-  public sort(items, left, right) {
-    let pivot, partitionIndex;
-
-    if (left < right) {
-      pivot = right;
-      partitionIndex = this.partition(items, pivot, left, right);
-
-      this.sort(items, left, partitionIndex - 1);
-      this.sort(items, partitionIndex + 1, right);
-    }
-
+  public sort(items: Team[]) {
+    items.sort(function(a, b) {
+      return (a.teamNumber > b.teamNumber) ? 1 : ((b.teamNumber > a.teamNumber) ? -1 : 0);
+    });
     return items;
   }
-
-  private partition(items, pivot, left, right) {
-    const pivotValue = items[pivot];
-    let partitionIndex = left;
-
-    for (let i = left; i < right; i++) {
-      // -1 means items[i] < pivotValue, 1 means items[i] > pivotValue
-      if (items[i].teamNumber < pivotValue.teamNumber) {
-        this.swap(items, i, partitionIndex);
-        partitionIndex++;
-      }
-    }
-    this.swap(items, right, partitionIndex);
-    return partitionIndex;
-  }
-
-  private swap(items, index1, index2) {
-    const temp = items[index1];
-    items[index1] = items[index2];
-    items[index2] = temp;
-  }
-
 }
