@@ -26,7 +26,7 @@ export class EventsComponent implements OnInit {
   weeks: Map<string, Week>;
   availableWeeks: Week[];
 
-  currentSeason: Season;
+  currentSeason: Season = null;
   currentRegion: Region;
 
   eventFilter: EventFilter;
@@ -43,19 +43,9 @@ export class EventsComponent implements OnInit {
   ngOnInit(): void {
     this.ftc.getAllSeasons().then((data: Season[]) => {
       this.seasons = data.reverse();
-      this.currentSeason = this.seasons[0];
-
-      this.ftc.getSeasonEvents(this.currentSeason.seasonKey).then((data: Event[]) => {
-        this.events = data;
-        this.eventFilter = new EventFilter(this.events);
-        this.eventSorter = new EventSorter();
-        this.events = this.eventSorter.sort(this.events, 0, this.events.length - 1);
-        if (this.events.length > 0) {
-          this.organizeEventsByWeek();
-        }
-      });
-
+      this.selectSeason(this.seasons[0]);
     });
+
     this.ftc.getAllRegions().then((data: Region[]) => {
       const allRegions: Region = new Region();
       allRegions.regionKey = 'All Regions';
@@ -111,29 +101,26 @@ export class EventsComponent implements OnInit {
   }
 
   selectSeason(season: Season) {
-    if (this.currentSeason.seasonKey !== season.seasonKey) {
+    if (this.currentSeason === null || this.currentSeason.seasonKey !== season.seasonKey) {
       this.currentSeason = season;
       this.ftc.getSeasonEvents(this.currentSeason.seasonKey).then((data: Event[]) => {
-        this.events = data;
+        this.events = new EventSorter().sort(data);
         this.eventFilter = new EventFilter(this.events);
-        this.events = this.eventSorter.sort(this.events, 0, this.events.length - 1);
-        this.currentRegion = this.regions[this.regions.length - 1];
-        if (this.events.length > 0) {
-          this.organizeEventsByWeek();
-        }
+        this.selectRegion(this.currentRegion)
       });
     }
   }
 
   selectRegion(region: Region) {
-    if (this.currentRegion.regionKey !== region.regionKey) {
-      this.currentRegion = region;
-      if (this.currentRegion.description) {
-        this.eventFilter.filterArray(this.currentRegion.regionKey);
-        this.events = this.eventFilter.getFilteredArray();
-      } else {
-        this.events = this.eventFilter.getOriginalArray();
-      }
+    this.currentRegion = region;
+    if (this.currentRegion.description) {
+      this.eventFilter.filterArray(this.currentRegion.regionKey);
+      this.events = this.eventFilter.getFilteredArray();
+    } else {
+      this.events = this.eventFilter.getOriginalArray();
+    }
+    if (this.events.length > 0) {
+      this.events = new EventSorter().sort(this.events);
       this.organizeEventsByWeek();
     }
   }
