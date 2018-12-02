@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../../../providers/ftc-database';
 import AwardRecipient from "../../../../models/AwardRecipient";
@@ -8,7 +8,7 @@ import AwardRecipient from "../../../../models/AwardRecipient";
   selector: 'toa-event-awards',
   templateUrl: './event-awards.component.html'
 })
-export class EventAwardsComponent implements OnInit {
+export class EventAwardsComponent {
 
   @Input() event: any;
 
@@ -16,12 +16,8 @@ export class EventAwardsComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-
-  }
-
   isNewList(i: number): boolean {
-    return (i > 0 && this.getHeader(this.event.awards[i]) !== this.getHeader(this.event.awards[i - 1])) || i === 0
+    return i > 0 ? this.getHeader(this.event.awards[i]) !== this.getHeader(this.event.awards[i - 1]) : true
   }
 
   getHeader(awardRecipient: AwardRecipient) {

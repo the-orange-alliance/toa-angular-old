@@ -34,10 +34,10 @@ export class TheOrangeAllianceComponent {
 
   user = [];
 
-  private _mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
+  mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
   @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
 
-  constructor(public router: Router, private ftc: FTCDatabase, private _ngZone: NgZone,
+  constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone,
               db: AngularFireDatabase, auth: AngularFireAuth) {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
@@ -55,7 +55,7 @@ export class TheOrangeAllianceComponent {
       }
     });
 
-    this._mediaMatcher.addListener(mql => this._ngZone.run(() => this._mediaMatcher = mql));
+    this.mediaMatcher.addListener(mql => this.ngZone.run(() => this.mediaMatcher = mql));
 
     this.current_year = new Date().getFullYear();
     this.teamSearchResults = [];
@@ -103,7 +103,7 @@ export class TheOrangeAllianceComponent {
   }
 
   isScreenSmall(): boolean {
-    return this.router.url === '/stream' || this._mediaMatcher.matches;
+    return this.router.url === '/stream' || this.mediaMatcher.matches;
   }
 
   focusSearchInput(searchInput: MdcTextField): void {

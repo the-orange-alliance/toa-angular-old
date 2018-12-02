@@ -1,5 +1,4 @@
 import Event from '../models/Event';
-import Team from "../models/Team";
 
 export class EventParser {
 
@@ -108,7 +107,6 @@ export class EventSorter {
     items.sort(function (a, b) {
       let date1 = new Date(a.startDate);
       let date2 = new Date(b.startDate);
-      // new Date(items[i].startDate) < new Date(pivotValue.startDate) || pivotValue.divisionKey === '0'
       return (date1 > date2) ? 1 : ((date2 > date1) ? -1 : 0);
     });
     return items;

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
-import { EventParser } from '../../util/event-utils';
+import { TeamSorter } from '../../util/team-utils';
+import { AwardSorter } from '../../util/award-utils';
 import { MatchSorter } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -18,9 +19,6 @@ import EventLiveStream from '../../models/EventLiveStream';
   styleUrls: ['./event.component.scss']
 })
 export class EventComponent implements OnInit {
-
-  event_parser: EventParser;
-  match_sorter: MatchSorter;
 
   seasons: any;
   event_types: any;
@@ -72,15 +70,17 @@ export class EventComponent implements OnInit {
           }
 
           if (this.event.matches) {
-            this.match_sorter = new MatchSorter();
-            this.event.matches = this.match_sorter.sort(this.event.matches, 0, this.event.matches.length - 1);
+            this.event.matches = new MatchSorter().sort(this.event.matches, 0, this.event.matches.length - 1);
           }
 
           if (this.event.awards) {
-            this.event.awards.sort((a, b) => (a.award.displayOrder > b.award.displayOrder) ? 1 : ((b.award.displayOrder > a.award.displayOrder) ? -1 : 0));
+            this.event.awards = new AwardSorter().sort(this.event.awards);
           }
 
-          this.event_parser = new EventParser(this.event);
+          if (this.event.teams) {
+            this.event.teams = new TeamSorter().sortEventParticipant(this.event.teams);
+          }
+
           this.totalteams = this.event.teams.length;
           this.totalmatches = this.event.matches.length;
           this.totalrankings = this.event.rankings.length;
