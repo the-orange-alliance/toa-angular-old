@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { MatchSorter } from '../../util/match-utils';
 import { EventSorter } from '../../util/event-utils';
+import { AwardSorter } from "../../util/award-utils";
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import Team from '../../models/Team';
 import Match from '../../models/Match';
@@ -30,9 +31,10 @@ export class TeamComponent implements OnInit {
   currentSeason: Season;
   thisSeason: Season;
   view_type: string;
+  wlt: TeamSeasonRecord = null;
+
   user: any = null;
   favorite: boolean;
-  wlt: TeamSeasonRecord = null;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public db: AngularFireDatabase, public auth: AngularFireAuth) {
@@ -49,7 +51,6 @@ export class TeamComponent implements OnInit {
     });
 
     this.select('results');
-
   }
 
   public ngOnInit(): void {
@@ -148,11 +149,14 @@ export class TeamComponent implements OnInit {
     this.ftc.getTeamAwards(this.teamKey, this.currentSeason.seasonKey).then((data: AwardRecipient[]) => {
       this.team.awards = data;
       for (const event of this.team.events) {
-        const awards = [];
+        let awards = [];
         for (const award of data) {
           if (event.eventKey === award.eventKey) {
             awards.push(award);
           }
+        }
+        if (awards) {
+          awards = new AwardSorter().sort(awards);
         }
         event.awards = awards;
       }
@@ -191,10 +195,6 @@ export class TeamComponent implements OnInit {
     return teamMatches;
   }
 
-  openTeamPage(team_number: any) {
-    this.router.navigate(['/']);
-  }
-
   openMatchDetails(match_data: any) {
     this.router.navigate(['/matches', match_data.match_key]);
   }
@@ -219,7 +219,7 @@ export class TeamComponent implements OnInit {
       website = website.substr( 0, website.length - 1 );
     }
 
-    return website.startsWith('www.') ? website : 'www.'+website;
+    return website.startsWith('www.') ? website.substring(4, website.length) : website;
   }
 
   scrollToEvent(id: string) {
@@ -227,7 +227,7 @@ export class TeamComponent implements OnInit {
     window.scroll({
       behavior: 'smooth',
       left: 0,
-      top: element.offsetTop + 65
+      top: element.getBoundingClientRect().top - 85
     });
   }
 
