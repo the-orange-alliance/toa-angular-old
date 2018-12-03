@@ -48,8 +48,10 @@ export class AccountComponent {
               for (let key in teams) {
                 if (teams[key] === true) {
                   this.ftc.getTeamBasic(key).then((team: Team) => {
-                    this.teams.push(team);
-                    this.teams = new TeamSorter().sort(this.teams);
+                    if (team) {
+                      this.teams.push(team);
+                      this.teams = new TeamSorter().sort(this.teams);
+                    }
                   });
                 }
               }
@@ -58,8 +60,10 @@ export class AccountComponent {
               for (let key in events) {
                 if (events[key] === true) {
                   this.ftc.getEventBasic(key).then((event: Event) => {
-                    this.events.push(event)
-                    this.events = new EventSorter().sort(this.events);
+                    if (event) {
+                      this.events.push(event);
+                      this.events = new EventSorter().sort(this.events);
+                    }
                   });
                 }
               }
