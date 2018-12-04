@@ -4,6 +4,7 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 @Component({
   selector: 'toa-about',
   templateUrl: './about.component.html',
+  styleUrls: ['./about.component.scss'],
   providers: [TheOrangeAllianceGlobals]
 })
 export class AboutComponent {

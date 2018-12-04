@@ -1,0 +1,55 @@
+.about-header {
+  padding: 30px 15px;
+  font-weight: 700;
+  text-align: center;
+  font-size: 45px;
+}
+
+.dev-card {
+  padding: 0!important;
+  margin: 0 8px;
+}
+
+.dev-card::before {
+  background: #ffe9c8;
+  content: '';
+  display: block;
+  height: 115px;
+  width: calc(100% - 16px);
+  position: absolute;
+}
+
+.dev-card .profile {
+  background-color: #00bcd4;
+  border-radius: 50%;
+  height: 64px;
+  left: 30px;
+  pointer-events: none;
+  position: absolute;
+  top: 115px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 64px;
+}
+
+.dev-card .title {
+  align-content: center;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  line-height: 22px;
+  justify-content: center;
+  position: absolute;
+}
+
+.dev-card .content {
+  height: 100%;
+  padding: 15px 30px 0;
+  position: relative;
+}
+
+.dev-card .content .text {
+  margin-top: 140px;
+  margin-bottom: 15px;
+  padding: 0!important;
+}
