@@ -3,7 +3,8 @@ import Event from '../../models/Event';
 
 @Component({
   selector: 'toa-event-item',
-  templateUrl: './event.item.component.html'
+  templateUrl: './event.item.component.html',
+  styleUrls: ['./event.item.component.scss']
 })
 export class EventItemComponent {
 

@@ -1,0 +1,11 @@
+@import "../../../constants";
+
+.data-indicator {
+  background: $mdc-theme-primary;
+  top: 4px;
+  left: 4px;
+  width: 4px;
+  bottom: 4px;
+  position: absolute;
+  border-radius: 4px;
+}

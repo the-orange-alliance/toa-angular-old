@@ -1,5 +1,6 @@
 <a routerLink="/events/{{ event.eventKey }}" class="no-underline mdc-list--two-line">
   <mdc-list-item interactive>
+    <!--<div class="data-indicator"></div>-->
     <mdc-list-item-text>
        <span class="black">{{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} <span class="badge bg-primary" *ngIf="isLive()">LIVE</span></span>
       <span class="mdc-list-item__secondary-text" *ngIf="event.startDate == event.endDate"><span style="text-transform: capitalize">{{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : '' }} {{ event.country }}</span> on {{ event.startDate | date :  "mediumDate"}}</span>
