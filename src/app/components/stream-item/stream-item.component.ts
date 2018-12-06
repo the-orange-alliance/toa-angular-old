@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router} from '@angular/router';
 import EventLiveStream from "../../models/EventLiveStream";
+import {v} from "@angular/core/src/render3";
 
 @Component({
   selector: 'toa-stream-item',

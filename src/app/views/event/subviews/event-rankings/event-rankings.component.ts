@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FTCDatabase } from '../../../../providers/ftc-database';
 import { RankSorter } from '../../../../util/ranking-utils';
 
 @Component({
-  providers: [FTCDatabase],
   selector: 'toa-event-rankings',
   templateUrl: './event-rankings.component.html'
 })

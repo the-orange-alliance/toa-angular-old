@@ -1,4 +1,6 @@
-import { Component, HostListener, NgZone, ViewChild } from '@angular/core';
+import { Component, HostListener, Inject, Injectable, NgZone, ViewChild } from '@angular/core';
+import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
+import { TranslateService } from '@ngx-translate/core';
 import { FTCDatabase } from './providers/ftc-database';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -17,7 +19,7 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
   styleUrls: ['./app.component.css'],
   providers: [FTCDatabase, TheOrangeAllianceGlobals]
 })
-
+@Injectable()
 export class TheOrangeAllianceComponent {
 
   teams: Team[];
@@ -31,6 +33,7 @@ export class TheOrangeAllianceComponent {
   showSearch: boolean;
 
   current_year: any;
+  selectedLanguage = '';
 
   user = [];
 
@@ -38,7 +41,13 @@ export class TheOrangeAllianceComponent {
   @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
 
   constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone,
-              db: AngularFireDatabase, auth: AngularFireAuth) {
+              db: AngularFireDatabase, auth: AngularFireAuth, public translate: TranslateService,
+              @Inject(LOCAL_STORAGE) private storage: StorageService) {
+
+    translate.setDefaultLang('en'); // this language will be used as a fallback when a translation isn't found in the current language
+    this.selectedLanguage = this.storage.get('lang') || translate.getBrowserLang();
+    this.languageSelected();
+
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
     };
@@ -159,6 +168,12 @@ export class TheOrangeAllianceComponent {
     this.showSearch = false;
     this.search = '';
   }
+
+  languageSelected(): void {
+    this.storage.set('lang', this.selectedLanguage);
+    this.translate.use(this.selectedLanguage);
+  }
+
 
   sendAnalytic(category, action): void {
     (<any>window).ga('send', 'event', {

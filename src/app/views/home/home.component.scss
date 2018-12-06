@@ -5,6 +5,11 @@
   padding: 14px;
 }
 
+[dir="rtl"] .counting-card-content {
+  margin-left: 0!important;
+  margin-right: 60px;
+}
+
 .counting-card-title {
   font-weight: 600;
   color: #000;

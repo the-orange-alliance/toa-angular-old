@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -26,7 +28,6 @@ import { EventTeamsComponent } from './views/event/subviews/event-teams/event-te
 import { EventAwardsComponent } from './views/event/subviews/event-awards/event-awards.component';
 import { PageNotFoundComponent } from './views/404/404.component';
 import { TeamComponent } from './views/team/team.component';
-import { RankingComponent } from './views/ranking/ranking.component';
 import { StreamingComponent } from './views/stream/streaming.component';
 import { PrivacyTermsComponent } from './views/privacy_terms/PrivacyTerms.component';
 import { MatchesComponent } from './views/matches/matches.component';
@@ -43,6 +44,11 @@ import { RoverRuckusComponent } from './views/matches/years/1819/1819-rover-ruck
 import { TeamRobotComponent } from './views/team/subviews/team-robot/team-robot.component';
 import { TeamResultsComponent } from './views/team/subviews/team-results/team-results.component';
 import { StreamItemComponent } from './components/stream-item/stream-item.component';
+import { StorageServiceModule } from "angular-webstorage-service";
+
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient);
+}
 
 @NgModule({
   declarations: [
@@ -66,7 +72,6 @@ import { StreamItemComponent } from './components/stream-item/stream-item.compon
     StreamItemComponent,
     PageNotFoundComponent,
     ApiDocsComponent,
-    RankingComponent,
     StreamingComponent,
     PrivacyTermsComponent,
     MatchesComponent,
@@ -85,6 +90,14 @@ import { StreamItemComponent } from './components/stream-item/stream-item.compon
     AngularFireAuthModule,
 
     BrowserModule.withServerTransition({appId: 'TOA-WebApp-1819'}),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    StorageServiceModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,

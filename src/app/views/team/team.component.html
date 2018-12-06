@@ -1,10 +1,11 @@
 <div class="row">
   <h2 [class.col-9]="user !== null" [class.col-12]="user === null">Team #{{ (team?.teamNumber) ? team.teamNumber : teamKey }}</h2>
-  <div *ngIf="user !== null" class="col-12 col-md-3">
+  <div *ngIf="user !== null && team?.teamKey" class="col-12 col-md-3">
     <button mdc-button primary raised (click)="toggleTeam()" class="align-self-end icon-white text-white w-100" style="text-transform:initial; height: auto; padding: 5px">
       <mdc-icon *ngIf="favorite" class="mr-1">favorite</mdc-icon>
       <mdc-icon *ngIf="!favorite" class="mr-1">favorite_border</mdc-icon>
-      {{ favorite ? 'Remove from myTOA' : 'Add to myTOA' }}</button>
+      {{ (favorite ? 'general.remove_from_mytoa' : 'general.add_to_mytoa') | translate }}
+    </button>
   </div>
 </div>
 
@@ -26,10 +27,10 @@
 
         <ul *ngIf="team.events" class="nav flex-column mt-2" style="padding-left: 0.75rem">
           <li class="nav-item text-primary">
-            <a (click)="scrollToEvent('info')">Team Info</a>
+            <a (click)="scrollToEvent('info')">{{ 'pages.team.team_info' | translate }}</a>
           </li>
           <li class="nav-item mt-1">
-            Event Results
+            {{ 'pages.team.event_results' | translate }}
             <ul class="nav flex-column">
               <li class="nav-item text-primary"><a *ngFor="let event of team.events" (click)="scrollToEvent(event.eventKey)" class="nav-link">{{ event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName}}</a></li>
             </ul>
@@ -47,7 +48,7 @@
       <div class="p-3">
         <div class="info-state d-flex align-content-center flex-wrap">
           <mdc-icon svgIcon="compass"></mdc-icon>
-          <p>Part of the {{ team.regionKey }} Region</p>
+          <p>{{ 'pages.team.part_of_region' | translate: {'regionKey': team.regionKey} }}</p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap">
@@ -62,17 +63,12 @@
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website && !beautifulURL(team.website).startsWith('www.facebook.com/')">
           <mdc-icon svgIcon="earth"></mdc-icon>
-          <p>Website: <a href="{{ team.website }}" (click)="this.sendAnalytic('leaving', this.team.teamKey + ' website');">{{ beautifulURL(team.website) }}</a></p>
-        </div>
-
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.robotName">
-          <mdc-icon svgIcon="robot"></mdc-icon>
-          <p>Robot Name: {{ team.robotName }}</p>
+          <p>{{ 'pages.team.website' | translate }}: <a href="{{ team.website }}" (click)="this.sendAnalytic('leaving', this.team.teamKey + ' website');">{{ beautifulURL(team.website) }}</a></p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.rookieYear && team.rookieYear !== 0">
           <mdc-icon svgIcon="airballoon"></mdc-icon>
-          <p>Rookie Year: {{ team.rookieYear }}</p>
+          <p>{{ 'pages.team.rookie_year' | translate }}: {{ team.rookieYear }}</p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="wlt">
@@ -82,12 +78,12 @@
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.lastActive < 1819">
           <mdc-icon svgIcon="clock-end"></mdc-icon>
-          <p>Last Active Season: {{ getSeasonString(team.lastActive, true) }}</p>
+          <p>{{ 'pages.team.last_active' | translate }}: {{ getSeasonString(team.lastActive, true) }}</p>
         </div>
 
         <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.awards && currentSeason && currentSeason.description">
           <mdc-icon svgIcon="trophy"></mdc-icon>
-          <p>{{ team.awards.length }} awards in {{ currentSeason.description }}</p>
+          <p>{{ 'pages.team.awards_in_season' | translate: {'awards': team.awards.length, 'season': currentSeason.description} }}</p>
         </div>
       </div>
     </mdc-card>
@@ -96,8 +92,8 @@
       <mdc-card class="toa-card">
         <mdc-tab-bar class="w-100" [focusOnActivate]="false" [activeTabIndex]="isSelected('results') ? 0 : 1">
           <mdc-tab-scroller>
-            <mdc-tab label="Event Results" (click)="select('results')"></mdc-tab>
-            <mdc-tab label="Robot" (click)="select('robot')" *ngIf="this.team.media && this.team.media.length > 0"></mdc-tab>
+            <mdc-tab label="{{ 'pages.team.event_results' | translate }}" (click)="select('results')"></mdc-tab>
+            <mdc-tab label="{{ 'pages.team.robot_profile.title' | translate }}" (click)="select('robot')" *ngIf="this.team.media && this.team.media.length > 0"></mdc-tab>
           </mdc-tab-scroller>
         </mdc-tab-bar>
         <div class="mt-4 p-2">

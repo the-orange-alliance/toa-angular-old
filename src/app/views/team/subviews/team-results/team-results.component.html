@@ -22,14 +22,12 @@
     </div>
   </div>
 
-  <small><strong>Bold</strong> is Winning Alliance</small><br>
-  <small><strong>Bold and Black</strong> is Selected Team</small><br>
-  <small>* is Surrogate match for that team</small><br>
-  <small>Empty is team was DQ or no-show</small>
+  <small [innerHTML]="'match_table.help.bold' | translate"></small><br/>
+  <small [innerHTML]="'match_table.help.bold_and_black' | translate"></small><br/>
+  <small [innerHTML]="'match_table.help.surrogate' | translate"></small><br/>
 </div>
 
 <div *ngIf="team.events && team.events.length <= 0" style="color: #757575; text-align: center">
-  <div mdcHeadline6>No events for {{ season }} season</div>
-  <div mdcBody1>This team hasn't yet played at any events this season.<br/>
-                Try changing the season using the selector above.</div>
+  <div mdcHeadline6>{{ 'no_data.events_for_season' | translate: {'season': season} }}</div>
+  <div mdcBody1 [innerHTML]="'no_data.events_for_season_long' | translate"></div>
 </div>

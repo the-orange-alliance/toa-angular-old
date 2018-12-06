@@ -131,8 +131,10 @@ export class HomeComponent {
   }
 
   public isFUNonLive(): boolean {
-    const startDateTime = new Date(this.firstupdatesnow.startDateTime);
-    const endDateTime = new Date(this.firstupdatesnow.endDateTime);
-    return this.isBetweenDates(startDateTime, endDateTime, this.today)
+    const startDateTime = new Date(this.firstupdatesnow.startDateTime).valueOf();
+    const endDateTime = new Date(this.firstupdatesnow.endDateTime).valueOf();
+    const todayTime = new Date().valueOf();
+
+    return (todayTime <= endDateTime && todayTime >= startDateTime);
   }
 }

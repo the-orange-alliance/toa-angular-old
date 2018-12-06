@@ -8,13 +8,13 @@
         <button mdc-button dense *ngIf="stream.eventKey" (click)="openEvent(stream.eventKey)">
           <mdc-icon class="mr-0">equalizer</mdc-icon>
         </button>
-        <span class="tooltiptext">Event Results</span>
+        <span class="tooltiptext">{{ 'pages.streams.event_results' | translate }}</span>
       </div>
       <div class="icon-tooltip">
         <button mdc-button dense (click)="stream = null">
           <mdc-icon class="mr-0">close</mdc-icon>
         </button>
-        <span class="tooltiptext">Close stream</span>
+        <span class="tooltiptext">{{ 'pages.streams.close_stream' | translate }}</span>
       </div>
     </div>
   </div>
@@ -29,8 +29,8 @@
       <mdc-dialog-content>
         <mdc-list>
           <mdc-radio-group [(ngModel)]="selectedStreamKey">
-            <mdc-list-item *ngFor="let _stream of streams; let i = index">
-              <mdc-radio mdcListItemGraphic [checked]="_stream.streamKey === streamKey3" [value]="_stream.streamKey"></mdc-radio>
+            <mdc-list-item *ngFor="let _stream of streams">
+              <mdc-radio mdcListItemGraphic [value]="_stream.streamKey"></mdc-radio>
               {{ _stream.streamName }}
             </mdc-list-item>
           </mdc-radio-group>

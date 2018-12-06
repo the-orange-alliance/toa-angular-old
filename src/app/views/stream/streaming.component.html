@@ -13,7 +13,7 @@
     </div>
 
     <h5 class="text-center mt-5 col-12 col-lg-10" *ngIf="streams && streams.length <= 0">
-      There are currently no active streams.
+      {{ 'no_data.streams_long' | translate }}
     </h5>
     <div class="col-2 d-none d-lg-block chat">
       <iframe frameborder="0"

@@ -2,12 +2,12 @@
 <table class="match-table" *ngIf="match">
   <thead>
     <tr *ngIf="match.participants && match.participants.length === 4">
-      <th colspan="2">Teams</th>
-      <th>Score</th>
+      <th colspan="2">{{ 'match_table.teams' | translate }}</th>
+      <th>{{ 'match_table.score' | translate }}</th>
     </tr>
     <tr *ngIf="match.participants && match.participants.length === 6">
-      <th colspan="3">Teams</th>
-      <th>Score</th>
+      <th colspan="3">{{ 'match_table.teams' | translate }}</th>
+      <th>{{ 'match_table.score' | translate }}</th>
     </tr>
   </thead>
   <tbody *ngIf="match.participants && match.participants.length == 4">
@@ -70,24 +70,24 @@
 <table class="match-table" *ngIf="matchList && !team">
   <thead>
   <tr class="d-none d-lg-table-row d-xl-table-row">
-    <th>Match</th>
+    <th>{{ 'match_table.match' | translate }}</th>
     <th class="p-0">
       <mdc-icon svgIcon="play-circle-outline"></mdc-icon>
     </th>
-    <th colspan="6">Red Alliance</th>
-    <th colspan="6">Blue Alliance</th>
-    <th colspan="2">Scores</th>
+    <th colspan="6">{{ 'match_table.red_alliance' | translate }}</th>
+    <th colspan="6">{{ 'match_table.blue_alliance' | translate }}</th>
+    <th colspan="2">{{ 'match_table.scores' | translate }}</th>
   </tr>
   <tr class="d-lg-none d-xl-none">
-    <th rowspan="2">Match</th>
+    <th rowspan="2">{{ 'match_table.match' | translate }}</th>
     <th class="p-0" rowspan="2">
       <mdc-icon svgIcon="play-circle-outline"></mdc-icon>
     </th>
-    <th colspan="12">Red Alliance</th>
+    <th colspan="12">{{ 'match_table.red_alliance' | translate }}</th>
     <th colspan="2">Red Score</th>
   </tr>
   <tr class="d-lg-none d-xl-none">
-    <th colspan="12">Blue Alliance</th>
+    <th colspan="12">{{ 'match_table.blue_alliance' | translate }}</th>
     <th colspan="2">Blue Score</th>
   </tr>
   </thead>
@@ -235,25 +235,25 @@
 <table class="match-table table-responsive d-sm-table" *ngIf="matchList && team">
   <thead>
   <tr class="d-none d-lg-table-row d-xl-table-row">
-    <th rowspan="2">Match</th>
+    <th rowspan="2">{{ 'match_table.match' | translate }}</th>
     <th rowspan="2">Result</th>
     <th class="p-0">
       <mdc-icon svgIcon="play-circle-outline"></mdc-icon>
     </th>
-    <th colspan="6">Red Alliance</th>
-    <th colspan="6">Blue Alliance</th>
-    <th colspan="2">Scores</th>
+    <th colspan="6">{{ 'match_table.red_alliance' | translate }}</th>
+    <th colspan="6">{{ 'match_table.blue_alliance' | translate }}</th>
+    <th colspan="2">{{ 'match_table.scores' | translate }}</th>
   </tr>
   <tr class="d-lg-none d-xl-none">
-    <th rowspan="2">Match</th>
+    <th rowspan="2">{{ 'match_table.match' | translate }}</th>
     <th class="p-0" rowspan="2">
       <mdc-icon svgIcon="play-circle-outline"></mdc-icon>
     </th>
-    <th colspan="12">Red Alliance</th>
+    <th colspan="12">{{ 'match_table.red_alliance' | translate }}</th>
     <th colspan="2">Red Score</th>
   </tr>
   <tr class="d-lg-none d-xl-none">
-    <th colspan="12">Blue Alliance</th>
+    <th colspan="12">{{ 'match_table.blue_alliance' | translate }}</th>
     <th colspan="2">Blue Score</th>
   </tr>
   </thead>

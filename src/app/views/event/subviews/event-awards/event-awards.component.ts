@@ -1,10 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FTCDatabase } from '../../../../providers/ftc-database';
+import { TranslateService } from '@ngx-translate/core';
 import AwardRecipient from "../../../../models/AwardRecipient";
 
 @Component({
-  providers: [FTCDatabase],
   selector: 'toa-event-awards',
   templateUrl: './event-awards.component.html'
 })
@@ -12,7 +10,7 @@ export class EventAwardsComponent {
 
   @Input() event: any;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute) {
+  constructor(private translate: TranslateService) {
 
   }
 
@@ -21,6 +19,7 @@ export class EventAwardsComponent {
   }
 
   getHeader(awardRecipient: AwardRecipient) {
+    // TODO: translate
     const key = awardRecipient.awardKey;
     if (key.startsWith("INS")) {
       return "Inspire Award Winners";
@@ -50,4 +49,5 @@ export class EventAwardsComponent {
       return awardRecipient.awardName + 's';
     }
   }
+
 }

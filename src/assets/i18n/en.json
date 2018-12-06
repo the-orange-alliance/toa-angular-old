@@ -1,0 +1,178 @@
+{
+  "config": {
+    "name": "English",
+    "englishName": "English",
+    "direction": "ltr"
+  },
+
+  "general": {
+    "team": "Team",
+    "teams": "Teams",
+    "event": "Event",
+    "events": "Events",
+    "search_text_long": "Search teams and events",
+    "search_text_short": "Team # or Event",
+    "add_to_mytoa": "Add to myTOA",
+    "remove_from_mytoa": "Remove from myTOA"
+  },
+
+  "drawer": {
+    "home": "Home",
+    "teams": "Teams",
+    "events": "Events",
+    "streaming": "Streaming",
+    "android_app": "Android App",
+    "add_data": "Add Data",
+    "api": "API",
+    "github": "GitHub",
+    "about": "About",
+    "privacy_and_terms": "Privacy & Terms",
+    "mytoa": {
+      "hello": "Hello, {{ name }}",
+      "register": "Register",
+      "login": "Login"
+    }
+  },
+
+  "pages": {
+    "404": {
+      "title": "Page Not found",
+      "short_info": "Looks like you've followed a broken link or entered team/event/match that doesn't exist."
+    },
+    "about": {
+      "title": "About Us"
+    },
+    "account": {
+      "logout": "Logout",
+      "subpages": {
+        "login": {
+          "title": "Login",
+          "email": "Email",
+          "password": "Password",
+          "login": "Login"
+        },
+        "register": {
+          "title": "Register",
+          "full_name": "Full name",
+          "email": "Email",
+          "password": "Password",
+          "confirm_password": "Confirm password",
+          "your_team": "Your team #",
+          "sign_up": "Sign Up"
+        }
+      }
+    },
+
+    "home": {
+      "title": "Home",
+      "short_info": "The Orange Alliance is a project to help make FTC match, event, and team information more accessible.",
+      "active_teams": "Active Teams",
+      "matches_played": "Matches Played",
+      "todays_events": "Today's Events",
+      "no_events_today": "There are no events occurring today.",
+      "leaderboards": {
+        "title": "Leaderboards",
+        "high_score_qual": "Highest Scoring Qualification Match",
+        "high_score_elim": "Highest Scoring Elimination Match",
+        "high_score_all": "Highest Scoring Match",
+        "with_enalties": "With Penalties",
+        "penalty_free": "Penalty Free"
+      }
+    },
+
+    "event": {
+      "event_info": "Event Information",
+      "game_info": "Event Information",
+      "view_website": "View event's website",
+      "event_key": "Event Key",
+      "stream_available": "Live Stream Available!",
+      "alliances_count": "{{ value }} Alliances",
+      "fields_count": "{{ value }} Fields",
+      "subpages": {
+        "rankings": {
+          "title": "Rankings",
+          "rank": "Rank",
+          "team": "Team",
+          "wlt_record": "Record (W-L-T)",
+          "qual_points": "Qualification Points",
+          "ranking_points": "Ranking Points",
+          "tie_reaker_points": "Tie Breaker Points",
+          "highest_score": "Highest Score",
+          "matches_played": "Matches Played"
+        },
+        "matches": {
+          "title": "Matches"
+        },
+        "teams": {
+          "title": "Teams"
+        },
+        "awards": {
+          "title": "Awards"
+        }
+      }
+    },
+
+    "events": {
+      "filter_season": "Season",
+      "filter_region": "Region",
+      "clear_filter": "Clear Filter"
+    },
+
+    "match": {
+      "match_info": "Match Information",
+      "match_key": "Match Key",
+      "no_video": "No video available",
+      "add_one": "Add one"
+    },
+
+    "streams": {
+      "event_results": "Event Results",
+      "close_stream": "Close stream"
+    },
+
+    "team": {
+      "team_info": "Team Information",
+      "event_results": "Event Results",
+      "part_of_region": "Part of the {{ regionKey }} Region",
+      "website": "Website",
+      "rookie_year": "Rookie Year",
+      "last_active": "Last Active Season",
+      "awards_in_season": "{{ awards }} awards in {{ season }}",
+      "robot_profile": {
+        "title": "Robot",
+        "engineering_notebook": "Engineering Notebook",
+        "robot_reveal": "Robot Reveal",
+        "photos": "Photos"
+      }
+    },
+
+    "teams": {
+      "filter": "Filter by number, name, or location",
+      "results": "{{result}} Results"
+    }
+  },
+
+  "match_table": {
+    "teams": "Teams",
+    "score": "Score",
+    "scores": "Scores",
+    "blue_alliance": "Blue Alliance",
+    "red_alliance": "Red Alliance",
+    "match": "Match",
+    "help": {
+      "bold": "<b>Bold</b> is Winning Alliance</small>",
+      "bold_and_black": "<b>Bold and Black</b> is Selected Team</small>",
+      "surrogate": "<b>*</b> is Surrogate"
+    }
+  },
+
+  "no_data": {
+    "teams": "No teams found",
+    "teams_long": "There are no teams that match that query",
+    "events": "No events found",
+    "event_long": "NO RESULTS HAVE BEEN REPORTED FOR THIS EVENT.",
+    "streams_long": "There are currently no active streams.",
+    "events_for_season": "No events for {{ season }} season",
+    "events_for_season_long": "This team hasn't yet played at any events this season.<br/>Try changing the season using the selector above."
+  }
+}

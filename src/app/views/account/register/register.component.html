@@ -1,13 +1,13 @@
 <div class="row justify-content-center">
   <div class="col-12 col-md-8 col-lg-5 p-3">
     <mdc-card class="toa-card p-3">
-      <h2 class="m-2">Register</h2>
-      <mdc-text-field outlined class="mt-3" label="Full name" [(ngModel)]="name" type="name" required></mdc-text-field>
-      <mdc-text-field outlined class="mt-3" label="Email" [(ngModel)]="email" type="email" required></mdc-text-field>
-      <mdc-text-field outlined class="mt-4" label="Password" [(ngModel)]="password" type="password" required></mdc-text-field>
-      <mdc-text-field outlined class="mt-4" label="Confirm password" [(ngModel)]="confirmPassword" type="password" required></mdc-text-field>
-      <mdc-text-field outlined class="mt-4" label="Team #" [(ngModel)]="team"></mdc-text-field>
-      <button mdc-button primary class="mt-4 text-white" (click)="createUser()">Sign Up</button>
+      <h2 class="m-2">{{ "pages.account.subpages.register.title" | translate }}</h2>
+      <mdc-text-field outlined class="mt-3" label="{{ 'pages.account.subpages.register.title' | translate }}" [(ngModel)]="name" type="name" required></mdc-text-field>
+      <mdc-text-field outlined class="mt-3" label="{{ 'pages.account.subpages.register.email' | translate }}" [(ngModel)]="email" type="email" required></mdc-text-field>
+      <mdc-text-field outlined class="mt-4" label="{{ 'pages.account.subpages.register.password' | translate }}" [(ngModel)]="password" type="password" required></mdc-text-field>
+      <mdc-text-field outlined class="mt-4" label="{{ 'pages.account.subpages.register.confirm_password' | translate }}" [(ngModel)]="confirmPassword" type="password" required></mdc-text-field>
+      <mdc-text-field outlined class="mt-4" label="{{ 'pages.account.subpages.register.your_team' | translate }}" [(ngModel)]="team"></mdc-text-field>
+      <button mdc-button primary class="mt-4 text-white" (click)="createUser()">{{ "pages.account.subpages.register.sign_up" | translate }}</button>
     </mdc-card>
   </div>
 </div>

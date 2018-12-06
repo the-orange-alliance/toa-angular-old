@@ -9,7 +9,7 @@
       <div class="p-3 row">
 
         <div *ngIf="currentSeason" class="col-md-4 col-xs-12 filter-row dropdown">
-          <div class="filter-info">Season: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <div class="filter-info">{{ 'pages.events.filter_season' | translate }}: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           20{{ currentSeason.seasonKey.substring(0, 2) }}/{{ currentSeason.seasonKey.substring(2, 4) }} - {{ currentSeason.description }}
           <span class="caret"></span>
         </button>
@@ -19,7 +19,7 @@
         </div>
 
         <div *ngIf="currentRegion" class="col-md-4 col-xs-12 filter-row dropdown">
-          <div class="filter-info">Region: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <div class="filter-info">{{ 'pages.events.filter_region' | translate }}: </div><button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           {{ currentRegion.description ? currentRegion.regionKey + " - " + currentRegion.description : currentRegion.regionKey }}
           <span class="caret"></span>
         </button>
@@ -31,7 +31,7 @@
 
       <mdc-list-divider></mdc-list-divider>
 
-      <button mdc-button (click)="clearFilter()">Clear Filter</button>
+      <button mdc-button (click)="clearFilter()">{{ 'pages.events.clear_filter' | translate }}</button>
 
     </mdc-card>
   </div>
