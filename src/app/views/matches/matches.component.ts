@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
+import { TheOrangeAllianceGlobals } from '../../app.globals';
+import { SafeResourceUrl } from "@angular/platform-browser/src/security/dom_sanitization_service";
+import { DomSanitizer } from "@angular/platform-browser";
 import Match from '../../models/Match';
 import Event from '../../models/Event';
-import { TheOrangeAllianceGlobals } from '../../app.globals';
-import {SafeResourceUrl} from "@angular/platform-browser/src/security/dom_sanitization_service";
-import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'toa-match',

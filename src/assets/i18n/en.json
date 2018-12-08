@@ -147,6 +147,7 @@
     },
 
     "teams": {
+      "title": "Teams",
       "filter": "Filter by number, name, or location",
       "results": "{{result}} Results"
     }

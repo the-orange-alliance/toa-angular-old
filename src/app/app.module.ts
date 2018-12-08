@@ -44,7 +44,7 @@ import { RoverRuckusComponent } from './views/matches/years/1819/1819-rover-ruck
 import { TeamRobotComponent } from './views/team/subviews/team-robot/team-robot.component';
 import { TeamResultsComponent } from './views/team/subviews/team-results/team-results.component';
 import { StreamItemComponent } from './components/stream-item/stream-item.component';
-import { StorageServiceModule } from "angular-webstorage-service";
+import { StorageServiceModule } from 'angular-webstorage-service';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);

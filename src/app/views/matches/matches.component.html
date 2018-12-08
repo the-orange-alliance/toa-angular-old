@@ -8,17 +8,17 @@
     <div class="row">
       <div class="col-12">
         <mdc-card class="toa-card mt-2">
-          <div class="toa-card-header" mdcHeadline5>{{ 'pages.match.match_info' | translate }}</div>
+          <div class="toa-card-header" mdcHeadline5>{{ "pages.match.match_info" | translate }}</div>
           <mdc-list-divider></mdc-list-divider>
           <div class="p-3">
             <div class="info-state d-flex align-content-center flex-wrap">
               <mdc-icon svgIcon="code-tags"></mdc-icon>
-              <p>{{ 'pages.match.match_key' | translate }}: </p>
+              <p>{{ "pages.match.match_key" | translate }}: </p>
               <p><code>{{ match.matchKey }}</code></p>
             </div>
             <div class="info-state d-flex align-content-center flex-wrap" *ngIf="!match.videoURL">
               <mdc-icon svgIcon="play-circle-outline"></mdc-icon>
-              <p><i>{{ 'pages.match.no_video' | translate }}. <a href="https://docs.google.com/forms/d/e/1FAIpQLSdpcIpr0uXe0SP5wzdMeVsQ6t3e5ebS5v_C-SDmtOyY2Gu8sw/viewform?entry.944495313={{ match.matchKey }}" target="_blank" (click)="this.sendAnalytic('leaving', 'submit match video');">{{ 'pages.match.add_one' | translate }}</a></i></p>
+              <p><i>{{ "pages.match.no_video" | translate }}. <a href="https://docs.google.com/forms/d/e/1FAIpQLSdpcIpr0uXe0SP5wzdMeVsQ6t3e5ebS5v_C-SDmtOyY2Gu8sw/viewform?entry.944495313={{ match.matchKey }}" target="_blank" (click)="this.sendAnalytic('leaving', 'submit match video');">{{ 'pages.match.add_one' | translate }}</a></i></p>
             </div>
             <match-table [match]="match" class="mt-4"></match-table>
           </div>

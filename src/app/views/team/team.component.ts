@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { MatchSorter } from '../../util/match-utils';
 import { EventSorter } from '../../util/event-utils';
-import { AwardSorter } from "../../util/award-utils";
+import { AwardSorter } from '../../util/award-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import Team from '../../models/Team';
 import Match from '../../models/Match';
