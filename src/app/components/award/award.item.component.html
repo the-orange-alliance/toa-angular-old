@@ -12,6 +12,6 @@
 </a>
 <a routerLink="/teams/{{ award.teamKey }}" class="no-underline" *ngIf="mini">
   <mdc-list-item class="black">
-    <mdc-icon mdcListItemGraphic [svgIcon]="getIcon()"></mdc-icon> Team #{{ getTeamNumber() }}
+    <mdc-icon mdcListItemGraphic [svgIcon]="getIcon()"></mdc-icon> Team #{{ award.team.teamNumber }} - {{ award.team.teamNameShort }}
   </mdc-list-item>
 </a>
