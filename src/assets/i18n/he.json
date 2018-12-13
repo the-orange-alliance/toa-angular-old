@@ -22,19 +22,28 @@
     "events": "אירועים",
     "streaming": "שידוריים חיים",
     "android_app": "אפליקציית Android",
-    "add_data": "הוספת נתונים",
+    "add_data": "הוספת מידע",
     "api": "API",
     "github": "GitHub",
     "about": "אודות",
     "privacy_and_terms": "פרטיות ותנאי שימוש",
     "mytoa": {
-      "hello": "שלום, {{ name }}",
+      "hello": "שלום {{ name }}",
+      "guest": "אורח",
       "register": "הרשמה",
       "login": "התחברות"
     }
   },
 
   "pages": {
+    "add_data": {
+      "title": "הוספת מידע",
+      "short_info": "יש לכם מידע שאתם רוצים להוסיף לThe Orange Alliance?",
+      "datasync": "DataSync - סנכרן את האירוע שלך עם TOA בלייב",
+      "add_match_video": "הוספת סרטון של מקצה",
+      "add_event_stream": "הוספת שידור חיי של אירוע",
+      "stream_your_event": "שדר את האירוע של בערוץ Twitch של TOA"
+    },
     "404": {
       "title": "העמוד לא נמצא",
       "short_info": "נראה הגעתם לכאן על ידי לינק שבור. או שנכנסתם לקבוצה/אירוע/מקצה שלא קיימים"

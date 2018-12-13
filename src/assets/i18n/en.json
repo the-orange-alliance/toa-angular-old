@@ -29,12 +29,21 @@
     "privacy_and_terms": "Privacy & Terms",
     "mytoa": {
       "hello": "Hello, {{ name }}",
+      "guest": "Guest",
       "register": "Register",
       "login": "Login"
     }
   },
 
   "pages": {
+    "add_data": {
+      "title": "Add Data",
+      "short_info": "Do you have some data you'd like to add to The Orange Alliance?",
+      "datasync": "DataSync - Sync your event with TOA in live",
+      "add_match_video": "Add match video",
+      "add_event_stream": "Add event stream",
+      "stream_your_event": "Stream your event on TOA Twitch channel"
+    },
     "404": {
       "title": "Page Not found",
       "short_info": "Looks like you've followed a broken link or entered team/event/match that doesn't exist."

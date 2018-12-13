@@ -44,7 +44,7 @@
     <mdc-drawer-content>
       <mdc-list-item class="item-profile" disabled>
         <div *ngIf="!user">
-          <span>{{ 'drawer.mytoa.hello' | translate: {'name': 'Guest'} }}!</span>
+          <span>{{ 'drawer.mytoa.hello' | translate: {'name': 'drawer.mytoa.guest' | translate } }}</span>
           <span class="mdc-list-item__secondary-text">
             <button mdc-button dense routerLink="/account/login">{{ 'drawer.mytoa.login' | translate }}</button>
             <span>•</span>
@@ -71,9 +71,6 @@
           <a mdc-list-item routerLink="/home" routerLinkActive="mdc-list-item--activated">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="home"></mdc-icon>{{ "drawer.home" | translate }}
           </a>
-          <!-- <a mdc-list-item routerLink="/account" routerLinkActive="mdc-list-item--activated">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="star"></mdc-icon>myTOA
-          </a> -->
           <a mdc-list-item routerLink="/teams" routerLinkActive="mdc-list-item--activated">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="account-group"></mdc-icon>{{ "drawer.teams" | translate }}
           </a>
