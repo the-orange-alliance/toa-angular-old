@@ -224,10 +224,10 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamEvents(teamKey: string, seasonKey: string): Promise<Event[]> {
-    return new Promise<Event[]>((resolve, reject) => {
+  public getTeamEvents(teamKey: string, seasonKey: string): Promise<EventParticipant[]> {
+    return new Promise<EventParticipant[]>((resolve, reject) => {
       this.request('/team/' + teamKey + '/events/' + seasonKey).then((data: any[]) => {
-        resolve(data.map((result: any) => new Event().fromJSON(result.event)));
+        resolve(data.map((result: any) => new EventParticipant().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });
   }

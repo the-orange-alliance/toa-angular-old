@@ -15,6 +15,7 @@ import {AngularFireDatabase} from 'angularfire2/database';
 import Ranking from '../../models/Ranking';
 import Media from '../../models/Media';
 import TeamSeasonRecord from '../../models/TeamSeasonRecord';
+import EventParticipant from "../../models/EventParticipant";
 
 @Component({
   selector: 'toa-team',
@@ -111,11 +112,14 @@ export class TeamComponent implements OnInit {
   public selectSeason(season: any) {
     this.currentSeason = season;
     this.team.events = [];
-    this.ftc.getTeamEvents(this.teamKey, this.currentSeason.seasonKey).then((data: Event[]) => {
-      this.team.events = data;
-      this.getEventMatches();
-      this.getEventRankings();
-      this.getEventAwards();
+    this.ftc.getTeamEvents(this.teamKey, this.currentSeason.seasonKey).then((data: EventParticipant[]) => {
+      Promise.all(data.map((result: any) => this.ftc.getEventBasic(result.eventKey)))
+        .then(events => {
+          this.team.events = events;
+          this.getEventMatches();
+          this.getEventRankings();
+          this.getEventAwards();
+        });
     }).catch(() => {
       this.team.events = [];
     });
