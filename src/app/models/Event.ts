@@ -30,6 +30,8 @@ export default class Event implements ISerializable {
   private _fieldCount: number;
   private _advanceSpots: number;
   private _advanceEvent: string;
+  private _teamCount: number;
+  private _matchCount: number;
 
   // Supplemental fields that are not crucial to the model
   private _matches: Match[];
@@ -64,6 +66,8 @@ export default class Event implements ISerializable {
     this._fieldCount = 0;
     this._advanceSpots = 0;
     this._advanceEvent = '';
+    this._teamCount = -1;
+    this._matchCount = -1;
 
     this._matches = [];
     this._rankings = [];
@@ -98,7 +102,9 @@ export default class Event implements ISerializable {
       alliance_count: this.allianceCount,
       field_count: this.fieldCount,
       advance_spots: this.advanceSpots,
-      advance_event: this.advanceEvent
+      advance_event: this.advanceEvent,
+      team_count: this.teamCount,
+      match_count: this.matchCount
     };
   }
 
@@ -130,6 +136,8 @@ export default class Event implements ISerializable {
     event.fieldCount = parseInt(json.field_count);
     event.advanceSpots = parseInt(json.advance_spots);
     event.advanceEvent = json.advance_event;
+    event.teamCount = json.team_count && parseInt(json.team_count) > -1 ? parseInt(json.team_count) : -1;
+    event.matchCount = json.match_count && parseInt(json.match_count) > -1 ? parseInt(json.match_count) : -1;
     return event;
   }
 
@@ -339,6 +347,19 @@ export default class Event implements ISerializable {
 
   set advanceEvent(value: string) {
     this._advanceEvent = value;
+  }
+
+  get teamCount(): number {
+    return this._teamCount;
+  }
+  set teamCount(value: number) {
+    this._teamCount = value;
+  }
+  get matchCount(): number {
+    return this._matchCount;
+  }
+  set matchCount(value: number) {
+    this._matchCount = value;
   }
 
   get matches(): Match[] {

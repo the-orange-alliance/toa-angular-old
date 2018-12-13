@@ -144,7 +144,7 @@ export class FTCDatabase {
 
   public getSeasonEvents(season: string): Promise<Event[]> {
     return new Promise<Event[]>((resolve, reject) => {
-      this.request('/event?season_key=' + season).then((data: any[]) => {
+      this.request('/event?includeTeamCount=true&season_key=' + season).then((data: any[]) => {
         resolve(data.map((result: any) => new Event().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });
