@@ -1,24 +1,16 @@
-export const columns: string[] = [
-  "StationScheduleKey",
-  "MatchID",
-  "TeamID",
-  "Station",
-  "StationStatus",
-  "RefStatus"
-];
-
 export default class MatchParticipant implements ISerializable {
  private _matchParticipantKey: string;
  private _matchKey: string;
  private _teamKey: string;
+ private _teamNumber: number;
  private _station: number;
  private _stationStatus: number;
  private _refStatus: number;
 
  constructor() {
-   this._matchParticipantKey = "";
-   this._matchKey = "";
-   this._teamKey = "";
+   this._matchParticipantKey = '';
+   this._matchKey = '';
+   this._teamKey = '';
    this._station = 0;
    this._stationStatus = 0;
    this._refStatus = 0;
@@ -29,6 +21,7 @@ export default class MatchParticipant implements ISerializable {
      match_participant_key: this.matchParticipantKey,
      match_key: this.matchKey,
      team_key: this.teamKey,
+     team_number: this.teamNumber,
      station: this.station,
      station_status: this.stationStatus,
      ref_status: this.refStatus
@@ -40,6 +33,7 @@ export default class MatchParticipant implements ISerializable {
    participant.matchParticipantKey = json.match_participant_key;
    participant.matchKey = json.match_key;
    participant.teamKey = json.team_key;
+   participant.teamNumber = json.team_number;
    participant.station = json.station;
    participant.stationStatus = json.station_status;
    participant.refStatus = json.ref_status;
@@ -68,6 +62,14 @@ export default class MatchParticipant implements ISerializable {
 
   set teamKey(value: string) {
     this._teamKey = value;
+  }
+
+  get teamNumber(): number {
+    return this._teamNumber;
+  }
+
+  set teamNumber(value: number) {
+    this._teamNumber = value;
   }
 
   get station(): number {
