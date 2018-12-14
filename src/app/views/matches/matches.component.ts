@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
+import { TheOrangeAllianceGlobals } from '../../app.globals';
+import { SafeResourceUrl } from "@angular/platform-browser/src/security/dom_sanitization_service";
+import { DomSanitizer } from "@angular/platform-browser";
 import Match from '../../models/Match';
 import Event from '../../models/Event';
-import { TheOrangeAllianceGlobals } from '../../app.globals';
-import {SafeResourceUrl} from "@angular/platform-browser/src/security/dom_sanitization_service";
-import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'toa-match',
@@ -37,6 +37,7 @@ export class MatchesComponent implements OnInit {
         this.ftc.getEventBasic(match.eventKey).then((event: Event) => {
           this.match.event = event;
           this.app.setTitle(this.match.matchName + ' - ' + this.match.event.eventName);
+          this.app.setDescription(`Match results ${ this.match.videoURL ? 'and video ' : '' }for ${ this.match.matchName } at the ${ this.match.event.eventName } FIRST Tech Challenge`);
         });
       } else {
         this.router.navigate(['/not-found']);
@@ -54,4 +55,12 @@ export class MatchesComponent implements OnInit {
     }
   }
 
+  sendAnalytic(category, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: this.router.url,
+      eventAction: action,
+      eventValue: 10
+    });
+  }
 }

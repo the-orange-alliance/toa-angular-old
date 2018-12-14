@@ -15,4 +15,13 @@ export class ApiDocsComponent {
   stringify(jsonStr): string {
     return JSON.stringify(JSON.parse(jsonStr), null, '\t');
   }
+
+  sendAnalytic(category, label, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: label,
+      eventAction: action,
+      eventValue: 10
+    });
+  }
 }

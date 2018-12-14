@@ -10,10 +10,6 @@ export class AwardItemComponent {
   @Input() award: AwardRecipient;
   @Input() mini: boolean;
 
-  getTeamNumber() {
-    return this.award.teamKey.replace(/\D/g,''); // Strip all non-numeric characters
-  }
-
   getIcon(): string {
     const awardNum =  parseInt(this.award.awardKey.replace(/\D/g,'')); // Strip all non-numeric characters (get the award number)
     if (isNaN(awardNum)) {

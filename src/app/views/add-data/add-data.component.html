@@ -1,17 +1,17 @@
-<h2>Add Data</h2>
-<p>Do you have some data you'd like to add to The Orange Alliance?</p>
+<h2>{{ 'pages.add_data.title' | translate }}</h2>
+<p>{{ 'pages.add_data.short_info' | translate }}</p>
 
 <mdc-list class="mt-3">
-  <a mdc-list-item class="link-item"  href="https://github.com/orange-alliance/TOA-DataSync/wiki/DataSync-Documentation" target="_blank">
-    <mdc-icon class="mdc-list-item__graphic" svgIcon="progress-upload"></mdc-icon>DataSync - Sync your event with TOA in live
+  <a mdc-list-item class="link-item"  href="https://github.com/orange-alliance/TOA-DataSync/wiki/DataSync-Documentation" target="_blank" (click)="this.sendAnalytic('leaving', '/add-data', 'datasync');">
+    <mdc-icon class="mdc-list-item__graphic" svgIcon="progress-upload"></mdc-icon> {{ 'pages.add_data.datasync' | translate }}
   </a>
-  <a mdc-list-item class="link-item"  href="https://goo.gl/forms/2gjTlN5Rbf0s44ZI3" target="_blank">
-    <mdc-icon class="mdc-list-item__graphic" svgIcon="play-speed"></mdc-icon>Add match video
+  <a mdc-list-item class="link-item"  href="https://goo.gl/forms/2gjTlN5Rbf0s44ZI3" target="_blank" (click)="this.sendAnalytic('leaving', '/add-data', 'add match video fourm');">
+    <mdc-icon class="mdc-list-item__graphic" svgIcon="play-speed"></mdc-icon> {{ 'pages.add_data.add_match_video' | translate }}
   </a>
-  <a mdc-list-item class="link-item" href="https://goo.gl/forms/024OK9v5QBtJxO043" target="_blank">
-    <mdc-icon class="mdc-list-item__graphic" svgIcon="video-outline"></mdc-icon>Add event stream
+  <a mdc-list-item class="link-item" href="https://goo.gl/forms/024OK9v5QBtJxO043" target="_blank" (click)="this.sendAnalytic('leaving', '/add-data', 'add stream forum');">
+    <mdc-icon class="mdc-list-item__graphic" svgIcon="video-outline"></mdc-icon> {{ 'pages.add_data.add_event_stream' | translate }}
   </a>
-  <a mdc-list-item class="link-item" href="https://goo.gl/forms/UAMxS7zMDOxezhy63" target="_blank">
-    <mdc-icon class="mdc-list-item__graphic" svgIcon="twitch"></mdc-icon>Stream your event on TOA Twitch channel
+  <a mdc-list-item class="link-item" href="https://goo.gl/forms/UAMxS7zMDOxezhy63" target="_blank" (click)="this.sendAnalytic('leaving', '/add-data', 'stream to toa fourm');">
+    <mdc-icon class="mdc-list-item__graphic" svgIcon="twitch"></mdc-icon>{{ 'pages.add_data.stream_your_event' | translate }}
   </a>
 </mdc-list>

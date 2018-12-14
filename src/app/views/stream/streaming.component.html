@@ -1,35 +1,21 @@
 <div *ngIf="streams" class="main">
-  <div class="row m-0">
-    <div class="col-12 row pt-2 pr-2 mb-2 d-none d-lg-flex" style="background: #fff2df">
-      <div class="col-6">
-        <b class="w-100 mb-0 ml-2">Streams Size</b>
-        <mdc-slider class="w-100" [min]="1" [max]="12" [step]="1" #slider [discrete]="true" [markers]="true" [value]="6"></mdc-slider>
+  <div class="row m-0 h-100">
+
+    <div class="row p-0 m-0 col-12 col-12 col-lg-10" *ngIf="streams.length > 0">
+      <div class="col-lg-7 p-0">
+        <toa-stream-item [id]="0" [streams]="streams"></toa-stream-item>
       </div>
-      <div class="col-6">
-        <b class="w-100 mb-0 ml-2">Show Chat?</b>
-        <mdc-switch [(ngModel)]="showChat" class="w-100 mt-3"></mdc-switch>
+
+      <div class="col-lg-5 p-0">
+        <toa-stream-item [id]="1" height="50%" [streams]="streams"></toa-stream-item>
+        <toa-stream-item [id]="2" height="50%" [streams]="streams"></toa-stream-item>
       </div>
     </div>
 
-    <div class="row m-0 col-12" [class.col-lg-9]="showChat" *ngIf="streams.length > 0">
-      <div *ngFor="let stream of streams" class="col-12 col-md-2 p-2" [class]="'col-sm-' + slider.value">
-        <div class="item">
-          <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" *ngIf="stream.safeURL" [src]="stream.safeURL" allowfullscreen></iframe>
-          </div>
-          <div class="info">
-            <h2 class="m-0" mdcHeadline6>{{ stream.streamName }}</h2>
-            <p class="m-0">{{ stream.startDateTime | date: 'MMM d, HH:mm a' }} to {{ stream.endDateTime | date: 'MMM d, h:mm a' }} </p>
-            <button mdc-button *ngIf="stream.eventKey" (click)="openEvent(stream.eventKey)"><mdc-icon>equalizer</mdc-icon> Event results</button>
-            <!--<a *ngIf="stream.fullURL" [href]="stream.fullURL" target="_blank" style="color: currentColor" class="w-fit"><mdc-icon svgIcon="open-in-new"></mdc-icon></a>-->
-          </div>
-        </div>
-      </div>
-    </div>
-    <h5 class="text-center mt-5 col-12" [class.col-lg-9]="showChat" *ngIf="streams && streams.length <= 0">
-      There are currently no active streams.
+    <h5 class="text-center mt-5 col-12 col-lg-10" *ngIf="streams && streams.length <= 0">
+      {{ 'no_data.streams_long' | translate }}
     </h5>
-    <div class="col-3 d-none d-lg-block chat" *ngIf="showChat">
+    <div class="col-2 d-none d-lg-block chat">
       <iframe frameborder="0"
               scrolling="no"
               src="https://www.twitch.tv/embed/theorangealliance/chat">
@@ -37,9 +23,3 @@
     </div>
   </div>
 </div>
-
-<!--
-<a mdc-fab href="/add-data" position='bottomRight' class="toa-fab">
-  <mdc-icon>add</mdc-icon>
-</a>
--->

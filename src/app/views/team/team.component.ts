@@ -3,17 +3,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { MatchSorter } from '../../util/match-utils';
 import { EventSorter } from '../../util/event-utils';
+import { AwardSorter } from '../../util/award-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import Team from '../../models/Team';
 import Match from '../../models/Match';
 import Season from '../../models/Season';
 import Event from '../../models/Event';
-import AwardRecipient from "../../models/AwardRecipient";
-import {AngularFireAuth} from "angularfire2/auth";
-import {AngularFireDatabase} from "angularfire2/database";
-import Ranking from "../../models/Ranking";
-import Media from "../../models/Media";
+import AwardRecipient from '../../models/AwardRecipient';
+import {AngularFireAuth} from 'angularfire2/auth';
+import {AngularFireDatabase} from 'angularfire2/database';
+import Ranking from '../../models/Ranking';
+import Media from '../../models/Media';
 import TeamSeasonRecord from '../../models/TeamSeasonRecord';
+import EventParticipant from "../../models/EventParticipant";
 
 @Component({
   selector: 'toa-team',
@@ -23,7 +25,6 @@ import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 })
 export class TeamComponent implements OnInit {
 
-  eventSorter: EventSorter;
   team: Team;
   teamKey: string;
   years: any;
@@ -31,14 +32,14 @@ export class TeamComponent implements OnInit {
   currentSeason: Season;
   thisSeason: Season;
   view_type: string;
+  wlt: TeamSeasonRecord = null;
+
   user: any = null;
   favorite: boolean;
-  wlt: TeamSeasonRecord = null;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public db: AngularFireDatabase, public auth: AngularFireAuth) {
     this.teamKey = this.route.snapshot.params['team_key'];
-    this.eventSorter = new EventSorter();
 
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
@@ -51,7 +52,6 @@ export class TeamComponent implements OnInit {
     });
 
     this.select('results');
-
   }
 
   public ngOnInit(): void {
@@ -72,15 +72,19 @@ export class TeamComponent implements OnInit {
             this.thisSeason = this.seasons[0];
           });
         }
-        if (this.team.teamNameShort !== null){
+        if (this.team.teamNameShort !== null) {
           this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamNumber + ')');
         } else {
-          this.app.setTitle('Team ' + this.team.teamKey);
+          this.app.setTitle('Team ' + this.team.teamNumber);
         }
+        this.app.setDescription(`Team information and competition results for FIRST Tech Challenge Team #${ this.team.teamNumber }`);
       } else {
         this.router.navigate(['/not-found']);
       }
-    });
+    }, (err) => {
+      console.log(err);
+      this.router.navigate(['/not-found']);
+    })
   }
 
   public getTeamSeasons(seasons: Season[]): Season[] {
@@ -108,11 +112,14 @@ export class TeamComponent implements OnInit {
   public selectSeason(season: any) {
     this.currentSeason = season;
     this.team.events = [];
-    this.ftc.getTeamEvents(this.teamKey, this.currentSeason.seasonKey).then((data: Event[]) => {
-      this.team.events = data;
-      this.getEventMatches();
-      this.getEventRankings();
-      this.getEventAwards();
+    this.ftc.getTeamEvents(this.teamKey, this.currentSeason.seasonKey).then((data: EventParticipant[]) => {
+      Promise.all(data.map((result: any) => this.ftc.getEventBasic(result.eventKey)))
+        .then(events => {
+          this.team.events = events;
+          this.getEventMatches();
+          this.getEventRankings();
+          this.getEventAwards();
+        });
     }).catch(() => {
       this.team.events = [];
     });
@@ -121,7 +128,7 @@ export class TeamComponent implements OnInit {
   }
 
   private getEventMatches() {
-    this.team.events = this.eventSorter.sortRev(this.team.events, 0, this.team.events.length - 1);
+    this.team.events = new EventSorter().sort(this.team.events).reverse();
     for (const event of this.team.events) {
       this.ftc.getEventMatches(event.eventKey).then((data: Match[]) => {
         event.matches = data;
@@ -146,11 +153,14 @@ export class TeamComponent implements OnInit {
     this.ftc.getTeamAwards(this.teamKey, this.currentSeason.seasonKey).then((data: AwardRecipient[]) => {
       this.team.awards = data;
       for (const event of this.team.events) {
-        const awards = [];
+        let awards = [];
         for (const award of data) {
           if (event.eventKey === award.eventKey) {
             awards.push(award);
           }
+        }
+        if (awards) {
+          awards = new AwardSorter().sort(awards);
         }
         event.awards = awards;
       }
@@ -189,10 +199,6 @@ export class TeamComponent implements OnInit {
     return teamMatches;
   }
 
-  openTeamPage(team_number: any) {
-    this.router.navigate(['/']);
-  }
-
   openMatchDetails(match_data: any) {
     this.router.navigate(['/matches', match_data.match_key]);
   }
@@ -213,11 +219,11 @@ export class TeamComponent implements OnInit {
 
   beautifulURL(website: string) {
     website = website.substr( website.indexOf(':') + 3 ); // Taking off the http/s
-    if (website.endsWith("/") || website.endsWith("?") || website.endsWith("#")) { // Taking off unnecessary chars
+    if (website.endsWith('/') || website.endsWith('?') || website.endsWith('#')) { // Taking off unnecessary chars
       website = website.substr( 0, website.length - 1 );
     }
 
-    return website.startsWith("www.") ? website : "www."+website;
+    return website.startsWith('www.') ? website.substring(4, website.length) : website;
   }
 
   scrollToEvent(id: string) {
@@ -225,7 +231,7 @@ export class TeamComponent implements OnInit {
     window.scroll({
       behavior: 'smooth',
       left: 0,
-      top: element.offsetTop + 65
+      top: element.getBoundingClientRect().top - 85
     });
   }
 
@@ -243,5 +249,14 @@ export class TeamComponent implements OnInit {
 
   public isSelected(view_type): boolean {
     return this.view_type === view_type;
+  }
+
+  sendAnalytic(category, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: this.router.url,
+      eventAction: action,
+      eventValue: 10
+    });
   }
 }

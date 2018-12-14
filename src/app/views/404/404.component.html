@@ -1,3 +1,4 @@
+
 <div class="row align-items-center">
   <div class="col-md-3 col-sm-12">
     <img src="../../../assets/imgs/404-1.png" class="img-fit-w" *ngIf="random == 1"/>
@@ -5,7 +6,7 @@
     <img src="../../../assets/imgs/404-3.png" class="img-fit-w" *ngIf="random == 3"/>
   </div>
   <div class="col-md-9 col-sm-12">
-    <h2>Page Not found</h2>
-    <p>Looks like you've followed a broken link or entered team/event/match that doesn't exist.</p>
+    <h2>{{ "pages.404.title" | translate }}</h2>
+    <p>{{ "pages.404.short_info" | translate }}</p>
   </div>
 </div>

@@ -1,7 +1,8 @@
 export default class Ranking implements ISerializable {
   private _rankKey: string;
   private _eventKey: string;
-  private _teamKey: number;
+  private _teamKey: string;
+  private _teamNumber: number;
   private _rank: number;
   private _rankChange: number;
   private _wins: number;
@@ -15,9 +16,10 @@ export default class Ranking implements ISerializable {
   private _played: number;
 
   constructor() {
-    this._rankKey = "";
-    this._eventKey = "";
-    this._teamKey = 0;
+    this._rankKey = '';
+    this._eventKey = '';
+    this._teamKey = '';
+    this._teamNumber = 0;
     this._rank = 0;
     this._rankChange = 0;
     this._wins = 0;
@@ -36,6 +38,7 @@ export default class Ranking implements ISerializable {
       rank_key: this.rankKey,
       event_key: this.eventKey,
       team_key: this.teamKey,
+      team_number: this.teamNumber,
       rank: this.rank,
       rank_change: this.rankChange,
       wins: this.wins,
@@ -55,6 +58,7 @@ export default class Ranking implements ISerializable {
     ranking.rankKey = json.rank_key;
     ranking.eventKey = json.event_key;
     ranking.teamKey = json.team_key;
+    ranking.teamNumber = json.team_number;
     ranking.rank = json.rank;
     ranking.rankChange = json.rank_change;
     ranking.wins = json.wins;
@@ -85,12 +89,20 @@ export default class Ranking implements ISerializable {
     this._eventKey = value;
   }
 
-  get teamKey(): number {
+  get teamKey(): string {
     return this._teamKey;
   }
 
-  set teamKey(value: number) {
+  set teamKey(value: string) {
     this._teamKey = value;
+  }
+
+  get teamNumber(): number {
+    return this._teamNumber;
+  }
+
+  set teamNumber(value: number) {
+    this._teamNumber = value;
   }
 
   get rank(): number {

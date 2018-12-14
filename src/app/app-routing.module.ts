@@ -9,14 +9,13 @@ import { TeamsComponent } from './views/teams/teams.component';
 import { EventComponent } from './views/event/event.component';
 import { AboutComponent } from './views/about/about.component';
 import { ApiDocsComponent } from './views/apidocs/apidocs.component';
-import { RankingComponent } from './views/ranking/ranking.component';
 import { StreamingComponent } from './views/stream/streaming.component';
 import { PrivacyTermsComponent } from './views/privacy_terms/PrivacyTerms.component';
 import { PageNotFoundComponent } from './views/404/404.component';
 import { MatchesComponent } from './views/matches/matches.component';
-import { AddDataComponent } from "./views/add-data/add-data.component";
-import { LoginComponent } from "./views/account/login/login.component";
-import { RegisterComponent } from "./views/account/register/register.component";
+import { AddDataComponent } from './views/add-data/add-data.component';
+import { LoginComponent } from './views/account/login/login.component';
+import { RegisterComponent } from './views/account/register/register.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -28,7 +27,6 @@ const routes: Routes = [
   { path: 'teams', component: TeamsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'apidocs', component: ApiDocsComponent },
-  { path: 'ranking', component: RankingComponent },
   { path: 'stream', component: StreamingComponent },
   { path: 'privacy-terms', component: PrivacyTermsComponent },
   { path: 'events/:event_key', component: EventComponent },

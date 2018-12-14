@@ -1,0 +1,188 @@
+{
+  "config": {
+    "name": "עברית",
+    "englishName": "Hebrew",
+    "direction": "rtl"
+  },
+
+  "general": {
+    "team": "קבוצה",
+    "teams": "קבוצות",
+    "event": "אירוע",
+    "events": "אירועים",
+    "search_text_long": "חפש קבוצה או אירוע",
+    "search_text_short": "מס׳ קבוצה או שם אירוע",
+    "add_to_mytoa": "הוספה ל־myTOA",
+    "remove_from_mytoa": "הסרה מ־myTOA"
+  },
+
+  "drawer": {
+    "home": "בית",
+    "teams": "קבוצות",
+    "events": "אירועים",
+    "streaming": "שידוריים חיים",
+    "android_app": "אפליקציית Android",
+    "add_data": "הוספת מידע",
+    "api": "API",
+    "github": "GitHub",
+    "about": "אודות",
+    "privacy_and_terms": "פרטיות ותנאי שימוש",
+    "mytoa": {
+      "hello": "שלום {{ name }}",
+      "guest": "אורח",
+      "register": "הרשמה",
+      "login": "התחברות"
+    }
+  },
+
+  "pages": {
+    "add_data": {
+      "title": "הוספת מידע",
+      "short_info": "יש לכם מידע שאתם רוצים להוסיף לThe Orange Alliance?",
+      "datasync": "DataSync - סנכרן את האירוע שלך עם TOA בלייב",
+      "add_match_video": "הוספת סרטון של מקצה",
+      "add_event_stream": "הוספת שידור חיי של אירוע",
+      "stream_your_event": "שדר את האירוע של בערוץ Twitch של TOA"
+    },
+    "404": {
+      "title": "העמוד לא נמצא",
+      "short_info": "נראה הגעתם לכאן על ידי לינק שבור. או שנכנסתם לקבוצה/אירוע/מקצה שלא קיימים"
+    },
+    "about": {
+      "title": "אודותינו"
+    },
+    "account": {
+      "logout": "התנתקות",
+      "subpages": {
+        "login": {
+          "title": "התחברות",
+          "email": "דואר אלקטרוני",
+          "password": "סיסמה",
+          "login": "התחברות"
+        },
+        "register": {
+          "title": "הרשמה",
+          "full_name": "שם מלא",
+          "email": "דואר אלקטרוני",
+          "password": "סיסמה",
+          "confirm_password": "אימות סיסמה",
+          "your_team": "מספר הקבוצה שלך",
+          "sign_up": "הרשמה"
+        }
+      }
+    },
+
+    "home": {
+      "title": "בית",
+      "short_info": "The Orange Alliance הוא פרויקט שמסייע להפוך את המקצים, האירועים ומידע על קבוצות FTC לנגישים יותר.",
+      "active_teams": "קבוצות פעילות",
+      "matches_played": "מקצים ששוחקו",
+      "todays_events": "אירועי היום",
+      "no_events_today": "אין אירועים שמתרחשים היום.",
+      "leaderboards": {
+        "title": "לוח שיאים",
+        "high_score_qual": "ניקוד מקצה Qualification הגבוה ביותר",
+        "high_score_elim": "ניקוד מקצה Elimination הגבוה ביותר",
+        "high_score_all": "ניקוד המקצה הגבוה ביותר",
+        "with_enalties": "כולל עונשין",
+        "penalty_free": "ללא עונשין"
+      }
+    },
+
+    "event": {
+      "event_info": "פרטי האירוע",
+      "game_info": "פרטי המשחק",
+      "view_website": "הצג את אתר האירוע",
+      "event_key": "קוד אירוע",
+      "stream_available": "שידור חיי זמין!",
+      "alliances_count": "{{ value }} בריתות",
+      "fields_count": "{{ value }} מגרשים",
+      "subpages": {
+        "rankings": {
+          "title": "דירוגים",
+          "rank": "דירוג",
+          "team": "קבוצה",
+          "wlt_record": "Record (W-L-T)",
+          "qual_points": "Qualification Points",
+          "ranking_points": "Ranking Points",
+          "tie_reaker_points": "נקודות שובר שיוויון",
+          "highest_score": "הניקוד הכי גבוה",
+          "matches_played": "מקצים ששוחקו"
+        },
+        "matches": {
+          "title": "מקצים"
+        },
+        "teams": {
+          "title": "קבוצות"
+        },
+        "awards": {
+          "title": "פרסים"
+        }
+      }
+    },
+
+    "events": {
+      "filter_season": "עונה",
+      "filter_region": "איזור",
+      "clear_filter": "נקה פילטרים"
+    },
+
+    "match": {
+      "match_info": "פרטי המקצה",
+      "match_key": "קוד מקצה",
+      "no_video": "אין סרטון זמין",
+      "add_one": "הוסף אחד"
+    },
+
+    "streams": {
+      "event_results": "תוצאות אירוע",
+      "close_stream": "סגור שידור"
+    },
+
+    "team": {
+      "team_info": "פרטי הקבוצה",
+      "event_results": "תוצאות אירועים",
+      "part_of_region": "חלק מאזור {{ regionKey }}",
+      "website": "אתר",
+      "rookie_year": "שנת הקמה",
+      "last_active": "עונת פעילות אחרונה",
+      "awards_in_season": "{{ awards }} פרסים ב{{ season }}",
+      "robot_profile": {
+        "title": "רובוט",
+        "engineering_notebook": "מחברת הנדסה",
+        "robot_reveal": "רובוט רוויל",
+        "photos": "תמונות"
+      }
+    },
+
+    "teams": {
+      "title": "קבוצות",
+      "filter": "סנן לפי מספר, שם, או מיקום",
+      "results": "{{result}} תוצאות"
+    }
+  },
+
+  "match_table": {
+    "teams": "קבוצות",
+    "score": "ניקוד",
+    "scores": "ניקוד",
+    "blue_alliance": "ברית כחולה",
+    "red_alliance": "ברית אדומה",
+    "match": "מקצה",
+    "help": {
+      "bold": "<b>מוגדש</b> זה הברית המנצחת</small>",
+      "bold_and_black": "<b>מוגדש ושחור</b> זה הקבוצה שנבחרה</small>",
+      "surrogate": "<b>*</b> זה Surrogate"
+    }
+  },
+
+  "no_data": {
+    "teams": "לא נמצאו קבוצות",
+    "teams_long": "לא נמצאו קבוצות",
+    "events": "לא נמצאו אירועים",
+    "event_long": "לא דווחו תוצאות עבור אירוע זה.",
+    "streams_long": "אין כרגע שידורים חיים פועלים.",
+    "events_for_season": "אין אירועים עבור עונת {{ season }}",
+    "events_for_season_long": "הקבוצה הזאת עדיין לא שיחקה באף אירוע העונה.<br/>נסה לשנות את העונה דרך כפתור הבחירה שלמעלה."
+  }
+}

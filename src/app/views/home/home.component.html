@@ -1,9 +1,9 @@
-<h2>Home</h2>
-<p>The Orange Alliance is a project to help make FTC match, event, and team information more accessible.</p>
+<h2>{{ "pages.home.title" | translate }}</h2>
+<p>{{ "pages.home.short_info" | translate }}</p>
 
 <div class="row m-0">
   <div class="col-sm-12 col-lg-6 p-3">
-    <div class="row">
+    <div class="row" [dir]="'config.direction' | translate">
       <div class="col-12 p-1 mb-3" *ngIf="currentAnnouncement">
         <mdc-card class="toa-card p-0">
           <h1 class="toa-card-header pt-3 mb-0 pb-0" mdcHeadline6>{{ currentAnnouncement.title }}</h1>
@@ -17,7 +17,7 @@
           </div>
           <div class="counting-card-content">
             <div class="counting-card-title">{{ teamsCount ? teamsCount : 0 }}</div>
-            <div class="counting-card-info">Active Teams</div>
+            <div class="counting-card-info">{{ "pages.home.active_teams" | translate }}</div>
           </div>
         </mdc-card>
       </div>
@@ -29,27 +29,27 @@
           </div>
           <div class="counting-card-content">
             <div class="counting-card-title">{{ matchCount ? matchCount : 0 }}</div>
-            <div class="counting-card-info">Matches Played</div>
+            <div class="counting-card-info">{{ "pages.home.matches_played" | translate }}</div>
           </div>
         </mdc-card>
       </div>
     </div>
-    <div class="row mt-3" *ngIf="weekStart && weekEnd && currentEvents">
+    <div class="row mt-3" *ngIf="currentEvents">
       <div class="p-1 col-12">
         <mdc-card class="toa-card p-0">
           <div class="p-2">
-            <div class="toa-card-header pb-0" mdcSubtitle2>This Week's Events</div>
+            <div class="toa-card-header pb-0" mdcSubtitle2>{{ "pages.home.todays_events" | translate }}</div>
             <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ today | date :  "mediumDate" }}</div>
           </div>
 
           <mdc-list-divider></mdc-list-divider>
 
           <div *ngIf="currentEvents.length <= 0">
-            <p class="pt-4 text-center toa-card-subtitle" >There are no events occurring this week.</p>
+            <p class="pt-4 text-center toa-card-subtitle">{{ "pages.home.no_events_today" | translate }}</p>
           </div>
 
           <mdc-list *ngIf="currentEvents.length > 0">
-            <toa-event-item *ngFor="let event of currentEvents" [event]="event"></toa-event-item>
+            <toa-event-item *ngFor="let event of currentEvents" [event]="event" [hideLiveBadge]="true"></toa-event-item>
           </mdc-list>
         </mdc-card>
       </div>
@@ -59,14 +59,14 @@
     <div class="row">
       <div class="p-1 col-12">
         <mdc-card class="toa-card">
-          <div class="toa-card-header pb-0" mdcSubtitle2>Leaderboards</div>
+          <div class="toa-card-header pb-0" mdcSubtitle2>{{ "pages.home.leaderboards.title" | translate }}</div>
           <div class="toa-card-subtitle pt-0" mdcSubtitle2>Rover Ruckus 2018/19</div>
           <mdc-list-divider></mdc-list-divider>
           <div class="p-3">
             <div class="row" *ngIf="highScoreQual && highScoreQual.participants">
               <div class="col-12">
-                <h1 class="mb-0" mdcHeadline6>Highest Scoring Qualification Match</h1>
-                <h1 class="mt-0" mdcSubtitle1>(Penalty Free)</h1>
+                <h1 class="mb-0" mdcHeadline6>{{ "pages.home.leaderboards.high_score_qual" | translate }}</h1>
+                <h1 class="mt-0" mdcSubtitle1>({{ "pages.home.leaderboards.penalty_free" | translate }})</h1>
                 <h1 *ngIf="highScoreQual.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreQual.eventKey, $event)">{{ highScoreQual.event.eventName }}<span *ngIf="highScoreQual.event.divisionName"> - {{ highScoreQual.event.divisionName }}</span></a>
                   <a (click)="openMatchDetails(highScoreQual.matchKey)"> <h1 mdcCaption>{{ highScoreQual.matchName }}</h1></a></h1>
                 <match-table [match]="highScoreQual"></match-table>
@@ -74,8 +74,8 @@
             </div>
             <div class="row mt-2" *ngIf="highScoreElim && highScoreElim.participants">
               <div class="col-12 mt-2">
-                <h1 class="mb-0" mdcHeadline6>Highest Scoring Elimination Match</h1>
-                <h1 class="mt-0" mdcSubtitle1>(Penalty Free)</h1>
+                <h1 class="mb-0" mdcHeadline6>{{ "pages.home.leaderboards.high_score_elim" | translate }}</h1>
+                <h1 class="mt-0" mdcSubtitle1>({{ "pages.home.leaderboards.penalty_free" | translate }})</h1>
                 <h1 *ngIf="highScoreElim.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreElim.eventKey, $event)">{{ highScoreElim.event.eventName }}<span *ngIf="highScoreElim.event.divisionName"> - {{ highScoreElim.event.divisionName }}</span></a>
                   <a (click)="openMatchDetails(highScoreElim.matchKey)"> <h1 mdcCaption>{{ highScoreElim.matchName }}</h1></a></h1>
                 <match-table [match]="highScoreElim"></match-table>
@@ -83,8 +83,8 @@
             </div>
             <div class="row mt-2" *ngIf="highScoreAll && highScoreAll.participants">
               <div class="col-12 mt-2">
-                <h1 class="mb-0" mdcHeadline6>Highest Scoring Match</h1>
-                <h1 class="mt-0" mdcSubtitle1>(With Penalties)</h1>
+                <h1 class="mb-0" mdcHeadline6>{{ "pages.home.leaderboards.high_score_all" | translate }}</h1>
+                <h1 class="mt-0" mdcSubtitle1>({{ "pages.home.leaderboards.with_enalties" | translate }})</h1>
                 <h1 *ngIf="highScoreAll.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreAll.eventKey, $event)">{{ highScoreAll.event.eventName }}<span *ngIf="highScoreAll.event.divisionName"> - {{ highScoreAll.event.divisionName }}</span></a>
                   <a (click)="openMatchDetails(highScoreAll.matchKey)"> <h1 mdcCaption>{{ highScoreAll.matchName }}</h1></a></h1>
                 <match-table [match]="highScoreAll"></match-table>
@@ -95,7 +95,7 @@
       </div>
       <div class="p-1 col-12" *ngIf="firstupdatesnow">
         <mdc-card class="toa-card mt-3" *ngIf="willFUNstartSoon()">
-          <div class="pr-3 pl-3 pt-3 pb-0"><!-- p-3-->
+          <div class="pr-3 pl-3 pt-3 pb-0">
             <h2 class="toa-card-title" mdcHeadline6>FIRST Updates Now will go live at {{ firstupdatesnow.startDateTime | date: 'MMM d, h:mm a' }} EST</h2>
             <div mdcBody2>
               FIRST Updates Now (FUN) FTC is a live show that produces entertaining and original content about the FIRST Tech Challenge competition. FUN FTC has shows that range from event recaps, to team interviews, panel discussions, to hosting competition live stream.
@@ -103,12 +103,12 @@
           </div>
           <mdc-card-actions>
             <mdc-card-action-buttons>
-              <a mdc-button mdcCardAction="button" href="https://www.twitch.tv/firstupdatesnow" target="_blank">Watch Live</a>
+              <a mdc-button mdcCardAction="button" href="https://www.twitch.tv/firstupdatesnow" target="_blank"(click)="this.sendAnalytic('leaving', 'first updates now soon card');">Watch Live</a>
             </mdc-card-action-buttons>
           </mdc-card-actions>
         </mdc-card>
         <mdc-card class="toa-card mt-3 p-0" *ngIf="isFUNonLive()">
-          <a mdcCardPrimaryAction href="https://www.twitch.tv/firstupdatesnow" target="_blank" class="black no-underline">
+          <a mdcCardPrimaryAction href="https://www.twitch.tv/firstupdatesnow" target="_blank" class="black no-underline" (click)="this.sendAnalytic('leaving', 'first updates now live card');">
             <div class="row">
               <mdc-card-media square class="col-3 fun-logo"></mdc-card-media>
               <div class="p-3 col">

@@ -7,10 +7,10 @@
   <a mdc-fab extended label="CAD Design" class="text-white m-1" style="background-color: #9c27b0" *ngIf="cad" [href]="cad.mediaLink" target="_blank">
     <mdc-icon svgIcon="drawing"></mdc-icon>
   </a>
-  <a mdc-fab extended label="Engineering Notebook" class="text-white m-1" style="background-color: #0097a7" *ngIf="notebook" [href]="notebook.mediaLink" target="_blank">
+  <a mdc-fab extended label="{{ 'pages.team.robot_profile.engineering_notebook' | translate }}" class="text-white m-1" style="background-color: #0097a7" *ngIf="notebook" [href]="notebook.mediaLink" target="_blank">
     <mdc-icon svgIcon="book"></mdc-icon>
   </a>
-  <a mdc-fab extended label="Robot Reveal" class="text-white m-1" style="background-color: #b71c1c" *ngIf="reveal" [href]="reveal.mediaLink" target="_blank">
+  <a mdc-fab extended label="{{ 'pages.team.robot_profile.robot_reveal' | translate }}" class="text-white m-1" style="background-color: #b71c1c" *ngIf="reveal" [href]="reveal.mediaLink" target="_blank">
     <mdc-icon svgIcon="youtube"></mdc-icon>
   </a>
 </div>
@@ -18,13 +18,15 @@
 <mdc-list-divider class="mt-3 mb-3" *ngIf="(github || cad || notebook) && images.length > 0"></mdc-list-divider>
 
 <div *ngIf="images.length > 0">
-  <div mdcHeadline6>Photos</div>
+  <div mdcHeadline6>{{ 'pages.team.robot_profile.photos' | translate }}</div>
   <mdc-image-list [masonry]="true" [textProtection]="true" class="toa-image-list">
-    <mdc-image-list-item *ngFor="let image of images">
+    <mdc-image-list-item *ngFor="let image of images" class="w-100">
       <img mdcImageListImage src="{{ image.mediaLink }}" />
+<!--
       <mdc-image-list-supporting *ngIf="image.mediaTitle">
         <span mdcImageListLabel>{{ image.mediaTitle }}</span>
       </mdc-image-list-supporting>
+-->
     </mdc-image-list-item>
   </mdc-image-list>
 </div>

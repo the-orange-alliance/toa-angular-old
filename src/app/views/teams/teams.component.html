@@ -1,9 +1,9 @@
-<h2>Teams</h2>
+<h2>{{ "pages.teams.title" | translate }}</h2>
 
 <div class="row w-100 mt-3">
   <div class="col-12">
     <mdc-card class="toa-card p-3" *ngIf="currentTeams">
-        <mdc-text-field label="Filter by number, name, or location" [(ngModel)]="query" (change)="getTeams()" [fullwidth]="true"></mdc-text-field>
+        <mdc-text-field label="{{ 'pages.teams.filter' | translate }}" [(ngModel)]="query" (change)="getTeams()" [fullwidth]="true"></mdc-text-field>
 
         <div class="row mt-2" *ngIf="currentTeams && currentTeams.length > 0">
           <div class="col-12 col-md-6">
@@ -25,12 +25,12 @@
               </mdc-list>
             </mdc-list-group>
           </div>
-          <div mdcSubtitle1 class="pl-3 pt-1">({{ currentTeams.length }} Results)</div>
+          <div mdcSubtitle1 class="pl-3 pt-1">({{ 'pages.teams.results' | translate: {'results': currentTeams.length} }})</div>
         </div>
 
         <div *ngIf="currentTeams && currentTeams.length <= 0" class="row mt-4">
           <div class="col-12 text-center">
-            <span><i>There are no teams that match that query.</i></span>
+            <span><i>{{ 'no_data.teams_long' | translate }}</i></span>
           </div>
         </div>
     </mdc-card>

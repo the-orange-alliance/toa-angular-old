@@ -1,10 +1,10 @@
 <div class="row justify-content-center">
   <div class="col-12 col-md-8 col-lg-5 p-3">
     <mdc-card class="toa-card p-3">
-      <h2 class="m-2">Login</h2>
-      <mdc-text-field outlined class="mt-3" label="Email" [(ngModel)]="email" type="email" required></mdc-text-field>
-      <mdc-text-field outlined class="mt-4" label="Password" [(ngModel)]="password" type="password" required></mdc-text-field>
-      <button mdc-button primary class="mt-4 text-white" (click)="onLoginEmail()">Login</button>
+      <h2 class="m-2">{{ "pages.account.subpages.login.title" | translate }}</h2>
+      <mdc-text-field outlined class="mt-3" label="{{ 'pages.account.subpages.login.email' | translate }}" [(ngModel)]="email" type="email" required></mdc-text-field>
+      <mdc-text-field outlined class="mt-4" label="{{ 'pages.account.subpages.login.password' | translate }}" [(ngModel)]="password" type="password" required></mdc-text-field>
+      <button mdc-button primary class="mt-4 text-white" (click)="onLoginEmail()">{{ "pages.account.subpages.login.login" | translate }}</button>
     </mdc-card>
   </div>
 </div>

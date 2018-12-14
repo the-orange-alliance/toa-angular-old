@@ -34,12 +34,12 @@ export class MatchTableComponent {
   }
 
   public getParticipantString(match: Match, index: number): string {
-    return match.participants[index].teamKey.replace(/\D/g,'') // Strip all non-numeric characters
-      + (match.participants[index].stationStatus === 0 ? '*' : '');
+    return match.participants[index].teamNumber.toString() +
+      (match.participants[index].stationStatus === 0 ? '*' : '');
   }
 
   public getParticipantStringWithoutStatus(match: Match, index: number): string {
-    return match.participants[index].teamKey.replace(/\D/g,''); // Strip all non-numeric characters
+    return match.participants[index].teamNumber.toString();
   }
 
   public isSelectedTeam(match: Match, index: number): boolean {

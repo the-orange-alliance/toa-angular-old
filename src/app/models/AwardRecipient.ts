@@ -1,4 +1,5 @@
 import Award from './Award';
+import Team from "./Team";
 
 export default class AwardRecipient implements ISerializable {
   private _awardsKey: string;
@@ -9,6 +10,7 @@ export default class AwardRecipient implements ISerializable {
   private _awardName: string;
 
   private _award: Award;
+  private _team: Team;
 
   constructor() {
     this._awardsKey = '';
@@ -18,6 +20,7 @@ export default class AwardRecipient implements ISerializable {
     this._receiverName = '';
     this._awardName = '';
     this._award = new Award();
+    this._team = new Team();
   }
 
   toJSON(): object {
@@ -28,7 +31,8 @@ export default class AwardRecipient implements ISerializable {
       team_key: this.teamKey,
       receiver_name: this.receiverName,
       award_name: this.awardName,
-      award: this.award.awardKey.length > 0 ? this.award.toJSON() : undefined
+      award: this.award.awardKey.length > 0 ? this.award.toJSON() : undefined,
+      team: this.team.teamKey.length > 0 ? this.team.toJSON() : undefined
     };
   }
 
@@ -41,6 +45,7 @@ export default class AwardRecipient implements ISerializable {
     award.receiverName = json.receiver_name;
     award.awardName = json.award_name;
     award.award = typeof json.award !== 'undefined' ? new Award().fromJSON(json.award) : undefined;
+    award.team = typeof json.team !== 'undefined' ? new Team().fromJSON(json.team) : undefined;
     return award;
   }
 
@@ -98,5 +103,13 @@ export default class AwardRecipient implements ISerializable {
 
   set award(value: Award) {
     this._award = value;
+  }
+
+  get team(): Team {
+    return this._team;
+  }
+
+  set team(value: Team) {
+    this._team = value;
   }
 }

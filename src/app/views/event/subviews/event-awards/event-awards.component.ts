@@ -1,30 +1,25 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FTCDatabase } from '../../../../providers/ftc-database';
+import { Component, Input } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import AwardRecipient from "../../../../models/AwardRecipient";
 
 @Component({
-  providers: [FTCDatabase],
   selector: 'toa-event-awards',
   templateUrl: './event-awards.component.html'
 })
-export class EventAwardsComponent implements OnInit {
+export class EventAwardsComponent {
 
   @Input() event: any;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute) {
-
-  }
-
-  ngOnInit() {
+  constructor(private translate: TranslateService) {
 
   }
 
   isNewList(i: number): boolean {
-    return (i > 0 && this.getHeader(this.event.awards[i]) !== this.getHeader(this.event.awards[i - 1])) || i === 0
+    return i > 0 ? this.getHeader(this.event.awards[i]) !== this.getHeader(this.event.awards[i - 1]) : true
   }
 
   getHeader(awardRecipient: AwardRecipient) {
+    // TODO: translate
     const key = awardRecipient.awardKey;
     if (key.startsWith("INS")) {
       return "Inspire Award Winners";
@@ -54,4 +49,5 @@ export class EventAwardsComponent implements OnInit {
       return awardRecipient.awardName + 's';
     }
   }
+
 }

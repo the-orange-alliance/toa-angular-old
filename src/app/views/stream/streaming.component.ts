@@ -5,7 +5,6 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { SafeResourceUrl } from "@angular/platform-browser/src/security/dom_sanitization_service";
 import EventLiveStream from '../../models/EventLiveStream';
-import Event from '../../models/Event';
 
 export class StreamType {
   static YOUTUBE = 0;
@@ -22,10 +21,10 @@ export class StreamType {
 export class StreamingComponent implements OnInit {
 
   streams: EventLiveStream[];
-  showChat: boolean = true;
 
   constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer, private app: TheOrangeAllianceGlobals) {
     this.app.setTitle('Streaming');
+    this.app.setDescription('Watch live FIRST Tech Challenge events')
   }
 
   ngOnInit() {
@@ -66,7 +65,4 @@ export class StreamingComponent implements OnInit {
     return null
   }
 
-  openEvent(event_key): void {
-    this.router.navigate(['/events', event_key]);
-  }
 }

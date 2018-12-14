@@ -1,29 +1,54 @@
 <!-- AppBar -->
-<mdc-top-app-bar #topAppBar fixed style="z-index: 7">
+<mdc-top-app-bar #topAppBar fixed style="z-index: 7" [dir]="'config.direction' | translate">
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="The Orange Alliance">
       <!--<mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">menu</mdc-icon>-->
       <mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()"></mdc-icon>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
-      <a mdcTopAppBarActionItem title="Search" data-toggle="modal" [attr.data-target]="'#searchmodal'" (click)="focusSearchInput(searchInput)">
+      <a mdcTopAppBarActionItem class="d-block d-md-none" title="Search" data-toggle="modal" [attr.data-target]="'#searchmodal'" (click)="focusSearchInput(searchInput)">
         <mdc-icon class="icon-white" svgIcon="magnify"></mdc-icon>
       </a>
+
+      <div class="search-anchor d-none d-md-block">
+        <mdc-text-field outlined class="search-box" label="{{ 'general.search_text_long' | translate }}"
+                        [(ngModel)]="search"
+                        (change)="performSearch()"
+                        (keydown.enter)="this.navToTopSearch();"
+                        (keydown.ArrowDown)="searchresults.focusFirstElement(); $event.view.event.preventDefault()">
+        </mdc-text-field>
+        <div class="search-results mdc-menu mdc-menu-surface"
+             style="opacity: 1" [class.d-block]="showSearch && (teamSearchResults.length > 0 || eventSearchResults.length > 0)">
+          <mdc-list #searchresults class="text-left">
+            <div class="mdc-list-item mdc-list-item--disabled" *ngIf="teamSearchResults.length > 0">{{ "general.teams" | translate }}</div>
+            <a mdc-list-item *ngFor="let team of teamSearchResults" (click)="teamClicked($event, team.teamKey)"
+               (keydown.enter)="teamClicked($event, team.teamKey)"
+               [innerHTML]="getBoldText(team.teamNumber + ' - ' + (team.teamNameShort ? team.teamNameShort : 'Team ' + team.teamNumber))">
+            </a>
+
+            <div class="mdc-list-item mdc-list-item--disabled" *ngIf="eventSearchResults.length > 0">{{ "general.events" | translate }}</div>
+            <a mdc-list-item *ngFor="let event of eventSearchResults" (click)="eventClicked($event, event.eventKey)"
+               (keydown.enter)="eventClicked($event, event.eventKey)"
+               [innerHTML]="getBoldText(event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName)">
+            </a>
+          </mdc-list>
+        </div>
+      </div>
     </mdc-top-app-bar-section>
   </mdc-top-app-bar-row>
 </mdc-top-app-bar>
 
 <!-- Drawer -->
-<div class="mdc-top-app-bar--fixed-adjust">
+<div class="mdc-top-app-bar--fixed-adjust" [dir]="'config.direction' | translate">
   <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || topAppBar.isCollapsed() ? 'modal' : 'permanent'" class="toa-drawer--fixed">
     <mdc-drawer-content>
       <mdc-list-item class="item-profile" disabled>
         <div *ngIf="!user">
-          <span>Hello, Guest!</span>
+          <span>{{ 'drawer.mytoa.hello' | translate: {'name': 'drawer.mytoa.guest' | translate } }}</span>
           <span class="mdc-list-item__secondary-text">
-            <button mdc-button dense routerLink="/account/login">Login</button>
+            <button mdc-button dense routerLink="/account/login">{{ 'drawer.mytoa.login' | translate }}</button>
             <span>•</span>
-            <button mdc-button dense routerLink="/account/register">Register</button>
+            <button mdc-button dense routerLink="/account/register">{{ 'drawer.mytoa.register' | translate }}</button>
           </span>
         </div>
 
@@ -32,62 +57,65 @@
             <img class="rounded-circle" src="https://avatars3.githubusercontent.com/u/16443111?s=460&v=4" height="50" />
           </mdc-icon>
           <mdc-list-item-text>
-            <span style="text-transform: capitalize">Hello, {{ user.fullName || 'User' }}!</span>
+            <span style="text-transform: capitalize">{{ 'drawer.mytoa.hello' | translate: {'name': user.fullName || 'User'} }}</span>
             <span class="mdc-list-item__secondary-text">{{ user.email }}</span>
           </mdc-list-item-text>
         </div>
       </mdc-list-item>
 
       <mdc-list-group>
-        <mdc-list>
+        <mdc-list [singleSelection]="false" [useSelectedClass]="false" [useActivatedClass]="false">
 
           <mdc-list-divider></mdc-list-divider>
 
           <a mdc-list-item routerLink="/home" routerLinkActive="mdc-list-item--activated">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="home"></mdc-icon>Home
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="home"></mdc-icon>{{ "drawer.home" | translate }}
           </a>
-          <!-- <a mdc-list-item routerLink="/account" routerLinkActive="mdc-list-item--activated">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="star"></mdc-icon>myTOA
-          </a> -->
           <a mdc-list-item routerLink="/teams" routerLinkActive="mdc-list-item--activated">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="account-group"></mdc-icon>Teams
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="account-group"></mdc-icon>{{ "drawer.teams" | translate }}
           </a>
           <a mdc-list-item routerLink="/events" routerLinkActive="mdc-list-item--activated">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="calendar"></mdc-icon>Events
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="calendar"></mdc-icon>{{ "drawer.events" | translate }}
           </a>
           <a mdc-list-item routerLink="/stream" routerLinkActive="mdc-list-item--activated">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="video"></mdc-icon>Streaming
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="video"></mdc-icon>{{ "drawer.streaming" | translate }}
+          </a>
+
+          <mdc-list-divider></mdc-list-divider>
+
+          <a mdc-list-item data-toggle="modal" [attr.data-target]="'#selectLanguage'">
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="translate"></mdc-icon> Select Language
           </a>
 
           <mdc-list-divider></mdc-list-divider>
 
           <a mdc-list-item href="https://play.google.com/store/apps/details?id=com.theorangealliance.android" target="_blank">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="android-head"></mdc-icon>Android App
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="android-head"></mdc-icon>{{ "drawer.android_app" | translate }}
           </a>
 
           <a mdc-list-item routerLink="/add-data" routerLinkActive="mdc-list-item--activated">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="upload"></mdc-icon>Add Data
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="upload"></mdc-icon>{{ "drawer.add_data" | translate }}
           </a>
 
           <a mdc-list-item routerLink="/apidocs" routerLinkActive="mdc-list-item--activated">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="code-tags"></mdc-icon>API
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="code-tags"></mdc-icon>{{ "drawer.api" | translate }}
           </a>
 
           <a mdc-list-item href="https://github.com/orange-alliance" target="_blank">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="github-circle"></mdc-icon>GitHub
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="github-circle"></mdc-icon>{{ "drawer.github" | translate }}
           </a>
 
           <div class="text-center w-100 pb-2">
-            <a mdcIconButton class="col-3" href="https://discord.gg/5fH66UV" target="_blank">
+            <a mdcIconButton class="col-3" href="https://discord.gg/5fH66UV" target="_blank" (click)="this.sendAnalytic('leaving', 'discord sidebar');">
               <mdc-icon svgIcon="discord"></mdc-icon>
             </a>
-            <a mdcIconButton class="col-3" href="https://www.facebook.com/theorangealliance" target="_blank">
+            <a mdcIconButton class="col-3" href="https://www.facebook.com/theorangealliance" target="_blank" (click)="this.sendAnalytic('leaving', 'facebook sidebar');">
               <mdc-icon svgIcon="facebook"></mdc-icon>
             </a>
-            <a mdcIconButton class="col-3" href="https://www.twitter.com/toalliance" target="_blank">
+            <a mdcIconButton class="col-3" href="https://www.twitter.com/toalliance" target="_blank" (click)="this.sendAnalytic('leaving', 'twitter sidebar');">
               <mdc-icon svgIcon="twitter"></mdc-icon>
             </a>
-            <a mdcIconButton class="col-3" href="https://www.instagram.com/toalliance" target="_blank">
+            <a mdcIconButton class="col-3" href="https://www.instagram.com/toalliance" target="_blank" (click)="this.sendAnalytic('leaving', 'instagram sidebar');">
               <mdc-icon svgIcon="instagram"></mdc-icon>
             </a>
           </div>
@@ -95,15 +123,15 @@
           <mdc-list-divider></mdc-list-divider>
 
           <a mdc-list-item routerLink="/about" routerLinkActive="mdc-list-item--activated">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="information-outline"></mdc-icon>About
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="information-outline"></mdc-icon>{{ "drawer.about" | translate }}
           </a>
           <a mdc-list-item routerLink="/privacy-terms" routerLinkActive="mdc-list-item--activated">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="gavel"></mdc-icon>Privacy & Terms
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="gavel"></mdc-icon>{{ "drawer.privacy_and_terms" | translate }}
           </a>
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a href="https://revrobotics.com/" target="_blank" class="p-4" mdc-list-item>
+          <a href="https://revrobotics.com/" target="_blank" class="p-4" mdc-list-item  (click)="this.sendAnalytic('leaving', 'rev robotics logo');">
             <img class="img-fit-w" src="../assets/imgs/powered_by_rev.png" title="Powered by REV" />
           </a>
 
@@ -112,7 +140,7 @@
     </mdc-drawer-content>
   </mdc-drawer>
 
-  <!-- Search -->
+  <!-- Mobile Search -->
   <div class="modal fade" id="searchmodal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered h-75">
       <div class="modal-content w-100 h-100">
@@ -122,19 +150,25 @@
           </button>
         </div>
         <div class="modal-body pt-0" style="overflow-y: initial !important">
-          <mdc-text-field #searchInput id="ftc_search" (change)="performSearch()" label="Team # or Event" [(ngModel)]="search" [fullwidth]="true"></mdc-text-field>
-          <div class="row mt-3" *ngIf="search" style="max-height: calc(100vh - 215px); overflow-y: auto">
+          <mdc-text-field #searchInput class="mobile-search"
+                          (change)="performSearch()"
+                          (keydown.enter)="this.navToTopSearch()"
+                          label="{{ 'general.search_text_short' | translate }}"
+                          [(ngModel)]="search"
+                          [fullwidth]="true">
+          </mdc-text-field>
+          <div class="row mt-3" *ngIf="search" style="max-height: calc(100vh - 175px); overflow-y: auto">
             <div class="col-md-6 col-12">
-              <div mdcHeadline5 class="black">Teams</div>
+              <div mdcHeadline5 class="black">{{ "general.teams" | translate }}</div>
               <mdc-list *ngIf="teamSearchResults">
-                <toa-team-item *ngFor="let result of teamSearchResults" [team]="result"></toa-team-item>
+                <toa-team-item *ngFor="let result of teamSearchResults" [team]="result" data-dismiss="modal"></toa-team-item>
               </mdc-list>
-              <p *ngIf="teamSearchResults.length === 0">No teams found</p>
+              <p *ngIf="teamSearchResults.length === 0">{{ "no_data.teams" | translate }}</p>
             </div>
             <div class="col-md-6 col-12">
-              <div mdcHeadline5 class="black">Events</div>
-              <toa-event-item *ngFor="let result of eventSearchResults" [event]="result"></toa-event-item>
-              <p *ngIf="eventSearchResults.length === 0">No events found</p>
+              <div mdcHeadline5 class="black">{{ "general.events" | translate }}</div>
+              <toa-event-item *ngFor="let result of eventSearchResults" [event]="result" data-dismiss="modal"></toa-event-item>
+              <p *ngIf="eventSearchResults.length === 0">{{ "no_data.events" | translate }}</p>
             </div>
           </div>
         </div>
@@ -144,5 +178,26 @@
 
   <div class="page" [class.toa-page]="router.url !== '/stream'">
     <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Select Language -->
+<div class="modal fade" id="selectLanguage" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div mdcDialogSurface class="modal-content border-0">
+      <mdc-dialog-title>Select Language</mdc-dialog-title>
+      <mdc-dialog-content>
+        <mdc-list>
+          <mdc-radio-group [(ngModel)]="selectedLanguage">
+            <mdc-list-item><mdc-radio mdcListItemGraphic value="en"></mdc-radio>🇺🇸 English</mdc-list-item>
+            <mdc-list-item><mdc-radio mdcListItemGraphic value="he"></mdc-radio>🇮🇱 Hebrew</mdc-list-item>
+          </mdc-radio-group>
+        </mdc-list>
+      </mdc-dialog-content>
+      <mdc-dialog-actions>
+        <button mdcDialogButton data-dismiss="modal">Cancel</button>
+        <button mdcDialogButton default data-dismiss="modal" (click)="languageSelected()">Select</button>
+      </mdc-dialog-actions>
+    </div>
   </div>
 </div>

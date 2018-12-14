@@ -2,20 +2,20 @@
   <table class="table table-responsive d-md-table d-sm-block">
     <thead class="thead-light">
       <tr>
-        <th>Rank</th>
-        <th>Team</th>
-        <th>Record (W-L-T)</th>
-        <th *ngIf="showQualPoints">Qualification Points</th>
-        <th>Ranking Points</th>
-        <th *ngIf="showTieBreakerPoints">Tie Breaker Points</th>
-        <th *ngIf="showHighScore">Highest Score</th>
-        <th>Matches Played</th>
+        <th>{{ 'pages.event.subpages.rankings.rank' | translate }}</th>
+        <th>{{ 'pages.event.subpages.rankings.team' | translate }}</th>
+        <th>{{ 'pages.event.subpages.rankings.wlt_record' | translate }}</th>
+        <th *ngIf="showQualPoints">{{ 'pages.event.subpages.rankings.qual_points' | translate }}</th>
+        <th>{{ 'pages.event.subpages.rankings.ranking_points' | translate }}</th>
+        <th *ngIf="showTieBreakerPoints">{{ 'pages.event.subpages.rankings.tie_reaker_points' | translate }}</th>
+        <th *ngIf="showHighScore">{{ 'pages.event.subpages.rankings.highest_score' | translate }}</th>
+        <th>{{ 'pages.event.subpages.rankings.matches_played' | translate }}</th>
       </tr>
     </thead>
     <tbody *ngIf="rankings">
       <tr *ngFor="let rank of rankings" >
         <td>{{ rank.rank }}</td>
-        <td><a href="/teams/{{ rank.teamKey }}">{{ rank.teamKey }}</a></td>
+        <td><a routerLink="/teams/{{ rank.teamKey }}">{{ rank.teamNumber }}</a></td>
         <td>{{ rank.wins }} - {{ rank.losses }} - {{ rank.ties }}</td>
         <td *ngIf="showQualPoints">{{ rank.qualifyingPoints }}</td>
         <td>{{ rank.rankingPoints }}</td>

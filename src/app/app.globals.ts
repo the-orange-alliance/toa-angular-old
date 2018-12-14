@@ -13,17 +13,7 @@ export class TheOrangeAllianceGlobals {
   }
 
   setDescription(newDescription: string): void {
-    this.meta.addTags(
-      [
-          {
-            name: 'description',
-            content: newDescription
-          },
-          {
-            name: 'og:description',
-            content: newDescription
-          }
-        ]
-    );
+    this.meta.updateTag({ name: 'description', content: newDescription });
+    this.meta.updateTag({ name: 'og:description', content: newDescription });
   }
 }

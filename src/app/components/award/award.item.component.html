@@ -1,4 +1,4 @@
-<a href="/teams/{{ award.teamKey }}" class="no-underline" *ngIf="!mini">
+<a routerLink="/teams/{{ award.teamKey }}" class="no-underline" *ngIf="!mini">
   <mdc-list-item class="item-team">
     <img *ngIf="award.awardKey.startsWith('WIN') && award.awardKey.length == 4" class="rounded-circle" src="../../../assets/imgs/trophy.png" />
     <img *ngIf="!(award.awardKey.startsWith('WIN') && award.awardKey.length == 4)" class="rounded-circle" src="../../../assets/imgs/trophy_star.png" />
@@ -10,8 +10,8 @@
     </div>
   </mdc-list-item>
 </a>
-<a href="/teams/{{ award.teamKey }}" class="no-underline" *ngIf="mini">
+<a routerLink="/teams/{{ award.teamKey }}" class="no-underline" *ngIf="mini">
   <mdc-list-item class="black">
-    <mdc-icon mdcListItemGraphic [svgIcon]="getIcon()"></mdc-icon> Team #{{ getTeamNumber() }}
+    <mdc-icon mdcListItemGraphic [svgIcon]="getIcon()"></mdc-icon> Team #{{ award.team.teamNumber }} - {{ award.team.teamNameShort }}
   </mdc-list-item>
 </a>

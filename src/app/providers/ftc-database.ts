@@ -144,7 +144,7 @@ export class FTCDatabase {
 
   public getSeasonEvents(season: string): Promise<Event[]> {
     return new Promise<Event[]>((resolve, reject) => {
-      this.request('/event?season_key=' + season).then((data: any[]) => {
+      this.request('/event?includeTeamCount=true&season_key=' + season).then((data: any[]) => {
         resolve(data.map((result: any) => new Event().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });
@@ -224,10 +224,10 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamEvents(teamKey: string, seasonKey: string): Promise<Event[]> {
-    return new Promise<Event[]>((resolve, reject) => {
+  public getTeamEvents(teamKey: string, seasonKey: string): Promise<EventParticipant[]> {
+    return new Promise<EventParticipant[]>((resolve, reject) => {
       this.request('/team/' + teamKey + '/events/' + seasonKey).then((data: any[]) => {
-        resolve(data.map((result: any) => new Event().fromJSON(result.event)));
+        resolve(data.map((result: any) => new EventParticipant().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });
   }

@@ -1,0 +1,81 @@
+@import "../../../constants";
+
+.stream {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  border: $mdc-theme-primary solid 1px;
+  padding: 0;
+}
+
+.half {
+  height: 50%;
+  width: 100%;
+}
+
+@media only screen and (max-width: 599px) {
+  .half {
+    height: 100%!important;
+  }
+}
+
+.select-stream {
+  background: #fff;
+  color: #000;
+}
+
+.icon-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.icon-tooltip .tooltiptext {
+  opacity: 0;
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  transition: opacity 0.3s;
+  text-transform: uppercase;
+  font-family: Roboto, sans-serif;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.icon-tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.info {
+  height: 36px;
+  align-self: flex-end;
+  background: #2f2e2e;
+  width: 100%;
+  color: #fff!important;
+}
+
+.info button {
+  color: #fff!important;
+  background: #2f2e2e!important;
+  min-width: 24px;
+}
+
+.info h2 {
+  padding: 0 0 0 20px;
+  margin: 0;
+  max-width: 75%;
+  align-self: center !important;
+}
+
+iframe {
+  height: calc(100% - 36px)!important;
+}

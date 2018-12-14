@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
-import { EventParser } from '../../util/event-utils';
+import { TeamSorter } from '../../util/team-utils';
+import { AwardSorter } from '../../util/award-utils';
 import { MatchSorter } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import { AngularFireAuth } from "angularfire2/auth";
-import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 import Event from '../../models/Event';
 import EventType from '../../models/EventType';
 import Season from '../../models/Season';
@@ -18,9 +19,6 @@ import EventLiveStream from '../../models/EventLiveStream';
   styleUrls: ['./event.component.scss']
 })
 export class EventComponent implements OnInit {
-
-  event_parser: EventParser;
-  match_sorter: MatchSorter;
 
   seasons: any;
   event_types: any;
@@ -61,7 +59,7 @@ export class EventComponent implements OnInit {
           this.event = data;
 
           this.app.setTitle(this.event.eventName);
-          this.app.setDescription(this.event.eventName + 'details for the FIRST Tech Challenge from ' + new Date(this.event.startDate).getFullYear());
+          this.app.setDescription(`Event results for the ${new Date(this.event.startDate).getFullYear()} ${this.event.eventName} FIRST Tech Challenge in ${this.event.stateProv ? this.event.stateProv + ', ' + this.event.country : this.event.country }`);
 
           if (this.event.rankings && this.event.rankings.length > 0) {
             this.select('rankings');
@@ -72,15 +70,17 @@ export class EventComponent implements OnInit {
           }
 
           if (this.event.matches) {
-            this.match_sorter = new MatchSorter();
-            this.event.matches = this.match_sorter.sort(this.event.matches, 0, this.event.matches.length - 1);
+            this.event.matches = new MatchSorter().sort(this.event.matches, 0, this.event.matches.length - 1);
           }
 
           if (this.event.awards) {
-            this.event.awards.sort((a,b) => (a.award.displayOrder > b.award.displayOrder) ? 1 : ((b.award.displayOrder > a.award.displayOrder) ? -1 : 0));
+            this.event.awards = new AwardSorter().sort(this.event.awards);
           }
 
-          this.event_parser = new EventParser(this.event);
+          if (this.event.teams) {
+            this.event.teams = new TeamSorter().sortEventParticipant(this.event.teams);
+          }
+
           this.totalteams = this.event.teams.length;
           this.totalmatches = this.event.matches.length;
           this.totalrankings = this.event.rankings.length;
@@ -117,7 +117,8 @@ export class EventComponent implements OnInit {
         }
       }, (err) => {
         console.log(err);
-      });
+        this.router.navigate(['/not-found']);
+      })
       }
   }
 
@@ -135,5 +136,14 @@ export class EventComponent implements OnInit {
     } else { // Add to favorites
       this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).set(true);
     }
+  }
+
+  sendAnalytic(category, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: this.router.url,
+      eventAction: action,
+      eventValue: 10
+    });
   }
 }
