@@ -11,6 +11,7 @@ export default class MatchParticipant implements ISerializable {
    this._matchParticipantKey = '';
    this._matchKey = '';
    this._teamKey = '';
+   this._teamNumber = -1;
    this._station = 0;
    this._stationStatus = 0;
    this._refStatus = 0;

@@ -34,12 +34,12 @@ export class MatchTableComponent {
   }
 
   public getParticipantString(match: Match, index: number): string {
-    return match.participants[index].teamNumber.toString() +
+    return match.participants[index].teamNumber +
       (match.participants[index].stationStatus === 0 ? '*' : '');
   }
 
   public getParticipantStringWithoutStatus(match: Match, index: number): string {
-    return match.participants[index].teamNumber.toString();
+    return match.participants[index].teamNumber + '';
   }
 
   public isSelectedTeam(match: Match, index: number): boolean {
