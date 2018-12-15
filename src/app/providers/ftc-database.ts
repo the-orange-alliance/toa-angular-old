@@ -120,7 +120,7 @@ export class FTCDatabase {
 
   public getHighScoreWithPenalty(seasonKey: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
-      this.request('/match/high-scores?type=all&season_key=' + seasonKey).then((data: any[]) => {
+      this.request('/match/high-scores?type=all&penalty=true&season_key=' + seasonKey).then((data: any[]) => {
         resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
       }).catch((err: any) => reject(err));
     });
