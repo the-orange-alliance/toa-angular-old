@@ -37,13 +37,13 @@
   <tbody *ngIf="match.participants && match.participants.length === 6">
     <tr class="red">
       <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-        <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantStringWithoutStatus(match, 2) }}</a>
+        <a routerLink="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantStringWithoutStatus(match, 2) }}</a>
       </td>
       <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-        <a routerLink="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantStringWithoutStatus(match, 3) }}</a>
+        <a routerLink="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantStringWithoutStatus(match, 3) }}</a>
       </td>
       <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-        <a routerLink="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantStringWithoutStatus(match, 4) }}</a>
+        <a routerLink="/teams/{{ match.participants[4].teamKey }}">{{ getParticipantStringWithoutStatus(match, 4) }}</a>
       </td>
       <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
         {{ match.redScore > -1 ? match.redScore : '?' }}
@@ -51,13 +51,13 @@
     </tr>
     <tr class="blue">
       <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-        <a routerLink="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantStringWithoutStatus(match, 0) }}</a>
+        <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantStringWithoutStatus(match, 0) }}</a>
       </td>
       <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-        <a routerLink="/teams/{{ match.participants[4].teamKey }}">{{ getParticipantStringWithoutStatus(match, 1) }}</a>
+        <a routerLink="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantStringWithoutStatus(match, 1) }}</a>
       </td>
       <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
-        <a routerLink="/teams/{{ match.participants[5].teamKey }}">{{ getParticipantStringWithoutStatus(match, 2) }}</a>
+        <a routerLink="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantStringWithoutStatus(match, 2) }}</a>
       </td>
       <td class="blue" [class.match-winner]="match.redScore <= match.blueScore">
         {{ match.blueScore > -1 ? match.blueScore : '?' }}
