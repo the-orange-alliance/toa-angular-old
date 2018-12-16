@@ -44,10 +44,9 @@ export class TeamComponent implements OnInit {
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
         this.user = user;
-        db.object(`Users/${user.uid}/favTeams/${this.teamKey}`).snapshotChanges()
-          .subscribe(items => {
-            this.favorite = items !== null && items.payload.val() === true
-          });
+          db.object(`Users/${user.uid}/favTeams/${this.teamKey}`).query.once("value").then(items => {
+            this.favorite = items !== null && items.val() === true
+            });
       }
     });
 
@@ -238,8 +237,14 @@ export class TeamComponent implements OnInit {
   toggleTeam(): void {
     if (this.favorite) { // Remove from favorites
       this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).remove();
+      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).query.once("value").then(items => {
+        this.favorite = items !== null && items.val() === true
+        });
     } else { // Add to favorites
       this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).set(true);
+      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).query.once("value").then(items => {
+        this.favorite = items !== null && items.val() === true
+        });
     }
   }
 
