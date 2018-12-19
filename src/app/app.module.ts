@@ -9,7 +9,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireStorageModule } from "angularfire2/storage";
 import { environment } from '../environments/environment';
 
 import { TheOrangeAllianceComponent } from './app.component';
@@ -89,7 +88,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AngularFireModule.initializeApp(environment.firebase, 'T'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    AngularFireStorageModule,
 
     BrowserModule.withServerTransition({appId: 'TOA-WebApp-1819'}),
     TranslateModule.forRoot({
