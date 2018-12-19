@@ -71,8 +71,12 @@ mdc-text-field .mdc-floating-label {
   margin-bottom: 0;
 }
 
+.mdc-top-app-bar {
+  color: #000;
+}
+
 .mdc-top-app-bar .mdc-top-app-bar__navigation-icon {
-  color: #fff;
+  color: #000;
 }
 
 mdc-icon svg {
@@ -110,12 +114,12 @@ mdc-icon svg {
 }
 
 .icon-white {
-  color: white;
+  color: #fff;
 }
 
 /* for SVG icons */
 .icon-white svg {
-  fill: white;
+  fill: #fff;
 }
 
 
@@ -146,10 +150,6 @@ mdc-drawer mdc-list .mdc-list-item--activated {
 
 mdc-drawer mdc-list a {
   color: rgba(0, 0, 0, 0.54)!important;
-}
-
-.mdc-top-app-bar {
-  color: #fff;
 }
 
 .item-profile {
@@ -201,8 +201,15 @@ mdc-drawer mdc-list a {
    Info State
    ========================================================================== */
 
+.info-state {
+  align-content: center !important;
+  display: flex;
+}
+
 .info-state p {
-  margin: 3px 0 10px 10px;;
+  margin: 0 0 10px 10px;
+  word-break: break-word;
+  padding: 0;
 }
 
 .info-state mdc-icon {
@@ -231,6 +238,7 @@ mdc-drawer mdc-list a {
   border-radius: 6px!important;
   padding: 5px;
 }
+
 .toa-card-header {
   font-weight: 500;
   color: #000;
@@ -350,10 +358,14 @@ table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>
 }
 
 table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
-  padding: 8px;
+  padding: 12px;
   line-height: 1.42857143;
   vertical-align: middle;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #efefef;
+}
+
+table.match-table>tbody > tr > td:not(.selected-team) {
+  padding: 15px!important;
 }
 
 table.match-table th, table.oprTable th {
@@ -401,6 +413,36 @@ table.match-table tr {
   font-weight: 600;
 }
 
+.selected-team {
+  border: 3px solid #000!important;
+}
+
+.selected-team-snackbar {
+  display: block;
+  padding: 15px 24px;
+}
+
+.selected-team-snackbar .mdc-snackbar__text {
+  height: auto;
+  padding-bottom: 8px;
+}
+
+.selected-team-snackbar .badge {
+  font-weight: 400;
+  font-size: 13px !important;
+  padding: 7px;
+}
+
+@media (min-width: 600px) {
+  .mdc-snackbar--active.selected-team-snackbar {
+    bottom: 15px;
+  }
+
+  .selected-team-snackbar:not(.mdc-snackbar--active) {
+    bottom: -1000px;
+  }
+}
+
 /* ==========================================================================
    Search
    ========================================================================== */
@@ -415,7 +457,7 @@ table.match-table tr {
 
 .search-box {
   width: 300px;
-  color: #fff!important;
+  color: #000!important;
   box-shadow: none;
   background-color: $mdc-theme-light!important;
   border-radius: 4px;
@@ -423,12 +465,12 @@ table.match-table tr {
 
 .search-box input{
   border: 0;
-  color: #fff!important;
-  caret-color: #fff!important;
+  color: #000!important;
+  caret-color: #000!important;
 }
 
 .search-anchor .mdc-floating-label {
-  color: #fff!important;
+  color: #000!important;
 }
 
 .search-anchor .mdc-floating-label--float-above {

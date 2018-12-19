@@ -102,7 +102,7 @@
           "title": "דירוגים",
           "rank": "דירוג",
           "team": "קבוצה",
-          "wlt_record": "Record (W-L-T)",
+          "wlt_record": "ניצחון-הפסד-תיקו",
           "qual_points": "Qualification Points",
           "ranking_points": "Ranking Points",
           "tie_reaker_points": "נקודות שובר שיוויון",
@@ -130,6 +130,7 @@
     "match": {
       "match_info": "פרטי המקצה",
       "match_key": "קוד מקצה",
+      "scheduled_time": "מועד מתוכנן",
       "no_video": "אין סרטון זמין",
       "add_one": "הוסף אחד"
     },
@@ -169,6 +170,10 @@
     "blue_alliance": "ברית כחולה",
     "red_alliance": "ברית אדומה",
     "match": "מקצה",
+    "view_team": "הצג קבוצה",
+    "rank": "דירוג",
+    "wlt": "WLT",
+    "played": "שוחקו",
     "help": {
       "bold": "<b>מוגדש</b> זה הברית המנצחת</small>",
       "bold_and_black": "<b>מוגדש ושחור</b> זה הקבוצה שנבחרה</small>",

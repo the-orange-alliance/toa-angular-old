@@ -130,6 +130,7 @@
     "match": {
       "match_info": "Match Information",
       "match_key": "Match Key",
+      "scheduled_time": "Scheduled Time",
       "no_video": "No video available",
       "add_one": "Add one"
     },
@@ -169,6 +170,10 @@
     "blue_alliance": "Blue Alliance",
     "red_alliance": "Red Alliance",
     "match": "Match",
+    "view_team": "View team",
+    "rank": "Rank",
+    "wlt": "WLT",
+    "played": "Played",
     "help": {
       "bold": "<b>Bold</b> is Winning Alliance</small>",
       "bold_and_black": "<b>Bold and Black</b> is Selected Team</small>",

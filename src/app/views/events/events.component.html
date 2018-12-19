@@ -43,14 +43,14 @@
       <mdc-tab-bar #tabbar class="w-100">
         <mdc-tab-scroller>
           <mdc-tab *ngFor="let week of availableWeeks; let i = index" [label]="getWeekName(week.weekKey)" (click)="select(i)">
-            <span class="ml-1 badge badge-pill badge-primary bg-primary">{{ getEventsByWeek(week).length }}</span>
+            <span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ getEventsByWeek(week).length }}</span>
           </mdc-tab>
         </mdc-tab-scroller>
       </mdc-tab-bar>
       <div class="mt-4">
         <div *ngFor="let week of availableWeeks; let i = index">
           <div *ngIf="isSelected(i)">
-            <div class="pt-t pl-3">
+            <div class="pt-0 pl-3 pr-3">
               <h1 mdcHeadline6>{{ getWeekName(week.weekKey) }}<h1 mdcSubtitle1>{{ week.startDate | date :  "mediumDate"}} - {{ week.endDate | date :  "mediumDate" }}</h1></h1>
             </div>
 

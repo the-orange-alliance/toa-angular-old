@@ -2,12 +2,11 @@
 <mdc-top-app-bar #topAppBar fixed style="z-index: 7" [dir]="'config.direction' | translate">
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="The Orange Alliance">
-      <!--<mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">menu</mdc-icon>-->
       <mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()"></mdc-icon>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <a mdcTopAppBarActionItem class="d-block d-md-none" title="Search" data-toggle="modal" [attr.data-target]="'#searchmodal'" (click)="focusSearchInput(searchInput)">
-        <mdc-icon class="icon-white" svgIcon="magnify"></mdc-icon>
+        <mdc-icon svgIcon="magnify"></mdc-icon>
       </a>
 
       <div class="search-anchor d-none d-md-block">

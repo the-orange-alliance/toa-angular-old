@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import Match from '../../models/Match';
 import Team from '../../models/Team';
+import Ranking from "../../models/Ranking";
+import EventParticipant from "../../models/EventParticipant";
 
 @Component({
   selector: 'match-table',
@@ -10,6 +12,11 @@ export class MatchTableComponent {
   @Input() matchList?: Match[];
   @Input() match?: Match;
   @Input() team?: Team;
+
+  @Input() teams?: EventParticipant[];
+  @Input() rankings?: Ranking[];
+  private selectedTeam: string = '';
+  selectedTeamParticipant: EventParticipant = null;
 
   public getMatchResultString(match: Match): string {
     let teamStation = 0;
@@ -43,6 +50,32 @@ export class MatchTableComponent {
   }
 
   public isSelectedTeam(match: Match, index: number): boolean {
-    return match.participants[index].teamKey == this.team.teamKey; // === isn't working
+    if (this.team) {
+      return match.participants[index].teamKey == this.team.teamKey; // === isn't working
+    } else {
+      return match.participants[index].teamKey == this.selectedTeam;
+    }
+  }
+
+  private selectTeam(match: Match, index: number) {
+    if (match.participants[index].teamKey != this.selectedTeam) {
+      this.selectedTeam = match.participants[index].teamKey;
+
+      for (const _team of this.teams) {
+        if (_team.teamKey === this.selectedTeam) {
+          this.selectedTeamParticipant = _team;
+          break;
+        }
+      }
+      for (const ranking of this.rankings) {
+        if (this.selectedTeamParticipant && ranking.teamKey == this.selectedTeam) {
+          this.selectedTeamParticipant.team.rankings = [ranking];
+          break;
+        }
+      }
+    } else {
+      this.selectedTeam = '';
+      this.selectedTeamParticipant = null;
+    }
   }
 }
