@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 import { FTCDatabase } from "../../providers/ftc-database";
 import { AngularFireAuth } from "angularfire2/auth";
 import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFireStorage } from "angularfire2/storage";
+import {Observable} from 'rxjs/Rx';
 import { TeamSorter } from "../../util/team-utils";
 import { EventSorter } from "../../util/event-utils";
 import Team from "../../models/Team";
@@ -12,6 +14,7 @@ import Event from "../../models/Event";
 @Component({
   selector: 'toa-account',
   templateUrl: './account.component.html',
+  styleUrls: ['./account.component.scss'],
   providers: [TheOrangeAllianceGlobals]
 })
 
@@ -24,8 +27,10 @@ export class AccountComponent {
 
   loaded: boolean;
 
+  profileUrl: Observable<string | null>;
+
   constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase,
-              db: AngularFireDatabase, public auth: AngularFireAuth) {
+              db: AngularFireDatabase, private storage: AngularFireStorage, public auth: AngularFireAuth) {
     this.app.setTitle('myTOA');
     this.app.setDescription('Watch live FIRST Tech Challenge events')
 
@@ -33,6 +38,7 @@ export class AccountComponent {
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
         this.user['email'] = user.email;
+        this.user['uid'] = user.uid;
         db.list(`Users/${user.uid}`).snapshotChanges()
           .subscribe(items => {
 
@@ -66,6 +72,14 @@ export class AccountComponent {
                     }
                   });
                 }
+              }
+
+              if (this.user['profileImage'] != null){
+                const storageRef = this.storage.ref(`images/users/${this.user['profileImage']}`);
+                this.profileUrl = storageRef.getDownloadURL();
+              }else{
+                const storageRef = this.storage.ref(`images/users/generic/${String(this.user['fullName']).charAt(0).toLowerCase()}.png`);
+                this.profileUrl = storageRef.getDownloadURL();
               }
 
               this.loaded = true;
