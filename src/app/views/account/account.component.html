@@ -6,12 +6,10 @@
 </div>
 <div class="row">
   <div class="col-center">
-    <div *ngIf="user['profileImage'] != 'null'">
       <img draggable="false" class="rounded-circle img-center" src="{{profileUrl | async}}" height="100" />
-    </div>
     <div style="text-align: center; font-size: 30px; font-weight: bold; color: rgb(51,51,51)">{{user['fullName']}}</div>
-    <div *ngIf="user['level'] == nil" style="text-align: center; font-size: 15px; font--weight: 100; color: rgb(116, 116, 116)">{{user['team']}}</div>
-    <div *ngIf="user['level'] != nil" style="text-align: center; font-size: 15px; font--weight: 100; color: rgb(116, 116, 116)">{{user['team']}} ᛫ Level {{user['level']}}</div>
+    <div *ngIf="user['level'] == null" style="text-align: center; font-size: 15px; font--weight: 100; color: rgb(116, 116, 116)">{{user['team']}}</div>
+    <div *ngIf="user['level'] != null" style="text-align: center; font-size: 15px; font--weight: 100; color: rgb(116, 116, 116)">{{user['team']}} ᛫ Level {{user['level']}}</div>
   </div>
 </div>
 <div class="bottom-three"></div>
