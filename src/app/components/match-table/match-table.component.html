@@ -94,7 +94,7 @@
 
   <tbody *ngIf="matchList.length <= 0">
   <tr>
-    <td colspan="18"><i>There is no available matches data for this event.</i></td>
+    <td colspan="18"><i>{{ 'match_table.no_matches_for_event' | translate }}</i></td>
   </tr>
   </tbody>
   <tbody *ngFor="let match of matchList; let i = index;">
@@ -281,7 +281,7 @@
 
   <tbody *ngIf="matchList.length <= 0">
   <tr>
-    <td colspan="18"><i>There is no available matches data for this event.</i></td>
+    <td colspan="18"><i>{{ 'match_table.no_matches_for_event' | translate }}</i></td>
   </tr>
   </tbody>
   <tbody *ngFor="let match of matchList; let i = index;">

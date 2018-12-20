@@ -137,7 +137,10 @@
 
     "streams": {
       "event_results": "תוצאות אירוע",
-      "close_stream": "סגור שידור"
+      "close_stream": "סגור שידור",
+      "select_stream": "בחר שידור",
+      "select": "בחר",
+      "cancel": "ביטול"
     },
 
     "team": {
@@ -159,7 +162,7 @@
     "teams": {
       "title": "קבוצות",
       "filter": "סנן לפי מספר, שם, או מיקום",
-      "results": "{{result}} תוצאות"
+      "results": "{{ results }} תוצאות"
     }
   },
 
@@ -169,6 +172,7 @@
     "scores": "ניקוד",
     "blue_alliance": "ברית כחולה",
     "red_alliance": "ברית אדומה",
+    "no_matches_for_event": "אין מידע על מקצים עבור אירוע זה.",
     "match": "מקצה",
     "view_team": "הצג קבוצה",
     "rank": "דירוג",

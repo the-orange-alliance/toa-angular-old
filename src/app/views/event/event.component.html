@@ -2,7 +2,7 @@
   <div class="row">
     <h2 [class.col-9]="user !== null" [class.col-12]="user === null">{{ event.startDate | date : "y" }} {{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} <span class="badge bg-primary" *ngIf="event.isLive">LIVE</span></h2>
     <div *ngIf="user !== null" class="col-12 col-md-3">
-      <button mdc-button primary raised (click)="toggleEvent()" class="align-self-end black w-100" style="text-transform:initial; height: auto; padding: 5px">
+      <button mdc-button primary (click)="toggleEvent()" class="align-self-end black" style="text-transform:initial; height: auto; padding: 7px">
         <mdc-icon *ngIf="favorite" class="mr-1 ml-1">favorite</mdc-icon>
         <mdc-icon *ngIf="!favorite" class="mr-1 ml-1">favorite_border</mdc-icon>
         {{ (favorite ? 'general.remove_from_mytoa' : 'general.add_to_mytoa') | translate }}

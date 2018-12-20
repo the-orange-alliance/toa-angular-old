@@ -137,7 +137,10 @@
 
     "streams": {
       "event_results": "Event Results",
-      "close_stream": "Close stream"
+      "close_stream": "Close stream",
+      "select_stream": "Select Stream",
+      "select": "Select",
+      "cancel": "Cancel"
     },
 
     "team": {
@@ -159,7 +162,7 @@
     "teams": {
       "title": "Teams",
       "filter": "Filter by number, name, or location",
-      "results": "{{result}} Results"
+      "results": "{{ results }} Results"
     }
   },
 
@@ -169,6 +172,7 @@
     "scores": "Scores",
     "blue_alliance": "Blue Alliance",
     "red_alliance": "Red Alliance",
+    "no_matches_for_event": "There is no available matches data for this event.",
     "match": "Match",
     "view_team": "View team",
     "rank": "Rank",

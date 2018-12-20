@@ -1,5 +1,5 @@
-<div class="stream embed-responsive embed-responsive-16by9" [style.height]="height==null ? '100%' : height">
-  <button mdc-button primary *ngIf="!stream" data-toggle="modal" [attr.data-target]="'#selectdialog'+ id" class="select-stream">Select stream</button>
+<div class="stream embed-responsive embed-responsive-16by9" [style.height]="height == null ? '100%' : height">
+  <button mdc-button primary *ngIf="!stream" data-toggle="modal" [attr.data-target]="'#selectdialog'+ id" class="select-stream">{{ 'pages.streams.select_stream' | translate }}</button>
   <iframe class="embed-responsive-item" *ngIf="stream" [src]="stream.safeURL" allowfullscreen></iframe>
   <div class="info row" *ngIf="stream">
     <h2 mdcOverline>{{ stream.streamName }}</h2>
@@ -25,7 +25,7 @@
 <div class="modal fade" [id]="'selectdialog' + id" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div mdcDialogSurface class="modal-content border-0">
-      <mdc-dialog-title>Select Stream</mdc-dialog-title>
+      <mdc-dialog-title>{{ 'pages.streams.select_stream' | translate }}</mdc-dialog-title>
       <mdc-dialog-content>
         <mdc-list>
           <mdc-radio-group [(ngModel)]="selectedStreamKey">
@@ -37,8 +37,8 @@
         </mdc-list>
       </mdc-dialog-content>
       <mdc-dialog-actions>
-        <button mdcDialogButton data-dismiss="modal">Cancel</button>
-        <button mdcDialogButton default data-dismiss="modal" (click)="stream = getStream(selectedStreamKey); selectedStreamKey=''">Select</button>
+        <button mdcDialogButton data-dismiss="modal">{{ 'pages.streams.cancel' | translate }}</button>
+        <button mdcDialogButton default data-dismiss="modal" (click)="stream = getStream(selectedStreamKey); selectedStreamKey=''">{{ 'pages.streams.select' | translate }}</button>
       </mdc-dialog-actions>
     </div>
   </div>
