@@ -1,8 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../../../providers/ftc-database';
-import Team from "../../../../models/Team";
-import Media from "../../../../models/Media";
+import Team from '../../../../models/Team';
+import Media from '../../../../models/Media';
+
+export class MediaType {
+  static GITHUB = 0;
+  static CAD = 1;
+  static NOTEBOOK = 2;
+  static REVEAL = 3;
+  static IMAGE = 4;
+}
 
 @Component({
   providers: [FTCDatabase],
@@ -20,27 +27,23 @@ export class TeamRobotComponent implements OnInit {
 
   images: Media[] = [];
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute) {
-  }
-
   ngOnInit() {
     if (this.team && this.team.media) {
       this.images = [];
       for (let media of this.team.media) {
-        if (media.mediaType === 0) {
+        if (media.mediaType === MediaType.GITHUB) {
           this.github = media;
-          console.log(this.github)
         }
-        if (media.mediaType === 1) {
+        if (media.mediaType === MediaType.CAD) {
           this.cad = media;
         }
-        if (media.mediaType === 2) {
+        if (media.mediaType === MediaType.NOTEBOOK) {
           this.notebook = media;
         }
-        if (media.mediaType === 3) {
+        if (media.mediaType === MediaType.REVEAL) {
           this.reveal = media;
         }
-        if (media.mediaType === 4) {
+        if (media.mediaType === MediaType.IMAGE) {
           this.images.push(media);
         }
       }
