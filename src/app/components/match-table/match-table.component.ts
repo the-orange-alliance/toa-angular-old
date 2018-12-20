@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import Match from '../../models/Match';
 import Team from '../../models/Team';
-import Ranking from "../../models/Ranking";
-import EventParticipant from "../../models/EventParticipant";
+import Ranking from  '../../models/Ranking';
+import EventParticipant from '../../models/EventParticipant';
 
 @Component({
   selector: 'match-table',
