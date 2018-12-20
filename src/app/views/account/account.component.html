@@ -8,8 +8,7 @@
   <div class="col-center">
     <img draggable="false" class="rounded-circle img-center" src="{{ profileUrl | async }}" height="100" />
     <div class="major-detail">{{ user['fullName'] }}</div>
-    <div *ngIf="user['level'] == null" class="minor-detail">{{ user['team'] }}</div>
-    <div *ngIf="user['level'] != null" class="minor-detail">{{ user['team'] }} ᛫ Level {{ user['level'] }}</div>
+    <div class="minor-detail">{{ user['team'] }} ᛫ Level {{ user['level'] }}</div>
   </div>
 </div>
 <div class="bottom-three"></div>

@@ -5,7 +5,7 @@ import { FTCDatabase } from "../../providers/ftc-database";
 import { AngularFireAuth } from "angularfire2/auth";
 import { AngularFireDatabase } from "angularfire2/database";
 import { AngularFireStorage } from "angularfire2/storage";
-import { Observable } from "rxjs/Rx";
+import { Observable } from 'rxjs/Rx';
 import { TeamSorter } from "../../util/team-utils";
 import { EventSorter } from "../../util/event-utils";
 import Team from "../../models/Team";
@@ -80,6 +80,12 @@ export class AccountComponent {
               }else{
                 const storageRef = this.storage.ref(`images/users/generic/${String(this.user['fullName']).charAt(0).toLowerCase()}.png`);
                 this.profileUrl = storageRef.getDownloadURL();
+              }
+
+              if (this.user['level'] == null){
+                this.user['level'] = 1;
+              }else{
+                this.user['level'] = this.user['level'] + 1;
               }
 
               this.loaded = true;
