@@ -1,11 +1,23 @@
 .col-center{
   margin: 0 auto;
 }
-.img-center {
+.img-center{
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-.bottom-three {
+.bottom-three{
      margin-bottom: 3cm;
   }
+.major-detail{
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: rgb(51,51,51);
+}
+.minor-detail{
+  text-align: center;
+  font-size: 15px;
+  font-weight: 100;
+  color: rgb(116, 116, 116);
+}

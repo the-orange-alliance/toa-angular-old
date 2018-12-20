@@ -5,7 +5,7 @@ import { FTCDatabase } from "../../providers/ftc-database";
 import { AngularFireAuth } from "angularfire2/auth";
 import { AngularFireDatabase } from "angularfire2/database";
 import { AngularFireStorage } from "angularfire2/storage";
-import {Observable} from 'rxjs/Rx';
+import { Observable } from "rxjs/Rx";
 import { TeamSorter } from "../../util/team-utils";
 import { EventSorter } from "../../util/event-utils";
 import Team from "../../models/Team";
