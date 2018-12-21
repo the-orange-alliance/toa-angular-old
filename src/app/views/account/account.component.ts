@@ -29,6 +29,8 @@ export class AccountComponent {
 
   profileUrl: Observable<string | null>;
 
+  userInfo: String;
+
   constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase,
               db: AngularFireDatabase, private storage: AngularFireStorage, public auth: AngularFireAuth) {
     this.app.setTitle('myTOA');
@@ -75,10 +77,10 @@ export class AccountComponent {
               }
 
               if (this.user['profileImage'] != null){
-                const storageRef = this.storage.ref(`images/users/${this.user['profileImage']}`);
+                const storageRef = this.storage.ref(`images/users/${ this.user['profileImage'] }`);
                 this.profileUrl = storageRef.getDownloadURL();
               }else{
-                const storageRef = this.storage.ref(`images/users/generic/${String(this.user['fullName']).charAt(0).toLowerCase()}.png`);
+                const storageRef = this.storage.ref(`images/users/generic/${ String(this.user['fullName'] ).charAt(0).toLowerCase()}.png`);
                 this.profileUrl = storageRef.getDownloadURL();
               }
 
@@ -86,6 +88,12 @@ export class AccountComponent {
                 this.user['level'] = 1;
               }else{
                 this.user['level'] = this.user['level'] + 1;
+              }
+
+              if (this.user['team'] == null){
+                this.userInfo = '';
+              }else{
+                this.userInfo = `${ this.user['team'] } ᛫`
               }
 
               this.loaded = true;
