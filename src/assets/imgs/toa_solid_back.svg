@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   x="0px"
+   y="0px"
+   width="512px"
+   height="512px"
+   viewBox="0 0 512 512"
+   enable-background="new 0 0 512 512"
+   xml:space="preserve"
+   id="svg21"
+   sodipodi:docname="toa.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"><metadata
+   id="metadata27"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs25" /><sodipodi:namedview
+   pagecolor="#f89708"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="1"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1366"
+   inkscape:window-height="707"
+   id="namedview23"
+   showgrid="false"
+   fit-margin-left="1"
+   fit-margin-top="1"
+   fit-margin-right="1"
+   fit-margin-bottom="1"
+   inkscape:zoom="0.4609375"
+   inkscape:cx="193.80829"
+   inkscape:cy="284.05312"
+   inkscape:window-x="0"
+   inkscape:window-y="29"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="svg21" />
+<rect
+   style="opacity:1;fill:#f89708;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+   id="rect830"
+   width="512"
+   height="512"
+   x="0"
+   y="0" /><g
+   id="Layer_2">
+	
+</g>
+<g
+   id="Layer_1">
+	<g
+   id="logo-copy">
+		<path
+   id="Cap_x5F_bottom"
+   d="M184.53,146.95    c-25.905-6.952-41.5-17.446-41.5-30.002c0-22.107,50.138-38.238,112.047-38.238c61.909,0,112.047,16.131,112.047,38.238    c0,12.704-15.973,23.302-42.422,30.247v327.288l-0.547,0.816c-6.033,8.992-30.023,12.869-73.478,12.869    c-44.944,0-66.34-3.891-66.148-14.668V146.95z"
+   stroke-width="13"
+   stroke="#FFFFFF"
+   fill="none" />
+		<path
+   id="Cap_1_"
+   d="M143.953,71.332v-3.228    c0-22.125,50.14-38.271,112.047-38.271c61.908,0,112.048,16.147,112.048,38.271v3.228"
+   stroke-width="13"
+   stroke="#FFFFFF"
+   fill="none" />
+		<polygon
+   id="RCapSide"
+   points="361.547,68.104 374.547,71.332 373.217,118.178 361.547,120.67   "
+   fill="#FFFFFF" />
+		<polygon
+   id="LSideCap"
+   points="150.5,70.833 137.5,67.606 136.583,116.916 149.631,113.166   "
+   fill="#FFFFFF" />
+		<rect
+   id="BottomLightDiv"
+   x="185.913"
+   y="340.265"
+   width="139.252"
+   height="13"
+   fill="#FFFFFF" />
+		<path
+   id="TopLight"
+   d="M324.243,225.801H184.99V114.298    c23.226-8.46,46.431-12.686,69.626-12.686s46.4,4.226,69.626,12.686V225.801z"
+   stroke-width="13"
+   stroke="#FFFFFF"
+   fill="none" />
+		<g
+   id="LSidePegs_1_"
+   transform="translate(83.000000, 164.000000)">
+			<path
+   style="fill:#ffffff"
+   d="m 13.459,57.189999 h 54.409999 v 11.066 H 13.459 Z m 319.082,0 h -54.41 v 11.066 h 54.41 z"
+   id="Rectangle-2" />
+			
+				<path
+   transform="matrix(-0.7661 -0.6428 0.6428 -0.7661 80.5549 80.8059)"
+   style="fill:#ffffff"
+   d="M 34.714001,19.033001 H 75.250999 V 32.454 H 34.714001 Z m -163.630211,137.294739 -7.04127,39.92078 13.21698,2.33123 7.04127,-39.92078 z"
+   id="Rectangle-2-Copy" />
+			
+				<path
+   transform="matrix(0.766 -0.6428 0.6428 0.766 -52.0689 59.3033)"
+   style="fill:#ffffff"
+   d="M 35.162998,94.470001 H 75.699997 V 107.89 H 35.162998 Z m 210.521152,176.661869 -7.03614,-39.92168 -13.2163,2.32935 7.03614,39.92169 z"
+   id="Rectangle-2-Copy-2" />
+		</g>
+		
+			<g
+   id="RSidePegs"
+   transform="translate(395.000000, 226.000000) scale(-1, 1) translate(-395.000000, -226.000000) translate(361.000000, 165.000000)">
+		</g>
+	</g>
+</g>
+</svg>
