@@ -2,7 +2,7 @@
 <mdc-top-app-bar #topAppBar fixed style="z-index: 7" [dir]="'config.direction' | translate">
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" title="The Orange Alliance">
-      <img src="toa.svg" style="height: 100%;">
+      <img src="/assets/imgs/toa.svg" style="height: 100%;">
       <!--<mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">menu</mdc-icon>-->
       <mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()"></mdc-icon>
     </mdc-top-app-bar-section>
