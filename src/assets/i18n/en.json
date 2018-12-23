@@ -53,6 +53,12 @@
     },
     "account": {
       "logout": "Logout",
+      "level": "Level {{ level }}",
+      "api_card": {
+        "title": "Build amazing things with our API",
+        "your_key": "Here is your API Key:",
+        "docs": "You can check out our API Full Documentation at"
+      },
       "subpages": {
         "login": {
           "title": "Login",

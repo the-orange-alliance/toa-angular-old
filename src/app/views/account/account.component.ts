@@ -1,23 +1,27 @@
 import { Component } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import { Router } from "@angular/router";
-import { FTCDatabase } from "../../providers/ftc-database";
-import { AngularFireAuth } from "angularfire2/auth";
-import { AngularFireDatabase } from "angularfire2/database";
-import { TeamSorter } from "../../util/team-utils";
-import { EventSorter } from "../../util/event-utils";
-import Team from "../../models/Team";
-import Event from "../../models/Event";
+import { Router } from '@angular/router';
+import { FTCDatabase } from '../../providers/ftc-database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { Observable } from 'rxjs/Observable';
+import { TeamSorter } from '../../util/team-utils';
+import { EventSorter } from '../../util/event-utils';
+import Team from '../../models/Team';
+import Event from '../../models/Event';
 
 @Component({
   selector: 'toa-account',
   templateUrl: './account.component.html',
+  styleUrls: ['./account.component.scss'],
   providers: [TheOrangeAllianceGlobals]
 })
 
 export class AccountComponent {
 
-  user = [];
+  user = null;
+  profileUrl: Observable<string | null> = null;
 
   teams: Team[];
   events: Event[];
@@ -25,17 +29,19 @@ export class AccountComponent {
   loaded: boolean;
 
   constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase,
-              db: AngularFireDatabase, public auth: AngularFireAuth) {
-    this.app.setTitle('myTOA');
-    this.app.setDescription('Watch live FIRST Tech Challenge events')
+              db: AngularFireDatabase, public auth: AngularFireAuth, private storage: AngularFireStorage) {
 
+    this.app.setTitle('myTOA');
+    this.app.setDescription('Your myTOA account overview');
 
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
-        this.user['email'] = user.email;
+        this.user = {
+          'email': user.email,
+          'uid': user.uid
+        };
         db.list(`Users/${user.uid}`).snapshotChanges()
           .subscribe(items => {
-
             if (!this.loaded) {
               this.teams = [];
               this.events = [];
@@ -68,6 +74,11 @@ export class AccountComponent {
                 }
               }
 
+              if (this.user['profileImage'] != null){
+                const storageRef = this.storage.ref(`images/users/${ this.user['profileImage'] }`);
+                this.profileUrl = storageRef.getDownloadURL();
+              }
+
               this.loaded = true;
             }
           });
@@ -80,6 +91,15 @@ export class AccountComponent {
   signOut(): void {
     this.auth.auth.signOut().then(() => {
       this.router.navigateByUrl("/account/login");
+    });
+  }
+
+  sendAnalytic(category, label, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: label,
+      eventAction: action,
+      eventValue: 10
     });
   }
 }

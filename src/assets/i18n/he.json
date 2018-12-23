@@ -53,6 +53,12 @@
     },
     "account": {
       "logout": "התנתקות",
+      "level": "רמה {{ level }}",
+      "api_card": {
+        "title": "בנה דברים מדהימים עם ה־API שלנו",
+        "your_key": "זה המפתח API שלך:",
+        "docs": "ניתן לבדוק את תיעוד ה־API המלא שלנו בכתובת"
+      },
       "subpages": {
         "login": {
           "title": "התחברות",
