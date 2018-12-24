@@ -29,6 +29,7 @@ export class AccountComponent {
   events: Event[];
 
   loaded: boolean;
+  generatingApiKey: boolean;
 
   constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient,
               db: AngularFireDatabase, public auth: AngularFireAuth, private storage: AngularFireStorage) {
@@ -44,13 +45,16 @@ export class AccountComponent {
         };
         db.list(`Users/${user.uid}`).snapshotChanges()
           .subscribe(items => {
+
+            items.forEach(element => {
+              this.user[element.key] = element.payload.val();
+            });
+
+            this.generatingApiKey = user['APIKey'];
+
             if (!this.loaded) {
               this.teams = [];
               this.events = [];
-
-              items.forEach(element => {
-                this.user[element.key] = element.payload.val();
-              });
 
               let teams = this.user['favTeams'];
               for (let key in teams) {
@@ -81,6 +85,7 @@ export class AccountComponent {
 
             let adminEvents = this.user['adminEvents'];
             if (adminEvents){
+              this.adminEvents = [];
               for (let key in adminEvents) {
                 if (adminEvents[key] === true) {
                   db.object(`eventAPIs/${key}`).query.once("value").then(item => {
@@ -108,15 +113,13 @@ export class AccountComponent {
   }
 
   generateApiKey(): void {
+    this.generatingApiKey = true;
     const authHeader = new HttpHeaders({
       'authorization': 'Bearer ' + this.user['uid'],
       'Access-Control-Allow-Origin': '*'
     });
     this.httpClient.get('https://us-central1-the-orange-alliance.cloudfunctions.net/requireValidations/generateKey', { headers: authHeader })
       .toPromise()
-      .then(response => {
-        console.log(response);
-      })
       .catch(console.log);
   }
 

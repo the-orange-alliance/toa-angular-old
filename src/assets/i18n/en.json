@@ -61,6 +61,7 @@
         "your_key": "Here is your API Key:",
         "no_key": "You don't have any existing key",
         "generate_key": "Generate an API Key",
+        "generating_key": "Generating an API Key",
         "docs": "You can check out our full API Documentation"
       },
       "datasync_card": {

@@ -50,8 +50,14 @@
     <div class="outline-card d-flex p-3" *ngIf="!user['APIKey']">
       <div>
         <div mdcHeadline5 class="black mt-3">{{ 'pages.account.api_card.title' | translate }}</div>
-        <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.no_key' | translate }}</div>
-        <button mdc-button primary (click)="generateApiKey()">{{ 'pages.account.api_card.generate_key' | translate }}</button>
+        <div *ngIf="!generatingApiKey">
+          <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.no_key' | translate }}</div>
+          <button mdc-button primary (click)="generateApiKey()">{{ 'pages.account.api_card.generate_key' | translate }}</button>
+        </div>
+        <div *ngIf="generatingApiKey">
+          <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.generating_key' | translate }}</div>
+          <mdc-linear-progress></mdc-linear-progress>
+        </div>
       </div>
       <img class="server-illustration" src="../../../assets/imgs/server_illustration.svg" />
     </div>
