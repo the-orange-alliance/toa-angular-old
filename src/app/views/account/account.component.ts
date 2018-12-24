@@ -21,6 +21,7 @@ import Event from '../../models/Event';
 export class AccountComponent {
 
   user = null;
+  adminEvents = [];
   profileUrl: Observable<string | null> = null;
 
   teams: Team[];
@@ -71,6 +72,17 @@ export class AccountComponent {
                       this.events = new EventSorter().sort(this.events);
                     }
                   });
+                }
+              }
+
+              let adminEvents = this.user['adminEvents'];
+              if (adminEvents){
+                for (let key in adminEvents) {
+                  if (adminEvents[key] === true) {
+                    db.object(`eventAPIs/${key}`).query.once("value").then(item => {
+                      this.adminEvents.push({"eventKey": key, "apiKey": item.val()});
+                    });
+                  }
                 }
               }
 

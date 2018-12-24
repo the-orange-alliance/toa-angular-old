@@ -11,6 +11,7 @@
     "event": "אירוע",
     "events": "אירועים",
     "live": "LIVE",
+    "here": "כאן",
     "search_text_long": "חפש קבוצה או אירוע",
     "search_text_short": "מס׳ קבוצה או שם אירוע",
     "add_to_mytoa": "הוספה ל־myTOA",
@@ -57,8 +58,12 @@
       "level": "רמה {{ level }}",
       "api_card": {
         "title": "בנה דברים מדהימים עם ה־API שלנו",
-        "your_key": "זה המפתח API שלך:",
+        "your_keys": "זה המפתח API שלך:",
         "docs": "ניתן לבדוק את תיעוד ה־API המלא שלנו בכתובת"
+      },
+      "datasync_card": {
+        "title": "סנכרן את האירוע שלך עם TOA בלייב",
+        "docs": "ניתן לבדוק את תיעוד ה־DataSync המלא שלנו"
       },
       "subpages": {
         "login": {

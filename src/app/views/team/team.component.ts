@@ -46,7 +46,7 @@ export class TeamComponent implements OnInit {
         this.user = user;
           db.object(`Users/${user.uid}/favTeams/${this.teamKey}`).query.once("value").then(items => {
             this.favorite = items !== null && items.val() === true
-            });
+          });
       }
     });
 

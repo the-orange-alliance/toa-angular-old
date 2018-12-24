@@ -11,6 +11,7 @@
     "event": "Event",
     "events": "Events",
     "live": "LIVE",
+    "here": "here",
     "search_text_long": "Search teams and events",
     "search_text_short": "Team # or Event",
     "add_to_mytoa": "Add to myTOA",
@@ -40,7 +41,7 @@
     "add_data": {
       "title": "Add Data",
       "short_info": "Do you have some data you'd like to add to The Orange Alliance?",
-      "datasync": "DataSync - Sync your event with TOA in live",
+      "datasync": "DataSync - Sync your event live with TOA",
       "add_match_video": "Add match video",
       "add_event_stream": "Add event stream",
       "stream_your_event": "Stream your event on TOA Twitch channel"
@@ -58,7 +59,11 @@
       "api_card": {
         "title": "Build amazing things with our API",
         "your_key": "Here is your API Key:",
-        "docs": "You can check out our API Full Documentation at"
+        "docs": "You can check out our full API Documentation"
+      },
+      "datasync_card": {
+        "title": "Sync your event live with TOA",
+        "docs": "You can check out our full DataSync Documentation"
       },
       "subpages": {
         "login": {
