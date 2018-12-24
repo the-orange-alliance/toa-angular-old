@@ -74,6 +74,10 @@
   margin: 0;
   max-width: 75%;
   align-self: center !important;
+  clear: both;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 iframe {
