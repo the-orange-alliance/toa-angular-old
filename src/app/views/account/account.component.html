@@ -9,10 +9,10 @@
   <div *ngIf="!user.profileImage && user.fullName" class="profile-image">{{ user.fullName.substring(0, 1) }}</div>
   <img *ngIf="user.profileImage && profileUrl | async" class="profile-image" src="{{ profileUrl | async }}" height="100" />
   <div class="profile-name">{{ 'drawer.mytoa.hello' | translate: {'name': user['fullName'] || 'User' } }}</div>
-  <div class="profile-detail">{{ ('pages.account.level' | translate: {'level': user['level'] || 1}) + (user['team'] ? '⋅ #' + user['team'] : '')}}</div>
+  <div class="profile-detail">{{ ('pages.account.level' | translate: {'level': user['level'] || 1 }) + (user['team'] ? '⋅ #' + user['team'] : '')}}</div>
 </div>
 
-<div class="row mt-5 m-2">
+<div class="row mt-5 m-2" *ngIf="user">
   <div class="col-md-7 col-12 p-2">
     <div class="outline-card p-3">
       <div class="row">
@@ -35,14 +35,23 @@
   </div>
 
   <div class="col-md-5 col-12 p-2">
-    <div class="outline-card d-flex p-3">
+    <div class="outline-card d-flex p-3" *ngIf="user['APIKey']">
       <div>
         <div mdcHeadline5 class="black mt-3">{{ 'pages.account.api_card.title' | translate }}</div>
         <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.your_key' | translate }}</div>
-        <code>{{ user['APIKey'] || 'Not found'}}</code>
+        <code>{{ user['APIKey'] || 'Not found' }}</code>
         <div mdcSubtitle1 class="mt-2">{{ 'pages.account.api_card.docs' | translate }}
           <a href="https://orange-alliance.github.io/TOA-API" target="_blank" (click)="this.sendAnalytic('leaving', '/account', 'api docs');">{{ 'general.here' | translate }}</a>.
         </div>
+      </div>
+      <img class="server-illustration" src="../../../assets/imgs/server_illustration.svg" />
+    </div>
+
+    <div class="outline-card d-flex p-3" *ngIf="!user['APIKey']">
+      <div>
+        <div mdcHeadline5 class="black mt-3">{{ 'pages.account.api_card.title' | translate }}</div>
+        <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.no_key' | translate }}</div>
+        <button mdc-button primary (click)="generateApiKey()">{{ 'pages.account.api_card.generate_key' | translate }}</button>
       </div>
       <img class="server-illustration" src="../../../assets/imgs/server_illustration.svg" />
     </div>
@@ -53,14 +62,14 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">API Key</th>
             <th scope="col">Event Key</th>
+            <th scope="col">API Key</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let adminEvent of adminEvents">
-            <td><code>{{ adminEvent.apiKey }}</code></td>
             <td><code>{{ adminEvent.eventKey }}</code></td>
+            <td><code>{{ adminEvent.apiKey }}</code></td>
           </tr>
         </tbody>
       </table>

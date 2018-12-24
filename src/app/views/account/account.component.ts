@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -29,7 +30,7 @@ export class AccountComponent {
 
   loaded: boolean;
 
-  constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase,
+  constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient,
               db: AngularFireDatabase, public auth: AngularFireAuth, private storage: AngularFireStorage) {
 
     this.app.setTitle('myTOA');
@@ -75,23 +76,23 @@ export class AccountComponent {
                 }
               }
 
-              let adminEvents = this.user['adminEvents'];
-              if (adminEvents){
-                for (let key in adminEvents) {
-                  if (adminEvents[key] === true) {
-                    db.object(`eventAPIs/${key}`).query.once("value").then(item => {
-                      this.adminEvents.push({"eventKey": key, "apiKey": item.val()});
-                    });
-                  }
+              this.loaded = true;
+            }
+
+            let adminEvents = this.user['adminEvents'];
+            if (adminEvents){
+              for (let key in adminEvents) {
+                if (adminEvents[key] === true) {
+                  db.object(`eventAPIs/${key}`).query.once("value").then(item => {
+                    this.adminEvents.push({"eventKey": key, "apiKey": item.val()});
+                  });
                 }
               }
+            }
 
-              if (this.user['profileImage'] != null){
-                const storageRef = this.storage.ref(`images/users/${ this.user['profileImage'] }`);
-                this.profileUrl = storageRef.getDownloadURL();
-              }
-
-              this.loaded = true;
+            if (this.user['profileImage'] != null){
+              const storageRef = this.storage.ref(`images/users/${ this.user['profileImage'] }`);
+              this.profileUrl = storageRef.getDownloadURL();
             }
           });
       } else {
@@ -104,6 +105,19 @@ export class AccountComponent {
     this.auth.auth.signOut().then(() => {
       this.router.navigateByUrl("/account/login");
     });
+  }
+
+  generateApiKey(): void {
+    const authHeader = new HttpHeaders({
+      'authorization': 'Bearer ' + this.user['uid'],
+      'Access-Control-Allow-Origin': '*'
+    });
+    this.httpClient.get('https://us-central1-the-orange-alliance.cloudfunctions.net/requireValidations/generateKey', { headers: authHeader })
+      .toPromise()
+      .then(response => {
+        console.log(response);
+      })
+      .catch(console.log);
   }
 
   sendAnalytic(category, label, action): void {
