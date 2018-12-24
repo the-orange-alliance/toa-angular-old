@@ -9,7 +9,7 @@
   <div *ngIf="!user.profileImage && user.fullName" class="profile-image">{{ user.fullName.substring(0, 1) }}</div>
   <img *ngIf="user.profileImage && profileUrl | async" class="profile-image" src="{{ profileUrl | async }}" height="100" />
   <div class="profile-name">{{ 'drawer.mytoa.hello' | translate: {'name': user['fullName'] || 'User' } }}</div>
-  <div class="profile-detail">{{ ('pages.account.level' | translate: {'level': user['level'] || 1 }) + (user['team'] ? '⋅ #' + user['team'] : '')}}</div>
+  <div class="profile-detail">{{ ('pages.account.level' | translate: {'level': user['level'] || 1 }) + (user['team'] ? ' ⋅ #' + user['team'] : '')}}</div>
 </div>
 
 <div class="row mt-5 m-2" *ngIf="user">
