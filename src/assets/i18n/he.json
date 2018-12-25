@@ -58,7 +58,7 @@
       "level": "רמה {{ level }}",
       "api_card": {
         "title": "בנה דברים מדהימים עם ה־API שלנו",
-        "your_keys": "זה המפתח API שלך:",
+        "your_key": "זה המפתח API שלך:",
         "no_key": "אין לך מפתח API קיים עוד",
         "generate_key": "צור מפתח",
         "generating_key": "מייצר מפתח API...",
