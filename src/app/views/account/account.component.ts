@@ -22,7 +22,7 @@ import Event from '../../models/Event';
 export class AccountComponent {
 
   user = null;
-  adminEvents = [];
+  adminEvents = {};
   profileUrl: Observable<string | null> = null;
 
   teams: Team[];
@@ -30,6 +30,7 @@ export class AccountComponent {
 
   loaded: boolean;
   generatingApiKey: boolean;
+  generatingEventApiKey: boolean;
 
   constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient,
               db: AngularFireDatabase, public auth: AngularFireAuth, private storage: AngularFireStorage) {
@@ -85,11 +86,11 @@ export class AccountComponent {
 
             let adminEvents = this.user['adminEvents'];
             if (adminEvents){
-              this.adminEvents = [];
               for (let key in adminEvents) {
                 if (adminEvents[key] === true) {
-                  db.object(`eventAPIs/${key}`).query.once("value").then(item => {
-                    this.adminEvents.push({"eventKey": key, "apiKey": item.val()});
+                  db.object(`eventAPIs/${key}`).snapshotChanges()
+                    .subscribe(item => {
+                    this.adminEvents[key] = item.payload.val() || null;
                   });
                 }
               }
@@ -121,6 +122,27 @@ export class AccountComponent {
     this.httpClient.get('https://us-central1-the-orange-alliance.cloudfunctions.net/requireValidations/generateKey', { headers: authHeader })
       .toPromise()
       .catch(console.log);
+  }
+
+  generateEventApiKey(eventKey: string): void {
+    this.generatingEventApiKey = true;
+    const authHeader = new HttpHeaders({
+      'authorization': 'Bearer ' + this.user['uid'],
+      'data': eventKey,
+      'Access-Control-Allow-Origin': '*'
+    });
+    this.httpClient.get('https://us-central1-the-orange-alliance.cloudfunctions.net/requireValidations/eventKey', { headers: authHeader })
+      .toPromise()
+      .then(() => {
+        this.generatingEventApiKey = false;
+      }, (err) => {
+        this.generatingEventApiKey = false;
+      })
+      .catch(console.log);
+  }
+
+  getAdminEvents(): string[] {
+    return Object.keys(this.adminEvents);
   }
 
   sendAnalytic(category, label, action): void {
