@@ -106,7 +106,7 @@
       <a routerLink="/matches/{{ match.matchKey }}">{{ match.matchName }}</a>
     </td>
     <td rowspan="2">
-      <span *ngIf="match.videoURL"><a [routerLink]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a></span>
+      <span *ngIf="match.videoURL"><a [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a></span>
     </td>
     <td colspan="2" class="red" [class.match-winner]="match.redScore >= match.blueScore" (click)="selectTeam(match, 0)" [class.selected-team]="isSelectedTeam(match, 0)">
       {{ getParticipantString(match, 0) }}
@@ -141,7 +141,7 @@
       <a routerLink="/matches/{{ match.matchKey }}">{{ match.matchName }}</a>
     </td>
     <td rowspan="2">
-      <span *ngIf="match.videoURL"><a [routerLink]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a></span>
+      <span *ngIf="match.videoURL"><a [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a></span>
     </td>
     <td colspan="4" class="red" [class.match-winner]="match.redScore >= match.blueScore">
       <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantString(match, 0) }}</a>
@@ -176,7 +176,7 @@
       <a routerLink="/matches/{{ match.matchKey }}">{{ match.matchName }}</a>
     </td>
     <td rowspan="2">
-      <span *ngIf="match.videoURL"><a [routerLink]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a></span>
+      <span *ngIf="match.videoURL"><a [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a></span>
     </td>
     <td colspan="3" class="red" [class.match-winner]="match.redScore >= match.blueScore" (click)="selectTeam(match, 0)" [class.selected-team]="isSelectedTeam(match, 0)">
       {{ getParticipantString(match, 0) }}
@@ -205,7 +205,7 @@
       <a routerLink="/matches/{{ match.matchKey }}">{{ match.matchName }}</a>
     </td>
     <td rowspan="2">
-      <span *ngIf="match.videoURL"><a [routerLink]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a></span>
+      <span *ngIf="match.videoURL"><a [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a></span>
     </td>
     <td colspan="6" class="red" [class.match-winner]="match.redScore >= match.blueScore">
       <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantString(match, 0) }}</a>
@@ -294,7 +294,7 @@
     </td>
     <td rowspan="2">{{ getMatchResultString(match) }}</td>
     <td rowspan="2">
-      <a *ngIf="match.videoURL" [routerLink]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
+      <a *ngIf="match.videoURL" [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
     </td>
     <td colspan="2" class="red" [class.match-winner]="match.redScore >= match.blueScore">
       <a routerLink="/teams/{{ match.participants[0].teamKey }}" [class.current-team]="isSelectedTeam(match, 0)">{{ getParticipantString(match, 0) }}</a>
@@ -327,7 +327,7 @@
     </td>
     <td rowspan="2">{{ getMatchResultString(match) }}</td>
     <td rowspan="2">
-      <a *ngIf="match.videoURL" [routerLink]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
+      <a *ngIf="match.videoURL" [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
     </td>
     <td colspan="4" class="red" [class.match-winner]="match.redScore >= match.blueScore">
       <a routerLink="/teams/{{ match.participants[0].teamKey }}" [class.current-team]="isSelectedTeam(match, 0)">{{ getParticipantString(match, 0) }}</a>
@@ -363,7 +363,7 @@
     </td>
     <td rowspan="2">{{ getMatchResultString(match) }}</td>
     <td rowspan="2">
-      <a *ngIf="match.videoURL" [routerLink]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
+      <a *ngIf="match.videoURL" [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
     </td>
     <td colspan="3" class="red" [class.match-winner]="match.redScore >= match.blueScore">
       <a routerLink="/teams/{{ match.participants[0].teamKey }}" [class.current-team]="isSelectedTeam(match, 0)">{{ getParticipantString(match, 0) }}</a>
@@ -393,7 +393,7 @@
     </td>
     <td rowspan="2">{{ getMatchResultString(match) }}</td>
     <td rowspan="2">
-      <a *ngIf="match.videoURL" [routerLink]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
+      <a *ngIf="match.videoURL" [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
     </td>
     <td colspan="6" class="red" [class.match-winner]="match.redScore >= match.blueScore">
       <a routerLink="/teams/{{ match.participants[0].teamKey }}" [class.current-team]="isSelectedTeam(match, 0)">{{ getParticipantString(match, 0) }}</a>

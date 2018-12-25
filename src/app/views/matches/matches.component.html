@@ -16,7 +16,7 @@
               <p>{{ "pages.match.match_key" | translate }}: </p>
               <p><code>{{ match.matchKey }}</code></p>
             </div>
-            <div class="info-state" *ngIf="match.scheduledTime || match.scheduledTime !== '0000-00-00 00:00:00'">
+            <div class="info-state" *ngIf="match.scheduledTime && match.scheduledTime !== '0000-00-00 00:00:00'">
               <mdc-icon svgIcon="calendar-clock"></mdc-icon>
               <p>{{ "pages.match.scheduled_time" | translate }}: {{ match.scheduledTime | date: 'MMM d, h:mm a' }}</p>
             </div>
