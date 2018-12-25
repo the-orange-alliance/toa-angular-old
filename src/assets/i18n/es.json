@@ -10,6 +10,8 @@
     "teams": "Equipos",
     "event": "Evento",
     "events": "Eventos",
+    "live": "Vivo",
+    "here": "Aquí",
     "search_text_long": "Buscar equipos y eventos",
     "search_text_short": "Equipo # o evento",
     "add_to_mytoa": "Aumentar myTOA",
@@ -30,12 +32,21 @@
     "privacy_and_terms": "Privacidad y términos",
     "mytoa": {
       "hello": "Hola, {{ name }}",
+      "guest": "Invitado",
       "register": "Registro",
       "login": "Iniciar sesión"
     }
   },
 
   "pages": {
+    "add_data": {
+      "title": "Agregar datos",
+      "short_info": "¿Tiene algunos datos que le gustaría agregar a The Orange Alliance?",
+      "datasync": "DataSync - Sincroniza su evento en vivo con TOA",
+      "add_match_video": "Agregar vídeo de partido",
+      "add_event_stream": "Agregar Transmisión en directo de evento",
+      "stream_your_event": "Transmite tu evento en el canal de Twitch de TOA"
+    },
     "404": {
       "title": "Página no encontrada",
       "short_info": "Parece que has seguido un enlace roto o un equipo/evento/partido que no existe."
@@ -45,6 +56,19 @@
     },
     "account": {
       "logout": "Cerrar sesión",
+      "level": "Nivel {{ level }}",
+      "api_card": {
+        "title": "Construye cosas increíbles con nuestros API",
+        "your_key": "Aquí está su clave de API:",
+        "no_key": "Usted no tiene ninguna clave existente",
+        "generate_key": "Generar una clave de API",
+        "generating_key": "Generando una clave API...",
+        "docs": "Puede ver nuestros documentación completa de API en"
+      },
+      "datasync_card": {
+        "title": "Sincroniza su evento en vivo con TOA",
+        "docs": "Puede ver nuestros documentación completa de DataSync en"
+      },
       "subpages": {
         "login": {
           "title": "Iniciar sesión",
@@ -83,7 +107,7 @@
 
     "event": {
       "event_info": "Información del evento",
-      "game_info": "Información del evento",
+      "game_info": "Información del juego",
       "view_website": "Ver sitio web del evento",
       "event_key": "Clave de evento",
       "stream_available": "¡La transmisión en directo esta disponible!",
@@ -122,13 +146,17 @@
     "match": {
       "match_info": "Información del partido",
       "match_key": "Clave de partido",
+      "scheduled_time": "Hora programada",
       "no_video": "No hay vídeo disponible",
       "add_one": "Añadir una"
     },
 
     "streams": {
       "event_results": "Resultados del evento",
-      "close_stream": "Cerrar la transmisión"
+      "close_stream": "Cerrar la transmisión",
+      "select_stream": "Seleccionar stream",
+      "select": "Seleccionar",
+      "cancel": "Cancelar"
     },
 
     "team": {
@@ -148,8 +176,9 @@
     },
 
     "teams": {
+      "title": "Equipos",
       "filter": "Filtrar por número, nombre o ubicación",
-      "results": "{{result}} Resultados"
+      "results": "{{ results }} Resultados"
     }
   },
 
@@ -159,7 +188,12 @@
     "scores": "Puntuaciónes",
     "blue_alliance": "Alianza azul",
     "red_alliance": "Alianza rojo",
+    "no_matches_for_event": "No hay datos de partidos disponibles para este evento.",
     "match": "Partido",
+    "view_team": "Ver equipo",
+    "rank": "Rango",
+    "wlt": "GPE",
+    "played": "Jugó",
     "help": {
       "bold": "<b>Negrita</b> está ganando la alianza</small>",
       "bold_and_black": "<b>Negrita y Negro</b> es equipo seleccionado</small>",
