@@ -1,0 +1,179 @@
+{
+  "config": {
+    "name": "Español",
+    "englishName": "Spanish",
+    "direction": "ltr"
+  },
+
+  "general": {
+    "team": "Equipo",
+    "teams": "Equipos",
+    "event": "Evento",
+    "events": "Eventos",
+    "search_text_long": "Buscar equipos y eventos",
+    "search_text_short": "Equipo # o evento",
+    "add_to_mytoa": "Aumentar myTOA",
+    "remove_from_mytoa": "Quitar de myTOA"
+  },
+
+  "drawer": {
+    "home": "Página de inicio",
+    "teams": "Equipos",
+    "events": "Eventos",
+    "streaming": "Transmisión en directo",
+    "android_app": "Aplicación de Android",
+    "ios_app": "Aplicación de iOS",
+    "add_data": "Agregar datos",
+    "api": "API",
+    "github": "GitHub",
+    "about": "Sobre",
+    "privacy_and_terms": "Privacidad y términos",
+    "mytoa": {
+      "hello": "Hola, {{ name }}",
+      "register": "Registro",
+      "login": "Iniciar sesión"
+    }
+  },
+
+  "pages": {
+    "404": {
+      "title": "Página no encontrada",
+      "short_info": "Parece que has seguido un enlace roto o un equipo/evento/partido que no existe."
+    },
+    "about": {
+      "title": "Sobre nosotros"
+    },
+    "account": {
+      "logout": "Cerrar sesión",
+      "subpages": {
+        "login": {
+          "title": "Iniciar sesión",
+          "email": "Correo electrónico",
+          "password": "Contraseña",
+          "login": "Iniciar sesión"
+        },
+        "register": {
+          "title": "Registro",
+          "full_name": "Nombre completo",
+          "email": "Correo electrónico",
+          "password": "Contraseña",
+          "confirm_password": "Confirmar la contraseña",
+          "your_team": "Su equipo #",
+          "sign_up": "Inscribirse"
+        }
+      }
+    },
+
+    "home": {
+      "title": "Página de inicio",
+      "short_info": "The Orange Alliance es un proyecto para ayudar hacer FTC partidos, eventos, y equipo información",
+      "active_teams": "Equipos activos",
+      "matches_played": "Partidos jugados",
+      "todays_events": "Eventos de hoy",
+      "no_events_today": "No hay eventos que ocurran hoy.",
+      "leaderboards": {
+        "title": "Tablas de clasificación",
+        "high_score_qual": "La calificación de puntuación mas alta",
+        "high_score_elim": "El partido de eliminación de puntuación más alto",
+        "high_score_all": "El partido de puntuación mas alta",
+        "with_enalties": "Con penaltis",
+        "penalty_free": "Sin penaltis"
+      }
+    },
+
+    "event": {
+      "event_info": "Información del evento",
+      "game_info": "Información del evento",
+      "view_website": "Ver sitio web del evento",
+      "event_key": "Clave de evento",
+      "stream_available": "¡La transmisión en directo esta disponible!",
+      "alliances_count": "{{ value }} Alianzas",
+      "fields_count": "{{ value }} Canchas",
+      "subpages": {
+        "rankings": {
+          "title": "Clasificaciones",
+          "rank": "Rango",
+          "team": "Equipo",
+          "wlt_record": "Récord (G-P-E)",
+          "qual_points": "Puntos de calificación",
+          "ranking_points": "Puntos de ranking",
+          "tie_reaker_points": "Puntos de desempate",
+          "highest_score": "Puntuación más alta",
+          "matches_played": "Partidos jugados"
+        },
+        "matches": {
+          "title": "Partidos"
+        },
+        "teams": {
+          "title": "Equipos"
+        },
+        "awards": {
+          "title": "Premios"
+        }
+      }
+    },
+
+    "events": {
+      "filter_season": "Temporada",
+      "filter_region": "Región",
+      "clear_filter": "Borrar filtro"
+    },
+
+    "match": {
+      "match_info": "Información del partido",
+      "match_key": "Clave de partido",
+      "no_video": "No hay vídeo disponible",
+      "add_one": "Añadir una"
+    },
+
+    "streams": {
+      "event_results": "Resultados del evento",
+      "close_stream": "Cerrar la transmisión"
+    },
+
+    "team": {
+      "team_info": "Información del equipo",
+      "event_results": "Resultados del evento",
+      "part_of_region": "Parte de la región de {{ regionKey }}",
+      "website": "Sitio web",
+      "rookie_year": "Año novato",
+      "last_active": "Última temporada activa",
+      "awards_in_season": "{{ awards }} premios en la temporada {{ season }}",
+      "robot_profile": {
+        "title": "Robot",
+        "engineering_notebook": "Cuaderno de la ingeniería",
+        "robot_reveal": "Robot revelar",
+        "photos": "Fotos"
+      }
+    },
+
+    "teams": {
+      "filter": "Filtrar por número, nombre o ubicación",
+      "results": "{{result}} Resultados"
+    }
+  },
+
+  "match_table": {
+    "teams": "Equipos",
+    "score": "Puntuación",
+    "scores": "Puntuaciónes",
+    "blue_alliance": "Alianza azul",
+    "red_alliance": "Alianza rojo",
+    "match": "Partido",
+    "help": {
+      "bold": "<b>Negrita</b> está ganando la alianza</small>",
+      "bold_and_black": "<b>Negrita y Negro</b> es equipo seleccionado</small>",
+      "surrogate": "<b>*</b> es suplente"
+    }
+  },
+
+  "no_data": {
+    "teams": "No se encontraron equipos",
+    "teams_long": "No hay equipos que coincidan con esa consulta",
+    "events": "No se encontraron eventos",
+    "event_long": "NO SE HAN REPORTADO RESULTADOS PARA ESTE EVENTO.",
+    "streams_long": "Actualmente no hay transmisiones activas",
+    "events_for_season": "No hay eventos para {{ season }} la temporada",
+    "events_for_season_long": "Este equipo aún no ha jugado en ningún evento esta temporada.<br/>Intenta cambiar la temporada usando el selector de arriba."
+  }
+}
