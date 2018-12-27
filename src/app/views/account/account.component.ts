@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -9,6 +9,7 @@ import { AngularFireStorage } from 'angularfire2/storage';
 import { Observable } from 'rxjs/Observable';
 import { TeamSorter } from '../../util/team-utils';
 import { EventSorter } from '../../util/event-utils';
+import { CloudFunctions } from '../../providers/cloud-functions';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
 
@@ -16,7 +17,7 @@ import Event from '../../models/Event';
   selector: 'toa-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
-  providers: [TheOrangeAllianceGlobals]
+  providers: [CloudFunctions, TheOrangeAllianceGlobals]
 })
 
 export class AccountComponent {
@@ -33,7 +34,7 @@ export class AccountComponent {
   generatingEventApiKey: boolean;
 
   constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient,
-              db: AngularFireDatabase, public auth: AngularFireAuth, private storage: AngularFireStorage) {
+              db: AngularFireDatabase, public auth: AngularFireAuth, private storage: AngularFireStorage, private cloud: CloudFunctions) {
 
     this.app.setTitle('myTOA');
     this.app.setDescription('Your myTOA account overview');
@@ -115,30 +116,15 @@ export class AccountComponent {
 
   generateApiKey(): void {
     this.generatingApiKey = true;
-    const authHeader = new HttpHeaders({
-      'authorization': 'Bearer ' + this.user['uid'],
-      'Access-Control-Allow-Origin': '*'
-    });
-    this.httpClient.get('https://us-central1-the-orange-alliance.cloudfunctions.net/requireValidations/generateKey', { headers: authHeader })
-      .toPromise()
-      .catch(console.log);
+    this.cloud.generateApiKey(this.user['uid']).catch(console.log);
   }
 
   generateEventApiKey(eventKey: string): void {
-    this.generatingEventApiKey = true;
-    const authHeader = new HttpHeaders({
-      'authorization': 'Bearer ' + this.user['uid'],
-      'data': eventKey,
-      'Access-Control-Allow-Origin': '*'
-    });
-    this.httpClient.get('https://us-central1-the-orange-alliance.cloudfunctions.net/requireValidations/eventKey', { headers: authHeader })
-      .toPromise()
-      .then(() => {
-        this.generatingEventApiKey = false;
-      }, (err) => {
-        this.generatingEventApiKey = false;
-      })
-      .catch(console.log);
+    this.cloud.generateEventApiKey(this.user['uid'], eventKey).then(() => {
+      this.generatingEventApiKey = false;
+    }, (err) => {
+      this.generatingEventApiKey = false;
+    }).catch(console.log);
   }
 
   getAdminEvents(): string[] {

@@ -1,0 +1,73 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+@Injectable()
+export class CloudFunctions {
+
+  private baseUrl = 'https://us-central1-the-orange-alliance.cloudfunctions.net/requireValidations';
+
+  constructor(private http: HttpClient) {}
+
+  public generateApiKey(uid: string): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const aHeaders = new HttpHeaders({
+        'authorization': 'Bearer ' + uid
+      });
+
+      this.http.get(this.baseUrl + '/generateKey', {headers: aHeaders}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public generateEventApiKey(uid: string, eventKey: string): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const aHeaders = new HttpHeaders({
+        'authorization': 'Bearer ' + uid,
+        'data': eventKey
+      });
+
+      this.http.get(this.baseUrl + '/eventKey', {headers: aHeaders}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public playlistMatchify(uid: string, eventKey: string, playlistID: string): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'authorization': `Bearer ${uid}`,
+        'data': eventKey
+      });
+
+      const body = {
+        'playlistID': playlistID
+      };
+
+      this.http.post(this.baseUrl + '/playlistMatchify', body, {headers: headers}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public setVideos(uid: string, eventKey: string, videos: any[]): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'authorization': `Bearer ${uid}`,
+        'data': eventKey
+      });
+
+      this.http.post(this.baseUrl + '/setVideos', videos, {headers: headers}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+}

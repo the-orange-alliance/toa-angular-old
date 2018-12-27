@@ -23,6 +23,7 @@ import { AboutComponent } from './views/about/about.component';
 import { ApiDocsComponent } from './views/apidocs/apidocs.component';
 
 import { FTCDatabase } from './providers/ftc-database';
+import { CloudFunctions } from './providers/cloud-functions';
 import { EventRankingsComponent } from './views/event/subviews/event-rankings/event-rankings.component';
 import { EventMatchesComponent } from './views/event/subviews/event-matches/event-matches.component';
 import { EventTeamsComponent } from './views/event/subviews/event-teams/event-teams.component';
@@ -105,7 +106,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppRoutingModule,
     AppMaterialModule
   ],
-  providers: [FTCDatabase],
+  providers: [FTCDatabase, CloudFunctions],
   bootstrap: [TheOrangeAllianceComponent]
 })
 export class AppModule { }
