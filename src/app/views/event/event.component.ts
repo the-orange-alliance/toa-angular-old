@@ -36,6 +36,7 @@ export class EventComponent implements OnInit {
 
   user: any = null;
   favorite: boolean;
+  admin: boolean;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public db: AngularFireDatabase, public auth: AngularFireAuth) {
@@ -44,9 +45,21 @@ export class EventComponent implements OnInit {
     auth.authState.subscribe(user => {
         if (user !== null && user !== undefined) {
           this.user = user;
-          db.object(`Users/${user.uid}/favEvents/${this.event_key}`).query.once("value").then(items => {
-            this.favorite = items !== null && items.val() === true
-            });
+          db.object(`Users/${user.uid}/favEvents/${this.event_key}`).query.once("value").then(item => {
+            this.favorite = item !== null && item.val() === true;
+          });
+
+          // Is event admin?
+          db.object(`Users/${user.uid}/adminEvents/${this.event_key}`).query.once("value").then(item => {
+            this.admin = item !== null && item.val() === true;
+
+            if (!this.admin) {
+              // Is TOA admin?
+              db.object(`Users/${user.uid}/level`).query.once("value").then(item => {
+                this.admin = item.val() >= 6
+              });
+            }
+          });
         }
       });
   }

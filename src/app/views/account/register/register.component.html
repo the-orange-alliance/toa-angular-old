@@ -7,7 +7,7 @@
       <mdc-text-field outlined class="mt-4" label="{{ 'pages.account.subpages.register.password' | translate }}" [(ngModel)]="password" type="password" required></mdc-text-field>
       <mdc-text-field outlined class="mt-4" label="{{ 'pages.account.subpages.register.confirm_password' | translate }}" [(ngModel)]="confirmPassword" type="password" required></mdc-text-field>
       <mdc-text-field outlined class="mt-4" label="{{ 'pages.account.subpages.register.your_team' | translate }}" [(ngModel)]="team"></mdc-text-field>
-      <button mdc-button primary class="mt-4 text-white" (click)="createUser()">{{ "pages.account.subpages.register.sign_up" | translate }}</button>
+      <button mdc-button primary class="mt-4" (click)="createUser()">{{ "pages.account.subpages.register.sign_up" | translate }}</button>
     </mdc-card>
   </div>
 </div>

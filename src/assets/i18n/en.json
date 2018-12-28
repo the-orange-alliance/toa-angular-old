@@ -12,6 +12,7 @@
     "events": "Events",
     "live": "LIVE",
     "here": "here",
+    "add": "Add",
     "search_text_long": "Search teams and events",
     "search_text_short": "Team # or Event",
     "add_to_mytoa": "Add to myTOA",
@@ -132,6 +133,10 @@
         },
         "awards": {
           "title": "Awards"
+        },
+        "admin": {
+          "title": "Admin",
+          "playlist": "Add match videos from a YouTube Playlist"
         }
       }
     },

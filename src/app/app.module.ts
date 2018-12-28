@@ -28,6 +28,7 @@ import { EventRankingsComponent } from './views/event/subviews/event-rankings/ev
 import { EventMatchesComponent } from './views/event/subviews/event-matches/event-matches.component';
 import { EventTeamsComponent } from './views/event/subviews/event-teams/event-teams.component';
 import { EventAwardsComponent } from './views/event/subviews/event-awards/event-awards.component';
+import { EventAdminComponent } from './views/event/subviews/event-admin/event-admin.component';
 import { PageNotFoundComponent } from './views/404/404.component';
 import { TeamComponent } from './views/team/team.component';
 import { StreamingComponent } from './views/stream/streaming.component';
@@ -69,6 +70,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     EventMatchesComponent,
     EventTeamsComponent,
     EventAwardsComponent,
+    EventAdminComponent,
     TeamRobotComponent,
     TeamResultsComponent,
     StreamItemComponent,

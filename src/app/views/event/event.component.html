@@ -78,6 +78,7 @@
             <mdc-tab label="{{ 'pages.event.subpages.matches.title' | translate }}" (click)="select('matches')" *ngIf="totalmatches > 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalmatches }}</span></mdc-tab>
             <mdc-tab label="{{ 'pages.event.subpages.teams.title' | translate }}" (click)="select('teams')" *ngIf="totalteams > 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalteams }}</span></mdc-tab>
             <mdc-tab label="{{ 'pages.event.subpages.awards.title' | translate }}" (click)="select('awards')" *ngIf="totalawards > 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalawards }}</span></mdc-tab>
+            <mdc-tab label="{{ 'pages.event.subpages.admin.title' | translate }}" (click)="select('admin')" *ngIf="admin"></mdc-tab>
           </mdc-tab-scroller>
         </mdc-tab-bar>
         <div class="mt-4">
@@ -85,6 +86,7 @@
           <toa-event-teams *ngIf="isSelected('teams')" [teams]="event.teams"></toa-event-teams>
           <toa-event-matches *ngIf="isSelected('matches')" [matches]="event.matches" [teams]="event.teams" [rankings]="event.rankings"></toa-event-matches>
           <toa-event-awards *ngIf="isSelected('awards')" [event]="event"></toa-event-awards>
+          <toa-event-admin *ngIf="admin" [class.d-none]="!isSelected('admin')" [uid]="user.uid" [eventKey]="event_key"></toa-event-admin>
         </div>
       </mdc-card>
     </div>

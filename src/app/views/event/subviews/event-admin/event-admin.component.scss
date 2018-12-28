@@ -1,0 +1,13 @@
+@import "../../../../../constants";
+
+.videos-list {
+  height: 300px;
+  overflow-x: hidden;
+}
+
+.videos-list .thumbnail {
+  width: 105px!important;
+  height: 60px!important;
+  border-radius: 4px!important;
+  margin-top: .5rem;
+}
