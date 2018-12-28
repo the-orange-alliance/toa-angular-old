@@ -3,7 +3,7 @@
     <div class="outline-card">
       <div mdcHeadline5 class="black pb-4">{{ 'pages.account.datasync_card.title' | translate }}</div>
 
-      <div class="table-responsive">
+      <div class="table-responsive" dir="ltr">
         <div style="white-space:nowrap"><b>Event Key:&nbsp;</b><code>{{ eventKey }}</code></div>
         <div style="white-space:nowrap" class="align-items-center d-flex"><b>API Key:&nbsp;</b>
           <code *ngIf="eventApiKey">{{ eventApiKey }}</code>
@@ -26,7 +26,7 @@
         <mdc-text-field outlined dense label="{{ 'pages.event.subpages.admin.playlist_url' | translate }}" *ngIf="showGetObjects" [(ngModel)]="playlistURL"></mdc-text-field>
         <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="playlistMatchify()" *ngIf="!loadingVideos && showGetObjects">{{ 'pages.event.subpages.admin.load' | translate }}</button>
         <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="setVideos()" *ngIf="!uploadingVideos && showConfirm">{{ 'pages.event.subpages.admin.confirm' | translate }}</button>
-        <mdc-linear-progress class="ml-2 mr-2" style="width: 64px" *ngIf="loadingVideos || uploadingVideos && !done"></mdc-linear-progress>
+        <mdc-linear-progress class="ml-2 mr-2" style="width: 64px" *ngIf="loadingVideos || uploadingVideos"></mdc-linear-progress>
       </div>
 
       <mdc-list #custom twoLine avatar class="videos-list" *ngIf="videos && videos.length > 0">

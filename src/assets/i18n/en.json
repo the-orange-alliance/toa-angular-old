@@ -139,7 +139,8 @@
           "playlist": "Add match videos from a YouTube Playlist",
           "playlist_url": "Playlist URL",
           "load": "Load",
-          "confirm": "Confirm and Upload"
+          "confirm": "Confirm and Upload",
+          "successfully": "Successfully uploaded {{ value }} videos"
         }
       }
     },
