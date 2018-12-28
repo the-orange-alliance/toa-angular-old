@@ -40,12 +40,15 @@ export class EventAdminComponent implements OnInit{
 
     if (playlistId && playlistId.length > 0) {
       this.playlistURL = '';
+      this.videos = [];
       this.loadingVideos = true;
       this.cloud.playlistMatchify(this.uid, this.eventKey, playlistId[1]).then((data: {}) => {
         this.loadingVideos = false;
         if (data) {
           this.videos = data['matches'];
         }
+      }, (err) => {
+        this.loadingVideos = false;
       });
     } else {
       // TODO
