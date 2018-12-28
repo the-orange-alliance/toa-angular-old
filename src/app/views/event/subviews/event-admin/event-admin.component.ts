@@ -19,6 +19,10 @@ export class EventAdminComponent implements OnInit{
   playlistURL: string;
   videos: any[];
   loadingVideos: boolean;
+  showGetObjects: boolean;
+  showConfirm: boolean;
+  uploadingVideos: boolean;
+  done: boolean;
 
   constructor(private cloud: CloudFunctions, public db: AngularFireDatabase) {}
 
@@ -26,6 +30,7 @@ export class EventAdminComponent implements OnInit{
     this.db.object(`eventAPIs/${ this.eventKey }`).snapshotChanges().subscribe(item => {
       this.eventApiKey = item && item.payload.val() ? item.payload.val() + '' : null;
     });
+    this.showGetObjects = true;
   }
 
   generateEventApiKey(): void {
@@ -46,6 +51,8 @@ export class EventAdminComponent implements OnInit{
         this.loadingVideos = false;
         if (data) {
           this.videos = data['matches'];
+          this.showGetObjects = false;
+          this.showConfirm = true;
         }
       }, (err) => {
         this.loadingVideos = false;
@@ -54,4 +61,25 @@ export class EventAdminComponent implements OnInit{
       // TODO
     }
   }
+
+  setVideos() {
+    if (this.videos && this.videos.length > 0) {
+      this.uploadingVideos = true;
+      const toUpload = [];
+      this.videos.forEach(function (video) {
+        toUpload.push({
+          'match_key': video['match_key'],
+          'video_url': video['video_url']
+        })
+      });
+      this.cloud.setVideos(this.uid, this.eventKey, toUpload).then((data: {}) => {
+        this.done = true;
+      }, (err) => {
+        this.uploadingVideos = false;
+      });
+    } else {
+      // TODO
+    }
+  }
+
 }

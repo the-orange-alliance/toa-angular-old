@@ -23,16 +23,17 @@
     <div class="outline-card">
       <div mdcHeadline5 class="black pb-4">{{ 'pages.event.subpages.admin.playlist' | translate }}</div>
       <div class="d-inline-flex align-items-center">
-        <mdc-text-field outlined dense label="Playlist URL" [(ngModel)]="playlistURL"></mdc-text-field>
-        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="playlistMatchify()" *ngIf="!loadingVideos">{{ 'general.add' | translate }}</button>
-        <mdc-linear-progress class="ml-2 mr-2" style="width: 64px" *ngIf="loadingVideos"></mdc-linear-progress>
+        <mdc-text-field outlined dense label="{{ 'pages.event.subpages.admin.playlist_url' | translate }}" *ngIf="showGetObjects" [(ngModel)]="playlistURL"></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="playlistMatchify()" *ngIf="!loadingVideos && showGetObjects">{{ 'pages.event.subpages.admin.load' | translate }}</button>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="setVideos()" *ngIf="!uploadingVideos && showConfirm">{{ 'pages.event.subpages.admin.confirm' | translate }}</button>
+        <mdc-linear-progress class="ml-2 mr-2" style="width: 64px" *ngIf="loadingVideos || uploadingVideos && !done"></mdc-linear-progress>
       </div>
 
       <mdc-list #custom twoLine avatar class="videos-list" *ngIf="videos && videos.length > 0">
         <mdc-list-item  *ngFor="let video of videos">
           <img mdcListItemGraphic src="{{ video['video_thumbnail'] }}" class="thumbnail" title="Video thumbnail">
           <mdc-list-item-text secondaryText="{{ video['video_title'] }}">{{ video['match_name'] }}</mdc-list-item-text>
-          <a href="#" mdcListItemMeta mdcIcon title="Play Video" [href]="video['match_video']" target="_blank">play_circle_outline</a>
+          <a href="#" mdcListItemMeta mdcIcon title="Play Video" [href]="video['video_url']" target="_blank">play_circle_outline</a>
         </mdc-list-item>
       </mdc-list>
     </div>
