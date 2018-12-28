@@ -86,6 +86,10 @@ export class TheOrangeAllianceComponent {
     });
   }
 
+  isScreenSmall(): boolean {
+    return this.router.url === '/stream' || this.mediaMatcher.matches;
+  }
+
   performSearch(): void {
     const maxResults = 5;
     const query = this.search && this.search.trim().length > 0 ? this.search.toLowerCase().trim() : null;
@@ -108,10 +112,6 @@ export class TheOrangeAllianceComponent {
       this.teamSearchResults = [];
       this.eventSearchResults = [];
     }
-  }
-
-  isScreenSmall(): boolean {
-    return this.router.url === '/stream' || this.mediaMatcher.matches;
   }
 
   focusSearchInput(searchInput: MdcTextField): void {
@@ -161,7 +161,11 @@ export class TheOrangeAllianceComponent {
     } else if (this.eventSearchResults.length > 0) {
       this.router.navigate(['/events', this.eventSearchResults[0].eventKey]);
       this.sendAnalytic('search',  this.eventSearchResults[0].eventKey);
+    } else if (this.search && this.search.trim().length > 0) {
+      this.router.navigate(['/teams', this.search.trim()]);
+      this.sendAnalytic('search',  this.search.trim());
     } else {
+
       this.router.navigate(['/not-found']);
     }
     this.showSearch = false;
