@@ -81,10 +81,14 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
       this.loadingVideos = true;
       this.cloud.playlistMatchify(this.uid, this.eventKey, playlistId[1]).then((data: {}) => {
         this.loadingVideos = false;
-        if (data) {
+        if (data && data['matches'].length > 0) {
           this.videos = data['matches'];
           this.showGetObjects = false;
           this.showConfirm = true;
+        } else {
+          this.translate.get('pages.event.subpages.admin.playlist_card.error').subscribe((res: string) => {
+            this.snackbar.show(res, null, {align: 'center'});
+          });
         }
       }, (err) => {
         this.loadingVideos = false;

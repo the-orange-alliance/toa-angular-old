@@ -142,7 +142,8 @@
             "playlist_url": "Playlist URL",
             "load": "Load",
             "confirm": "Confirm and Upload",
-            "successfully": "Successfully uploaded {{ value }} videos"
+            "successfully": "Successfully uploaded {{ value }} videos",
+            "error": "We could not find any matches videos"
           },
           "update_info_card": {
             "title": "Edit Your Event Info",

@@ -61,6 +61,7 @@
         <mdc-text-field outlined dense label="{{ 'pages.event.subpages.admin.playlist_card.playlist_url' | translate }}" *ngIf="showGetObjects" [(ngModel)]="playlistURL"></mdc-text-field>
         <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="playlistMatchify()" *ngIf="!loadingVideos && showGetObjects">{{ 'pages.event.subpages.admin.playlist_card.load' | translate }}</button>
         <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="setVideos()" *ngIf="!uploadingVideos && showConfirm">{{ 'pages.event.subpages.admin.playlist_card.confirm' | translate }}</button>
+        <span class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" *ngIf="showGetObjects">Ex. video name:<i>{{ event.startDate | date : "y" }} {{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} - Qualification Match 1</i></span>
         <mdc-linear-progress class="ml-2 mr-2" style="width: 64px" *ngIf="loadingVideos || uploadingVideos"></mdc-linear-progress>
       </div>
 

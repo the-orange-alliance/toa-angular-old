@@ -142,7 +142,8 @@
             "playlist_url": "Playlist URL",
             "load": "טעינה",
             "confirm": "אישור והעלאה",
-            "successfully": "הועלו בהצלחה {{ value }} סרטונים"
+            "successfully": "הועלו בהצלחה {{ value }} סרטונים",
+            "error": "לא הצלחנו למצוא סרטונים של מקצים"
           },
           "update_info_card": {
             "title": "ערוך את פרטי האירוע שלך",
