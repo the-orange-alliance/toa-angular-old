@@ -136,7 +136,11 @@
         },
         "admin": {
           "title": "ניהול",
-          "playlist": "הוספת סרטוני מקצים מ־YouTube Playlist"
+          "playlist": "הוספת סרטוני מקצים מ־YouTube Playlist",
+          "playlist_url": "Playlist URL",
+          "load": "טעינה",
+          "confirm": "אישור והעלאה",
+          "successfully": "הועלו בהצלחה {{ value }} סרטונים"
         }
       }
     },

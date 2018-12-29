@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { MdcSnackbar } from '@angular-mdc/web';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   providers: [CloudFunctions],
@@ -22,8 +24,7 @@ export class EventAdminComponent implements OnInit {
   showGetObjects: boolean;
   showConfirm: boolean;
   uploadingVideos: boolean;
-  done: boolean;
-
+  
   // These are for updating the Event Info
   event_name: string;
   start_date: string;
@@ -34,7 +35,8 @@ export class EventAdminComponent implements OnInit {
   state: string;
   country: string;
 
-  constructor(private cloud: CloudFunctions, public db: AngularFireDatabase) {}
+  constructor(private cloud: CloudFunctions, private db: AngularFireDatabase,
+              private snackbar: MdcSnackbar, private translate: TranslateService) {}
 
   ngOnInit() {
     this.db.object(`eventAPIs/${ this.eventKey }`).snapshotChanges().subscribe(item => {
@@ -83,7 +85,15 @@ export class EventAdminComponent implements OnInit {
         })
       });
       this.cloud.setVideos(this.uid, this.eventKey, toUpload).then((data: {}) => {
-        this.done = true;
+        this.uploadingVideos = false;
+        this.showGetObjects = true;
+        this.showConfirm = false;
+
+        this.translate.get('pages.event.subpages.admin.successfully', {value: this.videos.length}).subscribe((res: string) => {
+          this.snackbar.show(res, null, {align: 'center'});
+        });
+
+        this.videos = [];
       }, (err) => {
         this.uploadingVideos = false;
       });

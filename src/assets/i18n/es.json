@@ -10,8 +10,9 @@
     "teams": "Equipos",
     "event": "Evento",
     "events": "Eventos",
-    "live": "Vivo",
+    "live": "VIVO",
     "here": "Aquí",
+    "add": "Añadir",
     "search_text_long": "Buscar equipos y eventos",
     "search_text_short": "Equipo # o evento",
     "add_to_mytoa": "Aumentar myTOA",
@@ -132,6 +133,13 @@
         },
         "awards": {
           "title": "Premios"
+        },
+        "admin": {
+          "title": "Administración",
+          "playlist": "Añadir vídeos de partidas de una lista de reproducción de YouTube",
+          "playlist_url": "URL de lista de reproducción",
+          "load": "Cargar",
+          "confirm": "Confirmar y subir"
         }
       }
     },
