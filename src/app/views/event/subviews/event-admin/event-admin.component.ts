@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { MdcSnackbar } from '@angular-mdc/web';
+import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
+import Event from '../../../../models/Event';
 
 @Component({
   providers: [CloudFunctions],
@@ -10,10 +11,11 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './event-admin.component.html',
   styleUrls: ['./event-admin.component.scss']
 })
-export class EventAdminComponent implements OnInit {
+export class EventAdminComponent implements OnInit, AfterViewInit {
 
   @Input() uid: string;
   @Input() eventKey: string;
+  @Input() event: Event;
 
   generatingEventApiKey: boolean;
   eventApiKey: string;
@@ -24,16 +26,16 @@ export class EventAdminComponent implements OnInit {
   showGetObjects: boolean;
   showConfirm: boolean;
   uploadingVideos: boolean;
-  
+
   // These are for updating the Event Info
-  event_name: string;
-  start_date: string;
-  end_date: string;
-  website: string;
-  venue: string;
-  city: string;
-  state: string;
-  country: string;
+  @ViewChild('event_name') eventName: MdcTextField;
+  @ViewChild('start_date') startDate: MdcTextField;
+  @ViewChild('end_date') endDate: MdcTextField;
+  @ViewChild('website') website: MdcTextField;
+  @ViewChild('venue') venue: MdcTextField;
+  @ViewChild('city') city: MdcTextField;
+  @ViewChild('state') state: MdcTextField;
+  @ViewChild('country') country: MdcTextField;
 
   constructor(private cloud: CloudFunctions, private db: AngularFireDatabase,
               private snackbar: MdcSnackbar, private translate: TranslateService) {}
@@ -43,6 +45,20 @@ export class EventAdminComponent implements OnInit {
       this.eventApiKey = item && item.payload.val() ? item.payload.val() + '' : null;
     });
     this.showGetObjects = true;
+  }
+
+  ngAfterViewInit() {
+    // Setup the edit event
+    this.setFieldText(this.eventName, this.event.eventName);
+    this.setFieldText(this.startDate, this.event.startDate.substr(0, 10));
+    this.setFieldText(this.endDate, this.event.endDate.substr(0, 10));
+    this.setFieldText(this.website, this.event.website);
+
+    this.setFieldText(this.website, this.event.website);
+    this.setFieldText(this.venue, this.event.venue);
+    this.setFieldText(this.city, this.event.city);
+    this.setFieldText(this.state, this.event.stateProv);
+    this.setFieldText(this.country, this.event.country);
   }
 
   generateEventApiKey(): void {
@@ -89,7 +105,7 @@ export class EventAdminComponent implements OnInit {
         this.showGetObjects = true;
         this.showConfirm = false;
 
-        this.translate.get('pages.event.subpages.admin.successfully', {value: this.videos.length}).subscribe((res: string) => {
+        this.translate.get('pages.event.subpages.admin.successfully_uploadvideos', {value: this.videos.length}).subscribe((res: string) => {
           this.snackbar.show(res, null, {align: 'center'});
         });
 
@@ -103,38 +119,40 @@ export class EventAdminComponent implements OnInit {
   }
 
   updateEvent() {
-    let startDate;
-    if (this.start_date) { startDate = new Date(this.start_date).toISOString(); }
-    let endDate;
-    if (this.end_date) { endDate = new Date(this.end_date).toISOString(); }
-    let jsonString = '[{';
-    jsonString += `"event_key": "${this.eventKey}",`;
-    jsonString += (this.event_name) ? `"event_name": "${this.event_name}",` : ``;
-    jsonString += (startDate)       ? `"start_date": "${startDate}",`       : ``;
-    jsonString += (endDate)         ? `"end_date": "${endDate}",`           : ``;
-    jsonString += (this.venue)      ? `"venue": "${this.venue}",`           : ``;
-    jsonString += (this.city)       ? `"city": "${this.city}",`             : ``;
-    jsonString += (this.state)      ? `"state": "${this.state}",`           : ``;
-    jsonString += (this.country)    ? `"country": "${this.country}",`       : ``;
-    jsonString += (this.website)    ? `"website": "${this.website}",`       : ``;
-    jsonString = jsonString.substring(0, jsonString.length - 1); // Remove Last Comma
-
-    const json = JSON.parse(jsonString);
+    const json = [
+      {
+       'event_key':  this.eventKey,
+       'event_name':  this.getFieldText(this.eventName),
+       'start_date':  new Date(this.getFieldText(this.startDate)).toISOString(),
+       'end_date':  new Date(this.getFieldText(this.endDate)).toISOString(),
+       'venue':  this.getFieldText(this.venue),
+       'city':  this.getFieldText(this.city),
+       'state':  this.getFieldText(this.state),
+       'country':  this.getFieldText(this.country),
+       'website':  this.getFieldText(this.website)
+      }
+    ];
 
     this.cloud.updateEvent(this.uid, this.eventKey, json).then((data: {}) => {
-      jsonString += `}]`;
-
-      this.event_name = '';
-      this.start_date = '';
-      this.end_date  = '';
-      this.venue = '';
-      this.city = '';
-      this.state = '';
-      this.country = '';
-      this.website = '';
+      this.translate.get('pages.event.subpages.admin.successfully_updateinfo').subscribe((res: string) => {
+        this.snackbar.show(res, null, {align: 'center'});
+      });
     }, (err) => {
       // TODO
     });
+  }
+
+  setFieldText(elm: MdcTextField, text: string) {
+    elm.setValue(text);
+
+    // Fix MDC bug
+    if (elm._floatingLabel) {
+      elm._notchedOutline.notch(elm._floatingLabel.getWidth())
+    }
+  }
+
+  getFieldText(elm: MdcTextField) {
+    return elm.value;
   }
 
 }

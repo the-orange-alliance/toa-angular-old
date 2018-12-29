@@ -136,11 +136,26 @@
         },
         "admin": {
           "title": "ניהול",
-          "playlist": "הוספת סרטוני מקצים מ־YouTube Playlist",
-          "playlist_url": "Playlist URL",
-          "load": "טעינה",
-          "confirm": "אישור והעלאה",
-          "successfully": "הועלו בהצלחה {{ value }} סרטונים"
+          "playlist_card": {
+            "title": "הוספת סרטוני מקצים מ־YouTube Playlist",
+            "playlist_url": "Playlist URL",
+            "load": "טעינה",
+            "confirm": "אישור והעלאה",
+            "successfully": "הועלו בהצלחה {{ value }} סרטונים"
+          },
+          "update_info_card": {
+            "title": "ערוך את פרטי האירוע שלך",
+            "event_name": "שם האירוע",
+            "website": "אתר",
+            "start_date": "תאריך התחלה",
+            "end_date": "תאריך סיום",
+            "venue": "אולם",
+            "city": "עיר",
+            "state": "מחוז (ארה\"ב בלבד)",
+            "country": "מדינה",
+            "update": "עדכן",
+            "successfully": "פרטי האירוע עודכנו בהצלחה"
+          }
         }
       }
     },

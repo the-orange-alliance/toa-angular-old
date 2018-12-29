@@ -136,11 +136,26 @@
         },
         "admin": {
           "title": "Admin",
-          "playlist": "Add match videos from a YouTube Playlist",
-          "playlist_url": "Playlist URL",
-          "load": "Load",
-          "confirm": "Confirm and Upload",
-          "successfully": "Successfully uploaded {{ value }} videos"
+          "playlist_card": {
+            "title": "Add match videos from a YouTube Playlist",
+            "playlist_url": "Playlist URL",
+            "load": "Load",
+            "confirm": "Confirm and Upload",
+            "successfully": "Successfully uploaded {{ value }} videos"
+          },
+          "update_info_card": {
+            "title": "Edit Your Event Info",
+            "event_name": "Event Name",
+            "website": "Website",
+            "start_date": "Start Date",
+            "end_date": "End Date",
+            "venue": "Venue",
+            "city": "City",
+            "state": "State",
+            "country": "Country",
+            "update": "Update",
+            "successfully": "Successfully updated the event info"
+          }
         }
       }
     },
