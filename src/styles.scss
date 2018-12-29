@@ -486,7 +486,21 @@ table.match-table tr {
   margin-bottom: 24px;
 }
 
-.search-anchor mdc-notched-outline {
+.search-anchor .mdc-notched-outline__notch {
+  border: none;
+}
+
+[dir="ltr"] .mdc-text-field--outlined .mdc-floating-label {
+  left: 0;
+  padding-left: 16px;
+}
+
+[dir="rtl"] .mdc-text-field--outlined .mdc-floating-label {
+  right: 0;
+  padding-right: 16px;
+}
+
+.search-anchor .mdc-notched-outline__leading, .search-anchor .mdc-notched-outline__trailing {
   display: none;
 }
 
