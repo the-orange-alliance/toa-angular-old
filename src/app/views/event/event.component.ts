@@ -45,17 +45,17 @@ export class EventComponent implements OnInit {
     auth.authState.subscribe(user => {
         if (user !== null && user !== undefined) {
           this.user = user;
-          db.object(`Users/${user.uid}/favEvents/${this.event_key}`).query.once("value").then(item => {
+          db.object(`Users/${user.uid}/favEvents/${this.event_key}`).query.once('value').then(item => {
             this.favorite = item !== null && item.val() === true;
           });
 
           // Is event admin?
-          db.object(`Users/${user.uid}/adminEvents/${this.event_key}`).query.once("value").then(item => {
+          db.object(`Users/${user.uid}/adminEvents/${this.event_key}`).query.once('value').then(item => {
             this.admin = item !== null && item.val() === true;
 
             if (!this.admin) {
               // Is TOA admin?
-              db.object(`Users/${user.uid}/level`).query.once("value").then(item => {
+              db.object(`Users/${user.uid}/level`).query.once('value').then(item => {
                 this.admin = item.val() >= 6
               });
             }
@@ -145,12 +145,12 @@ export class EventComponent implements OnInit {
   toggleEvent(): void {
     if (this.favorite) { // Remove from favorites
       this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).remove();
-      this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).query.once("value").then(items => {
+      this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).query.once('value').then(items => {
         this.favorite = items !== null && items.val() === true
         });
     } else { // Add to favorites
       this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).set(true);
-      this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).query.once("value").then(items => {
+      this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).query.once('value').then(items => {
         this.favorite = items !== null && items.val() === true
         });
     }

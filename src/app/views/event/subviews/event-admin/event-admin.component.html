@@ -38,4 +38,45 @@
       </mdc-list>
     </div>
   </div>
+
+  <div class="col-md-6 col-12">
+    <div class="outline-card">
+      <div mdcHeadline5 class="black pb-4">Edit Your Event Info</div>
+      <div class="align-items-center">
+        <div class="info-state">
+          <p>Event Name</p>
+          <p><mdc-text-field outlined dense label="Event Name" [(ngModel)]="event_name"></mdc-text-field></p>
+        </div>
+        <div class="info-state">
+          <p>Start Date</p>
+          <p><mdc-text-field outlined dense label="Start Date" type="date" [(ngModel)]="start_date"></mdc-text-field></p>
+        </div>
+        <div class="info-state">
+          <p>End Date</p>
+          <p><mdc-text-field outlined dense label="End Date" type="date" [(ngModel)]="end_date"></mdc-text-field></p>
+        </div>
+        <div class="info-state">
+          <p>Website</p>
+          <p><mdc-text-field outlined dense label="Website" [(ngModel)]="website"></mdc-text-field></p>
+        </div>
+        <div class="info-state">
+          <p>Venue</p>
+          <p><mdc-text-field outlined dense label="Venue" [(ngModel)]="venue"></mdc-text-field></p>
+        </div>
+        <div class="info-state">
+          <p>City</p>
+          <p><mdc-text-field outlined dense label="City" [(ngModel)]="city"></mdc-text-field></p>
+        </div>
+        <div class="info-state">
+          <p>State</p>
+          <p><mdc-text-field outlined dense label="State" [(ngModel)]="state"></mdc-text-field></p>
+        </div>
+        <div class="info-state">
+          <p>Country</p>
+          <p><mdc-text-field outlined dense label="Country" [(ngModel)]="country"></mdc-text-field></p>
+        </div>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="updateEvent()">Update</button>
+      </div>
+    </div>
+  </div>
 </div>

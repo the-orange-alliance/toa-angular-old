@@ -8,7 +8,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
   templateUrl: './event-admin.component.html',
   styleUrls: ['./event-admin.component.scss']
 })
-export class EventAdminComponent implements OnInit{
+export class EventAdminComponent implements OnInit {
 
   @Input() uid: string;
   @Input() eventKey: string;
@@ -23,6 +23,16 @@ export class EventAdminComponent implements OnInit{
   showConfirm: boolean;
   uploadingVideos: boolean;
   done: boolean;
+
+  // These are for updating the Event Info
+  event_name: string;
+  start_date: string;
+  end_date: string;
+  website: string;
+  venue: string;
+  city: string;
+  state: string;
+  country: string;
 
   constructor(private cloud: CloudFunctions, public db: AngularFireDatabase) {}
 
@@ -80,6 +90,41 @@ export class EventAdminComponent implements OnInit{
     } else {
       // TODO
     }
+  }
+
+  updateEvent() {
+    let startDate;
+    if (this.start_date) { startDate = new Date(this.start_date).toISOString(); }
+    let endDate;
+    if (this.end_date) { endDate = new Date(this.end_date).toISOString(); }
+    let jsonString = '[{';
+    jsonString += `"event_key": "${this.eventKey}",`;
+    jsonString += (this.event_name) ? `"event_name": "${this.event_name}",` : ``;
+    jsonString += (startDate)       ? `"start_date": "${startDate}",`       : ``;
+    jsonString += (endDate)         ? `"end_date": "${endDate}",`           : ``;
+    jsonString += (this.venue)      ? `"venue": "${this.venue}",`           : ``;
+    jsonString += (this.city)       ? `"city": "${this.city}",`             : ``;
+    jsonString += (this.state)      ? `"state": "${this.state}",`           : ``;
+    jsonString += (this.country)    ? `"country": "${this.country}",`       : ``;
+    jsonString += (this.website)    ? `"website": "${this.website}",`       : ``;
+    jsonString = jsonString.substring(0, jsonString.length - 1); // Remove Last Comma
+
+    this.cloud.updateEvent(this.uid, this.eventKey, json).then((data: {}) => {
+      jsonString += `}]`;
+
+      const json = JSON.parse(jsonString);
+
+      this.event_name = '';
+      this.start_date = '';
+      this.end_date  = '';
+      this.venue = '';
+      this.city = '';
+      this.state = '';
+      this.country = '';
+      this.website = '';
+    }, (err) => {
+      // TODO
+    });
   }
 
 }

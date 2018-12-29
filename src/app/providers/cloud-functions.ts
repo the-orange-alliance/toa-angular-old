@@ -70,4 +70,19 @@ export class CloudFunctions {
       });
     });
   }
+
+  public updateEvent(uid: string, eventKey: string, eventData: any[]): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'authorization': `Bearer ${uid}`,
+        'data': eventKey
+      });
+
+      this.http.post(this.baseUrl + '/updateEvent', eventData, {headers: headers}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
 }

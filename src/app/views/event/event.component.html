@@ -27,7 +27,7 @@
           <div class="info-state" *ngIf="event_type_name">
             <mdc-icon svgIcon="calendar-question"></mdc-icon>
             <p>{{ event_type_name }}</p>
-          </div>
+        </div>
           <div class="info-state" *ngIf="event.website">
             <mdc-icon svgIcon="earth"></mdc-icon>
             <p><a [href]="event.website" target="_blank" (click)="this.sendAnalytic('leaving', event.eventKey + ' website');">{{ 'pages.event.view_website' | translate }}</a></p>
