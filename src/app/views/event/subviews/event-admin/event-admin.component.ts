@@ -65,7 +65,11 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     this.generatingEventApiKey = true;
     this.cloud.generateEventApiKey(this.uid, this.eventKey).then(() => {
       this.generatingEventApiKey = false;
-    }).catch(console.log);
+    }, (err) => {
+      this.translate.get('general.error_occurred').subscribe((res: string) => {
+      this.snackbar.show(`${res} (HTTP-${err.status})`, null, {align: 'center'});
+    });
+  }).catch(console.log);
   }
 
   playlistMatchify() {
@@ -84,6 +88,9 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
         }
       }, (err) => {
         this.loadingVideos = false;
+        this.translate.get('general.error_occurred').subscribe((res: string) => {
+          this.snackbar.show(`${res} (HTTP-${err.status})`, null, {align: 'center'});
+        });
       });
     } else {
       // TODO
@@ -105,13 +112,16 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
         this.showGetObjects = true;
         this.showConfirm = false;
 
-        this.translate.get('pages.event.subpages.admin.successfully_uploadvideos', {value: this.videos.length}).subscribe((res: string) => {
+        this.translate.get('pages.event.subpages.admin.playlist_card.successfully', {value: this.videos.length}).subscribe((res: string) => {
           this.snackbar.show(res, null, {align: 'center'});
         });
 
         this.videos = [];
       }, (err) => {
         this.uploadingVideos = false;
+        this.translate.get('general.error_occurred').subscribe((res: string) => {
+          this.snackbar.show(`${res} (HTTP-${err.status})`, null, {align: 'center'});
+        });
       });
     } else {
       // TODO
@@ -134,11 +144,13 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     ];
 
     this.cloud.updateEvent(this.uid, this.eventKey, json).then((data: {}) => {
-      this.translate.get('pages.event.subpages.admin.successfully_updateinfo').subscribe((res: string) => {
+      this.translate.get('pages.event.subpages.admin.update_info_card.successfully').subscribe((res: string) => {
         this.snackbar.show(res, null, {align: 'center'});
       });
     }, (err) => {
-      // TODO
+      this.translate.get('general.error_occurred').subscribe((res: string) => {
+        this.snackbar.show(`${res} (HTTP-${err.status})`, null, {align: 'center'});
+      });
     });
   }
 
