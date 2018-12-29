@@ -119,10 +119,10 @@ export class EventAdminComponent implements OnInit {
     jsonString += (this.website)    ? `"website": "${this.website}",`       : ``;
     jsonString = jsonString.substring(0, jsonString.length - 1); // Remove Last Comma
 
+    const json = JSON.parse(jsonString);
+
     this.cloud.updateEvent(this.uid, this.eventKey, json).then((data: {}) => {
       jsonString += `}]`;
-
-      const json = JSON.parse(jsonString);
 
       this.event_name = '';
       this.start_date = '';
