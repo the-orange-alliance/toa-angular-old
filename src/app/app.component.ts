@@ -55,7 +55,7 @@ export class TheOrangeAllianceComponent {
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
         this.user['email'] = user.email;
-        db.object(`Users/${user.uid}/fullName`).query.once("value").then(data => {
+        db.object(`Users/${user.uid}/fullName`).query.once('value').then(data => {
           this.user['fullName'] = data.val();
         });
       } else {

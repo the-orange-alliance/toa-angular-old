@@ -15,7 +15,7 @@ import {AngularFireDatabase} from 'angularfire2/database';
 import Ranking from '../../models/Ranking';
 import Media from '../../models/Media';
 import TeamSeasonRecord from '../../models/TeamSeasonRecord';
-import EventParticipant from "../../models/EventParticipant";
+import EventParticipant from '../../models/EventParticipant';
 
 @Component({
   selector: 'toa-team',
@@ -44,7 +44,7 @@ export class TeamComponent implements OnInit {
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
         this.user = user;
-          db.object(`Users/${user.uid}/favTeams/${this.teamKey}`).query.once("value").then(items => {
+          db.object(`Users/${user.uid}/favTeams/${this.teamKey}`).query.once('value').then(items => {
             this.favorite = items !== null && items.val() === true
           });
       }
@@ -237,12 +237,12 @@ export class TeamComponent implements OnInit {
   toggleTeam(): void {
     if (this.favorite) { // Remove from favorites
       this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).remove();
-      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).query.once("value").then(items => {
+      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).query.once('value').then(items => {
         this.favorite = items !== null && items.val() === true
         });
     } else { // Add to favorites
       this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).set(true);
-      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).query.once("value").then(items => {
+      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).query.once('value').then(items => {
         this.favorite = items !== null && items.val() === true
         });
     }

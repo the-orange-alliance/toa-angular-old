@@ -4,6 +4,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import Event from '../../../../models/Event';
+import {Router} from "@angular/router";
 
 @Component({
   providers: [CloudFunctions],
@@ -37,8 +38,8 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   @ViewChild('state') state: MdcTextField;
   @ViewChild('country') country: MdcTextField;
 
-  constructor(private cloud: CloudFunctions, private db: AngularFireDatabase,
-              private snackbar: MdcSnackbar, private translate: TranslateService) {}
+  constructor(private cloud: CloudFunctions, private db: AngularFireDatabase, private snackbar: MdcSnackbar,
+              private translate: TranslateService, private router: Router) {}
 
   ngOnInit() {
     this.db.object(`eventAPIs/${ this.eventKey }`).snapshotChanges().subscribe(item => {
@@ -66,10 +67,8 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     this.cloud.generateEventApiKey(this.uid, this.eventKey).then(() => {
       this.generatingEventApiKey = false;
     }, (err) => {
-      this.translate.get('general.error_occurred').subscribe((res: string) => {
-      this.snackbar.show(`${res} (HTTP-${err.status})`, null, {align: 'center'});
-    });
-  }).catch(console.log);
+      this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
+    }).catch(console.log);
   }
 
   playlistMatchify() {
@@ -86,18 +85,14 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
           this.showGetObjects = false;
           this.showConfirm = true;
         } else {
-          this.translate.get('pages.event.subpages.admin.playlist_card.error').subscribe((res: string) => {
-            this.snackbar.show(res, null, {align: 'center'});
-          });
+          this.showSnackbar('pages.event.subpages.admin.playlist_card.error');
         }
       }, (err) => {
         this.loadingVideos = false;
-        this.translate.get('general.error_occurred').subscribe((res: string) => {
-          this.snackbar.show(`${res} (HTTP-${err.status})`, null, {align: 'center'});
-        });
+        this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
       });
     } else {
-      // TODO
+      this.showSnackbar('pages.event.subpages.admin.playlist_card.invalid_url');
     }
   }
 
@@ -116,19 +111,15 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
         this.showGetObjects = true;
         this.showConfirm = false;
 
-        this.translate.get('pages.event.subpages.admin.playlist_card.successfully', {value: this.videos.length}).subscribe((res: string) => {
-          this.snackbar.show(res, null, {align: 'center'});
-        });
+        this.showSnackbar('pages.event.subpages.admin.playlist_card.successfully', null, this.videos.length);
 
         this.videos = [];
       }, (err) => {
         this.uploadingVideos = false;
-        this.translate.get('general.error_occurred').subscribe((res: string) => {
-          this.snackbar.show(`${res} (HTTP-${err.status})`, null, {align: 'center'});
-        });
+        this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
       });
     } else {
-      // TODO
+      this.showSnackbar('pages.event.subpages.admin.playlist_card.error');
     }
   }
 
@@ -148,13 +139,9 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     ];
 
     this.cloud.updateEvent(this.uid, this.eventKey, json).then((data: {}) => {
-      this.translate.get('pages.event.subpages.admin.update_info_card.successfully').subscribe((res: string) => {
-        this.snackbar.show(res, null, {align: 'center'});
-      });
+      this.showSnackbar('pages.event.subpages.admin.update_info_card.successfully');
     }, (err) => {
-      this.translate.get('general.error_occurred').subscribe((res: string) => {
-        this.snackbar.show(`${res} (HTTP-${err.status})`, null, {align: 'center'});
-      });
+      this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
     });
   }
 
@@ -171,4 +158,20 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     return elm.value;
   }
 
+  showSnackbar(translateKey: string, errorKey?: string, value?: number) {
+    this.translate.get(translateKey, {value: value}).subscribe((res: string) => {
+      const message = errorKey ? `${res} (${errorKey})` : res;
+
+      this.snackbar.show(message, null, {align: 'center'});
+    });
+  }
+
+  sendAnalytic(category, action): void {
+    (<any>window).ga('send', 'event', {
+      eventCategory: category,
+      eventLabel: this.router.url,
+      eventAction: action,
+      eventValue: 10
+    });
+  }
 }
