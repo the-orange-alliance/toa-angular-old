@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import { SafeResourceUrl } from "@angular/platform-browser/src/security/dom_sanitization_service";
-import { DomSanitizer } from "@angular/platform-browser";
+import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
+import urlParser from 'js-video-url-parser';
+import { DomSanitizer } from '@angular/platform-browser';
 import Match from '../../models/Match';
 import Event from '../../models/Event';
 
@@ -28,9 +29,18 @@ export class MatchesComponent implements OnInit {
       if (match) {
         this.match = match;
         if (match.videoURL != null) {
-          let videoID = match.videoURL.match(/^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/);
-          if (videoID && videoID[2].length == 11) {
-            this.videoSafeURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + videoID[2]);
+          const video = urlParser.parse(match.videoURL);
+          let embedURL = urlParser.create({
+            videoInfo: video,
+            params: 'internal',
+            format: 'embed'
+          });
+
+          if (embedURL) {
+            if (embedURL.startsWith('//')) {
+              embedURL = 'https:' + embedURL;
+            }
+            this.videoSafeURL = this.sanitizer.bypassSecurityTrustResourceUrl(embedURL);
           }
         }
 
