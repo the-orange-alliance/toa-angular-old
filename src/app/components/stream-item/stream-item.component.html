@@ -5,9 +5,9 @@
     <h2 mdcOverline>{{ stream.streamName }}</h2>
     <div class="info-icons">
       <div class="icon-tooltip">
-        <button mdc-button dense *ngIf="stream.eventKey" (click)="openEvent(stream.eventKey)">
+        <a mdc-button dense *ngIf="stream.eventKey" href="events/{{stream.eventKey}}" target="_blank">
           <mdc-icon class="mr-0">equalizer</mdc-icon>
-        </button>
+        </a>
         <span class="tooltiptext">{{ 'pages.streams.event_results' | translate }}</span>
       </div>
       <div class="icon-tooltip">

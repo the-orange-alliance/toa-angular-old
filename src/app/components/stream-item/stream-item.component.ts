@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router} from '@angular/router';
 import EventLiveStream from "../../models/EventLiveStream";
 
@@ -7,7 +7,7 @@ import EventLiveStream from "../../models/EventLiveStream";
   templateUrl: './stream-item.component.html',
   styleUrls: ['./stream-item.component.scss']
 })
-export class StreamItemComponent implements OnInit {
+export class StreamItemComponent {
 
   @Input() id: number;
   @Input() height: string;
@@ -16,17 +16,7 @@ export class StreamItemComponent implements OnInit {
   stream: EventLiveStream = null;
   selectedStreamKey = '';
 
-  constructor(public router: Router) {
-
-  }
-
-  ngOnInit() {
-
-  }
-
-  openEvent(event_key): void {
-    this.router.navigate(['/events', event_key]);
-  }
+  constructor(public router: Router) {}
 
   getStream(streamKey: string): EventLiveStream {
     for (const stream of this.streams) {

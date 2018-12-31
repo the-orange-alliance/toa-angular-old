@@ -63,10 +63,11 @@
   color: #fff!important;
 }
 
-.info button {
+.info button, .info a, .info a:hover {
   color: #fff!important;
   background: #2f2e2e!important;
   min-width: 24px;
+  text-decoration: none!important;
 }
 
 .info h2 {
