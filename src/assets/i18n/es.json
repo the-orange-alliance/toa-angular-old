@@ -139,7 +139,8 @@
           "playlist": "Añadir vídeos de partidas de una lista de reproducción de YouTube",
           "playlist_url": "URL de lista de reproducción",
           "load": "Cargar",
-          "confirm": "Confirmar y subir"
+          "confirm": "Confirmar y subir",
+          "successfully": "Subido exitosamente {{ value }} videos"
         }
       }
     },

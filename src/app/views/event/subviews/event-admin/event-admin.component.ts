@@ -150,7 +150,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
 
     // Fix MDC bug
     if (elm._floatingLabel) {
-      elm._notchedOutline.notch(elm._floatingLabel.getWidth())
+      elm._notchedOutline.notch(elm._floatingLabel.getWidth(), true)
     }
   }
 
