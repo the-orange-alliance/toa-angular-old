@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import Match from '../../models/Match';
 import Team from '../../models/Team';
-import Ranking from  '../../models/Ranking';
+import Ranking from '../../models/Ranking';
 import EventParticipant from '../../models/EventParticipant';
 
 @Component({
@@ -15,7 +15,7 @@ export class MatchTableComponent {
 
   @Input() teams?: EventParticipant[];
   @Input() rankings?: Ranking[];
-  private selectedTeam: string = '';
+  private selectedTeam = 0;
   selectedTeamParticipant: EventParticipant = null;
 
   public getMatchResultString(match: Match): string {
@@ -41,24 +41,24 @@ export class MatchTableComponent {
   }
 
   public getParticipantString(match: Match, index: number): string {
-    return match.participants[index].teamNumber +
+    return match.participants[index].teamKey +
       (match.participants[index].stationStatus === 0 ? '*' : '');
   }
 
   public getParticipantStringWithoutStatus(match: Match, index: number): string {
-    return match.participants[index].teamNumber + '';
+    return match.participants[index].teamKey + '';
   }
 
   public isSelectedTeam(match: Match, index: number): boolean {
     if (this.team) {
-      return match.participants[index].teamKey == this.team.teamKey; // === isn't working
+      return match.participants[index].teamKey === this.team.teamKey; // === isn't working
     } else {
-      return match.participants[index].teamKey == this.selectedTeam;
+      return match.participants[index].teamKey === this.selectedTeam;
     }
   }
 
   private selectTeam(match: Match, index: number) {
-    if (match.participants[index].teamKey != this.selectedTeam) {
+    if (match.participants[index].teamKey !== this.selectedTeam) {
       this.selectedTeam = match.participants[index].teamKey;
 
       for (const _team of this.teams) {
@@ -68,13 +68,13 @@ export class MatchTableComponent {
         }
       }
       for (const ranking of this.rankings) {
-        if (this.selectedTeamParticipant && ranking.teamKey == this.selectedTeam) {
+        if (this.selectedTeamParticipant && ranking.teamKey === this.selectedTeam) {
           this.selectedTeamParticipant.team.rankings = [ranking];
           break;
         }
       }
     } else {
-      this.selectedTeam = '';
+      this.selectedTeam = 0;
       this.selectedTeamParticipant = null;
     }
   }

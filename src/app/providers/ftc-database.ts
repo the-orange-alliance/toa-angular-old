@@ -181,7 +181,7 @@ export class FTCDatabase {
     });
   }
 
-  public getTeam(teamKey: string, seasonKey: string): Promise<Team> {
+  public getTeam(teamKey: number, seasonKey: string): Promise<Team> {
     return new Promise<Team>((resolve, reject) => {
       const promises: Promise<any>[] = [];
       promises.push(this.request('/team/' + teamKey));
@@ -200,7 +200,7 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamBasic(teamKey: string): Promise<Team> {
+  public getTeamBasic(teamKey: number): Promise<Team> {
     return new Promise<Team>((resolve, reject) => {
       this.request('/team/' + teamKey).then((data: any[]) => {
         resolve(new Team().fromJSON(data[0]));
@@ -208,7 +208,7 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamWLT(teamKey: string, seasonKey: string): Promise<TeamSeasonRecord> {
+  public getTeamWLT(teamKey: number, seasonKey: string): Promise<TeamSeasonRecord> {
     return new Promise<TeamSeasonRecord>((resolve, reject) => {
       this.request('/team/' + teamKey + '/wlt?season_key=' + seasonKey).then((data: any[]) => {
         resolve(new TeamSeasonRecord().fromJSON(data[0]));
@@ -224,7 +224,7 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamEvents(teamKey: string, seasonKey: string): Promise<EventParticipant[]> {
+  public getTeamEvents(teamKey: number, seasonKey: string): Promise<EventParticipant[]> {
     return new Promise<EventParticipant[]>((resolve, reject) => {
       this.request('/team/' + teamKey + '/events/' + seasonKey).then((data: any[]) => {
         resolve(data.map((result: any) => new EventParticipant().fromJSON(result)));
@@ -232,7 +232,7 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamResults(teamKey: string, seasonKey: string): Promise<Ranking[]> {
+  public getTeamResults(teamKey: number, seasonKey: string): Promise<Ranking[]> {
     return new Promise<Ranking[]>((resolve, reject) => {
       this.request('/team/' + teamKey + '/results/' + seasonKey).then((data: any[]) => {
         resolve(data.map((result: any) => new Ranking().fromJSON(result)));
@@ -240,7 +240,7 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamAwards(teamKey: string, seasonKey: string): Promise<AwardRecipient[]> {
+  public getTeamAwards(teamKey: number, seasonKey: string): Promise<AwardRecipient[]> {
     return new Promise<AwardRecipient[]>((resolve, reject) => {
       this.request('/team/' + teamKey + '/awards/' + seasonKey).then((data: any[]) => {
         resolve(data.map((result: any) => new AwardRecipient().fromJSON(result)));
@@ -248,7 +248,7 @@ export class FTCDatabase {
     });
   }
 
-  public getTeamMedia(teamKey: string, seasonKey: string): Promise<Media[]> {
+  public getTeamMedia(teamKey: number, seasonKey: string): Promise<Media[]> {
     return new Promise<Media[]>((resolve, reject) => {
       this.request('/team/' + teamKey + '/media/' + seasonKey).then((data: any[]) => {
         resolve(data.map((result: any) => new Media().fromJSON(result)));

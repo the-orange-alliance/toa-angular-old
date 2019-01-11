@@ -48,11 +48,11 @@ export class TeamsComponent implements OnInit {
   }
 
   getTeams() {
-    let query = this.query && this.query.trim().length > 0 ? this.query.toLowerCase().trim() : null;
+    const query = this.query && this.query.trim().length > 0 ? this.query.toLowerCase().trim() : null;
     if (query) {
       let isRegion = false;
       if (this.regions && query) {
-        for (let region of this.regions) {
+        for (const region of this.regions) {
           if (region.regionKey.toLowerCase() === query) {
             isRegion = true;
           }
@@ -65,7 +65,7 @@ export class TeamsComponent implements OnInit {
         ));
       } else {
         this.currentTeams = this.teams.filter(team => (
-          String(team.teamNumber).includes(query) ||
+          String(team.teamKey).includes(query) ||
           (team.teamNameShort && team.teamNameShort.toLowerCase().includes(query)) ||
           (team.city && team.city.toLowerCase().includes(query)) ||
           (team.country && team.country.toLowerCase().includes(query))

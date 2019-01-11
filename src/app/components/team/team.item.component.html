@@ -1,9 +1,9 @@
 <a routerLink="/teams/{{ team.teamKey }}" class="no-underline">
   <mdc-list-item class="item-team">
     <div class="row mdc-list-item__text w-100">
-      <div class="black align-self-center text-center" style="width: 25%; max-width: 100px" mdcHeadline6>{{ team.teamNumber }}</div>
+      <div class="black align-self-center text-center" style="width: 25%; max-width: 100px" mdcHeadline6>{{ team.teamKey }}</div>
       <div style="max-width: 75%;">
-        <span class="black">{{ team.teamNameShort || 'Team #' + team.teamNumber }}</span>
+        <span class="black">{{ team.teamNameShort || 'Team #' + team.teamKey }}</span>
         <span class="mdc-list-item__secondary-text" style="text-transform: capitalize">{{ team.city }}, {{ team.stateProv ? team.stateProv + ', ' : '' }}{{ team.country }}</span>
       </div>
     </div>

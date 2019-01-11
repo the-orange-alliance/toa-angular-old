@@ -24,7 +24,7 @@ export class EventAdminComponent implements OnInit {
   showGetObjects: boolean;
   showConfirm: boolean;
   uploadingVideos: boolean;
-  
+
   // These are for updating the Event Info
   event_name: string;
   start_date: string;

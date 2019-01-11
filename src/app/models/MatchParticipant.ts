@@ -1,20 +1,22 @@
+import Team from './Team';
+
 export default class MatchParticipant implements ISerializable {
  private _matchParticipantKey: string;
  private _matchKey: string;
- private _teamKey: string;
- private _teamNumber: number;
+ private _teamKey: number;
  private _station: number;
  private _stationStatus: number;
  private _refStatus: number;
+ private _team: Team;
 
  constructor() {
    this._matchParticipantKey = '';
    this._matchKey = '';
-   this._teamKey = '';
-   this._teamNumber = -1;
+   this._teamKey = 0;
    this._station = 0;
    this._stationStatus = 0;
    this._refStatus = 0;
+   this._team = new Team();
  }
 
  toJSON(): object {
@@ -22,10 +24,10 @@ export default class MatchParticipant implements ISerializable {
      match_participant_key: this.matchParticipantKey,
      match_key: this.matchKey,
      team_key: this.teamKey,
-     team_number: this.teamNumber,
      station: this.station,
      station_status: this.stationStatus,
-     ref_status: this.refStatus
+     ref_status: this.refStatus,
+     team: this.team
    };
  }
 
@@ -34,10 +36,10 @@ export default class MatchParticipant implements ISerializable {
    participant.matchParticipantKey = json.match_participant_key;
    participant.matchKey = json.match_key;
    participant.teamKey = json.team_key;
-   participant.teamNumber = json.team_number;
    participant.station = json.station;
    participant.stationStatus = json.station_status;
    participant.refStatus = json.ref_status;
+   participant.team = json.team;
    return participant;
  }
 
@@ -57,20 +59,12 @@ export default class MatchParticipant implements ISerializable {
     this._matchKey = value;
   }
 
-  get teamKey(): string {
+  get teamKey(): number {
     return this._teamKey;
   }
 
-  set teamKey(value: string) {
+  set teamKey(value: number) {
     this._teamKey = value;
-  }
-
-  get teamNumber(): number {
-    return this._teamNumber;
-  }
-
-  set teamNumber(value: number) {
-    this._teamNumber = value;
   }
 
   get station(): number {
@@ -95,5 +89,13 @@ export default class MatchParticipant implements ISerializable {
 
   set refStatus(value: number) {
     this._refStatus = value;
+  }
+
+  get team(): Team {
+    return this._team;
+  }
+
+  set team(value: Team) {
+    this._team = value;
   }
 }

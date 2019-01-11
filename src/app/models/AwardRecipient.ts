@@ -1,5 +1,5 @@
 import Award from './Award';
-import Team from "./Team";
+import Team from './Team';
 
 export default class AwardRecipient implements ISerializable {
   private _awardsKey: string;
@@ -32,7 +32,7 @@ export default class AwardRecipient implements ISerializable {
       receiver_name: this.receiverName,
       award_name: this.awardName,
       award: this.award.awardKey.length > 0 ? this.award.toJSON() : undefined,
-      team: this.team.teamKey.length > 0 ? this.team.toJSON() : undefined
+      team: this.team.teamKey > 0 ? this.team.toJSON() : undefined
     };
   }
 

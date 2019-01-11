@@ -1,13 +1,12 @@
 import Ranking from './Ranking';
 import AwardRecipient from './AwardRecipient';
 import Event from './Event';
-import Media from "./Media";
+import Media from './Media';
 
 export default class Team implements ISerializable {
-  private _teamKey: string;
+  private _teamKey: number;
   private _regionKey: string;
   private _leagueKey: string;
-  private _teamNumber: number;
   private _teamNameShort: string;
   private _teamNameLong: string;
   private _robotName: string;
@@ -25,10 +24,9 @@ export default class Team implements ISerializable {
   private _media: Media[];
 
   constructor() {
-    this._teamKey = '';
+    this._teamKey = 0;
     this._regionKey = '';
     this._leagueKey = '';
-    this._teamNumber = 0;
     this._teamNameShort = '';
     this._teamNameLong = '';
     this._robotName = '';
@@ -51,7 +49,6 @@ export default class Team implements ISerializable {
       team_key: this.teamKey,
       region_key: this.regionKey,
       league_key: this.leagueKey,
-      team_number: this.teamNumber,
       team_name_short: this.teamNameShort,
       team_name_long: this.teamNameLong,
       robot_name: this.robotName,
@@ -70,7 +67,6 @@ export default class Team implements ISerializable {
     team.teamKey = json.team_key;
     team.regionKey = json.region_key;
     team.leagueKey = json.league_key;
-    team.teamNumber = json.team_number;
     team.teamNameShort = json.team_name_short;
     team.teamNameLong = json.team_name_long;
     team.robotName = json.robot_name;
@@ -84,11 +80,11 @@ export default class Team implements ISerializable {
     return team;
   }
 
-  get teamKey(): string {
+  get teamKey(): number {
     return this._teamKey;
   }
 
-  set teamKey(value: string) {
+  set teamKey(value: number) {
     this._teamKey = value;
   }
 
@@ -106,14 +102,6 @@ export default class Team implements ISerializable {
 
   set leagueKey(value: string) {
     this._leagueKey = value;
-  }
-
-  get teamNumber(): number {
-    return this._teamNumber;
-  }
-
-  set teamNumber(value: number) {
-    this._teamNumber = value;
   }
 
   get teamNameShort(): string {

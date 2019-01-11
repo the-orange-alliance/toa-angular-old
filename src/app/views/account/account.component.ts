@@ -58,10 +58,10 @@ export class AccountComponent {
               this.teams = [];
               this.events = [];
 
-              let teams = this.user['favTeams'];
-              for (let key in teams) {
+              const teams = this.user['favTeams'];
+              for (const key in teams) {
                 if (teams[key] === true) {
-                  this.ftc.getTeamBasic(key).then((team: Team) => {
+                  this.ftc.getTeamBasic(parseInt(key)).then((team: Team) => {
                     if (team) {
                       this.teams.push(team);
                       this.teams = new TeamSorter().sort(this.teams);
@@ -70,8 +70,8 @@ export class AccountComponent {
                 }
               }
 
-              let events = this.user['favEvents'];
-              for (let key in events) {
+              const events = this.user['favEvents'];
+              for (const key in events) {
                 if (events[key] === true) {
                   this.ftc.getEventBasic(key).then((event: Event) => {
                     if (event) {
@@ -85,9 +85,9 @@ export class AccountComponent {
               this.loaded = true;
             }
 
-            let adminEvents = this.user['adminEvents'];
-            if (adminEvents){
-              for (let key in adminEvents) {
+            const adminEvents = this.user['adminEvents'];
+            if (adminEvents) {
+              for (const key in adminEvents) {
                 if (adminEvents[key] === true) {
                   db.object(`eventAPIs/${key}`).snapshotChanges()
                     .subscribe(item => {
@@ -97,7 +97,7 @@ export class AccountComponent {
               }
             }
 
-            if (this.user['profileImage'] != null){
+            if (this.user['profileImage'] != null) {
               const storageRef = this.storage.ref(`images/users/${ this.user['profileImage'] }`);
               this.profileUrl = storageRef.getDownloadURL();
             }
@@ -110,7 +110,7 @@ export class AccountComponent {
 
   signOut(): void {
     this.auth.auth.signOut().then(() => {
-      this.router.navigateByUrl("/account/login");
+      this.router.navigateByUrl('/account/login');
     });
   }
 

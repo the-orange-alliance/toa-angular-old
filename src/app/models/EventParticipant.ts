@@ -1,20 +1,20 @@
-import Team from "./Team";
+import Team from './Team';
 
 export default class EventParticipant implements ISerializable {
   private _eventParticipantKey: string;
   private _eventKey: string;
-  private _teamKey: string;
+  private _teamKey: number;
   private _isActive: boolean;
   private _cardStatus: string;
 
   private _team: Team;
 
   constructor() {
-    this._eventParticipantKey = "";
-    this._eventKey = "";
-    this._teamKey = '';
+    this._eventParticipantKey = '';
+    this._eventKey = '';
+    this._teamKey = 0;
     this._isActive = false;
-    this._cardStatus = "";
+    this._cardStatus = '';
     this._team = new Team();
   }
 
@@ -23,10 +23,9 @@ export default class EventParticipant implements ISerializable {
       event_participant_key: this.eventParticipantKey,
       event_key: this.eventKey,
       team_key: this.teamKey,
-      team_number: this.teamKey,
       is_active: this.isActive,
       card_status: this.cardStatus,
-      team: this.team.teamNumber > 0 ? this.team.toJSON() : undefined
+      team: this.team.teamKey > 0 ? this.team.toJSON() : undefined
     };
   }
 
@@ -57,11 +56,11 @@ export default class EventParticipant implements ISerializable {
     this._eventKey = value;
   }
 
-  get teamKey(): string {
+  get teamKey(): number {
     return this._teamKey;
   }
 
-  set teamKey(value: string) {
+  set teamKey(value: number) {
     this._teamKey = value;
   }
 

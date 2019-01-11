@@ -6,7 +6,7 @@ import WebAnnouncement from '../../models/WebAnnouncement';
 import Event from '../../models/Event';
 import Match from '../../models/Match';
 import MatchParticipant from '../../models/MatchParticipant';
-import EventLiveStream from "../../models/EventLiveStream";
+import EventLiveStream from '../../models/EventLiveStream';
 
 @Component({
   selector: 'toa-home',
@@ -74,7 +74,7 @@ export class HomeComponent {
       }
     });
     this.ftc.getSeasonEvents(this.ftc.year).then((events: Event[]) => {
-      let today = new Date();
+      const today = new Date();
       this.currentEvents = [];
       for (const event of events) {
         if (this.isBetweenDates(new Date(event.startDate), new Date(event.endDate), today)) {
@@ -102,9 +102,9 @@ export class HomeComponent {
   }
 
   private isBetweenDates(startDate: Date, endDate: Date, today: Date) {
-    let startValue: number = this.removeFractionalDay(startDate).valueOf();
-    let endValue: number   = this.removeFractionalDay(endDate).valueOf();
-    let todayValue: number = this.removeFractionalDay(today).valueOf();
+    const startValue: number = this.removeFractionalDay(startDate).valueOf();
+    const endValue: number   = this.removeFractionalDay(endDate).valueOf();
+    const todayValue: number = this.removeFractionalDay(today).valueOf();
 
     return (todayValue <= endValue && todayValue >= startValue);
   }

@@ -10,9 +10,9 @@ export class EventRankingsComponent implements OnInit {
   @Input() event: any;
   @Input() rankings: any;
 
-  showQualPoints: boolean = false;
-  showTieBreakerPoints: boolean = false;
-  showHighScore: boolean = false;
+  showQualPoints = false;
+  showTieBreakerPoints = false;
+  showHighScore = false;
 
   ngOnInit() {
     if (this.rankings) {

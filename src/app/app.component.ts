@@ -55,7 +55,7 @@ export class TheOrangeAllianceComponent {
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
         this.user['email'] = user.email;
-        db.object(`Users/${user.uid}/fullName`).query.once("value").then(data => {
+        db.object(`Users/${user.uid}/fullName`).query.once('value').then(data => {
           this.user['fullName'] = data.val();
         });
       } else {
@@ -96,7 +96,7 @@ export class TheOrangeAllianceComponent {
 
     if (query && this.teams && this.eventsFilter) {
       this.teamSearchResults = this.teams.filter(team => (
-        String(team.teamNumber).includes(query) ||
+        String(team.teamKey).includes(query) ||
         (team.teamNameShort && team.teamNameShort.toLowerCase().includes(query))
       ));
       this.teamSearchResults = this.teamSearchResults.splice(0, maxResults);
