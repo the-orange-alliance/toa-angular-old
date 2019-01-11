@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class CloudFunctions {
 
   private baseUrl = 'https://us-central1-the-orange-alliance.cloudfunctions.net/requireValidations';
+  // private baseUrl = 'http://localhost:5000/the-orange-alliance/us-central1/requireValidations'; // Tests Only
 
   constructor(private http: HttpClient) {}
 

@@ -13,6 +13,7 @@
     "live": "LIVE",
     "here": "here",
     "add": "Add",
+    "error_occurred": "An error occurred, Please try again later",
     "search_text_long": "Search teams and events",
     "search_text_short": "Team # or Event",
     "add_to_mytoa": "Add to myTOA",
@@ -136,11 +137,28 @@
         },
         "admin": {
           "title": "Admin",
-          "playlist": "Add match videos from a YouTube Playlist",
-          "playlist_url": "Playlist URL",
-          "load": "Load",
-          "confirm": "Confirm and Upload",
-          "successfully": "Successfully uploaded {{ value }} videos"
+          "playlist_card": {
+            "title": "Add match videos from a YouTube Playlist",
+            "playlist_url": "Playlist URL",
+            "load": "Load",
+            "confirm": "Confirm and Upload",
+            "successfully": "Successfully uploaded {{ value }} videos",
+            "error": "We could not find any match videos",
+            "invalid_url": "Invalid url, we could not find a YouTube playlist"
+          },
+          "update_info_card": {
+            "title": "Edit Your Event Info",
+            "event_name": "Event Name",
+            "website": "Website",
+            "start_date": "Start Date",
+            "end_date": "End Date",
+            "venue": "Venue",
+            "city": "City",
+            "state": "State",
+            "country": "Country",
+            "update": "Update",
+            "successfully": "Successfully updated the event info"
+          }
         }
       }
     },
@@ -161,7 +179,7 @@
 
     "streams": {
       "event_results": "Event Results",
-      "close_stream": "Close stream",
+      "close_stream": "Close Stream",
       "select_stream": "Select Stream",
       "select": "Select",
       "cancel": "Cancel"

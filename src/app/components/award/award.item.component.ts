@@ -18,7 +18,7 @@ export class AwardItemComponent {
       if (awardNum < 10) {
         return `numeric-${awardNum}-box-outline`;
       } else {
-        return 'numeric-9-plus-box-outline';
+        return 'trophy-award';
       }
     }
   }
