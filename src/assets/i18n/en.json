@@ -145,7 +145,7 @@
             "confirm": "Confirm and Upload",
             "successfully": "Successfully uploaded {{ value }} videos",
             "error": "We could not find any match videos",
-            "invalid_url": "Invalid url, we could not find a YouTube playlist"
+            "invalid_url": "Invalid URL, we could not find a YouTube playlist"
           },
           "update_info_card": {
             "title": "Edit Your Event Info",

@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import Event from '../../../../models/Event';
@@ -16,7 +16,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
 
   @Input() uid: string;
   @Input() eventKey: string;
-  @Input() event: Event;
+  @Input() eventData: Event;
 
   generatingEventApiKey: boolean;
   eventApiKey: string;
@@ -50,16 +50,16 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     // Setup the edit event
-    this.setFieldText(this.eventName, this.event.eventName);
-    this.setFieldText(this.startDate, this.event.startDate.substr(0, 10));
-    this.setFieldText(this.endDate, this.event.endDate.substr(0, 10));
-    this.setFieldText(this.website, this.event.website);
+    this.setFieldText(this.eventName, this.eventData.eventName);
+    this.setFieldText(this.startDate, this.eventData.startDate.substr(0, 10));
+    this.setFieldText(this.endDate, this.eventData.endDate.substr(0, 10));
+    this.setFieldText(this.website, this.eventData.website);
 
-    this.setFieldText(this.website, this.event.website);
-    this.setFieldText(this.venue, this.event.venue);
-    this.setFieldText(this.city, this.event.city);
-    this.setFieldText(this.state, this.event.stateProv);
-    this.setFieldText(this.country, this.event.country);
+    this.setFieldText(this.website, this.eventData.website);
+    this.setFieldText(this.venue, this.eventData.venue);
+    this.setFieldText(this.city, this.eventData.city);
+    this.setFieldText(this.state, this.eventData.stateProv);
+    this.setFieldText(this.country, this.eventData.country);
   }
 
   generateEventApiKey(): void {
@@ -162,7 +162,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     this.translate.get(translateKey, {value: value}).subscribe((res: string) => {
       const message = errorKey ? `${res} (${errorKey})` : res;
 
-      this.snackbar.show(message, null, {align: 'center'});
+      this.snackbar.open(message, null);
     });
   }
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-root',
@@ -32,9 +32,9 @@ export class RegisterComponent implements OnInit {
 
   createUser(): void {
     if (!this.name || this.name.trim().length < 4) {
-      this.snackbar.show('You forgot to type your FULL NAME.', null, {multiline: true});
+      this.snackbar.open('You forgot to type your FULL NAME.');
     } else if (this.password != this.confirmPassword) {
-      this.snackbar.show('Those passwords didn\'t match. Try again.', null, {multiline: true});
+      this.snackbar.open('Those passwords didn\'t match. Try again.');
     } else {
       this.auth.auth.createUserWithEmailAndPassword(this.email, this.password)
         .then((user) => {
@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
           });
         })
         .catch(error => {
-          this.snackbar.show(error.toString(), null, {multiline: true});
+          this.snackbar.open(error.toString());
         });
     }
   }

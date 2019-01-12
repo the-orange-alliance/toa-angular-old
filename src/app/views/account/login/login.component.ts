@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
 
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         // this.router.navigateByUrl('/account');
       })
       .catch(error => {
-        this.snackbar.show(error.toString(), null,{ multiline: true} );
+        this.snackbar.open(error.toString());
       });
   }
 }

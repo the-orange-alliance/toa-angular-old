@@ -61,7 +61,7 @@
         <mdc-text-field outlined dense label="{{ 'pages.event.subpages.admin.playlist_card.playlist_url' | translate }}" *ngIf="showGetObjects" [(ngModel)]="playlistURL"></mdc-text-field>
         <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="playlistMatchify()" *ngIf="!loadingVideos && showGetObjects">{{ 'pages.event.subpages.admin.playlist_card.load' | translate }}</button>
         <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="setVideos()" *ngIf="!uploadingVideos && showConfirm">{{ 'pages.event.subpages.admin.playlist_card.confirm' | translate }}</button>
-        <span class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" *ngIf="showGetObjects">Ex. video name: <b><i>{{ event.startDate | date : "y" }} {{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} - Qualification Match 1</i></b></span>
+        <span class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" *ngIf="showGetObjects && eventData">Ex. video name: <b><i>{{ eventData.startDate | date : "y" }} {{ eventData.divisionName ? eventData.eventName + ' - ' +  eventData.divisionName + ' Division' : eventData.eventName }} - Qualification Match 1</i></b></span>
         <mdc-linear-progress class="ml-2 mr-2" style="width: 64px" *ngIf="loadingVideos || uploadingVideos"></mdc-linear-progress>
       </div>
 

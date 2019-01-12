@@ -5,8 +5,8 @@ import { TeamSorter } from '../../util/team-utils';
 import { AwardSorter } from '../../util/award-utils';
 import { MatchSorter } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
 import Event from '../../models/Event';
 import EventType from '../../models/EventType';
 import Season from '../../models/Season';
@@ -24,7 +24,7 @@ export class EventComponent implements OnInit {
   event_types: any;
 
   event_key: string;
-  event: Event;
+  event_data: Event;
   event_type_name: string;
   event_season_name: string;
   totalteams: any;
@@ -68,35 +68,35 @@ export class EventComponent implements OnInit {
     if (this.event_key) {
       this.ftc.getEvent(this.event_key).then((data: Event) => {
         if (data) {
-          this.event = data;
+          this.event_data = data;
 
-          this.app.setTitle(this.event.eventName);
-          this.app.setDescription(`Event results for the ${new Date(this.event.startDate).getFullYear()} ${this.event.eventName} FIRST Tech Challenge in ${this.event.stateProv ? this.event.stateProv + ', ' + this.event.country : this.event.country }`);
+          this.app.setTitle(this.event_data.eventName);
+          this.app.setDescription(`Event results for the ${new Date(this.event_data.startDate).getFullYear()} ${this.event_data.eventName} FIRST Tech Challenge in ${this.event_data.stateProv ? this.event_data.stateProv + ', ' + this.event_data.country : this.event_data.country }`);
 
-          if (this.event.rankings && this.event.rankings.length > 0) {
+          if (this.event_data.rankings && this.event_data.rankings.length > 0) {
             this.select('rankings');
-          } else if (this.event.matches && this.event.matches.length > 0) {
+          } else if (this.event_data.matches && this.event_data.matches.length > 0) {
             this.select('matches')
           } else {
             this.select('teams');
           }
 
-          if (this.event.matches) {
-            this.event.matches = new MatchSorter().sort(this.event.matches, 0, this.event.matches.length - 1);
+          if (this.event_data.matches) {
+            this.event_data.matches = new MatchSorter().sort(this.event_data.matches, 0, this.event_data.matches.length - 1);
           }
 
-          if (this.event.awards) {
-            this.event.awards = new AwardSorter().sort(this.event.awards);
+          if (this.event_data.awards) {
+            this.event_data.awards = new AwardSorter().sort(this.event_data.awards);
           }
 
-          if (this.event.teams) {
-            this.event.teams = new TeamSorter().sortEventParticipant(this.event.teams);
+          if (this.event_data.teams) {
+            this.event_data.teams = new TeamSorter().sortEventParticipant(this.event_data.teams);
           }
 
-          this.totalteams = this.event.teams.length;
-          this.totalmatches = this.event.matches.length;
-          this.totalrankings = this.event.rankings.length;
-          this.totalawards = this.event.awards.length;
+          this.totalteams = this.event_data.teams.length;
+          this.totalmatches = this.event_data.matches.length;
+          this.totalrankings = this.event_data.rankings.length;
+          this.totalawards = this.event_data.awards.length;
 
           this.ftc.getEventStreams(this.event_key).then((data: EventLiveStream[]) => {
             if (data && data.length > 0) {
@@ -106,7 +106,7 @@ export class EventComponent implements OnInit {
 
           this.ftc.getEventTypes().then((types: EventType[]) => {
             this.event_types = types;
-            const typeObj = this.event_types.filter(obj => obj.eventTypeKey === this.event.eventTypeKey);
+            const typeObj = this.event_types.filter(obj => obj.eventTypeKey === this.event_data.eventTypeKey);
             if (typeObj && typeObj[0] && typeObj[0].description) {
               this.event_type_name = typeObj[0].description;
             }
@@ -116,7 +116,7 @@ export class EventComponent implements OnInit {
 
           this.ftc.getAllSeasons().then((seasons: Season[]) => {
             this.seasons = seasons;
-            const seasonObj = this.seasons.filter(obj => obj.seasonKey === this.event.seasonKey);
+            const seasonObj = this.seasons.filter(obj => obj.seasonKey === this.event_data.seasonKey);
             if (seasonObj && seasonObj.length === 1 && seasonObj[0] && seasonObj[0].description) {
               this.event_season_name = seasonObj[0].description;
             }
