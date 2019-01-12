@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, Injectable, NgZone, ViewChild } from '@angular/core';
+import { Component, HostListener, Inject, Injectable, NgZone, OnInit, ViewChild } from '@angular/core';
 import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
 import { TranslateService } from '@ngx-translate/core';
 import { FTCDatabase } from './providers/ftc-database';
@@ -8,6 +8,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
 import { MdcTopAppBar, MdcTextField } from '@angular-mdc/web';
+import { environment } from '../environments/environment';
 import Team from './models/Team';
 import Event from './models/Event';
 
@@ -20,7 +21,7 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
   providers: [FTCDatabase, TheOrangeAllianceGlobals]
 })
 @Injectable()
-export class TheOrangeAllianceComponent {
+export class TheOrangeAllianceComponent implements OnInit {
 
   teams: Team[];
 
@@ -37,7 +38,7 @@ export class TheOrangeAllianceComponent {
 
   user = [];
 
-  mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
+  matcher: MediaQueryList;
   @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
 
   constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone,
@@ -63,8 +64,6 @@ export class TheOrangeAllianceComponent {
       }
     });
 
-    this.mediaMatcher.addListener(mql => this.ngZone.run(() => this.mediaMatcher = mql));
-
     this.current_year = new Date().getFullYear();
     this.teamSearchResults = [];
     this.eventSearchResults = [];
@@ -86,8 +85,13 @@ export class TheOrangeAllianceComponent {
     });
   }
 
+  ngOnInit() {
+    this.matcher = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
+    this.matcher.addListener((event: MediaQueryListEvent) => this.ngZone.run(() => event.matches));
+  }
+
   isScreenSmall(): boolean {
-    return this.router.url === '/stream' || this.mediaMatcher.matches;
+    return this.router.url === '/stream' || this.matcher.matches;
   }
 
   performSearch(): void {

@@ -1,97 +1,19 @@
 <div dir="ltr">
-  <h2>API</h2>
+  <h2>The Orange Alliance API</h2>
+  <p>The goal of TOA API is to provide us, and potential outside users a way to query our databases.</p>
 
-  <div class="col-12">
-    <p>The goal of TOA API is to provide us, and potential outside users a way to query our databases. </p>
+  <div mdcHeadline5 class="headline-margin">Accessing the API</div>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis varius metus. Suspendisse potenti. Mauris sed nisl at massa pretium suscipit. Maecenas pretium et leo vel suscipit. Donec viverra eleifend efficitur. Etiam condimentum consectetur arcu, et lobortis ligula auctor a. Donec ac libero in magna vehicula sollicitudin eget ac odio. Donec finibus nisi eu sollicitudin commodo.</p>
 
-    <h1 mdcHeadline5 class="mt-4">API Access Levels</h1>
-    <div class="row">
-      <mdc-card class="toa-card p-0 col-md-3 col-12 m-2">
-        <li class="list-group-item bg-primary border-0">Level 0</li>
-        <li class="list-group-item border-0">Revoked/not yet approved API key</li>
-        <li class="list-group-item  border-0">Every request to TOA API with this key will be denied with a 403 status</li>
-      </mdc-card>
-      <mdc-card class="toa-card p-0 col-md-3 col-12 m-2">
-        <li class="list-group-item bg-primary border-0">Level 1</li>
-        <li class="list-group-item border-0">Single-purpose/team API Key</li>
-        <li class="list-group-item  border-0">Rate limit of 30 requests/minute</li>
-      </mdc-card>
-      <mdc-card class="toa-card p-0 col-md-3 col-12 m-2">
-        <li class="list-group-item bg-primary border-0">Level 2</li>
-        <li class="list-group-item border-0">Full developer access/application API Key</li>
-        <li class="list-group-item  border-0">There is no limit on rates</li>
-      </mdc-card>
-    </div>
-    <p>* Every request is tracked</p>
+  <div mdcHeadline5 class="headline-margin">How To Use?</div>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis varius metus. Suspendisse potenti. Mauris sed nisl at massa pretium suscipit. Maecenas pretium et leo vel suscipit. Donec viverra eleifend efficitur. Etiam condimentum consectetur arcu, et lobortis ligula auctor a. Donec ac libero in magna vehicula sollicitudin eget ac odio. Donec finibus nisi eu sollicitudin commodo.</p>
 
-    <h1 mdcHeadline5>API v3</h1>
-    <h1 mdcHeadline6>Authentication</h1>
-    <p>The API only ever responds with JSON data, therefore the API will only respond to requests that are looking for JSON. To currectly request JSON from the API, set the <code>Content-Type</code> header of your request to be <code>application/json</code>.<br/>
-      Two custom request headers must be sent with every request you make: <code>X-TOA-Key</code> and <code>X-Application-Origin</code>. <code>X-TOA-Key</code> should be the value of your API key, and X-Application-Origin should be the name of your application. Without either of these headers, your request will be denied by the API.</p>
-    <div class="no-underline col-12 mt-1">
-      <a href="https://goo.gl/forms/u3E1sMuCNT9UcPmH3" target="_blank"  (click)="this.sendAnalytic('leaving', '/apidocs', 'apply for api key');">
-        <mdc-card class="toa-card link-card">
-          <div class="link-card-icon">
-            <mdc-icon svgIcon="link"></mdc-icon>
-          </div>
-          <div class="link-card-content">
-            <div class="link-card-title">Apply for an API Key</div>
-            <div class="gray">Related Link</div>
-          </div>
-        </mdc-card>
-      </a>
-    </div>
+  <!--
+    <div mdcHeadline5 class="headline-margin">Useful Libraries</div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis varius metus. Suspendisse potenti.</p>
+    <mdc-list dense>
+      <a mdc-list-item href="https://github.com/guineawheek/aiotoa" target="_blank"><b>aiotoa</b>&nbsp;Python library for accessing the API</a>
+    </mdc-list>
+  -->
 
-    <p class="mt-2">All requests should be made (using SSL) to the base URL <a href="https://theorangealliance.org/api" (click)="this.sendAnalytic('leaving', '/apidocs', 'api link');">https://theorangealliance.org/api</a>.
-      To see complete details of data accessible via APIv3, please see the <a href="https://orange-alliance.github.io/TOA-API" target="_blank" (click)="this.sendAnalytic('leaving', '/apidocs', 'api docs');">full documentation</a></p>
-    <div class="no-underline col-12 mt-1">
-      <a href="https://orange-alliance.github.io/TOA-API" target="_blank" (click)="this.sendAnalytic('leaving', '/apidocs', 'api docs');">
-        <mdc-card class="toa-card link-card">
-          <div class="link-card-icon">
-            <mdc-icon svgIcon="link"></mdc-icon>
-          </div>
-          <div class="link-card-content">
-            <div class="link-card-title">API Full Documentation</div>
-            <div class="gray">Related Link</div>
-          </div>
-        </mdc-card>
-      </a>
-    </div>
-  </div>
 </div>
-<!--
-<h1 mdcHeadline5 class="mt-4">API Route</h1>
-
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Route</th>
-      <th scope="col">Description</th>
-      <th scope="col">Example</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let route of api_routes">
-      <th><a href="http://theorangealliance.org{{ route.route }}" target="_blank">{{ route.route }}</a></th>
-      <td>{{ route.route_desc }}</td>
-      <td><button mdc-button [disabled]="!route.example" data-toggle="modal" [attr.data-target]="'#route' + route.route_key">Example</button></td>
-
-      <div class="modal fade bd-example-modal-lg" [id]="'route' + route.route_key" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content">
-            <mdc-dialog-header title="{{ route.route }}"></mdc-dialog-header>
-            <mdc-dialog-body>
-              {{ route.route_desc }}
-              <pre>{{ stringify(route.example) }}</pre>
-            </mdc-dialog-body>
-            <mdc-dialog-footer>
-              <button mdc-dialog-button [attr.data-dismiss]="'modal'">Close</button>
-            </mdc-dialog-footer>
-          </div>
-        </div>
-      </div>
-
-    </tr>
-  </tbody>
-</table>
--->
