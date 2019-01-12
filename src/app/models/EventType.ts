@@ -3,8 +3,8 @@ export default class EventType implements ISerializable {
   private _description: string;
 
   constructor() {
-    this._eventTypeKey = "";
-    this._description = "";
+    this._eventTypeKey = '';
+    this._description = '';
   }
 
   toJSON(): object {

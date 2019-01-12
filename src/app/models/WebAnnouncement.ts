@@ -7,12 +7,12 @@ export default class WebAnnouncement implements ISerializable {
   private _author: string;
 
   constructor() {
-    this._announcementKey = "";
-    this._title = "";
-    this._publishDate = "";
+    this._announcementKey = '';
+    this._title = '';
+    this._publishDate = '';
     this._isActive = false;
-    this._text = "";
-    this._author = "";
+    this._text = '';
+    this._author = '';
   }
 
   toJSON(): object {

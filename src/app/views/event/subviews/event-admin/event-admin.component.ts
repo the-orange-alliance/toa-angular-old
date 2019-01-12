@@ -4,7 +4,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import Event from '../../../../models/Event';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   providers: [CloudFunctions],
@@ -150,7 +150,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
 
     // Fix MDC bug
     if (elm._floatingLabel) {
-      elm._notchedOutline.notch(elm._floatingLabel.getWidth(), true)
+      elm._notchedOutline.notch(elm._floatingLabel.getWidth()); // Don't do ',true' as it causes issues in production builds.
     }
   }
 

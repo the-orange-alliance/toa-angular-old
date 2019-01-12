@@ -1,4 +1,4 @@
-import Team from "./Team";
+import Team from './Team';
 
 export default class EventParticipant implements ISerializable {
   private _eventParticipantKey: string;
@@ -10,11 +10,11 @@ export default class EventParticipant implements ISerializable {
   private _team: Team;
 
   constructor() {
-    this._eventParticipantKey = "";
-    this._eventKey = "";
+    this._eventParticipantKey = '';
+    this._eventKey = '';
     this._teamKey = '';
     this._isActive = false;
-    this._cardStatus = "";
+    this._cardStatus = '';
     this._team = new Team();
   }
 

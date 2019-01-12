@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router} from '@angular/router';
-import EventLiveStream from "../../models/EventLiveStream";
+import EventLiveStream from '../../models/EventLiveStream';
 
 @Component({
   selector: 'toa-stream-item',

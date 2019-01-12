@@ -110,7 +110,7 @@ export class AccountComponent {
 
   signOut(): void {
     this.auth.auth.signOut().then(() => {
-      this.router.navigateByUrl("/account/login");
+      this.router.navigateByUrl('/account/login');
     });
   }
 

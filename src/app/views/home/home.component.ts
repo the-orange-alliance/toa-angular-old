@@ -6,7 +6,7 @@ import WebAnnouncement from '../../models/WebAnnouncement';
 import Event from '../../models/Event';
 import Match from '../../models/Match';
 import MatchParticipant from '../../models/MatchParticipant';
-import EventLiveStream from "../../models/EventLiveStream";
+import EventLiveStream from '../../models/EventLiveStream';
 
 @Component({
   selector: 'toa-home',

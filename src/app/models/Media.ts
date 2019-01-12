@@ -19,13 +19,13 @@ export default class Media implements ISerializable {
 */
 
     constructor() {
-    this._mediaKey = "";
-    this._eventKey = "";
-    this._teamKey = "";
+    this._mediaKey = '';
+    this._eventKey = '';
+    this._teamKey = '';
     this._mediaType = -1;
     this._isPrimary = false;
-    this._mediaTitle = "";
-    this._mediaLink = "";
+    this._mediaTitle = '';
+    this._mediaLink = '';
   }
 
   toJSON(): object {

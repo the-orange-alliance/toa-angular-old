@@ -1,4 +1,4 @@
-import MatchDetails from "../MatchDetails";
+import MatchDetails from '../MatchDetails';
 
 export default class RelicRecoveryMatchDetails extends MatchDetails implements ISerializable {
   private _redAutoJewels: number;

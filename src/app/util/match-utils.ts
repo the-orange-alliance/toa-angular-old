@@ -1,4 +1,4 @@
-import Match from "../models/Match";
+import Match from '../models/Match';
 
 /**
  * Created by Kyle Flynn on 5/28/2017.

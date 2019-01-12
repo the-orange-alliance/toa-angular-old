@@ -3,7 +3,7 @@ import { FTCDatabase } from '../../providers/ftc-database';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
-import { SafeResourceUrl } from "@angular/platform-browser/src/security/dom_sanitization_service";
+import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import EventLiveStream from '../../models/EventLiveStream';
 
 export class StreamType {

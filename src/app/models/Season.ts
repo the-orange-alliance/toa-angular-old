@@ -3,8 +3,8 @@ export default class Season implements ISerializable {
   private _description: string;
 
   constructor() {
-    this._seasonKey = "";
-    this._description = "";
+    this._seasonKey = '';
+    this._description = '';
   }
 
   toJSON(): object {
