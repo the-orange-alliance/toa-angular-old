@@ -44,6 +44,7 @@
       "title": "Add Data",
       "short_info": "Do you have some data you'd like to add to The Orange Alliance?",
       "datasync": "DataSync - Sync your event live with TOA",
+      "add_event_data": "Add event results after the event has ended",
       "add_match_video": "Add match video",
       "add_event_stream": "Add event stream",
       "stream_your_event": "Stream your event on TOA Twitch channel"
@@ -214,6 +215,8 @@
     "scores": "Scores",
     "blue_alliance": "Blue Alliance",
     "red_alliance": "Red Alliance",
+    "blue_score": "Blue Score",
+    "red_score": "Red Score",
     "no_matches_for_event": "There is no available matches data for this event.",
     "match": "Match",
     "view_team": "View team",

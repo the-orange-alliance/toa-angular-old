@@ -44,6 +44,7 @@
       "title": "הוספת מידע",
       "short_info": "יש לכם מידע שאתם רוצים להוסיף לThe Orange Alliance?",
       "datasync": "DataSync - סנכרן את האירוע שלך עם TOA בלייב",
+      "add_event_data": "הוספת תוצאות אירוע לאחר סיומו",
       "add_match_video": "הוספת סרטון של מקצה",
       "add_event_stream": "הוספת שידור חיי של אירוע",
       "stream_your_event": "שדר את האירוע של בערוץ Twitch של TOA"
@@ -120,8 +121,8 @@
           "rank": "דירוג",
           "team": "קבוצה",
           "wlt_record": "ניצחון-הפסד-תיקו",
-          "qual_points": "Qualification Points",
-          "ranking_points": "Ranking Points",
+          "qual_points": "נקודות Qualification",
+          "ranking_points": "נקודות Ranking",
           "tie_reaker_points": "נקודות שובר שיוויון",
           "highest_score": "הניקוד הכי גבוה",
           "matches_played": "מקצים ששוחקו"
@@ -214,6 +215,8 @@
     "scores": "ניקוד",
     "blue_alliance": "ברית כחולה",
     "red_alliance": "ברית אדומה",
+    "blue_score": "ניקוד כחול",
+    "red_score": "ניקוד אדום",
     "no_matches_for_event": "אין מידע על מקצים עבור אירוע זה.",
     "match": "מקצה",
     "view_team": "הצג קבוצה",

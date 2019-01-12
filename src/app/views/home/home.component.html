@@ -2,9 +2,9 @@
 <p>{{ "pages.home.short_info" | translate }}</p>
 
 <div class="row m-0">
-  <div class="col-sm-12 col-lg-6 p-3">
+  <div class="col-sm-12 col-lg-6 p-lg-3 p-0 mt-1">
     <div class="row" [dir]="'config.direction' | translate">
-      <div class="col-12 p-1 mb-3" *ngIf="currentAnnouncement">
+      <div class="col-12 p-1 mb-3" *ngIf="currentAnnouncement" dir="ltr">
         <mdc-card class="toa-card p-0">
           <h1 class="toa-card-header pt-3 mb-0 pb-0" mdcHeadline6>{{ currentAnnouncement.title }}</h1>
           <div class="toa-card-subtitle p-3" mdcBody2>{{ currentAnnouncement.text }}</div>
@@ -34,7 +34,7 @@
         </mdc-card>
       </div>
     </div>
-    <div class="row mt-3" *ngIf="currentEvents">
+    <div class="row mt-1" *ngIf="currentEvents">
       <div class="p-1 col-12">
         <mdc-card class="toa-card p-0">
           <div class="p-2">
@@ -55,7 +55,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-12 col-lg-6 p-3">
+  <div class="col-sm-12 col-lg-6 p-lg-3 p-0 mt-1">
     <div class="row">
       <div class="p-1 col-12">
         <mdc-card class="toa-card">
@@ -94,7 +94,7 @@
         </mdc-card>
       </div>
       <div class="p-1 col-12" *ngIf="firstupdatesnow">
-        <mdc-card class="toa-card mt-3" *ngIf="willFUNstartSoon()">
+        <mdc-card class="toa-card mt-2" *ngIf="willFUNstartSoon()">
           <div class="pr-3 pl-3 pt-3 pb-0">
             <h2 class="toa-card-title" mdcHeadline6>FIRST Updates Now will go live at {{ firstupdatesnow.startDateTime | date: 'MMM d, h:mm a' }} EST</h2>
             <div mdcBody2>
@@ -107,7 +107,7 @@
             </mdc-card-action-buttons>
           </mdc-card-actions>
         </mdc-card>
-        <mdc-card class="toa-card mt-3 p-0" *ngIf="isFUNonLive()">
+        <mdc-card class="toa-card mt-2 p-0" *ngIf="isFUNonLive()">
           <a mdcCardPrimaryAction href="https://www.twitch.tv/firstupdatesnow" target="_blank" class="black no-underline" (click)="this.sendAnalytic('leaving', 'first updates now live card');">
             <div class="row">
               <mdc-card-media square class="col-3 fun-logo"></mdc-card-media>

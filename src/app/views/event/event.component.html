@@ -1,6 +1,6 @@
 <div *ngIf="event">
   <div class="row">
-    <h2 [class.col-9]="user !== null" [class.col-12]="user === null">{{ event.startDate | date : "y" }} {{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} <span class="badge bg-primary" *ngIf="event.isLive">LIVE</span></h2>
+    <h2 class="col-md-9 col-12">{{ event.startDate | date : "y" }} {{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} <span class="badge bg-primary" *ngIf="event.isLive">LIVE</span></h2>
     <div *ngIf="user !== null" class="col-12 col-md-3">
       <button mdc-button primary (click)="toggleEvent()" class="align-self-end black" style="text-transform:initial; height: auto; padding: 7px">
         <mdc-icon *ngIf="favorite" class="mr-1 ml-1">favorite</mdc-icon>
@@ -11,7 +11,7 @@
   </div>
 
   <div class="row mt-3">
-    <div class="col-md-7 col-sm-12 mt-3">
+    <div class="col-md-7 col-sm-12 mt-3 pe-md-3">
       <mdc-card class="toa-card">
         <div class="toa-card-header" mdcHeadline5>{{ 'pages.event.event_info' | translate }}</div>
         <mdc-list-divider></mdc-list-divider>
@@ -27,7 +27,7 @@
           <div class="info-state" *ngIf="event_type_name">
             <mdc-icon svgIcon="calendar-question"></mdc-icon>
             <p>{{ event_type_name }}</p>
-        </div>
+          </div>
           <div class="info-state" *ngIf="event.website">
             <mdc-icon svgIcon="earth"></mdc-icon>
             <p><a [href]="event.website" target="_blank" (click)="this.sendAnalytic('leaving', event.eventKey + ' website');">{{ 'pages.event.view_website' | translate }}</a></p>
@@ -69,7 +69,7 @@
     <h4 class="col-12">{{ 'no_data.event_long' | translate }}</h4>
   </div>
 
-  <div class="mt-5 row" *ngIf="totalteams > 0 || totalmatches > 0 || totalrankings > 0 || admin">
+  <div class="mt-5 row" *ngIf="totalteams > 0 || totalmatches > 0 || totalrankings > 0">
     <div class="col-12">
       <mdc-card class="toa-card">
         <mdc-tab-bar class="w-100" [focusOnActivate]="false">
@@ -86,7 +86,7 @@
           <toa-event-teams *ngIf="isSelected('teams')" [teams]="event.teams"></toa-event-teams>
           <toa-event-matches *ngIf="isSelected('matches')" [matches]="event.matches" [teams]="event.teams" [rankings]="event.rankings"></toa-event-matches>
           <toa-event-awards *ngIf="isSelected('awards')" [event]="event"></toa-event-awards>
-          <toa-event-admin *ngIf="(totalteams === 0 && totalmatches === 0 && totalrankings === 0 && admin) || isSelected('admin')" [uid]="user.uid" [eventKey]="event_key" [event]="event"></toa-event-admin>
+          <toa-event-admin *ngIf="admin" [class.d-none]="!isSelected('admin')" [uid]="user.uid" [eventKey]="event_key"></toa-event-admin>
         </div>
       </mdc-card>
     </div>

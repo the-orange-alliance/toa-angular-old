@@ -1,5 +1,5 @@
 <div class="row">
-  <h2 [class.col-9]="user !== null" [class.col-12]="user === null">Team #{{ (team?.teamNumber) ? team.teamNumber : teamKey }}</h2>
+  <h2 class="col-md-9 col-12">Team #{{ (team?.teamNumber) ? team.teamNumber : teamKey }}</h2>
   <div *ngIf="user !== null && team?.teamKey" class="col-12 col-md-3">
     <button mdc-button primary (click)="toggleTeam()" class="align-self-end black" style="text-transform:initial; height: auto; padding: 7px">
       <mdc-icon *ngIf="favorite" class="mr-1 ml-1">favorite</mdc-icon>
@@ -11,7 +11,7 @@
 
 
 <div class="row mt-3" *ngIf="team">
-  <div class="col-12 col-md-3 pb-5">
+  <div class="col-12 col-md-3 pb-5 pe-md-3 d-none d-md-block">
     <mdc-card class="toa-card">
       <div class="w-100 p-3">
         <div *ngIf="seasons && team.rookieYear" class="dropdown">

@@ -90,4 +90,8 @@ export class TeamsComponent implements OnInit {
     const element = elementList[0] as HTMLElement;
     element.scrollIntoView({ behavior: 'smooth' });
   }
+
+  private showFAB(): boolean {
+    return window.pageYOffset > 200;
+  }
 }

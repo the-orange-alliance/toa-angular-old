@@ -37,6 +37,6 @@
   </div>
 </div>
 
-<button mdc-fab position='bottomRight' class="toa-fab" (click)="scrollTo('body')">
+<button mdc-fab [exited]="!showFAB()" position='bottomRight' class="toa-fab" (click)="scrollTo('body')">
   <mdc-icon svgIcon="navigation"></mdc-icon>
 </button>
