@@ -41,24 +41,24 @@ export class MatchTableComponent {
   }
 
   public getParticipantString(match: Match, index: number): string {
-    return match.participants[index].teamNumber +
+    return match.participants[index].teamKey +
       (match.participants[index].stationStatus === 0 ? '*' : '');
   }
 
   public getParticipantStringWithoutStatus(match: Match, index: number): string {
-    return match.participants[index].teamNumber + '';
+    return match.participants[index].teamKey + '';
   }
 
   public isSelectedTeam(match: Match, index: number): boolean {
     if (this.team) {
-      return match.participants[index].teamKey == this.team.teamKey; // === isn't working
+      return match.participants[index].teamKey === this.team.teamKey; // === isn't working
     } else {
-      return match.participants[index].teamKey == this.selectedTeam;
+      return match.participants[index].teamKey === this.selectedTeam;
     }
   }
 
   private selectTeam(match: Match, index: number) {
-    if (match.participants[index].teamKey != this.selectedTeam) {
+    if (match.participants[index].teamKey !== this.selectedTeam) {
       this.selectedTeam = match.participants[index].teamKey;
 
       for (const _team of this.teams) {
@@ -68,7 +68,7 @@ export class MatchTableComponent {
         }
       }
       for (const ranking of this.rankings) {
-        if (this.selectedTeamParticipant && ranking.teamKey == this.selectedTeam) {
+        if (this.selectedTeamParticipant && ranking.teamKey === this.selectedTeam) {
           this.selectedTeamParticipant.team.rankings = [ranking];
           break;
         }
