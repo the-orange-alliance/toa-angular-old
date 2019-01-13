@@ -13,6 +13,7 @@
     "live": "VIVO",
     "here": "Aquí",
     "add": "Añadir",
+    "error_occurred": "Se ha producido un error, inténtelo de nuevo más tarde",
     "search_text_long": "Buscar equipos y eventos",
     "search_text_short": "Equipo # o evento",
     "add_to_mytoa": "Aumentar myTOA",
@@ -43,6 +44,7 @@
       "title": "Agregar datos",
       "short_info": "¿Tiene algunos datos que le gustaría agregar a The Orange Alliance?",
       "datasync": "DataSync - Sincroniza su evento en vivo con TOA",
+      "add_event_data": "Agregar resultados de eventos una vez finalizado el evento",
       "add_match_video": "Agregar vídeo de partido",
       "add_event_stream": "Agregar Transmisión en directo de evento",
       "stream_your_event": "Transmite tu evento en el canal de Twitch de TOA"
@@ -136,11 +138,28 @@
         },
         "admin": {
           "title": "Administración",
-          "playlist": "Añadir vídeos de partidas de una lista de reproducción de YouTube",
-          "playlist_url": "URL de lista de reproducción",
-          "load": "Cargar",
-          "confirm": "Confirmar y subir",
-          "successfully": "Subido exitosamente {{ value }} videos"
+          "playlist_card": {
+            "title": "Add match videos from a YouTube Playlist",
+            "playlist_url": "URL de lista de reproducción",
+            "load": "Cargar",
+            "confirm": "Confirmar y subir",
+            "successfully": "Subido exitosamente {{ value }} videos",
+            "error": "No pudimos encontrar vídeos de partidos",
+            "invalid_url": "URL no válida, no pudimos encontrar una lista de reproducción de YouTube"
+          },
+          "update_info_card": {
+            "title": "Editar la información del evento",
+            "event_name": "Nombre del evento",
+            "website": "El sitio web",
+            "start_date": "Fecha de inicio",
+            "end_date": "Fecha de finalización",
+            "venue": "Lugar",
+            "city": "Ciudad",
+            "state": "Estado",
+            "country": "País",
+            "update": "Actualización",
+            "successfully": "Actualizado correctamente la información del evento"
+          }
         }
       }
     },
@@ -196,6 +215,8 @@
     "scores": "Puntuaciónes",
     "blue_alliance": "Alianza azul",
     "red_alliance": "Alianza rojo",
+    "blue_score": "Puntuación azul",
+    "red_score": "Puntuación roja",
     "no_matches_for_event": "No hay datos de partidos disponibles para este evento.",
     "match": "Partido",
     "view_team": "Ver equipo",
