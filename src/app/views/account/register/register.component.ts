@@ -44,6 +44,11 @@ export class RegisterComponent implements OnInit {
             data['team'] = this.team;
           }
           this.db.object(`Users/${user.user.uid}`).set(data).then(value => {
+            user.user.sendEmailVerification().then(function(){
+                //sent
+            }).catch(function(error){
+                //an error occured
+            })
             // To update the data in the menu
             // After the refresh, it will go to the account page through the function above(auth.authState.subscribe)
             window.location.reload(true);
