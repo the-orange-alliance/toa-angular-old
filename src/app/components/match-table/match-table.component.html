@@ -37,13 +37,13 @@
   <tbody *ngIf="match.participants && match.participants.length === 6">
   <tr class="red">
     <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
-      <a routerLink="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantStringWithoutStatus(match, 2) }}</a>
-    </td>
-    <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
       <a routerLink="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantStringWithoutStatus(match, 3) }}</a>
     </td>
     <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
       <a routerLink="/teams/{{ match.participants[4].teamKey }}">{{ getParticipantStringWithoutStatus(match, 4) }}</a>
+    </td>
+    <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
+      <a routerLink="/teams/{{ match.participants[5].teamKey }}">{{ getParticipantStringWithoutStatus(match, 5) }}</a>
     </td>
     <td class="red" [class.match-winner]="match.redScore >= match.blueScore">
       {{ match.redScore > -1 ? match.redScore : '?' }}
