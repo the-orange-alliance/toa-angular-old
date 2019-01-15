@@ -14,6 +14,7 @@ import Team from '../../models/Team';
 import Event from '../../models/Event';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
+import { auth as providers } from 'firebase';
 
 @Component({
   selector: 'toa-account',
@@ -34,8 +35,10 @@ export class AccountComponent {
   loaded: boolean;
   generatingApiKey: boolean;
   generatingEventApiKey: boolean;
-
   emailVerified = true;
+
+  googleProvider = new providers.GoogleAuthProvider();
+  githubProvider = new providers.GithubAuthProvider();
 
   constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient, private snackbar: MdcSnackbar,
               db: AngularFireDatabase, public auth: AngularFireAuth, private storage: AngularFireStorage, private cloud: CloudFunctions, private translate: TranslateService) {
@@ -180,6 +183,23 @@ export class AccountComponent {
         this.snackbar.open(res)
       });
     })
+  }
+
+  linkProvider(provider) {
+    this.auth.auth.currentUser.linkWithPopup(provider).then(result => {
+      // Accounts successfully linked.
+      const credential = result.credential;
+      const user = result.user;
+      // Show success in snackbar
+      this.translate.get(`pages.account.success_google`).subscribe((res: string) => {
+        this.snackbar.open(res)
+      });
+    }).catch(error => {
+      this.translate.get(`general.error_occurred`).subscribe((res: string) => {
+        console.log(error);
+        this.snackbar.open(res)
+      });
+    });
   }
 
   sendAnalytic(category, label, action): void {
