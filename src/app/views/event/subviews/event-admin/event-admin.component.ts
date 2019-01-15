@@ -5,6 +5,7 @@ import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import Event from '../../../../models/Event';
 import {Router} from '@angular/router';
+import {User} from 'firebase';
 
 @Component({
   providers: [CloudFunctions],
@@ -14,6 +15,7 @@ import {Router} from '@angular/router';
 })
 export class EventAdminComponent implements OnInit, AfterViewInit {
 
+  @Input() user: User;
   @Input() uid: string;
   @Input() eventKey: string;
   @Input() eventData: Event;
@@ -159,10 +161,25 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   }
 
   showSnackbar(translateKey: string, errorKey?: string, value?: number) {
-    this.translate.get(translateKey, {value: value}).subscribe((res: string) => {
-      const message = errorKey ? `${res} (${errorKey})` : res;
+    const isEmail = (errorKey) ? errorKey.indexOf('428') > -1 : undefined;
+    const msg = (isEmail) ? 'pages.event.subpages.admin.verify_email' : translateKey;
 
-      this.snackbar.open(message, null);
+    this.translate.get(msg, {value: value}).subscribe((res: string) => {
+
+      const message = (errorKey && !isEmail) ? `${res} (${errorKey})` : res;
+
+      const snackBarRef = this.snackbar.open(message, (isEmail) ? 'Verify' : null);
+
+      snackBarRef.afterDismiss().subscribe(reason => {
+        if (reason === 'action') {
+          this.user.sendEmailVerification().then(() => {
+            this.showSnackbar(`pages.event.subpages.admin.success_sent_verify_email`);
+          }).catch((error) => {
+            console.log(error);
+            this.showSnackbar(`general.error_occurred`, `HTTP-500`);
+          })
+        }
+      });
     });
   }
 

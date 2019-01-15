@@ -100,7 +100,7 @@ export class TheOrangeAllianceComponent implements OnInit {
 
     if (query && this.teams && this.eventsFilter) {
       this.teamSearchResults = this.teams.filter(team => (
-        String(team.teamNumber).includes(query) ||
+        String(team.teamKey).includes(query) ||
         (team.teamNameShort && team.teamNameShort.toLowerCase().includes(query))
       ));
       this.teamSearchResults = this.teamSearchResults.splice(0, maxResults);
