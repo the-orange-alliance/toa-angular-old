@@ -40,6 +40,7 @@ export class RegisterComponent implements OnInit {
     } else {
       this.auth.auth.createUserWithEmailAndPassword(this.email, this.password)
         .then((user) => {
+          user.user.updateProfile({displayName: this.name, photoURL: null}).then(() => {}).catch(error => console.log(error));
           const data = {};
           data['fullName'] = this.name;
           if (this.team && this.name.trim().length > 0) {

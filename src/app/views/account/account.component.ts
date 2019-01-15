@@ -35,6 +35,8 @@ export class AccountComponent {
   generatingApiKey: boolean;
   generatingEventApiKey: boolean;
 
+  emailVerified = true;
+
   constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient, private snackbar: MdcSnackbar,
               db: AngularFireDatabase, public auth: AngularFireAuth, private storage: AngularFireStorage, private cloud: CloudFunctions, private translate: TranslateService) {
 
@@ -47,6 +49,8 @@ export class AccountComponent {
           'email': user.email,
           'uid': user.uid
         };
+
+        this.emailVerified = user.emailVerified;
 
         // Request User to verify their email if they haven't already
         if (!user.emailVerified) {
@@ -161,6 +165,21 @@ export class AccountComponent {
 
   getAdminEvents(): string[] {
     return Object.keys(this.adminEvents);
+  }
+
+  sendPasswordResetEmail() {
+    this.auth.auth.sendPasswordResetEmail(this.user.email).then( () => {
+      // Show success in snackbar
+      this.translate.get(`pages.account.reset_password_email`).subscribe((res: string) => {
+        this.snackbar.open(res)
+      });
+    }).catch( error => {
+      // Show Error in snackbar
+      this.translate.get(`general.error_occurred`).subscribe((res: string) => {
+        console.log(error);
+        this.snackbar.open(res)
+      });
+    })
   }
 
   sendAnalytic(category, label, action): void {

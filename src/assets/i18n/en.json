@@ -69,6 +69,9 @@
         "generating_key": "Generating an API Key...",
         "docs": "You can check out our full API Documentation"
       },
+      "account_settings": "Account Settings",
+      "reset_password": "Reset Password",
+      "reset_password_email": "A password reset email has been sent.",
       "datasync_card": {
         "title": "Sync your event live with TOA",
         "docs": "You can check out our full DataSync Documentation"
