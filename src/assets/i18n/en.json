@@ -59,6 +59,7 @@
     "account": {
       "logout": "Logout",
       "level": "Level {{ level }}",
+      "no_verify": "Please consider verifying your email.",
       "api_card": {
         "title": "Build amazing things with our API",
         "your_key": "Here is your API Key:",
@@ -159,7 +160,9 @@
             "country": "Country",
             "update": "Update",
             "successfully": "Successfully updated the event info"
-          }
+          },
+          "verify_email": "Please verify your email and try again.",
+          "success_sent_verify_email": "Successfully sent a verification email."
         }
       }
     },
