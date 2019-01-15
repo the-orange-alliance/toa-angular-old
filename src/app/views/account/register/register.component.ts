@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -35,12 +35,12 @@ export class RegisterComponent implements OnInit {
   createUser(): void {
     if (!this.name || this.name.trim().length < 4) {
       this.snackbar.open('You forgot to type your FULL NAME.');
-    } else if (this.password != this.confirmPassword) {
+    } else if (this.password !== this.confirmPassword) {
       this.snackbar.open('Those passwords didn\'t match. Try again.');
     } else {
       this.auth.auth.createUserWithEmailAndPassword(this.email, this.password)
         .then((user) => {
-          let data = {};
+          const data = {};
           data['fullName'] = this.name;
           if (this.team && this.name.trim().length > 0) {
             data['team'] = this.team;

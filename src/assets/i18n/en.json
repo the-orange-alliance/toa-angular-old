@@ -12,6 +12,7 @@
     "events": "Events",
     "live": "LIVE",
     "here": "here",
+    "verify": "Verify",
     "add": "Add",
     "error_occurred": "An error occurred, Please try again later",
     "search_text_long": "Search teams and events",

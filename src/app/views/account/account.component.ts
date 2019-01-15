@@ -12,8 +12,8 @@ import { EventSorter } from '../../util/event-utils';
 import { CloudFunctions } from '../../providers/cloud-functions';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
-import {MdcSnackbar} from '@angular-mdc/web';
-import {TranslateService} from '@ngx-translate/core';
+import { MdcSnackbar } from '@angular-mdc/web';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'toa-account',
@@ -51,25 +51,27 @@ export class AccountComponent {
         // Request User to verify their email if they haven't already
         if (!user.emailVerified) {
           // User hasn't verified email, prompt them to do it now!
-          this.translate.get(`pages.account.no_verify`).subscribe((res: string) => {
-            const snackBarRef = this.snackbar.open(res, `Verify`);
+          this.translate.get(`pages.account.no_verify`).subscribe((no_verify: string) => {
+            this.translate.get(`general.verify`).subscribe((verify: string) => {
+              const snackBarRef = this.snackbar.open(no_verify, verify);
 
-            snackBarRef.afterDismiss().subscribe(reason => {
-              if (reason === 'action') {
-                // User Wants to verfy their email. Send it now!
-                user.sendEmailVerification().then(() => {
-                  // Show Success
-                  this.translate.get(`pages.event.subpages.admin.success_sent_verify_email`).subscribe((tres: string) => {
-                    this.snackbar.open(tres);
+              snackBarRef.afterDismiss().subscribe(reason => {
+                if (reason === 'action') {
+                  // User Wants to verfy their email. Send it now!
+                  user.sendEmailVerification().then(() => {
+                    // Show Success
+                    this.translate.get(`pages.event.subpages.admin.success_sent_verify_email`).subscribe((success_sent: string) => {
+                      this.snackbar.open(success_sent);
+                    });
+                  }).catch((error) => {
+                    // Show Fail
+                    console.log(error);
+                    this.translate.get(`general.error_occurred`).subscribe((error_string: string) => {
+                      this.snackbar.open(error_string);
+                    });
                   });
-                }).catch((error) => {
-                  // Show Fail
-                  console.log(error);
-                  this.translate.get(`general.error_occurred`).subscribe((tres: string) => {
-                    this.snackbar.open(tres);
-                  });
-                });
-              }
+                }
+              });
             });
           });
         }
