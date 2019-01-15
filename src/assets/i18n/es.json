@@ -68,6 +68,9 @@
         "generating_key": "Generando una clave API...",
         "docs": "Puede ver nuestros documentación completa de API en"
       },
+      "account_settings": "Configuración de la cuenta",
+      "reset_password": "Restablecer la contraseña",
+      "reset_password_email": "Se ha enviado un correo electrónico de restablecimiento de contraseña.",
       "datasync_card": {
         "title": "Sincroniza su evento en vivo con TOA",
         "docs": "Puede ver nuestros documentación completa de DataSync en"
