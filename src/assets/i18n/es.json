@@ -59,6 +59,7 @@
     "account": {
       "logout": "Cerrar sesión",
       "level": "Nivel {{ level }}",
+      "no_verify": "Por favor considere verificar su correo electrónico.",
       "api_card": {
         "title": "Construye cosas increíbles con nuestros API",
         "your_key": "Aquí está su clave de API:",
@@ -159,7 +160,9 @@
             "country": "País",
             "update": "Actualización",
             "successfully": "Actualizado correctamente la información del evento"
-          }
+          },
+          "verify_email": "Por favor verifica su correo electrónico e inténtalo de nuevo.",
+          "success_sent_verify_email": "Se ha enviado un correo electrónico de verificación correctamente."
         }
       }
     },
