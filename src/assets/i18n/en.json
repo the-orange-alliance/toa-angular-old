@@ -75,6 +75,7 @@
       "link_google": "Link Google account",
       "link_github": "Link GitHub account",
       "success_google": "Successfully linked Google account",
+      "success_github": "Successfully linked GitHub account",
       "datasync_card": {
         "title": "Sync your event live with TOA",
         "docs": "You can check out our full DataSync Documentation"
