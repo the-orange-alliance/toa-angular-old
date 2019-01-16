@@ -5,7 +5,10 @@
       <mdc-text-field outlined class="mt-3" label="{{ 'pages.account.subpages.login.email' | translate }}" [(ngModel)]="email" type="email" required></mdc-text-field>
       <mdc-text-field outlined class="mt-4" label="{{ 'pages.account.subpages.login.password' | translate }}" [(ngModel)]="password" type="password" required></mdc-text-field>
       <button mdc-button primary class="mt-4" (click)="onLoginEmail()">{{ "pages.account.subpages.login.login" | translate }}</button>
-      <button mdc-button primary class="mt-4" (click)="signInWithPopup(googleProvider)">{{ "pages.account.subpages.login.login_google" | translate }}</button>
+      <button mdc-button style="background-color: #4285F4;" primary class="mt-4" (click)="signInWithPopup(googleProvider)">
+        <img src="../../../assets/imgs/g-logo.png" style="width: 28px; height: 28px; margin-right: 20px"/>
+        <a style="font-size: 14px;">{{ "pages.account.subpages.login.login_google" | translate }}</a>
+      </button>
       <button mdc-button primary class="mt-4" (click)="signInWithPopup(githubProvider)">{{ "pages.account.subpages.login.login_github" | translate }}</button>
     </mdc-card>
   </div>
