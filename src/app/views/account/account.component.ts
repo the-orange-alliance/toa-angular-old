@@ -52,35 +52,6 @@ export class AccountComponent {
 
         this.emailVerified = user.emailVerified;
 
-        // Request User to verify their email if they haven't already
-        if (!this.user.emailVerified) {
-          // User hasn't verified email, prompt them to do it now!
-          this.translate.get('pages.account.no_verify').subscribe((no_verify: string) => {
-            this.translate.get('general.verify').subscribe((verify: string) => {
-              const snackBarRef = this.snackbar.open(no_verify, verify, {timeoutMs: 1000000});
-
-              snackBarRef.afterDismiss().subscribe(reason => {
-                if (reason === 'action') {
-                  // User Wants to verfy their email. Send it now!
-                  this.user.sendEmailVerification().then(() => {
-                    // Show Success
-                    this.translate.get('pages.event.subpages.admin.success_sent_verify_email').subscribe((success_sent: string) => {
-                      this.snackbar.open(success_sent);
-                    });
-                  }).catch((error) => {
-                    // Show Fail
-                    console.log(error);
-                    this.translate.get('general.error_occurred').subscribe((error_string: string) => {
-                      this.snackbar.open(error_string);
-                    });
-                  });
-                }
-              });
-            });
-          });
-        }
-
-
         db.list(`Users/${user.uid}`).snapshotChanges()
           .subscribe(items => {
 
@@ -175,6 +146,21 @@ export class AccountComponent {
 
   getAdminEvents(): string[] {
     return Object.keys(this.adminEvents);
+  }
+
+  sendEmailVerification() {
+    this.user.sendEmailVerification().then(() => {
+      // Show Success
+      this.translate.get('pages.event.subpages.admin.success_sent_verify_email').subscribe((success_sent: string) => {
+        this.snackbar.open(success_sent);
+      });
+    }).catch((error) => {
+      // Show Fail
+      console.log(error);
+      this.translate.get('general.error_occurred').subscribe((error_string: string) => {
+        this.snackbar.open(error_string);
+      });
+    });
   }
 
   sendPasswordResetEmail() {

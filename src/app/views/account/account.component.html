@@ -13,6 +13,17 @@
 </div>
 
 <div class="row mt-5 m-2" *ngIf="user">
+
+  <div class="col-12 m-2" *ngIf="!emailVerified">
+    <div class="outline-card p-3" style="border: 2px solid #F89808!important;">
+      <div mdcHeadline5 class="black">{{ 'pages.account.no_verify' | translate }}</div>
+      <div mdcSubtitle1 class="mt-1">{{ 'pages.account.why_verify' | translate }}</div>
+      <button mdc-button primary (click)="sendEmailVerification()">
+        {{ 'general.verify' | translate }}
+      </button>
+    </div>
+  </div>
+
   <div class="col-md-7 col-12 p-2">
     <div class="outline-card p-3">
       <div class="row">

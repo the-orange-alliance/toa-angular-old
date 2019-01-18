@@ -63,7 +63,8 @@
     "account": {
       "logout": "Logout",
       "level": "Level {{ level }}",
-      "no_verify": "Please consider verifying your email.",
+      "no_verify": "Please consider verifying your email",
+      "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
       "api_card": {
         "title": "Build amazing things with our API",
         "your_key": "Here is your API Key:",
