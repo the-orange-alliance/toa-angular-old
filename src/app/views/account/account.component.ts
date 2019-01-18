@@ -49,19 +49,14 @@ export class AccountComponent {
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
         this.user = user;
-console.log(this.googleProvider);
-console.log(this.githubProvider);
-        // user.providerData.filter(value => va)
-        // this.user.unlink('google.com');
-        // this.user.unlink('github.com');
 
         this.emailVerified = user.emailVerified;
 
         // Request User to verify their email if they haven't already
         if (!this.user.emailVerified) {
           // User hasn't verified email, prompt them to do it now!
-          this.translate.get(`pages.account.no_verify`).subscribe((no_verify: string) => {
-            this.translate.get(`general.verify`).subscribe((verify: string) => {
+          this.translate.get('pages.account.no_verify').subscribe((no_verify: string) => {
+            this.translate.get('general.verify').subscribe((verify: string) => {
               const snackBarRef = this.snackbar.open(no_verify, verify);
 
               snackBarRef.afterDismiss().subscribe(reason => {
@@ -69,13 +64,13 @@ console.log(this.githubProvider);
                   // User Wants to verfy their email. Send it now!
                   this.user.sendEmailVerification().then(() => {
                     // Show Success
-                    this.translate.get(`pages.event.subpages.admin.success_sent_verify_email`).subscribe((success_sent: string) => {
+                    this.translate.get('pages.event.subpages.admin.success_sent_verify_email').subscribe((success_sent: string) => {
                       this.snackbar.open(success_sent);
                     });
                   }).catch((error) => {
                     // Show Fail
                     console.log(error);
-                    this.translate.get(`general.error_occurred`).subscribe((error_string: string) => {
+                    this.translate.get('general.error_occurred').subscribe((error_string: string) => {
                       this.snackbar.open(error_string);
                     });
                   });
@@ -86,7 +81,7 @@ console.log(this.githubProvider);
         }
 
 
-        db.list(`Users/${user.uid}`).snapshotChanges()
+        db.list('Users/${user.uid}').snapshotChanges()
           .subscribe(items => {
 
             items.forEach(element => {
@@ -130,7 +125,7 @@ console.log(this.githubProvider);
             if (adminEvents) {
               for (const key in adminEvents) {
                 if (adminEvents[key] === true) {
-                  db.object(`eventAPIs/${key}`).snapshotChanges()
+                  db.object('eventAPIs/${key}').snapshotChanges()
                     .subscribe(item => {
                     this.adminEvents[key] = item.payload.val() || null;
                   });
@@ -183,12 +178,12 @@ console.log(this.githubProvider);
   sendPasswordResetEmail() {
     this.auth.auth.sendPasswordResetEmail(this.user.email).then( () => {
       // Show success in snackbar
-      this.translate.get(`pages.account.reset_password_email`).subscribe((res: string) => {
+      this.translate.get('pages.account.reset_password_email').subscribe((res: string) => {
         this.snackbar.open(res)
       });
     }).catch( error => {
       // Show Error in snackbar
-      this.translate.get(`general.error_occurred`).subscribe((res: string) => {
+      this.translate.get('general.error_occurred').subscribe((res: string) => {
         console.log(error);
         this.snackbar.open(res)
       });
@@ -211,11 +206,11 @@ console.log(this.githubProvider);
       const user = result.user;
 
       // Show success in snackbar
-      this.translate.get(`pages.account.success_link`, {name: this.getProviderName(provider)}).subscribe((res: string) => {
+      this.translate.get('pages.account.success_link', {name: this.getProviderName(provider)}).subscribe((res: string) => {
         this.snackbar.open(res)
       });
     }).catch(error => {
-      this.translate.get(`general.error_occurred`).subscribe((res: string) => {
+      this.translate.get('general.error_occurred').subscribe((res: string) => {
         console.log(error);
         this.snackbar.open(res)
       });
@@ -223,17 +218,24 @@ console.log(this.githubProvider);
   }
 
   unlinkProvider(provider: firebase.auth.AuthProvider) {
-    this.user.unlink(provider.providerId).then(result => {
-      // Show success in snackbar
-      this.translate.get(`pages.account.success_unlink`, {name: this.getProviderName(provider)}).subscribe((res: string) => {
+    // Don't leave the user without any provider
+    if (this.user.providerData.length > 1) {
+      this.user.unlink(provider.providerId).then(result => {
+        // Show success in snackbar
+        this.translate.get('pages.account.success_unlink', {name: this.getProviderName(provider)}).subscribe((res: string) => {
+          this.snackbar.open(res)
+        });
+      }).catch(error => {
+        this.translate.get('general.error_occurred').subscribe((res: string) => {
+          console.log(error);
+          this.snackbar.open(res)
+        });
+      });
+    } else {
+      this.translate.get('general.error_occurred').subscribe((res: string) => {
         this.snackbar.open(res)
       });
-    }).catch(error => {
-      this.translate.get(`general.error_occurred`).subscribe((res: string) => {
-        console.log(error);
-        this.snackbar.open(res)
-      });
-    });
+    }
   }
 
   getProviderName(provider: firebase.auth.AuthProvider) {
