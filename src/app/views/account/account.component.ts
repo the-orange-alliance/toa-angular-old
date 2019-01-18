@@ -81,7 +81,7 @@ export class AccountComponent {
         }
 
 
-        db.list('Users/${user.uid}').snapshotChanges()
+        db.list(`Users/${user.uid}`).snapshotChanges()
           .subscribe(items => {
 
             items.forEach(element => {
@@ -125,7 +125,7 @@ export class AccountComponent {
             if (adminEvents) {
               for (const key in adminEvents) {
                 if (adminEvents[key] === true) {
-                  db.object('eventAPIs/${key}').snapshotChanges()
+                  db.object(`eventAPIs/${key}`).snapshotChanges()
                     .subscribe(item => {
                     this.adminEvents[key] = item.payload.val() || null;
                   });
