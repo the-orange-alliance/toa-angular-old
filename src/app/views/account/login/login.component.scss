@@ -1,0 +1,14 @@
+@import "../../../../constants";
+@import "~@angular-mdc/theme/material";
+
+.github-btn {
+  font-size: 13px;
+  @include mdc-button-outline-color(#999);
+  @include mdc-button-outline-width(3px);
+}
+
+.google-btn {
+  font-size: 13px;
+  @include mdc-button-outline-color(#4285F4);
+  @include mdc-button-outline-width(3px);
+}

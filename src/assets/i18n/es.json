@@ -12,6 +12,7 @@
     "events": "Eventos",
     "live": "VIVO",
     "here": "Aquí",
+    "verify": "Verificar",
     "add": "Añadir",
     "error_occurred": "Se ha producido un error, inténtelo de nuevo más tarde",
     "search_text_long": "Buscar equipos y eventos",
@@ -59,6 +60,7 @@
     "account": {
       "logout": "Cerrar sesión",
       "level": "Nivel {{ level }}",
+      "no_verify": "Por favor considere verificar su correo electrónico.",
       "api_card": {
         "title": "Construye cosas increíbles con nuestros API",
         "your_key": "Aquí está su clave de API:",
@@ -67,6 +69,13 @@
         "generating_key": "Generando una clave API...",
         "docs": "Puede ver nuestros documentación completa de API en"
       },
+      "account_settings": "Configuración de la cuenta",
+      "reset_password": "Restablecer la contraseña",
+      "reset_password_email": "Se ha enviado un correo electrónico de restablecimiento de contraseña.",
+      "link_google": "Vincular cuenta de Google",
+      "link_github": "Vincular cuenta de GitHub",
+      "success_google": "Cuenta de Google vinculada correctamente",
+      "success_github": "Cuenta de GitHub vinculada correctamente",
       "datasync_card": {
         "title": "Sincroniza su evento en vivo con TOA",
         "docs": "Puede ver nuestros documentación completa de DataSync en"
@@ -76,7 +85,10 @@
           "title": "Iniciar sesión",
           "email": "Correo electrónico",
           "password": "Contraseña",
-          "login": "Iniciar sesión"
+          "login": "Iniciar sesión",
+          "login_google": "Iniciar sesión con Google",
+          "login_github": "Iniciar sesión con GitHub",
+          "no_account_linked": "Esta cuenta no está vinculada a ninguna cuenta myTOA. Por favor inicie sesión para vincularlo."
         },
         "register": {
           "title": "Registro",
@@ -159,7 +171,9 @@
             "country": "País",
             "update": "Actualización",
             "successfully": "Actualizado correctamente la información del evento"
-          }
+          },
+          "verify_email": "Por favor verifica su correo electrónico e inténtalo de nuevo.",
+          "success_sent_verify_email": "Se ha enviado un correo electrónico de verificación correctamente."
         }
       }
     },

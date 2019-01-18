@@ -12,6 +12,7 @@
     "events": "Events",
     "live": "LIVE",
     "here": "here",
+    "verify": "Verify",
     "add": "Add",
     "error_occurred": "An error occurred, Please try again later",
     "search_text_long": "Search teams and events",
@@ -59,6 +60,7 @@
     "account": {
       "logout": "Logout",
       "level": "Level {{ level }}",
+      "no_verify": "Please consider verifying your email.",
       "api_card": {
         "title": "Build amazing things with our API",
         "your_key": "Here is your API Key:",
@@ -67,6 +69,13 @@
         "generating_key": "Generating an API Key...",
         "docs": "You can check out our full API Documentation"
       },
+      "account_settings": "Account Settings",
+      "reset_password": "Reset Password",
+      "reset_password_email": "A password reset email has been sent.",
+      "link_google": "Link Google account",
+      "link_github": "Link GitHub account",
+      "success_google": "Successfully linked Google account",
+      "success_github": "Successfully linked GitHub account",
       "datasync_card": {
         "title": "Sync your event live with TOA",
         "docs": "You can check out our full DataSync Documentation"
@@ -76,7 +85,10 @@
           "title": "Login",
           "email": "Email",
           "password": "Password",
-          "login": "Login"
+          "login": "Login",
+          "login_google": "Login with Google",
+          "login_github": "Login with Github",
+          "no_account_linked": "That account is not linked to any myTOA account. Please sign in to link it."
         },
         "register": {
           "title": "Register",

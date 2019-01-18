@@ -12,6 +12,9 @@ import { EventSorter } from '../../util/event-utils';
 import { CloudFunctions } from '../../providers/cloud-functions';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
+import { MdcSnackbar } from '@angular-mdc/web';
+import { TranslateService } from '@ngx-translate/core';
+import { auth as providers } from 'firebase';
 
 @Component({
   selector: 'toa-account',
@@ -32,9 +35,13 @@ export class AccountComponent {
   loaded: boolean;
   generatingApiKey: boolean;
   generatingEventApiKey: boolean;
+  emailVerified = true;
 
-  constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient,
-              db: AngularFireDatabase, public auth: AngularFireAuth, private storage: AngularFireStorage, private cloud: CloudFunctions) {
+  googleProvider = new providers.GoogleAuthProvider();
+  githubProvider = new providers.GithubAuthProvider();
+
+  constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient, private snackbar: MdcSnackbar,
+              db: AngularFireDatabase, public auth: AngularFireAuth, private storage: AngularFireStorage, private cloud: CloudFunctions, private translate: TranslateService) {
 
     this.app.setTitle('myTOA');
     this.app.setDescription('Your myTOA account overview');
@@ -45,6 +52,38 @@ export class AccountComponent {
           'email': user.email,
           'uid': user.uid
         };
+
+        this.emailVerified = user.emailVerified;
+
+        // Request User to verify their email if they haven't already
+        if (!user.emailVerified) {
+          // User hasn't verified email, prompt them to do it now!
+          this.translate.get(`pages.account.no_verify`).subscribe((no_verify: string) => {
+            this.translate.get(`general.verify`).subscribe((verify: string) => {
+              const snackBarRef = this.snackbar.open(no_verify, verify);
+
+              snackBarRef.afterDismiss().subscribe(reason => {
+                if (reason === 'action') {
+                  // User Wants to verfy their email. Send it now!
+                  user.sendEmailVerification().then(() => {
+                    // Show Success
+                    this.translate.get(`pages.event.subpages.admin.success_sent_verify_email`).subscribe((success_sent: string) => {
+                      this.snackbar.open(success_sent);
+                    });
+                  }).catch((error) => {
+                    // Show Fail
+                    console.log(error);
+                    this.translate.get(`general.error_occurred`).subscribe((error_string: string) => {
+                      this.snackbar.open(error_string);
+                    });
+                  });
+                }
+              });
+            });
+          });
+        }
+
+
         db.list(`Users/${user.uid}`).snapshotChanges()
           .subscribe(items => {
 
@@ -58,8 +97,8 @@ export class AccountComponent {
               this.teams = [];
               this.events = [];
 
-              let teams = this.user['favTeams'];
-              for (let key in teams) {
+              const teams = this.user['favTeams'];
+              for (const key in teams) {
                 if (teams[key] === true) {
                   this.ftc.getTeamBasic(key).then((team: Team) => {
                     if (team) {
@@ -70,8 +109,8 @@ export class AccountComponent {
                 }
               }
 
-              let events = this.user['favEvents'];
-              for (let key in events) {
+              const events = this.user['favEvents'];
+              for (const key in events) {
                 if (events[key] === true) {
                   this.ftc.getEventBasic(key).then((event: Event) => {
                     if (event) {
@@ -85,9 +124,9 @@ export class AccountComponent {
               this.loaded = true;
             }
 
-            let adminEvents = this.user['adminEvents'];
-            if (adminEvents){
-              for (let key in adminEvents) {
+            const adminEvents = this.user['adminEvents'];
+            if (adminEvents) {
+              for (const key in adminEvents) {
                 if (adminEvents[key] === true) {
                   db.object(`eventAPIs/${key}`).snapshotChanges()
                     .subscribe(item => {
@@ -97,7 +136,7 @@ export class AccountComponent {
               }
             }
 
-            if (this.user['profileImage'] != null){
+            if (this.user['profileImage'] != null) {
               const storageRef = this.storage.ref(`images/users/${ this.user['profileImage'] }`);
               this.profileUrl = storageRef.getDownloadURL();
             }
@@ -129,6 +168,38 @@ export class AccountComponent {
 
   getAdminEvents(): string[] {
     return Object.keys(this.adminEvents);
+  }
+
+  sendPasswordResetEmail() {
+    this.auth.auth.sendPasswordResetEmail(this.user.email).then( () => {
+      // Show success in snackbar
+      this.translate.get(`pages.account.reset_password_email`).subscribe((res: string) => {
+        this.snackbar.open(res)
+      });
+    }).catch( error => {
+      // Show Error in snackbar
+      this.translate.get(`general.error_occurred`).subscribe((res: string) => {
+        console.log(error);
+        this.snackbar.open(res)
+      });
+    })
+  }
+
+  linkProvider(provider) {
+    this.auth.auth.currentUser.linkWithPopup(provider).then(result => {
+      // Accounts successfully linked.
+      const credential = result.credential;
+      const user = result.user;
+      // Show success in snackbar
+      this.translate.get(`pages.account.success_google`).subscribe((res: string) => {
+        this.snackbar.open(res)
+      });
+    }).catch(error => {
+      this.translate.get(`general.error_occurred`).subscribe((res: string) => {
+        console.log(error);
+        this.snackbar.open(res)
+      });
+    });
   }
 
   sendAnalytic(category, label, action): void {

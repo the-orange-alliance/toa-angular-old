@@ -1,3 +1,4 @@
+
 <div class="row justify-content-center">
   <div class="col-12 col-md-8 col-lg-5 p-3">
     <mdc-card class="toa-card p-3">
@@ -5,6 +6,21 @@
       <mdc-text-field outlined class="mt-3" label="{{ 'pages.account.subpages.login.email' | translate }}" [(ngModel)]="email" type="email" required></mdc-text-field>
       <mdc-text-field outlined class="mt-4" label="{{ 'pages.account.subpages.login.password' | translate }}" [(ngModel)]="password" type="password" required></mdc-text-field>
       <button mdc-button primary class="mt-4" (click)="onLoginEmail()">{{ "pages.account.subpages.login.login" | translate }}</button>
+      <div class="row mt-2">
+        <button mdc-button outlined class="google-btn col-12 col-sm-6" (click)="signInWithPopup(googleProvider)">
+          <div style="padding-bottom: 7px; padding-right: 5px">
+            <mdc-icon svgIcon="google"></mdc-icon>
+          </div>
+          {{ "pages.account.subpages.login.login_google" | translate }}
+        </button>
+        <button mdc-button outlined class="github-btn col-12 col-sm-6" (click)="signInWithPopup(githubProvider)">
+          <div style="padding-bottom: 7px; padding-right: 5px">
+            <mdc-icon svgIcon="github-circle"></mdc-icon>
+          </div>
+          {{ "pages.account.subpages.login.login_github" | translate }}
+        </button>
+      </div>
+
     </mdc-card>
   </div>
 </div>

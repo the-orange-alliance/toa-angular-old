@@ -32,6 +32,15 @@
         </div>
       </div>
     </div>
+
+    <div class="outline-card p-3 mt-3" *ngIf="emailVerified">
+      <div mdcHeadline5 class="black p-3">{{ 'pages.account.account_settings' | translate }}</div>
+      <div class="row p-2"><button mdc-button primary (click)="sendPasswordResetEmail()">{{ 'pages.account.reset_password' | translate }}</button></div>
+      <div class="row p-2"><button mdc-button primary (click)="linkProvider(googleProvider)">{{ 'pages.account.link_google' | translate }}</button></div>
+      <div class="row p-2"><button mdc-button primary (click)="linkProvider(githubProvider)">{{ 'pages.account.link_github' | translate }}</button></div>
+
+    </div>
+
   </div>
 
   <div class="col-md-5 col-12 p-2">
@@ -88,5 +97,6 @@
         <a href="https://github.com/orange-alliance/TOA-DataSync/wiki/DataSync-Documentation" target="_blank" (click)="this.sendAnalytic('leaving', '/account', 'datasync docs');">{{ 'general.here' | translate }}</a>.
       </div>
     </div>
+
   </div>
 </div>
