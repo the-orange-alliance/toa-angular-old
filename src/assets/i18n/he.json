@@ -12,6 +12,7 @@
     "events": "אירועים",
     "live": "LIVE",
     "here": "כאן",
+    "verify": "אימות",
     "add": "הוספה",
     "error_occurred": "אירעה שגיאה, אנא נסו שוב מאוחר יותר",
     "search_text_long": "חפש קבוצה או אירוע",
@@ -49,16 +50,20 @@
       "add_event_stream": "הוספת שידור חיי של אירוע",
       "stream_your_event": "שדר את האירוע של בערוץ Twitch של TOA"
     },
+
     "404": {
       "title": "העמוד לא נמצא",
       "short_info": "נראה הגעתם לכאן על ידי לינק שבור. או שנכנסתם לקבוצה/אירוע/מקצה שלא קיימים"
     },
+
     "about": {
       "title": "אודותינו"
     },
+
     "account": {
       "logout": "התנתקות",
       "level": "רמה {{ level }}",
+      "no_verify": "יש לאמת את האימייל שלך.",
       "api_card": {
         "title": "בנה דברים מדהימים עם ה־API שלנו",
         "your_key": "זה המפתח API שלך:",
@@ -67,6 +72,13 @@
         "generating_key": "מייצר מפתח API...",
         "docs": "ניתן לבדוק את תיעוד ה־API המלא שלנו בכתובת"
       },
+      "account_settings": "הגדרות חשבון",
+      "reset_password": "איפוס סיסמה",
+      "reset_password_email": "מייל לאיפוס סיסמה נשלח אליך.",
+      "link_account": "קישור חשבון {{ name }}",
+      "unlink_account": "ניתוק חשבון {{ name }}",
+      "success_link": "חשבון {{ name }} קושר בהצלחה",
+      "success_unlink": "חשבון {{ name }} נותק בהצלחה",
       "datasync_card": {
         "title": "סנכרן את האירוע שלך עם TOA בלייב",
         "docs": "ניתן לבדוק את תיעוד ה־DataSync המלא שלנו"
@@ -76,7 +88,10 @@
           "title": "התחברות",
           "email": "דואר אלקטרוני",
           "password": "סיסמה",
-          "login": "התחברות"
+          "login": "התחברות",
+          "login_google": "התחברות עם Google",
+          "login_github": "התחברות עם Github",
+          "no_account_linked": "חשבון זה אינו מקושר לחשבון myTOA כלשהו. היכנס כדי לקשר אותו."
         },
         "register": {
           "title": "הרשמה",
@@ -159,7 +174,9 @@
             "country": "מדינה",
             "update": "עדכן",
             "successfully": "פרטי האירוע עודכנו בהצלחה"
-          }
+          },
+          "verify_email": "בבקשה אמת את האימייל שלך ונסה שנית.",
+          "success_sent_verify_email": "אמייל אימות נשלח אלייך בהצלחה."
         }
       }
     },
