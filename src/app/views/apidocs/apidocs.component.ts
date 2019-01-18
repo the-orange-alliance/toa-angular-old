@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -10,16 +10,21 @@ import { SafeHtml } from '@angular/platform-browser/src/security/dom_sanitizatio
   styleUrls: ['./apidocs.component.scss'],
   providers: [TheOrangeAllianceGlobals]
 })
-export class ApiDocsComponent {
+export class ApiDocsComponent implements AfterViewChecked{
 
   docs: any = null;
 
-  constructor(private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals, protected sanitizer: DomSanitizer) {
+  constructor(private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals, protected sanitizer: DomSanitizer,
+              private cdRef: ChangeDetectorRef) {
     this.app.setTitle('API Docs');
 
     this.ftc.getDocs().then(data => {
       this.docs = data;
     });
+  }
+
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
   }
 
   stringify(jsonStr): string {
