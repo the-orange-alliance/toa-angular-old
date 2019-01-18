@@ -3,10 +3,10 @@
   <div class="col-12 col-md-8 col-lg-5 p-3">
     <mdc-card class="toa-card p-3">
       <h2 class="m-2">{{ "pages.account.subpages.login.title" | translate }}</h2>
-      <mdc-text-field outlined class="mt-3" label="{{ 'pages.account.subpages.login.email' | translate }}" [(ngModel)]="email" type="email" required></mdc-text-field>
-      <mdc-text-field outlined class="mt-4" label="{{ 'pages.account.subpages.login.password' | translate }}" [(ngModel)]="password" type="password" required></mdc-text-field>
-      <button mdc-button primary class="mt-4" (click)="onLoginEmail()">{{ "pages.account.subpages.login.login" | translate }}</button>
-
+      <mdc-text-field outlined class="mt-2" label="{{ 'pages.account.subpages.login.email' | translate }}" [(ngModel)]="email" type="email" required></mdc-text-field>
+      <a *ngIf="email && email.length > 4" class="forgot-password" (click)="sendPasswordResetEmail()">{{ "pages.account.subpages.login.forgot_password" | translate }}</a>
+      <mdc-text-field outlined class="mt-2" label="{{ 'pages.account.subpages.login.password' | translate }}" [(ngModel)]="password" type="password" required></mdc-text-field>
+      <button mdc-button primary class="mt-4 mb-1" (click)="onLoginEmail()">{{ "pages.account.subpages.login.login" | translate }}</button>
       <!--<p class="login-with-text">Or login with</p>-->
       <div class="row login-with-container mt-3">
         <button class="login-with-button" (click)="signInWithPopup(googleProvider)">

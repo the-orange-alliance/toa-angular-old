@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
@@ -12,10 +12,10 @@ import {TranslateService} from '@ngx-translate/core';
 
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  email = '';
-  password = '';
+  email: string = '';
+  password: string = '';
 
   googleProvider = new providers.GoogleAuthProvider();
   githubProvider = new providers.GithubAuthProvider();
@@ -27,9 +27,6 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/account');
       }
     });
-  }
-
-  ngOnInit() {
   }
 
   onLoginEmail(): void {
@@ -64,4 +61,17 @@ export class LoginComponent implements OnInit {
       const credential = error.credential;
     });
   }
+
+  sendPasswordResetEmail() {
+    this.auth.auth.sendPasswordResetEmail(this.email).then( () => {
+      // Show success in snackbar
+      this.translate.get('pages.account.reset_password_email').subscribe((res: string) => {
+        this.snackbar.open(res)
+      });
+    }).catch( error => {
+      // Show the error in snackbar
+      this.snackbar.open(error)
+    })
+  }
+
 }

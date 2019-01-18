@@ -39,16 +39,10 @@
 .login-with-button:hover {
   border-color: $mdc-theme-primary;
 }
-/*
-.github-btn {
-  font-size: 13px;
-  @include mdc-button-outline-color(#999);
-  @include mdc-button-outline-width(3px);
-}
 
-.google-btn {
-  font-size: 13px;
-  @include mdc-button-outline-color(#4285F4);
-  @include mdc-button-outline-width(3px);
+.forgot-password {
+  color: #001cb5 !important;
+  text-align: end;
+  font-size: 14px;
+  font-weight: 500;
 }
-*/

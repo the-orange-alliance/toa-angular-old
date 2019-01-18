@@ -90,6 +90,7 @@
           "email": "דואר אלקטרוני",
           "password": "סיסמה",
           "login": "התחברות",
+          "forgot_password": "שכחת סיסמה?",
           "login_google": "התחברות עם Google",
           "login_github": "התחברות עם Github",
           "no_account_linked": "חשבון זה אינו מקושר לחשבון myTOA כלשהו. היכנס כדי לקשר אותו."

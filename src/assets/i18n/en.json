@@ -90,6 +90,7 @@
           "email": "Email",
           "password": "Password",
           "login": "Login",
+          "forgot_password": "Forgot password?",
           "login_google": "Login with Google",
           "login_github": "Login with Github",
           "no_account_linked": "That account is not linked to any myTOA account. Please sign in to link it."
