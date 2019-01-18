@@ -1,6 +1,45 @@
 @import "../../../../constants";
 @import "~@angular-mdc/theme/material";
 
+.login-with-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.login-with-text {
+  font-size: 16px;
+  color: #999;
+  line-height: 1.4;
+  width: 100%;
+  margin-bottom: 0;
+  padding-bottom: 15px;
+  padding-top: 30px;
+  text-align: center;
+}
+
+.login-with-button {
+  font-size: 14px;
+  line-height: 1.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc((100% - 10px) / 2);
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid #999;
+  background-color: #fff;
+  transition: all 0.4s;
+  margin-bottom: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.login-with-button:hover {
+  border-color: $mdc-theme-primary;
+}
+/*
 .github-btn {
   font-size: 13px;
   @include mdc-button-outline-color(#999);
@@ -12,3 +51,4 @@
   @include mdc-button-outline-color(#4285F4);
   @include mdc-button-outline-width(3px);
 }
+*/
