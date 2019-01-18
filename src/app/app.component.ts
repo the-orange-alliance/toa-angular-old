@@ -55,14 +55,14 @@ export class TheOrangeAllianceComponent implements OnInit {
     auth.authState.subscribe(user => {
       this.user = user;
 
-      // Fix the  old users
-      if (this.user !== null && this.user.displayName === null) {
+      // Fix the old users
+      if (this.user && !this.user.displayName) {
         db.object(`Users/${this.user.uid}/fullName`).query.once('value').then(name => {
           this.user.updateProfile({displayName: name.val(), photoURL: null});
         });
       }
 
-      if (this.user.displayName !== null) {
+      if (this.user && this.user.displayName) {
         db.database.ref(`Users/${this.user.uid}/fullName`).set(this.user.displayName)
       }
     });

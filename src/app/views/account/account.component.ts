@@ -57,7 +57,7 @@ export class AccountComponent {
           // User hasn't verified email, prompt them to do it now!
           this.translate.get('pages.account.no_verify').subscribe((no_verify: string) => {
             this.translate.get('general.verify').subscribe((verify: string) => {
-              const snackBarRef = this.snackbar.open(no_verify, verify);
+              const snackBarRef = this.snackbar.open(no_verify, verify, {timeoutMs: 1000000});
 
               snackBarRef.afterDismiss().subscribe(reason => {
                 if (reason === 'action') {
@@ -159,8 +159,10 @@ export class AccountComponent {
   }
 
   generateApiKey(): void {
-    this.generatingApiKey = true;
-    this.cloud.generateApiKey(this.user['uid']).catch(console.log);
+    if (this.emailVerified) {
+      this.generatingApiKey = true;
+      this.cloud.generateApiKey(this.user['uid']).catch(console.log);
+    }
   }
 
   generateEventApiKey(eventKey: string): void {
