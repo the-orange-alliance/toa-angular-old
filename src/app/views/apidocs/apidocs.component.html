@@ -2,18 +2,96 @@
   <h2>The Orange Alliance API</h2>
   <p>The goal of TOA API is to provide us, and potential outside users a way to query our databases.</p>
 
+
   <div mdcHeadline5 class="headline-margin">Accessing the API</div>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis varius metus. Suspendisse potenti. Mauris sed nisl at massa pretium suscipit. Maecenas pretium et leo vel suscipit. Donec viverra eleifend efficitur. Etiam condimentum consectetur arcu, et lobortis ligula auctor a. Donec ac libero in magna vehicula sollicitudin eget ac odio. Donec finibus nisi eu sollicitudin commodo.</p>
+  <p>The API only ever responds with JSON data. To correctly request JSON from the API, set the Content-Type header of your request to be application/json.</p>
+  <p>Two custom request headers must be sent with every request you make: <code>X-TOA-Key</code> and <code>X-Application-Origin</code>. <code>X-TOA-Key</code> should be the value of your API key, and <code>X-Application-Origin</code> should be the name of your application. Without either of these headers, your request will be denied by the API.</p>
+  <p>TL;DR:<br/>
+    Set <code>Content-Type</code> to <code>application/json</code><br/>
+    Set <code>X-TOA-Key</code> to your API Key<br/>
+    Set <code>X-Application-Origin</code> to your application name<br/>
+  </p>
 
-  <div mdcHeadline5 class="headline-margin">How To Use?</div>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis varius metus. Suspendisse potenti. Mauris sed nisl at massa pretium suscipit. Maecenas pretium et leo vel suscipit. Donec viverra eleifend efficitur. Etiam condimentum consectetur arcu, et lobortis ligula auctor a. Donec ac libero in magna vehicula sollicitudin eget ac odio. Donec finibus nisi eu sollicitudin commodo.</p>
 
-  <!--
-    <div mdcHeadline5 class="headline-margin">Useful Libraries</div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis varius metus. Suspendisse potenti.</p>
-    <mdc-list dense>
-      <a mdc-list-item href="https://github.com/guineawheek/aiotoa" target="_blank"><b>aiotoa</b>&nbsp;Python library for accessing the API</a>
-    </mdc-list>
-  -->
+  <div mdcHeadline5 class="headline-margin">Routing</div>
+  <p>The routing is broken into several different handlers that all provide different information.<br/>
+  If an error occurs during any part of the request process, an Error object will be returned which has <code>_code</code> and <code>_message</code> properties.</p>
 
+
+  <div mdcHeadline5 class="headline-margin" *ngIf="docs">Docs</div>
+  <div class="outline-card bg-white" *ngIf="docs">
+    <mdc-tab-bar #tabs activeTabRouter [activeTabIndex]="-1">
+      <mdc-tab-scroller>
+        <mdc-tab label="GET" routerLink="get"></mdc-tab>
+        <mdc-tab label="POST" routerLink="post"></mdc-tab>
+        <mdc-tab label="PUT" routerLink="put"></mdc-tab>
+        <mdc-tab label="DELETE" routerLink="delete"></mdc-tab>
+        <mdc-tab label="Models" routerLink="models"></mdc-tab>
+      </mdc-tab-scroller>
+    </mdc-tab-bar>
+
+    <div *ngIf="tabs.activeTabIndex === 0" class="docs-api">
+      <div *ngFor="let base of getBaseRoutes(0)">
+        <h3 mdcHeadline6 class="pt-5 pb-3">{{ base.title }}</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Queries</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let route of base.routes">
+            <td><code [innerHTML]="getRouteHTML(route)"></code>: {{ route.response_type }}{{ route.response_array ? '[]' : '' }}</td>
+            <td>{{ route.desc }}</td>
+            <td>{{ route.queries !== 'N/A' ? route.queries : '' }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="tabs.activeTabIndex > 0 && tabs.activeTabIndex < 4" class="docs-api">
+      <div *ngFor="let base of getBaseRoutes(tabs.activeTabIndex)">
+        <h3 mdcHeadline6 class="pt-5 pb-3">{{ base.title }}</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Required Fields</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let route of base.routes">
+            <td><code [innerHTML]="getRouteHTML(route)"></code></td>
+            <td>{{ route.desc }}</td>
+            <td [innerHTML]="getRequiredFieldsHTML(route)"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="tabs.activeTabIndex === 4" class="docs-api">
+      <div *ngFor="let model of docs.models">
+        <h3 mdcHeadline6 class="pt-5 pb-3">{{ model.model }}</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let field of model.fields">
+            <td>{{ field.name }}</td>
+            <td>{{ field.type }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

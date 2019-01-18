@@ -4,13 +4,13 @@
   <div class="info row" *ngIf="stream">
     <h2 mdcOverline>{{ stream.streamName }}</h2>
     <div class="info-icons">
-      <div class="icon-tooltip">
+      <div class="toa-tooltip">
         <a mdc-button dense *ngIf="stream.eventKey" href="events/{{stream.eventKey}}" target="_blank">
           <mdc-icon class="mr-0">equalizer</mdc-icon>
         </a>
         <span class="tooltiptext">{{ 'pages.streams.event_results' | translate }}</span>
       </div>
-      <div class="icon-tooltip">
+      <div class="toa-tooltip">
         <button mdc-button dense (click)="stream = null">
           <mdc-icon class="mr-0">close</mdc-icon>
         </button>

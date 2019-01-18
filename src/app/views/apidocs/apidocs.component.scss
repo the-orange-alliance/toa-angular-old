@@ -1,0 +1,50 @@
+@import "~@angular-mdc/theme/material";
+
+.docs-api-class-selector-name {
+  background: rgba(0, 0, 0, .06);
+  margin-left: 3px;
+  padding: 3px;
+}
+
+.docs-api-class-selector-name:not(:first-child) {
+  margin-left: 10px;
+}
+
+//
+// API table
+//
+
+.docs-api  {
+  margin-bottom: 30px;
+
+  h4 {
+    font-size: 1rem;
+  }
+  h4 {
+    font-size: 1rem;
+  }
+
+  table {
+    border: 1px solid #eee;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  th {
+    @include mdc-typography(subtitle2);
+  }
+
+  tr:nth-child(2n) {
+    background-color: #f6f8fa;
+  }
+
+  td, th {
+    border: 1px solid #dfe2ef;
+    padding: 12px;
+  }
+
+  td {
+    font-size: .9em;
+  }
+
+}

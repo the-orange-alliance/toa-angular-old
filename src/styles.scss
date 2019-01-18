@@ -404,6 +404,41 @@ mdc-drawer mdc-list a {
 
 
 /* ==========================================================================
+   Tooltip
+   ========================================================================== */
+
+.toa-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.toa-tooltip .tooltiptext {
+  opacity: 0;
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  transition: opacity 0.3s;
+  text-transform: uppercase;
+  font-family: Roboto, sans-serif;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.toa-tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/* ==========================================================================
    Match Item Table
    ========================================================================== */
 

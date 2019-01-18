@@ -22,6 +22,9 @@ export class FTCDatabase {
 
   public year = '1819';
 
+  public baseURL = 'https://theorangealliance.org/api';
+  // public baseURL = 'http://127.0.0.1:8008/api';
+
   constructor(private http: HttpClient) {}
 
   private request(url: string): Promise<any[]> {
@@ -30,12 +33,16 @@ export class FTCDatabase {
         'X-Application-Origin': 'TOA-WebApp-1819',
         'Content-Type': 'application/json'
       });
-      this.http.get('https://theorangealliance.org/api' + url, { headers: authHeader }).subscribe((data: any[]) => {
+      this.http.get(this.baseURL + url, { headers: authHeader }).subscribe((data: any[]) => {
         resolve(data);
       }, (err: any) => {
         reject(err);
       });
     });
+  }
+
+  public getDocs(): Promise<any> {
+    return this.request('/docs');
   }
 
   public getAnnouncements(): Promise<WebAnnouncement[]> {

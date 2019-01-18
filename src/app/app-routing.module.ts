@@ -26,7 +26,15 @@ const routes: Routes = [
   { path: 'events', component: EventsComponent },
   { path: 'teams', component: TeamsComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'apidocs', component: ApiDocsComponent },
+  { path: 'apidocs', component: ApiDocsComponent,  children: [
+      { path: '', redirectTo: 'get', pathMatch: 'full' },
+      { path: 'get', component: ApiDocsComponent },
+      { path: 'post', component: ApiDocsComponent },
+      { path: 'put', component: ApiDocsComponent },
+      { path: 'delete', component: ApiDocsComponent },
+      { path: 'models', component: ApiDocsComponent }
+    ]
+  },
   { path: 'stream', component: StreamingComponent },
   { path: 'privacy-terms', component: PrivacyTermsComponent },
   { path: 'events/:event_key', component: EventComponent },
@@ -41,8 +49,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes, {
+    anchorScrolling: 'enabled',
+  })],
+  exports: [RouterModule]
 })
 
 export class AppRoutingModule {}

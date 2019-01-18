@@ -36,6 +36,7 @@ import { PrivacyTermsComponent } from './views/privacy_terms/PrivacyTerms.compon
 import { MatchesComponent } from './views/matches/matches.component';
 import { VelocityVortexComponent } from './views/matches/years/1617/1617-velocity-vortex.component';
 import { RelicRecoveryComponent } from './views/matches/years/1718/1718-relic-recovery-component';
+import { ActiveTabRouterModule } from './active-tab-router';
 import { AppMaterialModule } from './material.module';
 import { MatchTableComponent } from './components/match-table/match-table.component';
 import { EventItemComponent } from './components/event/event.item.component';
@@ -106,6 +107,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    ActiveTabRouterModule,
     AppMaterialModule
   ],
   providers: [FTCDatabase, CloudFunctions],
