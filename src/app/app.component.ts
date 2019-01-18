@@ -8,7 +8,6 @@ import { NavigationEnd, Router } from '@angular/router';
 import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
 import { MdcTopAppBar, MdcTextField } from '@angular-mdc/web';
-import { environment } from '../environments/environment';
 import Team from './models/Team';
 import Event from './models/Event';
 
@@ -36,7 +35,7 @@ export class TheOrangeAllianceComponent implements OnInit {
   current_year: any;
   selectedLanguage = '';
 
-  user = [];
+  user: firebase.User;
 
   matcher: MediaQueryList;
   @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
@@ -54,13 +53,17 @@ export class TheOrangeAllianceComponent implements OnInit {
     };
 
     auth.authState.subscribe(user => {
-      if (user !== null && user !== undefined) {
-        this.user['email'] = user.email;
-        db.object(`Users/${user.uid}/fullName`).query.once('value').then(data => {
-          this.user['fullName'] = data.val();
+      this.user = user;
+
+      // Fix the  old users
+      if (this.user !== null && this.user.displayName === null) {
+        db.object(`Users/${this.user.uid}/fullName`).query.once('value').then(name => {
+          this.user.updateProfile({displayName: name.val(), photoURL: null});
         });
-      } else {
-        this.user = null;
+      }
+
+      if (this.user.displayName !== null) {
+        db.database.ref(`Users/${this.user.uid}/fullName`).set(this.user.displayName)
       }
     });
 

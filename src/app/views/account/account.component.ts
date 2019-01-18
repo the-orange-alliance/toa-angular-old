@@ -6,7 +6,6 @@ import { FTCDatabase } from '../../providers/ftc-database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { Observable } from 'rxjs/Observable';
 import { TeamSorter } from '../../util/team-utils';
 import { EventSorter } from '../../util/event-utils';
 import { CloudFunctions } from '../../providers/cloud-functions';
@@ -25,9 +24,10 @@ import { auth as providers } from 'firebase';
 
 export class AccountComponent {
 
-  user = null;
+  user: firebase.User = null;
+  userData: {} = {};
   adminEvents = {};
-  profileUrl: Observable<string | null> = null;
+  profileUrl: string = null;
 
   teams: Team[];
   events: Event[];
@@ -48,15 +48,17 @@ export class AccountComponent {
 
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
-        this.user = {
-          'email': user.email,
-          'uid': user.uid
-        };
+        this.user = user;
+console.log(this.googleProvider);
+console.log(this.githubProvider);
+        // user.providerData.filter(value => va)
+        // this.user.unlink('google.com');
+        // this.user.unlink('github.com');
 
         this.emailVerified = user.emailVerified;
 
         // Request User to verify their email if they haven't already
-        if (!user.emailVerified) {
+        if (!this.user.emailVerified) {
           // User hasn't verified email, prompt them to do it now!
           this.translate.get(`pages.account.no_verify`).subscribe((no_verify: string) => {
             this.translate.get(`general.verify`).subscribe((verify: string) => {
@@ -65,7 +67,7 @@ export class AccountComponent {
               snackBarRef.afterDismiss().subscribe(reason => {
                 if (reason === 'action') {
                   // User Wants to verfy their email. Send it now!
-                  user.sendEmailVerification().then(() => {
+                  this.user.sendEmailVerification().then(() => {
                     // Show Success
                     this.translate.get(`pages.event.subpages.admin.success_sent_verify_email`).subscribe((success_sent: string) => {
                       this.snackbar.open(success_sent);
@@ -88,7 +90,7 @@ export class AccountComponent {
           .subscribe(items => {
 
             items.forEach(element => {
-              this.user[element.key] = element.payload.val();
+              this.userData[element.key] = element.payload.val();
             });
 
             this.generatingApiKey = user['APIKey'];
@@ -97,7 +99,7 @@ export class AccountComponent {
               this.teams = [];
               this.events = [];
 
-              const teams = this.user['favTeams'];
+              const teams = this.userData['favTeams'];
               for (const key in teams) {
                 if (teams[key] === true) {
                   this.ftc.getTeamBasic(key).then((team: Team) => {
@@ -109,7 +111,7 @@ export class AccountComponent {
                 }
               }
 
-              const events = this.user['favEvents'];
+              const events = this.userData['favEvents'];
               for (const key in events) {
                 if (events[key] === true) {
                   this.ftc.getEventBasic(key).then((event: Event) => {
@@ -124,7 +126,7 @@ export class AccountComponent {
               this.loaded = true;
             }
 
-            const adminEvents = this.user['adminEvents'];
+            const adminEvents = this.userData['adminEvents'];
             if (adminEvents) {
               for (const key in adminEvents) {
                 if (adminEvents[key] === true) {
@@ -136,9 +138,17 @@ export class AccountComponent {
               }
             }
 
-            if (this.user['profileImage'] != null) {
-              const storageRef = this.storage.ref(`images/users/${ this.user['profileImage'] }`);
-              this.profileUrl = storageRef.getDownloadURL();
+            for (let provider of this.user.providerData) {
+              if (provider.photoURL != null) {
+                this.profileUrl = provider.photoURL;
+                break;
+              }
+            }
+            if (this.profileUrl === null && this.userData['profileImage'] != null) {
+              const storageRef = this.storage.ref(`images/users/${ this.userData['profileImage'] }`);
+              storageRef.getDownloadURL().toPromise().then((url) => {
+                this.profileUrl = url;
+              });
             }
           });
       } else {
@@ -185,13 +195,23 @@ export class AccountComponent {
     })
   }
 
-  linkProvider(provider) {
-    this.auth.auth.currentUser.linkWithPopup(provider).then(result => {
+  isUserLinkToProvider(provider: firebase.auth.AuthProvider): boolean {
+    for (let cProvider of this.user.providerData) {
+      if (cProvider.providerId === provider.providerId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  linkProvider(provider: firebase.auth.AuthProvider) {
+    this.user.linkWithPopup(provider).then(result => {
       // Accounts successfully linked.
       const credential = result.credential;
       const user = result.user;
+
       // Show success in snackbar
-      this.translate.get(`pages.account.success_google`).subscribe((res: string) => {
+      this.translate.get(`pages.account.success_link`, {name: this.getProviderName(provider)}).subscribe((res: string) => {
         this.snackbar.open(res)
       });
     }).catch(error => {
@@ -200,6 +220,27 @@ export class AccountComponent {
         this.snackbar.open(res)
       });
     });
+  }
+
+  unlinkProvider(provider: firebase.auth.AuthProvider) {
+    this.user.unlink(provider.providerId).then(result => {
+      // Show success in snackbar
+      this.translate.get(`pages.account.success_unlink`, {name: this.getProviderName(provider)}).subscribe((res: string) => {
+        this.snackbar.open(res)
+      });
+    }).catch(error => {
+      this.translate.get(`general.error_occurred`).subscribe((res: string) => {
+        console.log(error);
+        this.snackbar.open(res)
+      });
+    });
+  }
+
+  getProviderName(provider: firebase.auth.AuthProvider) {
+    let name: string = provider.providerId;
+    name = name.replace('.com', '');
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+    return name;
   }
 
   sendAnalytic(category, label, action): void {

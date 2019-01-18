@@ -6,10 +6,10 @@
 </div>
 
 <div class="w-100 align-items-center text-center" *ngIf="user">
-  <div *ngIf="!user.profileImage && user.fullName" class="profile-image">{{ user.fullName.substring(0, 1) }}</div>
-  <img *ngIf="user.profileImage && profileUrl | async" class="profile-image" src="{{ profileUrl | async }}" height="100" />
-  <div class="profile-name">{{ 'drawer.mytoa.hello' | translate: {'name': user['fullName'] || 'User' } }}</div>
-  <div class="profile-detail">{{ ('pages.account.level' | translate: {'level': user['level'] || 1 }) + (user['team'] ? ' ⋅ #' + user['team'] : '')}}</div>
+  <div *ngIf="!profileUrl && user.displayName" class="profile-image">{{ user.displayName.substring(0, 1) }}</div>
+  <img *ngIf="profileUrl " class="profile-image" src="{{ profileUrl }}" height="100" />
+  <div class="profile-name">{{ 'drawer.mytoa.hello' | translate: {'name': user.displayName || 'User' } }}</div>
+  <div class="profile-detail">{{ ('pages.account.level' | translate: {'level': userData['level'] || 1 }) + (userData['team'] ? ' ⋅ #' + userData['team'] : '')}}</div>
 </div>
 
 <div class="row mt-5 m-2" *ngIf="user">
@@ -41,14 +41,14 @@
           {{ 'pages.account.reset_password' | translate }}
         </mdc-list-item>
 
-        <mdc-list-item (click)="linkProvider(googleProvider)">
+        <mdc-list-item (click)="isUserLinkToProvider(googleProvider) ? unlinkProvider(googleProvider) : linkProvider(googleProvider)">
           <mdc-icon mdcListItemGraphic svgIcon="google"></mdc-icon>
-          {{ 'pages.account.link_google' | translate }}
+          {{ (isUserLinkToProvider(googleProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'Google'} }}
         </mdc-list-item>
 
-        <mdc-list-item (click)="linkProvider(githubProvider)">
+        <mdc-list-item (click)="isUserLinkToProvider(githubProvider) ? unlinkProvider(githubProvider) : linkProvider(githubProvider)">
           <mdc-icon mdcListItemGraphic svgIcon="github-circle"></mdc-icon>
-          {{ 'pages.account.link_github' | translate }}
+          {{ (isUserLinkToProvider(githubProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'GitHub'} }}
         </mdc-list-item>
       </mdc-list>
     </div>

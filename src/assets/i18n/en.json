@@ -72,10 +72,10 @@
       "account_settings": "Account Settings",
       "reset_password": "Reset Password",
       "reset_password_email": "A password reset email has been sent.",
-      "link_google": "Link Google account",
-      "link_github": "Link GitHub account",
-      "success_google": "Successfully linked Google account",
-      "success_github": "Successfully linked GitHub account",
+      "link_account": "Link {{ name }} account",
+      "unlink_account": "Unlink {{ name }} account",
+      "success_link": "Successfully linked {{ name }} account",
+      "success_unlink": "Successfully unlinked {{ name }} account",
       "datasync_card": {
         "title": "Sync your event live with TOA",
         "docs": "You can check out our full DataSync Documentation"
