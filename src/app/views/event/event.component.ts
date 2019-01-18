@@ -7,6 +7,7 @@ import { MatchSorter } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { User } from "firebase";
 import Event from '../../models/Event';
 import EventType from '../../models/EventType';
 import Season from '../../models/Season';
@@ -34,7 +35,7 @@ export class EventComponent implements OnInit {
   view_type: string;
   stream: EventLiveStream;
 
-  user: any = null;
+  user: User = null;
   favorite: boolean;
   admin: boolean;
 
@@ -50,13 +51,14 @@ export class EventComponent implements OnInit {
           });
 
           // Is event admin?
+          let emailVerified = this.user.emailVerified;
           db.object(`Users/${user.uid}/adminEvents/${this.event_key}`).query.once('value').then(item => {
-            this.admin = item !== null && item.val() === true;
+            this.admin = item !== null && item.val() === true && emailVerified;
 
             if (!this.admin) {
               // Is TOA admin?
               db.object(`Users/${user.uid}/level`).query.once('value').then(item => {
-                this.admin = item.val() >= 6
+                this.admin = item.val() >= 6 && emailVerified;
               });
             }
           });

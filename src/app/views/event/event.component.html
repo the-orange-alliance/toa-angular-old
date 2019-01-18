@@ -69,7 +69,7 @@
     <h4 class="col-12">{{ 'no_data.event_long' | translate }}</h4>
   </div>
 
-  <div class="mt-5 row" *ngIf="totalteams > 0 || totalmatches > 0 || totalrankings > 0">
+  <div class="mt-5 row" *ngIf="admin || totalteams > 0 || totalmatches > 0 || totalrankings > 0">
     <div class="col-12">
       <mdc-card class="toa-card">
         <mdc-tab-bar class="w-100" [focusOnActivate]="false">
@@ -86,7 +86,7 @@
           <toa-event-teams *ngIf="isSelected('teams')" [teams]="event_data.teams"></toa-event-teams>
           <toa-event-matches *ngIf="isSelected('matches')" [matches]="event_data.matches" [teams]="event_data.teams" [rankings]="event_data.rankings"></toa-event-matches>
           <toa-event-awards *ngIf="isSelected('awards')" [event]="event_data"></toa-event-awards>
-          <toa-event-admin *ngIf="admin" [class.d-none]="!isSelected('admin')" [user]="user" [uid]="user.uid" [eventKey]="event_data.eventKey" [eventData]="event_data"></toa-event-admin>
+          <toa-event-admin *ngIf="admin" [class.d-none]="!(!isSelected('admin') || totalteams > 0 || totalmatches > 0 || totalrankings > 0)" [user]="user" [uid]="user.uid" [eventKey]="event_data.eventKey" [eventData]="event_data"></toa-event-admin>
         </div>
       </mdc-card>
     </div>
