@@ -20,7 +20,7 @@
 
   <div mdcHeadline5 class="headline-margin" *ngIf="docs">Docs</div>
   <div class="outline-card bg-white" *ngIf="docs">
-    <mdc-tab-bar #tabs activeTabRouter [activeTabIndex]="-1">
+    <mdc-tab-bar #tabs activeTabRouter [activeTabIndex]="-1" (activated)="tabActivated($event)">
       <mdc-tab-scroller>
         <mdc-tab label="GET" routerLink="get"></mdc-tab>
         <mdc-tab label="POST" routerLink="post"></mdc-tab>
@@ -31,7 +31,7 @@
     </mdc-tab-bar>
 
     <div *ngIf="tabs.activeTabIndex === 0" class="docs-api">
-      <div *ngFor="let base of getBaseRoutes(0)">
+      <div *ngFor="let base of baseRoutes">
         <h3 mdcHeadline6 class="pt-5 pb-3">{{ base.title }}</h3>
         <table>
           <thead>
@@ -53,7 +53,7 @@
     </div>
 
     <div *ngIf="tabs.activeTabIndex > 0 && tabs.activeTabIndex < 4" class="docs-api">
-      <div *ngFor="let base of getBaseRoutes(tabs.activeTabIndex)">
+      <div *ngFor="let base of baseRoutes">
         <h3 mdcHeadline6 class="pt-5 pb-3">{{ base.title }}</h3>
         <table>
           <thead>

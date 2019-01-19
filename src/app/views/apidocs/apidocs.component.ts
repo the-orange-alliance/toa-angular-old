@@ -3,6 +3,7 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeHtml } from '@angular/platform-browser/src/security/dom_sanitization_service';
+import { MdcTabActivatedEvent } from '@angular-mdc/web';
 
 @Component({
   selector: 'toa-apidocs',
@@ -13,6 +14,7 @@ import { SafeHtml } from '@angular/platform-browser/src/security/dom_sanitizatio
 export class ApiDocsComponent implements AfterViewChecked{
 
   docs: any = null;
+  baseRoutes: any[] = [];
 
   constructor(private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals, protected sanitizer: DomSanitizer,
               private cdRef: ChangeDetectorRef) {
@@ -38,6 +40,10 @@ export class ApiDocsComponent implements AfterViewChecked{
       eventAction: action,
       eventValue: 10
     });
+  }
+
+  tabActivated(event: MdcTabActivatedEvent): void {
+    this.baseRoutes = this.getBaseRoutes(event.index);
   }
 
   getBaseRoutes(tabIndex: number): any[] {
