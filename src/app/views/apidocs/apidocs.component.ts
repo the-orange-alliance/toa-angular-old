@@ -4,6 +4,7 @@ import { FTCDatabase } from '../../providers/ftc-database';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeHtml } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { MdcTabActivatedEvent } from '@angular-mdc/web';
 
 @Component({
   selector: 'toa-apidocs',
@@ -14,6 +15,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 export class ApiDocsComponent implements AfterViewChecked {
 
   docs: any = null;
+  baseRoutes: any[] = [];
 
   constructor(private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals, protected sanitizer: DomSanitizer,
               private cdRef: ChangeDetectorRef, private loca: Location) {
@@ -39,6 +41,10 @@ export class ApiDocsComponent implements AfterViewChecked {
       eventAction: action,
       eventValue: 10
     });
+  }
+
+  tabActivated(event: MdcTabActivatedEvent): void {
+    this.baseRoutes = this.getBaseRoutes(event.index);
   }
 
   getBaseRoutes(tabIndex: number): any[] {

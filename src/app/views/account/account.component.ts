@@ -59,7 +59,7 @@ export class AccountComponent {
               this.userData[element.key] = element.payload.val();
             });
 
-            this.generatingApiKey = user['APIKey'];
+            this.generatingApiKey = this.userData['APIKey'];
 
             if (!this.loaded) {
               this.teams = [];
@@ -132,12 +132,12 @@ export class AccountComponent {
   generateApiKey(): void {
     if (this.emailVerified) {
       this.generatingApiKey = true;
-      this.cloud.generateApiKey(this.user['uid']).catch(console.log);
+      this.cloud.generateApiKey(this.user.uid).catch(console.log);
     }
   }
 
   generateEventApiKey(eventKey: string): void {
-    this.cloud.generateEventApiKey(this.user['uid'], eventKey).then(() => {
+    this.cloud.generateEventApiKey(this.user.uid, eventKey).then(() => {
       this.generatingEventApiKey = false;
     }, (err) => {
       this.generatingEventApiKey = false;
