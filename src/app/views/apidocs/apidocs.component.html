@@ -20,7 +20,7 @@
 
   <div mdcHeadline5 class="headline-margin" *ngIf="docs">Docs</div>
   <div class="outline-card bg-white" *ngIf="docs">
-    <mdc-tab-bar #tabs activeTabRouter [activeTabIndex]="activeTab" (activated)="tabActivated($event)">
+    <mdc-tab-bar #tabs [activeTabIndex]="activeTab" (activated)="tabActivated($event)">
       <mdc-tab-scroller>
         <mdc-tab label="GET"    (click)="changeUrlNoRoute('get')"></mdc-tab>
         <mdc-tab label="POST"   (click)="changeUrlNoRoute('post')"></mdc-tab>
