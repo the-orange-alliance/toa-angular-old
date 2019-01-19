@@ -22,11 +22,11 @@
   <div class="outline-card bg-white" *ngIf="docs">
     <mdc-tab-bar #tabs activeTabRouter [activeTabIndex]="-1">
       <mdc-tab-scroller>
-        <mdc-tab label="GET" routerLink="get"></mdc-tab>
-        <mdc-tab label="POST" routerLink="post"></mdc-tab>
-        <mdc-tab label="PUT" routerLink="put"></mdc-tab>
-        <mdc-tab label="DELETE" routerLink="delete"></mdc-tab>
-        <mdc-tab label="Models" routerLink="models"></mdc-tab>
+        <mdc-tab label="GET"    (click)="changeUrlNoRoute('get')"></mdc-tab>
+        <mdc-tab label="POST"   (click)="changeUrlNoRoute('post')"></mdc-tab>
+        <mdc-tab label="PUT"    (click)="changeUrlNoRoute('put')"></mdc-tab>
+        <mdc-tab label="DELETE" (click)="changeUrlNoRoute('delete')"></mdc-tab>
+        <mdc-tab label="Models" (click)="changeUrlNoRoute('models')"></mdc-tab>
       </mdc-tab-scroller>
     </mdc-tab-bar>
 

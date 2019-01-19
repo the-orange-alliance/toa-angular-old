@@ -3,19 +3,20 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeHtml } from '@angular/platform-browser/src/security/dom_sanitization_service';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'toa-apidocs',
   templateUrl: './apidocs.component.html',
   styleUrls: ['./apidocs.component.scss'],
-  providers: [TheOrangeAllianceGlobals]
+  providers: [TheOrangeAllianceGlobals, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
-export class ApiDocsComponent implements AfterViewChecked{
+export class ApiDocsComponent implements AfterViewChecked {
 
   docs: any = null;
 
   constructor(private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals, protected sanitizer: DomSanitizer,
-              private cdRef: ChangeDetectorRef) {
+              private cdRef: ChangeDetectorRef, private loca: Location) {
     this.app.setTitle('API Docs');
 
     this.ftc.getDocs().then(data => {
@@ -41,7 +42,7 @@ export class ApiDocsComponent implements AfterViewChecked{
   }
 
   getBaseRoutes(tabIndex: number): any[] {
-    let response = [];
+    const response = [];
     let base: {} = {};
 
     switch (tabIndex) {
@@ -61,9 +62,9 @@ export class ApiDocsComponent implements AfterViewChecked{
 
     for (const title in base) {
       response.push({
-        'title': '/api' + (title.length > 1 && title.endsWith('/') ? title.substr(0, title.length-1) : title),
+        'title': '/api' + (title.length > 1 && title.endsWith('/') ? title.substr(0, title.length - 1) : title),
         'key': title.replace('/', '').toLowerCase(),
-        "routes": base[title]
+        'routes': base[title]
       });
     }
     return response;
@@ -74,21 +75,25 @@ export class ApiDocsComponent implements AfterViewChecked{
       return route.route;
     } else {
       let toReturn: string = route.route;
-      let params = route.params.split('. ');
-      for (let param of params) {
-        let name: string = param.split(' - ')[0];
+      const params = route.params.split('. ');
+      for (const param of params) {
+        const name: string = param.split(' - ')[0];
         let desc: string = param.split(' - ')[1];
         if (desc.endsWith('.')) {
-          desc = desc.substr(0, desc.length-1)
+          desc = desc.substr(0, desc.length - 1)
         }
-        toReturn = toReturn.replace(':'+name, `<span class="toa-tooltip" style="border-bottom: 1px dotted black">:${name}<span class="tooltiptext">${desc}</span></span>`);
+        toReturn = toReturn.replace(':' + name, `<span class="toa-tooltip" style="border-bottom: 1px dotted black">:${name}<span class="tooltiptext">${desc}</span></span>`);
       }
       return this.sanitizer.bypassSecurityTrustHtml(toReturn);
     }
   }
 
   getRequiredFieldsHTML(route: any): SafeHtml {
-    let html = route.required_fields.replace(/"([^"]+)"/g, '<code>$1</code>');
+    const html = route.required_fields.replace(/"([^"]+)"/g, '<code>$1</code>');
     return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
+  changeUrlNoRoute(route: any) {
+    this.loca.go(`apidocs/${route}`);
   }
 }
