@@ -27,6 +27,7 @@ export class TeamComponent implements OnInit {
 
   team: Team;
   teamKey: string;
+  teamLogo: Media;
   years: any;
   seasons: Season[];
   currentSeason: Season;
@@ -171,6 +172,13 @@ export class TeamComponent implements OnInit {
     this.team.media = null;
     this.ftc.getTeamMedia(this.teamKey, this.currentSeason.seasonKey).then((data: Media[]) => {
       this.team.media = data;
+
+      for (let media of this.team.media) {
+        if (media.mediaType === 5) {
+          this.teamLogo = media;
+          break;
+        }
+      }
     });
   }
 

@@ -42,8 +42,13 @@
 
   <div class="col-12 col-md-9">
     <mdc-card class="toa-card" id="info">
-      <div class="toa-card-header" [class.pb-1]="team.teamNameLong" mdcHeadline5>#{{ team.teamNumber }} - {{ team.teamNameShort }}</div>
-      <div class="toa-card-subtitle pt-0" *ngIf="team.teamNameLong">{{ team.teamNameLong }}</div>
+      <div class="d-flex align-items-center mb-1">
+        <div *ngIf="teamLogo" class="team-logo m-2" [style.backgroundImage]="'url('+teamLogo.mediaLink+')'"></div>
+        <div>
+          <div class="toa-card-header" [class.pb-1]="team.teamNameLong" mdcHeadline5>#{{ team.teamNumber }} - {{ team.teamNameShort }}</div>
+          <div class="toa-card-subtitle pt-0" *ngIf="team.teamNameLong">{{ team.teamNameLong }}</div>
+        </div>
+      </div>
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3">
         <div class="info-state">
