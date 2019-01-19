@@ -12,7 +12,7 @@
       <div class="search-anchor d-none d-md-block">
         <mdc-text-field outlined class="search-box" label="{{ 'general.search_text_long' | translate }}"
                         [(ngModel)]="search"
-                        (change)="performSearch()"
+                        (input)="performSearch()"
                         (keydown.enter)="this.navToTopSearch();"
                         (keydown.ArrowDown)="searchresults.focusFirstElement(); $event.view.event.preventDefault()">
         </mdc-text-field>
