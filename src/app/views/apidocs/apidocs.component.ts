@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SafeHtml } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { MdcTabActivatedEvent } from '@angular-mdc/web';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'toa-apidocs',
@@ -16,13 +17,31 @@ export class ApiDocsComponent implements AfterViewChecked {
 
   docs: any = null;
   baseRoutes: any[] = [];
+  activeTab = -1;
 
   constructor(private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals, protected sanitizer: DomSanitizer,
-              private cdRef: ChangeDetectorRef, private loca: Location) {
+              private cdRef: ChangeDetectorRef, private loca: Location, private router: Router) {
     this.app.setTitle('API Docs');
 
     this.ftc.getDocs().then(data => {
       this.docs = data;
+
+      console.log(this.router.url);
+      if (this.router.url.indexOf('/apidocs/get') > -1) {
+        this.activeTab = 0;
+        this.getBaseRoutes(0);
+      } else if (this.router.url.indexOf('/apidocs/post') > -1) {
+        this.activeTab = 1;
+        this.getBaseRoutes(1);
+      } else if (this.router.url.indexOf('/apidocs/put') > -1) {
+        this.activeTab = 2;
+        this.getBaseRoutes(2);
+      } else if (this.router.url.indexOf('/apidocs/delete') > -1) {
+        this.activeTab = 3;
+        this.getBaseRoutes(3);
+      } else if (this.router.url.indexOf('/apidocs/models') > -1) {
+        this.activeTab = 4;
+      }
     });
   }
 
