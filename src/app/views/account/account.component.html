@@ -66,11 +66,11 @@
   </div>
 
   <div class="col-md-5 col-12 p-2">
-    <div class="outline-card space-between p-3" *ngIf="user['APIKey']">
+    <div class="outline-card space-between p-3" *ngIf="userData['APIKey']">
       <div>
         <div mdcHeadline5 class="black mt-3">{{ 'pages.account.api_card.title' | translate }}</div>
         <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.your_key' | translate }}</div>
-        <code dir="ltr">{{ user['APIKey'] || 'Not found' }}</code>
+        <code dir="ltr">{{ userData['APIKey'] || 'Not found' }}</code>
         <div mdcSubtitle1 class="mt-2">{{ 'pages.account.api_card.docs' | translate }}
           <a href="https://orange-alliance.github.io/TOA-API" target="_blank" (click)="this.sendAnalytic('leaving', '/account', 'api docs');">{{ 'general.here' | translate }}</a>.
         </div>
@@ -78,7 +78,7 @@
       <img class="server-illustration" src="../../../assets/imgs/server_illustration.svg" />
     </div>
 
-    <div class="outline-card space-between p-3" *ngIf="!user['APIKey']">
+    <div class="outline-card space-between p-3" *ngIf="!userData['APIKey']">
       <div>
         <div mdcHeadline5 class="black mt-3">{{ 'pages.account.api_card.title' | translate }}</div>
         <div *ngIf="!generatingApiKey">
