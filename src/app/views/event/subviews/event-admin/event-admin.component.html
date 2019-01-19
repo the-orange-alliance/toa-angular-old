@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div class="outline-card mt-3">
+    <div class="outline-card mt-2 mb-2">
       <div mdcHeadline5 class="black pb-4">{{ 'pages.event.subpages.admin.update_info_card.title' | translate }}</div>
       <div class="row edit-event">
         <div class="col-md-6 col-12 p-1">
@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <div class="col-md-6 col-12">
+  <div class="col-md-6 col-12 pt-2 pt-md-0 ps-md-2">
     <div class="outline-card">
       <div mdcHeadline5 class="black pb-4">{{ 'pages.event.subpages.admin.playlist_card.title' | translate }}</div>
       <div class="d-inline-flex align-items-center">
@@ -72,6 +72,30 @@
           <a href="#" mdcListItemMeta mdcIcon title="Play Video" [href]="video['video_url']" target="_blank">play_circle_outline</a>
         </mdc-list-item>
       </mdc-list>
+    </div>
+
+    <div class="outline-card mt-2">
+      <div mdcHeadline5 class="black">{{ 'pages.event.subpages.admin.update_info_card.pits_map' | translate }}</div>
+      <div mdcSubtitle1 class="pb-3">{{ 'pages.event.subpages.admin.update_info_card.image_only' | translate }}</div>
+      <div class="d-flex">
+        <div class="custom-file me-2">
+          <input class="custom-file-input" type="file" id="pitMaps" (change)="handleImage($event, pitsMap)" />
+          <label class="custom-file-label" for="pitMaps">{{ getFileName(pitsMap) || ('pages.event.subpages.admin.update_info_card.choose_image' | translate) }}</label>
+        </div>
+        <button mdc-button primary (click)="uploadImage(pitsMap)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
+      </div>
+    </div>
+
+    <div class="outline-card mt-2">
+      <div mdcHeadline5 class="black">{{ 'pages.event.subpages.admin.update_info_card.schedule' | translate }}</div>
+      <div mdcSubtitle1 class="pb-3">{{ 'pages.event.subpages.admin.update_info_card.image_only' | translate }}</div>
+      <div class="d-flex">
+        <div class="custom-file me-2">
+          <input class="custom-file-input" type="file" id="schedule" (change)="handleImage($event, schedule)" />
+          <label class="custom-file-label" for="schedule">{{ getFileName(schedule) || ('pages.event.subpages.admin.update_info_card.choose_image' | translate) }}</label>
+        </div>
+        <button mdc-button primary (click)="uploadImage(schedule)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
+      </div>
     </div>
   </div>
 </div>

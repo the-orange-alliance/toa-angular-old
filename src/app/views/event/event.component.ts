@@ -37,6 +37,7 @@ export class EventComponent implements OnInit {
 
   user: User = null;
   favorite: boolean;
+  emailVerified: boolean = true;
   admin: boolean;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
@@ -51,14 +52,14 @@ export class EventComponent implements OnInit {
           });
 
           // Is event admin?
-          let emailVerified = this.user.emailVerified;
+          this.emailVerified = this.user.emailVerified;
           db.object(`Users/${user.uid}/adminEvents/${this.event_key}`).query.once('value').then(item => {
-            this.admin = item !== null && item.val() === true && emailVerified;
+            this.admin = item !== null && item.val() === true;
 
             if (!this.admin) {
               // Is TOA admin?
               db.object(`Users/${user.uid}/level`).query.once('value').then(item => {
-                this.admin = item.val() >= 6 && emailVerified;
+                this.admin = item.val() >= 6;
               });
             }
           });

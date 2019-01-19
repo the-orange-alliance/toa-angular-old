@@ -11,11 +11,11 @@ export class CloudFunctions {
 
   public generateApiKey(uid: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const aHeaders = new HttpHeaders({
+      const headers = new HttpHeaders({
         'authorization': 'Bearer ' + uid
       });
 
-      this.http.get(this.baseUrl + '/generateKey', {headers: aHeaders}).subscribe((data: any) => {
+      this.http.get(this.baseUrl + '/generateKey', {headers: headers}).subscribe((data: any) => {
         resolve(data);
       }, (err: any) => {
         reject(err);
@@ -25,12 +25,12 @@ export class CloudFunctions {
 
   public generateEventApiKey(uid: string, eventKey: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const aHeaders = new HttpHeaders({
+      const headers = new HttpHeaders({
         'authorization': 'Bearer ' + uid,
         'data': eventKey
       });
 
-      this.http.get(this.baseUrl + '/eventKey', {headers: aHeaders}).subscribe((data: any) => {
+      this.http.get(this.baseUrl + '/eventKey', {headers: headers}).subscribe((data: any) => {
         resolve(data);
       }, (err: any) => {
         reject(err);
@@ -80,6 +80,36 @@ export class CloudFunctions {
       });
 
       this.http.post(this.baseUrl + '/updateEvent', eventData, {headers: headers}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public addEventMedia(uid: string, mediaData: any): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'authorization': `Bearer ${uid}`,
+        'data': 'event'
+      });
+
+      this.http.post(this.baseUrl + '/addMedia', mediaData, {headers: headers}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public addTeamMedia(uid: string, mediaData: any): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'authorization': `Bearer ${uid}`,
+        'data': 'team'
+      });
+
+      this.http.post(this.baseUrl + '/addMedia', mediaData, {headers: headers}).subscribe((data: any) => {
         resolve(data);
       }, (err: any) => {
         reject(err);

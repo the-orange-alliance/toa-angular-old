@@ -1,14 +1,15 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
+import { UploadService } from '../../../../providers/imgur';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { User } from 'firebase';
 import Event from '../../../../models/Event';
-import {Router} from '@angular/router';
-import {User} from 'firebase';
 
 @Component({
-  providers: [CloudFunctions],
+  providers: [CloudFunctions, UploadService],
   selector: 'toa-event-admin',
   templateUrl: './event-admin.component.html',
   styleUrls: ['./event-admin.component.scss']
@@ -30,6 +31,10 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   showConfirm: boolean;
   uploadingVideos: boolean;
 
+  private images: any = {};
+  private pitsMap: string = 'pits_map';
+  private schedule: string = 'schedule';
+
   // These are for updating the Event Info
   @ViewChild('event_name') eventName: MdcTextField;
   @ViewChild('start_date') startDate: MdcTextField;
@@ -41,7 +46,9 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   @ViewChild('country') country: MdcTextField;
 
   constructor(private cloud: CloudFunctions, private db: AngularFireDatabase, private snackbar: MdcSnackbar,
-              private translate: TranslateService, private router: Router) {}
+              private translate: TranslateService, private router: Router, public imgur: UploadService) {
+
+  }
 
   ngOnInit() {
     this.db.object(`eventAPIs/${ this.eventKey }`).snapshotChanges().subscribe(item => {
@@ -174,13 +181,68 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
         if (reason === 'action') {
           this.user.sendEmailVerification().then(() => {
             this.showSnackbar(`pages.event.subpages.admin.success_sent_verify_email`);
-          }).catch((error) => {
-            console.log(error);
-            this.showSnackbar(`general.error_occurred`, `HTTP-500`);
+          }).catch((err) => {
+            this.showSnackbar(`general.error_occurred`, `HTTP-${err.status}`);
           })
         }
       });
     });
+  }
+
+  handleImage(e, type: string){
+    const image = e.target.files[0];
+    if (image) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.images[type] = {
+          'filename': image.name,
+          'base64': btoa(reader.result.toString())
+        };
+      };
+      reader.readAsBinaryString(image);
+    }
+  }
+
+  uploadImage(type){
+    if (this.images[type]) {
+      this.imgur.uploadImage(this.images[type]['base64'])
+        .then((data: any) => {
+          let image = data.data;
+          let mediaData = {
+            "event_key": this.eventKey,
+            "primary": false,
+            "media_link": image.link,
+            "media_type": -1,
+          };
+
+          if (type === this.pitsMap) {
+            mediaData.media_type = 0;
+          } else if (type === this.schedule) {
+            mediaData.media_type = 1;
+          }
+
+          if (mediaData.media_type > -1) {
+            this.cloud.addEventMedia(this.uid, mediaData).then(() => {
+              this.showSnackbar('pages.event.subpages.admin.update_info_card.successfully');
+            }).catch((err) => {
+              this.showSnackbar(`general.error_occurred`, `HTTP-${err.status}`);
+            });
+          } else {
+            this.showSnackbar(`general.error_occurred`);
+          }
+        }, (err) => {
+          this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
+        });
+    } else {
+      this.showSnackbar(`general.error_occurred`);
+    }
+  }
+
+  getFileName(type: string) {
+    if (this.images[type]) {
+      return this.images[type]['filename'];
+    }
+    return null
   }
 
   sendAnalytic(category, action): void {

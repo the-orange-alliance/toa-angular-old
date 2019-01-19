@@ -24,6 +24,7 @@ import { ApiDocsComponent } from './views/apidocs/apidocs.component';
 
 import { FTCDatabase } from './providers/ftc-database';
 import { CloudFunctions } from './providers/cloud-functions';
+import { UploadService } from './providers/imgur';
 import { EventRankingsComponent } from './views/event/subviews/event-rankings/event-rankings.component';
 import { EventMatchesComponent } from './views/event/subviews/event-matches/event-matches.component';
 import { EventTeamsComponent } from './views/event/subviews/event-teams/event-teams.component';
@@ -108,7 +109,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppRoutingModule,
     AppMaterialModule
   ],
-  providers: [FTCDatabase, CloudFunctions],
+  providers: [FTCDatabase, CloudFunctions, UploadService],
   bootstrap: [TheOrangeAllianceComponent]
 })
 export class AppModule { }
