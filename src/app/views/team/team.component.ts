@@ -171,6 +171,7 @@ export class TeamComponent implements OnInit {
     this.select('results');
     this.team.media = null;
     this.ftc.getTeamMedia(this.teamKey, this.currentSeason.seasonKey).then((data: Media[]) => {
+      this.team.media = [];
       for (let media of data) {
         if (media.mediaType === 5) {
           this.teamLogo = media;
