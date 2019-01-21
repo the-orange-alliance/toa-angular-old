@@ -170,6 +170,11 @@
             "state": "Estado",
             "country": "País",
             "update": "Actualización",
+            "pits_map": "Mapa de pits",
+            "schedule": "Horario de evento.",
+            "upload": "Subir",
+            "image_only": "Puede subir sólo como una imagen",
+            "choose_image": "Elegir imagen...",
             "successfully": "Actualizado correctamente la información del evento"
           },
           "verify_email": "Por favor verifica su correo electrónico e inténtalo de nuevo.",
