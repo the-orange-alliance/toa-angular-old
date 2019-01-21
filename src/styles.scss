@@ -577,8 +577,13 @@ table.match-table tr {
    Search
    ========================================================================== */
 
+.mobile-search {
+  width: 100%!important;
+  background-color: white!important;
+}
+
 .mobile-search input {
-  font-size: 35px
+  font-size: 25px
 }
 
 .search-anchor {

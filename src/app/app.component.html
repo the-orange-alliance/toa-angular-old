@@ -147,11 +147,10 @@
         </div>
         <div class="modal-body pt-0" style="overflow-y: initial !important">
           <mdc-text-field #searchInput class="mobile-search"
-                          (change)="performSearch()"
+                          (input)="performSearch()"
                           (keydown.enter)="this.navToTopSearch()"
                           label="{{ 'general.search_text_short' | translate }}"
-                          [(ngModel)]="search"
-                          [fullwidth]="true">
+                          [(ngModel)]="search">
           </mdc-text-field>
           <div class="row mt-3" *ngIf="search" style="max-height: calc(100vh - 175px); overflow-y: auto">
             <div class="col-md-6 col-12">
