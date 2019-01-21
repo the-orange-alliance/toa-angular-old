@@ -27,6 +27,7 @@
         <mdc-tab label="PUT"    (click)="changeUrlNoRoute('put')"></mdc-tab>
         <mdc-tab label="DELETE" (click)="changeUrlNoRoute('delete')"></mdc-tab>
         <mdc-tab label="Models" (click)="changeUrlNoRoute('models')"></mdc-tab>
+        <mdc-tab label="Types" (click)="changeUrlNoRoute('types')"></mdc-tab>
       </mdc-tab-scroller>
     </mdc-tab-bar>
 
@@ -86,6 +87,28 @@
           </thead>
           <tbody>
           <tr *ngFor="let field of model.fields">
+            <td>{{ field.name }}</td>
+            <td>{{ field.type }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="tabs.activeTabIndex === 5" class="docs-api">
+      <div *ngFor="let type of docs.types">
+        <h3 mdcHeadline6 class="pt-5 pb-3">{{ type.name }}</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Key</th>
+            <th>Name</th>
+            <th>Type</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let field of type.types">
+            <td>{{ field.key }}</td>
             <td>{{ field.name }}</td>
             <td>{{ field.type }}</td>
           </tr>

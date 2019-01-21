@@ -41,6 +41,8 @@ export class ApiDocsComponent implements AfterViewChecked {
         this.getBaseRoutes(3);
       } else if (this.router.url.indexOf('/apidocs/models') > -1) {
         this.activeTab = 4;
+      } else if (this.router.url.indexOf('/apidocs/types') > -1) {
+        this.activeTab = 5;
       }
     });
   }

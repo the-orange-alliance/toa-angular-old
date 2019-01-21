@@ -32,7 +32,8 @@ const routes: Routes = [
       { path: 'post', component: ApiDocsComponent },
       { path: 'put', component: ApiDocsComponent },
       { path: 'delete', component: ApiDocsComponent },
-      { path: 'models', component: ApiDocsComponent }
+      { path: 'models', component: ApiDocsComponent },
+      { path: 'types', component: ApiDocsComponent }
     ]
   },
   { path: 'stream', component: StreamingComponent },
