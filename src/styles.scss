@@ -582,6 +582,10 @@ table.match-table tr {
   background-color: white!important;
 }
 
+.mobile-search::before, .mobile-search::after {
+  display: none!important;
+}
+
 .mobile-search input {
   font-size: 25px
 }
