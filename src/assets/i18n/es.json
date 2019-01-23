@@ -148,6 +148,11 @@
         "awards": {
           "title": "Premios"
         },
+        "for-participants": {
+          "title": "Para los participantes",
+          "pits_map": "Mapa de pits",
+          "schedule": "Horario de evento"
+        },
         "admin": {
           "title": "Administración",
           "playlist_card": {
@@ -171,7 +176,7 @@
             "country": "País",
             "update": "Actualización",
             "pits_map": "Mapa de pits",
-            "schedule": "Horario de evento.",
+            "schedule": "Horario de evento",
             "upload": "Subir",
             "image_only": "Puede subir sólo como una imagen",
             "choose_image": "Elegir imagen...",
