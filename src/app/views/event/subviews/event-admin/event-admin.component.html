@@ -61,9 +61,9 @@
         <mdc-text-field dense label="{{ 'pages.event.subpages.admin.playlist_card.playlist_url' | translate }}" *ngIf="showGetObjects" [(ngModel)]="playlistURL"></mdc-text-field>
         <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="playlistMatchify()" *ngIf="!loadingVideos && showGetObjects">{{ 'pages.event.subpages.admin.playlist_card.load' | translate }}</button>
         <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="setVideos()" *ngIf="!uploadingVideos && showConfirm">{{ 'pages.event.subpages.admin.playlist_card.confirm' | translate }}</button>
-        <span class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" *ngIf="showGetObjects && eventData">Ex. video name: <b><i>{{ eventData.startDate | date : "y" }} {{ eventData.divisionName ? eventData.eventName + ' - ' +  eventData.divisionName + ' Division' : eventData.eventName }} - Qualification Match 1</i></b></span>
         <mdc-linear-progress class="ml-2 mr-2" style="width: 64px" *ngIf="loadingVideos || uploadingVideos"></mdc-linear-progress>
       </div>
+      <span class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" *ngIf="showGetObjects && eventData">Ex. video name: <b><i>{{ eventData.startDate | date : "y" }} {{ eventData.divisionName ? eventData.eventName + ' - ' +  eventData.divisionName + ' Division' : eventData.eventName }} - Qualification Match 1</i></b></span>
 
       <mdc-list #custom twoLine avatar class="videos-list" *ngIf="videos && videos.length > 0">
         <mdc-list-item  *ngFor="let video of videos">
@@ -82,7 +82,7 @@
           <input class="custom-file-input" type="file" id="pitMaps" (change)="handleImage($event, pitsMap)" />
           <label class="custom-file-label" for="pitMaps" [dir]="'config.direction' | translate">{{ getFileName(pitsMap) || ('pages.event.subpages.admin.update_info_card.choose_image' | translate) }}</label>
         </div>
-        <button mdc-button primary (click)="uploadImage(pitsMap)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
+        <button mdc-button primary (click)="uploadImage(pitsMap)" [disabled]="!getFileName(pitsMap)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
       </div>
     </div>
 
@@ -94,7 +94,7 @@
           <input class="custom-file-input" type="file" id="schedule" (change)="handleImage($event, schedule)" />
           <label class="custom-file-label" for="schedule" [dir]="'config.direction' | translate">{{ getFileName(schedule) || ('pages.event.subpages.admin.update_info_card.choose_image' | translate) }}</label>
         </div>
-        <button mdc-button primary (click)="uploadImage(schedule)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
+        <button mdc-button primary (click)="uploadImage(schedule)" [disabled]="!getFileName(schedule)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
       </div>
     </div>
   </div>
