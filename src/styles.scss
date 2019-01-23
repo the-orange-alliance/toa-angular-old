@@ -199,6 +199,15 @@ $breakpoints: (
   }
 }
 
+[dir="rtl"].custom-file-label::after {
+  left: 0;
+  right: initial;
+  border-right: 1px solid #ced4da;
+  border-left: 0;
+  border-radius: .20rem 0 0 .20rem;
+}
+
+
 /* ==========================================================================
    Drawer
    ========================================================================== */
@@ -264,8 +273,7 @@ mdc-drawer mdc-list a {
 
 @media (max-width: 1239px) {
   .toa-page {
-    padding: 20px;
-    //padding-left: 20px;
+    padding: 10px;
   }
 }
 
@@ -577,6 +585,15 @@ table.match-table tr {
    Search
    ========================================================================== */
 
+.mobile-search-modal .modal-dialog {
+  margin: 0!important;
+  height: 100%!important;
+  width: 100%!important;
+}
+.mobile-search-modal .modal-content {
+   border: none;
+   border-radius: 0;
+}
 .mobile-search {
   width: 100%!important;
   background-color: white!important;

@@ -153,6 +153,11 @@
         "awards": {
           "title": "Awards"
         },
+        "for-participants": {
+          "title": "For Participants",
+          "pits_map": "Pits Map",
+          "schedule": "Event Schedule"
+        },
         "admin": {
           "title": "Admin",
           "playlist_card": {

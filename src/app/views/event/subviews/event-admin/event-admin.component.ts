@@ -156,11 +156,6 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
 
   setFieldText(elm: MdcTextField, text: string) {
     elm.setValue(text);
-
-    // Fix MDC bug
-    if (elm._floatingLabel) {
-      elm._notchedOutline.notch(elm._floatingLabel.getWidth()); // Don't do ',true' as it causes issues in production builds.
-    }
   }
 
   getFieldText(elm: MdcTextField) {
@@ -224,6 +219,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
           if (mediaData.media_type > -1) {
             this.cloud.addEventMedia(this.uid, mediaData).then(() => {
               this.showSnackbar('pages.event.subpages.admin.update_info_card.successfully');
+              this.images[type] = null;
             }).catch((err) => {
               this.showSnackbar(`general.error_occurred`, `HTTP-${err.status}`);
             });
