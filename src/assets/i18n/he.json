@@ -153,6 +153,11 @@
         "awards": {
           "title": "פרסים"
         },
+        "for-participants": {
+          "title": "למשתתפים",
+          "pits_map": "מפת פיטים",
+          "schedule": "לוח זמנים"
+        },
         "admin": {
           "title": "ניהול",
           "playlist_card": {

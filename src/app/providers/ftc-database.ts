@@ -265,6 +265,14 @@ export class FTCDatabase {
     });
   }
 
+  public getEventMedia(eventKey: string): Promise<Media[]> {
+    return new Promise<Media[]>((resolve, reject) => {
+      this.request('/event/' + eventKey + '/media/').then((data: any[]) => {
+        resolve(data.map((result: any) => new Media().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
   public getEventMatches(eventKey: string): Promise<Match[]> {
     return new Promise<Match[]>((resolve, reject) => {
       this.request('/event/' + eventKey + '/matches').then((data: any[]) => {

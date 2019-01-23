@@ -12,6 +12,7 @@ import Event from '../../models/Event';
 import EventType from '../../models/EventType';
 import Season from '../../models/Season';
 import EventLiveStream from '../../models/EventLiveStream';
+import Media from '../../models/Media';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -28,12 +29,14 @@ export class EventComponent implements OnInit {
   event_data: Event;
   event_type_name: string;
   event_season_name: string;
+  totalmedia: number = 0;
   totalteams: any;
   totalmatches: any;
   totalrankings: any;
   totalawards: any;
   view_type: string;
   stream: EventLiveStream;
+  media: Media[];
 
   user: User = null;
   favorite: boolean;
@@ -107,6 +110,14 @@ export class EventComponent implements OnInit {
             }
           });
 
+          this.ftc.getEventMedia(this.event_key).then((data: Media[]) => {
+            this.media = data;
+            if (this.media && this.media.length > 0 && !this.hasEventEnded()) {
+              this.totalmedia = this.media.length;
+              this.select('media');
+            }
+          });
+
           this.ftc.getEventTypes().then((types: EventType[]) => {
             this.event_types = types;
             const typeObj = this.event_types.filter(obj => obj.eventTypeKey === this.event_data.eventTypeKey);
@@ -157,6 +168,12 @@ export class EventComponent implements OnInit {
         this.favorite = items !== null && items.val() === true
         });
     }
+  }
+
+  public hasEventEnded(): boolean {
+    const today = new Date();
+    const diff = (new Date(this.event_data.endDate).valueOf() - today.valueOf()) / 1000 / 60 / 60; // Convert milliseconds to hours
+    return diff < -24; // 24 hours extra
   }
 
   sendAnalytic(category, action): void {
