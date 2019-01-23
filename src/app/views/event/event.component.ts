@@ -112,7 +112,7 @@ export class EventComponent implements OnInit {
 
           this.ftc.getEventMedia(this.event_key).then((data: Media[]) => {
             this.media = data;
-            if (this.media && this.media.length > 0) {
+            if (this.media && this.media.length > 0 && !this.hasEventEnded()) {
               this.totalmedia = this.media.length;
               this.select('media');
             }
@@ -168,6 +168,12 @@ export class EventComponent implements OnInit {
         this.favorite = items !== null && items.val() === true
         });
     }
+  }
+
+  public hasEventEnded(): boolean {
+    const today = new Date();
+    const diff = (new Date(this.event_data.endDate).valueOf() - today.valueOf()) / 1000 / 60 / 60; // Convert milliseconds to hours
+    return diff < -24; // 24 hours extra
   }
 
   sendAnalytic(category, action): void {
