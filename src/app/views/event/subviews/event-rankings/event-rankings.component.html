@@ -15,7 +15,7 @@
     <tbody *ngIf="rankings">
       <tr *ngFor="let rank of rankings" >
         <td>{{ rank.rank }}</td>
-        <td><a routerLink="/teams/{{ rank.teamKey }}">{{ rank.teamNumber }}</a></td>
+        <td><a routerLink="/teams/{{ rank.teamKey }}">{{ rank.teamKey }}</a></td>
         <td>{{ rank.wins }} - {{ rank.losses }} - {{ rank.ties }}</td>
         <td *ngIf="showQualPoints">{{ rank.qualifyingPoints }}</td>
         <td>{{ rank.rankingPoints }}</td>
