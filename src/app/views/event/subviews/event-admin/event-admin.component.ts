@@ -31,9 +31,9 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   showConfirm: boolean;
   uploadingVideos: boolean;
 
-  private images: any = {};
-  private pitsMap: string = 'pits_map';
-  private schedule: string = 'schedule';
+  images: any = {};
+  pitsMap: string = 'pits_map';
+  schedule: string = 'schedule';
 
   // These are for updating the Event Info
   @ViewChild('event_name') eventName: MdcTextField;
