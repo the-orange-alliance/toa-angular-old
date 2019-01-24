@@ -235,7 +235,7 @@
   </tbody>
 </table>
 
-<div class="mdc-snackbar" [class.mdc-snackbar--open]="selectedTeamParticipant">
+<div class="mdc-snackbar selected-team-snackbar" [class.mdc-snackbar--open]="selectedTeamParticipant">
   <div *ngIf="selectedTeamParticipant" class="d-flex align-items-center mdc-snackbar__surface p-3">
     <div class="d-block">
       <div class="mdc-snackbar__label"><b>#{{ selectedTeamParticipant.team.teamNumber }}</b>&nbsp;{{ selectedTeamParticipant.team.teamNameShort }}</div>

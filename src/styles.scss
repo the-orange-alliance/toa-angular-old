@@ -556,13 +556,13 @@ table.match-table tr {
 }
 
 .selected-team-snackbar {
-  display: block;
   padding: 15px 24px;
 }
 
-.selected-team-snackbar .mdc-snackbar__text {
+.selected-team-snackbar .mdc-snackbar__label {
   height: auto;
-  padding-bottom: 8px;
+  padding: 0 0 10px 0;
+  font-size: 16px;
 }
 
 .selected-team-snackbar .badge {
@@ -571,15 +571,6 @@ table.match-table tr {
   padding: 7px;
 }
 
-@media (min-width: 600px) {
-  .mdc-snackbar--active.selected-team-snackbar {
-    bottom: 15px;
-  }
-
-  .selected-team-snackbar:not(.mdc-snackbar--active) {
-    bottom: -1000px;
-  }
-}
 
 /* ==========================================================================
    Search
