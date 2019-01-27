@@ -121,7 +121,7 @@
       </div>
     </div>
 
-    <div *ngIf="hasStream && linkedStream" class="outline-card mt-2">
+    <div *ngIf="hasStream && linkedStream && linkedStream.isActive" class="outline-card mt-2">
       <div mdcHeadline5 class="black">{{ 'pages.event.subpages.admin.stream_card.unlink_stream' | translate }}</div>
       <div mdcSubtitle1 class="pb-3">{{ 'pages.event.subpages.admin.stream_card.currently_linked' | translate }}: {{ linkedStream.channelURL }}</div>
       <div class="d-flex">

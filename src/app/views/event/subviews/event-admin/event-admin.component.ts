@@ -69,7 +69,11 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       for (const stream of data) {
         if (stream.eventKey === this.eventData.eventKey) {
-          this.hasStream = true;
+          if (stream.isActive) {
+            this.hasStream = true;
+          } else {
+            this.hasStream = false;
+          }
           this.linkedStream = stream;
           break;
         }
