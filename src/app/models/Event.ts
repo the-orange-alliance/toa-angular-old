@@ -82,7 +82,6 @@ export default class Event implements ISerializable {
       region_key: this.regionKey,
       league_key: this.leagueKey,
       event_code: this.eventCode,
-      event_region_number: this.eventRegionNumber,
       event_type_key: this.eventTypeKey,
       division_key: this.divisionKey,
       division_name: this.divisionName,
@@ -102,9 +101,7 @@ export default class Event implements ISerializable {
       alliance_count: this.allianceCount,
       field_count: this.fieldCount,
       advance_spots: this.advanceSpots,
-      advance_event: this.advanceEvent,
-      team_count: this.teamCount,
-      match_count: this.matchCount
+      advance_event: this.advanceEvent
     };
   }
 

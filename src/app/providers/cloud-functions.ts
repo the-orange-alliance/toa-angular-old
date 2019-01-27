@@ -72,6 +72,20 @@ export class CloudFunctions {
     });
   }
 
+  public createEvent(uid: string, eventData: any[]): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'authorization': `Bearer ${uid}`
+      });
+
+      this.http.post(this.baseUrl + '/createEvent', eventData, {headers: headers}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+
   public updateEvent(uid: string, eventKey: string, eventData: any[]): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       const headers = new HttpHeaders({

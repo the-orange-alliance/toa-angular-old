@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -11,9 +11,12 @@ import { EventSorter } from '../../util/event-utils';
 import { CloudFunctions } from '../../providers/cloud-functions';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
-import { MdcSnackbar } from '@angular-mdc/web';
+import {MdcSnackbar, MdcTextField} from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import { auth as providers } from 'firebase';
+import Season from '../../models/Season';
+import Region from '../../models/Region';
+import EventType from '../../models/EventType';
 
 @Component({
   selector: 'toa-account',
@@ -22,7 +25,7 @@ import { auth as providers } from 'firebase';
   providers: [CloudFunctions, TheOrangeAllianceGlobals]
 })
 
-export class AccountComponent {
+export class AccountComponent implements OnInit {
 
   user: firebase.User = null;
   userData: {} = {};
@@ -32,6 +35,10 @@ export class AccountComponent {
   teams: Team[];
   events: Event[];
 
+  seasons: Season[];
+  regions: Region[];
+  eventTypes: EventType[];
+
   loaded: boolean;
   generatingApiKey: boolean;
   generatingEventApiKey: boolean;
@@ -40,11 +47,27 @@ export class AccountComponent {
   googleProvider = new providers.GoogleAuthProvider();
   githubProvider = new providers.GithubAuthProvider();
 
+  // These are for creating the Events
+  @ViewChild('event_name') eventName: MdcTextField;
+  @ViewChild('event_id') eventId: MdcTextField;
+  @ViewChild('division_number') divisionNumber: MdcTextField;
+  @ViewChild('start_date') startDate: MdcTextField;
+  @ViewChild('end_date') endDate: MdcTextField;
+  @ViewChild('website') website: MdcTextField;
+  @ViewChild('venue') venue: MdcTextField;
+  @ViewChild('city') city: MdcTextField;
+  @ViewChild('state') state: MdcTextField;
+  @ViewChild('country') country: MdcTextField;
+  currentSeason: Season = null;
+  currentRegion: Region = null;
+  currentEventType: EventType = null;
+
   constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient, private snackbar: MdcSnackbar,
               db: AngularFireDatabase, public auth: AngularFireAuth, private storage: AngularFireStorage, private cloud: CloudFunctions, private translate: TranslateService) {
 
     this.app.setTitle('myTOA');
     this.app.setDescription('Your myTOA account overview');
+
 
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
@@ -104,7 +127,7 @@ export class AccountComponent {
               }
             }
 
-            for (let provider of this.user.providerData) {
+            for (const provider of this.user.providerData) {
               if (provider.photoURL != null) {
                 this.profileUrl = provider.photoURL;
                 break;
@@ -121,6 +144,76 @@ export class AccountComponent {
         this.router.navigateByUrl('/account/login');
       }
     });
+  }
+
+  ngOnInit() {
+    this.ftc.getAllRegions().then((data: Region[]) => {
+      this.regions = data;
+      this.currentRegion = this.regions[0];
+    });
+    this.ftc.getAllSeasons().then((data: Season[]) => {
+      this.seasons = data.reverse();
+      this.currentSeason = this.seasons[0];
+    });
+    this.ftc.getAllEventTypes().then((data: EventType[]) => {
+      this.eventTypes = data;
+      this.currentEventType = this.eventTypes[0];
+    });
+  }
+
+  selectSeason(season: Season) {
+    this.currentSeason = season;
+  }
+
+  selectRegion(region: Region) {
+    this.currentRegion = region;
+  }
+
+  selectEventType(et: EventType) {
+    this.currentEventType = et;
+  }
+
+  createEvent() {
+    const event = new Event;
+    event.eventKey = this.currentSeason.seasonKey + '-' + this.currentRegion.regionKey + '-' + this.eventId.value;
+    event.seasonKey = this.currentSeason.seasonKey;
+    event.regionKey = this.currentRegion.regionKey;
+    event.eventCode = this.eventId.value;
+    event.eventTypeKey = this.currentEventType.eventTypeKey;
+    event.eventName = this.eventName.value;
+    event.divisionKey = this.divisionNumber.value;
+    event.activeTournamentLevel = '0';
+    event.startDate = this.startDate.value;
+    event.endDate = this.endDate.value;
+    event.weekKey = this.dateToMonth(this.startDate.value);
+    event.city = this.city.value;
+    event.stateProv = this.state.value;
+    event.country = this.country.value;
+    event.venue = this.venue.value;
+
+    this.cloud.createEvent(this.user.uid, [event.toJSON()]).then((data: {}) => {
+      this.showSnackbar('pages.account.create_event_card.success', null, null, event.eventKey);
+    }, (err) => {
+      this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
+    });
+  }
+
+  dateToMonth(date: number): string {
+    const month = date.toString().split('-')[1];
+    switch (parseInt(month, 10)) {
+      case 1: return 'January';
+      case 2: return 'February';
+      case 3: return 'March';
+      case 4: return 'April';
+      case 5: return 'May';
+      case 6: return 'June';
+      case 7: return 'July';
+      case 8: return 'August';
+      case 9: return 'September';
+      case 10: return 'October';
+      case 11: return 'November';
+      case 12: return 'December';
+    }
   }
 
   signOut(): void {
@@ -179,7 +272,7 @@ export class AccountComponent {
   }
 
   isUserLinkToProvider(provider: firebase.auth.AuthProvider): boolean {
-    for (let cProvider of this.user.providerData) {
+    for (const cProvider of this.user.providerData) {
       if (cProvider.providerId === provider.providerId) {
         return true;
       }
@@ -239,6 +332,32 @@ export class AccountComponent {
       eventLabel: label,
       eventAction: action,
       eventValue: 10
+    });
+  }
+
+  showSnackbar(translateKey: string, errorKey?: string, value?: number, eventKey?: string) {
+    const isEmail = (errorKey) ? errorKey.indexOf('428') > -1 : undefined;
+    const msg = (isEmail) ? 'pages.event.subpages.admin.verify_email' : translateKey;
+
+    this.translate.get(msg, {value: value}).subscribe((res: string) => {
+
+      const message = (errorKey && !isEmail) ? `${res} (${errorKey})` : res;
+
+      const snackBarRef = this.snackbar.open(message, (isEmail) ? 'Verify' : (eventKey) ? 'Go' : null);
+
+      snackBarRef.afterDismiss().subscribe(reason => {
+        if (reason === 'action') {
+          if (isEmail) {
+            this.user.sendEmailVerification().then(() => {
+              this.showSnackbar(`pages.event.subpages.admin.success_sent_verify_email`);
+            }).catch((err) => {
+              this.showSnackbar(`general.error_occurred`, `HTTP-${err.status}`);
+            })
+          } else if (eventKey) {
+            this.router.navigateByUrl('/events/' + eventKey);
+          }
+        }
+      });
     });
   }
 }

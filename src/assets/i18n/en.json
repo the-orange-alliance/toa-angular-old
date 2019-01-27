@@ -84,6 +84,13 @@
         "title": "Sync your event live with TOA",
         "docs": "You can check out our full DataSync Documentation"
       },
+      "create_event_card": {
+        "title": "Create Event",
+        "create": "Create",
+        "event_id": "Event ID",
+        "division_number": "Division Number",
+        "success": "Successfully Created Event"
+      },
       "subpages": {
         "login": {
           "title": "Login",

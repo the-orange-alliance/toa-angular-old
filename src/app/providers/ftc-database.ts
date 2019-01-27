@@ -63,6 +63,14 @@ export class FTCDatabase {
     });
   }
 
+  public getAllEventTypes(): Promise<EventType[]> {
+    return new Promise<EventType[]>((resolve, reject) => {
+      this.request('/event-types').then((data: any[]) => {
+        resolve(data.map((result: any) => new EventType().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
   public getAllRegions(): Promise<Region[]> {
     return new Promise<Region[]>((resolve, reject) => {
       this.request('/regions').then((data: any[]) => {

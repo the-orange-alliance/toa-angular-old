@@ -44,25 +44,75 @@
       </div>
     </div>
 
-    <div class="outline-card p-3 mt-3" *ngIf="emailVerified">
-      <div mdcHeadline5 class="black p-3">{{ 'pages.account.account_settings' | translate }}</div>
-      <mdc-list disableRipple>
-        <mdc-list-item (click)="sendPasswordResetEmail()">
-          <mdc-icon mdcListItemGraphic svgIcon="lock-reset"></mdc-icon>
-          {{ 'pages.account.reset_password' | translate }}
-        </mdc-list-item>
+    <div *ngIf="userData['level'] > 5" class="outline-card mt-2 mb-2">
+      <div mdcHeadline5 class="black pb-4">{{ 'pages.account.create_event_card.title' | translate }}</div>
+      <div class="row edit-event">
+        <div class="col-md-6 col-12 p-1">
+          <mdc-text-field #event_name dense [label]="'pages.event.subpages.admin.update_info_card.event_name' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="rename-box"></mdc-icon>
+          </mdc-text-field>
+          <div *ngIf="currentSeason" class="filter-row dropdown p1">
+            <button class="btn btn-default dropdown-toggle dropdown-style" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              20{{ currentSeason.seasonKey.substring(0, 2) }}/{{ currentSeason.seasonKey.substring(2, 4) }} - {{ currentSeason.description }}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="ftc_season">
+              <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-list-item>
+            </ul>
+          </div>
+          <div *ngIf="currentRegion" class="filter-row dropdown p1" >
+            <button class="btn btn-default dropdown-toggle dropdown-style" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              {{ currentRegion.description ? currentRegion.regionKey + " - " + currentRegion.description : currentRegion.regionKey }}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="ftc_region">
+              <mdc-list-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}</mdc-list-item>
+            </ul>
+          </div>
+          <mdc-text-field #division_number dense [label]="'pages.account.create_event_card.division_number' | translate" [value]="0">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="earth"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #website dense [label]="'pages.event.subpages.admin.update_info_card.website' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="earth"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #start_date dense type="date" [label]="'pages.event.subpages.admin.update_info_card.start_date' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="calendar"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #end_date dense type="date" [label]="'pages.event.subpages.admin.update_info_card.end_date' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="calendar"></mdc-icon>
+          </mdc-text-field>
+        </div>
 
-        <mdc-list-item (click)="isUserLinkToProvider(googleProvider) ? unlinkProvider(googleProvider) : linkProvider(googleProvider)">
-          <mdc-icon mdcListItemGraphic svgIcon="google"></mdc-icon>
-          {{ (isUserLinkToProvider(googleProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'Google'} }}
-        </mdc-list-item>
-
-        <mdc-list-item (click)="isUserLinkToProvider(githubProvider) ? unlinkProvider(githubProvider) : linkProvider(githubProvider)">
-          <mdc-icon mdcListItemGraphic svgIcon="github-circle"></mdc-icon>
-          {{ (isUserLinkToProvider(githubProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'GitHub'} }}
-        </mdc-list-item>
-      </mdc-list>
+        <div class="col-md-6 col-12 p-1">
+          <mdc-text-field #event_id dense [label]="'pages.account.create_event_card.event_id' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="rename-box"></mdc-icon>
+          </mdc-text-field>
+          <div *ngIf="currentEventType" class="filter-row dropdown p1" >
+            <button class="btn btn-default dropdown-toggle dropdown-style" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              {{currentEventType.description }}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="ftc_region">
+              <mdc-list-item *ngFor="let eventType of eventTypes" (click)="selectEventType(eventType)">{{ eventType.eventTypeKey }} - {{eventType.description }}</mdc-list-item>
+            </ul>
+          </div>
+          <mdc-text-field #venue dense [label]="'pages.event.subpages.admin.update_info_card.venue' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="spotlight"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #city dense [label]="'pages.event.subpages.admin.update_info_card.city' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="city-variant-outline"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #state dense [label]="'pages.event.subpages.admin.update_info_card.state' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="map-marker-outline"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #country dense [label]="'pages.event.subpages.admin.update_info_card.country' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="globe-model"></mdc-icon>
+          </mdc-text-field>
+        </div>
+      </div>
+      <button mdc-button primary (click)="createEvent()">{{ 'pages.account.create_event_card.create' | translate }}</button>
     </div>
+
   </div>
 
   <div class="col-md-5 col-12 p-2">
@@ -115,9 +165,30 @@
         </table>
       </div>
 
+
       <div mdcSubtitle1 class="p-3">{{ 'pages.account.datasync_card.docs' | translate }}
         <a href="https://github.com/orange-alliance/TOA-DataSync/wiki/DataSync-Documentation" target="_blank" (click)="this.sendAnalytic('leaving', '/account', 'datasync docs');">{{ 'general.here' | translate }}</a>.
       </div>
+    </div>
+
+    <div class="outline-card p-3 mt-3" *ngIf="emailVerified">
+      <div mdcHeadline5 class="black p-3">{{ 'pages.account.account_settings' | translate }}</div>
+      <mdc-list disableRipple>
+        <mdc-list-item (click)="sendPasswordResetEmail()">
+          <mdc-icon mdcListItemGraphic svgIcon="lock-reset"></mdc-icon>
+          {{ 'pages.account.reset_password' | translate }}
+        </mdc-list-item>
+
+        <mdc-list-item (click)="isUserLinkToProvider(googleProvider) ? unlinkProvider(googleProvider) : linkProvider(googleProvider)">
+          <mdc-icon mdcListItemGraphic svgIcon="google"></mdc-icon>
+          {{ (isUserLinkToProvider(googleProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'Google'} }}
+        </mdc-list-item>
+
+        <mdc-list-item (click)="isUserLinkToProvider(githubProvider) ? unlinkProvider(githubProvider) : linkProvider(githubProvider)">
+          <mdc-icon mdcListItemGraphic svgIcon="github-circle"></mdc-icon>
+          {{ (isUserLinkToProvider(githubProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'GitHub'} }}
+        </mdc-list-item>
+      </mdc-list>
     </div>
 
   </div>
