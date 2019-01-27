@@ -194,6 +194,16 @@
             "choose_image": "Choose image...",
             "successfully": "Successfully updated the event info"
           },
+          "stream_card": {
+            "link_stream": "Link Stream",
+            "unlink_stream": "Unlink Stream",
+            "currently_linked": "Currently Linked Stream",
+            "link": "Link",
+            "unlink": "Unlink",
+            "stream": "Stream",
+            "success_linked": "Successfully Linked Stream",
+            "success_unlinked": "Successfully Linked Stream"
+          },
           "verify_email": "Please verify your email and try again.",
           "success_sent_verify_email": "Successfully sent a verification email."
         }

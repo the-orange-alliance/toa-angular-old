@@ -2,11 +2,13 @@ import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/cor
 import { CloudFunctions } from '../../../../providers/cloud-functions';
 import { UploadService } from '../../../../providers/imgur';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
+import {MdcIcon, MdcSnackbar, MdcTextField} from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { User } from 'firebase';
 import Event from '../../../../models/Event';
+import EventLiveStream from '../../../../models/EventLiveStream';
+import {FTCDatabase} from '../../../../providers/ftc-database';
 
 @Component({
   providers: [CloudFunctions, UploadService],
@@ -32,8 +34,12 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   uploadingVideos: boolean;
 
   images: any = {};
-  pitsMap: string = 'pits_map';
-  schedule: string = 'schedule';
+  pitsMap: 'pits_map';
+  schedule: 'schedule';
+
+  streamType = 'Youtube';
+  hasStream = false;
+  linkedStream: EventLiveStream;
 
   // These are for updating the Event Info
   @ViewChild('event_name') eventName: MdcTextField;
@@ -45,8 +51,12 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   @ViewChild('state') state: MdcTextField;
   @ViewChild('country') country: MdcTextField;
 
+
+  @ViewChild('stream_url') streamUrl: MdcTextField;
+
   constructor(private cloud: CloudFunctions, private db: AngularFireDatabase, private snackbar: MdcSnackbar,
-              private translate: TranslateService, private router: Router, public imgur: UploadService) {
+              private translate: TranslateService, private router: Router, public imgur: UploadService,
+              private ftc: FTCDatabase) {
 
   }
 
@@ -55,6 +65,16 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
       this.eventApiKey = item && item.payload.val() ? item.payload.val() + '' : null;
     });
     this.showGetObjects = true;
+
+    this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
+      for (const stream of data) {
+        if (stream.eventKey === this.eventData.eventKey) {
+          this.hasStream = true;
+          this.linkedStream = stream;
+          break;
+        }
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -69,6 +89,68 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     this.setFieldText(this.city, this.eventData.city);
     this.setFieldText(this.state, this.eventData.stateProv);
     this.setFieldText(this.country, this.eventData.country);
+  }
+
+  streamRadioClick(type: string): void {
+    this.streamType = (type) ? type : this.streamType;
+    this.translate.get('pages.event.subpages.admin.stream_card.link').subscribe((res: string) => {
+      this.streamUrl.label = this.streamType + ' ' + res;
+      this.streamUrl.disabled = true; // Forces Text on the text box to update
+      this.streamUrl.disabled = false;
+    });
+  }
+
+  addStream(): void {
+    let streamLink;
+    let channelLink;
+    let channelName;
+    let streamType;
+    const twitchRegex = new RegExp('^(?:https?:\\/\\/)?(?:www\\.|go\\.)?twitch\\.tv\\/([a-z0-9_]+)($|\\?)');
+    const youtubeRegex = new RegExp('(?:youtube(?:-nocookie)?\\.com\\/(?:[^\\/\\n\\s]+\\/\\S+\\/|(?:v|e(?:mbed)?)\\/|\\S*?[?&]v=)|youtu\\.be\\/)([a-zA-Z0-9_-]{11})');
+    if (this.streamType === 'Twitch') {
+      const channelId = twitchRegex.exec(this.streamUrl.value)[1];
+      streamLink = 'https://player.twitch.tv/?channel=' + channelId;
+      channelLink = 'https://twitch.tv/' + channelId;
+      channelName = channelId;
+      streamType = 1;
+    } else if (this.streamType === 'Youtube') {
+      const vidId = youtubeRegex.exec(this.streamUrl.value)[1];
+      streamLink = 'https://www.youtube.com/embed/' + vidId;
+      channelLink = 'https://www.youtube.com/watch?v=' + vidId;
+      channelName = ''; // TODO: Implement Youtube API in here at some point
+      streamType = 0;
+    }
+    const stream = new EventLiveStream();
+    stream.streamKey = this.eventData.eventKey + '-LS1';
+    stream.eventKey = this.eventData.eventKey;
+    stream.channelName = channelName;
+    stream.streamName = this.eventData.eventName;
+    stream.streamType = streamType;
+    stream.isActive = true;
+    stream.streamURL = streamLink;
+    stream.startDateTime = new Date(this.eventData.startDate).toJSON().slice(0, 19).replace('T', ' ');
+    stream.endDateTime = new Date(this.eventData.endDate).toJSON().slice(0, 19).replace('T', ' ');
+    stream.channelURL = channelLink;
+
+    this.cloud.addStream(this.uid, [stream.toJSON()]).then( (data: {}) => {
+      this.showSnackbar('pages.event.subpages.admin.stream_card.success_linked');
+      this.hasStream = true;
+      this.linkedStream = stream;
+    }, (err) => {
+      this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
+    }).catch(console.log);
+  }
+
+  removeStream(): void {
+    this.linkedStream.startDateTime = new Date(this.eventData.startDate).toJSON().slice(0, 19).replace('T', ' ');
+    this.linkedStream.endDateTime = new Date(this.eventData.endDate).toJSON().slice(0, 19).replace('T', ' ');
+    this.cloud.hideStream(this.uid, [this.linkedStream.toJSON()]).then( (data: {}) => {
+      this.showSnackbar('pages.event.subpages.admin.stream_card.success_unlinked');
+      this.hasStream = false;
+      this.linkedStream = null;
+    }, (err) => {
+      this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
+    }).catch(console.log);
   }
 
   generateEventApiKey(): void {
@@ -184,7 +266,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     });
   }
 
-  handleImage(e, type: string){
+  handleImage(e, type: string) {
     const image = e.target.files[0];
     if (image) {
       const reader = new FileReader();
@@ -198,16 +280,16 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     }
   }
 
-  uploadImage(type){
+  uploadImage(type) {
     if (this.images[type]) {
       this.imgur.uploadImage(this.images[type]['base64'])
         .then((data: any) => {
-          let image = data.data;
-          let mediaData = {
-            "event_key": this.eventKey,
-            "primary": false,
-            "media_link": image.link,
-            "media_type": -1,
+          const image = data.data;
+          const mediaData = {
+            'event_key': this.eventKey,
+            'primary': false,
+            'media_link': image.link,
+            'media_type': -1,
           };
 
           if (type === this.pitsMap) {

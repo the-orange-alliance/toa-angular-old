@@ -130,4 +130,32 @@ export class CloudFunctions {
       });
     });
   }
+
+  public addStream(uid: string, streamData: any): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'authorization': `Bearer ${uid}`
+      });
+
+      this.http.post(this.baseUrl + '/addStream', streamData, {headers: headers}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public hideStream(uid: string, streamData: any): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'authorization': `Bearer ${uid}`
+      });
+
+      this.http.post(this.baseUrl + '/hideStream', streamData, {headers: headers}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
 }
