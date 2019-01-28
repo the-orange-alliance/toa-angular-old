@@ -7,7 +7,7 @@ import { MatchSorter } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { User } from "firebase";
+import { User } from 'firebase/app';
 import Event from '../../models/Event';
 import EventType from '../../models/EventType';
 import Season from '../../models/Season';

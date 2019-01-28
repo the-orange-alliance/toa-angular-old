@@ -13,7 +13,7 @@ import Team from '../../models/Team';
 import Event from '../../models/Event';
 import {MdcSnackbar, MdcTextField} from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
-import { auth as providers } from 'firebase';
+import { auth as providers } from 'firebase/app';
 import Season from '../../models/Season';
 import Region from '../../models/Region';
 import EventType from '../../models/EventType';

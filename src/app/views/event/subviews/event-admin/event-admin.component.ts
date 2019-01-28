@@ -5,7 +5,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import {MdcIcon, MdcSnackbar, MdcTextField} from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { User } from 'firebase';
+import { User } from 'firebase/app';
 import Event from '../../../../models/Event';
 import EventLiveStream from '../../../../models/EventLiveStream';
 import {FTCDatabase} from '../../../../providers/ftc-database';
