@@ -57,7 +57,7 @@
             <mdc-icon svgIcon="soccer-field"></mdc-icon>
             <p>{{ 'pages.event.fields_count' | translate:{'value': event_data.fieldCount} }}</p>
           </div>
-          <a mdc-button primary *ngIf="stream.isActive" routerLink="/stream">
+          <a mdc-button primary *ngIf="stream && stream.isActive" routerLink="/stream">
             <mdc-icon svgIcon="video-outline" class="stream-icon"></mdc-icon> {{ 'pages.event.stream_available' | translate }}
           </a>
         </div>
