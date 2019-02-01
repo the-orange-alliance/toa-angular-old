@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Router} from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Layout } from '../../views/stream/streaming.component';
 import EventLiveStream from '../../models/EventLiveStream';
 
 @Component({
@@ -10,8 +11,6 @@ import EventLiveStream from '../../models/EventLiveStream';
 export class StreamItemComponent {
 
   @Input() id: number;
-  @Input() height: string;
-
   @Input() streams: EventLiveStream[];
   stream: EventLiveStream = null;
   selectedStreamKey = '';

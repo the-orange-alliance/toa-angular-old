@@ -212,7 +212,16 @@
       "close_stream": "סגור שידור",
       "select_stream": "בחר שידור",
       "select": "בחר",
-      "cancel": "ביטול"
+      "cancel": "ביטול",
+      "layouts": {
+        "title": "בחר פריסה",
+        "single_view": "תצוגה יחידה",
+        "vertical_split_view": "תצוגת מפוצלת אנכית",
+        "horizontal_split_view": "תצוגת מפוצלת אופקית",
+        "1_2_view": "תצוגת 1+2",
+        "1_4_view": "תצוגת 1+4",
+        "quad_view": "תצוגה ריבועית"
+      }
     },
 
     "team": {

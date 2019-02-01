@@ -229,7 +229,16 @@
       "close_stream": "Close Stream",
       "select_stream": "Select Stream",
       "select": "Select",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "layouts": {
+        "title": "Select Layout",
+        "single_view": "Single View",
+        "vertical_split_view": "Vertical Split View",
+        "horizontal_split_view": "Horizontal Split View",
+        "1_2_view": "1+2 View",
+        "1_4_view": "1+4 View",
+        "quad_view": "Quad View"
+      }
     },
 
     "team": {

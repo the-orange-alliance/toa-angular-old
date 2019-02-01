@@ -1,4 +1,4 @@
-<div class="stream embed-responsive embed-responsive-16by9" [style.height]="height == null ? '100%' : height">
+<div class="stream embed-responsive embed-responsive-16by9">
   <button mdc-button primary *ngIf="!stream" data-toggle="modal" [attr.data-target]="'#selectdialog'+ id" class="select-stream">{{ 'pages.streams.select_stream' | translate }}</button>
   <iframe class="embed-responsive-item" *ngIf="stream" [src]="stream.safeURL" allowfullscreen></iframe>
   <div class="info row" *ngIf="stream">
