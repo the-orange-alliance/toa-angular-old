@@ -161,16 +161,16 @@ export class AccountComponent implements OnInit {
     });
   }
 
-  selectSeason(season: Season) {
-    this.currentSeason = season;
+  onSeasonChange(event: {index: any, value: any}) {
+    this.currentSeason = this.seasons[event.index-1];
   }
 
-  selectRegion(region: Region) {
-    this.currentRegion = region;
+  onRegionChange(event: {index: any, value: any}) {
+    this.currentRegion = this.regions[event.index-1];
   }
 
-  selectEventType(et: EventType) {
-    this.currentEventType = et;
+  onEventTypeChange(event: {index: any, value: any}) {
+    this.currentEventType = this.eventTypes[event.index-1];
   }
 
   createEvent() {
@@ -190,6 +190,7 @@ export class AccountComponent implements OnInit {
     event.stateProv = this.state.value;
     event.country = this.country.value;
     event.venue = this.venue.value;
+    event.isPublic = true;
 
     this.cloud.createEvent(this.user.uid, [event.toJSON()]).then((data: {}) => {
       this.showSnackbar('pages.account.create_event_card.success', null, null, event.eventKey);

@@ -88,6 +88,9 @@
         "title": "Create Event",
         "create": "Create",
         "event_id": "Event ID",
+        "event_type": "Event Type",
+        "region": "Region",
+        "season": "Season",
         "division_number": "Division Number",
         "success": "Successfully Created Event"
       },

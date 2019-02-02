@@ -51,24 +51,18 @@
           <mdc-text-field #event_name dense [label]="'pages.event.subpages.admin.update_info_card.event_name' | translate">
             <mdc-icon mdcTextFieldIcon leading svgIcon="rename-box"></mdc-icon>
           </mdc-text-field>
-          <div *ngIf="currentSeason" class="filter-row dropdown p1">
-            <button class="btn btn-default dropdown-toggle dropdown-style" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              20{{ currentSeason.seasonKey.substring(0, 2) }}/{{ currentSeason.seasonKey.substring(2, 4) }} - {{ currentSeason.description }}
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="ftc_season">
-              <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-list-item>
-            </ul>
-          </div>
-          <div *ngIf="currentRegion" class="filter-row dropdown p1" >
-            <button class="btn btn-default dropdown-toggle dropdown-style" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              {{ currentRegion.description ? currentRegion.regionKey + " - " + currentRegion.description : currentRegion.regionKey }}
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="ftc_region">
-              <mdc-list-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}</mdc-list-item>
-            </ul>
-          </div>
+          <mdc-select *ngIf="currentSeason"  [placeholder]="'pages.account.create_event_card.season' | translate" (selectionChange)="onSeasonChange($event)">
+            <option disabled></option>
+            <option *ngFor="let season of seasons" [value]="season.seasonKey">
+              20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}
+            </option>
+          </mdc-select>
+          <mdc-select *ngIf="currentRegion"  [placeholder]="'pages.account.create_event_card.region' | translate" (selectionChange)="onRegionChange($event)">
+            <option disabled></option>
+            <option *ngFor="let region of regions" [value]="region.regionKey">
+              {{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}
+            </option>
+          </mdc-select>
           <mdc-text-field #division_number dense [label]="'pages.account.create_event_card.division_number' | translate" [value]="0">
             <mdc-icon mdcTextFieldIcon leading svgIcon="earth"></mdc-icon>
           </mdc-text-field>
@@ -87,15 +81,12 @@
           <mdc-text-field #event_id dense [label]="'pages.account.create_event_card.event_id' | translate">
             <mdc-icon mdcTextFieldIcon leading svgIcon="rename-box"></mdc-icon>
           </mdc-text-field>
-          <div *ngIf="currentEventType" class="filter-row dropdown p1" >
-            <button class="btn btn-default dropdown-toggle dropdown-style" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              {{currentEventType.description }}
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="ftc_region">
-              <mdc-list-item *ngFor="let eventType of eventTypes" (click)="selectEventType(eventType)">{{ eventType.eventTypeKey }} - {{eventType.description }}</mdc-list-item>
-            </ul>
-          </div>
+          <mdc-select *ngIf="currentEventType"  [placeholder]="'pages.account.create_event_card.event_type' | translate" (selectionChange)="onEventTypeChange($event)">
+            <option disabled></option>
+            <option *ngFor="let eventType of eventTypes" [value]="eventType.eventTypeKey">
+              {{ eventType.eventTypeKey }} - {{ eventType.description }}
+            </option>
+          </mdc-select>
           <mdc-text-field #venue dense [label]="'pages.event.subpages.admin.update_info_card.venue' | translate">
             <mdc-icon mdcTextFieldIcon leading svgIcon="spotlight"></mdc-icon>
           </mdc-text-field>

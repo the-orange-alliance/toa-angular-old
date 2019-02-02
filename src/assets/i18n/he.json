@@ -84,6 +84,16 @@
         "title": "סנכרן את האירוע שלך עם TOA בלייב",
         "docs": "ניתן לבדוק את תיעוד ה־DataSync המלא שלנו"
       },
+      "create_event_card": {
+        "title": "יצירת אירןע",
+        "create": "יצירה",
+        "event_id": "מזהה אירוע",
+        "event_type": "סוג אירוע",
+        "region": "אזור",
+        "season": "עונה",
+        "division_number": "מספר בית",
+        "success": "האירוע נוצר בהצלחה"
+      },
       "subpages": {
         "login": {
           "title": "התחברות",
@@ -186,6 +196,16 @@
             "image_only": "ניתן להעלות את זה כתמונה בלבד",
             "choose_image": "בחר תמונה...",
             "successfully": "פרטי האירוע עודכנו בהצלחה"
+          },
+          "stream_card": {
+            "link_stream": "קישור שידור חי",
+            "unlink_stream": "ניתוק שידור חי",
+            "currently_linked": "שידור חי מקושר כרגע",
+            "link": "קישור",
+            "unlink": "ניתוק",
+            "stream": "שידור חי",
+            "success_linked": "שידור חי קושר בהצלחה",
+            "success_unlinked": "שידור חי נותק בהצלחה"
           },
           "verify_email": "בבקשה אמת את האימייל שלך ונסה שנית.",
           "success_sent_verify_email": "אמייל אימות נשלח אלייך בהצלחה."

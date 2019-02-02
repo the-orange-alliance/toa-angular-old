@@ -95,7 +95,7 @@ export class StreamingComponent implements OnInit {
     if (user) {
       this.selectedLayout = layoutKey;
     }
-    
+
     // The layouts, names, and icons were taken from TBA
     // https://github.com/the-blue-alliance/the-blue-alliance/blob/master/react/gameday2/constants/LayoutConstants.js
     let layouts = [];
