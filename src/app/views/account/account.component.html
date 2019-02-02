@@ -26,9 +26,9 @@
 
   <mdc-tab-bar #tabs [activeTabIndex]="activeTab" [class.d-none]="getAdminEvents().length === 0 && userData['level'] < 6" class="mb-3">
     <mdc-tab-scroller>
-      <mdc-tab label="myTOA"         (click)="changeUrlNoRoute('')"></mdc-tab>
-      <mdc-tab label="Manage Events" (click)="changeUrlNoRoute('events')" [class.d-none]="getAdminEvents().length === 0"></mdc-tab>
-      <mdc-tab label="Create Event"  (click)="changeUrlNoRoute('new-event')" [class.d-none]="userData['level'] < 6"></mdc-tab>
+      <mdc-tab (click)="changeUrlNoRoute('')" style="text-transform: initial" label="myTOA"></mdc-tab>
+      <mdc-tab (click)="changeUrlNoRoute('events')" [label]="'pages.account.manage_events' | translate" [class.d-none]="getAdminEvents().length === 0"></mdc-tab>
+      <mdc-tab (click)="changeUrlNoRoute('new-event')" [label]="'pages.account.create_event_card.title' | translate" [class.d-none]="userData['level'] < 6"></mdc-tab>
     </mdc-tab-scroller>
   </mdc-tab-bar>
 
