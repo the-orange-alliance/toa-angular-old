@@ -19,9 +19,14 @@ import { RegisterComponent } from './views/account/register/register.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'account', component: AccountComponent },
-  { path: 'account/login', component: LoginComponent },
-  { path: 'account/register', component: RegisterComponent },
+  { path: 'account', component: AccountComponent,  children: [
+      { path: '', component: AccountComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'events', component: AccountComponent },
+      { path: 'new-event', component: AccountComponent },
+    ]
+  },
   { path: 'add-data', component: AddDataComponent },
   { path: 'events', component: EventsComponent },
   { path: 'teams', component: TeamsComponent },

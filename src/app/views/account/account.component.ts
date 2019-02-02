@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -8,12 +8,13 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { TeamSorter } from '../../util/team-utils';
 import { EventSorter } from '../../util/event-utils';
+import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
+import { TranslateService } from '@ngx-translate/core';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { CloudFunctions } from '../../providers/cloud-functions';
+import { auth as providers } from 'firebase/app';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
-import {MdcSnackbar, MdcTextField} from '@angular-mdc/web';
-import { TranslateService } from '@ngx-translate/core';
-import { auth as providers } from 'firebase/app';
 import Season from '../../models/Season';
 import Region from '../../models/Region';
 import EventType from '../../models/EventType';
@@ -22,15 +23,16 @@ import EventType from '../../models/EventType';
   selector: 'toa-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
-  providers: [CloudFunctions, TheOrangeAllianceGlobals]
+  providers: [CloudFunctions, TheOrangeAllianceGlobals, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 
-export class AccountComponent implements OnInit {
+export class AccountComponent implements OnInit, AfterViewChecked {
 
   user: firebase.User = null;
   userData: {} = {};
   adminEvents = {};
   profileUrl: string = null;
+  activeTab: number = -1;
 
   teams: Team[];
   events: Event[];
@@ -43,14 +45,13 @@ export class AccountComponent implements OnInit {
   generatingApiKey: boolean;
   generatingEventApiKey: boolean;
   emailVerified = true;
-
   googleProvider = new providers.GoogleAuthProvider();
   githubProvider = new providers.GithubAuthProvider();
 
   // These are for creating the Events
   @ViewChild('event_name') eventName: MdcTextField;
   @ViewChild('event_id') eventId: MdcTextField;
-  @ViewChild('division_number') divisionNumber: MdcTextField;
+  // @ViewChild('division_number') divisionNumber: MdcTextField;
   @ViewChild('start_date') startDate: MdcTextField;
   @ViewChild('end_date') endDate: MdcTextField;
   @ViewChild('website') website: MdcTextField;
@@ -62,12 +63,20 @@ export class AccountComponent implements OnInit {
   currentRegion: Region = null;
   currentEventType: EventType = null;
 
-  constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient, private snackbar: MdcSnackbar,
-              db: AngularFireDatabase, public auth: AngularFireAuth, private storage: AngularFireStorage, private cloud: CloudFunctions, private translate: TranslateService) {
+  constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient,
+              private snackbar: MdcSnackbar, private db: AngularFireDatabase, private auth: AngularFireAuth, private storage: AngularFireStorage,
+              private cloud: CloudFunctions, private translate: TranslateService, private loca: Location, private cdRef: ChangeDetectorRef) {
 
     this.app.setTitle('myTOA');
     this.app.setDescription('Your myTOA account overview');
 
+    if (this.router.url.indexOf('/account/events') > -1) {
+      this.activeTab = 1;
+    } else if (this.router.url.indexOf('/account/new-event') > -1) {
+      this.activeTab = 2;
+    } else {
+      this.activeTab = 0;
+    }
 
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
@@ -161,6 +170,10 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
+  }
+
   onSeasonChange(event: {index: any, value: any}) {
     this.currentSeason = this.seasons[event.index-1];
   }
@@ -181,7 +194,7 @@ export class AccountComponent implements OnInit {
     event.eventCode = this.eventId.value;
     event.eventTypeKey = this.currentEventType.eventTypeKey;
     event.eventName = this.eventName.value;
-    event.divisionKey = this.divisionNumber.value;
+    // event.divisionKey = this.divisionNumber.value;
     event.activeTournamentLevel = '0';
     event.startDate = this.startDate.value;
     event.endDate = this.endDate.value;
@@ -360,5 +373,9 @@ export class AccountComponent implements OnInit {
         }
       });
     });
+  }
+
+  changeUrlNoRoute(route: any) {
+    this.loca.go(`account/${route}`);
   }
 }

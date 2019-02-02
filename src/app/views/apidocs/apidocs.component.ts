@@ -17,7 +17,7 @@ export class ApiDocsComponent implements AfterViewChecked {
 
   docs: any = null;
   baseRoutes: any[] = [];
-  activeTab = -1;
+  activeTab: number = -1;
 
   constructor(private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals, protected sanitizer: DomSanitizer,
               private cdRef: ChangeDetectorRef, private loca: Location, private router: Router) {
@@ -26,7 +26,6 @@ export class ApiDocsComponent implements AfterViewChecked {
     this.ftc.getDocs().then(data => {
       this.docs = data;
 
-      console.log(this.router.url);
       if (this.router.url.indexOf('/apidocs/get') > -1) {
         this.activeTab = 0;
         this.getBaseRoutes(0);
