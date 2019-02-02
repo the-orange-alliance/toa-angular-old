@@ -22,4 +22,12 @@ export class EventItemComponent {
   private removeFractionalDay(date: Date) {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
+
+  fixDate(date: any): any {
+    if (date.endsWith('Z')) {
+      return date.substr(0, date.length - 1);
+    } else {
+      return date;
+    }
+  }
 }

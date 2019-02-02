@@ -222,12 +222,13 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     const json = [
       {
        'event_key':  this.eventKey,
+       'season_key': this.eventData.seasonKey,
        'event_name':  this.getFieldText(this.eventName),
-       'start_date':  new Date(this.getFieldText(this.startDate)).toISOString(),
-       'end_date':  new Date(this.getFieldText(this.endDate)).toISOString(),
+       'start_date':  `${this.getFieldText(this.startDate)} 00:00:00`,
+       'end_date':  `${this.getFieldText(this.endDate)} 00:00:00`,
        'venue':  this.getFieldText(this.venue),
        'city':  this.getFieldText(this.city),
-       'state':  this.getFieldText(this.state),
+       'state_prov':  this.getFieldText(this.state),
        'country':  this.getFieldText(this.country),
        'website':  this.getFieldText(this.website)
       }
