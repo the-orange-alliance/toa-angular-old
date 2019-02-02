@@ -77,7 +77,7 @@ export class HomeComponent {
       const today = new Date();
       this.currentEvents = [];
       for (const event of events) {
-        if (this.isBetweenDates(new Date(this.fixDate(event.startDate)), new Date(this.fixDate(event.endDate)), today)) {
+        if (this.isBetweenDates(new Date(event.startDate), new Date(event.endDate), today)) {
           this.currentEvents.push(event);
         }
       }
@@ -136,13 +136,5 @@ export class HomeComponent {
     const todayTime = new Date().valueOf();
 
     return (todayTime <= endDateTime && todayTime >= startDateTime);
-  }
-
-  fixDate(date: any): any {
-    if (date.endsWith('Z')) {
-      return date.substr(0, date.length - 1);
-    } else {
-      return date;
-    }
   }
 }

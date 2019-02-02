@@ -18,7 +18,7 @@
         <div class="p-3">
           <div class="info-state">
             <mdc-icon svgIcon="calendar"></mdc-icon>
-            <p>{{ event_data.startDate == event_data.endDate ? (fixDate(event_data.startDate) | date :  "mediumDate") : (fixDate(event_data.startDate) | date :  "mediumDate") + ' - ' + (fixDate(event_data.endDate) | date :  "mediumDate") }}</p>
+            <p>{{ event_data.startDate == event_data.endDate ? (event_data.startDate | date :  "mediumDate") : event_data.startDate | date :  "mediumDate") + ' - ' + (event_data.endDate | date :  "mediumDate") }}</p>
           </div>
           <div class="info-state">
             <mdc-icon svgIcon="map-marker"></mdc-icon>

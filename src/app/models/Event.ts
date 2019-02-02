@@ -117,8 +117,8 @@ export default class Event implements ISerializable {
     event.eventTypeKey = json.event_type_key;
     event.eventName = json.event_name;
     event.divisionName = json.division_name;
-    event.startDate = json.start_date;
-    event.endDate = json.end_date;
+    event.startDate = this.fixDate(json.start_date);
+    event.endDate = this.fixDate(json.end_date);
     event.weekKey = json.week_key;
     event.city = json.city;
     event.stateProv = json.state_prov;
@@ -389,5 +389,13 @@ export default class Event implements ISerializable {
 
   set teams(value: EventParticipant[]) {
     this._teams = value;
+  }
+
+  fixDate(date: any): any {
+    if (date.endsWith('Z')) {
+      return date.substr(0, date.length - 1);
+    } else {
+      return date;
+    }
   }
 }
