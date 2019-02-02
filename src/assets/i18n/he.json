@@ -199,12 +199,13 @@
             "successfully": "פרטי האירוע עודכנו בהצלחה"
           },
           "stream_card": {
-            "link_stream": "קישור שידור חי",
+            "add_stream": "הוספת שידור חי",
             "unlink_stream": "ניתוק שידור חי",
             "currently_linked": "שידור חי מקושר כרגע",
+            "url": "{{ provider }} URL",
             "link": "קישור",
             "unlink": "ניתוק",
-            "stream": "שידור חי",
+            "stream": "שידור חי {{ provider }}",
             "success_linked": "שידור חי קושר בהצלחה",
             "success_unlinked": "שידור חי נותק בהצלחה"
           },

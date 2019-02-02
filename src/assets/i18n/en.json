@@ -199,12 +199,13 @@
             "successfully": "Successfully updated the event info"
           },
           "stream_card": {
-            "link_stream": "Link Stream",
+            "add_stream": "Add Stream",
             "unlink_stream": "Unlink Stream",
             "currently_linked": "Currently Linked Stream",
+            "url": "{{ provider }} URL",
             "link": "Link",
             "unlink": "Unlink",
-            "stream": "Stream",
+            "stream": "{{ provider }} Stream",
             "success_linked": "Successfully Linked Stream",
             "success_unlinked": "Successfully Linked Stream"
           },

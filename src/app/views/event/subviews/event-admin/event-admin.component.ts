@@ -97,8 +97,8 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
 
   streamRadioClick(type: string): void {
     this.streamType = (type) ? type : this.streamType;
-    this.translate.get('pages.event.subpages.admin.stream_card.link').subscribe((res: string) => {
-      this.streamUrl.label = this.streamType + ' ' + res;
+    this.translate.get('pages.event.subpages.admin.stream_card.url', { provider: this.streamType }).subscribe((res: string) => {
+      this.streamUrl.label = res;
       this.streamUrl.disabled = true; // Forces Text on the text box to update
       this.streamUrl.disabled = false;
     });
@@ -111,38 +111,43 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     let streamType;
     const twitchRegex = new RegExp('^(?:https?:\\/\\/)?(?:www\\.|go\\.)?twitch\\.tv\\/([a-z0-9_]+)($|\\?)');
     const youtubeRegex = new RegExp('(?:youtube(?:-nocookie)?\\.com\\/(?:[^\\/\\n\\s]+\\/\\S+\\/|(?:v|e(?:mbed)?)\\/|\\S*?[?&]v=)|youtu\\.be\\/)([a-zA-Z0-9_-]{11})');
-    if (this.streamType === 'Twitch') {
+    if (this.streamType === 'Twitch' && twitchRegex.exec(this.streamUrl.value)) {
       const channelId = twitchRegex.exec(this.streamUrl.value)[1];
       streamLink = 'https://player.twitch.tv/?channel=' + channelId;
       channelLink = 'https://twitch.tv/' + channelId;
       channelName = channelId;
       streamType = 1;
-    } else if (this.streamType === 'Youtube') {
+    } else if (this.streamType === 'Youtube' && youtubeRegex.exec(this.streamUrl.value)) {
       const vidId = youtubeRegex.exec(this.streamUrl.value)[1];
       streamLink = 'https://www.youtube.com/embed/' + vidId;
       channelLink = 'https://www.youtube.com/watch?v=' + vidId;
       channelName = ''; // TODO: Implement Youtube API in here at some point
       streamType = 0;
     }
-    const stream = new EventLiveStream();
-    stream.streamKey = this.eventData.eventKey + '-LS1';
-    stream.eventKey = this.eventData.eventKey;
-    stream.channelName = channelName;
-    stream.streamName = this.eventData.eventName;
-    stream.streamType = streamType;
-    stream.isActive = true;
-    stream.streamURL = streamLink;
-    stream.startDateTime = new Date(this.eventData.startDate).toJSON().slice(0, 19).replace('T', ' ');
-    stream.endDateTime = new Date(this.eventData.endDate).toJSON().slice(0, 19).replace('T', ' ');
-    stream.channelURL = channelLink;
 
-    this.cloud.addStream(this.uid, [stream.toJSON()]).then( (data: {}) => {
-      this.showSnackbar('pages.event.subpages.admin.stream_card.success_linked');
-      this.hasStream = true;
-      this.linkedStream = stream;
-    }, (err) => {
-      this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
-    }).catch(console.log);
+    if (streamLink) {
+      const stream = new EventLiveStream();
+      stream.streamKey = this.eventData.eventKey + '-LS1';
+      stream.eventKey = this.eventData.eventKey;
+      stream.channelName = channelName;
+      stream.streamName = this.eventData.eventName;
+      stream.streamType = streamType;
+      stream.isActive = true;
+      stream.streamURL = streamLink;
+      stream.startDateTime = new Date(this.eventData.startDate).toJSON().slice(0, 19).replace('T', ' ');
+      stream.endDateTime = new Date(this.eventData.endDate).toJSON().slice(0, 19).replace('T', ' ');
+      stream.channelURL = channelLink;
+
+      this.cloud.addStream(this.uid, [stream.toJSON()]).then( (data: {}) => {
+        this.showSnackbar('pages.event.subpages.admin.stream_card.success_linked');
+        this.hasStream = true;
+        this.linkedStream = stream;
+      }, (err) => {
+        this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
+      }).catch(console.log);
+    } else {
+      this.showSnackbar('general.error_occurred', 'S-URL');
+    }
   }
 
   removeStream(): void {
