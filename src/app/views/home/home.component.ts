@@ -74,10 +74,10 @@ export class HomeComponent {
       }
     });
     this.ftc.getSeasonEvents(this.ftc.year).then((events: Event[]) => {
-      let today = new Date();
+      const today = new Date();
       this.currentEvents = [];
       for (const event of events) {
-        if (this.isBetweenDates(new Date(event.startDate), new Date(event.endDate), today)) {
+        if (this.isBetweenDates(new Date(this.fixDate(event.startDate)), new Date(this.fixDate(event.endDate)), today)) {
           this.currentEvents.push(event);
         }
       }
@@ -102,9 +102,9 @@ export class HomeComponent {
   }
 
   private isBetweenDates(startDate: Date, endDate: Date, today: Date) {
-    let startValue: number = this.removeFractionalDay(startDate).valueOf();
-    let endValue: number   = this.removeFractionalDay(endDate).valueOf();
-    let todayValue: number = this.removeFractionalDay(today).valueOf();
+    const startValue: number = this.removeFractionalDay(startDate).valueOf();
+    const endValue: number   = this.removeFractionalDay(endDate).valueOf();
+    const todayValue: number = this.removeFractionalDay(today).valueOf();
 
     return (todayValue <= endValue && todayValue >= startValue);
   }
@@ -136,5 +136,13 @@ export class HomeComponent {
     const todayTime = new Date().valueOf();
 
     return (todayTime <= endDateTime && todayTime >= startDateTime);
+  }
+
+  fixDate(date: any): any {
+    if (date.endsWith('Z')) {
+      return date.substr(0, date.length - 1);
+    } else {
+      return date;
+    }
   }
 }
