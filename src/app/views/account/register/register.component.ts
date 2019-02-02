@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './register.component.html'
 })
 
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
   name = '';
   email = '';
@@ -26,10 +26,6 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/account']);
       }
     });
-  }
-
-  ngOnInit() {
-
   }
 
   createUser(): void {
@@ -61,9 +57,6 @@ export class RegisterComponent implements OnInit {
               });
 
             });
-            // To update the data in the menu
-            // After the refresh, it will go to the account page through the function above(auth.authState.subscribe)
-            window.location.reload(true);
           });
         })
         .catch(error => {

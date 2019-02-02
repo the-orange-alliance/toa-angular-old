@@ -31,16 +31,9 @@ export class LoginComponent {
   }
 
   onLoginEmail(): void {
-    this.auth.auth.signInWithEmailAndPassword(this.email, this.password)
-      .then((user) => {
-        // To update the data in the menu
-        // After the refresh, it will go to the account page through the function above(auth.authState.subscribe)
-        window.location.reload(true);
-        // this.router.navigateByUrl('/account');
-      })
-      .catch(error => {
-        this.snackbar.open(error.toString());
-      });
+    this.auth.auth.signInWithEmailAndPassword(this.email, this.password).catch(error => {
+      this.snackbar.open(error.toString());
+    });
   }
 
   signInWithPopup(provider): void {

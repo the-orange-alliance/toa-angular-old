@@ -19,7 +19,7 @@ import { RegisterComponent } from './views/account/register/register.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'account', component: AccountComponent,  children: [
+  { path: 'account',  children: [
       { path: '', component: AccountComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
