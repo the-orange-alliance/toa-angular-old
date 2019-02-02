@@ -176,6 +176,14 @@ export class EventComponent implements OnInit {
     return diff < -24; // 24 hours extra
   }
 
+  fixDate(date: any): any {
+    if (date.endsWith('Z')) {
+      return date.substr(0, date.length - 1);
+    } else {
+      return date;
+    }
+  }
+
   sendAnalytic(category, action): void {
     (<any>window).ga('send', 'event', {
       eventCategory: category,
