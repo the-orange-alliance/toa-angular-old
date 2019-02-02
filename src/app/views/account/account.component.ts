@@ -190,6 +190,7 @@ export class AccountComponent implements OnInit {
     event.stateProv = this.state.value;
     event.country = this.country.value;
     event.venue = this.venue.value;
+    event.isPublic = true;
 
     this.cloud.createEvent(this.user.uid, [event.toJSON()]).then((data: {}) => {
       this.showSnackbar('pages.account.create_event_card.success', null, null, event.eventKey);
