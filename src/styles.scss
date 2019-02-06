@@ -423,21 +423,22 @@ mdc-drawer mdc-list a {
 .toa-tooltip .tooltiptext {
   opacity: 0;
   visibility: hidden;
-  background-color: #555;
+  background-color: rgb(60,64,67);
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
   color: #fff;
-  text-align: center;
-  border-radius: 3px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  transition: opacity 0.3s;
-  text-transform: uppercase;
-  font-family: Roboto, sans-serif;
-  font-size: 0.75rem;
+  font-size: 12px;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: .3px;
+  line-height: 16px;
+  padding: 6px 12px;
   white-space: nowrap;
+  z-index: 9999;
+  position: absolute;
+  display: block;
+  bottom: 125%;
+  left: -80%;
 }
 
 .toa-tooltip:hover .tooltiptext {
