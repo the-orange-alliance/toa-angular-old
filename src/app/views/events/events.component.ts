@@ -30,7 +30,6 @@ export class EventsComponent implements OnInit {
   currentRegion: Region;
 
   eventFilter: EventFilter;
-  eventSorter: EventSorter;
 
   @ViewChild('tabbar') tabbar: MdcTabBar;
 
