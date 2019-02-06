@@ -40,6 +40,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Queries</th>
+            <th>Cache</th>
           </tr>
           </thead>
           <tbody>
@@ -47,6 +48,7 @@
             <td><code [innerHTML]="getRouteHTML(route)"></code>: {{ route.response_type }}{{ route.response_array ? '[]' : '' }}</td>
             <td>{{ route.desc }}</td>
             <td>{{ route.queries !== 'N/A' ? route.queries : '' }}</td>
+            <td>{{ route.cache !== 'None' ? route.cache : '' }}</td>
           </tr>
           </tbody>
         </table>
