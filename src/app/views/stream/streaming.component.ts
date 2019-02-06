@@ -82,8 +82,6 @@ export class StreamingComponent implements OnInit {
       this.selectLayout(4, false);
     } else if (this.selectedLayout < 0) {
       this.layouts = [];
-    } else {
-      this.selectLayout(this.selectedLayout);
     }
   }
 
@@ -91,14 +89,14 @@ export class StreamingComponent implements OnInit {
     this.layouts = this.getLayouts(layoutKey, user)
   }
 
-  getLayouts(layoutKey: number, user: boolean = true) {
+  getLayouts(layoutKey: number, user: boolean = true): Layout[] {
     if (user) {
       this.selectedLayout = layoutKey;
     }
 
     // The layouts, names, and icons were taken from TBA
     // https://github.com/the-blue-alliance/the-blue-alliance/blob/master/react/gameday2/constants/LayoutConstants.js
-    let layouts = [];
+    let layouts: Layout[] = [];
     if (layoutKey === 0) {
       /*
         +------+------+
@@ -176,5 +174,4 @@ export class StreamingComponent implements OnInit {
     }
     return layouts;
   }
-
 }
