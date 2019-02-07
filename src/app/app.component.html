@@ -122,7 +122,7 @@
           <a mdc-list-item routerLink="/about" routerLinkActive="mdc-list-item--activated">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="information-outline"></mdc-icon>{{ "drawer.about" | translate }}
           </a>
-          <a mdc-list-item href="https://www.paypal.com/donate/?token=t2NF2bh1bhNYM_YWpdLyM-05E4fk3J1HLNWqdX0kLMEWVoTHc7fiqgrNqhikYwo_XtFtbW&country.x=US&locale.x=US" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
+          <a mdc-list-item href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZE3YC297GJNUW&source=url" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="paypal"></mdc-icon>{{ "drawer.donate" | translate }}
           </a>
           <a mdc-list-item routerLink="/privacy-terms" routerLinkActive="mdc-list-item--activated">
