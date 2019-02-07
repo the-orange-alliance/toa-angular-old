@@ -204,6 +204,7 @@
             "unlink_stream": "Unlink Stream",
             "currently_linked": "Currently Linked Stream",
             "url": "{{ provider }} URL",
+            "stream_name": "Stream Name",
             "link": "Link",
             "unlink": "Unlink",
             "stream": "{{ provider }} Stream",

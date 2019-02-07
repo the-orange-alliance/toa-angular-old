@@ -116,6 +116,7 @@
             <mdc-icon *ngIf="streamType === 'Youtube'" mdcTextFieldIcon leading svgIcon="youtube"></mdc-icon>
             <mdc-icon *ngIf="streamType === 'Twitch'" mdcTextFieldIcon leading svgIcon="twitch"></mdc-icon>
           </mdc-text-field>
+          <mdc-text-field #stream_name dense class="w-100 mt-2" [label]="'pages.event.subpages.admin.stream_card.stream_name' | translate"></mdc-text-field>
         </div>
         <button mdc-button primary class="mt-3" (click)="addStream()">{{ 'pages.event.subpages.admin.stream_card.link' | translate }}</button>
       </div>

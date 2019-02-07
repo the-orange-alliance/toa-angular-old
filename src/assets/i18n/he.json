@@ -204,6 +204,7 @@
             "unlink_stream": "ניתוק שידור חי",
             "currently_linked": "שידור חי מקושר כרגע",
             "url": "{{ provider }} URL",
+            "stream_name": "שם השידור",
             "link": "קישור",
             "unlink": "ניתוק",
             "stream": "שידור חי {{ provider }}",

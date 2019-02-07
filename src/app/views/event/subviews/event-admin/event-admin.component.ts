@@ -51,8 +51,8 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   @ViewChild('state') state: MdcTextField;
   @ViewChild('country') country: MdcTextField;
 
-
   @ViewChild('stream_url') streamUrl: MdcTextField;
+  @ViewChild('stream_name') streamName: MdcTextField;
 
   constructor(private cloud: CloudFunctions, private db: AngularFireDatabase, private snackbar: MdcSnackbar,
               private translate: TranslateService, private router: Router, public imgur: UploadService,
@@ -69,11 +69,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       for (const stream of data) {
         if (stream.eventKey === this.eventData.eventKey) {
-          if (stream.isActive) {
-            this.hasStream = true;
-          } else {
-            this.hasStream = false;
-          }
+          this.hasStream = stream.isActive;
           this.linkedStream = stream;
           break;
         }
@@ -93,6 +89,8 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     this.setFieldText(this.city, this.eventData.city);
     this.setFieldText(this.state, this.eventData.stateProv);
     this.setFieldText(this.country, this.eventData.country);
+
+    this.setFieldText(this.streamName, this.eventData.divisionName ? this.eventData.eventName + ' - ' + this.eventData.divisionName + ' Division' : this.eventData.eventName);
   }
 
   streamRadioClick(type: string): void {
@@ -130,7 +128,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
       stream.streamKey = this.eventData.eventKey + '-LS1';
       stream.eventKey = this.eventData.eventKey;
       stream.channelName = channelName;
-      stream.streamName = this.eventData.eventName;
+      stream.streamName = this.getFieldText(this.streamName);
       stream.streamType = streamType;
       stream.isActive = true;
       stream.streamURL = streamLink;
