@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AppBarService } from '../../app-bar.service';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { MatchSorter } from '../../util/match-utils';
 import { EventSorter } from '../../util/event-utils';
@@ -39,7 +40,7 @@ export class TeamComponent implements OnInit {
   favorite: boolean;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
-              public db: AngularFireDatabase, public auth: AngularFireAuth) {
+              public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService) {
     this.teamKey = this.route.snapshot.params['team_key'];
 
     auth.authState.subscribe(user => {
@@ -74,8 +75,10 @@ export class TeamComponent implements OnInit {
         }
         if (this.team.teamNameShort !== null) {
           this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamNumber + ')');
+          this.appBarService.setTitle('#' + this.team.teamNumber + ' ' + this.team.teamNameShort, true);
         } else {
           this.app.setTitle('Team ' + this.team.teamNumber);
+          this.appBarService.setTitle('Team #' + this.team.teamNumber, true);
         }
         this.app.setDescription(`Team information and competition results for FIRST Tech Challenge Team #${ this.team.teamNumber }`);
       } else {

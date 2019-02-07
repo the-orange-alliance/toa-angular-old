@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { AppBarService } from '../../../app-bar.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { auth as providers } from 'firebase/app';
-import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   email: string = '';
   password: string = '';
@@ -22,11 +23,17 @@ export class LoginComponent {
   githubProvider = new providers.GithubAuthProvider();
 
   constructor(private router: Router, public auth: AngularFireAuth, private snackbar: MdcSnackbar,
-              private translate: TranslateService) {
+              private translate: TranslateService, private appBarService: AppBarService) {
     auth.authState.subscribe(user => {
       if (user !== null) {
         this.router.navigateByUrl('/account');
       }
+    });
+  }
+
+  ngOnInit() {
+    this.translate.get(`pages.account.subpages.login.title`).subscribe((str: string) => {
+      this.appBarService.setTitle('myTOA - ' + str, true);
     });
   }
 

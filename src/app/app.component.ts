@@ -1,4 +1,6 @@
 import { Component, HostListener, Inject, Injectable, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AppBarService } from './app-bar.service';
+import { Location } from '@angular/common';
 import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
 import { TranslateService } from '@ngx-translate/core';
 import { FTCDatabase } from './providers/ftc-database';
@@ -17,7 +19,7 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [FTCDatabase, TheOrangeAllianceGlobals]
+  providers: [FTCDatabase, TheOrangeAllianceGlobals, AppBarService]
 })
 @Injectable()
 export class TheOrangeAllianceComponent implements OnInit {
@@ -39,18 +41,27 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   matcher: MediaQueryList;
   @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
+  title: string;
 
-  constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone,
-              db: AngularFireDatabase, auth: AngularFireAuth, public translate: TranslateService,
-              @Inject(LOCAL_STORAGE) private storage: StorageService) {
+  constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,
+              db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService,
+              @Inject(LOCAL_STORAGE) private storage: StorageService, private appBarService: AppBarService) {
 
     translate.setDefaultLang('en'); // this language will be used as a fallback when a translation isn't found in the current language
     this.selectedLanguage = this.storage.get('lang') || translate.getBrowserLang();
     this.languageSelected();
 
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
-      return false;
-    };
+    this.router.events.subscribe(() => {
+      setTimeout(()=>{
+        this.title = this.appBarService.titleLong;
+      });
+    });
+
+    this.appBarService.titleChange.subscribe(title => {
+      setTimeout(()=>{
+        this.title = title;
+      });
+    });
 
     auth.authState.subscribe(user => {
       this.user = user;
@@ -95,6 +106,10 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   isScreenSmall(): boolean {
     return this.router.url === '/stream' || this.matcher.matches;
+  }
+
+  back() {
+    this.location.back();
   }
 
   performSearch(): void {

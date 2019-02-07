@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { CloudFunctions } from '../../providers/cloud-functions';
 import { auth as providers } from 'firebase/app';
+import { AppBarService } from '../../app-bar.service';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
 import Season from '../../models/Season';
@@ -63,12 +64,12 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   currentRegion: Region = null;
   currentEventType: EventType = null;
 
-  constructor(private app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient,
+  constructor(app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient, private appBarService: AppBarService,
               private snackbar: MdcSnackbar, private db: AngularFireDatabase, private auth: AngularFireAuth, private storage: AngularFireStorage,
               private cloud: CloudFunctions, private translate: TranslateService, private loca: Location, private cdRef: ChangeDetectorRef) {
 
-    this.app.setTitle('myTOA');
-    this.app.setDescription('Your myTOA account overview');
+    app.setTitle('myTOA');
+    app.setDescription('Your myTOA account overview');
 
     if (this.router.url.indexOf('/account/events') > -1) {
       this.activeTab = 1;
@@ -156,6 +157,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+    this.appBarService.setTitle('myTOA', true);
     this.ftc.getAllRegions().then((data: Region[]) => {
       this.regions = data;
       this.currentRegion = this.regions[0];

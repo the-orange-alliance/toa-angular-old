@@ -273,7 +273,16 @@ mdc-drawer mdc-list a {
 
 @media (max-width: 1239px) {
   .toa-page {
-    padding: 10px;
+    padding: 12px;
+  }
+
+  .page-title {
+    display: none;
+  }
+
+  .page-subtitle {
+    padding-top: 1rem;
+    margin: 0;
   }
 }
 

@@ -1,8 +1,8 @@
-import { AfterViewChecked, ChangeDetectorRef, Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
+import { AppBarService } from '../../app-bar.service';
 import { FTCDatabase } from '../../providers/ftc-database';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SafeHtml } from '@angular/platform-browser/src/security/dom_sanitization_service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { MdcTabActivatedEvent } from '@angular-mdc/web';
 import { Router } from '@angular/router';
@@ -13,16 +13,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./apidocs.component.scss'],
   providers: [TheOrangeAllianceGlobals, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
-export class ApiDocsComponent implements AfterViewChecked {
+export class ApiDocsComponent implements OnInit {
 
   docs: any = null;
   baseRoutes: any[] = [];
   activeTab: number = -1;
 
   constructor(private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals, protected sanitizer: DomSanitizer,
-              private cdRef: ChangeDetectorRef, private loca: Location, private router: Router) {
+              private loca: Location, private router: Router, private appBarService: AppBarService) {
     this.app.setTitle('API Docs');
+  }
 
+  ngOnInit(): void {
+    this.appBarService.setTitle('API Docs');
     this.ftc.getDocs().then(data => {
       this.docs = data;
 
@@ -44,10 +47,6 @@ export class ApiDocsComponent implements AfterViewChecked {
         this.activeTab = 5;
       }
     });
-  }
-
-  ngAfterViewChecked() {
-    this.cdRef.detectChanges();
   }
 
   stringify(jsonStr): string {

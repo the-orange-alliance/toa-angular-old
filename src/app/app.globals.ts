@@ -4,9 +4,7 @@ import { Meta, Title } from '@angular/platform-browser';
 @Injectable()
 export class TheOrangeAllianceGlobals {
 
-  constructor(private titleService: Title, private meta: Meta) {
-
-  }
+  constructor(private titleService: Title, private meta: Meta) {}
 
   setTitle(newTitle: string): void {
     this.titleService.setTitle( newTitle + ' | The Orange Alliance');

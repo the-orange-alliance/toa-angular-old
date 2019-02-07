@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppBarService } from '../../app-bar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { TeamSorter } from '../../util/team-utils';
@@ -44,7 +45,7 @@ export class EventComponent implements OnInit {
   admin: boolean;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
-              public db: AngularFireDatabase, public auth: AngularFireAuth) {
+              public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService) {
     this.event_key = this.route.snapshot.params['event_key'];
 
     auth.authState.subscribe(user => {
@@ -78,6 +79,7 @@ export class EventComponent implements OnInit {
 
           this.app.setTitle(this.event_data.eventName);
           this.app.setDescription(`Event results for the ${new Date(this.event_data.startDate).getFullYear()} ${this.event_data.eventName} FIRST Tech Challenge in ${this.event_data.stateProv ? this.event_data.stateProv + ', ' + this.event_data.country : this.event_data.country }`);
+          this.appBarService.setTitle(new Date(this.event_data.startDate).getFullYear() + ' ' + this.event_data.eventName, true);
 
           if (this.event_data.rankings && this.event_data.rankings.length > 0) {
             this.select('rankings');

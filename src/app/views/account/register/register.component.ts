@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { TranslateService } from '@ngx-translate/core';
+import { AppBarService } from '../../../app-bar.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './register.component.html'
 })
 
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
   name = '';
   email = '';
@@ -18,13 +19,18 @@ export class RegisterComponent {
   confirmPassword = '';
   team = '';
 
-  constructor(public router: Router, public snackbar: MdcSnackbar,
-              public db: AngularFireDatabase, public auth: AngularFireAuth,
-              private translate: TranslateService) {
+  constructor(public router: Router, public snackbar: MdcSnackbar, private appBarService: AppBarService,
+              public db: AngularFireDatabase, public auth: AngularFireAuth, private translate: TranslateService) {
     auth.authState.subscribe(user => {
       if (user !== null) {
         this.router.navigate(['/account']);
       }
+    });
+  }
+
+  ngOnInit() {
+    this.translate.get(`pages.account.subpages.register.title`).subscribe((str: string) => {
+      this.appBarService.setTitle('myTOA - ' + str, true);
     });
   }
 
