@@ -290,12 +290,12 @@ export class AccountComponent implements OnInit, AfterViewChecked {
         this.cloud.dumpCache(this.user.uid,`/team/${key}`),
         this.cloud.dumpCache(this.user.uid,`/team/${key}/wlt`)
       ];
-      for (let sesson of this.ftc.allYears) {
-        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/events/${sesson}`));
-        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/matches/${sesson}`));
-        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/awards/${sesson}`));
-        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/results/${sesson}`));
-        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/media/${sesson}`));
+      for (let season of this.ftc.allYears) {
+        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/events/${season}`));
+        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/matches/${season}`));
+        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/awards/${season}`));
+        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/results/${season}`));
+        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/media/${season}`));
       }
       Promise.all(promises).then(() => {
         // Show Success
