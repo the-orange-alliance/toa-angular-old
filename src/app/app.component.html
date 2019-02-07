@@ -122,13 +122,16 @@
           <a mdc-list-item routerLink="/about" routerLinkActive="mdc-list-item--activated">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="information-outline"></mdc-icon>{{ "drawer.about" | translate }}
           </a>
+          <a mdc-list-item href="https://www.paypal.com/donate/?token=t2NF2bh1bhNYM_YWpdLyM-05E4fk3J1HLNWqdX0kLMEWVoTHc7fiqgrNqhikYwo_XtFtbW&country.x=US&locale.x=US" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="paypal"></mdc-icon>{{ "drawer.donate" | translate }}
+          </a>
           <a mdc-list-item routerLink="/privacy-terms" routerLinkActive="mdc-list-item--activated">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="gavel"></mdc-icon>{{ "drawer.privacy_and_terms" | translate }}
           </a>
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a href="https://revrobotics.com/" target="_blank" class="p-4" mdc-list-item  (click)="this.sendAnalytic('leaving', 'rev robotics logo');">
+          <a href="https://revrobotics.com/" target="_blank" class="p-4" mdc-list-item (click)="this.sendAnalytic('leaving', 'rev robotics logo')">
             <img class="img-fit-w" src="../assets/imgs/powered_by_rev.png" title="Powered by REV" />
           </a>
 

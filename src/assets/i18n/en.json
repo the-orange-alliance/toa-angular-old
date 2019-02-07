@@ -31,6 +31,7 @@
     "api": "API",
     "github": "GitHub",
     "about": "About",
+    "donate": "Donate",
     "privacy_and_terms": "Privacy & Terms",
     "mytoa": {
       "hello": "Hello, {{ name }}",
