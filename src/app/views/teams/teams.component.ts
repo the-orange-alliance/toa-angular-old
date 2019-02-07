@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
-import { TeamSorter } from '../../util/team-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
+import { TranslateService } from '@ngx-translate/core';
+import { AppBarService } from '../../app-bar.service';
 import Team from '../../models/Team';
 import Region from '../../models/Region';
 
@@ -18,7 +19,6 @@ export class TeamsComponent implements OnInit {
 
   teams: Team[];
   currentTeams: Team[];
-  teamsSorter: TeamSorter;
   regions: Region[];
 
   query: string;
@@ -26,14 +26,18 @@ export class TeamsComponent implements OnInit {
   public rightSide: Team[];
   public leftSide: Team[];
 
-  constructor(private router: Router, private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals) {
+  constructor(private router: Router, private ftc: FTCDatabase,private app: TheOrangeAllianceGlobals,
+              private translate: TranslateService, private appBarService: AppBarService) {
     this.query = null;
-    this.teamsSorter = new TeamSorter();
     this.app.setTitle('Teams');
     this.app.setDescription(`List of FIRST Tech Challenge teams`);
   }
 
   ngOnInit(): void {
+    this.translate.get('general.teams').subscribe((str: string) => {
+      this.appBarService.setTitle(str);
+    });
+
     this.ftc.getAllTeams().then((data: Team[]) => {
       this.teams = data;
       this.getTeams();
@@ -89,5 +93,9 @@ export class TeamsComponent implements OnInit {
     const elementList = document.querySelectorAll(selectors);
     const element = elementList[0] as HTMLElement;
     element.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  showFAB(): boolean {
+    return window.pageYOffset > 200;
   }
 }

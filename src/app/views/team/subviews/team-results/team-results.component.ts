@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import Team from "../../../../models/Team";
+import Team from '../../../../models/Team';
 
 @Component({
   selector: 'toa-team-results',

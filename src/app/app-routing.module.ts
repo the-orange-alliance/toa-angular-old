@@ -19,14 +19,28 @@ import { RegisterComponent } from './views/account/register/register.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'account', component: AccountComponent },
-  { path: 'account/login', component: LoginComponent },
-  { path: 'account/register', component: RegisterComponent },
+  { path: 'account',  children: [
+      { path: '', component: AccountComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'events', component: AccountComponent },
+      { path: 'new-event', component: AccountComponent },
+    ]
+  },
   { path: 'add-data', component: AddDataComponent },
   { path: 'events', component: EventsComponent },
   { path: 'teams', component: TeamsComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'apidocs', component: ApiDocsComponent },
+  { path: 'apidocs', component: ApiDocsComponent,  children: [
+      { path: '', redirectTo: 'get', pathMatch: 'full' },
+      { path: 'get', component: ApiDocsComponent },
+      { path: 'post', component: ApiDocsComponent },
+      { path: 'put', component: ApiDocsComponent },
+      { path: 'delete', component: ApiDocsComponent },
+      { path: 'models', component: ApiDocsComponent },
+      { path: 'types', component: ApiDocsComponent }
+    ]
+  },
   { path: 'stream', component: StreamingComponent },
   { path: 'privacy-terms', component: PrivacyTermsComponent },
   { path: 'events/:event_key', component: EventComponent },
@@ -41,8 +55,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes, {
+    anchorScrolling: 'enabled',
+  })],
+  exports: [RouterModule]
 })
 
 export class AppRoutingModule {}

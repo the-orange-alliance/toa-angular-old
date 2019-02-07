@@ -1,4 +1,4 @@
-import MatchDetails from "../MatchDetails";
+import MatchDetails from '../MatchDetails';
 
 export default class RelicRecoveryMatchDetails extends MatchDetails implements ISerializable {
   private _redAutoJewels: number;
@@ -105,6 +105,7 @@ export default class RelicRecoveryMatchDetails extends MatchDetails implements I
     details.redMajPen = json.red_maj_pen;
     details.blueMajPen = json.blue_maj_pen;
     details.redAutoJewels = json.red_auto_jewels;
+    details.redAutoGlyphs = json.red_auto_glyphs;
     details.redAutoKeys = json.red_auto_keys;
     details.redAutoParks = json.red_auto_parks;
     details.redTeleGlyphs = json.red_tele_glyphs;
@@ -117,6 +118,7 @@ export default class RelicRecoveryMatchDetails extends MatchDetails implements I
     details.redEndRelicStanding = json.red_end_relic_standing;
     details.redEndRobotBalances = json.red_end_robot_balances;
     details.blueAutoJewels = json.blue_auto_jewels;
+    details.blueAutoGlyphs = json.blue_auto_glyphs;
     details.blueAutoKeys = json.blue_auto_keys;
     details.blueAutoParks = json.blue_auto_parks;
     details.blueTeleGlyphs = json.blue_tele_glyphs;

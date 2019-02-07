@@ -10,6 +10,11 @@
     "teams": "קבוצות",
     "event": "אירוע",
     "events": "אירועים",
+    "live": "LIVE",
+    "here": "כאן",
+    "verify": "אימות",
+    "add": "הוספה",
+    "error_occurred": "אירעה שגיאה, אנא נסו שוב מאוחר יותר",
     "search_text_long": "חפש קבוצה או אירוע",
     "search_text_short": "מס׳ קבוצה או שם אירוע",
     "add_to_mytoa": "הוספה ל־myTOA",
@@ -26,6 +31,7 @@
     "api": "API",
     "github": "GitHub",
     "about": "אודות",
+    "donate": "תרומה",
     "privacy_and_terms": "פרטיות ותנאי שימוש",
     "mytoa": {
       "hello": "שלום {{ name }}",
@@ -40,25 +46,66 @@
       "title": "הוספת מידע",
       "short_info": "יש לכם מידע שאתם רוצים להוסיף לThe Orange Alliance?",
       "datasync": "DataSync - סנכרן את האירוע שלך עם TOA בלייב",
+      "add_event_data": "הוספת תוצאות אירוע לאחר סיומו",
       "add_match_video": "הוספת סרטון של מקצה",
       "add_event_stream": "הוספת שידור חיי של אירוע",
       "stream_your_event": "שדר את האירוע של בערוץ Twitch של TOA"
     },
+
     "404": {
       "title": "העמוד לא נמצא",
       "short_info": "נראה הגעתם לכאן על ידי לינק שבור. או שנכנסתם לקבוצה/אירוע/מקצה שלא קיימים"
     },
+
     "about": {
       "title": "אודותינו"
     },
+
     "account": {
       "logout": "התנתקות",
+      "level": "רמה {{ level }}",
+      "no_verify": "בבקשה אמת את האימייל שלך",
+      "why_verify": "כדי ליהנות מכל האפשרויות של חשבונך, יש לאמת את כתובת האימייל שלך.",
+      "manage_events": "נהל אירועים",
+      "api_card": {
+        "title": "בנה דברים מדהימים עם ה־API שלנו",
+        "your_key": "זה המפתח API שלך:",
+        "no_key": "אין לך מפתח API קיים עוד",
+        "generate_key": "צור מפתח",
+        "generating_key": "מייצר מפתח API...",
+        "docs": "ניתן לבדוק את תיעוד ה־API המלא שלנו בכתובת"
+      },
+      "account_settings": "הגדרות חשבון",
+      "reset_password": "איפוס סיסמה",
+      "reset_password_email": "מייל לאיפוס סיסמה נשלח אליך.",
+      "link_account": "קישור חשבון {{ name }}",
+      "unlink_account": "ניתוק חשבון {{ name }}",
+      "success_link": "חשבון {{ name }} קושר בהצלחה",
+      "success_unlink": "חשבון {{ name }} נותק בהצלחה",
+      "datasync_card": {
+        "title": "סנכרן את האירוע שלך עם TOA בלייב",
+        "docs": "ניתן לבדוק את תיעוד ה־DataSync המלא שלנו"
+      },
+      "create_event_card": {
+        "title": "יצירת אירוע",
+        "create": "יצירה",
+        "event_id": "מזהה אירוע (באנגלית)",
+        "event_type": "סוג אירוע",
+        "region": "אזור",
+        "season": "עונה",
+        "division_number": "מספר בית",
+        "success": "האירוע נוצר בהצלחה"
+      },
       "subpages": {
         "login": {
           "title": "התחברות",
           "email": "דואר אלקטרוני",
           "password": "סיסמה",
-          "login": "התחברות"
+          "login": "התחברות",
+          "forgot_password": "שכחת סיסמה?",
+          "login_google": "התחברות עם Google",
+          "login_github": "התחברות עם Github",
+          "no_account_linked": "חשבון זה אינו מקושר לחשבון myTOA כלשהו. היכנס כדי לקשר אותו."
         },
         "register": {
           "title": "הרשמה",
@@ -102,9 +149,9 @@
           "title": "דירוגים",
           "rank": "דירוג",
           "team": "קבוצה",
-          "wlt_record": "Record (W-L-T)",
-          "qual_points": "Qualification Points",
-          "ranking_points": "Ranking Points",
+          "wlt_record": "ניצחון-הפסד-תיקו",
+          "qual_points": "נקודות Qualification",
+          "ranking_points": "נקודות Ranking",
           "tie_reaker_points": "נקודות שובר שיוויון",
           "highest_score": "הניקוד הכי גבוה",
           "matches_played": "מקצים ששוחקו"
@@ -117,6 +164,54 @@
         },
         "awards": {
           "title": "פרסים"
+        },
+        "for-participants": {
+          "title": "למשתתפים",
+          "pits_map": "מפת פיטים",
+          "schedule": "לוח זמנים"
+        },
+        "admin": {
+          "title": "ניהול",
+          "playlist_card": {
+            "title": "הוספת סרטוני מקצים מ־YouTube Playlist",
+            "playlist_url": "Playlist URL",
+            "load": "טעינה",
+            "confirm": "אישור והעלאה",
+            "successfully": "הועלו בהצלחה {{ value }} סרטונים",
+            "error": "לא הצלחנו למצוא סרטונים של מקצים",
+            "invalid_url": "URL לא תקני, לא הצלחנו למצוא פלייליסט YouTube"
+          },
+          "update_info_card": {
+            "title": "ערוך את פרטי האירוע שלך",
+            "event_name": "שם האירוע",
+            "website": "אתר",
+            "start_date": "תאריך התחלה",
+            "end_date": "תאריך סיום",
+            "venue": "אולם",
+            "city": "עיר",
+            "state": "מחוז (ארה\"ב בלבד)",
+            "country": "מדינה",
+            "update": "עדכון",
+            "pits_map": "מפת פיטים",
+            "schedule": "לוח זמנים",
+            "upload": "העלאה",
+            "image_only": "ניתן להעלות את זה כתמונה בלבד",
+            "choose_image": "בחר תמונה...",
+            "successfully": "פרטי האירוע עודכנו בהצלחה"
+          },
+          "stream_card": {
+            "add_stream": "הוספת שידור חי",
+            "unlink_stream": "ניתוק שידור חי",
+            "currently_linked": "שידור חי מקושר כרגע",
+            "url": "{{ provider }} URL",
+            "link": "קישור",
+            "unlink": "ניתוק",
+            "stream": "שידור חי {{ provider }}",
+            "success_linked": "שידור חי קושר בהצלחה",
+            "success_unlinked": "שידור חי נותק בהצלחה"
+          },
+          "verify_email": "בבקשה אמת את האימייל שלך ונסה שנית.",
+          "success_sent_verify_email": "אמייל אימות נשלח אלייך בהצלחה."
         }
       }
     },
@@ -130,13 +225,26 @@
     "match": {
       "match_info": "פרטי המקצה",
       "match_key": "קוד מקצה",
+      "scheduled_time": "מועד מתוכנן",
       "no_video": "אין סרטון זמין",
       "add_one": "הוסף אחד"
     },
 
     "streams": {
       "event_results": "תוצאות אירוע",
-      "close_stream": "סגור שידור"
+      "close_stream": "סגור שידור",
+      "select_stream": "בחר שידור",
+      "select": "בחר",
+      "cancel": "ביטול",
+      "layouts": {
+        "title": "בחר פריסה",
+        "single_view": "תצוגה יחידה",
+        "vertical_split_view": "תצוגת מפוצלת אנכית",
+        "horizontal_split_view": "תצוגת מפוצלת אופקית",
+        "1_2_view": "תצוגת 1+2",
+        "1_4_view": "תצוגת 1+4",
+        "quad_view": "תצוגה ריבועית"
+      }
     },
 
     "team": {
@@ -158,7 +266,7 @@
     "teams": {
       "title": "קבוצות",
       "filter": "סנן לפי מספר, שם, או מיקום",
-      "results": "{{result}} תוצאות"
+      "results": "{{ results }} תוצאות"
     }
   },
 
@@ -168,7 +276,14 @@
     "scores": "ניקוד",
     "blue_alliance": "ברית כחולה",
     "red_alliance": "ברית אדומה",
+    "blue_score": "ניקוד כחול",
+    "red_score": "ניקוד אדום",
+    "no_matches_for_event": "אין מידע על מקצים עבור אירוע זה.",
     "match": "מקצה",
+    "view_team": "הצג קבוצה",
+    "rank": "דירוג",
+    "wlt": "WLT",
+    "played": "שוחקו",
     "help": {
       "bold": "<b>מוגדש</b> זה הברית המנצחת</small>",
       "bold_and_black": "<b>מוגדש ושחור</b> זה הקבוצה שנבחרה</small>",

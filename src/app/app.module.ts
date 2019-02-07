@@ -6,9 +6,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 
 import { TheOrangeAllianceComponent } from './app.component';
@@ -22,10 +23,14 @@ import { AboutComponent } from './views/about/about.component';
 import { ApiDocsComponent } from './views/apidocs/apidocs.component';
 
 import { FTCDatabase } from './providers/ftc-database';
+import { CloudFunctions } from './providers/cloud-functions';
+import { UploadService } from './providers/imgur';
+import { EventForParticipantsComponent } from './views/event/subviews/event-for-participants/event-for-participants.component';
 import { EventRankingsComponent } from './views/event/subviews/event-rankings/event-rankings.component';
 import { EventMatchesComponent } from './views/event/subviews/event-matches/event-matches.component';
 import { EventTeamsComponent } from './views/event/subviews/event-teams/event-teams.component';
 import { EventAwardsComponent } from './views/event/subviews/event-awards/event-awards.component';
+import { EventAdminComponent } from './views/event/subviews/event-admin/event-admin.component';
 import { PageNotFoundComponent } from './views/404/404.component';
 import { TeamComponent } from './views/team/team.component';
 import { StreamingComponent } from './views/stream/streaming.component';
@@ -63,10 +68,12 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     EventComponent,
     AboutComponent,
     TeamComponent,
+    EventForParticipantsComponent,
     EventRankingsComponent,
     EventMatchesComponent,
     EventTeamsComponent,
     EventAwardsComponent,
+    EventAdminComponent,
     TeamRobotComponent,
     TeamResultsComponent,
     StreamItemComponent,
@@ -88,6 +95,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AngularFireModule.initializeApp(environment.firebase, 'T'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
 
     BrowserModule.withServerTransition({appId: 'TOA-WebApp-1819'}),
     TranslateModule.forRoot({
@@ -103,7 +111,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppRoutingModule,
     AppMaterialModule
   ],
-  providers: [FTCDatabase],
+  providers: [FTCDatabase, CloudFunctions, UploadService],
   bootstrap: [TheOrangeAllianceComponent]
 })
 export class AppModule { }

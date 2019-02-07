@@ -1,16 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, NgZone, OnInit } from '@angular/core';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
-import { SafeResourceUrl } from "@angular/platform-browser/src/security/dom_sanitization_service";
+import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import EventLiveStream from '../../models/EventLiveStream';
 
-export class StreamType {
-  static YOUTUBE = 0;
-  static TWITCH = 1;
-  static CUSTOM = 2;
+export class Layout {
+  width: number;
+  height: number;
+  top: number;
+  left: number;
+
+  constructor(width: number, height: number, top: number, left: number) {
+    this.width = width;
+    this.height = height;
+    this.top = top;
+    this.left = left;
+  }
+
+  getStyle(): any {
+    return {
+      width: this.width > 0 ? this.width + '%' : 0,
+      height: this.height > 0 ? this.height + '%' : 0,
+      top: this.top > 0 ? this.top + '%' : 0,
+      left: this.left > 0 ? this.left + '%' : 0,
+      position: 'absolute',
+    }
+  }
 }
+
+const SMALL_WIDTH_BREAKPOINT = 700;
 
 @Component({
   selector: 'toa-streaming',
@@ -21,21 +41,26 @@ export class StreamType {
 export class StreamingComponent implements OnInit {
 
   streams: EventLiveStream[];
+  layouts: Layout[] = [];
+  selectedLayout: number = -1;
 
-  constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer, private app: TheOrangeAllianceGlobals) {
+  constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer,
+              private app: TheOrangeAllianceGlobals, private ngZone: NgZone) {
     this.app.setTitle('Streaming');
-    this.app.setDescription('Watch live FIRST Tech Challenge events')
+    this.app.setDescription('Watch live FIRST Tech Challenge events');
+
+    window.onresize = (e) => {
+      this.ngZone.run(() => {
+        this.checkSize(window.innerWidth);
+      });
+    };
   }
 
   ngOnInit() {
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       this.streams = [];
-
       for (const stream of data) {
-
         stream.safeURL = this.getSafeURL(stream.streamURL);
-        stream.fullURL = this.getFullURL(stream.streamURL);
-
         if (stream.isActive) {
           this.streams.push(stream);
         }
@@ -47,22 +72,106 @@ export class StreamingComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(streamURL);
   }
 
-  getFullURL(streamURL: string) {
-    // YouTube
-    let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    let match = streamURL.match(regExp);
-    if (match && match[2].length === 11) {
-       return 'https://www.youtube.com/watch?v=' + match[2];
-    }
-
-    // Twitch
-    regExp = /^.*(twitch\.tv(|\/|)\?channel=|\&channel=)([^#\&\?]*).*/;
-    match = streamURL.match(regExp);
-    if (match && match[2]) {
-      return 'https://twitch.tv/' + match[2];
-    }
-
-    return null
+  @HostListener('window:resize', ['$event'])
+  onResize(event){
+    this.checkSize(event.target.innerWidth);
   }
 
+  checkSize(innerWidth: number) {
+    if (innerWidth < SMALL_WIDTH_BREAKPOINT) {
+      this.selectLayout(4, false);
+    } else if (this.selectedLayout < 0) {
+      this.layouts = [];
+    }
+  }
+
+  selectLayout(layoutKey: number, user: boolean = true) {
+    this.layouts = this.getLayouts(layoutKey, user)
+  }
+
+  getLayouts(layoutKey: number, user: boolean = true): Layout[] {
+    if (user) {
+      this.selectedLayout = layoutKey;
+    }
+
+    // The layouts, names, and icons were taken from TBA
+    // https://github.com/the-blue-alliance/the-blue-alliance/blob/master/react/gameday2/constants/LayoutConstants.js
+    let layouts: Layout[] = [];
+    if (layoutKey === 0) {
+      /*
+        +------+------+
+        |             |
+        |      0      |
+        |             |
+        +------+------+
+      */
+      layouts.push(new Layout(100, 100, 0, 0));
+
+    } else if (layoutKey === 1) {
+      /*
+        +------+------+
+        |      |      |
+        |   0  |   1  |
+        |      |      |
+        +------+------+
+      */
+      layouts.push(new Layout(50, 100, 0, 0));
+      layouts.push(new Layout(50, 100, 0, 50));
+
+    } else if (layoutKey === 2) {
+      /*
+        +-------+-----+
+        |       |  1  |
+        |   0   |-----|
+        |       |  2  |
+        +-------+-----+
+      */
+      layouts.push(new Layout(70, 100, 0, 0));
+      layouts.push(new Layout(30, 50, 0, 70));
+      layouts.push(new Layout(30, 50, 50, 70));
+
+    } else if (layoutKey === 3) {
+      /*
+        +------+------+
+        |   0  |   1  |
+        |------|------|
+        |   2  |   3  |
+        +------+------+
+      */
+      layouts.push(new Layout(50, 50, 0, 0));
+      layouts.push(new Layout(50, 50, 0, 50));
+      layouts.push(new Layout(50, 50, 50, 0));
+      layouts.push(new Layout(50, 50, 50, 50));
+
+    } else if (layoutKey === 4) {
+      /*
+       +-------------+
+       |      0      |
+       |-------------|
+       |      1      |
+       +-------------+
+      */
+      layouts.push(new Layout(100, 50, 0, 0));
+      layouts.push(new Layout(100, 50, 50, 0));
+
+    } else if (layoutKey === 5) {
+      /*
+        +-----------+-----+
+        |           |  1  |
+        |           |-----|
+        |           |  2  |
+        |      0    |-----|
+        |           |  3  |
+        |           |-----|
+        |           |  4  |
+        +-----------+-----+
+      */
+      layouts.push(new Layout(75, 100, 0, 0));
+      layouts.push(new Layout(25, 25, 0, 75));
+      layouts.push(new Layout(25, 25, 25, 75));
+      layouts.push(new Layout(25, 25, 50, 75));
+      layouts.push(new Layout(25, 25, 75, 75));
+    }
+    return layouts;
+  }
 }

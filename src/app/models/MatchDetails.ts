@@ -7,8 +7,8 @@ export default class MatchDetails implements ISerializable {
   private _blueMajPen: number;
 
   constructor() {
-    this._matchDetailKey = "";
-    this._matchKey = "";
+    this._matchDetailKey = '';
+    this._matchKey = '';
     this._redMinPen = 0;
     this._blueMinPen = 0;
     this._redMajPen = 0;

@@ -50,12 +50,7 @@ export class EventFilter {
   public filterArray(query: string) {
     if (query && query.trim() !== '' && query !== null) {
       this.eventsFiltered = this.events.filter((event: Event) => {
-        query = query.toLowerCase();
-        const region = (event.regionKey || 'null').toLowerCase();
-
-        const contains_region = (region.indexOf(query) > -1);
-
-        return contains_region;
+        return (event.regionKey || 'null').toLowerCase() === query.toLowerCase();
       });
     } else {
       this.eventsFiltered = this.events;

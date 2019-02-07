@@ -5,9 +5,9 @@ export default class Award implements ISerializable {
   private _displayOrder: number;
 
   constructor() {
-    this._awardKey = "";
-    this._awardType = "";
-    this._awardDescription = "";
+    this._awardKey = '';
+    this._awardType = '';
+    this._awardDescription = '';
     this._displayOrder = 0;
   }
 

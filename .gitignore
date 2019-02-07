@@ -43,4 +43,7 @@ testem.log
 Thumbs.db
 
 the-orange-alliance.iml
+
 **/environments
+src/environments/environment.ts
+src/environments/environment.prod.ts

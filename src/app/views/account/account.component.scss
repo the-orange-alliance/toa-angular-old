@@ -1,0 +1,45 @@
+@import "../../../constants";
+
+.profile-image {
+  width: 96px;
+  height: 96px;
+  line-height: 96px;
+  border-radius: 50%;
+  background: #ececec;
+  border: #d8d8d8 solid 1px;
+  font-size: 55px;
+  color: #000;
+  text-align: center;
+  margin: 10px 0;
+  display: inline-block;
+  pointer-events: none;
+}
+
+.profile-name {
+  font-size: 1.75rem;
+  color: #202124;
+}
+
+.profile-detail {
+  font-size: 1rem;
+  word-break: break-word;
+  word-wrap: break-word;
+  color: #5f6368;
+}
+
+.server-illustration {
+  height: 96px;
+  width: 96px;
+}
+
+.dropdown-style {
+  width: 240px;
+  margin-top: 9px;
+  margin-bottom: 9px;
+}
+
+@media (max-width: 991px) {
+  .server-illustration {
+    display: none;
+  }
+}

@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { AppBarService } from '../../app-bar.service';
 import { Router } from '@angular/router';
-
 import { FTCDatabase } from '../../providers/ftc-database';
 import { EventFilter, EventSorter } from '../../util/event-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
@@ -30,17 +31,21 @@ export class EventsComponent implements OnInit {
   currentRegion: Region;
 
   eventFilter: EventFilter;
-  eventSorter: EventSorter;
 
   @ViewChild('tabbar') tabbar: MdcTabBar;
 
-  constructor(private ftc: FTCDatabase, private router: Router, private app: TheOrangeAllianceGlobals) {
+  constructor(private ftc: FTCDatabase, private router: Router, private app: TheOrangeAllianceGlobals,
+              private translate: TranslateService, private appBarService: AppBarService) {
     this.app.setTitle('Events');
     this.app.setDescription(`List of FIRST Tech Challenge events`);
     this.weeks = new Map<string, Week>();
   }
 
   ngOnInit(): void {
+    this.translate.get('general.events').subscribe((str: string) => {
+      this.appBarService.setTitle(str);
+    });
+
     this.ftc.getAllSeasons().then((data: Season[]) => {
       this.seasons = data.reverse();
       this.selectSeason(this.seasons[0]);

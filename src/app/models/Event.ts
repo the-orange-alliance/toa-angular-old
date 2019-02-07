@@ -82,7 +82,6 @@ export default class Event implements ISerializable {
       region_key: this.regionKey,
       league_key: this.leagueKey,
       event_code: this.eventCode,
-      event_region_number: this.eventRegionNumber,
       event_type_key: this.eventTypeKey,
       division_key: this.divisionKey,
       division_name: this.divisionName,
@@ -102,9 +101,7 @@ export default class Event implements ISerializable {
       alliance_count: this.allianceCount,
       field_count: this.fieldCount,
       advance_spots: this.advanceSpots,
-      advance_event: this.advanceEvent,
-      team_count: this.teamCount,
-      match_count: this.matchCount
+      advance_event: this.advanceEvent
     };
   }
 
@@ -120,8 +117,8 @@ export default class Event implements ISerializable {
     event.eventTypeKey = json.event_type_key;
     event.eventName = json.event_name;
     event.divisionName = json.division_name;
-    event.startDate = json.start_date;
-    event.endDate = json.end_date;
+    event.startDate = this.fixDate(json.start_date);
+    event.endDate = this.fixDate(json.end_date);
     event.weekKey = json.week_key;
     event.city = json.city;
     event.stateProv = json.state_prov;
@@ -392,5 +389,13 @@ export default class Event implements ISerializable {
 
   set teams(value: EventParticipant[]) {
     this._teams = value;
+  }
+
+  fixDate(date: any): any {
+    if (date.endsWith('Z')) {
+      return date.substr(0, date.length - 1);
+    } else {
+      return date;
+    }
   }
 }

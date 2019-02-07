@@ -1,7 +1,7 @@
 import MatchDetails from '../MatchDetails';
 import RelicRecoveryMatchDetails from './RelicRecoveryMatchDetails';
 import VelocityVortexMatchDetails from './VelocityVortexMatchDetails';
-import RoverRuckusMatchDetails from "./RoverRuckusMatchDetails";
+import RoverRuckusMatchDetails from './RoverRuckusMatchDetails';
 
 export function getMatchDetails(seasonKey: string): MatchDetails {
   switch (seasonKey) {

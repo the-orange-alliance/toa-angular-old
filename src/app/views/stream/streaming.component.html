@@ -1,15 +1,71 @@
 <div *ngIf="streams" class="main">
   <div class="row m-0 h-100">
 
-    <div class="row p-0 m-0 col-12 col-12 col-lg-10" *ngIf="streams.length > 0">
-      <div class="col-lg-7 p-0">
-        <toa-stream-item [id]="0" [streams]="streams"></toa-stream-item>
-      </div>
+    <div class="p-3 m-0 col-12 col-12 col-lg-10" *ngIf="layouts.length === 0 && streams.length > 0" style="background-color: #000">
+      <div mdcDialogSurface class="modal-content border-0" style="width: 300px; margin: auto auto">
+        <mdc-dialog-title>{{ 'pages.streams.layouts.title' | translate }}</mdc-dialog-title>
+        <mdc-dialog-content>
+          <mdc-list>
+            <mdc-list-item (click)="selectLayout(0)">
+              <mdc-icon mdcListItemGraphic>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 15">
+                  <path d="M0 0h23v15h-23v-15z"></path>
+                </svg>
+              </mdc-icon>
+              {{ 'pages.streams.layouts.single_view' | translate }}
+            </mdc-list-item>
 
-      <div class="col-lg-5 p-0">
-        <toa-stream-item [id]="1" height="50%" [streams]="streams"></toa-stream-item>
-        <toa-stream-item [id]="2" height="50%" [streams]="streams"></toa-stream-item>
+            <mdc-list-item (click)="selectLayout(1)">
+              <mdc-icon mdcListItemGraphic>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 15">
+                  <path d="M0 0h11v15h-11v-15zM12 0h11v15h-11v-15z"></path>
+                </svg>
+              </mdc-icon>
+              {{ 'pages.streams.layouts.vertical_split_view' | translate }}
+            </mdc-list-item>
+
+            <mdc-list-item (click)="selectLayout(4)">
+              <mdc-icon mdcListItemGraphic>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 15">
+                  <path d="M0 0h23v7h-23v-7z M0 8h23v7h-23v-7z"></path>
+                </svg>
+              </mdc-icon>
+              {{ 'pages.streams.layouts.horizontal_split_view' | translate }}
+            </mdc-list-item>
+
+            <mdc-list-item (click)="selectLayout(2)">
+              <mdc-icon mdcListItemGraphic>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 15">
+                  <path d="M0 0h14v15h-14v-15zM15 0h8v7h-8v-7zM15 8h8v7h-8v-7z"></path>
+                </svg>
+              </mdc-icon>
+              {{ 'pages.streams.layouts.1_2_view' | translate }}
+            </mdc-list-item>
+
+            <mdc-list-item (click)="selectLayout(5)">
+              <mdc-icon mdcListItemGraphic>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 15">
+                  <path d="M0 0h15v15h-15v-15z M16 0h7v3h-7v-3z M16 4h7v3h-7v3z M16 8h7v3h-7v-3z M16 12h7v3h-7v-3z"></path>
+                </svg>
+              </mdc-icon>
+              {{ 'pages.streams.layouts.1_4_view' | translate }}
+            </mdc-list-item>
+
+            <mdc-list-item (click)="selectLayout(3)">
+              <mdc-icon mdcListItemGraphic>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 15">
+                  <path d="M0 0h11v7h-11v-7z M0 8h11v7h-11v-7z M12 0h11v7h-11v-7z M12 8h11v7h-11v-7z"></path>
+                </svg>
+              </mdc-icon>
+              {{ 'pages.streams.layouts.quad_view' | translate }}
+            </mdc-list-item>
+          </mdc-list>
+        </mdc-dialog-content>
       </div>
+    </div>
+
+    <div class="p-0 m-0 col-12 col-12 col-lg-10" *ngIf="layouts.length > 0 && streams.length > 0">
+      <toa-stream-item *ngFor="let layout of layouts; let i = index" [id]="i" [streams]="streams" [ngStyle]="layout.getStyle()"></toa-stream-item>
     </div>
 
     <h5 class="text-center mt-5 col-12 col-lg-10" *ngIf="streams && streams.length <= 0">

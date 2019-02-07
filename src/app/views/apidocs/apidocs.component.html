@@ -1,97 +1,122 @@
 <div dir="ltr">
-  <h2>API</h2>
+  <h2>The Orange Alliance API</h2>
+  <p>The goal of TOA API is to provide us, and potential outside users a way to query our databases.</p>
 
-  <div class="col-12">
-    <p>The goal of TOA API is to provide us, and potential outside users a way to query our databases. </p>
 
-    <h1 mdcHeadline5 class="mt-4">API Access Levels</h1>
-    <div class="row">
-      <mdc-card class="toa-card p-0 col-md-3 col-12 m-2">
-        <li class="list-group-item bg-primary border-0">Level 0</li>
-        <li class="list-group-item border-0">Revoked/not yet approved API key</li>
-        <li class="list-group-item  border-0">Every request to TOA API with this key will be denied with a 403 status</li>
-      </mdc-card>
-      <mdc-card class="toa-card p-0 col-md-3 col-12 m-2">
-        <li class="list-group-item bg-primary border-0">Level 1</li>
-        <li class="list-group-item border-0">Single-purpose/team API Key</li>
-        <li class="list-group-item  border-0">Rate limit of 30 requests/minute</li>
-      </mdc-card>
-      <mdc-card class="toa-card p-0 col-md-3 col-12 m-2">
-        <li class="list-group-item bg-primary border-0">Level 2</li>
-        <li class="list-group-item border-0">Full developer access/application API Key</li>
-        <li class="list-group-item  border-0">There is no limit on rates</li>
-      </mdc-card>
+  <div mdcHeadline5 class="headline-margin">Accessing the API</div>
+  <p>The API only ever responds with JSON data. To correctly request JSON from the API, set the Content-Type header of your request to be application/json.</p>
+  <p>Two custom request headers must be sent with every request you make: <code>X-TOA-Key</code> and <code>X-Application-Origin</code>. <code>X-TOA-Key</code> should be the value of your API key, and <code>X-Application-Origin</code> should be the name of your application. Without either of these headers, your request will be denied by the API.</p>
+  <p>TL;DR:<br/>
+    Set <code>Content-Type</code> to <code>application/json</code><br/>
+    Set <code>X-TOA-Key</code> to your API Key<br/>
+    Set <code>X-Application-Origin</code> to your application name<br/>
+  </p>
+
+
+  <div mdcHeadline5 class="headline-margin">Routing</div>
+  <p>The routing is broken into several different handlers that all provide different information.<br/>
+  If an error occurs during any part of the request process, an Error object will be returned which has <code>_code</code> and <code>_message</code> properties.</p>
+
+
+  <div mdcHeadline5 class="headline-margin" *ngIf="docs">Docs</div>
+  <div class="outline-card bg-white table-responsive" *ngIf="docs">
+    <mdc-tab-bar #tabs [activeTabIndex]="activeTab" (activated)="tabActivated($event)">
+      <mdc-tab-scroller>
+        <mdc-tab label="GET"    (click)="changeUrlNoRoute('get')"></mdc-tab>
+        <mdc-tab label="POST"   (click)="changeUrlNoRoute('post')"></mdc-tab>
+        <mdc-tab label="PUT"    (click)="changeUrlNoRoute('put')"></mdc-tab>
+        <mdc-tab label="DELETE" (click)="changeUrlNoRoute('delete')"></mdc-tab>
+        <mdc-tab label="Models" (click)="changeUrlNoRoute('models')"></mdc-tab>
+        <mdc-tab label="Types" (click)="changeUrlNoRoute('types')"></mdc-tab>
+      </mdc-tab-scroller>
+    </mdc-tab-bar>
+
+    <div *ngIf="tabs.activeTabIndex === 0" class="docs-api">
+      <div *ngFor="let base of baseRoutes">
+        <h3 mdcHeadline6 class="pt-5 pb-3">{{ base.title }}</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Queries</th>
+            <th>Cache</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let route of base.routes">
+            <td><code [innerHTML]="getRouteHTML(route)"></code>: {{ route.response_type }}{{ route.response_array ? '[]' : '' }}</td>
+            <td>{{ route.desc }}</td>
+            <td>{{ route.queries !== 'N/A' ? route.queries : '' }}</td>
+            <td>{{ route.cache !== 'None' ? route.cache : '' }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <p>* Every request is tracked</p>
 
-    <h1 mdcHeadline5>API v3</h1>
-    <h1 mdcHeadline6>Authentication</h1>
-    <p>The API only ever responds with JSON data, therefore the API will only respond to requests that are looking for JSON. To currectly request JSON from the API, set the <code>Content-Type</code> header of your request to be <code>application/json</code>.<br/>
-      Two custom request headers must be sent with every request you make: <code>X-TOA-Key</code> and <code>X-Application-Origin</code>. <code>X-TOA-Key</code> should be the value of your API key, and X-Application-Origin should be the name of your application. Without either of these headers, your request will be denied by the API.</p>
-    <div class="no-underline col-12 mt-1">
-      <a href="https://goo.gl/forms/u3E1sMuCNT9UcPmH3" target="_blank"  (click)="this.sendAnalytic('leaving', '/apidocs', 'apply for api key');">
-        <mdc-card class="toa-card link-card">
-          <div class="link-card-icon">
-            <mdc-icon svgIcon="link"></mdc-icon>
-          </div>
-          <div class="link-card-content">
-            <div class="link-card-title">Apply for an API Key</div>
-            <div class="gray">Related Link</div>
-          </div>
-        </mdc-card>
-      </a>
+    <div *ngIf="tabs.activeTabIndex > 0 && tabs.activeTabIndex < 4" class="docs-api">
+      <div *ngFor="let base of baseRoutes">
+        <h3 mdcHeadline6 class="pt-5 pb-3">{{ base.title }}</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Required Fields</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let route of base.routes">
+            <td><code [innerHTML]="getRouteHTML(route)"></code></td>
+            <td>{{ route.desc }}</td>
+            <td [innerHTML]="getRequiredFieldsHTML(route)"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <p class="mt-2">All requests should be made (using SSL) to the base URL <a href="https://theorangealliance.org/api" (click)="this.sendAnalytic('leaving', '/apidocs', 'api link');">https://theorangealliance.org/api</a>.
-      To see complete details of data accessible via APIv3, please see the <a href="https://orange-alliance.github.io/TOA-API" target="_blank" (click)="this.sendAnalytic('leaving', '/apidocs', 'api docs');">full documentation</a></p>
-    <div class="no-underline col-12 mt-1">
-      <a href="https://orange-alliance.github.io/TOA-API" target="_blank" (click)="this.sendAnalytic('leaving', '/apidocs', 'api docs');">
-        <mdc-card class="toa-card link-card">
-          <div class="link-card-icon">
-            <mdc-icon svgIcon="link"></mdc-icon>
-          </div>
-          <div class="link-card-content">
-            <div class="link-card-title">API Full Documentation</div>
-            <div class="gray">Related Link</div>
-          </div>
-        </mdc-card>
-      </a>
+    <div *ngIf="tabs.activeTabIndex === 4" class="docs-api">
+      <div *ngFor="let model of docs.models">
+        <h3 mdcHeadline6 class="pt-5 pb-3">{{ model.model }}</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let field of model.fields">
+            <td>{{ field.name }}</td>
+            <td>{{ field.type }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="tabs.activeTabIndex === 5" class="docs-api">
+      <div *ngFor="let type of docs.types">
+        <h3 mdcHeadline6 class="pt-5 pb-3">{{ type.name }}</h3>
+        <table>
+          <thead>
+          <tr>
+            <th>Key</th>
+            <th>Name</th>
+            <th>Type</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let field of type.types">
+            <td>{{ field.key }}</td>
+            <td>{{ field.name }}</td>
+            <td>{{ field.type }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
-<!--
-<h1 mdcHeadline5 class="mt-4">API Route</h1>
-
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Route</th>
-      <th scope="col">Description</th>
-      <th scope="col">Example</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let route of api_routes">
-      <th><a href="http://theorangealliance.org{{ route.route }}" target="_blank">{{ route.route }}</a></th>
-      <td>{{ route.route_desc }}</td>
-      <td><button mdc-button [disabled]="!route.example" data-toggle="modal" [attr.data-target]="'#route' + route.route_key">Example</button></td>
-
-      <div class="modal fade bd-example-modal-lg" [id]="'route' + route.route_key" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content">
-            <mdc-dialog-header title="{{ route.route }}"></mdc-dialog-header>
-            <mdc-dialog-body>
-              {{ route.route_desc }}
-              <pre>{{ stringify(route.example) }}</pre>
-            </mdc-dialog-body>
-            <mdc-dialog-footer>
-              <button mdc-dialog-button [attr.data-dismiss]="'modal'">Close</button>
-            </mdc-dialog-footer>
-          </div>
-        </div>
-      </div>
-
-    </tr>
-  </tbody>
-</table>
--->

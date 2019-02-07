@@ -11,6 +11,17 @@ html, body {
 
 .row {
   max-width: 100%;
+  margin-left: 0!important;
+  margin-right: 0!important;
+}
+
+.col-12, .col-sm-12, .col-md-12 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
 }
 
 a:hover {
@@ -64,15 +75,19 @@ a:hover {
 
 .toa-fab {
   z-index: 0;
-  color: #fff!important;
+  color: #000!important;
 }
 
 mdc-text-field .mdc-floating-label {
   margin-bottom: 0;
 }
 
+.mdc-top-app-bar {
+  color: #000;
+}
+
 .mdc-top-app-bar .mdc-top-app-bar__navigation-icon {
-  color: #fff;
+  color: #000;
 }
 
 mdc-icon svg {
@@ -84,6 +99,18 @@ mdc-icon svg {
   color: $mdc-theme-dark;
   font-weight: bold;
 }
+
+.headline-margin {
+  margin: 48px 0 24px;
+  letter-spacing: 0;
+  padding-bottom: 0;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* ==========================================================================
    Colors
    ========================================================================== */
@@ -110,12 +137,74 @@ mdc-icon svg {
 }
 
 .icon-white {
-  color: white;
+  color: #fff;
 }
 
 /* for SVG icons */
 .icon-white svg {
-  fill: white;
+  fill: #fff;
+}
+
+
+/* ==========================================================================
+   Padding and Margin
+   ========================================================================== */
+
+$spacer: 1rem !default;
+$spacers: (
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 3)
+);
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+@mixin media-breakpoint-up($min) {
+  @if $min != 0 {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@each $breakpoint in map-keys($breakpoints) {
+  $min: map-get($breakpoints, $breakpoint);
+
+  @include media-breakpoint-up($min) {
+    $infix: if($min == 0, "", "-#{$breakpoint}");
+
+    @each $prop, $abbrev in (margin: m, padding: p) {
+      @each $size, $length in $spacers {
+        [dir=rtl] .#{$abbrev}s#{$infix}-#{$size},
+        [dir=ltr] .#{$abbrev}e#{$infix}-#{$size} {
+          #{$prop}-right: $length !important;
+        }
+
+        [dir=rtl] .#{$abbrev}e#{$infix}-#{$size},
+        [dir=ltr] .#{$abbrev}s#{$infix}-#{$size} {
+          #{$prop}-left: $length !important;
+        }
+      }
+    }
+  }
+}
+
+[dir="rtl"].custom-file-label::after {
+  left: 0;
+  right: initial;
+  border-right: 1px solid #ced4da;
+  border-left: 0;
+  border-radius: .20rem 0 0 .20rem;
 }
 
 
@@ -148,10 +237,6 @@ mdc-drawer mdc-list a {
   color: rgba(0, 0, 0, 0.54)!important;
 }
 
-.mdc-top-app-bar {
-  color: #fff;
-}
-
 .item-profile {
   height: 80px!important;
 }
@@ -174,25 +259,30 @@ mdc-drawer mdc-list a {
     padding-bottom: 64px;
   }
   .toa-page {
-    margin-left: 256px;
     margin-right: 0;
+    margin-left: 256px;
+    padding-right: 20px;
     padding-left: 20px;
   }
 
   [dir="rtl"] .toa-page {
     margin-right: 256px!important;
     margin-left: 0!important;
-    padding-right: 20px!important;
   }
 }
 
 @media (max-width: 1239px) {
   .toa-page {
-    padding-left: 20px;
+    padding: 12px;
   }
-  [dir="rtl"] .toa-page {
-    padding-left: 0!important;
-    padding-right: 20px;
+
+  .page-title {
+    display: none;
+  }
+
+  .page-subtitle {
+    padding-top: 1rem;
+    margin: 0;
   }
 }
 
@@ -201,8 +291,16 @@ mdc-drawer mdc-list a {
    Info State
    ========================================================================== */
 
+.info-state {
+  align-content: center !important;
+  display: flex;
+  margin: 5px 0;
+}
+
 .info-state p {
-  margin: 3px 0 10px 10px;;
+  margin: 0 0 10px 10px;
+  word-break: break-word;
+  padding: 0;
 }
 
 .info-state mdc-icon {
@@ -231,6 +329,7 @@ mdc-drawer mdc-list a {
   border-radius: 6px!important;
   padding: 5px;
 }
+
 .toa-card-header {
   font-weight: 500;
   color: #000;
@@ -279,7 +378,7 @@ mdc-drawer mdc-list a {
 
 .link-card-icon mdc-icon {
   position: absolute;
-  top: 45%;
+  top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -322,6 +421,42 @@ mdc-drawer mdc-list a {
 
 
 /* ==========================================================================
+   Tooltip
+   ========================================================================== */
+
+.toa-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.toa-tooltip .tooltiptext {
+  opacity: 0;
+  visibility: hidden;
+  background-color: rgb(60,64,67);
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: .3px;
+  line-height: 16px;
+  padding: 6px 12px;
+  white-space: nowrap;
+  z-index: 9999;
+  position: absolute;
+  display: block;
+  bottom: 125%;
+  left: -80%;
+}
+
+.toa-tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/* ==========================================================================
    Match Item Table
    ========================================================================== */
 
@@ -350,10 +485,32 @@ table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>
 }
 
 table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
-  padding: 8px;
+  padding: 12px;
   line-height: 1.42857143;
   vertical-align: middle;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #efefef;
+}
+
+table.match-table>tbody > tr > td:not(.selected-team) {
+  padding: 15px!important;
+}
+
+@media (max-width: 601px) {
+  table.match-table > tbody > tr > td, table.match-table > thead > tr > th {
+    padding: 5px 2px!important;
+    font-size: 14px!important;
+  }
+
+  table.match-table>tbody > tr > td:not(.selected-team) {
+    padding: 8px 4px !important;;
+  }
+
+  /*
+  .play-icon svg {
+    height: 18px;
+    width: 18px;
+  }
+  */
 }
 
 table.match-table th, table.oprTable th {
@@ -383,6 +540,9 @@ table.match-table tr {
 .play-icon svg {
   fill: #007bff;
 }
+.play-icon.offline svg {
+  fill: #00000012;
+}
 
 .match-winner {
   font-weight: bold;
@@ -401,12 +561,51 @@ table.match-table tr {
   font-weight: 600;
 }
 
+.selected-team {
+  border: 3px solid #000!important;
+}
+
+.selected-team-snackbar {
+  padding: 15px 24px;
+}
+
+.selected-team-snackbar .mdc-snackbar__label {
+  height: auto;
+  padding: 0 0 10px 0;
+  font-size: 16px;
+}
+
+.selected-team-snackbar .badge {
+  font-weight: 400;
+  font-size: 13px !important;
+  padding: 7px;
+}
+
+
 /* ==========================================================================
    Search
    ========================================================================== */
 
+.mobile-search-modal .modal-dialog {
+  margin: 0!important;
+  height: 100%!important;
+  width: 100%!important;
+}
+.mobile-search-modal .modal-content {
+   border: none;
+   border-radius: 0;
+}
+.mobile-search {
+  width: 100%!important;
+  background-color: white!important;
+}
+
+.mobile-search::before, .mobile-search::after {
+  display: none!important;
+}
+
 .mobile-search input {
-  font-size: 35px
+  font-size: 25px
 }
 
 .search-anchor {
@@ -415,7 +614,7 @@ table.match-table tr {
 
 .search-box {
   width: 300px;
-  color: #fff!important;
+  color: #000!important;
   box-shadow: none;
   background-color: $mdc-theme-light!important;
   border-radius: 4px;
@@ -423,12 +622,12 @@ table.match-table tr {
 
 .search-box input{
   border: 0;
-  color: #fff!important;
-  caret-color: #fff!important;
+  color: #000!important;
+  caret-color: #000!important;
 }
 
 .search-anchor .mdc-floating-label {
-  color: #fff!important;
+  color: #000!important;
 }
 
 .search-anchor .mdc-floating-label--float-above {
@@ -443,7 +642,21 @@ table.match-table tr {
   margin-bottom: 24px;
 }
 
-.search-anchor mdc-notched-outline {
+.search-anchor .mdc-notched-outline__notch {
+  border: none;
+}
+
+[dir="ltr"] .mdc-text-field--outlined .mdc-floating-label {
+  left: 0;
+  padding-left: 16px;
+}
+
+[dir="rtl"] .mdc-text-field--outlined .mdc-floating-label {
+  right: 0;
+  padding-right: 16px;
+}
+
+.search-anchor .mdc-notched-outline__leading, .search-anchor .mdc-notched-outline__trailing {
   display: none;
 }
 

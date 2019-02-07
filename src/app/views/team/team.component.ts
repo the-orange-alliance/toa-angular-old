@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AppBarService } from '../../app-bar.service';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { MatchSorter } from '../../util/match-utils';
 import { EventSorter } from '../../util/event-utils';
 import { AwardSorter } from '../../util/award-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
 import Team from '../../models/Team';
 import Match from '../../models/Match';
 import Season from '../../models/Season';
 import Event from '../../models/Event';
 import AwardRecipient from '../../models/AwardRecipient';
-import {AngularFireAuth} from 'angularfire2/auth';
-import {AngularFireDatabase} from 'angularfire2/database';
 import Ranking from '../../models/Ranking';
 import Media from '../../models/Media';
 import TeamSeasonRecord from '../../models/TeamSeasonRecord';
-import EventParticipant from "../../models/EventParticipant";
+import EventParticipant from '../../models/EventParticipant';
 
 @Component({
   selector: 'toa-team',
@@ -27,6 +28,7 @@ export class TeamComponent implements OnInit {
 
   team: Team;
   teamKey: string;
+  teamLogo: Media;
   years: any;
   seasons: Season[];
   currentSeason: Season;
@@ -38,15 +40,14 @@ export class TeamComponent implements OnInit {
   favorite: boolean;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
-              public db: AngularFireDatabase, public auth: AngularFireAuth) {
+              public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService) {
     this.teamKey = this.route.snapshot.params['team_key'];
 
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
         this.user = user;
-        db.object(`Users/${user.uid}/favTeams/${this.teamKey}`).snapshotChanges()
-          .subscribe(items => {
-            this.favorite = items !== null && items.payload.val() === true
+          db.object(`Users/${user.uid}/favTeams/${this.teamKey}`).query.once('value').then(items => {
+            this.favorite = items !== null && items.val() === true
           });
       }
     });
@@ -74,8 +75,10 @@ export class TeamComponent implements OnInit {
         }
         if (this.team.teamNameShort !== null) {
           this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamNumber + ')');
+          this.appBarService.setTitle('#' + this.team.teamNumber + ' ' + this.team.teamNameShort, true);
         } else {
           this.app.setTitle('Team ' + this.team.teamNumber);
+          this.appBarService.setTitle('Team #' + this.team.teamNumber, true);
         }
         this.app.setDescription(`Team information and competition results for FIRST Tech Challenge Team #${ this.team.teamNumber }`);
       } else {
@@ -171,7 +174,14 @@ export class TeamComponent implements OnInit {
     this.select('results');
     this.team.media = null;
     this.ftc.getTeamMedia(this.teamKey, this.currentSeason.seasonKey).then((data: Media[]) => {
-      this.team.media = data;
+      this.team.media = [];
+      for (let media of data) {
+        if (media.mediaType === 5) {
+          this.teamLogo = media;
+        } else {
+          this.team.media.push(media)
+        }
+      }
     });
   }
 
@@ -238,8 +248,14 @@ export class TeamComponent implements OnInit {
   toggleTeam(): void {
     if (this.favorite) { // Remove from favorites
       this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).remove();
+      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).query.once('value').then(items => {
+        this.favorite = items !== null && items.val() === true
+        });
     } else { // Add to favorites
       this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).set(true);
+      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).query.once('value').then(items => {
+        this.favorite = items !== null && items.val() === true
+        });
     }
   }
 

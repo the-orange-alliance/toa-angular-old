@@ -10,6 +10,11 @@
     "teams": "Teams",
     "event": "Event",
     "events": "Events",
+    "live": "LIVE",
+    "here": "here",
+    "verify": "Verify",
+    "add": "Add",
+    "error_occurred": "An error occurred, Please try again later",
     "search_text_long": "Search teams and events",
     "search_text_short": "Team # or Event",
     "add_to_mytoa": "Add to myTOA",
@@ -26,6 +31,7 @@
     "api": "API",
     "github": "GitHub",
     "about": "About",
+    "donate": "Donate",
     "privacy_and_terms": "Privacy & Terms",
     "mytoa": {
       "hello": "Hello, {{ name }}",
@@ -39,26 +45,67 @@
     "add_data": {
       "title": "Add Data",
       "short_info": "Do you have some data you'd like to add to The Orange Alliance?",
-      "datasync": "DataSync - Sync your event with TOA in live",
+      "datasync": "DataSync - Sync your event live with TOA",
+      "add_event_data": "Add event results after the event has ended",
       "add_match_video": "Add match video",
       "add_event_stream": "Add event stream",
       "stream_your_event": "Stream your event on TOA Twitch channel"
     },
+
     "404": {
       "title": "Page Not found",
       "short_info": "Looks like you've followed a broken link or entered team/event/match that doesn't exist."
     },
+
     "about": {
       "title": "About Us"
     },
+
     "account": {
       "logout": "Logout",
+      "level": "Level {{ level }}",
+      "no_verify": "Please consider verifying your email",
+      "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
+      "manage_events": "Manage Events",
+      "api_card": {
+        "title": "Build amazing things with our API",
+        "your_key": "Here is your API Key:",
+        "no_key": "You don't have any existing key",
+        "generate_key": "Generate a key",
+        "generating_key": "Generating an API Key...",
+        "docs": "You can check out our full API Documentation"
+      },
+      "account_settings": "Account Settings",
+      "reset_password": "Reset Password",
+      "reset_password_email": "A password reset email has been sent.",
+      "link_account": "Link {{ name }} account",
+      "unlink_account": "Unlink {{ name }} account",
+      "success_link": "Successfully linked {{ name }} account",
+      "success_unlink": "Successfully unlinked {{ name }} account",
+      "datasync_card": {
+        "title": "Sync your event live with TOA",
+        "docs": "You can check out our full DataSync Documentation"
+      },
+      "create_event_card": {
+        "title": "Create Event",
+        "create": "Create",
+        "event_id": "Event ID",
+        "event_type": "Event Type",
+        "region": "Region",
+        "season": "Season",
+        "division_number": "Division Number",
+        "success": "Successfully Created Event"
+      },
       "subpages": {
         "login": {
           "title": "Login",
           "email": "Email",
           "password": "Password",
-          "login": "Login"
+          "login": "Login",
+          "forgot_password": "Forgot password?",
+          "login_google": "Login with Google",
+          "login_github": "Login with Github",
+          "no_account_linked": "That account is not linked to any myTOA account. Please sign in to link it."
         },
         "register": {
           "title": "Register",
@@ -117,6 +164,54 @@
         },
         "awards": {
           "title": "Awards"
+        },
+        "for-participants": {
+          "title": "For Participants",
+          "pits_map": "Pits Map",
+          "schedule": "Event Schedule"
+        },
+        "admin": {
+          "title": "Admin",
+          "playlist_card": {
+            "title": "Add match videos from a YouTube Playlist",
+            "playlist_url": "Playlist URL",
+            "load": "Load",
+            "confirm": "Confirm and Upload",
+            "successfully": "Successfully uploaded {{ value }} videos",
+            "error": "We could not find any match videos",
+            "invalid_url": "Invalid URL, we could not find a YouTube playlist"
+          },
+          "update_info_card": {
+            "title": "Edit Your Event Info",
+            "event_name": "Event Name",
+            "website": "Website",
+            "start_date": "Start Date",
+            "end_date": "End Date",
+            "venue": "Venue",
+            "city": "City",
+            "state": "State",
+            "country": "Country",
+            "update": "Update",
+            "pits_map": "Pits Map",
+            "schedule": "Event Schedule",
+            "upload": "Upload",
+            "image_only": "You can upload it only as an image",
+            "choose_image": "Choose image...",
+            "successfully": "Successfully updated the event info"
+          },
+          "stream_card": {
+            "add_stream": "Add Stream",
+            "unlink_stream": "Unlink Stream",
+            "currently_linked": "Currently Linked Stream",
+            "url": "{{ provider }} URL",
+            "link": "Link",
+            "unlink": "Unlink",
+            "stream": "{{ provider }} Stream",
+            "success_linked": "Successfully Linked Stream",
+            "success_unlinked": "Successfully Linked Stream"
+          },
+          "verify_email": "Please verify your email and try again.",
+          "success_sent_verify_email": "Successfully sent a verification email."
         }
       }
     },
@@ -130,13 +225,26 @@
     "match": {
       "match_info": "Match Information",
       "match_key": "Match Key",
+      "scheduled_time": "Scheduled Time",
       "no_video": "No video available",
       "add_one": "Add one"
     },
 
     "streams": {
       "event_results": "Event Results",
-      "close_stream": "Close stream"
+      "close_stream": "Close Stream",
+      "select_stream": "Select Stream",
+      "select": "Select",
+      "cancel": "Cancel",
+      "layouts": {
+        "title": "Select Layout",
+        "single_view": "Single View",
+        "vertical_split_view": "Vertical Split View",
+        "horizontal_split_view": "Horizontal Split View",
+        "1_2_view": "1+2 View",
+        "1_4_view": "1+4 View",
+        "quad_view": "Quad View"
+      }
     },
 
     "team": {
@@ -158,7 +266,7 @@
     "teams": {
       "title": "Teams",
       "filter": "Filter by number, name, or location",
-      "results": "{{result}} Results"
+      "results": "{{ results }} Results"
     }
   },
 
@@ -168,7 +276,14 @@
     "scores": "Scores",
     "blue_alliance": "Blue Alliance",
     "red_alliance": "Red Alliance",
+    "blue_score": "Blue Score",
+    "red_score": "Red Score",
+    "no_matches_for_event": "There is no available matches data for this event.",
     "match": "Match",
+    "view_team": "View team",
+    "rank": "Rank",
+    "wlt": "WLT",
+    "played": "Played",
     "help": {
       "bold": "<b>Bold</b> is Winning Alliance</small>",
       "bold_and_black": "<b>Bold and Black</b> is Selected Team</small>",

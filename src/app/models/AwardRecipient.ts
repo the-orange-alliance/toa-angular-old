@@ -1,5 +1,5 @@
 import Award from './Award';
-import Team from "./Team";
+import Team from './Team';
 
 export default class AwardRecipient implements ISerializable {
   private _awardsKey: string;

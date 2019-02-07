@@ -1,7 +1,7 @@
 import Ranking from './Ranking';
 import AwardRecipient from './AwardRecipient';
 import Event from './Event';
-import Media from "./Media";
+import Media from './Media';
 
 export default class Team implements ISerializable {
   private _teamKey: string;

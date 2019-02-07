@@ -3,8 +3,8 @@ export default class Region implements ISerializable {
   private _description: string;
 
   constructor() {
-    this._regionKey = "";
-    this._description = "";
+    this._regionKey = '';
+    this._description = '';
   }
 
   toJSON(): object {

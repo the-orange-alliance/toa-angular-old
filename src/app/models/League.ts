@@ -4,9 +4,9 @@ export default class League implements ISerializable {
   private _description: string;
 
   constructor() {
-    this._leagueKey = "";
-    this._regionKey = "";
-    this._description = "";
+    this._leagueKey = '';
+    this._regionKey = '';
+    this._description = '';
   }
 
   toJSON(): object {

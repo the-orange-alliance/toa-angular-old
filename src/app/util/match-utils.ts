@@ -1,4 +1,4 @@
-import Match from "../models/Match";
+import Match from '../models/Match';
 
 /**
  * Created by Kyle Flynn on 5/28/2017.
@@ -6,15 +6,15 @@ import Match from "../models/Match";
 export class MatchType {
 
   /*
-   0 - Practice Match
-   1 - Qualification Match
+    0 - Practice Match
+    1 - Qualification Match
    21 - Quarterfinals Series 1
    22 - Quarterfinals Series 2
    23 - Quarterfinals Series 3
    24 - Quarterfinals Series 4
    31 - Semifinals Series 1
    32 - Semifinals Series 2
-   4 Finals
+    4 - Finals
   */
 
   static PRACTICE_MATCH = 0;

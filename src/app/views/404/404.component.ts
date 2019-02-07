@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
+import { AppBarService } from '../../app-bar.service';
 
 @Component({
   selector: 'toa-page-not-found',
@@ -7,13 +8,17 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
   styleUrls: ['./404.component.css']
 })
 
-export class PageNotFoundComponent {
+export class PageNotFoundComponent implements OnInit {
 
   random: number;
 
-  constructor(private app: TheOrangeAllianceGlobals) {
-    this.app.setTitle('404');
+  constructor(app: TheOrangeAllianceGlobals, private appBarService: AppBarService) {
+    app.setTitle('404');
     const images = 3;
     this.random = Math.floor(Math.random() * images + 1);
+  }
+
+  ngOnInit() {
+    this.appBarService.setTitle('404 - Page Not Found', true);
   }
 }

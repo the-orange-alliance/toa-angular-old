@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import { SafeResourceUrl } from "@angular/platform-browser/src/security/dom_sanitization_service";
-import { DomSanitizer } from "@angular/platform-browser";
+import { AppBarService } from '../../app-bar.service';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import urlParser from 'js-video-url-parser';
 import Match from '../../models/Match';
 import Event from '../../models/Event';
 
@@ -19,7 +20,8 @@ export class MatchesComponent implements OnInit {
   match: Match;
   videoSafeURL: SafeResourceUrl;
 
-  constructor(private ftc: FTCDatabase, private router: Router, private sanitizer: DomSanitizer, private route: ActivatedRoute, private app: TheOrangeAllianceGlobals) {
+  constructor(private ftc: FTCDatabase, private router: Router, private sanitizer: DomSanitizer, private route: ActivatedRoute,
+              private app: TheOrangeAllianceGlobals, private appBarService: AppBarService) {
     this.matchKey = this.route.snapshot.params['match_key'];
   }
 
@@ -27,10 +29,21 @@ export class MatchesComponent implements OnInit {
     this.ftc.getMatchDetails(this.matchKey).then((match: Match) => {
       if (match) {
         this.match = match;
+        this.appBarService.setTitle(match.matchName);
+
         if (match.videoURL != null) {
-          let videoID = match.videoURL.match(/^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/);
-          if (videoID && videoID[2].length == 11) {
-            this.videoSafeURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + videoID[2]);
+          const video = urlParser.parse(match.videoURL);
+          let embedURL = urlParser.create({
+            videoInfo: video,
+            params: 'internal',
+            format: 'embed'
+          });
+
+          if (embedURL) {
+            if (embedURL.startsWith('//')) {
+              embedURL = 'https:' + embedURL;
+            }
+            this.videoSafeURL = this.sanitizer.bypassSecurityTrustResourceUrl(embedURL);
           }
         }
 

@@ -1,19 +1,19 @@
 <!-- AppBar -->
 <mdc-top-app-bar #topAppBar fixed style="z-index: 7" [dir]="'config.direction' | translate">
   <mdc-top-app-bar-row>
-    <mdc-top-app-bar-section align="start" title="The Orange Alliance">
-      <!--<mdc-icon mdcTopAppBarNavIcon (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">menu</mdc-icon>-->
+    <mdc-top-app-bar-section align="start" [title]="title || 'The Orange Alliance'">
       <mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()"></mdc-icon>
+      <!--<mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="back()" *ngIf="!isScreenSmall() && !topAppBar.isCollapsed()"></mdc-icon>-->
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <a mdcTopAppBarActionItem class="d-block d-md-none" title="Search" data-toggle="modal" [attr.data-target]="'#searchmodal'" (click)="focusSearchInput(searchInput)">
-        <mdc-icon class="icon-white" svgIcon="magnify"></mdc-icon>
+        <mdc-icon svgIcon="magnify"></mdc-icon>
       </a>
 
       <div class="search-anchor d-none d-md-block">
         <mdc-text-field outlined class="search-box" label="{{ 'general.search_text_long' | translate }}"
                         [(ngModel)]="search"
-                        (change)="performSearch()"
+                        (input)="performSearch()"
                         (keydown.enter)="this.navToTopSearch();"
                         (keydown.ArrowDown)="searchresults.focusFirstElement(); $event.view.event.preventDefault()">
         </mdc-text-field>
@@ -53,18 +53,15 @@
         </div>
 
         <div *ngIf="user" routerLink="/account" style="cursor:pointer">
-          <mdc-icon mdcListItemGraphic *ngIf="false">
-            <img class="rounded-circle" src="https://avatars3.githubusercontent.com/u/16443111?s=460&v=4" height="50" />
-          </mdc-icon>
           <mdc-list-item-text>
-            <span style="text-transform: capitalize">{{ 'drawer.mytoa.hello' | translate: {'name': user.fullName || 'User'} }}</span>
+            <span style="text-transform: capitalize">{{ 'drawer.mytoa.hello' | translate: {'name': user.displayName || 'User'} }}</span>
             <span class="mdc-list-item__secondary-text">{{ user.email }}</span>
           </mdc-list-item-text>
         </div>
       </mdc-list-item>
 
       <mdc-list-group>
-        <mdc-list [singleSelection]="false" [useSelectedClass]="false" [useActivatedClass]="false">
+        <mdc-list>
 
           <mdc-list-divider></mdc-list-divider>
 
@@ -125,13 +122,16 @@
           <a mdc-list-item routerLink="/about" routerLinkActive="mdc-list-item--activated">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="information-outline"></mdc-icon>{{ "drawer.about" | translate }}
           </a>
+          <a mdc-list-item href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZE3YC297GJNUW&source=url" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
+            <mdc-icon class="mdc-list-item__graphic" svgIcon="paypal"></mdc-icon>{{ "drawer.donate" | translate }}
+          </a>
           <a mdc-list-item routerLink="/privacy-terms" routerLinkActive="mdc-list-item--activated">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="gavel"></mdc-icon>{{ "drawer.privacy_and_terms" | translate }}
           </a>
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a href="https://revrobotics.com/" target="_blank" class="p-4" mdc-list-item  (click)="this.sendAnalytic('leaving', 'rev robotics logo');">
+          <a href="https://revrobotics.com/" target="_blank" class="p-4" mdc-list-item (click)="this.sendAnalytic('leaving', 'rev robotics logo')">
             <img class="img-fit-w" src="../assets/imgs/powered_by_rev.png" title="Powered by REV" />
           </a>
 
@@ -151,11 +151,10 @@
         </div>
         <div class="modal-body pt-0" style="overflow-y: initial !important">
           <mdc-text-field #searchInput class="mobile-search"
-                          (change)="performSearch()"
+                          (input)="performSearch()"
                           (keydown.enter)="this.navToTopSearch()"
-                          label="{{ 'general.search_text_short' | translate }}"
-                          [(ngModel)]="search"
-                          [fullwidth]="true">
+                          label="{{ 'general.search_text_long' | translate }}"
+                          [(ngModel)]="search">
           </mdc-text-field>
           <div class="row mt-3" *ngIf="search" style="max-height: calc(100vh - 175px); overflow-y: auto">
             <div class="col-md-6 col-12">
@@ -191,6 +190,7 @@
           <mdc-radio-group [(ngModel)]="selectedLanguage">
             <mdc-list-item><mdc-radio mdcListItemGraphic value="en"></mdc-radio>🇺🇸 English</mdc-list-item>
             <mdc-list-item><mdc-radio mdcListItemGraphic value="he"></mdc-radio>🇮🇱 Hebrew</mdc-list-item>
+            <mdc-list-item><mdc-radio mdcListItemGraphic value="es"></mdc-radio>🇪🇸 Spanish</mdc-list-item>
           </mdc-radio-group>
         </mdc-list>
       </mdc-dialog-content>
@@ -201,3 +201,46 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+<!-- WIP: new mobile search -->
+<!--
+<div class="modal fade mobile-search-modal" id="searchmodal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content w-100 h-100">
+      <div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 1.5rem 1.5rem 0 1.5rem!important">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body pt-0" style="overflow-y: initial !important">
+        <mdc-text-field #searchInput class="mobile-search"
+                        (input)="performSearch()"
+                        (keydown.enter)="this.navToTopSearch()"
+                        label="{{ 'general.search_text_long' | translate }}"
+                        [(ngModel)]="search">
+        </mdc-text-field>
+        <div class="h-100 mh-100">
+          <div class="row mt-3" *ngIf="search" style="overflow-y: auto">
+            <div class="col-md-6 col-12">
+              <div mdcHeadline5 class="black">{{ "general.teams" | translate }}</div>
+              <mdc-list *ngIf="teamSearchResults">
+                <toa-team-item *ngFor="let result of teamSearchResults" [team]="result" data-dismiss="modal"></toa-team-item>
+              </mdc-list>
+              <p *ngIf="teamSearchResults.length === 0">{{ "no_data.teams" | translate }}</p>
+            </div>
+            <div class="col-md-6 col-12">
+              <div mdcHeadline5 class="black">{{ "general.events" | translate }}</div>
+              <toa-event-item *ngFor="let result of eventSearchResults" [event]="result" data-dismiss="modal"></toa-event-item>
+              <p *ngIf="eventSearchResults.length === 0">{{ "no_data.events" | translate }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->

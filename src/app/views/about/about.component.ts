@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
+import { AppBarService } from '../../app-bar.service';
 
 @Component({
   selector: 'toa-about',
@@ -7,10 +8,15 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
   styleUrls: ['./about.component.scss'],
   providers: [TheOrangeAllianceGlobals]
 })
-export class AboutComponent {
+export class AboutComponent implements OnInit {
 
-  constructor(private app: TheOrangeAllianceGlobals) {
-    this.app.setTitle('About');
+  constructor(app: TheOrangeAllianceGlobals, private appBarService: AppBarService) {
+    app.setTitle('About');
+    appBarService.setTitle('About');
+  }
+
+  ngOnInit() {
+    this.appBarService.setTitle('About');
   }
 
   sendAnalytic(category, action): void {
@@ -21,5 +27,4 @@ export class AboutComponent {
       eventValue: 10
     });
   }
-
 }

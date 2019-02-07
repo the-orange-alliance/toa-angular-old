@@ -1,9 +1,9 @@
 <div class="row">
-  <h2 [class.col-9]="user !== null" [class.col-12]="user === null">Team #{{ (team?.teamNumber) ? team.teamNumber : teamKey }}</h2>
+  <h2 class="col-md-9 col-12">Team #{{ (team?.teamNumber) ? team.teamNumber : teamKey }}</h2>
   <div *ngIf="user !== null && team?.teamKey" class="col-12 col-md-3">
-    <button mdc-button primary raised (click)="toggleTeam()" class="align-self-end icon-white text-white w-100" style="text-transform:initial; height: auto; padding: 5px">
-      <mdc-icon *ngIf="favorite" class="mr-1">favorite</mdc-icon>
-      <mdc-icon *ngIf="!favorite" class="mr-1">favorite_border</mdc-icon>
+    <button mdc-button primary (click)="toggleTeam()" class="align-self-end black" style="text-transform:initial; height: auto; padding: 7px">
+      <mdc-icon *ngIf="favorite" class="mr-1 ml-1">favorite</mdc-icon>
+      <mdc-icon *ngIf="!favorite" class="mr-1 ml-1">favorite_border</mdc-icon>
       {{ (favorite ? 'general.remove_from_mytoa' : 'general.add_to_mytoa') | translate }}
     </button>
   </div>
@@ -11,7 +11,7 @@
 
 
 <div class="row mt-3" *ngIf="team">
-  <div class="col-12 col-md-3 pb-5">
+  <div class="col-12 col-md-3 pb-5 pe-md-3 d-none d-md-block">
     <mdc-card class="toa-card">
       <div class="w-100 p-3">
         <div *ngIf="seasons && team.rookieYear" class="dropdown">
@@ -42,46 +42,51 @@
 
   <div class="col-12 col-md-9">
     <mdc-card class="toa-card" id="info">
-      <div class="toa-card-header" [class.pb-1]="team.teamNameLong" mdcHeadline5>#{{ team.teamNumber }} - {{ team.teamNameShort }}</div>
-      <div class="toa-card-subtitle pt-0" *ngIf="team.teamNameLong">{{ team.teamNameLong }}</div>
+      <div class="d-flex align-items-center mb-1">
+        <div *ngIf="teamLogo" class="team-logo m-2" [style.backgroundImage]="'url('+teamLogo.mediaLink+')'"></div>
+        <div>
+          <div class="toa-card-header" [class.pb-1]="team.teamNameLong" mdcHeadline5>#{{ team.teamNumber }} - {{ team.teamNameShort }}</div>
+          <div class="toa-card-subtitle pt-0" *ngIf="team.teamNameLong">{{ team.teamNameLong }}</div>
+        </div>
+      </div>
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3">
-        <div class="info-state d-flex align-content-center flex-wrap">
+        <div class="info-state">
           <mdc-icon svgIcon="compass"></mdc-icon>
           <p>{{ 'pages.team.part_of_region' | translate: {'regionKey': team.regionKey} }}</p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap">
+        <div class="info-state">
           <mdc-icon svgIcon="map-marker"></mdc-icon>
           <p style="text-transform: capitalize"><a href="https://www.google.com/maps/search/?api=1&query={{ (team.city + ', ' + (team.stateProv ? team.stateProv + ', ' : '') + team.country).replace(' ', '+') }}" target="_blank" (click)="this.sendAnalytic('leaving', this.team.teamKey + ' location');">{{ team.city + ', ' + (team.stateProv ? team.stateProv + ', ' : '') + team.country }}</a></p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website && beautifulURL(team.website).startsWith('www.facebook.com/')">
+        <div class="info-state" *ngIf="team.website && beautifulURL(team.website).startsWith('facebook.com/')">
           <mdc-icon svgIcon="facebook"></mdc-icon>
           <p>Facebook: <a href="{{ team.website }}" (click)="this.sendAnalytic('leaving', this.team.teamKey + ' facebook');">@{{ beautifulURL(team.website).replace("www.facebook.com/", "") }}</a></p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.website && !beautifulURL(team.website).startsWith('www.facebook.com/')">
+        <div class="info-state" *ngIf="team.website && !beautifulURL(team.website).startsWith('facebook.com/')">
           <mdc-icon svgIcon="earth"></mdc-icon>
           <p>{{ 'pages.team.website' | translate }}: <a href="{{ team.website }}" (click)="this.sendAnalytic('leaving', this.team.teamKey + ' website');">{{ beautifulURL(team.website) }}</a></p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.rookieYear && team.rookieYear !== 0">
+        <div class="info-state" *ngIf="team.rookieYear && team.rookieYear !== 0">
           <mdc-icon svgIcon="airballoon"></mdc-icon>
           <p>{{ 'pages.team.rookie_year' | translate }}: {{ team.rookieYear }}</p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="wlt">
+        <div class="info-state" *ngIf="wlt">
           <mdc-icon svgIcon="flag"></mdc-icon>
           <p><b>{{ wlt.wins }}-{{ wlt.losses }}-{{wlt.ties}}</b> (W-L-T) {{ getSeasonString(currentSeason.seasonKey, false) }} season</p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.lastActive < 1819">
+        <div class="info-state" *ngIf="team.lastActive < 1819">
           <mdc-icon svgIcon="clock-end"></mdc-icon>
           <p>{{ 'pages.team.last_active' | translate }}: {{ getSeasonString(team.lastActive, true) }}</p>
         </div>
 
-        <div class="info-state d-flex align-content-center flex-wrap" *ngIf="team.awards && currentSeason && currentSeason.description">
+        <div class="info-state" *ngIf="team.awards && currentSeason && currentSeason.description">
           <mdc-icon svgIcon="trophy"></mdc-icon>
           <p>{{ 'pages.team.awards_in_season' | translate: {'awards': team.awards.length, 'season': currentSeason.description} }}</p>
         </div>

@@ -22,7 +22,12 @@ export class FTCDatabase {
 
   public year = '1819';
 
-  constructor(private http: HttpClient) {}
+  public baseURL = 'https://theorangealliance.org/api';
+  // public baseURL = 'http://127.0.0.1:8008/api';
+
+  constructor(private http: HttpClient) {
+
+  }
 
   private request(url: string): Promise<any[]> {
     return new Promise<any[]>((resolve, reject) => {
@@ -30,12 +35,16 @@ export class FTCDatabase {
         'X-Application-Origin': 'TOA-WebApp-1819',
         'Content-Type': 'application/json'
       });
-      this.http.get('https://theorangealliance.org/api' + url, { headers: authHeader }).subscribe((data: any[]) => {
+      this.http.get(this.baseURL + url, { headers: authHeader }).subscribe((data: any[]) => {
         resolve(data);
       }, (err: any) => {
         reject(err);
       });
     });
+  }
+
+  public getDocs(): Promise<any> {
+    return this.request('/docs');
   }
 
   public getAnnouncements(): Promise<WebAnnouncement[]> {
@@ -50,6 +59,14 @@ export class FTCDatabase {
     return new Promise<Season[]>((resolve, reject) => {
       this.request('/seasons').then((data: any[]) => {
         resolve(data.map((result: any) => new Season().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
+  public getAllEventTypes(): Promise<EventType[]> {
+    return new Promise<EventType[]>((resolve, reject) => {
+      this.request('/event-types').then((data: any[]) => {
+        resolve(data.map((result: any) => new EventType().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });
   }
@@ -251,6 +268,14 @@ export class FTCDatabase {
   public getTeamMedia(teamKey: string, seasonKey: string): Promise<Media[]> {
     return new Promise<Media[]>((resolve, reject) => {
       this.request('/team/' + teamKey + '/media/' + seasonKey).then((data: any[]) => {
+        resolve(data.map((result: any) => new Media().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
+  public getEventMedia(eventKey: string): Promise<Media[]> {
+    return new Promise<Media[]>((resolve, reject) => {
+      this.request('/event/' + eventKey + '/media/').then((data: any[]) => {
         resolve(data.map((result: any) => new Media().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });
