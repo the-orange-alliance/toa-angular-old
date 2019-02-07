@@ -158,4 +158,49 @@ export class CloudFunctions {
       });
     });
   }
+
+  public toaPost(uid: string, body: any, route: string): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'authorization': `Bearer ${uid}`,
+        'data': `${route}`
+      });
+
+      this.http.post(this.baseUrl + '/toaapi', body, {headers: headers}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public toaPut(uid: string, body: any, route: string): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'authorization': `Bearer ${uid}`,
+        'data': `${route}`
+      });
+
+      this.http.put(this.baseUrl + '/toaapi', body, {headers: headers}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public toaDelete(uid: string, route: string): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'authorization': `Bearer ${uid}`,
+        'data': `${route}`
+      });
+
+      this.http.delete(this.baseUrl + '/toaapi', {headers: headers}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
 }
