@@ -84,6 +84,7 @@
       "unlink_account": "ניתוק חשבון {{ name }}",
       "success_link": "חשבון {{ name }} קושר בהצלחה",
       "success_unlink": "חשבון {{ name }} נותק בהצלחה",
+      "last_signin": "התחברות אחרונה",
       "datasync_card": {
         "title": "סנכרן את האירוע שלך עם TOA בלייב",
         "docs": "ניתן לבדוק את תיעוד ה־DataSync המלא שלנו"

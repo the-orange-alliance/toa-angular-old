@@ -84,6 +84,7 @@
       "unlink_account": "Unlink {{ name }} account",
       "success_link": "Successfully linked {{ name }} account",
       "success_unlink": "Successfully unlinked {{ name }} account",
+      "last_signin": "Last Sign In",
       "datasync_card": {
         "title": "Sync your event live with TOA",
         "docs": "You can check out our full DataSync Documentation"

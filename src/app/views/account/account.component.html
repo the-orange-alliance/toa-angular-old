@@ -99,6 +99,11 @@
             {{ (isUserLinkToProvider(githubProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'GitHub'} }}
           </mdc-list-item>
         </mdc-list>
+        <mdc-list disableRipple twoLine [interactive]="false">
+          <mdc-list-item>
+            <mdc-list-item-text [secondaryText]="'pages.account.last_signin' | translate">{{ user.metadata.lastSignInTime | date: 'MMM d yyyy, h:mm a' }}</mdc-list-item-text>
+          </mdc-list-item>
+        </mdc-list>
       </div>
     </div>
   </div>
