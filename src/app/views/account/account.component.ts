@@ -184,15 +184,15 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   }
 
   onSeasonChange(event: {index: any, value: any}) {
-    this.currentSeason = this.seasons[event.index-1];
+    this.currentSeason = this.seasons[event.index - 1];
   }
 
   onRegionChange(event: {index: any, value: any}) {
-    this.currentRegion = this.regions[event.index-1];
+    this.currentRegion = this.regions[event.index - 1];
   }
 
   onEventTypeChange(event: {index: any, value: any}) {
-    this.currentEventType = this.eventTypes[event.index-1];
+    this.currentEventType = this.eventTypes[event.index - 1];
   }
 
   createEvent() {
@@ -255,18 +255,18 @@ export class AccountComponent implements OnInit, AfterViewChecked {
 
   dumpEventCache(): void {
     this.showSnackbar('Starting, it may take a few seconds');
-    let key: string = this.eventCache.value;
+    const key: string = this.eventCache.value;
     if (key && key.length > 0) {
       Promise.all([
-        this.cloud.dumpCache(this.user.uid,`/event/${key}`),
-        this.cloud.dumpCache(this.user.uid,`/event/${key}/matches`),
-        this.cloud.dumpCache(this.user.uid,`/event/${key}/matches/details`),
-        this.cloud.dumpCache(this.user.uid,`/event/${key}/matches/participants`),
-        this.cloud.dumpCache(this.user.uid,`/event/${key}/rankings`),
-        this.cloud.dumpCache(this.user.uid,`/event/${key}/streams`),
-        this.cloud.dumpCache(this.user.uid,`/event/${key}/teams`),
-        this.cloud.dumpCache(this.user.uid,`/event/${key}/awards`),
-        this.cloud.dumpCache(this.user.uid,`/event/${key}/media`)
+        this.cloud.dumpCache(this.user.uid, `/api/event/${key}`),
+        this.cloud.dumpCache(this.user.uid, `/api/event/${key}/matches`),
+        this.cloud.dumpCache(this.user.uid, `/api/event/${key}/matches/details`),
+        this.cloud.dumpCache(this.user.uid, `/api/event/${key}/matches/participants`),
+        this.cloud.dumpCache(this.user.uid, `/api/event/${key}/rankings`),
+        this.cloud.dumpCache(this.user.uid, `/api/event/${key}/streams`),
+        this.cloud.dumpCache(this.user.uid, `/api/event/${key}/teams`),
+        this.cloud.dumpCache(this.user.uid, `/api/event/${key}/awards`),
+        this.cloud.dumpCache(this.user.uid, `/api/event/${key}/media`)
       ]).then(() => {
         // Show Success
         this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
@@ -284,18 +284,18 @@ export class AccountComponent implements OnInit, AfterViewChecked {
 
   dumpTeamCache(): void {
     this.showSnackbar('Starting, it may take a few seconds');
-    let key: string = this.teamCache.value;
+    const key: string = this.teamCache.value;
     if (key && key.length > 0) {
-      let promises = [
-        this.cloud.dumpCache(this.user.uid,`/team/${key}`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/wlt`)
+      const promises = [
+        this.cloud.dumpCache(this.user.uid, `/api/team/${key}`),
+        this.cloud.dumpCache(this.user.uid, `/api/team/${key}/wlt`)
       ];
-      for (let season of this.ftc.allYears) {
-        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/events/${season}`));
-        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/matches/${season}`));
-        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/awards/${season}`));
-        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/results/${season}`));
-        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/media/${season}`));
+      for (const season of this.ftc.allYears) {
+        promises.push(this.cloud.dumpCache(this.user.uid, `/api/team/${key}/events/${season}`));
+        promises.push(this.cloud.dumpCache(this.user.uid, `/api/team/${key}/matches/${season}`));
+        promises.push(this.cloud.dumpCache(this.user.uid, `/api/team/${key}/awards/${season}`));
+        promises.push(this.cloud.dumpCache(this.user.uid, `/api/team/${key}/results/${season}`));
+        promises.push(this.cloud.dumpCache(this.user.uid, `/api/team/${key}/media/${season}`));
       }
       Promise.all(promises).then(() => {
         // Show Success
@@ -314,12 +314,12 @@ export class AccountComponent implements OnInit, AfterViewChecked {
 
   dumpMatchCache(): void {
     this.showSnackbar('Starting, it may take a few seconds');
-    let key: string = this.matchCache.value;
+    const key: string = this.matchCache.value;
     if (key && key.length > 0) {
       Promise.all([
-        this.cloud.dumpCache(this.user.uid,`/match/${key}`),
-        this.cloud.dumpCache(this.user.uid,`/match/${key}/details`),
-        this.cloud.dumpCache(this.user.uid,`/match/${key}/participants`)
+        this.cloud.dumpCache(this.user.uid, `/api/match/${key}`),
+        this.cloud.dumpCache(this.user.uid, `/api/match/${key}/details`),
+        this.cloud.dumpCache(this.user.uid, `/api/match/${key}/participants`)
       ]).then(() => {
         // Show Success
         this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
