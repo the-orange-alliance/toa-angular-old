@@ -286,27 +286,18 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     this.showSnackbar('Starting, it may take a few seconds');
     let key: string = this.teamCache.value;
     if (key && key.length > 0) {
-      Promise.all([
+      let promises = [
         this.cloud.dumpCache(this.user.uid,`/team/${key}`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/wlt`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/events/1617`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/matches/1617`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/awards/1617`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/results/1617`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/media/1617`),
-
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/events/1718`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/matches/1718`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/awards/1718`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/results/1718`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/media/1718`),
-
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/events/1819`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/matches/1819`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/awards/1819`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/results/1819`),
-        this.cloud.dumpCache(this.user.uid,`/team/${key}/media/1819`)
-      ]).then(() => {
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/wlt`)
+      ];
+      for (let sesson of this.ftc.allYears) {
+        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/events/${sesson}`));
+        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/matches/${sesson}`));
+        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/awards/${sesson}`));
+        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/results/${sesson}`));
+        promises.push(this.cloud.dumpCache(this.user.uid,`/team/${key}/media/${sesson}`));
+      }
+      Promise.all(promises).then(() => {
         // Show Success
         this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
           this.snackbar.open(str);

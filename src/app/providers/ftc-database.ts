@@ -21,6 +21,7 @@ import TeamSeasonRecord from '../models/TeamSeasonRecord';
 export class FTCDatabase {
 
   public year = '1819';
+  public allYears = ['1617', '1718', '1819'];
 
   public baseURL = 'https://theorangealliance.org/api';
   // public baseURL = 'http://127.0.0.1:8008/api';
