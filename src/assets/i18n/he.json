@@ -10,6 +10,8 @@
     "teams": "קבוצות",
     "event": "אירוע",
     "events": "אירועים",
+    "match": "מקצה",
+    "matches": "מקצים",
     "live": "LIVE",
     "here": "כאן",
     "verify": "אימות",
@@ -95,6 +97,12 @@
         "season": "עונה",
         "division_number": "מספר בית",
         "success": "האירוע נוצר בהצלחה"
+      },
+      "dump_cache": {
+        "title": "ניקיון מטמון",
+        "general": "כללי",
+        "dump": "ניקיון",
+        "success": "המטמון נוקה בהצלחה"
       },
       "subpages": {
         "login": {

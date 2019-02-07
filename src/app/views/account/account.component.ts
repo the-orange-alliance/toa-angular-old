@@ -34,6 +34,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   adminEvents = {};
   profileUrl: string = null;
   activeTab: number = -1;
+  generalCache: string = null;
 
   teams: Team[];
   events: Event[];
@@ -60,6 +61,10 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   @ViewChild('city') city: MdcTextField;
   @ViewChild('state') state: MdcTextField;
   @ViewChild('country') country: MdcTextField;
+  @ViewChild('eventCache') eventCache: MdcTextField;
+  @ViewChild('teamCache') teamCache: MdcTextField;
+  @ViewChild('matchCache') matchCache: MdcTextField;
+
   currentSeason: Season = null;
   currentRegion: Region = null;
   currentEventType: EventType = null;
@@ -75,6 +80,8 @@ export class AccountComponent implements OnInit, AfterViewChecked {
       this.activeTab = 1;
     } else if (this.router.url.indexOf('/account/new-event') > -1) {
       this.activeTab = 2;
+    } else if (this.router.url.indexOf('/account/cache') > -1) {
+      this.activeTab = 3;
     } else {
       this.activeTab = 0;
     }
@@ -229,6 +236,111 @@ export class AccountComponent implements OnInit, AfterViewChecked {
       case 10: return 'October';
       case 11: return 'November';
       case 12: return 'December';
+    }
+  }
+
+  dumpGeneralCache(): void {
+    this.showSnackbar('Starting, it may take a few seconds');
+    this.cloud.dumpCache(this.user.uid, this.generalCache).then(() => {
+      // Show Success
+      this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
+        this.snackbar.open(str);
+      });
+    }).catch((err) => {
+      // Show Fail
+      console.log(err);
+      this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
+    });
+  }
+
+  dumpEventCache(): void {
+    this.showSnackbar('Starting, it may take a few seconds');
+    let key: string = this.eventCache.value;
+    if (key && key.length > 0) {
+      Promise.all([
+        this.cloud.dumpCache(this.user.uid,`/event/${key}`),
+        this.cloud.dumpCache(this.user.uid,`/event/${key}/matches`),
+        this.cloud.dumpCache(this.user.uid,`/event/${key}/matches/details`),
+        this.cloud.dumpCache(this.user.uid,`/event/${key}/matches/participants`),
+        this.cloud.dumpCache(this.user.uid,`/event/${key}/rankings`),
+        this.cloud.dumpCache(this.user.uid,`/event/${key}/streams`),
+        this.cloud.dumpCache(this.user.uid,`/event/${key}/teams`),
+        this.cloud.dumpCache(this.user.uid,`/event/${key}/awards`),
+        this.cloud.dumpCache(this.user.uid,`/event/${key}/media`)
+      ]).then(() => {
+        // Show Success
+        this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
+          this.snackbar.open(str);
+        });
+      }).catch((err) => {
+        // Show Fail
+        console.log(err);
+        this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
+      });
+    } else {
+      this.showSnackbar('general.error_occurred', 'NULL-KEY');
+    }
+  }
+
+  dumpTeamCache(): void {
+    this.showSnackbar('Starting, it may take a few seconds');
+    let key: string = this.teamCache.value;
+    if (key && key.length > 0) {
+      Promise.all([
+        this.cloud.dumpCache(this.user.uid,`/team/${key}`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/wlt`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/events/1617`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/matches/1617`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/awards/1617`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/results/1617`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/media/1617`),
+
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/events/1718`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/matches/1718`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/awards/1718`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/results/1718`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/media/1718`),
+
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/events/1819`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/matches/1819`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/awards/1819`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/results/1819`),
+        this.cloud.dumpCache(this.user.uid,`/team/${key}/media/1819`)
+      ]).then(() => {
+        // Show Success
+        this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
+          this.snackbar.open(str);
+        });
+      }).catch((err) => {
+        // Show Fail
+        console.log(err);
+        this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
+      });
+    } else {
+      this.showSnackbar('general.error_occurred', 'NULL-KEY');
+    }
+  }
+
+  dumpMatchCache(): void {
+    this.showSnackbar('Starting, it may take a few seconds');
+    let key: string = this.matchCache.value;
+    if (key && key.length > 0) {
+      Promise.all([
+        this.cloud.dumpCache(this.user.uid,`/match/${key}`),
+        this.cloud.dumpCache(this.user.uid,`/match/${key}/details`),
+        this.cloud.dumpCache(this.user.uid,`/match/${key}/participants`)
+      ]).then(() => {
+        // Show Success
+        this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
+          this.snackbar.open(str);
+        });
+      }).catch((err) => {
+        // Show Fail
+        console.log(err);
+        this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
+      });
+    } else {
+      this.showSnackbar('general.error_occurred', 'NULL-KEY');
     }
   }
 

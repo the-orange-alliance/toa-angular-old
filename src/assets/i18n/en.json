@@ -10,6 +10,8 @@
     "teams": "Teams",
     "event": "Event",
     "events": "Events",
+    "match": "Match",
+    "matches": "Matches",
     "live": "LIVE",
     "here": "here",
     "verify": "Verify",
@@ -95,6 +97,12 @@
         "season": "Season",
         "division_number": "Division Number",
         "success": "Successfully Created Event"
+      },
+      "dump_cache": {
+        "title": "Dump Cache",
+        "general": "General",
+        "dump": "Dump",
+        "success": "Successfully Dumped Cache"
       },
       "subpages": {
         "login": {

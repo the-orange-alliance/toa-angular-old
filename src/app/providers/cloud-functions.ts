@@ -159,11 +159,15 @@ export class CloudFunctions {
     });
   }
 
+  public dumpCache(uid: string, route: string): Promise<any> {
+    return this.toaPost(uid, '', `/web/dumpCache?route=/api/${route}`);
+  }
+
   public toaPost(uid: string, body: any, route: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       const headers = new HttpHeaders({
         'authorization': `Bearer ${uid}`,
-        'data': `${route}`
+        'data': route
       });
 
       this.http.post(this.baseUrl + '/toaapi', body, {headers: headers}).subscribe((data: any) => {
@@ -178,7 +182,7 @@ export class CloudFunctions {
     return new Promise<any[]>((resolve, reject) => {
       const headers = new HttpHeaders({
         'authorization': `Bearer ${uid}`,
-        'data': `${route}`
+        'data': route
       });
 
       this.http.put(this.baseUrl + '/toaapi', body, {headers: headers}).subscribe((data: any) => {
@@ -193,7 +197,7 @@ export class CloudFunctions {
     return new Promise<any[]>((resolve, reject) => {
       const headers = new HttpHeaders({
         'authorization': `Bearer ${uid}`,
-        'data': `${route}`
+        'data': route
       });
 
       this.http.delete(this.baseUrl + '/toaapi', {headers: headers}).subscribe((data: any) => {
