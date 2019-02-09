@@ -34,8 +34,8 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   uploadingVideos: boolean;
 
   images: any = {};
-  pitsMap: 'pits_map';
-  schedule: 'schedule';
+  pitsMap: string = 'pits_map';
+  schedule: string = 'schedule';
 
   streamType = 'Youtube';
   hasStream = false;
