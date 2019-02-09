@@ -100,7 +100,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
             });
 
             this.userData['level'] = this.userData['level'] || 1;
-            
+
             this.generatingApiKey = this.userData['APIKey'];
 
             if (!this.loaded) {

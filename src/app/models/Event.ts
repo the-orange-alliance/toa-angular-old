@@ -398,4 +398,8 @@ export default class Event implements ISerializable {
       return date;
     }
   }
+
+  getEventName(): string {
+    return this.divisionName ? this.eventName + ' - ' +  this.divisionName + ' Division' : this.eventName;
+  }
 }
