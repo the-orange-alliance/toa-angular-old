@@ -56,7 +56,7 @@ export class TheOrangeAllianceComponent implements OnInit {
     };
 
     this.router.events.subscribe(() => {
-      setTimeout(()=>{
+      setTimeout(() => {
         this.title = this.appBarService.titleLong;
       });
     });

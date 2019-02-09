@@ -24,20 +24,21 @@ import Media from '../../models/Media';
 export class EventComponent implements OnInit {
 
   seasons: any;
-  event_types: any;
+  eventTypes: any;
 
-  event_key: string;
-  event_data: Event;
-  event_type_name: string;
-  event_season_name: string;
+  eventKey: string;
+  eventData: Event;
+  eventTypeName: string;
+  eventSeasonName: string;
+  stream: EventLiveStream;
+  media: Media[];
+
+  activeTab: number = -1;
   totalmedia: number = 0;
   totalteams: any;
   totalmatches: any;
   totalrankings: any;
   totalawards: any;
-  view_type: string;
-  stream: EventLiveStream;
-  media: Media[];
 
   user: User = null;
   favorite: boolean;
@@ -46,18 +47,18 @@ export class EventComponent implements OnInit {
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService) {
-    this.event_key = this.route.snapshot.params['event_key'];
+    this.eventKey = this.route.snapshot.params['event_key'];
 
     auth.authState.subscribe(user => {
         if (user !== null && user !== undefined) {
           this.user = user;
-          db.object(`Users/${user.uid}/favEvents/${this.event_key}`).query.once('value').then(item => {
+          db.object(`Users/${user.uid}/favEvents/${this.eventKey}`).query.once('value').then(item => {
             this.favorite = item !== null && item.val() === true;
           });
 
           // Is event admin?
           this.emailVerified = this.user.emailVerified;
-          db.object(`Users/${user.uid}/adminEvents/${this.event_key}`).query.once('value').then(item => {
+          db.object(`Users/${user.uid}/adminEvents/${this.eventKey}`).query.once('value').then(item => {
             this.admin = item !== null && item.val() === true;
 
             if (!this.admin) {
@@ -66,65 +67,72 @@ export class EventComponent implements OnInit {
                 this.admin = item.val() >= 6;
               });
             }
+
+            if (this.admin && this.totalrankings === 0 && this.totalmatches === 0 &&
+                this.totalteams === 0 && this.totalawards === 0 && this.totalmedia === 0) {
+              this.select('admin');
+            }
           });
         }
       });
   }
 
   ngOnInit() {
-    if (this.event_key) {
-      this.ftc.getEvent(this.event_key).then((data: Event) => {
+    if (this.eventKey) {
+      this.ftc.getEvent(this.eventKey).then((data: Event) => {
         if (data) {
-          this.event_data = data;
+          this.eventData = data;
 
-          this.app.setTitle(this.event_data.eventName);
-          this.app.setDescription(`Event results for the ${new Date(this.event_data.startDate).getFullYear()} ${this.event_data.eventName} FIRST Tech Challenge in ${this.event_data.stateProv ? this.event_data.stateProv + ', ' + this.event_data.country : this.event_data.country }`);
-          this.appBarService.setTitle(new Date(this.event_data.startDate).getFullYear() + ' ' + this.event_data.eventName, true);
+          this.app.setTitle(this.eventData.eventName);
+          this.app.setDescription(`Event results for the ${new Date(this.eventData.startDate).getFullYear()} ${this.eventData.eventName} FIRST Tech Challenge in ${this.eventData.stateProv ? this.eventData.stateProv + ', ' + this.eventData.country : this.eventData.country }`);
+          this.appBarService.setTitle(new Date(this.eventData.startDate).getFullYear() + ' ' + this.eventData.eventName, true);
 
-          if (this.event_data.rankings && this.event_data.rankings.length > 0) {
+          if (this.eventData.matches) {
+            this.eventData.matches = new MatchSorter().sort(this.eventData.matches, 0, this.eventData.matches.length - 1);
+          }
+
+          if (this.eventData.awards) {
+            this.eventData.awards = new AwardSorter().sort(this.eventData.awards);
+          }
+
+          if (this.eventData.teams) {
+            this.eventData.teams = new TeamSorter().sortEventParticipant(this.eventData.teams);
+          }
+
+          if (this.eventData.rankings && this.eventData.rankings.length > 0) {
             this.select('rankings');
-          } else if (this.event_data.matches && this.event_data.matches.length > 0) {
+          } else if (this.eventData.matches && this.eventData.matches.length > 0) {
             this.select('matches')
           } else {
             this.select('teams');
           }
 
-          if (this.event_data.matches) {
-            this.event_data.matches = new MatchSorter().sort(this.event_data.matches, 0, this.event_data.matches.length - 1);
-          }
+          this.totalteams = this.eventData.teams.length;
+          this.totalmatches = this.eventData.matches.length;
+          this.totalrankings = this.eventData.rankings.length;
+          this.totalawards = this.eventData.awards.length;
 
-          if (this.event_data.awards) {
-            this.event_data.awards = new AwardSorter().sort(this.event_data.awards);
-          }
-
-          if (this.event_data.teams) {
-            this.event_data.teams = new TeamSorter().sortEventParticipant(this.event_data.teams);
-          }
-
-          this.totalteams = this.event_data.teams.length;
-          this.totalmatches = this.event_data.matches.length;
-          this.totalrankings = this.event_data.rankings.length;
-          this.totalawards = this.event_data.awards.length;
-
-          this.ftc.getEventStreams(this.event_key).then((data: EventLiveStream[]) => {
+          this.ftc.getEventStreams(this.eventKey).then((data: EventLiveStream[]) => {
             if (data && data.length > 0) {
               this.stream = data[0];
             }
           });
 
-          this.ftc.getEventMedia(this.event_key).then((data: Media[]) => {
+          this.ftc.getEventMedia(this.eventKey).then((data: Media[]) => {
             this.media = data;
             if (this.media && this.media.length > 0 && !this.hasEventEnded()) {
               this.totalmedia = this.media.length;
-              this.select('media');
+              if (this.totalteams === 0 && this.totalmatches === 0 && this.totalrankings === 0 && this.totalawards === 0) {
+                this.select('media');
+              }
             }
           });
 
           this.ftc.getEventTypes().then((types: EventType[]) => {
-            this.event_types = types;
-            const typeObj = this.event_types.filter(obj => obj.eventTypeKey === this.event_data.eventTypeKey);
+            this.eventTypes = types;
+            const typeObj = this.eventTypes.filter(obj => obj.eventTypeKey === this.eventData.eventTypeKey);
             if (typeObj && typeObj[0] && typeObj[0].description) {
-              this.event_type_name = typeObj[0].description;
+              this.eventTypeName = typeObj[0].description;
             }
           }, (err) => {
             console.log(err);
@@ -132,9 +140,9 @@ export class EventComponent implements OnInit {
 
           this.ftc.getAllSeasons().then((seasons: Season[]) => {
             this.seasons = seasons;
-            const seasonObj = this.seasons.filter(obj => obj.seasonKey === this.event_data.seasonKey);
+            const seasonObj = this.seasons.filter(obj => obj.seasonKey === this.eventData.seasonKey);
             if (seasonObj && seasonObj.length === 1 && seasonObj[0] && seasonObj[0].description) {
-              this.event_season_name = seasonObj[0].description;
+              this.eventSeasonName = seasonObj[0].description;
             }
           }, (err) => {
             console.log(err);
@@ -150,23 +158,38 @@ export class EventComponent implements OnInit {
       }
   }
 
-  public select(view_type) {
-    this.view_type = view_type;
-  }
-
-  public isSelected(view_type): boolean {
-    return this.view_type === view_type;
+  public select(view: string) {
+    switch (view) {
+      case 'rankings':
+        this.activeTab = 0;
+        break;
+      case 'matches':
+        this.activeTab = 1;
+        break;
+      case 'teams':
+        this.activeTab = 2;
+        break;
+      case 'awards':
+        this.activeTab = 3;
+        break;
+      case 'media':
+        this.activeTab = 4;
+        break;
+      case 'admin':
+        this.activeTab = 5;
+        break;
+    }
   }
 
   toggleEvent(): void {
     if (this.favorite) { // Remove from favorites
-      this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).remove();
-      this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).query.once('value').then(items => {
+      this.db.object(`Users/${this.user.uid}/favEvents/${this.eventKey}`).remove();
+      this.db.object(`Users/${this.user.uid}/favEvents/${this.eventKey}`).query.once('value').then(items => {
         this.favorite = items !== null && items.val() === true
         });
     } else { // Add to favorites
-      this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).set(true);
-      this.db.object(`Users/${this.user.uid}/favEvents/${this.event_key}`).query.once('value').then(items => {
+      this.db.object(`Users/${this.user.uid}/favEvents/${this.eventKey}`).set(true);
+      this.db.object(`Users/${this.user.uid}/favEvents/${this.eventKey}`).query.once('value').then(items => {
         this.favorite = items !== null && items.val() === true
         });
     }
@@ -174,7 +197,7 @@ export class EventComponent implements OnInit {
 
   public hasEventEnded(): boolean {
     const today = new Date();
-    const diff = (new Date(this.event_data.endDate).valueOf() - today.valueOf()) / 1000 / 60 / 60; // Convert milliseconds to hours
+    const diff = (new Date(this.eventData.endDate).valueOf() - today.valueOf()) / 1000 / 60 / 60; // Convert milliseconds to hours
     return diff < -24; // 24 hours extra
   }
 
