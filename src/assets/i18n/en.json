@@ -220,6 +220,13 @@
             "success_linked": "Successfully Linked Stream",
             "success_unlinked": "Successfully Linked Stream"
           },
+          "delete_card": {
+            "delete_event": "Delete Event",
+            "delete_failed": "Delete Failed",
+            "delete": "Delete",
+            "delete_sure": "ARE YOU SURE YOU WANT TO DELETE THE EVENT",
+            "delete_final": "THIS WILL DELETE THE EVENT"
+          },
           "verify_email": "Please verify your email and try again.",
           "success_sent_verify_email": "Successfully sent a verification email."
         }
