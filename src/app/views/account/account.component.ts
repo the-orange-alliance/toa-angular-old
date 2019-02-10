@@ -206,6 +206,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     event.eventTypeKey = this.currentEventType.eventTypeKey;
     event.eventName = this.eventName.value;
     // event.divisionKey = this.divisionNumber.value;
+    event.divisionKey = '0';
     event.activeTournamentLevel = '0';
     event.startDate = this.startDate.value;
     event.endDate = this.endDate.value;

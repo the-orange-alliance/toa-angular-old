@@ -115,14 +115,14 @@ export class EventComponent implements OnInit {
           this.totalrankings = this.eventData.rankings.length;
           this.totalawards = this.eventData.awards.length;
 
-          this.ftc.getEventStreams(this.eventKey).then((d: EventLiveStream[]) => {
-            if (d && d.length > 0) {
-              this.stream = data[0];
+          this.ftc.getEventStreams(this.eventKey).then((eventLiveStream: EventLiveStream[]) => {
+            if (eventLiveStream && eventLiveStream.length > 0) {
+              this.stream = eventLiveStream[0];
             }
           });
 
-          this.ftc.getEventMedia(this.eventKey).then((d: Media[]) => {
-            this.media = d;
+          this.ftc.getEventMedia(this.eventKey).then((eventMedia: Media[]) => {
+            this.media = eventMedia;
             if (this.media && this.media.length > 0 && !this.hasEventEnded()) {
               this.totalmedia = this.media.length;
               if (this.totalteams === 0 && this.totalmatches === 0 && this.totalrankings === 0 && this.totalawards === 0) {

@@ -1,6 +1,6 @@
 <div *ngIf="eventData">
   <div class="row">
-    <h2 class="col-md-9 col-12">{{ eventData.startDate | date : "y" }} {{ eventData.getEventName() }} <span class="badge bg-primary" *ngIf="eventData.isLive">LIVE</span></h2>
+    <h2 class="col-md-9 col-12">{{ eventData.startDate | date : "y" }} {{ eventData.fullEventName }} <span class="badge bg-primary" *ngIf="eventData.isLive">LIVE</span></h2>
     <div *ngIf="user !== null" class="col-12 col-md-3">
       <button mdc-button primary (click)="toggleEvent()" class="align-self-end black" style="text-transform:initial; height: auto; padding: 7px">
         <mdc-icon *ngIf="favorite" class="mr-1 ml-1">favorite</mdc-icon>

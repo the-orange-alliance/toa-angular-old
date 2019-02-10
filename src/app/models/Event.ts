@@ -399,7 +399,7 @@ export default class Event implements ISerializable {
     }
   }
 
-  getEventName(): string {
-    return this.divisionName ? this.eventName + ' - ' +  this.divisionName + ' Division' : this.eventName;
+  get fullEventName(): string {
+    return this._divisionName ? this._eventName + ' - ' +  this._divisionName + ' Division' : this._eventName;
   }
 }
