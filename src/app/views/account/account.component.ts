@@ -137,7 +137,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
           }
 
           if (this.userData.level >= 6) {
-            this.cloud.allUsers(this.user.uid).then((data) => {
+            this.cloud.allUsers(this.user).then((data) => {
               this.users = data;
             });
           }
@@ -184,9 +184,9 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     this.cdRef.detectChanges();
   }
 
-  checkProvider(providerId:string, user: any) {
+  checkProvider(providerId: string, user: any) {
     for (const provider of user.providerData) {
-      if (provider.providerId.toLowerCase() == providerId.toLowerCase()) {
+      if (provider.providerId.toLowerCase() === providerId.toLowerCase()) {
         return true;
       }
     }
@@ -264,7 +264,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     event.venue = this.venue.value;
     event.isPublic = true;
 
-    this.cloud.createEvent(this.user.uid, [event.toJSON()]).then((data: {}) => {
+    this.cloud.createEvent(this.user, [event.toJSON()]).then((data: {}) => {
       this.showSnackbar('pages.account.create_event_card.success', null, null, event.eventKey);
     }, (err) => {
       this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
@@ -291,7 +291,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
 
   dumpGeneralCache(): void {
     this.showSnackbar('Starting, it may take a few seconds');
-    this.cloud.dumpCache(this.user.uid, this.generalCache).then(() => {
+    this.cloud.dumpCache(this.user, this.generalCache).then(() => {
       // Show Success
       this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
         this.snackbar.open(str);
@@ -308,15 +308,15 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     const key: string = this.eventCache.value;
     if (key && key.length > 0) {
       Promise.all([
-        this.cloud.dumpCache(this.user.uid, `event/${key}`),
-        this.cloud.dumpCache(this.user.uid, `event/${key}/matches`),
-        this.cloud.dumpCache(this.user.uid, `event/${key}/matches/details`),
-        this.cloud.dumpCache(this.user.uid, `event/${key}/matches/participants`),
-        this.cloud.dumpCache(this.user.uid, `event/${key}/rankings`),
-        this.cloud.dumpCache(this.user.uid, `event/${key}/streams`),
-        this.cloud.dumpCache(this.user.uid, `event/${key}/teams`),
-        this.cloud.dumpCache(this.user.uid, `event/${key}/awards`),
-        this.cloud.dumpCache(this.user.uid, `event/${key}/media`)
+        this.cloud.dumpCache(this.user, `event/${key}`),
+        this.cloud.dumpCache(this.user, `event/${key}/matches`),
+        this.cloud.dumpCache(this.user, `event/${key}/matches/details`),
+        this.cloud.dumpCache(this.user, `event/${key}/matches/participants`),
+        this.cloud.dumpCache(this.user, `event/${key}/rankings`),
+        this.cloud.dumpCache(this.user, `event/${key}/streams`),
+        this.cloud.dumpCache(this.user, `event/${key}/teams`),
+        this.cloud.dumpCache(this.user, `event/${key}/awards`),
+        this.cloud.dumpCache(this.user, `event/${key}/media`)
       ]).then(() => {
         // Show Success
         this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
@@ -337,15 +337,15 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     const key: string = this.teamCache.value;
     if (key && key.length > 0) {
       const promises = [
-        this.cloud.dumpCache(this.user.uid, `team/${key}`),
-        this.cloud.dumpCache(this.user.uid, `team/${key}/wlt`)
+        this.cloud.dumpCache(this.user, `team/${key}`),
+        this.cloud.dumpCache(this.user, `team/${key}/wlt`)
       ];
       for (const season of this.ftc.allYears) {
-        promises.push(this.cloud.dumpCache(this.user.uid, `team/${key}/events/${season}`));
-        promises.push(this.cloud.dumpCache(this.user.uid, `team/${key}/matches/${season}`));
-        promises.push(this.cloud.dumpCache(this.user.uid, `team/${key}/awards/${season}`));
-        promises.push(this.cloud.dumpCache(this.user.uid, `team/${key}/results/${season}`));
-        promises.push(this.cloud.dumpCache(this.user.uid, `team/${key}/media/${season}`));
+        promises.push(this.cloud.dumpCache(this.user, `team/${key}/events/${season}`));
+        promises.push(this.cloud.dumpCache(this.user, `team/${key}/matches/${season}`));
+        promises.push(this.cloud.dumpCache(this.user, `team/${key}/awards/${season}`));
+        promises.push(this.cloud.dumpCache(this.user, `team/${key}/results/${season}`));
+        promises.push(this.cloud.dumpCache(this.user, `team/${key}/media/${season}`));
       }
       Promise.all(promises).then(() => {
         // Show Success
@@ -367,9 +367,9 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     const key: string = this.matchCache.value;
     if (key && key.length > 0) {
       Promise.all([
-        this.cloud.dumpCache(this.user.uid, `match/${key}`),
-        this.cloud.dumpCache(this.user.uid, `match/${key}/details`),
-        this.cloud.dumpCache(this.user.uid, `match/${key}/participants`)
+        this.cloud.dumpCache(this.user, `match/${key}`),
+        this.cloud.dumpCache(this.user, `match/${key}/details`),
+        this.cloud.dumpCache(this.user, `match/${key}/participants`)
       ]).then(() => {
         // Show Success
         this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
@@ -394,12 +394,12 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   generateApiKey(): void {
     if (this.emailVerified) {
       this.generatingApiKey = true;
-      this.cloud.generateApiKey(this.user.uid).catch(console.log);
+      this.cloud.generateApiKey(this.user).catch(console.log);
     }
   }
 
   generateEventApiKey(eventKey: string): void {
-    this.cloud.generateEventApiKey(this.user.uid, eventKey).then(() => {
+    this.cloud.generateEventApiKey(this.user, eventKey).then(() => {
       this.generatingEventApiKey = false;
     }, (err) => {
       this.generatingEventApiKey = false;
