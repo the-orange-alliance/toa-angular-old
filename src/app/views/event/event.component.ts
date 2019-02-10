@@ -44,6 +44,7 @@ export class EventComponent implements OnInit {
   favorite: boolean;
   emailVerified: boolean = true;
   admin: boolean;
+  toaAdmin: boolean = false;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService) {
@@ -60,14 +61,14 @@ export class EventComponent implements OnInit {
           this.emailVerified = this.user.emailVerified;
           db.object(`Users/${user.uid}/adminEvents/${this.eventKey}`).query.once('value').then(item => {
             this.admin = item !== null && item.val() === true;
-
-            if (!this.admin) {
               // Is TOA admin?
-              db.object(`Users/${user.uid}/level`).query.once('value').then(item => {
-                this.admin = item.val() >= 6;
+              db.object(`Users/${user.uid}/level`).query.once('value').then(i => {
+                if (!this.admin) {
+                  this.admin = i.val() >= 6;
+                }
+                this.toaAdmin = false;
+                this.toaAdmin = (i.val() >= 6);
               });
-            }
-
             if (this.admin && this.totalrankings === 0 && this.totalmatches === 0 &&
                 this.totalteams === 0 && this.totalawards === 0 && this.totalmedia === 0) {
               this.select('admin');
@@ -84,7 +85,9 @@ export class EventComponent implements OnInit {
           this.eventData = data;
 
           this.app.setTitle(this.eventData.eventName);
-          this.app.setDescription(`Event results for the ${new Date(this.eventData.startDate).getFullYear()} ${this.eventData.eventName} FIRST Tech Challenge in ${this.eventData.stateProv ? this.eventData.stateProv + ', ' + this.eventData.country : this.eventData.country }`);
+          let appDesc = `Event results for the ${new Date(this.eventData.startDate).getFullYear()} ${this.eventData.eventName} FIRST Tech Challenge in `;
+          appDesc = appDesc + `${this.eventData.stateProv ? this.eventData.stateProv + ', ' + this.eventData.country : this.eventData.country }`;
+          this.app.setDescription(appDesc);
           this.appBarService.setTitle(new Date(this.eventData.startDate).getFullYear() + ' ' + this.eventData.eventName, true);
 
           if (this.eventData.matches) {
@@ -112,14 +115,14 @@ export class EventComponent implements OnInit {
           this.totalrankings = this.eventData.rankings.length;
           this.totalawards = this.eventData.awards.length;
 
-          this.ftc.getEventStreams(this.eventKey).then((data: EventLiveStream[]) => {
-            if (data && data.length > 0) {
-              this.stream = data[0];
+          this.ftc.getEventStreams(this.eventKey).then((eventLiveStream: EventLiveStream[]) => {
+            if (eventLiveStream && eventLiveStream.length > 0) {
+              this.stream = eventLiveStream[0];
             }
           });
 
-          this.ftc.getEventMedia(this.eventKey).then((data: Media[]) => {
-            this.media = data;
+          this.ftc.getEventMedia(this.eventKey).then((eventMedia: Media[]) => {
+            this.media = eventMedia;
             if (this.media && this.media.length > 0 && !this.hasEventEnded()) {
               this.totalmedia = this.media.length;
               if (this.totalteams === 0 && this.totalmatches === 0 && this.totalrankings === 0 && this.totalawards === 0) {

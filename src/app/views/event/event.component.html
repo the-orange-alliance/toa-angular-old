@@ -1,6 +1,6 @@
 <div *ngIf="eventData">
   <div class="row">
-    <h2 class="col-md-9 col-12">{{ eventData.startDate | date : "y" }} {{ eventData.getEventName() }} <span class="badge bg-primary" *ngIf="eventData.isLive">LIVE</span></h2>
+    <h2 class="col-md-9 col-12">{{ eventData.startDate | date : "y" }} {{ eventData.fullEventName }} <span class="badge bg-primary" *ngIf="eventData.isLive">LIVE</span></h2>
     <div *ngIf="user !== null" class="col-12 col-md-3">
       <button mdc-button primary (click)="toggleEvent()" class="align-self-end black" style="text-transform:initial; height: auto; padding: 7px">
         <mdc-icon *ngIf="favorite" class="mr-1 ml-1">favorite</mdc-icon>
@@ -88,7 +88,7 @@
           <toa-event-teams *ngIf="tabs.activeTabIndex === 2" [teams]="eventData.teams"></toa-event-teams>
           <toa-event-awards *ngIf="tabs.activeTabIndex === 3" [event]="eventData"></toa-event-awards>
           <toa-event-for-participants *ngIf="tabs.activeTabIndex === 4" [event]="eventData" [media]="media"></toa-event-for-participants>
-          <toa-event-admin *ngIf="admin" [class.d-none]="!emailVerified || !(tabs.activeTabIndex === 5 || (totalrankings === 0 && totalmatches === 0 && totalteams === 0 && totalawards === 0 && totalmedia === 0))" [user]="user" [uid]="user.uid" [eventKey]="eventData.eventKey" [eventData]="eventData"></toa-event-admin>
+          <toa-event-admin *ngIf="admin" [class.d-none]="!emailVerified || !(tabs.activeTabIndex === 5 || (totalrankings === 0 && totalmatches === 0 && totalteams === 0 && totalawards === 0 && totalmedia === 0))" [user]="user" [uid]="user.uid" [eventKey]="eventData.eventKey" [eventData]="eventData" [toaAdmin]="toaAdmin"></toa-event-admin>
         </div>
       </mdc-card>
     </div>

@@ -22,6 +22,12 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   @Input() uid: string;
   @Input() eventKey: string;
   @Input() eventData: Event;
+  @Input() toaAdmin: boolean;
+
+  deleteEvent1: boolean = true;
+  deleteEvent2: boolean = false;
+  deleteEvent3: boolean = false;
+  deleteEvent4: boolean = false;
 
   generatingEventApiKey: boolean;
   eventApiKey: string;
@@ -329,6 +335,14 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
       return this.images[type]['filename'];
     }
     return null
+  }
+
+  deleteEvent() {
+    this.cloud.toaDelete(this.user.uid, `/event/${this.eventData.eventKey}`).then((data: {}) => {
+      this.router.navigate([`/events`]);
+    }).catch((err) => {
+      this.showSnackbar(`general.error_occurred`, `HTTP-${err.status}`);
+    });
   }
 
   sendAnalytic(category, action): void {
