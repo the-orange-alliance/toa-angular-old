@@ -14,6 +14,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import { CloudFunctions } from '../../providers/cloud-functions';
 import { auth as providers } from 'firebase/app';
 import { AppBarService } from '../../app-bar.service';
+import User from '../../models/User';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
 import Season from '../../models/Season';
@@ -30,11 +31,13 @@ import EventType from '../../models/EventType';
 export class AccountComponent implements OnInit, AfterViewChecked {
 
   user: firebase.User = null;
-  userData: {} = {};
+  userData: User = null;
   adminEvents = {};
   profileUrl: string = null;
   activeTab: number = -1;
   generalCache: string = null;
+  selectedUser: User = null;
+  users: firebase.User[] = [];
 
   teams: Team[];
   events: Event[];
@@ -80,8 +83,10 @@ export class AccountComponent implements OnInit, AfterViewChecked {
       this.activeTab = 1;
     } else if (this.router.url.indexOf('/account/new-event') > -1) {
       this.activeTab = 2;
-    } else if (this.router.url.indexOf('/account/cache') > -1) {
+    } else if (this.router.url.indexOf('/account/users') > -1) {
       this.activeTab = 3;
+    } else if (this.router.url.indexOf('/account/cache') > -1) {
+      this.activeTab = 4;
     } else {
       this.activeTab = 0;
     }
@@ -92,73 +97,60 @@ export class AccountComponent implements OnInit, AfterViewChecked {
 
         this.emailVerified = user.emailVerified;
 
-        db.list(`Users/${user.uid}`).snapshotChanges()
-          .subscribe(items => {
+        db.object(`Users/${user.uid}`).query.once('value').then(items => {
+          this.userData = new User().fromSnapshot(items);
+          this.generatingApiKey = this.userData.apiKey !== null;
 
-            items.forEach(element => {
-              this.userData[element.key] = element.payload.val();
+          this.teams = [];
+          this.events = [];
+
+          for (const key of this.userData.getFavTeams()) {
+            this.ftc.getTeamBasic(key).then((team: Team) => {
+              if (team) {
+                this.teams.push(team);
+                this.teams = new TeamSorter().sort(this.teams);
+              }
             });
+          }
 
-            this.userData['level'] = this.userData['level'] || 1;
-
-            this.generatingApiKey = this.userData['APIKey'];
-
-            if (!this.loaded) {
-              this.teams = [];
-              this.events = [];
-
-              const teams = this.userData['favTeams'];
-              for (const key in teams) {
-                if (teams[key] === true) {
-                  this.ftc.getTeamBasic(key).then((team: Team) => {
-                    if (team) {
-                      this.teams.push(team);
-                      this.teams = new TeamSorter().sort(this.teams);
-                    }
-                  });
-                }
+          for (const key of this.userData.getFavEvents()) {
+            this.ftc.getEventBasic(key).then((event: Event) => {
+              if (event) {
+                this.events.push(event);
+                this.events = new EventSorter().sort(this.events);
               }
+            });
+          }
 
-              const events = this.userData['favEvents'];
-              for (const key in events) {
-                if (events[key] === true) {
-                  this.ftc.getEventBasic(key).then((event: Event) => {
-                    if (event) {
-                      this.events.push(event);
-                      this.events = new EventSorter().sort(this.events);
-                    }
-                  });
-                }
-              }
+          for (const key of this.userData.getAdminEvents()) {
+            db.object(`eventAPIs/${key}`).snapshotChanges()
+              .subscribe(item => {
+              this.adminEvents[key] = item.payload.val() || null;
+            });
+          }
 
-              this.loaded = true;
-            }
+          if (this.userData.level >= 6) {
+            this.cloud.allUsers(this.user.uid).then((data) => {
+              this.users = data;
+            });
+          }
 
-            const adminEvents = this.userData['adminEvents'];
-            if (adminEvents) {
-              for (const key in adminEvents) {
-                if (adminEvents[key] === true) {
-                  db.object(`eventAPIs/${key}`).snapshotChanges()
-                    .subscribe(item => {
-                    this.adminEvents[key] = item.payload.val() || null;
-                  });
-                }
-              }
+          for (const provider of this.user.providerData) {
+            if (provider.photoURL != null) {
+              this.profileUrl = provider.photoURL;
+              break;
             }
+          }
 
-            for (const provider of this.user.providerData) {
-              if (provider.photoURL != null) {
-                this.profileUrl = provider.photoURL;
-                break;
-              }
-            }
-            if (this.profileUrl === null && this.userData['profileImage'] != null) {
-              const storageRef = this.storage.ref(`images/users/${ this.userData['profileImage'] }`);
-              storageRef.getDownloadURL().toPromise().then((url) => {
-                this.profileUrl = url;
-              });
-            }
-          });
+          if (this.profileUrl === null && this.userData['profileImage'] != null) {
+            const storageRef = this.storage.ref(`images/users/${ this.userData['profileImage'] }`);
+            storageRef.getDownloadURL().toPromise().then((url) => {
+              this.profileUrl = url;
+            });
+          }
+
+          this.loaded = true;
+        });
       } else {
         this.router.navigateByUrl('/account/login');
       }
@@ -183,6 +175,22 @@ export class AccountComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     this.cdRef.detectChanges();
+  }
+
+  checkProvider(providerId:string, user: any) {
+    for (const provider of user.providerData) {
+      if (provider.providerId.toLowerCase() == providerId.toLowerCase()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  selectUser(user: firebase.User) {
+    this.db.object(`Users/${user.uid}`).query.once('value').then(items => {
+      this.selectedUser = new User().fromSnapshot(items);
+      this.selectedUser.firebaseUser = user;
+    });
   }
 
   onSeasonChange(event: {index: any, value: any}) {

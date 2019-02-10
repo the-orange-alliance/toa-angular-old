@@ -203,7 +203,6 @@ export class TheOrangeAllianceComponent implements OnInit {
     this.translate.use(this.selectedLanguage);
   }
 
-
   sendAnalytic(category, action): void {
     (<any>window).ga('send', 'event', {
       eventCategory: category,

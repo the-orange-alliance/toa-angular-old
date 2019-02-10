@@ -9,6 +9,20 @@ export class CloudFunctions {
 
   constructor(private http: HttpClient) {}
 
+  public allUsers(uid: string): Promise<any[]> {
+    return new Promise<any[]>((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'authorization': 'Bearer ' + uid
+      });
+
+      this.http.get(this.baseUrl + '/allUsers', {headers: headers}).subscribe((data: any) => {
+        resolve(data);
+      }, (err: any) => {
+        reject(err);
+      });
+    });
+  }
+
   public generateApiKey(uid: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       const headers = new HttpHeaders({

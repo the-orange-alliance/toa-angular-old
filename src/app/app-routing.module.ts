@@ -25,6 +25,7 @@ const routes: Routes = [
       { path: 'register', component: RegisterComponent },
       { path: 'events', component: AccountComponent },
       { path: 'new-event', component: AccountComponent },
+      { path: 'users', component: AccountComponent },
       { path: 'cache', component: AccountComponent }
     ]
   },
