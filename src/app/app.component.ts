@@ -51,8 +51,12 @@ export class TheOrangeAllianceComponent implements OnInit {
     this.selectedLanguage = this.storage.get('lang') || translate.getBrowserLang();
     this.languageSelected();
 
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
+
     this.router.events.subscribe(() => {
-      setTimeout(()=>{
+      setTimeout(() => {
         this.title = this.appBarService.titleLong;
       });
     });

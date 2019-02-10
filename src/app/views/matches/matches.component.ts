@@ -29,7 +29,6 @@ export class MatchesComponent implements OnInit {
     this.ftc.getMatchDetails(this.matchKey).then((match: Match) => {
       if (match) {
         this.match = match;
-        this.appBarService.setTitle(match.matchName);
 
         if (match.videoURL != null) {
           const video = urlParser.parse(match.videoURL);
@@ -50,6 +49,7 @@ export class MatchesComponent implements OnInit {
         this.ftc.getEventBasic(match.eventKey).then((event: Event) => {
           this.match.event = event;
           this.app.setTitle(this.match.matchName + ' - ' + this.match.event.eventName);
+          this.appBarService.setTitle(match.matchName + ' - ' + this.match.event.getEventName(), true);
           this.app.setDescription(`Match results ${ this.match.videoURL ? 'and video ' : '' }for ${ this.match.matchName } at the ${ this.match.event.eventName } FIRST Tech Challenge`);
         });
       } else {

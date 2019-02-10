@@ -1,14 +1,14 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
+import { FTCDatabase } from '../../../../providers/ftc-database';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
 import { UploadService } from '../../../../providers/imgur';
 import { AngularFireDatabase } from '@angular/fire/database';
-import {MdcIcon, MdcSnackbar, MdcTextField} from '@angular-mdc/web';
+import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { User } from 'firebase/app';
 import Event from '../../../../models/Event';
 import EventLiveStream from '../../../../models/EventLiveStream';
-import {FTCDatabase} from '../../../../providers/ftc-database';
 
 @Component({
   providers: [CloudFunctions, UploadService],
@@ -39,8 +39,8 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   uploadingVideos: boolean;
 
   images: any = {};
-  pitsMap: 'pits_map';
-  schedule: 'schedule';
+  pitsMap: string = 'pits_map';
+  schedule: string = 'schedule';
 
   streamType = 'Youtube';
   hasStream = false;
