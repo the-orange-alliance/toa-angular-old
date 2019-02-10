@@ -10,6 +10,8 @@
     "teams": "Equipos",
     "event": "Evento",
     "events": "Eventos",
+    "match": "Partido",
+    "matches": "Partidos",
     "live": "VIVO",
     "here": "Aquí",
     "verify": "Verificar",
@@ -31,6 +33,7 @@
     "api": "API",
     "github": "GitHub",
     "about": "Sobre",
+    "donate": "Donar",
     "privacy_and_terms": "Privacidad y términos",
     "mytoa": {
       "hello": "Hola, {{ name }}",
@@ -50,17 +53,22 @@
       "add_event_stream": "Agregar Transmisión en directo de evento",
       "stream_your_event": "Transmite tu evento en el canal de Twitch de TOA"
     },
+
     "404": {
       "title": "Página no encontrada",
       "short_info": "Parece que has seguido un enlace roto o un equipo/evento/partido que no existe."
     },
+
     "about": {
       "title": "Sobre nosotros"
     },
+
     "account": {
       "logout": "Cerrar sesión",
       "level": "Nivel {{ level }}",
       "no_verify": "Por favor considere verificar su correo electrónico.",
+      "why_verify": "Para disfrutar de todas las funciones de tu cuenta, tu dirección de correo electrónico debe verificarse.",
+      "manage_events": "Administrar eventos",
       "api_card": {
         "title": "Construye cosas increíbles con nuestros API",
         "your_key": "Aquí está su clave de API:",
@@ -72,13 +80,30 @@
       "account_settings": "Configuración de la cuenta",
       "reset_password": "Restablecer la contraseña",
       "reset_password_email": "Se ha enviado un correo electrónico de restablecimiento de contraseña.",
-      "link_google": "Vincular cuenta de Google",
-      "link_github": "Vincular cuenta de GitHub",
-      "success_google": "Cuenta de Google vinculada correctamente",
-      "success_github": "Cuenta de GitHub vinculada correctamente",
+      "link_account": "Vincular {{ name }} cuenta",
+      "unlink_account": "desconectar {{ name }} cuenta",
+      "success_link": "Cuenta de {{ name }} vinculada correctamente",
+      "success_unlink": "Cuenta de {{ name }} desenlazada correctamente",
+      "last_signin": "Última sesión",
       "datasync_card": {
         "title": "Sincroniza su evento en vivo con TOA",
         "docs": "Puede ver nuestros documentación completa de DataSync en"
+      },
+      "create_event_card": {
+        "title": "Crear evento",
+        "create": "Crear",
+        "event_id": "ID de evento",
+        "event_type": "Tipo de evento",
+        "region": "Región",
+        "season": "Temporada",
+        "division_number": "Número de división",
+        "success": "Evento creado con éxito"
+      },
+      "dump_cache": {
+        "title": "Caché de volcado",
+        "general": "General",
+        "dump": "Volcado",
+        "success": "Caché de volcado con éxito"
       },
       "subpages": {
         "login": {
@@ -86,6 +111,7 @@
           "email": "Correo electrónico",
           "password": "Contraseña",
           "login": "Iniciar sesión",
+          "forgot_password": "¿Olvidó la contraseña?",
           "login_google": "Iniciar sesión con Google",
           "login_github": "Iniciar sesión con GitHub",
           "no_account_linked": "Esta cuenta no está vinculada a ninguna cuenta myTOA. Por favor inicie sesión para vincularlo."
@@ -182,6 +208,18 @@
             "choose_image": "Elegir imagen...",
             "successfully": "Actualizado correctamente la información del evento"
           },
+          "stream_card": {
+            "add_stream": "Añadir transmisión en directo",
+            "unlink_stream": "Desvincular transmisión en directo",
+            "currently_linked": "Transmisión en directo vinculada actualmente",
+            "url": "{{ provider }} URL",
+            "stream_name": "Nombre de transmisión en directo",
+            "link": "Conectar",
+            "unlink": "Desconectar",
+            "stream": "{{ provider }} transmisión en directo",
+            "success_linked": "Transmisión en directo vinculada correctamente",
+            "success_unlinked": "Transmisión en directo desenlazada correctamente"
+          },
           "verify_email": "Por favor verifica su correo electrónico e inténtalo de nuevo.",
           "success_sent_verify_email": "Se ha enviado un correo electrónico de verificación correctamente."
         }
@@ -207,7 +245,16 @@
       "close_stream": "Cerrar la transmisión",
       "select_stream": "Seleccionar stream",
       "select": "Seleccionar",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "layouts": {
+        "title": "Seleccionar diseño",
+        "single_view": "Vista individual",
+        "vertical_split_view": "Vista dividida vertical",
+        "horizontal_split_view": "Vista dividida horizontal",
+        "1_2_view": "1+2 vista",
+        "1_4_view": "1+4 vista",
+        "quad_view": "Vista cuádruple"
+      }
     },
 
     "team": {
