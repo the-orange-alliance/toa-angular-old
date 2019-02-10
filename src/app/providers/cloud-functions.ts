@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from 'firebase/app';
 
 @Injectable()
 export class CloudFunctions {
@@ -9,214 +10,280 @@ export class CloudFunctions {
 
   constructor(private http: HttpClient) {}
 
-  public allUsers(uid: string): Promise<any[]> {
+  public allUsers(user: User): Promise<any[]> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': 'Bearer ' + uid
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': 'Bearer ' + user
+        });
 
-      this.http.get(this.baseUrl + '/allUsers', {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.get(this.baseUrl + '/allUsers', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public generateApiKey(uid: string): Promise<any> {
+  public generateApiKey(user: User): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': 'Bearer ' + uid
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': 'Bearer ' + user
+        });
 
-      this.http.get(this.baseUrl + '/generateKey', {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.get(this.baseUrl + '/generateKey', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public generateEventApiKey(uid: string, eventKey: string): Promise<any> {
+  public generateEventApiKey(user: User, eventKey: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': 'Bearer ' + uid,
-        'data': eventKey
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': 'Bearer ' + user,
+          'data': eventKey
+        });
 
-      this.http.get(this.baseUrl + '/eventKey', {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.get(this.baseUrl + '/eventKey', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public playlistMatchify(uid: string, eventKey: string, playlistID: string): Promise<any> {
+  public playlistMatchify(user: User, eventKey: string, playlistID: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': `Bearer ${uid}`,
-        'data': eventKey
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`,
+          'data': eventKey
+        });
 
-      const body = {
-        'playlistID': playlistID
-      };
+        const body = {
+          'playlistID': playlistID
+        };
 
-      this.http.post(this.baseUrl + '/playlistMatchify', body, {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.post(this.baseUrl + '/playlistMatchify', body, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public setVideos(uid: string, eventKey: string, videos: any[]): Promise<any> {
+  public setVideos(user: User, eventKey: string, videos: any[]): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': `Bearer ${uid}`,
-        'data': eventKey
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`,
+          'data': eventKey
+        });
 
-      this.http.post(this.baseUrl + '/setVideos', videos, {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.post(this.baseUrl + '/setVideos', videos, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public createEvent(uid: string, eventData: any[]): Promise<any> {
+  public createEvent(user: User, eventData: any[]): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': `Bearer ${uid}`
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`
+        });
 
-      this.http.post(this.baseUrl + '/createEvent', eventData, {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.post(this.baseUrl + '/createEvent', eventData, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public updateEvent(uid: string, eventKey: string, eventData: any[]): Promise<any> {
+  public updateEvent(user: User, eventKey: string, eventData: any[]): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': `Bearer ${uid}`,
-        'data': eventKey
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`,
+          'data': eventKey
+        });
 
-      this.http.post(this.baseUrl + '/updateEvent', eventData, {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.post(this.baseUrl + '/updateEvent', eventData, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public addEventMedia(uid: string, mediaData: any): Promise<any> {
+  public addEventMedia(user: User, mediaData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': `Bearer ${uid}`,
-        'data': 'event'
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`,
+          'data': 'event'
+        });
 
-      this.http.post(this.baseUrl + '/addMedia', mediaData, {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.post(this.baseUrl + '/addMedia', mediaData, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public addTeamMedia(uid: string, mediaData: any): Promise<any> {
+  public addTeamMedia(user: User, mediaData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': `Bearer ${uid}`,
-        'data': 'team'
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`,
+          'data': 'team'
+        });
 
-      this.http.post(this.baseUrl + '/addMedia', mediaData, {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.post(this.baseUrl + '/addMedia', mediaData, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public addStream(uid: string, streamData: any): Promise<any> {
+  public addStream(user: User, streamData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': `Bearer ${uid}`
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`
+        });
 
-      this.http.post(this.baseUrl + '/addStream', streamData, {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.post(this.baseUrl + '/addStream', streamData, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public hideStream(uid: string, streamData: any): Promise<any> {
+  public hideStream(user: User, streamData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': `Bearer ${uid}`
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`
+        });
 
-      this.http.post(this.baseUrl + '/hideStream', streamData, {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.post(this.baseUrl + '/hideStream', streamData, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public dumpCache(uid: string, route: string): Promise<any> {
-    return this.toaPost(uid, '', `/web/dumpCache?route=/api/${route}`);
+  public dumpCache(user: User, route: string): Promise<any> {
+    return this.toaPost(user, '', `/web/dumpCache?route=/api/${route}`);
   }
 
-  public toaPost(uid: string, body: any, route: string): Promise<any> {
+  public toaPost(user: User, body: any, route: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': `Bearer ${uid}`,
-        'data': route
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`,
+          'data': route
+        });
 
-      this.http.post(this.baseUrl + '/toaapi', body, {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.post(this.baseUrl + '/toaapi', body, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public toaPut(uid: string, body: any, route: string): Promise<any> {
+  public toaPut(user: User, body: any, route: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': `Bearer ${uid}`,
-        'data': route
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`,
+          'data': route
+        });
 
-      this.http.put(this.baseUrl + '/toaapi', body, {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.put(this.baseUrl + '/toaapi', body, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
         reject(err);
       });
     });
   }
 
-  public toaDelete(uid: string, route: string): Promise<any> {
+  public toaDelete(user: User, route: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'authorization': `Bearer ${uid}`,
-        'data': route
-      });
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`,
+          'data': route
+        });
 
-      this.http.delete(this.baseUrl + '/toaapi', {headers: headers}).subscribe((data: any) => {
-        resolve(data);
-      }, (err: any) => {
+        this.http.delete(this.baseUrl + '/toaapi', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  private userToVerKey(user: User): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      user.getIdToken(false).then((token) => {
+        resolve(token);
+      }).catch((err: any) => {
         reject(err);
       });
     });
