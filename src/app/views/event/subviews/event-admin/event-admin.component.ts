@@ -27,6 +27,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   deleteEvent1: boolean = true;
   deleteEvent2: boolean = false;
   deleteEvent3: boolean = false;
+  deleteEvent4: boolean = false;
 
   generatingEventApiKey: boolean;
   eventApiKey: string;

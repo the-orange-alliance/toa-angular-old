@@ -224,6 +224,7 @@
             "delete_event": "Delete Event",
             "delete_failed": "Delete Failed",
             "delete": "Delete",
+            "delete_all_data": "YOU WILL BE DELETING ALL DATA FROM THIS EVENT",
             "delete_sure": "ARE YOU SURE YOU WANT TO DELETE THE EVENT",
             "delete_final": "THIS WILL DELETE THE EVENT"
           },

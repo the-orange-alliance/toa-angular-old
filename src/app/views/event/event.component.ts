@@ -44,7 +44,7 @@ export class EventComponent implements OnInit {
   favorite: boolean;
   emailVerified: boolean = true;
   admin: boolean;
-  toaAdmin: boolean;
+  toaAdmin: boolean = false;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService) {
