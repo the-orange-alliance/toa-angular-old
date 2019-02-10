@@ -97,7 +97,14 @@
         "region": "Region",
         "season": "Season",
         "division_number": "Division Number",
-        "success": "Successfully Created Event"
+        "division_name": "Division Name",
+        "advancement_spots": "Advancement Spots",
+        "advancement_event": "Advancement Event",
+        "number_fields": "Number of Fields",
+        "number_alliances": "Number of Alliances",
+        "success": "Successfully Created Event",
+        "dual_division": "Dual Division",
+        "advanced": "Advanced"
       },
       "dump_cache": {
         "title": "Dump Cache",

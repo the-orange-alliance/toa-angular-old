@@ -8,7 +8,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { TeamSorter } from '../../util/team-utils';
 import { EventSorter } from '../../util/event-utils';
-import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
+import { MdcSnackbar, MdcTextField, MdcCheckbox } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { CloudFunctions } from '../../providers/cloud-functions';
@@ -53,7 +53,6 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   // These are for creating the Events
   @ViewChild('event_name') eventName: MdcTextField;
   @ViewChild('event_id') eventId: MdcTextField;
-  // @ViewChild('division_number') divisionNumber: MdcTextField;
   @ViewChild('start_date') startDate: MdcTextField;
   @ViewChild('end_date') endDate: MdcTextField;
   @ViewChild('website') website: MdcTextField;
@@ -64,6 +63,14 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   @ViewChild('eventCache') eventCache: MdcTextField;
   @ViewChild('teamCache') teamCache: MdcTextField;
   @ViewChild('matchCache') matchCache: MdcTextField;
+  @ViewChild('dual_division') dualDivision: MdcCheckbox;
+  @ViewChild('division_number') divisionNumber: MdcTextField;
+  @ViewChild('division_name') divisionName: MdcTextField;
+  @ViewChild('advanced') advanced: MdcCheckbox;
+  @ViewChild('number_fields') numberFields: MdcTextField;
+  @ViewChild('number_alliances') numberAlliances: MdcTextField;
+  @ViewChild('advancement_spots') advSpots: MdcTextField;
+  @ViewChild('advancement_event') advEvent: MdcTextField;
 
   currentSeason: Season = null;
   currentRegion: Region = null;
@@ -197,6 +204,34 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     this.currentEventType = this.eventTypes[event.index - 1];
   }
 
+  resetAdvanced() {
+    this.numberAlliances.value = 4;
+    this.numberFields.value = 2;
+    this.advSpots.value = '';
+    this.advEvent.value = '';
+
+    this.numberAlliances.disabled = true;
+    this.numberFields.disabled = true;
+    this.advSpots.disabled = true;
+    this.advEvent.disabled = true;
+
+    this.numberAlliances.disabled = false;
+    this.numberFields.disabled = false;
+    this.advSpots.disabled = false;
+    this.advEvent.disabled = false;
+  }
+
+  resetDualDivision() {
+    this.divisionNumber.value = 0;
+    this.divisionName.value = '';
+
+    this.divisionNumber.disabled = true;
+    this.divisionName.disabled = true;
+
+    this.divisionNumber.disabled = false;
+    this.divisionName.disabled = false;
+  }
+
   createEvent() {
     const event = new Event;
     event.eventKey = this.currentSeason.seasonKey + '-' + this.currentRegion.regionKey + '-' + this.eventId.value;
@@ -205,8 +240,12 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     event.eventCode = this.eventId.value;
     event.eventTypeKey = this.currentEventType.eventTypeKey;
     event.eventName = this.eventName.value;
-    // event.divisionKey = this.divisionNumber.value;
-    event.divisionKey = '0';
+    event.divisionKey = this.divisionNumber.value;
+    event.divisionName = (this.divisionName.value === '') ? undefined : this.divisionName.value;
+    event.fieldCount = this.numberFields.value;
+    event.allianceCount = this.numberAlliances.value;
+    event.advanceSpots = (this.advSpots.value === '') ? undefined : this.advSpots.value;
+    event.advanceEvent = (this.advEvent.value === '') ? undefined : this.advEvent.value;
     event.activeTournamentLevel = '0';
     event.startDate = this.startDate.value;
     event.endDate = this.endDate.value;
