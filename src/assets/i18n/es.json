@@ -97,7 +97,14 @@
         "region": "Región",
         "season": "Temporada",
         "division_number": "Número de división",
-        "success": "Evento creado con éxito"
+        "division_name": "Nombre de división",
+        "advancement_spots": "Avanzar lugares",
+        "advancement_event": "Advanzar evento",
+        "number_fields": "Número de canchas",
+        "number_alliances": "Número de alianzas",
+        "success": "Evento creado con éxito",
+        "dual_division": "Dual Division",
+        "advanced": "Advanced"
       },
       "dump_cache": {
         "title": "Caché de volcado",
@@ -219,6 +226,14 @@
             "stream": "{{ provider }} transmisión en directo",
             "success_linked": "Transmisión en directo vinculada correctamente",
             "success_unlinked": "Transmisión en directo desenlazada correctamente"
+          },
+          "delete_card": {
+            "delete_event": "Eliminar evento",
+            "delete_failed": "Error al eliminar",
+            "delete": "Eliminar",
+            "delete_all_data": "ELIMINAR TODOS LOS DATOS DE ESTE EVENTO",
+            "delete_sure": "¿ESTÁ SEGURO DE QUE DESEA ELIMINAR EL EVENTO?",
+            "delete_final": "ESTO BORRARÁ EL EVENTO"
           },
           "verify_email": "Por favor verifica su correo electrónico e inténtalo de nuevo.",
           "success_sent_verify_email": "Se ha enviado un correo electrónico de verificación correctamente."
