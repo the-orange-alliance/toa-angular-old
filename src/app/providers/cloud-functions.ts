@@ -14,7 +14,7 @@ export class CloudFunctions {
     return new Promise<any[]>((resolve, reject) => {
       this.userToVerKey(user).then((key) => {
         const headers = new HttpHeaders({
-          'authorization': 'Bearer ' + user
+          'authorization': `Bearer ${key}`
         });
 
         this.http.get(this.baseUrl + '/allUsers', {headers: headers}).subscribe((data: any) => {
@@ -32,7 +32,7 @@ export class CloudFunctions {
     return new Promise<any[]>((resolve, reject) => {
       this.userToVerKey(user).then((key) => {
         const headers = new HttpHeaders({
-          'authorization': 'Bearer ' + user
+          'authorization': `Bearer ${key}`
         });
 
         this.http.get(this.baseUrl + '/generateKey', {headers: headers}).subscribe((data: any) => {
@@ -50,7 +50,7 @@ export class CloudFunctions {
     return new Promise<any[]>((resolve, reject) => {
       this.userToVerKey(user).then((key) => {
         const headers = new HttpHeaders({
-          'authorization': 'Bearer ' + user,
+          'authorization': `Bearer ${key}`,
           'data': eventKey
         });
 
@@ -281,7 +281,7 @@ export class CloudFunctions {
 
   private userToVerKey(user: User): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      user.getIdToken(false).then((token) => {
+      user.getIdToken(true).then((token) => {
         resolve(token);
       }).catch((err: any) => {
         reject(err);

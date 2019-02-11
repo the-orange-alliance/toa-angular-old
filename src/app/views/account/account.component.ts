@@ -98,6 +98,8 @@ export class AccountComponent implements OnInit, AfterViewChecked {
       this.activeTab = 0;
     }
 
+    auth.auth.languageCode = 'en'; // TODO: Ask ofek how to get the selected Language code
+
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
         this.user = user;
@@ -240,6 +242,31 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     this.divisionName.disabled = false;
   }
 
+  linkPhone() {
+    // Sign in the Google user first.
+    this.auth.auth.signInWithPopup(new providers.GoogleAuthProvider()).then((result) => {
+        // Google user signed in. Check if phone number added.
+        if (!result.user.phoneNumber) {
+          // Ask user for phone number.
+          const phoneNumber = window.prompt('Provide your phone number');
+          // You also need to provide a button element signInButtonElement
+          // which the user would click to complete sign-in.
+          // Get recaptcha token. Let's use invisible recaptcha and hook to the button.
+          const appVerifier = new providers.RecaptchaVerifier(phoneNumber, {size: 'invisible'});
+          // This will wait for the button to be clicked the reCAPTCHA resolved.
+          return result.user.linkWithPhoneNumber('test-button', appVerifier).then((confirmationResult) => {
+              // Ask user to provide the SMS code.
+              const code = window.prompt('Provide your SMS code');
+              // Complete sign-in.
+              return confirmationResult.confirm(code);
+            })
+        }
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+  }
+
   createEvent() {
     const event = new Event;
     event.eventKey = this.currentSeason.seasonKey + '-' + this.currentRegion.regionKey + '-' + this.eventId.value;
@@ -248,12 +275,12 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     event.eventCode = this.eventId.value;
     event.eventTypeKey = this.currentEventType.eventTypeKey;
     event.eventName = this.eventName.value;
-    event.divisionKey = this.divisionNumber.value;
-    event.divisionName = (this.divisionName.value === '') ? undefined : this.divisionName.value;
-    event.fieldCount = this.numberFields.value;
-    event.allianceCount = this.numberAlliances.value;
-    event.advanceSpots = (this.advSpots.value === '') ? undefined : this.advSpots.value;
-    event.advanceEvent = (this.advEvent.value === '') ? undefined : this.advEvent.value;
+    event.divisionKey = (this.divisionNumber) ? this.divisionNumber.value : 0;
+    event.divisionName = (this.divisionName) ? this.divisionName.value : undefined;
+    event.fieldCount = (this.numberFields) ? this.numberFields.value : 2;
+    event.allianceCount = (this.numberAlliances) ? this.numberAlliances.value : 4;
+    event.advanceSpots = (this.advSpots) ? this.advSpots.value : undefined;
+    event.advanceEvent = (this.advEvent) ? this.advEvent.value : undefined;
     event.activeTournamentLevel = '0';
     event.startDate = this.startDate.value;
     event.endDate = this.endDate.value;

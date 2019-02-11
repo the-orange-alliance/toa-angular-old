@@ -99,6 +99,11 @@
             <mdc-icon mdcListItemGraphic svgIcon="github-circle"></mdc-icon>
             {{ (isUserLinkToProvider(githubProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'GitHub'} }}
           </mdc-list-item>
+
+          <mdc-list-item (click)="linkPhone()">
+            <mdc-icon mdcListItemGraphic svgIcon="phone"></mdc-icon>
+            Test Link Phone
+          </mdc-list-item>
         </mdc-list>
         <mdc-list disableRipple twoLine [interactive]="false">
           <mdc-list-item>
@@ -266,7 +271,7 @@
         </mdc-form-field>
       </mdc-radio-group>
 
-      <button mdc-button primary (click)="dumpGeneralCache()" class="mt-2">{{ 'pages.account.dump_cache.dump' | translate }}</button>
+      <button mdc-button primary class="test-button" (click)="dumpGeneralCache()" class="mt-2">{{ 'pages.account.dump_cache.dump' | translate }}</button>
     </div>
     <div class="col-md-4 col-12 mb-2 pe-md-2">
       <div class="outline-card">
