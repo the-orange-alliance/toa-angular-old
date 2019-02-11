@@ -66,7 +66,7 @@
     "account": {
       "logout": "Cerrar sesión",
       "level": "Nivel {{ level }}",
-      "no_verify": "Por favor considere verificar su correo electrónico.",
+      "no_verify": "Por favor considere verificar su correo electrónico",
       "why_verify": "Para disfrutar de todas las funciones de tu cuenta, tu dirección de correo electrónico debe verificarse.",
       "manage_events": "Administrar eventos",
       "api_card": {
@@ -137,7 +137,7 @@
 
     "home": {
       "title": "Página de inicio",
-      "short_info": "The Orange Alliance es un proyecto para ayudar hacer FTC partidos, eventos, y equipo información",
+      "short_info": "The Orange Alliance es un proyecto para ayudar hacer FTC partidos, eventos, y equipo información.",
       "active_teams": "Equipos activos",
       "matches_played": "Partidos jugados",
       "todays_events": "Eventos de hoy",
@@ -321,7 +321,7 @@
     "teams_long": "No hay equipos que coincidan con esa consulta",
     "events": "No se encontraron eventos",
     "event_long": "NO SE HAN REPORTADO RESULTADOS PARA ESTE EVENTO.",
-    "streams_long": "Actualmente no hay transmisiones activas",
+    "streams_long": "Actualmente no hay transmisiones activas.",
     "events_for_season": "No hay eventos para {{ season }} la temporada",
     "events_for_season_long": "Este equipo aún no ha jugado en ningún evento esta temporada.<br/>Intenta cambiar la temporada usando el selector de arriba."
   }
