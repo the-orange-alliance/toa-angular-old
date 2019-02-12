@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef, AfterViewInit} from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef, AfterViewInit, Inject } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -12,6 +12,7 @@ import { MdcSnackbar, MdcTextField, MdcCheckbox } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { CloudFunctions } from '../../providers/cloud-functions';
+import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
 import { auth as providers } from 'firebase/app';
 import { AppBarService } from '../../app-bar.service';
 import User from '../../models/User';
@@ -85,7 +86,8 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
 
   constructor(app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient, private appBarService: AppBarService,
               private snackbar: MdcSnackbar, private db: AngularFireDatabase, private auth: AngularFireAuth, private storage: AngularFireStorage,
-              private cloud: CloudFunctions, private translate: TranslateService, private loca: Location, private cdRef: ChangeDetectorRef) {
+              private cloud: CloudFunctions, private translate: TranslateService, private loca: Location, private cdRef: ChangeDetectorRef,
+              @Inject(LOCAL_STORAGE) localStorage: StorageService) {
 
     app.setTitle('myTOA');
     app.setDescription('Your myTOA account overview');
@@ -102,7 +104,7 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
       this.activeTab = 0;
     }
 
-    auth.auth.languageCode = 'en'; // TODO: Ask ofek how to get the selected Language code
+    auth.auth.languageCode = localStorage.get('lang') || translate.getBrowserLang() || 'en';
 
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
