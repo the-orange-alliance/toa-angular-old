@@ -82,6 +82,8 @@
       "reset_password_email": "מייל לאיפוס סיסמה נשלח אליך.",
       "link_account": "קישור חשבון {{ name }}",
       "unlink_account": "ניתוק חשבון {{ name }}",
+      "link_phone": "קישור מספר טלפון",
+      "unlink_phone": "ניתוק מספר טלפון",
       "success_link": "חשבון {{ name }} קושר בהצלחה",
       "success_unlink": "חשבון {{ name }} נותק בהצלחה",
       "last_signin": "התחברות אחרונה",

@@ -105,7 +105,7 @@
 
           <mdc-list-item (click)="isUserLinkToProvider(phoneProvider) ? unlinkProvider(phoneProvider) : linkPhone()">
             <mdc-icon mdcListItemGraphic svgIcon="phone"></mdc-icon>
-            {{ (isUserLinkToProvider(phoneProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'Phone'} }}
+            {{ (isUserLinkToProvider(phoneProvider) ? 'pages.account.unlink_phone' : 'pages.account.link_phone') | translate }}
           </mdc-list-item>
         </mdc-list>
         <mdc-list disableRipple twoLine [interactive]="false">

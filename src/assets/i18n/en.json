@@ -82,6 +82,8 @@
       "reset_password_email": "A password reset email has been sent.",
       "link_account": "Link {{ name }} account",
       "unlink_account": "Unlink {{ name }} account",
+      "link_phone": "Link phone number",
+      "unlink_phone": "Unlink phone number",
       "success_link": "Successfully linked {{ name }} account",
       "success_unlink": "Successfully unlinked {{ name }} account",
       "last_signin": "Last Sign In",
