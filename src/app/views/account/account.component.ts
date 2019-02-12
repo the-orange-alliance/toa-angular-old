@@ -55,6 +55,7 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
   emailVerified = true;
   googleProvider = new providers.GoogleAuthProvider();
   githubProvider = new providers.GithubAuthProvider();
+  phoneProvider;
   recaptchaVerifier;
   confirmationResult;
 
@@ -105,6 +106,8 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
     }
 
     auth.auth.languageCode = localStorage.get('lang') || translate.getBrowserLang() || 'en';
+
+    this.phoneProvider = new providers.PhoneAuthProvider(auth.auth);
 
     auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
@@ -284,7 +287,8 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
       return confResult.confirm(code);
     }).then((result) => {
       // TODO: Put Phone# into Firebase Live DB here
-      console.log('success ' + result);
+      console.log('success!');
+      console.log(result);
     }).catch( (error) => {
       // Error; SMS not sent
       console.error(error);

@@ -103,9 +103,9 @@
             {{ (isUserLinkToProvider(githubProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'GitHub'} }}
           </mdc-list-item>
 
-          <mdc-list-item (click)="linkPhone()">
+          <mdc-list-item (click)="isUserLinkToProvider(phoneProvider) ? unlinkProvider(phoneProvider) : linkPhone()">
             <mdc-icon mdcListItemGraphic svgIcon="phone"></mdc-icon>
-            Test Link Phone
+            {{ (isUserLinkToProvider(phoneProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'Phone'} }}
           </mdc-list-item>
         </mdc-list>
         <mdc-list disableRipple twoLine [interactive]="false">
@@ -233,6 +233,7 @@
             <mdc-list-item-text [secondaryText]="listUser.uid"><b>{{ listUser.displayName || ''}}</b>{{ listUser.displayName ? ' - '  + listUser.email : listUser.email }}</mdc-list-item-text>
             <div mdcListItemMeta class="d-none d-sm-block">
               <mdc-icon [class.d-none]="!checkProvider('password', listUser)" svgIcon="email" class="ms-2"></mdc-icon>
+              <mdc-icon [class.d-none]="!checkProvider('phone', listUser)" svgIcon="phone" class="ms-2"></mdc-icon>
               <mdc-icon [class.d-none]="!checkProvider('google.com', listUser)" svgIcon="google" class="ms-2"></mdc-icon>
               <mdc-icon [class.d-none]="!checkProvider('github.com', listUser)" svgIcon="github-circle" class="ms-2"></mdc-icon>
             </div>
