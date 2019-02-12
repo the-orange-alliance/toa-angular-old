@@ -264,14 +264,22 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
     this.divisionName.disabled = false;
   }
 
+  getDebugInput(title: string) {
+    const input = prompt(title, '');
+    if(input === null || input.trim() === '' || input === undefined)
+      return this.getDebugInput(title);
+    else
+      return input;
+  }
+
   linkPhone() {
     // const phoneNumber = window.prompt('Provide your phone number');
-    const phoneNumber = window.prompt('Enter your phone number');
+    const phoneNumber = this.getDebugInput('Enter your phone number');
     let confResult;
     this.user.linkWithPhoneNumber(phoneNumber, this.recaptchaVerifier).then((confirmationResult) => {
       // SMS sent. Prompt user to type the code from the message
       confResult = confirmationResult;
-      return window.prompt('Test');
+      return this.getDebugInput('Test');
     }).then((code) => {
       return confResult.confirm(code);
     }).then((result) => {
