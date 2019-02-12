@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -20,6 +20,8 @@ import Event from '../../models/Event';
 import Season from '../../models/Season';
 import Region from '../../models/Region';
 import EventType from '../../models/EventType';
+import {environment} from 'environments/environment';
+import {initializeApp as initFbApp} from 'firebase/app';
 
 @Component({
   selector: 'toa-account',
@@ -28,7 +30,7 @@ import EventType from '../../models/EventType';
   providers: [CloudFunctions, TheOrangeAllianceGlobals, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 
-export class AccountComponent implements OnInit, AfterViewChecked {
+export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
   user: firebase.User = null;
   userData: User = null;
@@ -52,6 +54,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   emailVerified = true;
   googleProvider = new providers.GoogleAuthProvider();
   githubProvider = new providers.GithubAuthProvider();
+  recaptchaVerifier;
 
   // These are for creating the Events
   @ViewChild('event_name') eventName: MdcTextField;
@@ -109,6 +112,11 @@ export class AccountComponent implements OnInit, AfterViewChecked {
         db.object(`Users/${user.uid}`).query.once('value').then(items => {
           this.userData = new User().fromSnapshot(items);
           this.generatingApiKey = this.userData.apiKey !== null;
+
+          /* This Is Because the original Accounts created in TOA didn't have the name saved in the firebase account data */
+          if (items.val()['fullName'] && (!this.user.displayName || this.user.displayName === '')) {
+            this.user.updateProfile({displayName: items.val()['fullName'], photoURL: this.user.photoURL}).then(() => {}).catch(error => console.log(error));
+          }
 
           this.teams = [];
           this.events = [];
@@ -180,10 +188,16 @@ export class AccountComponent implements OnInit, AfterViewChecked {
       this.eventTypes = data;
       this.currentEventType = this.eventTypes[0];
     });
+    initFbApp(environment.firebase);
   }
 
   ngAfterViewChecked() {
     this.cdRef.detectChanges();
+  }
+
+  ngAfterViewInit() {
+    // this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+    this.recaptchaVerifier = new providers.RecaptchaVerifier('recaptcha-verify', {'size': 'invisible'});
   }
 
   checkProvider(providerId: string, user: any) {
@@ -243,28 +257,20 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   }
 
   linkPhone() {
-    // Sign in the Google user first.
-    this.auth.auth.signInWithPopup(new providers.GoogleAuthProvider()).then((result) => {
-        // Google user signed in. Check if phone number added.
-        if (!result.user.phoneNumber) {
-          // Ask user for phone number.
-          const phoneNumber = window.prompt('Provide your phone number');
-          // You also need to provide a button element signInButtonElement
-          // which the user would click to complete sign-in.
-          // Get recaptcha token. Let's use invisible recaptcha and hook to the button.
-          const appVerifier = new providers.RecaptchaVerifier(phoneNumber, {size: 'invisible'});
-          // This will wait for the button to be clicked the reCAPTCHA resolved.
-          return result.user.linkWithPhoneNumber('test-button', appVerifier).then((confirmationResult) => {
-              // Ask user to provide the SMS code.
-              const code = window.prompt('Provide your SMS code');
-              // Complete sign-in.
-              return confirmationResult.confirm(code);
-            })
-        }
-      })
-      .catch(function(error) {
-        console.error(error);
-      });
+    // const phoneNumber = window.prompt('Provide your phone number');
+    const phoneNumber = window.prompt('Enter your phone number');
+    this.user.linkWithPhoneNumber(phoneNumber, this.recaptchaVerifier).then((confirmationResult) => {
+      // SMS sent. Prompt user to type the code from the message
+      console.log(confirmationResult);
+      const code = window.prompt('Enter the verifacation code sent to your phone');
+      return confirmationResult.confirm(code);
+    }).then((result) => {
+      // TODO: Put Phone# into Firebase Live DB here
+      console.log('success ' + result);
+    }).catch( (error) => {
+      // Error; SMS not sent
+      console.error(error);
+    })
   }
 
   createEvent() {

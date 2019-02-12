@@ -5,6 +5,9 @@
   </div>
 </div>
 
+<!-- For phone auth, this has to be here -->
+<button id="recaptcha-verify" style="display: none"></button>
+
 <div class="w-100 align-items-center text-center" *ngIf="user && userData">
   <div *ngIf="!profileUrl && user.displayName" class="profile-image">{{ user.displayName.substring(0, 1) }}</div>
   <img *ngIf="profileUrl " class="profile-image" src="{{ profileUrl }}" height="100" />
