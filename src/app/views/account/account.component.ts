@@ -55,6 +55,7 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
   googleProvider = new providers.GoogleAuthProvider();
   githubProvider = new providers.GithubAuthProvider();
   recaptchaVerifier;
+  confirmationResult;
 
   // These are for creating the Events
   @ViewChild('event_name') eventName: MdcTextField;
@@ -196,8 +197,13 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
   }
 
   ngAfterViewInit() {
-    // this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-    this.recaptchaVerifier = new providers.RecaptchaVerifier('recaptcha-verify', {'size': 'invisible'});
+    this.recaptchaVerifier = new providers.RecaptchaVerifier('recaptcha', {
+      'size': 'normal',
+      'callback': (response) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        this.linkPhone();
+      }});
+    this.recaptchaVerifier.render();
   }
 
   checkProvider(providerId: string, user: any) {
@@ -259,11 +265,13 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
   linkPhone() {
     // const phoneNumber = window.prompt('Provide your phone number');
     const phoneNumber = window.prompt('Enter your phone number');
+    let confResult;
     this.user.linkWithPhoneNumber(phoneNumber, this.recaptchaVerifier).then((confirmationResult) => {
       // SMS sent. Prompt user to type the code from the message
-      console.log(confirmationResult);
-      const code = window.prompt('Enter the verifacation code sent to your phone');
-      return confirmationResult.confirm(code);
+      confResult = confirmationResult;
+      return window.prompt('Test');
+    }).then((code) => {
+      return confResult.confirm(code);
     }).then((result) => {
       // TODO: Put Phone# into Firebase Live DB here
       console.log('success ' + result);
@@ -271,6 +279,22 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
       // Error; SMS not sent
       console.error(error);
     })
+/*
+    // Sign in the Google user first.
+    this.auth.auth.signInWithPopup(new providers.GoogleAuthProvider()).then((result) => {
+        // Google user signed in. Check if phone number added.
+        if (!result.user.phoneNumber) {
+          // Ask user for phone number.
+          const phoneNumber = window.prompt('Provide your phone number');
+          // This will wait for the button to be clicked the reCAPTCHA resolved.
+          return result.user.linkWithPhoneNumber(phoneNumber, this.recaptchaVerifier).then((confirmationResult) => {
+              // Ask user to provide the SMS code.
+              const code = window.prompt('Provide your SMS code');
+              // Complete sign-in.
+              return confirmationResult.confirm(code);
+            })
+        }
+      })*/
   }
 
   createEvent() {
