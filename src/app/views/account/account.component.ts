@@ -305,7 +305,9 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
         this.snackbar.open(res)
       });
     }).catch( (error) => {
-      console.error(error);
+      // Error; SMS not sent
+      console.log(error.toJSON());
+      this.showSnackbar(error.toJSON()['message'], error.toJSON()['code']);
     });
   }
 

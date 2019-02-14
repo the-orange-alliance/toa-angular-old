@@ -460,6 +460,12 @@ mdc-drawer mdc-list a {
    Match Item Table
    ========================================================================== */
 
+@media (min-width: 1200px) {
+  .mdc-dialog .mdc-dialog__surface {
+    max-width: 600px;
+  }
+}
+
 table.match-table {
   padding: 3px 0;
   width: 100%;

@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { MdcDialog } from '@angular-mdc/web';
+import { DialogMatch } from '../../dialogs/match/dialog-match';
 import Match from '../../models/Match';
 import Team from '../../models/Team';
 import Ranking from  '../../models/Ranking';
@@ -17,6 +19,8 @@ export class MatchTableComponent {
   @Input() rankings?: Ranking[];
   private selectedTeam: string = '';
   selectedTeamParticipant: EventParticipant = null;
+
+  constructor(private dialog: MdcDialog) {}
 
   public getMatchResultString(match: Match): string {
     let teamStation = 0;
@@ -77,5 +81,12 @@ export class MatchTableComponent {
       this.selectedTeam = '';
       this.selectedTeamParticipant = null;
     }
+  }
+
+  openMatch(match: Match) {
+    const dialogRef = this.dialog.open(DialogMatch, {
+      scrollable: true,
+      data: {match: match}
+    });
   }
 }

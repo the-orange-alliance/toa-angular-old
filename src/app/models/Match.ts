@@ -26,7 +26,7 @@ export default class Match implements ISerializable {
   private _videoURL: string;
 
   private _event: Event;
-  private _matchDetails: MatchDetails;
+  private _matchDetails: MatchDetails = null;
   private _matchParticipants: MatchParticipant[];
 
   constructor() {

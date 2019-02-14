@@ -16,6 +16,7 @@
     "here": "here",
     "verify": "Verify",
     "add": "Add",
+    "close": "Close",
     "error_occurred": "An error occurred, Please try again later",
     "search_text_long": "Search teams and events",
     "search_text_short": "Team # or Event",

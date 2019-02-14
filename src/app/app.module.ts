@@ -39,6 +39,7 @@ import { MatchesComponent } from './views/matches/matches.component';
 import { VelocityVortexComponent } from './views/matches/years/1617/1617-velocity-vortex.component';
 import { RelicRecoveryComponent } from './views/matches/years/1718/1718-relic-recovery-component';
 import { AppMaterialModule } from './material.module';
+import { DialogMatch } from './dialogs/match/dialog-match';
 import { MatchTableComponent } from './components/match-table/match-table.component';
 import { EventItemComponent } from './components/event/event.item.component';
 import { TeamItemComponent } from './components/team/team.item.component';
@@ -86,10 +87,14 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     RelicRecoveryComponent,
     RoverRuckusComponent,
     TeamRobotComponent,
+    DialogMatch,
     MatchTableComponent,
     EventItemComponent,
     TeamItemComponent,
     AwardItemComponent
+  ],
+  entryComponents: [
+    DialogMatch
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase, 'T'),
