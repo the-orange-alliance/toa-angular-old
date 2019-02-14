@@ -57,7 +57,8 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
   githubProvider = new providers.GithubAuthProvider();
   phoneProvider;
   recaptchaVerifier;
-  confirmationResult;
+
+  showCaptcha: boolean = true;
 
   // These are for creating the Events
   @ViewChild('event_name') eventName: MdcTextField;
@@ -202,13 +203,7 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
   }
 
   ngAfterViewInit() {
-    this.recaptchaVerifier = new providers.RecaptchaVerifier('recaptcha', {
-      'size': 'normal',
-      'callback': (response) => {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-        this.linkPhone();
-      }});
-    this.recaptchaVerifier.render();
+
   }
 
   checkProvider(providerId: string, user: any) {
@@ -269,30 +264,49 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
 
   getDebugInput(title: string) {
     const input = prompt(title, '');
-    if(input === null || input.trim() === '' || input === undefined)
+    if (input === null || input.trim() === '' || input === undefined) {
       return this.getDebugInput(title);
-    else
+    } else {
       return input;
+    }
+  }
+
+  renderCaptcha() {
+    this.showCaptcha = true;
+    this.recaptchaVerifier = new providers.RecaptchaVerifier('recaptcha', {
+      'size': 'normal',
+      'callback': (response) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        this.linkPhone();
+      }});
+    this.recaptchaVerifier.render().then((result) => { }).catch( (error) => { console.error(error); });
   }
 
   linkPhone() {
-    // const phoneNumber = window.prompt('Provide your phone number');
+    this.showCaptcha = false;
     const phoneNumber = this.getDebugInput('Enter your phone number');
     let confResult;
     this.user.linkWithPhoneNumber(phoneNumber, this.recaptchaVerifier).then((confirmationResult) => {
       // SMS sent. Prompt user to type the code from the message
       confResult = confirmationResult;
-      return this.getDebugInput('Test');
+      return this.getDebugInput('Please enter the confirmation code sent to your phone');
     }).then((code) => {
       return confResult.confirm(code);
     }).then((result) => {
-      // TODO: Put Phone# into Firebase Live DB here
-      console.log('success!');
-      console.log(result);
+      return this.db.object(`Users/${this.user.uid}/phone`).set(phoneNumber.substr(1));
+    }).then( (resp) => {
+      return this.db.object(`Phones`).set(`${phoneNumber.substr(1)}`);
+    }).then( (resp) => {
+      return this.db.object(`Phones/${phoneNumber.substr(1)}/uid`).set(`${this.user.uid}`);
+    }).then( (resp) => {
+      return this.db.object(`Phones/${phoneNumber.substr(1)}/opted`).set(`true`);
+    }).then( (resp) => {
+      this.translate.get('pages.account.success_link', {name: this.getProviderName(this.phoneProvider)}).subscribe((res: string) => {
+        this.snackbar.open(res)
+      });
     }).catch( (error) => {
-      // Error; SMS not sent
       console.error(error);
-    })
+    });
   }
 
   createEvent() {
