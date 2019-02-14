@@ -291,9 +291,15 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
       return this.getDebugInput('Please enter the confirmation code sent to your phone');
     }).then((code) => {
       return confResult.confirm(code);
-    }).then((result) => { /*
-      return this.db.object(`Users/${this.user.uid}/phone`).set(phoneNumber.substr(1));
-    }).then( (resp) => { */
+    }).then((result) => {
+      this.db.object(`Phones/${phoneNumber.substr(1)}/opted`).query.once('value').then(items => {
+        if (items.val() !== false) {
+          return this.db.object(`Phones/${phoneNumber.substr(1)}/opted`).set(true);
+        } else {
+          return;
+        }
+      });
+    }).then( (resp) => {
       return this.db.object(`Phones/${phoneNumber.substr(1)}/uid`).set(`${this.user.uid}`);
     }).then( (resp) => {
       this.translate.get('pages.account.success_link', {name: this.getProviderName(this.phoneProvider)}).subscribe((res: string) => {
