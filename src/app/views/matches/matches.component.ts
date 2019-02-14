@@ -59,13 +59,10 @@ export class MatchesComponent implements OnInit {
   }
 
   getMatchSeason(): number {
-    const match = this.matchKey.substr(0, 4);
-    try {
-      const seasonKey = parseInt(match);
-      return seasonKey;
-    } catch (e) {
-      return 0;
+    if (this.match) {
+      return parseInt(this.match.matchKey.split('-')[0]);
     }
+    return 0;
   }
 
   sendAnalytic(category, action): void {

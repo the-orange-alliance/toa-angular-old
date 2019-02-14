@@ -291,7 +291,8 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
       console.log(result);
     }).catch( (error) => {
       // Error; SMS not sent
-      console.error(error);
+      console.log(error.toJSON());
+      this.showSnackbar(error.toJSON()['message'], error.toJSON()['code']);
     })
 /*
     // Sign in the Google user first.
