@@ -42,6 +42,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   images: any = {};
   pitsMap: string = 'pits_map';
   schedule: string = 'schedule';
+  venueMap: string = 'venue_map';
 
   streamType = 'Youtube';
   hasStream = false;
@@ -310,6 +311,8 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
             mediaData.media_type = 0;
           } else if (type === this.schedule) {
             mediaData.media_type = 1;
+          } else if (type === this.venueMap) {
+            mediaData.media_type = 2;
           }
 
           if (mediaData.media_type > -1) {

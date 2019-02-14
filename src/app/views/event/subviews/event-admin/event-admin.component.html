@@ -84,19 +84,7 @@
     </div>
 
     <div class="outline-card mt-2">
-      <div mdcHeadline5 class="black">{{ 'pages.event.subpages.admin.update_info_card.pits_map' | translate }}</div>
-      <div mdcSubtitle1 class="pb-3">{{ 'pages.event.subpages.admin.update_info_card.image_only' | translate }}</div>
-      <div class="d-flex">
-        <div class="custom-file me-2">
-          <input class="custom-file-input" type="file" id="pitMaps" (change)="handleImage($event, pitsMap)" />
-          <label class="custom-file-label" for="pitMaps" [dir]="'config.direction' | translate">{{ getFileName(pitsMap) || ('pages.event.subpages.admin.update_info_card.choose_image' | translate) }}</label>
-        </div>
-        <button mdc-button primary (click)="uploadImage(pitsMap)" [disabled]="!getFileName(pitsMap)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
-      </div>
-    </div>
-
-    <div class="outline-card mt-2">
-      <div mdcHeadline5 class="black">{{ 'pages.event.subpages.admin.update_info_card.schedule' | translate }}</div>
+      <div mdcHeadline5 class="black">{{ 'pages.event.subpages.for-participants.schedule' | translate }}</div>
       <div mdcSubtitle1 class="pb-3">{{ 'pages.event.subpages.admin.update_info_card.image_only' | translate }}</div>
       <div class="d-flex">
         <div class="custom-file me-2">
@@ -104,6 +92,30 @@
           <label class="custom-file-label" for="schedule" [dir]="'config.direction' | translate">{{ getFileName(schedule) || ('pages.event.subpages.admin.update_info_card.choose_image' | translate) }}</label>
         </div>
         <button mdc-button primary (click)="uploadImage(schedule)" [disabled]="!getFileName(schedule)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
+      </div>
+    </div>
+
+    <div class="outline-card mt-2">
+      <div mdcHeadline5 class="black">{{ 'pages.event.subpages.for-participants.pits_map' | translate }}</div>
+      <div mdcSubtitle1 class="pb-3">{{ 'pages.event.subpages.admin.update_info_card.image_only' | translate }}</div>
+      <div class="d-flex">
+        <div class="custom-file me-2">
+          <input class="custom-file-input" type="file" id="pitsMap" (change)="handleImage($event, pitsMap)" />
+          <label class="custom-file-label" for="pitsMap" [dir]="'config.direction' | translate">{{ getFileName(pitsMap) || ('pages.event.subpages.admin.update_info_card.choose_image' | translate) }}</label>
+        </div>
+        <button mdc-button primary (click)="uploadImage(pitsMap)" [disabled]="!getFileName(pitsMap)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
+      </div>
+    </div>
+
+    <div class="outline-card mt-2">
+      <div mdcHeadline5 class="black">{{ 'pages.event.subpages.for-participants.venue_map' | translate }}</div>
+      <div mdcSubtitle1 class="pb-3">{{ 'pages.event.subpages.admin.update_info_card.image_only' | translate }}</div>
+      <div class="d-flex">
+        <div class="custom-file me-2">
+          <input class="custom-file-input" type="file" id="venueMap" (change)="handleImage($event, venueMap)" />
+          <label class="custom-file-label" for="venueMap" [dir]="'config.direction' | translate">{{ getFileName(venueMap) || ('pages.event.subpages.admin.update_info_card.choose_image' | translate) }}</label>
+        </div>
+        <button mdc-button primary (click)="uploadImage(venueMap)" [disabled]="!getFileName(venueMap)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
       </div>
     </div>
 

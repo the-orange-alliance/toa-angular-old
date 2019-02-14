@@ -188,6 +188,7 @@
         "for-participants": {
           "title": "For Participants",
           "pits_map": "Pits Map",
+          "venue_map": "Venue Map",
           "schedule": "Event Schedule"
         },
         "admin": {
@@ -212,8 +213,6 @@
             "state": "State",
             "country": "Country",
             "update": "Update",
-            "pits_map": "Pits Map",
-            "schedule": "Event Schedule",
             "upload": "Upload",
             "image_only": "You can upload it only as an image",
             "choose_image": "Choose image...",

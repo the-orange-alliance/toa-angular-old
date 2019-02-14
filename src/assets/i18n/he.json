@@ -181,6 +181,7 @@
         "for-participants": {
           "title": "למשתתפים",
           "pits_map": "מפת פיטים",
+          "venue_map": "מפת האולם",
           "schedule": "לוח זמנים"
         },
         "admin": {
@@ -205,8 +206,6 @@
             "state": "מחוז (ארה\"ב בלבד)",
             "country": "מדינה",
             "update": "עדכון",
-            "pits_map": "מפת פיטים",
-            "schedule": "לוח זמנים",
             "upload": "העלאה",
             "image_only": "ניתן להעלות את זה כתמונה בלבד",
             "choose_image": "בחר תמונה...",

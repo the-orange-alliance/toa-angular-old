@@ -16,6 +16,7 @@ export class EventForParticipantsComponent implements OnInit{
 
   pitsMap: Media;
   schedule: Media;
+  venueMap: Media;
 
   ngOnInit() {
     if (this.media) {
@@ -24,6 +25,8 @@ export class EventForParticipantsComponent implements OnInit{
           this.pitsMap = media;
         } else if (media.mediaType === 1) {
           this.schedule = media;
+        } else if (media.mediaType === 2) {
+          this.venueMap = media;
         }
       }
     }

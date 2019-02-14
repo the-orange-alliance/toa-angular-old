@@ -11,4 +11,10 @@
       <img class="img-fluid" [src]="pitsMap.mediaLink">
     </div>
   </div>
+  <div class="col-md-6 col-12" *ngIf="venueMap">
+    <div class="outline-card p-0">
+      <div mdcHeadline5 class="black p-3">{{ 'pages.event.subpages.for-participants.venue_map' | translate }}</div>
+      <img class="img-fluid" [src]="venueMap.mediaLink">
+    </div>
+  </div>
 </div>
