@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef, AfterViewInit, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef, Inject } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -31,7 +31,7 @@ import {initializeApp as initFbApp} from 'firebase/app';
   providers: [CloudFunctions, TheOrangeAllianceGlobals, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 
-export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit {
+export class AccountComponent implements OnInit, AfterViewChecked {
 
   user: firebase.User = null;
   userData: User = null;
@@ -200,10 +200,6 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
 
   ngAfterViewChecked() {
     this.cdRef.detectChanges();
-  }
-
-  ngAfterViewInit() {
-
   }
 
   checkProvider(providerId: string, user: any) {
