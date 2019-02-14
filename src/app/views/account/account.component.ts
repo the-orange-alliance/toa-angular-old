@@ -283,7 +283,6 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
   }
 
   linkPhone() {
-    this.showCaptcha = false;
     const phoneNumber = this.getDebugInput('Enter your phone number');
     let confResult;
     this.user.linkWithPhoneNumber(phoneNumber, this.recaptchaVerifier).then((confirmationResult) => {
@@ -292,23 +291,20 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
       return this.getDebugInput('Please enter the confirmation code sent to your phone');
     }).then((code) => {
       return confResult.confirm(code);
-    }).then((result) => {
+    }).then((result) => { /*
       return this.db.object(`Users/${this.user.uid}/phone`).set(phoneNumber.substr(1));
-    }).then( (resp) => {
-      return this.db.object(`Phones`).set(`${phoneNumber.substr(1)}`);
-    }).then( (resp) => {
+    }).then( (resp) => { */
       return this.db.object(`Phones/${phoneNumber.substr(1)}/uid`).set(`${this.user.uid}`);
-    }).then( (resp) => {
-      return this.db.object(`Phones/${phoneNumber.substr(1)}/opted`).set(`true`);
     }).then( (resp) => {
       this.translate.get('pages.account.success_link', {name: this.getProviderName(this.phoneProvider)}).subscribe((res: string) => {
         this.snackbar.open(res)
       });
     }).catch( (error) => {
       // Error; SMS not sent
-      console.log(error.toJSON());
-      this.showSnackbar(error.toJSON()['message'], error.toJSON()['code']);
+      console.log(error);
+      this.showSnackbar('general.error_occurred');
     });
+    this.showCaptcha = false;
   }
 
   createEvent() {
@@ -540,8 +536,12 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
 
   unlinkProvider(provider: firebase.auth.AuthProvider) {
     // Don't leave the user without any provider
+    const phoneNumber = this.user.phoneNumber;
     if (this.user.providerData.length > 1) {
       this.user.unlink(provider.providerId).then(result => {
+        if (provider.providerId.indexOf('hone') > -1) {
+          this.db.object(`Phones/${phoneNumber.substr(1)}/uid`).remove();
+        }
         // Show success in snackbar
         this.translate.get('pages.account.success_unlink', {name: this.getProviderName(provider)}).subscribe((res: string) => {
           this.snackbar.open(res)

@@ -315,6 +315,7 @@
         <mdc-list disableRipple [interactive]="false">
           <mdc-list-item>Name: {{ selectedUser.firebaseUser.displayName || '(None)'}}</mdc-list-item>
           <mdc-list-item>Database Name: {{ selectedUser.name }}</mdc-list-item>
+          <mdc-list-item>Phone: {{ selectedUser.firebaseUser.phoneNumber || '(None)'}}</mdc-list-item>
           <mdc-list-item>Level {{ selectedUser.level }}</mdc-list-item>
         </mdc-list>
       </mdc-dialog-content>
