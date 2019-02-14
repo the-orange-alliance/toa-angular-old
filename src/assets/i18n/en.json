@@ -30,6 +30,7 @@
     "events": "Events",
     "streaming": "Streaming",
     "android_app": "Android App",
+    "ios_app": "iOS App",
     "add_data": "Add Data",
     "api": "API",
     "github": "GitHub",
