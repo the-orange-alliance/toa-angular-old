@@ -294,22 +294,6 @@ export class AccountComponent implements OnInit, AfterViewChecked, AfterViewInit
       console.log(error.toJSON());
       this.showSnackbar(error.toJSON()['message'], error.toJSON()['code']);
     })
-/*
-    // Sign in the Google user first.
-    this.auth.auth.signInWithPopup(new providers.GoogleAuthProvider()).then((result) => {
-        // Google user signed in. Check if phone number added.
-        if (!result.user.phoneNumber) {
-          // Ask user for phone number.
-          const phoneNumber = window.prompt('Provide your phone number');
-          // This will wait for the button to be clicked the reCAPTCHA resolved.
-          return result.user.linkWithPhoneNumber(phoneNumber, this.recaptchaVerifier).then((confirmationResult) => {
-              // Ask user to provide the SMS code.
-              const code = window.prompt('Provide your SMS code');
-              // Complete sign-in.
-              return confirmationResult.confirm(code);
-            })
-        }
-      })*/
   }
 
   createEvent() {
