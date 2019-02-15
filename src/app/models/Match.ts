@@ -26,7 +26,7 @@ export default class Match implements ISerializable {
   private _videoURL: string;
 
   private _event: Event;
-  private _matchDetails: MatchDetails = null;
+  private _matchDetails: MatchDetails;
   private _matchParticipants: MatchParticipant[];
 
   constructor() {
@@ -52,8 +52,6 @@ export default class Match implements ISerializable {
     this._blueTeleScore = 0;
     this._videoURL = '';
 
-    this._event = new Event();
-    this._matchDetails = new MatchDetails();
     this._matchParticipants = [];
   }
 
