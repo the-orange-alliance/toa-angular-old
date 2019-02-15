@@ -38,9 +38,9 @@
     </div>
   </div>
 
-  <div class="col-12 col-md-7 ps-md-2" *ngIf="match">
-    <toa-velocity-vortex *ngIf="getMatchSeason() === 1617" [match]="match"></toa-velocity-vortex>
-    <toa-relic-recovery *ngIf="getMatchSeason() === 1718" [match]="match"></toa-relic-recovery>
-    <toa-rover-ruckus *ngIf="getMatchSeason() === 1819" [match]="match"></toa-rover-ruckus>
+  <div class="col-12 col-md-7 ps-md-3" *ngIf="match">
+    <mdc-card class="toa-card p-0">
+      <toa-match-details [match]="match"></toa-match-details>
+    </mdc-card>
   </div>
 </div>

@@ -36,17 +36,15 @@ import { TeamComponent } from './views/team/team.component';
 import { StreamingComponent } from './views/stream/streaming.component';
 import { PrivacyTermsComponent } from './views/privacy_terms/PrivacyTerms.component';
 import { MatchesComponent } from './views/matches/matches.component';
-import { VelocityVortexComponent } from './views/matches/years/1617/1617-velocity-vortex.component';
-import { RelicRecoveryComponent } from './views/matches/years/1718/1718-relic-recovery-component';
 import { AppMaterialModule } from './material.module';
 import { DialogMatch } from './dialogs/match/dialog-match';
+import { MatchDetailsComponent } from './views/matches/details/match-details.component';
 import { MatchTableComponent } from './components/match-table/match-table.component';
 import { EventItemComponent } from './components/event/event.item.component';
 import { TeamItemComponent } from './components/team/team.item.component';
 import { AwardItemComponent } from './components/award/award.item.component';
 import { LoginComponent } from './views/account/login/login.component';
 import { RegisterComponent } from './views/account/register/register.component';
-import { RoverRuckusComponent } from './views/matches/years/1819/1819-rover-ruckus.component';
 import { TeamRobotComponent } from './views/team/subviews/team-robot/team-robot.component';
 import { TeamResultsComponent } from './views/team/subviews/team-results/team-results.component';
 import { StreamItemComponent } from './components/stream-item/stream-item.component';
@@ -82,10 +80,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ApiDocsComponent,
     StreamingComponent,
     PrivacyTermsComponent,
+    MatchDetailsComponent,
     MatchesComponent,
-    VelocityVortexComponent,
-    RelicRecoveryComponent,
-    RoverRuckusComponent,
     TeamRobotComponent,
     DialogMatch,
     MatchTableComponent,

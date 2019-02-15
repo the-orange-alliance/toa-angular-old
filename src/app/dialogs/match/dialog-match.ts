@@ -50,13 +50,6 @@ export class DialogMatch implements OnInit {
     }
   }
 
-  getMatchSeason(): number {
-    if (this.match) {
-      return parseInt(this.match.matchKey.split('-')[0]);
-    }
-    return 0;
-  }
-
   back() {
     this.location.back();
   }

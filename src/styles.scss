@@ -124,6 +124,22 @@ mdc-icon svg {
   color: #fff!important;
 }
 
+.red {
+  background-color: rgba(255, 82, 82, 0.13);
+}
+
+.blue {
+  background-color: rgba(68, 138, 255, 0.13);
+}
+
+.lightRed {
+  background-color: rgba(255, 82, 82, 0.07);
+}
+
+.lightBlue {
+  background-color: rgba(68, 138, 255, 0.07);
+}
+
 .gray {
   color: #747474;
 }
@@ -327,6 +343,7 @@ mdc-drawer mdc-list a {
 
 .toa-card {
   border-radius: 6px!important;
+  overflow: hidden;
   padding: 5px;
 }
 
@@ -457,12 +474,50 @@ mdc-drawer mdc-list a {
 
 
 /* ==========================================================================
-   Match Item Table
+   Match Table
    ========================================================================== */
 
-@media (min-width: 1200px) {
+.match-details-table, .match-details-row {
+  width: 100%;
+}
+
+.match-details-row {
+  display: flex;
+  display: -webkit-flex; /* Safari */
+}
+
+.match-details-title {
+  width: 40%;
+  text-align: center;
+  padding: 10px;
+}
+
+.match-details-row.part {
+  font-weight: bold;
+}
+
+.match-details-row.part .match-details-title {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.match-details-points {
+  width: 30%;
+  text-align: center;
+  padding: 10px;
+}
+
+
+/* ==========================================================================
+   Match Table
+   ========================================================================== */
+
+@media (min-width: 900px) {
   .mdc-dialog .mdc-dialog__surface {
     max-width: 600px;
+  }
+
+  .mdc-dialog .toa-match-details {
+    width: 500px;
   }
 }
 
@@ -528,14 +583,6 @@ table.match-table th, table.oprTable th {
 
 table.match-table tr {
   text-align: center;
-}
-
-.red {
-  background-color: #fee;
-}
-
-.blue {
-  background-color: #eef;
 }
 
 .not-played {
