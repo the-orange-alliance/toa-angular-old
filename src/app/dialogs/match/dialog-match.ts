@@ -29,6 +29,10 @@ export class DialogMatch implements OnInit {
         this.searchVideo()
       }
     });
+
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.location.back();
+    });
     this.location.go(`matches/${this.match.matchKey}`);
   }
 
@@ -48,9 +52,5 @@ export class DialogMatch implements OnInit {
         this.videoSafeURL = this.sanitizer.bypassSecurityTrustResourceUrl(embedURL);
       }
     }
-  }
-
-  back() {
-    this.location.back();
   }
 }
