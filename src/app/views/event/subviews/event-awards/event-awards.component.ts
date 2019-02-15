@@ -28,7 +28,7 @@ export class EventAwardsComponent {
     } else if (key.startsWith('CNT')) {
       return 'Connect Award Winners';
     } else if (key.startsWith('INV')) {
-      return 'Rockwell Collins Innovate Award Winners';
+      return 'Collins Aerospace Innovate Award Winners';
     } else if (key.startsWith('DSN')) {
       return 'Design Award Winners';
     } else if (key.startsWith('MOT')) {
