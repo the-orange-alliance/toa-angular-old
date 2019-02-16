@@ -6,8 +6,8 @@
 </div>
 
 <div class="w-100 align-items-center text-center" *ngIf="user && user">
-  <div *ngIf="!profileUrl && user.displayName" class="profile-image">{{ user.displayName.substring(0, 1) }}</div>
-  <img *ngIf="profileUrl " class="profile-image" src="{{ profileUrl }}" height="100" />
+  <div *ngIf="!user.photoURL && user.displayName" class="profile-image">{{ user.displayName.substring(0, 1) }}</div>
+  <img *ngIf="user.photoURL " class="profile-image" [src]="user.photoURL" height="100" />
   <div class="profile-name">{{ 'drawer.mytoa.hello' | translate: {'name': user.displayName || 'User' } }}</div>
   <div class="profile-detail">{{ ('pages.account.level' | translate: {'level': user.level }) + (user.team ? ' ⋅ #' + user.team : '')}}</div>
 </div>

@@ -36,7 +36,6 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   firebaseUser: firebase.User = null;
   user: TOAUser = null;
   adminEvents: any = {};
-  profileUrl: string = null;
   activeTab: number = -1;
   generalCache: string = null;
   selectedUser: TOAUser = null;
