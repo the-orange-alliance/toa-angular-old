@@ -9,7 +9,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { NavigationEnd, Router } from '@angular/router';
 import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
-import { MdcTopAppBar, MdcTextField } from '@angular-mdc/web';
+import { MdcTopAppBar, MdcDrawer, MdcTextField } from '@angular-mdc/web';
 import Team from './models/Team';
 import Event from './models/Event';
 
@@ -41,6 +41,7 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   matcher: MediaQueryList;
   @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
+  @ViewChild(MdcDrawer) drawer: MdcDrawer;
   title: string;
 
   constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,
@@ -114,6 +115,10 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   back() {
     this.location.back();
+  }
+
+  drawerItemClicked() {
+    this.drawer.open = false;
   }
 
   performSearch(): void {

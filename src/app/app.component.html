@@ -2,7 +2,7 @@
 <mdc-top-app-bar #topAppBar fixed style="z-index: 7" [dir]="'config.direction' | translate">
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" [title]="title || 'The Orange Alliance'">
-      <mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="appdrawer.open = !appdrawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()"></mdc-icon>
+      <mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="drawer.open = !drawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()"></mdc-icon>
       <!--<mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="back()" *ngIf="!isScreenSmall() && !topAppBar.isCollapsed()"></mdc-icon>-->
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
@@ -40,7 +40,7 @@
 
 <!-- Drawer -->
 <div class="mdc-top-app-bar--fixed-adjust" [dir]="'config.direction' | translate">
-  <mdc-drawer #appdrawer="mdcDrawer" [drawer]="isScreenSmall() || topAppBar.isCollapsed() ? 'modal' : 'permanent'" class="toa-drawer--fixed">
+  <mdc-drawer #drawer="mdcDrawer" [drawer]="isScreenSmall() || topAppBar.isCollapsed() ? 'modal' : 'permanent'" class="toa-drawer--fixed">
     <mdc-drawer-content>
       <mdc-list-item class="item-profile" disabled>
         <div *ngIf="!user">
@@ -48,11 +48,11 @@
           <span class="mdc-list-item__secondary-text">
             <button mdc-button dense routerLink="/account/login">{{ 'drawer.mytoa.login' | translate }}</button>
             <span>•</span>
-            <button mdc-button dense routerLink="/account/register">{{ 'drawer.mytoa.register' | translate }}</button>
+            <button mdc-button dense routerLink="/account/register" (click)="drawerItemClicked()">{{ 'drawer.mytoa.register' | translate }}</button>
           </span>
         </div>
 
-        <div *ngIf="user" routerLink="/account" style="cursor:pointer">
+        <div *ngIf="user" routerLink="/account" (click)="drawerItemClicked()" style="cursor:pointer">
           <mdc-list-item-text>
             <span style="text-transform: capitalize">{{ 'drawer.mytoa.hello' | translate: {'name': user.displayName || 'User'} }}</span>
             <span class="mdc-list-item__secondary-text">{{ user.email }}</span>
@@ -65,16 +65,16 @@
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a mdc-list-item routerLink="/home" routerLinkActive="mdc-list-item--activated">
+          <a mdc-list-item routerLink="/home" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="home"></mdc-icon>{{ "drawer.home" | translate }}
           </a>
-          <a mdc-list-item routerLink="/teams" routerLinkActive="mdc-list-item--activated">
+          <a mdc-list-item routerLink="/teams" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="account-group"></mdc-icon>{{ "drawer.teams" | translate }}
           </a>
-          <a mdc-list-item routerLink="/events" routerLinkActive="mdc-list-item--activated">
+          <a mdc-list-item routerLink="/events" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="calendar"></mdc-icon>{{ "drawer.events" | translate }}
           </a>
-          <a mdc-list-item routerLink="/stream" routerLinkActive="mdc-list-item--activated">
+          <a mdc-list-item routerLink="/stream" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="video"></mdc-icon>{{ "drawer.streaming" | translate }}
           </a>
 
@@ -94,11 +94,11 @@
             <mdc-icon class="mdc-list-item__graphic" svgIcon="apple"></mdc-icon>{{ "drawer.ios_app" | translate }}
           </a>
 
-          <a mdc-list-item routerLink="/add-data" routerLinkActive="mdc-list-item--activated">
+          <a mdc-list-item routerLink="/add-data" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="upload"></mdc-icon>{{ "drawer.add_data" | translate }}
           </a>
 
-          <a mdc-list-item routerLink="/apidocs" routerLinkActive="mdc-list-item--activated">
+          <a mdc-list-item routerLink="/apidocs" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="code-tags"></mdc-icon>{{ "drawer.api" | translate }}
           </a>
 
@@ -123,13 +123,13 @@
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a mdc-list-item routerLink="/about" routerLinkActive="mdc-list-item--activated">
+          <a mdc-list-item routerLink="/about" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="information-outline"></mdc-icon>{{ "drawer.about" | translate }}
           </a>
           <a mdc-list-item href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZE3YC297GJNUW&source=url" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="paypal"></mdc-icon>{{ "drawer.donate" | translate }}
           </a>
-          <a mdc-list-item routerLink="/privacy-terms" routerLinkActive="mdc-list-item--activated">
+          <a mdc-list-item routerLink="/privacy-terms" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon class="mdc-list-item__graphic" svgIcon="gavel"></mdc-icon>{{ "drawer.privacy_and_terms" | translate }}
           </a>
 
