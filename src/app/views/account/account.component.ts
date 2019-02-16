@@ -244,6 +244,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   linkPhone() {
     const phoneNumber = this.getDebugInput('Enter your phone number');
     let confResult;
+    // TODO: move the db calls to backend
     this.firebaseUser.linkWithPhoneNumber(phoneNumber, this.recaptchaVerifier).then((confirmationResult) => {
       // SMS sent. Prompt user to type the code from the message
       confResult = confirmationResult;

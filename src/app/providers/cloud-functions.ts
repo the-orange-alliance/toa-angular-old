@@ -13,9 +13,28 @@ export class CloudFunctions {
 
   public getUserData(user: User): Promise<TOAUser> {
     return new Promise<TOAUser>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`
+          'authorization': `Bearer ${token}`
+        });
+
+        this.http.get(this.baseUrl + '/user', {headers: headers}).subscribe((data: any) => {
+          resolve(new TOAUser().fromJSON(data));
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public getShortUserData(user: User): Promise<TOAUser> {
+    return new Promise<TOAUser>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'short': 'true'
         });
 
         this.http.get(this.baseUrl + '/user', {headers: headers}).subscribe((data: any) => {
@@ -31,9 +50,9 @@ export class CloudFunctions {
 
   public getUserDataByUID(user: User, uid: string): Promise<TOAUser> {
     return new Promise<TOAUser>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`,
+          'authorization': `Bearer ${token}`,
           'data': uid
         });
 
@@ -50,9 +69,9 @@ export class CloudFunctions {
 
   public getAllUsers(user: User): Promise<any[]> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`
+          'authorization': `Bearer ${token}`
         });
 
         this.http.get(this.baseUrl + '/allUsers', {headers: headers}).subscribe((data: any) => {
@@ -68,9 +87,9 @@ export class CloudFunctions {
 
   public generateApiKey(user: User): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`
+          'authorization': `Bearer ${token}`
         });
 
         this.http.get(this.baseUrl + '/generateKey', {headers: headers}).subscribe((data: any) => {
@@ -84,11 +103,49 @@ export class CloudFunctions {
     });
   }
 
+  public addToFavorite(user: User, key: string, type: string): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': type
+        });
+
+        this.http.post(this.baseUrl + '/user/addFavorite', key,{headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public removeFromFavorite(user: User, key: string, type: string): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': type
+        });
+
+        this.http.post(this.baseUrl + '/user/removeFavorite', key,{headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
   public generateEventApiKey(user: User, eventKey: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`,
+          'authorization': `Bearer ${token}`,
           'data': eventKey
         });
 
@@ -105,9 +162,9 @@ export class CloudFunctions {
 
   public playlistMatchify(user: User, eventKey: string, playlistID: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`,
+          'authorization': `Bearer ${token}`,
           'data': eventKey
         });
 
@@ -128,9 +185,9 @@ export class CloudFunctions {
 
   public setVideos(user: User, eventKey: string, videos: any[]): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`,
+          'authorization': `Bearer ${token}`,
           'data': eventKey
         });
 
@@ -147,9 +204,9 @@ export class CloudFunctions {
 
   public createEvent(user: User, eventData: any[]): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`
+          'authorization': `Bearer ${token}`
         });
 
         this.http.post(this.baseUrl + '/createEvent', eventData, {headers: headers}).subscribe((data: any) => {
@@ -165,9 +222,9 @@ export class CloudFunctions {
 
   public updateEvent(user: User, eventKey: string, eventData: any[]): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`,
+          'authorization': `Bearer ${token}`,
           'data': eventKey
         });
 
@@ -184,9 +241,9 @@ export class CloudFunctions {
 
   public addEventMedia(user: User, mediaData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`,
+          'authorization': `Bearer ${token}`,
           'data': 'event'
         });
 
@@ -203,9 +260,9 @@ export class CloudFunctions {
 
   public addTeamMedia(user: User, mediaData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`,
+          'authorization': `Bearer ${token}`,
           'data': 'team'
         });
 
@@ -222,9 +279,9 @@ export class CloudFunctions {
 
   public addStream(user: User, streamData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`
+          'authorization': `Bearer ${token}`
         });
 
         this.http.post(this.baseUrl + '/addStream', streamData, {headers: headers}).subscribe((data: any) => {
@@ -240,9 +297,9 @@ export class CloudFunctions {
 
   public hideStream(user: User, streamData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`
+          'authorization': `Bearer ${token}`
         });
 
         this.http.post(this.baseUrl + '/hideStream', streamData, {headers: headers}).subscribe((data: any) => {
@@ -262,9 +319,9 @@ export class CloudFunctions {
 
   public toaPost(user: User, body: any, route: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`,
+          'authorization': `Bearer ${token}`,
           'data': route
         });
 
@@ -281,9 +338,9 @@ export class CloudFunctions {
 
   public toaPut(user: User, body: any, route: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`,
+          'authorization': `Bearer ${token}`,
           'data': route
         });
 
@@ -300,9 +357,9 @@ export class CloudFunctions {
 
   public toaDelete(user: User, route: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToVerKey(user).then((key) => {
+      this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${key}`,
+          'authorization': `Bearer ${token}`,
           'data': route
         });
 
@@ -317,7 +374,7 @@ export class CloudFunctions {
     });
   }
 
-  private userToVerKey(user: User): Promise<string> {
+  private userToToken(user: User): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       user.getIdToken(true).then((token) => {
         resolve(token);

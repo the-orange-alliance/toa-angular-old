@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppBarService } from '../../app-bar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
+import { CloudFunctions } from '../../providers/cloud-functions';
 import { TeamSorter } from '../../util/team-utils';
 import { AwardSorter } from '../../util/award-utils';
 import { MatchSorter } from '../../util/match-utils';
@@ -9,6 +10,7 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { User } from 'firebase/app';
+import TOAUser from '../../models/User';
 import Event from '../../models/Event';
 import EventType from '../../models/EventType';
 import Season from '../../models/Season';
@@ -47,39 +49,28 @@ export class EventComponent implements OnInit {
   toaAdmin: boolean = false;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
-              public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService) {
+              public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService, private cloud: CloudFunctions) {
     this.eventKey = this.route.snapshot.params['event_key'];
+  }
 
-    auth.authState.subscribe(user => {
+  ngOnInit() {
+    if (this.eventKey) {
+      this.auth.authState.subscribe(user => {
         if (user !== null && user !== undefined) {
           this.user = user;
-          db.object(`Users/${user.uid}/favEvents/${this.eventKey}`).query.once('value').then(item => {
-            this.favorite = item !== null && item.val() === true;
-          });
 
-          // Is event admin?
-          this.emailVerified = this.user.emailVerified;
-          db.object(`Users/${user.uid}/adminEvents/${this.eventKey}`).query.once('value').then(item => {
-            this.admin = item !== null && item.val() === true;
-              // Is TOA admin?
-              db.object(`Users/${user.uid}/level`).query.once('value').then(i => {
-                if (!this.admin) {
-                  this.admin = i.val() >= 6;
-                }
-                this.toaAdmin = false;
-                this.toaAdmin = (i.val() >= 6);
-              });
+          this.cloud.getShortUserData(this.user).then((userData: TOAUser) => {
+            this.admin = userData.adminEvents.includes(this.eventKey) || userData.level >= 6;
+            this.favorite = userData.favoriteEvents.includes(this.eventKey);
+
             if (this.admin && this.totalrankings === 0 && this.totalmatches === 0 &&
-                this.totalteams === 0 && this.totalawards === 0 && this.totalmedia === 0) {
+              this.totalteams === 0 && this.totalawards === 0 && this.totalmedia === 0) {
               this.select('admin');
             }
           });
         }
       });
-  }
 
-  ngOnInit() {
-    if (this.eventKey) {
       this.ftc.getEvent(this.eventKey).then((data: Event) => {
         if (data) {
           this.eventData = data;
@@ -186,15 +177,13 @@ export class EventComponent implements OnInit {
 
   toggleEvent(): void {
     if (this.favorite) { // Remove from favorites
-      this.db.object(`Users/${this.user.uid}/favEvents/${this.eventKey}`).remove();
-      this.db.object(`Users/${this.user.uid}/favEvents/${this.eventKey}`).query.once('value').then(items => {
-        this.favorite = items !== null && items.val() === true
-        });
+      this.cloud.removeFromFavorite(this.user, this.eventKey, 'event').then(() => {
+        this.favorite = false;
+      });
     } else { // Add to favorites
-      this.db.object(`Users/${this.user.uid}/favEvents/${this.eventKey}`).set(true);
-      this.db.object(`Users/${this.user.uid}/favEvents/${this.eventKey}`).query.once('value').then(items => {
-        this.favorite = items !== null && items.val() === true
-        });
+      this.cloud.addToFavorite(this.user, this.eventKey, 'event').then(() => {
+        this.favorite = true;
+      });
     }
   }
 
