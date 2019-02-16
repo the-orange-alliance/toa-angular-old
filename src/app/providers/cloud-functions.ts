@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'firebase/app';
+import TOAUser from '../models/User';
 
 @Injectable()
 export class CloudFunctions {
@@ -10,7 +11,44 @@ export class CloudFunctions {
 
   constructor(private http: HttpClient) {}
 
-  public allUsers(user: User): Promise<any[]> {
+  public getUserData(user: User): Promise<TOAUser> {
+    return new Promise<TOAUser>((resolve, reject) => {
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`
+        });
+
+        this.http.get(this.baseUrl + '/user', {headers: headers}).subscribe((data: any) => {
+          resolve(new TOAUser().fromJSON(data));
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public getUserDataByUID(user: User, uid: string): Promise<TOAUser> {
+    return new Promise<TOAUser>((resolve, reject) => {
+      this.userToVerKey(user).then((key) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${key}`,
+          'data': uid
+        });
+
+        this.http.get(this.baseUrl + '/user', {headers: headers}).subscribe((data: any) => {
+          resolve(new TOAUser().fromJSON(data));
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public getAllUsers(user: User): Promise<any[]> {
     return new Promise<any[]>((resolve, reject) => {
       this.userToVerKey(user).then((key) => {
         const headers = new HttpHeaders({

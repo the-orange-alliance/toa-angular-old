@@ -26,9 +26,7 @@ export class FTCDatabase {
   public baseURL = 'https://theorangealliance.org/api';
   // public baseURL = 'http://127.0.0.1:8008/api';
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   private request(url: string): Promise<any[]> {
     return new Promise<any[]>((resolve, reject) => {

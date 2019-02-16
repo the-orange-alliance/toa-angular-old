@@ -1,138 +1,78 @@
-import { DataSnapshot } from '@angular/fire/database/interfaces';
+export default class TOAUser implements ISerializable {
 
-export default class User implements ISerializable {
-
-  private _name: string;
-  private _level: number;
-  private _team: string;
-  private _apiKey: string;
-  private _favTeams: string[];
-  private _favEvents: string[];
-  private _adminEvents: string[];
+  uid: string;
+  email: string;
+  emailVerified: boolean;
+  phoneNumber: string;
+  displayName: string;
+  photoURL: string;
+  disabled: boolean;
+  metadata: any[];
+  level: number;
+  team: string;
+  apiKey: string;
+  favoriteTeams: string[];
+  favoriteEvents: string[];
+  adminEvents: string[];
+  eventsApiKeys: any;
+  adminRegions: string[];
+  adminTeams: string[];
+  emailLinked: boolean;
+  googleLinked: boolean;
+  githubLinked: boolean;
+  phoneLinked: boolean;
 
   firebaseUser: firebase.User = null;
 
-  constructor() {
-    this._name = '';
-    this._level = 1;
-    this._team = '';
-    this._apiKey = '';
-    this._favTeams = [];
-    this._favEvents = [];
-    this._adminEvents = [];
-  }
-
   toJSON(): object {
     return {
-      fullName: this.name,
+      uid: this.uid,
+      email: this.email,
+      emailVerified: this.emailVerified,
+      phoneNumber: this.phoneNumber,
+      displayName: this.displayName,
+      photoURL: this.photoURL,
+      disabled: this.disabled,
+      metadata: this.metadata,
       level: this.level,
       team: this.team,
-      APIKey: this.apiKey,
-      favTeams: this.favTeams,
-      favEvents: this.favEvents,
-      adminEvents: this.adminEvents
+      api_key: this.apiKey,
+      favorite_teams: this.favoriteTeams,
+      favorite_events: this.favoriteEvents,
+      admin_events: this.adminEvents,
+      events_api_keys: this.eventsApiKeys,
+      admin_regions: this.adminRegions,
+      admin_teams: this.adminTeams,
+      email_linked: this.emailLinked,
+      google_linked: this.googleLinked,
+      github_linked: this.githubLinked,
+      phone_linked: this.phoneLinked,
     };
   }
 
-  fromJSON(json: any): User {
-    const user: User = new User();
-    user.name = json.fullName;
+  fromJSON(json: any): TOAUser {
+    const user: TOAUser = new TOAUser();
+    user.uid = json.uid;
+    user.email = json.email;
+    user.emailVerified = json.emailVerified;
+    user.phoneNumber = json.phoneNumber;
+    user.displayName = json.displayName;
+    user.photoURL = json.photoURL;
+    user.disabled = json.disabled;
+    user.metadata = json.metadata;
     user.level = json.level || 1;
     user.team = json.team;
-    user.apiKey = json.APIKey;
-    user.favTeams = json.favTeams;
-    user.favEvents = json.favEvents;
-    user.adminEvents = json.adminEvents;
+    user.apiKey = json.api_key;
+    user.favoriteTeams = json.favorite_teams || [];
+    user.favoriteEvents = json.favorite_events || [];
+    user.adminEvents = json.admin_events || [];
+    user.eventsApiKeys = json.events_api_keys;
+    user.adminRegions = json.admin_regions || [];
+    user.adminTeams = json.admin_teams || [];
+    user.emailLinked = json.email_linked;
+    user.googleLinked = json.google_linked;
+    user.githubLinked = json.github_linked;
+    user.phoneLinked = json.phone_linked;
     return user;
-  }
-
-  fromSnapshot(items: DataSnapshot): User {
-    return this.fromJSON(items.val());
-  }
-
-  getFavTeams(): string[] {
-    let teams: string[] = [];
-    for (const key in this.favTeams) {
-      if (this.favTeams[key]) {
-        teams.push(key);
-      }
-    }
-    return teams;
-  }
-
-  getFavEvents(): string[] {
-    let events: string[] = [];
-    for (const key in this.favEvents) {
-      if (this.favEvents[key]) {
-        events.push(key);
-      }
-    }
-    return events;
-  }
-
-  getAdminEvents(): string[] {
-    let events: string[] = [];
-    for (const key in this.adminEvents) {
-      if (this.adminEvents[key]) {
-        events.push(key);
-      }
-    }
-    return events;
-  }
-
-  get name(): string {
-    return this._name;
-  }
-
-  set name(value: string) {
-    this._name = value;
-  }
-
-  get level(): number {
-    return this._level || 1;
-  }
-
-  set level(value: number) {
-    this._level = value || 1;
-  }
-
-  get apiKey(): string {
-    return this._apiKey;
-  }
-
-  set team(value: string) {
-    this._team = value;
-  }
-
-  get team(): string {
-    return this._team;
-  }
-
-  set apiKey(value: string) {
-    this._apiKey = value;
-  }
-
-  get favTeams(): string[] {
-    return this._favTeams || [];
-  }
-
-  set favTeams(value: string[]) {
-    this._favTeams = value || [];
-  }
-
-  get favEvents(): string[] {
-    return this._favEvents || [];
-  }
-
-  set favEvents(value: string[]) {
-    this._favEvents = value || [];
-  }
-
-  get adminEvents(): string[] {
-    return this._adminEvents || [];
-  }
-
-  set adminEvents(value: string[]) {
-    this._adminEvents = value || [];
   }
 }

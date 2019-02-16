@@ -15,7 +15,7 @@ import { CloudFunctions } from '../../providers/cloud-functions';
 import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
 import { auth as providers } from 'firebase/app';
 import { AppBarService } from '../../app-bar.service';
-import User from '../../models/User';
+import TOAUser from '../../models/User';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
 import Season from '../../models/Season';
@@ -33,13 +33,13 @@ import {initializeApp as initFbApp} from 'firebase/app';
 
 export class AccountComponent implements OnInit, AfterViewChecked {
 
-  user: firebase.User = null;
-  userData: User = null;
-  adminEvents = {};
+  firebaseUser: firebase.User = null;
+  user: TOAUser = null;
+  adminEvents: any = {};
   profileUrl: string = null;
   activeTab: number = -1;
   generalCache: string = null;
-  selectedUser: User = null;
+  selectedUser: TOAUser = null;
   users: firebase.User[] = [];
 
   teams: Team[];
@@ -49,7 +49,6 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   regions: Region[];
   eventTypes: EventType[];
 
-  loaded: boolean;
   generatingApiKey: boolean;
   generatingEventApiKey: boolean;
   emailVerified = true;
@@ -110,71 +109,10 @@ export class AccountComponent implements OnInit, AfterViewChecked {
 
     this.phoneProvider = new providers.PhoneAuthProvider(auth.auth);
 
-    auth.authState.subscribe(user => {
-      if (user !== null && user !== undefined) {
-        this.user = user;
-
-        this.emailVerified = user.emailVerified;
-
-        db.object(`Users/${user.uid}`).query.once('value').then(items => {
-          this.userData = new User().fromSnapshot(items);
-          this.generatingApiKey = this.userData.apiKey !== null;
-
-          /* This Is Because the original Accounts created in TOA didn't have the name saved in the firebase account data */
-          if (items.val()['fullName'] && (!this.user.displayName || this.user.displayName === '')) {
-            this.user.updateProfile({displayName: items.val()['fullName'], photoURL: this.user.photoURL}).then(() => {}).catch(error => console.log(error));
-          }
-
-          this.teams = [];
-          this.events = [];
-
-          for (const key of this.userData.getFavTeams()) {
-            this.ftc.getTeamBasic(key).then((team: Team) => {
-              if (team) {
-                this.teams.push(team);
-                this.teams = new TeamSorter().sort(this.teams);
-              }
-            });
-          }
-
-          for (const key of this.userData.getFavEvents()) {
-            this.ftc.getEventBasic(key).then((event: Event) => {
-              if (event) {
-                this.events.push(event);
-                this.events = new EventSorter().sort(this.events);
-              }
-            });
-          }
-
-          for (const key of this.userData.getAdminEvents()) {
-            db.object(`eventAPIs/${key}`).snapshotChanges()
-              .subscribe(item => {
-              this.adminEvents[key] = item.payload.val() || null;
-            });
-          }
-
-          if (this.userData.level >= 6) {
-            this.cloud.allUsers(this.user).then((data) => {
-              this.users = data;
-            });
-          }
-
-          for (const provider of this.user.providerData) {
-            if (provider.photoURL != null) {
-              this.profileUrl = provider.photoURL;
-              break;
-            }
-          }
-
-          if (this.profileUrl === null && this.userData['profileImage'] != null) {
-            const storageRef = this.storage.ref(`images/users/${ this.userData['profileImage'] }`);
-            storageRef.getDownloadURL().toPromise().then((url) => {
-              this.profileUrl = url;
-            });
-          }
-
-          this.loaded = true;
-        });
+    auth.authState.subscribe(firebaseUser => {
+      if (firebaseUser !== null && firebaseUser !== undefined) {
+        this.firebaseUser = firebaseUser;
+        this.getUser()
       } else {
         this.router.navigateByUrl('/account/login');
       }
@@ -202,20 +140,46 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     this.cdRef.detectChanges();
   }
 
-  checkProvider(providerId: string, user: any) {
-    for (const provider of user.providerData) {
-      if (provider.providerId.toLowerCase() === providerId.toLowerCase()) {
-        return true;
-      }
+  getUser() {
+    if (this.firebaseUser !== null) {
+      this.cloud.getUserData(this.firebaseUser).then((user: TOAUser) => {
+        this.user = user;
+        this.user.firebaseUser = this.firebaseUser;
+        this.emailVerified = this.user.emailVerified;
+        this.adminEvents = this.user.eventsApiKeys;
+        this.generatingApiKey = this.user.apiKey !== null;
+
+        this.teams = [];
+        for (const key of this.user.favoriteTeams) {
+          this.ftc.getTeamBasic(key).then((team: Team) => {
+            if (team) {
+              this.teams.push(team);
+              this.teams = new TeamSorter().sort(this.teams);
+            }
+          });
+        }
+
+        this.events = [];
+        for (const key of this.user.favoriteEvents) {
+          this.ftc.getEventBasic(key).then((event: Event) => {
+            if (event) {
+              this.events.push(event);
+              this.events = new EventSorter().sort(this.events);
+            }
+          });
+        }
+
+        if (this.user.level >= 6 && this.users.length === 0) {
+          this.cloud.getAllUsers(this.firebaseUser).then((data) => {
+            this.users = data;
+          });
+        }
+      });
     }
-    return false;
   }
 
-  selectUser(user: firebase.User) {
-    this.db.object(`Users/${user.uid}`).query.once('value').then(items => {
-      this.selectedUser = new User().fromSnapshot(items);
-      this.selectedUser.firebaseUser = user;
-    });
+  async selectUser(user: firebase.User) {
+    this.selectedUser = await this.cloud.getUserDataByUID(this.firebaseUser, user.uid);
   }
 
   onSeasonChange(event: {index: any, value: any}) {
@@ -281,7 +245,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   linkPhone() {
     const phoneNumber = this.getDebugInput('Enter your phone number');
     let confResult;
-    this.user.linkWithPhoneNumber(phoneNumber, this.recaptchaVerifier).then((confirmationResult) => {
+    this.firebaseUser.linkWithPhoneNumber(phoneNumber, this.recaptchaVerifier).then((confirmationResult) => {
       // SMS sent. Prompt user to type the code from the message
       confResult = confirmationResult;
       return this.getDebugInput('Please enter the confirmation code sent to your phone');
@@ -301,6 +265,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
       this.translate.get('pages.account.success_link', {name: this.getProviderName(this.phoneProvider)}).subscribe((res: string) => {
         this.snackbar.open(res)
       });
+      this.getUser();
     }).catch( (error) => {
       // Error; SMS not sent
       console.log(error);
@@ -333,7 +298,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     event.venue = this.venue.value;
     event.isPublic = true;
 
-    this.cloud.createEvent(this.user, [event.toJSON()]).then((data: {}) => {
+    this.cloud.createEvent(this.firebaseUser, [event.toJSON()]).then((data: {}) => {
       this.showSnackbar('pages.account.create_event_card.success', null, null, event.eventKey);
     }, (err) => {
       this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
@@ -360,7 +325,8 @@ export class AccountComponent implements OnInit, AfterViewChecked {
 
   dumpGeneralCache(): void {
     this.showSnackbar('Starting, it may take a few seconds');
-    this.cloud.dumpCache(this.user, this.generalCache).then(() => {
+    const user = this.firebaseUser;
+    this.cloud.dumpCache(user, this.generalCache).then(() => {
       // Show Success
       this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
         this.snackbar.open(str);
@@ -376,16 +342,17 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     this.showSnackbar('Starting, it may take a few seconds');
     const key: string = this.eventCache.value;
     if (key && key.length > 0) {
+      const user = this.firebaseUser;
       Promise.all([
-        this.cloud.dumpCache(this.user, `event/${key}`),
-        this.cloud.dumpCache(this.user, `event/${key}/matches`),
-        this.cloud.dumpCache(this.user, `event/${key}/matches/details`),
-        this.cloud.dumpCache(this.user, `event/${key}/matches/participants`),
-        this.cloud.dumpCache(this.user, `event/${key}/rankings`),
-        this.cloud.dumpCache(this.user, `event/${key}/streams`),
-        this.cloud.dumpCache(this.user, `event/${key}/teams`),
-        this.cloud.dumpCache(this.user, `event/${key}/awards`),
-        this.cloud.dumpCache(this.user, `event/${key}/media`)
+        this.cloud.dumpCache(user, `event/${key}`),
+        this.cloud.dumpCache(user, `event/${key}/matches`),
+        this.cloud.dumpCache(user, `event/${key}/matches/details`),
+        this.cloud.dumpCache(user, `event/${key}/matches/participants`),
+        this.cloud.dumpCache(user, `event/${key}/rankings`),
+        this.cloud.dumpCache(user, `event/${key}/streams`),
+        this.cloud.dumpCache(user, `event/${key}/teams`),
+        this.cloud.dumpCache(user, `event/${key}/awards`),
+        this.cloud.dumpCache(user, `event/${key}/media`)
       ]).then(() => {
         // Show Success
         this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
@@ -405,16 +372,17 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     this.showSnackbar('Starting, it may take a few seconds');
     const key: string = this.teamCache.value;
     if (key && key.length > 0) {
+      const user = this.firebaseUser;
       const promises = [
-        this.cloud.dumpCache(this.user, `team/${key}`),
-        this.cloud.dumpCache(this.user, `team/${key}/wlt`)
+        this.cloud.dumpCache(user, `team/${key}`),
+        this.cloud.dumpCache(user, `team/${key}/wlt`)
       ];
       for (const season of this.ftc.allYears) {
-        promises.push(this.cloud.dumpCache(this.user, `team/${key}/events/${season}`));
-        promises.push(this.cloud.dumpCache(this.user, `team/${key}/matches/${season}`));
-        promises.push(this.cloud.dumpCache(this.user, `team/${key}/awards/${season}`));
-        promises.push(this.cloud.dumpCache(this.user, `team/${key}/results/${season}`));
-        promises.push(this.cloud.dumpCache(this.user, `team/${key}/media/${season}`));
+        promises.push(this.cloud.dumpCache(user, `team/${key}/events/${season}`));
+        promises.push(this.cloud.dumpCache(user, `team/${key}/matches/${season}`));
+        promises.push(this.cloud.dumpCache(user, `team/${key}/awards/${season}`));
+        promises.push(this.cloud.dumpCache(user, `team/${key}/results/${season}`));
+        promises.push(this.cloud.dumpCache(user, `team/${key}/media/${season}`));
       }
       Promise.all(promises).then(() => {
         // Show Success
@@ -435,10 +403,11 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     this.showSnackbar('Starting, it may take a few seconds');
     const key: string = this.matchCache.value;
     if (key && key.length > 0) {
+      const user = this.firebaseUser;
       Promise.all([
-        this.cloud.dumpCache(this.user, `match/${key}`),
-        this.cloud.dumpCache(this.user, `match/${key}/details`),
-        this.cloud.dumpCache(this.user, `match/${key}/participants`)
+        this.cloud.dumpCache(user, `match/${key}`),
+        this.cloud.dumpCache(user, `match/${key}/details`),
+        this.cloud.dumpCache(user, `match/${key}/participants`)
       ]).then(() => {
         // Show Success
         this.translate.get('pages.account.dump_cache.success').subscribe((str) => {
@@ -463,24 +432,21 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   generateApiKey(): void {
     if (this.emailVerified) {
       this.generatingApiKey = true;
-      this.cloud.generateApiKey(this.user).catch(console.log);
+      this.cloud.generateApiKey(this.firebaseUser).catch(console.log);
     }
   }
 
   generateEventApiKey(eventKey: string): void {
-    this.cloud.generateEventApiKey(this.user, eventKey).then(() => {
+    this.cloud.generateEventApiKey(this.firebaseUser, eventKey).then(() => {
       this.generatingEventApiKey = false;
+      this.getUser();
     }, (err) => {
       this.generatingEventApiKey = false;
     }).catch(console.log);
   }
 
-  getAdminEvents(): string[] {
-    return Object.keys(this.adminEvents);
-  }
-
   sendEmailVerification() {
-    this.user.sendEmailVerification().then(() => {
+    this.firebaseUser.sendEmailVerification().then(() => {
       // Show Success
       this.translate.get('pages.event.subpages.admin.success_sent_verify_email').subscribe((success_sent: string) => {
         this.snackbar.open(success_sent);
@@ -509,20 +475,13 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     })
   }
 
-  isUserLinkToProvider(provider: firebase.auth.AuthProvider): boolean {
-    for (const cProvider of this.user.providerData) {
-      if (cProvider.providerId === provider.providerId) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   linkProvider(provider: firebase.auth.AuthProvider) {
-    this.user.linkWithPopup(provider).then(result => {
+    this.firebaseUser.linkWithPopup(provider).then(result => {
       // Accounts successfully linked.
       const credential = result.credential;
       const user = result.user;
+
+      this.getUser();
 
       // Show success in snackbar
       this.translate.get('pages.account.success_link', {name: this.getProviderName(provider)}).subscribe((res: string) => {
@@ -538,12 +497,15 @@ export class AccountComponent implements OnInit, AfterViewChecked {
 
   unlinkProvider(provider: firebase.auth.AuthProvider) {
     // Don't leave the user without any provider
-    const phoneNumber = this.user.phoneNumber;
-    if (this.user.providerData.length > 1) {
-      this.user.unlink(provider.providerId).then(result => {
+    const phoneNumber = this.firebaseUser.phoneNumber;
+    if (this.firebaseUser.providerData.length > 1) {
+      this.firebaseUser.unlink(provider.providerId).then(result => {
         if (provider.providerId.indexOf('hone') > -1) {
           this.db.object(`Phones/${phoneNumber.substr(1)}/uid`).remove();
         }
+
+        this.getUser();
+
         // Show success in snackbar
         this.translate.get('pages.account.success_unlink', {name: this.getProviderName(provider)}).subscribe((res: string) => {
           this.snackbar.open(res)
@@ -590,7 +552,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
       snackBarRef.afterDismiss().subscribe(reason => {
         if (reason === 'action') {
           if (isEmail) {
-            this.user.sendEmailVerification().then(() => {
+            this.firebaseUser.sendEmailVerification().then(() => {
               this.showSnackbar(`pages.event.subpages.admin.success_sent_verify_email`);
             }).catch((err) => {
               this.showSnackbar(`general.error_occurred`, `HTTP-${err.status}`);
