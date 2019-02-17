@@ -297,7 +297,9 @@ export class FTCDatabase {
       Promise.all(promises).then((data: any[]) => {
         if (data[0][0]) {
           const match: Match = new Match().fromJSON(data[0][0]);
-          match.details = GameData.getMatchDetails(matchKey.split('-')[0]).fromJSON(data[1][0] || {});
+          if (data[1] && data[1][0]) {
+            match.details = GameData.getMatchDetails(matchKey.split('-')[0]).fromJSON(data[1][0] || {});
+          }
           match.participants = data[2].map((participantJSON: any) => new MatchParticipant().fromJSON(participantJSON));
           resolve(match);
         } else {
