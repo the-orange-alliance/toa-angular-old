@@ -24,14 +24,14 @@ import { CloudFunctions } from '../../providers/cloud-functions';
 import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
 import { auth as providers } from 'firebase/app';
 import { AppBarService } from '../../app-bar.service';
+import { environment } from '../../../environments/environment';
+import { initializeApp as initFbApp } from 'firebase/app';
 import TOAUser from '../../models/User';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
 import Season from '../../models/Season';
 import Region from '../../models/Region';
 import EventType from '../../models/EventType';
-import {environment} from 'environments/environment';
-import {initializeApp as initFbApp} from 'firebase/app';
 
 @Component({
   selector: 'toa-account',
@@ -67,6 +67,7 @@ export class AccountComponent implements OnInit, AfterViewInit, AfterViewChecked
   recaptchaVerifier;
 
   showCaptcha: boolean = true;
+  isDevMode: boolean = false;
 
   // These are for creating the Events
   @ViewChild('event_name') eventName: MdcTextField;
@@ -113,6 +114,8 @@ export class AccountComponent implements OnInit, AfterViewInit, AfterViewChecked
     } else {
       this.activeTab = 0;
     }
+
+    this.isDevMode = !environment.production;
 
     auth.auth.languageCode = localStorage.get('lang') || translate.getBrowserLang() || 'en';
 

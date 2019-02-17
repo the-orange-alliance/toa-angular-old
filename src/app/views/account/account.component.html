@@ -100,7 +100,7 @@
             {{ (user.githubLinked ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'GitHub'} }}
           </mdc-list-item>
 
-          <mdc-list-item (click)="user.phoneLinked ? unlinkProvider(phoneProvider) : renderCaptcha()">
+          <mdc-list-item *ngIf="isDevMode" (click)="user.phoneLinked ? unlinkProvider(phoneProvider) : renderCaptcha()">
             <mdc-icon mdcListItemGraphic svgIcon="phone"></mdc-icon>
             {{ (user.phoneLinked ? 'pages.account.unlink_phone' : 'pages.account.link_phone') | translate }}
           </mdc-list-item>
