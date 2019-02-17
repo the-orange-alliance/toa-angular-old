@@ -84,7 +84,7 @@ export class MatchTableComponent {
   }
 
   openMatch(match: Match) {
-    const dialogRef = this.dialog.open(DialogMatch, {
+    this.dialog.open(DialogMatch, {
       scrollable: true,
       data: {match: match}
     });
