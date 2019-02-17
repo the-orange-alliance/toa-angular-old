@@ -1,4 +1,13 @@
-import { Component, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Inject,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -28,10 +37,11 @@ import {initializeApp as initFbApp} from 'firebase/app';
   selector: 'toa-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
-  providers: [CloudFunctions, TheOrangeAllianceGlobals, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
+  providers: [CloudFunctions, TheOrangeAllianceGlobals, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class AccountComponent implements OnInit, AfterViewChecked {
+export class AccountComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   firebaseUser: firebase.User = null;
   user: TOAUser = null;
@@ -133,6 +143,10 @@ export class AccountComponent implements OnInit, AfterViewChecked {
       this.currentEventType = this.eventTypes[0];
     });
     initFbApp(environment.firebase);
+  }
+
+  ngAfterViewInit() {
+    this.cdRef.detach();
   }
 
   ngAfterViewChecked() {
