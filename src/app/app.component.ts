@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, Injectable, NgZone, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, HostListener, Inject, Injectable, NgZone, OnInit, ViewChild} from '@angular/core';
 import { AppBarService } from './app-bar.service';
 import { Location } from '@angular/common';
 import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
@@ -33,6 +33,7 @@ export class TheOrangeAllianceComponent implements OnInit {
   teamSearchResults: Team[];
   eventSearchResults: Event[];
   showSearch: boolean;
+  showMobileSearch: boolean;
 
   current_year: any;
   selectedLanguage = '';
@@ -57,6 +58,7 @@ export class TheOrangeAllianceComponent implements OnInit {
     };
 
     this.router.events.subscribe(() => {
+      this.showMobileSearch = false;
       setTimeout(() => {
         this.title = this.appBarService.titleLong;
       });
@@ -145,7 +147,8 @@ export class TheOrangeAllianceComponent implements OnInit {
     }
   }
 
-  focusSearchInput(searchInput: MdcTextField): void {
+  showMobileSearchModal(searchInput): void {
+    this.showMobileSearch = true;
     // When the modal opens, it takes the focus
     // We'll wait 6ms until it opens
     setTimeout(function () {
