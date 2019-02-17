@@ -66,44 +66,44 @@
           <mdc-list-divider></mdc-list-divider>
 
           <a mdc-list-item routerLink="/home" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="home"></mdc-icon>{{ "drawer.home" | translate }}
+            <mdc-icon mdcListItemGraphic svgIcon="home"></mdc-icon>{{ "drawer.home" | translate }}
           </a>
           <a mdc-list-item routerLink="/teams" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="account-group"></mdc-icon>{{ "drawer.teams" | translate }}
+            <mdc-icon mdcListItemGraphic svgIcon="account-group"></mdc-icon>{{ "drawer.teams" | translate }}
           </a>
           <a mdc-list-item routerLink="/events" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="calendar"></mdc-icon>{{ "drawer.events" | translate }}
+            <mdc-icon mdcListItemGraphic svgIcon="calendar"></mdc-icon>{{ "drawer.events" | translate }}
           </a>
           <a mdc-list-item routerLink="/stream" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="video"></mdc-icon>{{ "drawer.streaming" | translate }}
+            <mdc-icon mdcListItemGraphic svgIcon="video"></mdc-icon>{{ "drawer.streaming" | translate }}
           </a>
 
           <mdc-list-divider></mdc-list-divider>
 
           <a mdc-list-item data-toggle="modal" [attr.data-target]="'#selectLanguage'">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="translate"></mdc-icon> Select Language
+            <mdc-icon mdcListItemGraphic svgIcon="translate"></mdc-icon> Select Language
           </a>
 
           <mdc-list-divider></mdc-list-divider>
 
           <a mdc-list-item href="https://play.google.com/store/apps/details?id=com.theorangealliance.android" target="_blank">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="android-head"></mdc-icon>{{ "drawer.android_app" | translate }}
+            <mdc-icon mdcListItemGraphic svgIcon="android-head"></mdc-icon>{{ "drawer.android_app" | translate }}
           </a>
 
           <a mdc-list-item href="https://itunes.apple.com/us/app/toa-ios/id1449596765" target="_blank">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="apple"></mdc-icon>{{ "drawer.ios_app" | translate }}
+            <mdc-icon mdcListItemGraphic svgIcon="apple"></mdc-icon>{{ "drawer.ios_app" | translate }}
           </a>
 
           <a mdc-list-item routerLink="/add-data" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="upload"></mdc-icon>{{ "drawer.add_data" | translate }}
+            <mdc-icon mdcListItemGraphic svgIcon="upload"></mdc-icon>{{ "drawer.add_data" | translate }}
           </a>
 
           <a mdc-list-item routerLink="/apidocs" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="code-tags"></mdc-icon>{{ "drawer.api" | translate }}
+            <mdc-icon mdcListItemGraphic svgIcon="code-tags"></mdc-icon>{{ "drawer.api" | translate }}
           </a>
 
           <a mdc-list-item href="https://github.com/orange-alliance" target="_blank">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="github-circle"></mdc-icon>{{ "drawer.github" | translate }}
+            <mdc-icon mdcListItemGraphic svgIcon="github-circle"></mdc-icon>{{ "drawer.github" | translate }}
           </a>
 
           <div class="text-center w-100 pb-2">
@@ -124,13 +124,13 @@
           <mdc-list-divider></mdc-list-divider>
 
           <a mdc-list-item routerLink="/about" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="information-outline"></mdc-icon>{{ "drawer.about" | translate }}
+            <mdc-icon mdcListItemGraphic svgIcon="information-outline"></mdc-icon>{{ "drawer.about" | translate }}
           </a>
           <a mdc-list-item href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZE3YC297GJNUW&source=url" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="paypal"></mdc-icon>{{ "drawer.donate" | translate }}
+            <mdc-icon mdcListItemGraphic svgIcon="paypal"></mdc-icon>{{ "drawer.donate" | translate }}
           </a>
           <a mdc-list-item routerLink="/privacy-terms" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
-            <mdc-icon class="mdc-list-item__graphic" svgIcon="gavel"></mdc-icon>{{ "drawer.privacy_and_terms" | translate }}
+            <mdc-icon mdcListItemGraphic svgIcon="gavel"></mdc-icon>{{ "drawer.privacy_and_terms" | translate }}
           </a>
 
           <mdc-list-divider></mdc-list-divider>
