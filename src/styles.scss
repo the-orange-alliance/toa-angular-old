@@ -352,6 +352,10 @@ mdc-drawer mdc-list a {
   padding: 5px;
 }
 
+.toa-card .overflow {
+  overflow: unset !important;
+}
+
 .toa-card-header {
   font-weight: 500;
   color: #000;
