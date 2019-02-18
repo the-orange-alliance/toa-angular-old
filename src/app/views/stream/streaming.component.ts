@@ -57,6 +57,7 @@ export class StreamingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checkSize(window.innerWidth);
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       this.streams = [];
       for (const stream of data) {
