@@ -17,17 +17,17 @@ export class DialogMatch implements OnInit {
   match: Match;
   videoSafeURL: SafeResourceUrl;
 
-  constructor(public dialogRef: MdcDialogRef<DialogMatch>, @Inject(MDC_DIALOG_DATA) data: any, private ftc: FTCDatabase,
+  constructor(dialogRef: MdcDialogRef<DialogMatch>, @Inject(MDC_DIALOG_DATA) data: any, private ftc: FTCDatabase,
               router: Router, location: Location, private sanitizer: DomSanitizer) {
     this.match = data.match;
     this.searchVideo();
 
     let currentNavigation = null;
-    this.dialogRef.afterOpened().subscribe(() => {
+    dialogRef.afterOpened().subscribe(() => {
       currentNavigation = router.url;
       location.go(`/matches/${this.match.matchKey}`);
     });
-    this.dialogRef.afterClosed().subscribe(() => {
+    dialogRef.afterClosed().subscribe(() => {
       location.go(currentNavigation);
     });
   }

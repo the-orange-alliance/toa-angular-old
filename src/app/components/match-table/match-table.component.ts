@@ -20,7 +20,9 @@ export class MatchTableComponent {
   private selectedTeam: string = '';
   selectedTeamParticipant: EventParticipant = null;
 
-  constructor(private dialog: MdcDialog) {}
+  constructor(private dialog: MdcDialog) {
+
+  }
 
   public getMatchResultString(match: Match): string {
     let teamStation = 0;
