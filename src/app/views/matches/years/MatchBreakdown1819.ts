@@ -16,7 +16,7 @@ export default class MatchBreakdown1819 {
       MatchBreakdownTitle('Teleop', match.redTeleScore, match.blueTeleScore),
       MatchBreakdownField('Gold Minerals', details.redDriverGold, details.blueDriverGold, 5),
       MatchBreakdownField('Silver Minerals', details.redDriverSilver, details.blueDriverSilver, 5),
-      MatchBreakdownField('Any Mineral in Depot', details.redDriverGold, details.blueDriverGold, 2),
+      MatchBreakdownField('Any Mineral in Depot', details.redDriverDepot, details.blueDriverDepot, 2),
 
       MatchBreakdownTitle('End Game', match.redEndScore, match.blueEndScore),
       MatchBreakdownField('Robots Latched', details.redEndLatch, details.blueEndLatch, 50),
