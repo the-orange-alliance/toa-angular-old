@@ -164,6 +164,7 @@
       "stream_available": "Live Stream Available!",
       "alliances_count": "{{ value }} Alliances",
       "fields_count": "{{ value }} Fields",
+      "matches_per_team": "{{ value }} Matches per team",
       "subpages": {
         "rankings": {
           "title": "Rankings",
