@@ -57,6 +57,11 @@
             <mdc-icon svgIcon="soccer-field"></mdc-icon>
             <p>{{ 'pages.event.fields_count' | translate:{'value': eventData.fieldCount} }}</p>
           </div>
+          <div class="info-state" *ngIf="matchesPerTeam">
+            <!--<mdc-icon [svgIcon]="'numeric-' + matchesPerTeam + '-circle-outline'"></mdc-icon>-->
+            <mdc-icon svgIcon="counter"></mdc-icon>
+            <p>{{ 'pages.event.matches_per_team' | translate:{'value': matchesPerTeam} }}</p>
+          </div>
           <a mdc-button primary *ngIf="stream && stream.isActive" routerLink="/stream">
             <mdc-icon svgIcon="video-outline" class="stream-icon"></mdc-icon> {{ 'pages.event.stream_available' | translate }}
           </a>

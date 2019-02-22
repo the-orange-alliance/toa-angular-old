@@ -32,6 +32,7 @@ export class EventComponent implements OnInit {
   eventData: Event;
   eventTypeName: string;
   eventSeasonName: string;
+  matchesPerTeam: number;
   stream: EventLiveStream;
   media: Media[];
 
@@ -141,6 +142,26 @@ export class EventComponent implements OnInit {
           }, (err) => {
             console.log(err);
           });
+
+          // Find matches per team                           // Can't divide by 0
+          if (this.eventData.matches && this.eventData.teams && this.eventData.teams.length > 0) {
+            let matches = 0;
+            let surrogateTeams = 0;
+            for (let match of this.eventData.matches) {
+              if (match.tournamentLevel === 1 && match.participants.length === 4) {
+                matches++;
+                for (let participant of match.participants) {
+                  if (participant.stationStatus === 0) {
+                    surrogateTeams++;
+                  }
+                }
+              }
+            }
+            let number = ((matches * 4) - surrogateTeams) / this.eventData.teams.length;
+            if (number === 6 || number === 5) {
+              this.matchesPerTeam = number;
+            }
+          }
 
         } else {
           this.router.navigate(['/not-found']);

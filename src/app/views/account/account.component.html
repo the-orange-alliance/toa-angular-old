@@ -100,7 +100,7 @@
             {{ (user.githubLinked ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'GitHub'} }}
           </mdc-list-item>
 
-          <mdc-list-item (click)="user.phoneLinked ? unlinkProvider(phoneProvider) : renderCaptcha()">
+          <mdc-list-item *ngIf="isDevMode" (click)="user.phoneLinked ? unlinkProvider(phoneProvider) : renderCaptcha()">
             <mdc-icon mdcListItemGraphic svgIcon="phone"></mdc-icon>
             {{ (user.phoneLinked ? 'pages.account.unlink_phone' : 'pages.account.link_phone') | translate }}
           </mdc-list-item>
@@ -317,7 +317,7 @@
             <mdc-icon mdcListItemGraphic svgIcon="account-outline"></mdc-icon>
             <b>Name:</b>&nbsp;{{ selectedUser.displayName }}</mdc-list-item>
           <mdc-list-item>
-            <mdc-icon mdcListItemGraphic svgIcon="phone"></mdc-icon>
+            <mdc-icon mdcListItemGraphic svgIcon="phone-outline"></mdc-icon>
             <b>Phone:</b>&nbsp;{{ selectedUser.phoneNumber || '' }}
           </mdc-list-item>
           <mdc-list-item>
@@ -339,7 +339,7 @@
             <mdc-icon mdcListItemGraphic svgIcon="wrench-outline"></mdc-icon>
             <b>Event Admin:</b>&nbsp;{{ selectedUser.adminEvents.join(', ') }}</mdc-list-item>
           <mdc-list-item>
-            <mdc-icon mdcListItemGraphic svgIcon="key"></mdc-icon>
+            <mdc-icon mdcListItemGraphic svgIcon="key-outline"></mdc-icon>
             <b>API Key:</b>&nbsp;<code>{{ selectedUser.apiKey || '' }}</code>
           </mdc-list-item>
           <mdc-list-item>

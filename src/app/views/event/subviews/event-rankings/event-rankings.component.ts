@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RankSorter } from '../../../../util/ranking-utils';
+import { DialogText } from '../../../../dialogs/text/dialog-text';
+import { MdcDialog } from '@angular-mdc/web';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'toa-event-rankings',
@@ -13,6 +16,11 @@ export class EventRankingsComponent implements OnInit {
   showQualPoints: boolean = false;
   showTieBreakerPoints: boolean = false;
   showHighScore: boolean = false;
+  showOPR: boolean = false;
+
+  constructor(private dialog: MdcDialog, private translate: TranslateService) {
+
+  }
 
   ngOnInit() {
     if (this.rankings) {
@@ -27,7 +35,23 @@ export class EventRankingsComponent implements OnInit {
         if (rank.highestQualScore && rank.highestQualScore > 0) {
           this.showHighScore = true;
         }
+        if (rank.opr && rank.opr > 0) {
+          this.showOPR = true;
+        }
       }
     }
+  }
+
+  showOprHelp() {
+    this.translate.get('pages.event.subpages.rankings.what_is_opr').subscribe((res: string) => {
+      console.log(res);
+      this.dialog.open(DialogText, {
+        scrollable: true,
+        data: {
+          title: 'OPR - Offensive Power Rating',
+          text: res
+        }
+      });
+    });
   }
 }

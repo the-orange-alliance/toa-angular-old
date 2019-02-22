@@ -1,3 +1,5 @@
+import Team from './Team';
+
 export default class Ranking implements ISerializable {
   private _rankKey: string;
   private _eventKey: string;
@@ -5,6 +7,7 @@ export default class Ranking implements ISerializable {
   private _teamNumber: number;
   private _rank: number;
   private _rankChange: number;
+  private _opr: number;
   private _wins: number;
   private _losses: number;
   private _ties: number;
@@ -14,6 +17,7 @@ export default class Ranking implements ISerializable {
   private _tieBreakerPoints: number;
   private _disqualified: number;
   private _played: number;
+  private _team: Team;
 
   constructor() {
     this._rankKey = '';
@@ -22,6 +26,7 @@ export default class Ranking implements ISerializable {
     this._teamNumber = 0;
     this._rank = 0;
     this._rankChange = 0;
+    this._opr = 0;
     this._wins = 0;
     this._losses = 0;
     this._ties = 0;
@@ -31,6 +36,7 @@ export default class Ranking implements ISerializable {
     this._tieBreakerPoints = 0;
     this._disqualified = 0;
     this._played = 0;
+    this._team = new Team();
   }
 
   public toJSON(): object {
@@ -41,6 +47,7 @@ export default class Ranking implements ISerializable {
       team_number: this.teamNumber,
       rank: this.rank,
       rank_change: this.rankChange,
+      opr: this.opr,
       wins: this.wins,
       losses: this.losses,
       ties: this.ties,
@@ -49,7 +56,8 @@ export default class Ranking implements ISerializable {
       qualifying_points: this.qualifyingPoints,
       tie_breaker_points: this.tieBreakerPoints,
       disqualified: this.disqualified,
-      played: this.played
+      played: this.played,
+      team: this.team.teamNumber > 0 ? this.team.toJSON() : undefined
     };
   }
 
@@ -61,6 +69,7 @@ export default class Ranking implements ISerializable {
     ranking.teamNumber = json.team_number;
     ranking.rank = json.rank;
     ranking.rankChange = json.rank_change;
+    ranking.opr = json.opr;
     ranking.wins = json.wins;
     ranking.losses = json.losses;
     ranking.ties = json.ties;
@@ -70,6 +79,7 @@ export default class Ranking implements ISerializable {
     ranking.tieBreakerPoints = json.tie_breaker_points;
     ranking.disqualified = json.disqualified;
     ranking.played = json.played;
+    ranking.team = new Team().fromJSON(json.team);
     return ranking;
   }
 
@@ -119,6 +129,14 @@ export default class Ranking implements ISerializable {
 
   set rankChange(value: number) {
     this._rankChange = value;
+  }
+
+  get opr(): number {
+    return this._opr;
+  }
+
+  set opr(value: number) {
+    this._opr = value;
   }
 
   get wins(): number {
@@ -193,5 +211,14 @@ export default class Ranking implements ISerializable {
 
   set played(value: number) {
     this._played = value;
+  }
+
+
+  get team(): Team {
+    return this._team;
+  }
+
+  set team(value: Team) {
+    this._team = value;
   }
 }

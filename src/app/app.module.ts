@@ -37,6 +37,7 @@ import { StreamingComponent } from './views/stream/streaming.component';
 import { PrivacyTermsComponent } from './views/privacy_terms/PrivacyTerms.component';
 import { MatchesComponent } from './views/matches/matches.component';
 import { AppMaterialModule } from './material.module';
+import { DialogText } from './dialogs/text/dialog-text';
 import { DialogMatch } from './dialogs/match/dialog-match';
 import { MatchDetailsComponent } from './views/matches/details/match-details.component';
 import { MatchTableComponent } from './components/match-table/match-table.component';
@@ -83,6 +84,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     MatchDetailsComponent,
     MatchesComponent,
     TeamRobotComponent,
+    DialogText,
     DialogMatch,
     MatchTableComponent,
     EventItemComponent,
@@ -90,6 +92,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AwardItemComponent
   ],
   entryComponents: [
+    DialogText,
     DialogMatch
   ],
   imports: [

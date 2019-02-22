@@ -20,7 +20,9 @@ export class MatchTableComponent {
   private selectedTeam: string = '';
   selectedTeamParticipant: EventParticipant = null;
 
-  constructor(private dialog: MdcDialog) {}
+  constructor(private dialog: MdcDialog) {
+
+  }
 
   public getMatchResultString(match: Match): string {
     let teamStation = 0;
@@ -84,7 +86,7 @@ export class MatchTableComponent {
   }
 
   openMatch(match: Match) {
-    const dialogRef = this.dialog.open(DialogMatch, {
+    this.dialog.open(DialogMatch, {
       scrollable: true,
       data: {match: match}
     });

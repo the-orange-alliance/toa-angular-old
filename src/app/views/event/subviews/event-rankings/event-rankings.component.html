@@ -5,6 +5,7 @@
         <th>{{ 'pages.event.subpages.rankings.rank' | translate }}</th>
         <th>{{ 'pages.event.subpages.rankings.team' | translate }}</th>
         <th>{{ 'pages.event.subpages.rankings.wlt_record' | translate }}</th>
+        <th  *ngIf="showOPR" style="cursor: help" (click)="showOprHelp()">OPR</th>
         <th *ngIf="showQualPoints">{{ 'pages.event.subpages.rankings.qual_points' | translate }}</th>
         <th>{{ 'pages.event.subpages.rankings.ranking_points' | translate }}</th>
         <th *ngIf="showTieBreakerPoints">{{ 'pages.event.subpages.rankings.tie_reaker_points' | translate }}</th>
@@ -15,8 +16,9 @@
     <tbody *ngIf="rankings">
       <tr *ngFor="let rank of rankings" >
         <td>{{ rank.rank }}</td>
-        <td><a routerLink="/teams/{{ rank.teamKey }}">{{ rank.teamKey }}</a></td>
+        <td><a routerLink="/teams/{{ rank.teamKey }}">#{{ rank.team.teamNumber }} {{ rank.team.teamNameShort || '' }}</a></td>
         <td>{{ rank.wins }} - {{ rank.losses }} - {{ rank.ties }}</td>
+        <td *ngIf="showOPR">{{ rank.opr }}</td>
         <td *ngIf="showQualPoints">{{ rank.qualifyingPoints }}</td>
         <td>{{ rank.rankingPoints }}</td>
         <td *ngIf="showTieBreakerPoints">{{ rank.tieBreakerPoints }}</td>

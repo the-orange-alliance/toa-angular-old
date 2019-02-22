@@ -6,7 +6,6 @@ export default class EventParticipant implements ISerializable {
   private _teamKey: string;
   private _isActive: boolean;
   private _cardStatus: string;
-
   private _team: Team;
 
   constructor() {

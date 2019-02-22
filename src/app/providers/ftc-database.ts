@@ -177,21 +177,21 @@ export class FTCDatabase {
   public getEvent(eventKey: string): Promise<Event> {
     return new Promise<Event>((resolve, reject) => {
       const promises: Promise<any>[] = [];
-      promises.push(this.request('/event/' + eventKey));
-      promises.push(this.request('/event/' + eventKey + '/matches'));
-      promises.push(this.request('/event/' + eventKey + '/rankings'));
-      promises.push(this.request('/event/' + eventKey + '/awards'));
-      promises.push(this.request('/event/' + eventKey + '/teams'));
+      promises.push(this.request('/event/' + eventKey).catch(() => null));
+      promises.push(this.request('/event/' + eventKey + '/matches').catch(() => []));
+      promises.push(this.request('/event/' + eventKey + '/rankings').catch(() => []));
+      promises.push(this.request('/event/' + eventKey + '/awards').catch(() => []));
+      promises.push(this.request('/event/' + eventKey + '/teams').catch(() => []));
       Promise.all(promises).then((data: any[]) => {
         if (data[0]) {
-          const event: Event = new Event().fromJSON(data[0][0]);
+          const event: Event = (data[0][0]) ? new Event().fromJSON(data[0][0]) : null;
           event.matches = data[1].map((matchJSON: any) => new Match().fromJSON(matchJSON));
           event.rankings = data[2].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
           event.awards = data[3].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
           event.teams = data[4].map((teamJSON: any) => new EventParticipant().fromJSON(teamJSON));
           resolve(event);
         } else {
-          resolve(null);
+          reject(null);
         }
       }).catch((error: any) => reject(error));
     });
@@ -200,17 +200,17 @@ export class FTCDatabase {
   public getTeam(teamKey: string, seasonKey: string): Promise<Team> {
     return new Promise<Team>((resolve, reject) => {
       const promises: Promise<any>[] = [];
-      promises.push(this.request('/team/' + teamKey));
-      promises.push(this.request('/team/' + teamKey + '/results/' + seasonKey));
-      promises.push(this.request('/team/' + teamKey + '/awards/' + seasonKey));
+      promises.push(this.request('/team/' + teamKey).catch(() => null));
+      promises.push(this.request('/team/' + teamKey + '/results/' + seasonKey).catch(() => []));
+      promises.push(this.request('/team/' + teamKey + '/awards/' + seasonKey).catch(() => []));
       Promise.all(promises).then((data: any[]) => {
-        if (data[0][0]) {
-          const team: Team = new Team().fromJSON(data[0][0]);
+        if (data[0]) {
+          const team: Team = (data[0][0]) ? new Team().fromJSON(data[0][0]) : null;
           team.rankings = data[1].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
           team.awards = data[2].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
           resolve(team);
         } else {
-          resolve(null);
+          reject(null);
         }
       }).catch((error: any) => reject(error));
     });
@@ -291,17 +291,19 @@ export class FTCDatabase {
   public getMatchDetails(matchKey: string): Promise<Match> {
     return new Promise<Match>((resolve, reject) => {
       const promises: Promise<any>[] = [];
-      promises.push(this.request('/match/' + matchKey));
-      promises.push(this.request('/match/' + matchKey + '/details'));
-      promises.push(this.request('/match/' + matchKey + '/participants'));
+      promises.push(this.request('/match/' + matchKey).catch(() => null));
+      promises.push(this.request('/match/' + matchKey + '/details').catch(() => null));
+      promises.push(this.request('/match/' + matchKey + '/participants').catch(() => []));
       Promise.all(promises).then((data: any[]) => {
         if (data[0][0]) {
           const match: Match = new Match().fromJSON(data[0][0]);
-          match.details = GameData.getMatchDetails(matchKey.split('-')[0]).fromJSON(data[1][0] || {});
+          if (data[1] && data[1][0]) {
+            match.details = GameData.getMatchDetails(matchKey.split('-')[0]).fromJSON(data[1][0] || {});
+          }
           match.participants = data[2].map((participantJSON: any) => new MatchParticipant().fromJSON(participantJSON));
           resolve(match);
         } else {
-          resolve(null);
+          reject(null);
         }
       }).catch((error: any) => reject(error));
     });

@@ -1,4 +1,13 @@
-import { Component, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Inject,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -15,23 +24,24 @@ import { CloudFunctions } from '../../providers/cloud-functions';
 import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
 import { auth as providers } from 'firebase/app';
 import { AppBarService } from '../../app-bar.service';
+import { environment } from '../../../environments/environment';
+import { initializeApp as initFbApp } from 'firebase/app';
 import TOAUser from '../../models/User';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
 import Season from '../../models/Season';
 import Region from '../../models/Region';
 import EventType from '../../models/EventType';
-import {environment} from 'environments/environment';
-import {initializeApp as initFbApp} from 'firebase/app';
 
 @Component({
   selector: 'toa-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
-  providers: [CloudFunctions, TheOrangeAllianceGlobals, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
+  providers: [CloudFunctions, TheOrangeAllianceGlobals, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class AccountComponent implements OnInit, AfterViewChecked {
+export class AccountComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   firebaseUser: firebase.User = null;
   user: TOAUser = null;
@@ -57,6 +67,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   recaptchaVerifier;
 
   showCaptcha: boolean = true;
+  isDevMode: boolean = false;
 
   // These are for creating the Events
   @ViewChild('event_name') eventName: MdcTextField;
@@ -104,6 +115,8 @@ export class AccountComponent implements OnInit, AfterViewChecked {
       this.activeTab = 0;
     }
 
+    this.isDevMode = !environment.production;
+
     auth.auth.languageCode = localStorage.get('lang') || translate.getBrowserLang() || 'en';
 
     this.phoneProvider = new providers.PhoneAuthProvider(auth.auth);
@@ -133,6 +146,10 @@ export class AccountComponent implements OnInit, AfterViewChecked {
       this.currentEventType = this.eventTypes[0];
     });
     initFbApp(environment.firebase);
+  }
+
+  ngAfterViewInit() {
+    this.cdRef.detach();
   }
 
   ngAfterViewChecked() {

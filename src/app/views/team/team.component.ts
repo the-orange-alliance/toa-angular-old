@@ -117,9 +117,9 @@ export class TeamComponent implements OnInit {
     this.currentSeason = season;
     this.team.events = [];
     this.ftc.getTeamEvents(this.teamKey, this.currentSeason.seasonKey).then((data: EventParticipant[]) => {
-      Promise.all(data.map((result: any) => this.ftc.getEventBasic(result.eventKey)))
+      Promise.all(data.map((result: any) => this.ftc.getEventBasic(result.eventKey).catch(e => null)))
         .then(events => {
-          this.team.events = events;
+          this.team.events = events.filter(result => result !== null);
           this.getEventMatches();
           this.getEventRankings();
           this.getEventAwards();

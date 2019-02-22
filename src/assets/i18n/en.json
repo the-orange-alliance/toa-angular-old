@@ -164,6 +164,7 @@
       "stream_available": "Live Stream Available!",
       "alliances_count": "{{ value }} Alliances",
       "fields_count": "{{ value }} Fields",
+      "matches_per_team": "{{ value }} Matches per team",
       "subpages": {
         "rankings": {
           "title": "Rankings",
@@ -174,7 +175,8 @@
           "ranking_points": "Ranking Points",
           "tie_reaker_points": "Tie Breaker Points",
           "highest_score": "Highest Score",
-          "matches_played": "Matches Played"
+          "matches_played": "Matches Played",
+          "what_is_opr": "Offensive Power Rating, also know as OPR, is a stat that is often used in the FIRST community to compare the performance of teams on the field. OPRs are an interesting way to slice the data for teams at particular events, but aren't a perfect system for assessing a team's performance or contribution."
         },
         "matches": {
           "title": "Matches"
