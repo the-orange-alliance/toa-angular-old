@@ -144,7 +144,7 @@ export class CreateEventComponent implements OnInit {
         });
       });
     }).catch((err) => {
-      this.translate.get('pages.account.create_event_card.success').subscribe((str) => {
+      this.translate.get('general.error_occurred').subscribe((str) => {
         this.snackbar.open(`${str} (HTTP-${err.status})`);
       });
     });

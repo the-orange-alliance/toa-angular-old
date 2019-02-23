@@ -121,5 +121,5 @@
   <toa-account-create-event *ngIf="tabs.activeTabIndex === 2 && user.level >= 6" [user]="user"></toa-account-create-event>
   <toa-account-users *ngIf="tabs.activeTabIndex === 3 && user.level >= 6" [user]="user"></toa-account-users>
   <toa-account-cache *ngIf="tabs.activeTabIndex === 4 && user.level >= 6" [user]="user"></toa-account-cache>
-  <toa-account-retriever *ngIf="tabs.activeTabIndex === 5 && user.level >= 6" [firebaseUser]="firebaseUser"></toa-account-retriever>
+  <toa-account-retriever *ngIf="tabs.activeTabIndex === 5 && user.level >= 6" [user]="user"></toa-account-retriever>
 </div>

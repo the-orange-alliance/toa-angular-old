@@ -116,6 +116,10 @@
         "dump": "Dump",
         "success": "Successfully Dumped Cache"
       },
+      "retriever": {
+        "title": "Retriever",
+        "success": "Successfully Created {{value}} Events"
+      },
       "subpages": {
         "login": {
           "title": "Login",
