@@ -328,6 +328,7 @@
     "event_long": "NO RESULTS HAVE BEEN REPORTED FOR THIS EVENT.",
     "streams_long": "There are currently no active streams.",
     "events_for_season": "No events for {{ season }} season",
-    "events_for_season_long": "This team hasn't yet played at any events this season.<br/>Try changing the season using the selector above."
+    "events_for_season_long": "This team hasn't yet played at any events this season.<br/>Try changing the season using the selector above.",
+    "match_breakdown": "No match breakdown found"
   }
 }

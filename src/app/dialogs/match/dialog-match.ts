@@ -16,6 +16,7 @@ export class DialogMatch implements OnInit {
 
   match: Match;
   videoSafeURL: SafeResourceUrl;
+  loaded: boolean;
 
   constructor(dialogRef: MdcDialogRef<DialogMatch>, @Inject(MDC_DIALOG_DATA) data: any, private ftc: FTCDatabase,
               router: Router, location: Location, private sanitizer: DomSanitizer) {
@@ -37,6 +38,7 @@ export class DialogMatch implements OnInit {
       if (match) {
         this.match = match;
         this.searchVideo()
+        this.loaded = true;
       }
     });
   }
