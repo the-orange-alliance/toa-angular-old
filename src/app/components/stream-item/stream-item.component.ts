@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Layout } from '../../views/stream/streaming.component';
 import EventLiveStream from '../../models/EventLiveStream';
 
 @Component({

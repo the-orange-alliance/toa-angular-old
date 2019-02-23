@@ -31,6 +31,7 @@
       <mdc-tab (click)="changeUrlNoRoute('new-event')" [label]="'pages.account.create_event_card.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
       <mdc-tab (click)="changeUrlNoRoute('users')" label="Users" [class.d-none]="user.level < 6"></mdc-tab>
       <mdc-tab (click)="changeUrlNoRoute('cache')" [label]="'pages.account.dump_cache.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
+      <mdc-tab (click)="changeUrlNoRoute('retriever')" label="Retriever" [class.d-none]="user.level < 6"></mdc-tab>
     </mdc-tab-scroller>
   </mdc-tab-bar>
 
@@ -304,6 +305,8 @@
       </div>
     </div>
   </div>
+
+  <toa-account-retriever *ngIf="tabs.activeTabIndex === 5 && user.level >= 6" [firebaseUser]="firebaseUser"></toa-account-retriever>
 </div>
 
 <!-- User Dialog -->

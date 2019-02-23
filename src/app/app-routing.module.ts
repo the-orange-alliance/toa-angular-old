@@ -26,7 +26,8 @@ const routes: Routes = [
       { path: 'events', component: AccountComponent },
       { path: 'new-event', component: AccountComponent },
       { path: 'users', component: AccountComponent },
-      { path: 'cache', component: AccountComponent }
+      { path: 'cache', component: AccountComponent },
+      { path: 'retriever', component: AccountComponent }
     ]
   },
   { path: 'add-data', component: AddDataComponent },

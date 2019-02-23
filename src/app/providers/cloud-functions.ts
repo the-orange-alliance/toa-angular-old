@@ -9,7 +9,9 @@ export class CloudFunctions {
   private baseUrl = 'https://us-central1-the-orange-alliance.cloudfunctions.net/requireValidations';
   // private baseUrl = 'http://localhost:5000/the-orange-alliance/us-central1/requireValidations'; // Tests Only
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    
+  }
 
   public getUserData(user: User): Promise<TOAUser> {
     return new Promise<TOAUser>((resolve, reject) => {
@@ -364,6 +366,24 @@ export class CloudFunctions {
         });
 
         this.http.delete(this.baseUrl + '/toaapi', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public eventsRetriever(user: User): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`
+        });
+
+        this.http.get(this.baseUrl + '/firstEvents', {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
           reject(err);

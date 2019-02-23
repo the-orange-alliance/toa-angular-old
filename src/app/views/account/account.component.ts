@@ -111,6 +111,8 @@ export class AccountComponent implements OnInit, AfterViewInit, AfterViewChecked
       this.activeTab = 3;
     } else if (this.router.url.indexOf('/account/cache') > -1) {
       this.activeTab = 4;
+    } else if (this.router.url.indexOf('/account/retriever') > -1) {
+      this.activeTab = 5;
     } else {
       this.activeTab = 0;
     }

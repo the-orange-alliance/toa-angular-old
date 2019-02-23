@@ -15,6 +15,7 @@ import { environment } from '../environments/environment';
 import { TheOrangeAllianceComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
 import { AddDataComponent } from './views/add-data/add-data.component';
+import { RetrieverComponent } from './views/account/subpages/retriever/retriever.component';
 import { AccountComponent } from './views/account/account.component';
 import { EventsComponent } from './views/events/events.component';
 import { TeamsComponent } from './views/teams/teams.component';
@@ -60,6 +61,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TheOrangeAllianceComponent,
     HomeComponent,
     AddDataComponent,
+    RetrieverComponent,
     AccountComponent,
     LoginComponent,
     RegisterComponent,
