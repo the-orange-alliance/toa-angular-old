@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="outline-card col-12">
+    <div mdcHeadline5 class="black pt-2 pb-2">{{ users.length > 0 ? users.length + ' Users' : 'Loading...' }}</div>
+    <mdc-list twoLine>
+      <mdc-list-item *ngFor="let listUser of users" (click)="selectUser(listUser)" data-toggle="modal" data-target="#userdialog">
+        <mdc-list-item-text [secondaryText]="listUser.uid"><b>{{ listUser.displayName || ''}}</b>{{ listUser.displayName ? ' - '  + listUser.email : listUser.email }}</mdc-list-item-text>
+        <div mdcListItemMeta class="d-none d-sm-block">
+          <mdc-icon [class.d-none]="!listUser.email_linked" svgIcon="email" class="ms-2"></mdc-icon>
+          <mdc-icon [class.d-none]="!listUser.phone_linked" svgIcon="phone" class="ms-2"></mdc-icon>
+          <mdc-icon [class.d-none]="!listUser.google_linked" svgIcon="google" class="ms-2"></mdc-icon>
+          <mdc-icon [class.d-none]="!listUser.github_linked" svgIcon="github-circle" class="ms-2"></mdc-icon>
+        </div>
+      </mdc-list-item>
+    </mdc-list>
+  </div>
+</div>
+
+<!-- User Dialog -->
+<div class="modal fade" id="userdialog" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered user-modal" role="document">
+    <div mdcDialogSurface class="modal-content border-0" *ngIf="selectedUser">
+      <mdc-dialog-title>User Details</mdc-dialog-title>
+      <mdc-dialog-content>
+        <mdc-list disableRipple [interactive]="false" border >
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="account-outline"></mdc-icon>
+            <b>Name:</b>&nbsp;{{ selectedUser.displayName }}</mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="phone-outline"></mdc-icon>
+            <b>Phone:</b>&nbsp;{{ selectedUser.phoneNumber || '' }}
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="pirate"></mdc-icon>
+            <b>Level:</b>&nbsp;{{ selectedUser.level }}
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="email-outline"></mdc-icon>
+            <b>Email:</b>&nbsp;{{ selectedUser.email }}
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="account-group-outline"></mdc-icon>
+            <b>Favorite Teams:</b>&nbsp;{{ selectedUser.favoriteTeams.join(', ') }}
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="calendar-outline"></mdc-icon>
+            <b>Favorite Events:</b>&nbsp;{{ selectedUser.favoriteEvents.join(', ') }}</mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="wrench-outline"></mdc-icon>
+            <b>Event Admin:</b>&nbsp;{{ selectedUser.adminEvents.join(', ') }}</mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="key-outline"></mdc-icon>
+            <b>API Key:</b>&nbsp;<code>{{ selectedUser.apiKey || '' }}</code>
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="shield-key-outline"></mdc-icon>
+            <b>UID:</b>&nbsp;<code>{{ selectedUser.uid }}</code>
+          </mdc-list-item>
+        </mdc-list>
+      </mdc-dialog-content>
+      <mdc-dialog-actions>
+        <button mdcDialogButton data-dismiss="modal">Close</button>
+      </mdc-dialog-actions>
+    </div>
+  </div>
+</div>

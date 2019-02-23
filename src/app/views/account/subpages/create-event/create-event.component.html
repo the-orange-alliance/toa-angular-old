@@ -1,0 +1,79 @@
+<div class="w-100">
+  <div class="outline-card">
+    <div mdcHeadline5 class="black pb-4">{{ 'pages.account.create_event_card.title' | translate }}</div>
+    <div class="row edit-event">
+      <div class="col-md-6 col-12 mb-3">
+        <mdc-text-field #event_name dense [label]="'pages.event.subpages.admin.update_info_card.event_name' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="rename-box"></mdc-icon>
+        </mdc-text-field>
+        <mdc-select *ngIf="currentSeason"  [placeholder]="'pages.account.create_event_card.season' | translate" (selectionChange)="onSeasonChange($event)" class="w-100">
+          <option disabled></option>
+          <option *ngFor="let season of seasons" [value]="season.seasonKey">
+            20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}
+          </option>
+        </mdc-select>
+        <mdc-select *ngIf="currentRegion"  [placeholder]="'pages.account.create_event_card.region' | translate" (selectionChange)="onRegionChange($event)" class="w-100">
+          <option disabled></option>
+          <option *ngFor="let region of regions" [value]="region.regionKey">
+            {{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}
+          </option>
+        </mdc-select>
+        <mdc-text-field #website dense [label]="'pages.event.subpages.admin.update_info_card.website' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="earth"></mdc-icon>
+        </mdc-text-field>
+        <mdc-text-field #start_date dense type="date" [label]="'pages.event.subpages.admin.update_info_card.start_date' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="calendar"></mdc-icon>
+        </mdc-text-field>
+        <mdc-text-field #end_date dense type="date" [label]="'pages.event.subpages.admin.update_info_card.end_date' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="calendar"></mdc-icon>
+        </mdc-text-field>
+        <mdc-text-field #division_name *ngIf="dual_division.checked" dense [label]="'pages.account.create_event_card.division_name' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading>create</mdc-icon>
+        </mdc-text-field>
+        <mdc-text-field #number_fields *ngIf="advanced.checked" dense [label]="'pages.account.create_event_card.number_fields' | translate" [value]="2" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="soccer-field"></mdc-icon>
+        </mdc-text-field>
+        <mdc-text-field #number_alliances *ngIf="advanced.checked" dense [label]="'pages.account.create_event_card.number_alliances' | translate" [value]="4"  class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="human-handsup"></mdc-icon>
+        </mdc-text-field>
+        <mdc-checkbox #dual_division (click)="resetDualDivision()" ></mdc-checkbox>
+        <label>{{'pages.account.create_event_card.dual_division' | translate}}</label>
+        <mdc-checkbox #advanced (click)="resetAdvanced()"></mdc-checkbox>
+        <label>{{'pages.account.create_event_card.advanced' | translate}}</label>
+      </div>
+      <div class="col-md-6 col-12 ps-md-3">
+        <mdc-text-field #event_id dense [label]="'pages.account.create_event_card.event_id' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="key"></mdc-icon>
+        </mdc-text-field>
+        <mdc-select *ngIf="currentEventType"  [placeholder]="'pages.account.create_event_card.event_type' | translate" (selectionChange)="onEventTypeChange($event)" class="w-100">
+          <option disabled></option>
+          <option *ngFor="let eventType of eventTypes" [value]="eventType.eventTypeKey">
+            {{ eventType.eventTypeKey }} - {{ eventType.description }}
+          </option>
+        </mdc-select>
+        <mdc-text-field #venue dense [label]="'pages.event.subpages.admin.update_info_card.venue' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="spotlight"></mdc-icon>
+        </mdc-text-field>
+        <mdc-text-field #city dense [label]="'pages.event.subpages.admin.update_info_card.city' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="city-variant-outline"></mdc-icon>
+        </mdc-text-field>
+        <mdc-text-field #state dense [label]="'pages.event.subpages.admin.update_info_card.state' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="map-marker-outline"></mdc-icon>
+        </mdc-text-field>
+        <mdc-text-field #country dense [label]="'pages.event.subpages.admin.update_info_card.country' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="globe-model"></mdc-icon>
+        </mdc-text-field>
+        <mdc-text-field #division_number *ngIf="dual_division.checked" dense [label]="'pages.account.create_event_card.division_number' | translate" [value]="0" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading>device_hub</mdc-icon>
+        </mdc-text-field>
+        <mdc-text-field #advancement_spots *ngIf="advanced.checked" dense [label]="'pages.account.create_event_card.advancement_spots' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading>filter_list</mdc-icon>
+        </mdc-text-field>
+        <mdc-text-field #advancement_event *ngIf="advanced.checked" dense [label]="'pages.account.create_event_card.advancement_event' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading>call_made</mdc-icon>
+        </mdc-text-field>
+      </div>
+      <button mdc-button primary (click)="createEvent()" class="mt-2">{{ 'pages.account.create_event_card.create' | translate }}</button>
+    </div>
+  </div>
+</div>

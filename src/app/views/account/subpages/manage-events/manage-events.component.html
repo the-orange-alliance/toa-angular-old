@@ -1,0 +1,27 @@
+<div class="w-100">
+  <div class="outline-card p-0">
+    <div mdcHeadline5 class="black p-3">{{ 'pages.account.datasync_card.title' | translate }}</div>
+    <div class="table-responsive">
+      <table class="table table-striped mb-0" dir="ltr">
+        <thead>
+        <tr>
+          <th scope="col">Event Key</th>
+          <th scope="col">API Key</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let eventKey of user.adminEvents">
+          <td><code style="white-space:nowrap">{{ eventKey }}</code></td>
+          <td *ngIf="apiKeys[eventKey]"><code style="white-space:nowrap">{{ apiKeys[eventKey] }}</code></td>
+          <td *ngIf="!apiKeys[eventKey] && !generatingEventApiKey"><button mdc-button (click)="generateEventApiKey(eventKey)">{{ 'pages.account.api_card.generate_key' | translate }}</button></td>
+          <td *ngIf="!apiKeys[eventKey] && generatingEventApiKey"><mdc-linear-progress></mdc-linear-progress></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div mdcSubtitle1 class="p-3">{{ 'pages.account.datasync_card.docs' | translate }}
+      <a href="https://github.com/orange-alliance/TOA-DataSync/wiki/DataSync-Documentation" target="_blank" (click)="this.sendAnalytic('leaving', '/account', 'datasync docs');">{{ 'general.here' | translate }}</a>.
+    </div>
+  </div>
+</div>
