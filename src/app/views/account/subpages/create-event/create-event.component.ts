@@ -112,7 +112,7 @@ export class CreateEventComponent implements OnInit {
 
   createEvent() {
     const event = new Event;
-    event.eventKey = this.currentSeason.seasonKey + '-' + this.currentRegion.regionKey + '-' + this.eventId.value;
+    event.eventKey = this.currentSeason.seasonKey + '-' + this.currentRegion.regionKey + '-' + this.eventId.value + (this.divisionNumber ? this.divisionNumber.value : '');
     event.seasonKey = this.currentSeason.seasonKey;
     event.regionKey = this.currentRegion.regionKey;
     event.eventCode = this.eventId.value;

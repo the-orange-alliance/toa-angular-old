@@ -45,6 +45,7 @@
         <mdc-text-field #event_id dense [label]="'pages.account.create_event_card.event_id' | translate" class="w-100">
           <mdc-icon mdcTextFieldIcon leading svgIcon="key"></mdc-icon>
         </mdc-text-field>
+        <b mdcOverline *ngIf="dual_division.checked" style="color: red">DO NOT put the division key here!</b>
         <mdc-select *ngIf="currentEventType"  [placeholder]="'pages.account.create_event_card.event_type' | translate" (selectionChange)="onEventTypeChange($event)" class="w-100">
           <option disabled></option>
           <option *ngFor="let eventType of eventTypes" [value]="eventType.eventTypeKey">
@@ -63,7 +64,7 @@
         <mdc-text-field #country dense [label]="'pages.event.subpages.admin.update_info_card.country' | translate" class="w-100">
           <mdc-icon mdcTextFieldIcon leading svgIcon="globe-model"></mdc-icon>
         </mdc-text-field>
-        <mdc-text-field #division_number *ngIf="dual_division.checked" dense [label]="'pages.account.create_event_card.division_number' | translate" [value]="0" class="w-100">
+        <mdc-text-field #division_number *ngIf="dual_division.checked" dense [label]="'pages.account.create_event_card.division_number' | translate" [value]="0" type="number" class="w-100">
           <mdc-icon mdcTextFieldIcon leading>device_hub</mdc-icon>
         </mdc-text-field>
         <mdc-text-field #advancement_spots *ngIf="advanced.checked" dense [label]="'pages.account.create_event_card.advancement_spots' | translate" class="w-100">
