@@ -40,7 +40,7 @@
       </mdc-card>
     </div>
 
-    <div class="col-md-5 col-sm-12 mt-3" *ngIf="eventData.allianceCount || eventData.fieldCount || eventSeasonName || stream">
+    <div class="col-md-5 col-sm-12 mt-3">
       <mdc-card class="toa-card h-100">
         <div class="toa-card-header" mdcHeadline5>{{ 'pages.event.game_info' | translate }}</div>
         <mdc-list-divider></mdc-list-divider>
@@ -65,6 +65,9 @@
           <a mdc-button primary *ngIf="stream && stream.isActive" routerLink="/stream">
             <mdc-icon svgIcon="video-outline" class="stream-icon"></mdc-icon> {{ 'pages.event.stream_available' | translate }}
           </a>
+          <div *ngIf="divisions && divisions.length > 0">
+            <button mdc-button *ngFor="let division of divisions" [disabled]="division.divisionName === eventData.divisionName" (click)="openEvent(division)">{{ division.divisionName }} Division</button>
+          </div>
         </div>
       </mdc-card>
     </div>

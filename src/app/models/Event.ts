@@ -11,7 +11,7 @@ export default class Event implements ISerializable {
   private _eventCode: string;
   private _eventTypeKey: string;
   private _eventRegionNumber: number;
-  private _divisionKey: string;
+  private _divisionKey: number;
   private _divisionName: string;
   private _eventName: string;
   private _startDate: string;
@@ -47,7 +47,7 @@ export default class Event implements ISerializable {
     this._eventCode = '';
     this._eventTypeKey = '';
     this._eventRegionNumber = 0;
-    this._divisionKey = '';
+    this._divisionKey = 100;
     this._divisionName = '';
     this._eventName = '';
     this._startDate = '';
@@ -194,11 +194,11 @@ export default class Event implements ISerializable {
     this._eventRegionNumber = value;
   }
 
-  get divisionKey(): string {
+  get divisionKey(): number {
     return this._divisionKey;
   }
 
-  set divisionKey(value: string) {
+  set divisionKey(value: number) {
     this._divisionKey = value;
   }
 

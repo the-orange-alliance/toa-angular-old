@@ -35,6 +35,7 @@ export class EventComponent implements OnInit {
   matchesPerTeam: number;
   stream: EventLiveStream;
   media: Media[];
+  divisions: Event[] = [];
 
   activeTab: number = -1;
   totalmedia: number = 0;
@@ -163,6 +164,30 @@ export class EventComponent implements OnInit {
             }
           }
 
+
+          // Search division in the same Event
+          if (this.eventData.divisionName && this.eventData.divisionKey <= 2) {
+            const eventKey = this.eventData.eventKey.substr(0, this.eventData.eventKey.length - 1); // Remove division key
+            const divisions = [0, 1, 2].filter(item => item !== this.eventData.divisionKey);
+            if (divisions.length === 2) {
+              divisions.forEach((division) => {
+                this.ftc.getEventBasic(eventKey + division).then((eventData: Event) => {
+                  if (eventData.eventName === this.eventData.eventName && eventData.divisionName !== this.eventData.divisionName) {
+                    if (this.divisions.length === 0) {
+                      this.divisions.push(this.eventData);
+                    }
+                    this.divisions.push(eventData);
+                    this.divisions.sort((a, b) => {
+                      let division1 = a.divisionKey;
+                      let division2 = b.divisionKey;
+                      return (division1 > division2) ? 1 : ((division2 > division1) ? -1 : 0);
+                    })
+                  }
+                })
+              });
+            }
+          }
+
         } else {
           this.router.navigate(['/not-found']);
         }
@@ -212,6 +237,10 @@ export class EventComponent implements OnInit {
     const today = new Date();
     const diff = (new Date(this.eventData.endDate).valueOf() - today.valueOf()) / 1000 / 60 / 60; // Convert milliseconds to hours
     return diff < -24; // 24 hours extra
+  }
+
+  openEvent(event: Event) {
+    this.router.navigate(['/events', event.eventKey]);
   }
 
   sendAnalytic(category, action): void {
