@@ -1,0 +1,2 @@
+<div mdcHeadline5 *ngIf="!newEvents">Loading...</div>
+<button mdc-button primary *ngIf="newEvents" (click)="createEvents()" class="mt-2">Add {{ newEvents.length }} Events</button>
