@@ -1,4 +1,4 @@
-<a routerLink="/events/{{ event.eventKey }}" class="no-underline mdc-list--two-line">
+<a [routerLink]="clickable ? '/events/' + event.eventKey : null" class="no-underline mdc-list--two-line">
   <mdc-list-item interactive>
     <div class="data-indicator" [dir]="'config.direction' | translate" *ngIf="event.teamCount > 0"></div>
     <mdc-list-item-text>

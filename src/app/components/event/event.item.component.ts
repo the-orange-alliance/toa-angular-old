@@ -10,6 +10,7 @@ export class EventItemComponent {
 
   @Input() event: Event;
   @Input() hideLiveBadge: boolean;
+  @Input() clickable: boolean = true;
 
   isLive(): boolean {
     let liveData: boolean = this.event.teamCount > 0 || this.event.matchCount > 0 ;
