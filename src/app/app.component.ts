@@ -124,7 +124,7 @@ export class TheOrangeAllianceComponent implements OnInit {
   }
 
   performSearch(): void {
-    const maxResults = 5;
+    const maxResults = this.showMobileSearch ? 8 : 5;
     const query = this.search && this.search.trim().length > 0 ? this.search.toLowerCase().trim() : null;
 
     if (query && this.teams && this.eventsFilter) {
