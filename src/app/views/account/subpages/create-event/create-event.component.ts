@@ -13,7 +13,8 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'toa-account-create-event',
-  templateUrl: './create-event.component.html'
+  templateUrl: './create-event.component.html',
+  styleUrls: ['../../account.component.scss']
 })
 export class CreateEventComponent implements OnInit {
 

@@ -6,7 +6,8 @@ import User from '../../../../models/User';
 
 @Component({
   selector: 'toa-account-manage-events',
-  templateUrl: './manage-events.component.html'
+  templateUrl: './manage-events.component.html',
+  styleUrls: ['../../account.component.scss']
 })
 export class ManageEventsComponent implements OnInit {
 

@@ -8,7 +8,8 @@ import {FTCDatabase} from "../../../../providers/ftc-database";
 
 @Component({
   selector: 'toa-account-cache',
-  templateUrl: './cache.component.html'
+  templateUrl: './cache.component.html',
+  styleUrls: ['../../account.component.scss']
 })
 export class CacheComponent implements OnInit {
 

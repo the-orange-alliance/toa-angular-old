@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AppBarService } from '../../../../app-bar.service';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
 import User from '../../../../models/User';
@@ -6,7 +6,7 @@ import User from '../../../../models/User';
 @Component({
   selector: 'toa-account-users',
   templateUrl: './users.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['../../account.component.scss']
 })
 export class UsersComponent implements OnInit {
 
