@@ -210,12 +210,12 @@
       <mdc-dialog-title>Server Details</mdc-dialog-title>
       <mdc-dialog-content>
         <mdc-list disableRipple [interactive]="false" border>
-          <mdc-list-item>
+          <mdc-list-item style="height: auto">
             <mdc-icon mdcListItemGraphic svgIcon="angularjs"></mdc-icon>
             <p class="p-0 m-0">
               <b>WebApp Build Time:</b>&nbsp;{{ server.build_time || (server.is_dev ? 'Development' : 'Loading') }}<br/>
               <b>WebApp Last Commit:</b>&nbsp;{{ server.is_dev ? 'Development' : '' }}
-              <a href="https://github.com/orange-alliance/the-orange-alliance/commit/" target="_blank" *ngIf="!server.is_dev">
+              <a href="https://github.com/orange-alliance/the-orange-alliance/commit/{{ server.last_commit }}" target="_blank" *ngIf="!server.is_dev">
                 <code>{{ server.last_commit ? server.last_commit.substr(0, 7) : 'Error' }}</code>
               </a>
             </p>
