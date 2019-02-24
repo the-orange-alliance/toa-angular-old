@@ -394,6 +394,24 @@ export class CloudFunctions {
     });
   }
 
+  public update(user: User, service: Service): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`
+        });
+
+        this.http.get(this.baseUrl + `/update${service.toString()}`, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
   private userToToken(user: User): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       user.getIdToken(true).then((token) => {
@@ -403,4 +421,10 @@ export class CloudFunctions {
       });
     });
   }
+}
+
+export enum Service {
+  Dev,
+  Live,
+  Api
 }

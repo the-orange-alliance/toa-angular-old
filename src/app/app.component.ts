@@ -1,17 +1,20 @@
-import {Component, ElementRef, HostListener, Inject, Injectable, NgZone, OnInit, ViewChild} from '@angular/core';
+import { Component, HostListener, Inject, Injectable, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AppBarService } from './app-bar.service';
 import { Location } from '@angular/common';
 import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
 import { TranslateService } from '@ngx-translate/core';
 import { FTCDatabase } from './providers/ftc-database';
+import { CloudFunctions, Service } from './providers/cloud-functions';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { NavigationEnd, Router } from '@angular/router';
 import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
-import { MdcTopAppBar, MdcDrawer, MdcTextField } from '@angular-mdc/web';
+import { MdcTopAppBar, MdcDrawer } from '@angular-mdc/web';
+import { environment } from '../environments/environment';
 import Team from './models/Team';
 import Event from './models/Event';
+import mdcInfo from '../../node_modules/@angular-mdc/web/package.json'
 
 const SMALL_WIDTH_BREAKPOINT = 1240;
 
@@ -24,7 +27,16 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
 @Injectable()
 export class TheOrangeAllianceComponent implements OnInit {
 
+  server: { 'is_dev': boolean, 'last_commit': string, 'build_time': string, 'api_version': string, 'mdc_version': string } = {
+    'is_dev': false,
+    'last_commit': null,
+    'build_time': null,
+    'api_version': null,
+    'mdc_version': null
+  };
+
   teams: Team[];
+  services = Service;
 
   events: Event[];
   eventsFilter: EventFilter;
@@ -39,6 +51,7 @@ export class TheOrangeAllianceComponent implements OnInit {
   selectedLanguage = '';
 
   user: firebase.User;
+  isAdmin: boolean = false;
 
   matcher: MediaQueryList;
   @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
@@ -46,7 +59,7 @@ export class TheOrangeAllianceComponent implements OnInit {
   title: string;
 
   constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,
-              db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService,
+              db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService, private cloud: CloudFunctions,
               @Inject(LOCAL_STORAGE) private storage: StorageService, private appBarService: AppBarService) {
 
     translate.setDefaultLang('en'); // this language will be used as a fallback when a translation isn't found in the current language
@@ -72,17 +85,21 @@ export class TheOrangeAllianceComponent implements OnInit {
 
     auth.authState.subscribe(user => {
       this.user = user;
-
-      // Fix the old users
-      if (this.user && !this.user.displayName) {
-        db.object(`Users/${this.user.uid}/fullName`).query.once('value').then(name => {
-          this.user.updateProfile({displayName: name.val(), photoURL: null});
-        });
-      }
-
-      if (this.user && this.user.displayName) {
-        db.database.ref(`Users/${this.user.uid}/fullName`).set(this.user.displayName)
-      }
+      db.object(`Users/${this.user.uid}/level`).query.once('value').then(level => {
+         this.isAdmin = level.val() && level.val() >= 6;
+         if (this.isAdmin) {
+           this.ftc.getApiVersion().then((version: string) => {
+             this.server.api_version = version;
+           });
+           this.server.is_dev = !environment.production;
+           if (!this.server.is_dev) {
+             this.server.last_commit = environment.commit;
+             this.server.build_time = environment.build_time;
+           }
+           this.server.mdc_version = mdcInfo.version;
+           console.log(this.server);
+         }
+      });
     });
 
     this.current_year = new Date().getFullYear();
@@ -211,6 +228,10 @@ export class TheOrangeAllianceComponent implements OnInit {
     this.translate.use(this.selectedLanguage);
   }
 
+  updateService(service: Service) {
+    this.cloud.update(this.user, service);
+  }
+
   sendAnalytic(category, action): void {
     (<any>window).ga('send', 'event', {
       eventCategory: category,
@@ -219,5 +240,4 @@ export class TheOrangeAllianceComponent implements OnInit {
       eventValue: 10
     });
   }
-
 }

@@ -46,6 +46,14 @@ export class FTCDatabase {
     return this.request('/docs');
   }
 
+  public getApiVersion(): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      this.request('/').then((data: any) => {
+        resolve(data.version);
+      }).catch((err: any) => reject(err));
+    });
+  }
+
   public getAnnouncements(): Promise<WebAnnouncement[]> {
     return new Promise<WebAnnouncement[]>((resolve, reject) => {
       this.request('/web/announcements').then((data: any[]) => {

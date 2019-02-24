@@ -123,6 +123,9 @@
 
           <mdc-list-divider></mdc-list-divider>
 
+          <a mdc-list-item data-toggle="modal" [attr.data-target]="'#serverDialog'" *ngIf="isAdmin">
+            <mdc-icon mdcListItemGraphic svgIcon="server"></mdc-icon> Server
+          </a>
           <a mdc-list-item routerLink="/about" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon mdcListItemGraphic svgIcon="information-outline"></mdc-icon>{{ "drawer.about" | translate }}
           </a>
@@ -178,7 +181,7 @@
   </div>
 </div>
 
-<!-- Select Language -->
+<!-- Select Language Dialog -->
 <div class="modal fade" id="selectLanguage" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div mdcDialogSurface class="modal-content border-0">
@@ -195,6 +198,47 @@
       <mdc-dialog-actions>
         <button mdcDialogButton data-dismiss="modal">Cancel</button>
         <button mdcDialogButton default data-dismiss="modal" (click)="languageSelected()">Select</button>
+      </mdc-dialog-actions>
+    </div>
+  </div>
+</div>
+
+<!-- Server Dialog -->
+<div class="modal fade" id="serverDialog" role="dialog" aria-hidden="true" *ngIf="isAdmin">
+  <div class="modal-dialog modal-dialog-centered user-modal" role="document">
+    <div mdcDialogSurface class="modal-content border-0">
+      <mdc-dialog-title>Server Details</mdc-dialog-title>
+      <mdc-dialog-content>
+        <mdc-list disableRipple [interactive]="false" border>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="angularjs"></mdc-icon>
+            <p class="p-0 m-0">
+              <b>WebApp Build Time:</b>&nbsp;{{ server.build_time || (server.is_dev ? 'Development' : 'Loading') }}<br/>
+              <b>WebApp Last Commit:</b>&nbsp;{{ server.is_dev ? 'Development' : '' }}
+              <a href="https://github.com/orange-alliance/the-orange-alliance/commit/" target="_blank" *ngIf="!server.is_dev">
+                <code>{{ server.last_commit ? server.last_commit.substr(0, 7) : 'Error' }}</code>
+              </a>
+            </p>
+            <a mdcListItemMeta mdcIcon title="Restart" (click)="updateService(services.Live)">refresh</a>
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="webhook"></mdc-icon>
+            <b>API Version:</b>&nbsp;{{ server.api_version || 'Loading' }}
+            <a mdcListItemMeta mdcIcon title="Restart" (click)="updateService(services.Api)">refresh</a>
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="material-design"></mdc-icon>
+            <b>MDC Version:</b>&nbsp;{{ server.mdc_version }}
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="test-tube"></mdc-icon>
+            <b>Update Dev WebApp</b>
+            <a mdcListItemMeta mdcIcon title="Restart" (click)="updateService(services.Dev)">refresh</a>
+          </mdc-list-item>
+        </mdc-list>
+      </mdc-dialog-content>
+      <mdc-dialog-actions>
+        <button mdcDialogButton data-dismiss="modal">Close</button>
       </mdc-dialog-actions>
     </div>
   </div>
