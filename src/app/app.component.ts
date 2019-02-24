@@ -97,7 +97,6 @@ export class TheOrangeAllianceComponent implements OnInit {
              this.server.build_time = environment.build_time;
            }
            this.server.mdc_version = mdcInfo.version;
-           console.log(this.server);
          }
       });
     });

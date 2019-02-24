@@ -401,7 +401,7 @@ export class CloudFunctions {
           'authorization': `Bearer ${token}`
         });
 
-        this.http.get(this.baseUrl + `/update${service.toString()}`, {headers: headers}).subscribe((data: any) => {
+        this.http.get(this.baseUrl + `/update${Service[service]}`, {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
           reject(err);
@@ -424,7 +424,7 @@ export class CloudFunctions {
 }
 
 export enum Service {
-  Dev,
-  Live,
-  Api
+  Dev = 'Dev',
+  Live = 'Live',
+  Api = 'Api'
 }
