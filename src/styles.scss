@@ -559,28 +559,20 @@ table.match-table>thead {
 }
 
 table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
-  padding: 5px;
-}
-
-table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
   padding: 12px;
   line-height: 1.42857143;
   vertical-align: middle;
   border-top: 1px solid #efefef;
 }
 
-table.match-table>tbody > tr > td:not(.selected-team) {
+table.match-table>tbody > tr > td {
   padding: 15px!important;
 }
 
 @media (max-width: 601px) {
   table.match-table > tbody > tr > td, table.match-table > thead > tr > th {
-    padding: 5px 2px!important;
+    padding: 8px 4px!important;
     font-size: 14px!important;
-  }
-
-  table.match-table>tbody > tr > td:not(.selected-team) {
-    padding: 8px 4px !important;;
   }
 
   /*
