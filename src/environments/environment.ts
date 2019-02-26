@@ -12,5 +12,7 @@ export const environment = {
     projectId: '',
     storageBucket: '',
     messagingSenderId: ''
-  }
+  },
+  build_time: '',
+  commit: ''
 };
