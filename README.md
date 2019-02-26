@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="100" height="100" src="https://theorangealliance.org/assets/imgs/favicon.png">
+  <img width="100" height="100" src="http://theorangealliance.org/assets/imgs/favicon.png">
   <h1>The Orange Alliance</h1>
   <p>Webapp version of The Orange Alliance</p>
   <small><a href="https://theorangealliance.org" target="_blank">Live version</a></small>

@@ -632,7 +632,7 @@ table.match-table tr {
 }
 
 .selected-team {
-  border: 3px solid #000!important;
+  background-color: #FBCC81!important;
 }
 
 .selected-team-snackbar {
@@ -1064,4 +1064,8 @@ table.match-table tr {
   40% {
     opacity: 1;
   }
+}
+
+.clickable {
+  cursor: pointer;
 }
