@@ -96,13 +96,13 @@ export class TheOrangeAllianceComponent implements OnInit {
              this.server.last_commit = environment.commit;
 
              const d = new Date(environment.build_time);
-             const dateString = //2019/02/24 16:03:57
-             d.getUTCFullYear() + "/" +
-               ("0" + (d.getUTCMonth()+1)).slice(-2) + "/" +
-               ("0" + d.getUTCDate()).slice(-2) + " " +
-               ("0" + d.getUTCHours()).slice(-2) + ":" +
-               ("0" + d.getUTCMinutes()).slice(-2) + ":" +
-               ("0" + d.getUTCSeconds()).slice(-2);
+             const dateString = // 2019/02/24 16:03:57
+             d.getUTCFullYear() + '/' +
+               ('0' + (d.getUTCMonth() + 1)).slice(-2) + '/' +
+               ('0' + d.getUTCDate()).slice(-2) + ' ' +
+               ('0' + d.getUTCHours()).slice(-2) + ':' +
+               ('0' + d.getUTCMinutes()).slice(-2) + ':' +
+               ('0' + d.getUTCSeconds()).slice(-2);
              this.server.build_time = dateString;
            }
            this.server.mdc_version = mdcInfo.version;

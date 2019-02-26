@@ -41,4 +41,13 @@ export class RetrieverComponent implements OnInit {
       });
     });
   }
+
+  removeEventFromList(event: Event) {
+    for (const e in this.newEvents) {
+      if (this.newEvents[e] === event) {
+        this.newEvents.splice(parseInt(e, 10), 1);
+        break;
+      }
+    }
+  }
 }
