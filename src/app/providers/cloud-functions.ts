@@ -6,8 +6,8 @@ import TOAUser from '../models/User';
 @Injectable()
 export class CloudFunctions {
 
-  private baseUrl = 'https://us-central1-the-orange-alliance.cloudfunctions.net/requireValidations';
-  // private baseUrl = 'http://localhost:5000/the-orange-alliance/us-central1/requireValidations'; // Tests Only
+  private baseUrl = 'https://functions.theorangealliance.org/';
+  // private baseUrl = 'http://localhost:5001/the-orange-alliance/us-central1/requireValidations'; // Tests Only
 
   constructor(private http: HttpClient) {
 
