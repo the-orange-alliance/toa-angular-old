@@ -7,7 +7,7 @@
   <div class="col-12 col-md-5">
     <div class="row">
       <div class="col-12">
-        <mdc-card class="toa-card mt-2">
+        <mdc-card class="toa-card mb-3">
           <div class="toa-card-header" mdcHeadline5>{{ "pages.match.match_info" | translate }}</div>
           <mdc-list-divider></mdc-list-divider>
           <div class="p-3">
@@ -28,7 +28,7 @@
           </div>
         </mdc-card>
       </div>
-      <div class="col-12 mt-3" *ngIf="videoSafeURL">
+      <div class="col-12 mb-3" *ngIf="videoSafeURL">
         <mdc-card class="toa-card p-0">
           <div class="embed-responsive embed-responsive-16by9" style="border-radius:6px">
             <iframe class="embed-responsive-item" [src]="videoSafeURL" allowfullscreen></iframe>
@@ -38,9 +38,9 @@
     </div>
   </div>
 
-  <div class="col-12 col-md-7" *ngIf="match">
-    <toa-velocity-vortex *ngIf="getMatchSeason() === 1617" [match]="match"></toa-velocity-vortex>
-    <toa-relic-recovery *ngIf="getMatchSeason() === 1718" [match]="match"></toa-relic-recovery>
-    <toa-rover-ruckus *ngIf="getMatchSeason() === 1819" [match]="match"></toa-rover-ruckus>
+  <div class="col-12 col-md-7 ps-md-3" *ngIf="match">
+    <mdc-card class="toa-card p-0">
+      <toa-match-details [match]="match"></toa-match-details>
+    </mdc-card>
   </div>
 </div>

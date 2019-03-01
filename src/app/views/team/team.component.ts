@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppBarService } from '../../app-bar.service';
 import { FTCDatabase } from '../../providers/ftc-database';
+import { CloudFunctions } from '../../providers/cloud-functions';
 import { MatchSorter } from '../../util/match-utils';
 import { EventSorter } from '../../util/event-utils';
 import { AwardSorter } from '../../util/award-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireDatabase } from '@angular/fire/database';
 import Team from '../../models/Team';
 import Match from '../../models/Match';
 import Season from '../../models/Season';
@@ -17,6 +17,7 @@ import Ranking from '../../models/Ranking';
 import Media from '../../models/Media';
 import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 import EventParticipant from '../../models/EventParticipant';
+import TOAUser from '../../models/User';
 
 @Component({
   selector: 'toa-team',
@@ -36,26 +37,26 @@ export class TeamComponent implements OnInit {
   view_type: string;
   wlt: TeamSeasonRecord = null;
 
-  user: any = null;
+  user: TOAUser = null;
   favorite: boolean;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
-              public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService) {
+              public cloud: CloudFunctions, public auth: AngularFireAuth, private appBarService: AppBarService) {
     this.teamKey = this.route.snapshot.params['team_key'];
-
-    auth.authState.subscribe(user => {
-      if (user !== null && user !== undefined) {
-        this.user = user;
-          db.object(`Users/${user.uid}/favTeams/${this.teamKey}`).query.once('value').then(items => {
-            this.favorite = items !== null && items.val() === true
-          });
-      }
-    });
-
     this.select('results');
   }
 
   public ngOnInit(): void {
+    this.auth.authState.subscribe(user => {
+      if (user !== null && user !== undefined) {
+        this.cloud.getShortUserData(user).then((userData: TOAUser) => {
+          this.user = userData;
+          userData.firebaseUser = user;
+          this.favorite = userData.favoriteTeams.includes(this.teamKey);
+        });
+      }
+    });
+
     this.years = [];
     this.ftc.getTeamBasic(this.teamKey).then((team: Team) => {
       if (team) {
@@ -116,9 +117,9 @@ export class TeamComponent implements OnInit {
     this.currentSeason = season;
     this.team.events = [];
     this.ftc.getTeamEvents(this.teamKey, this.currentSeason.seasonKey).then((data: EventParticipant[]) => {
-      Promise.all(data.map((result: any) => this.ftc.getEventBasic(result.eventKey)))
+      Promise.all(data.map((result: any) => this.ftc.getEventBasic(result.eventKey).catch(e => null)))
         .then(events => {
-          this.team.events = events;
+          this.team.events = events.filter(result => result !== null);
           this.getEventMatches();
           this.getEventRankings();
           this.getEventAwards();
@@ -247,15 +248,13 @@ export class TeamComponent implements OnInit {
 
   toggleTeam(): void {
     if (this.favorite) { // Remove from favorites
-      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).remove();
-      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).query.once('value').then(items => {
-        this.favorite = items !== null && items.val() === true
-        });
+      this.cloud.removeFromFavorite(this.user.firebaseUser, this.teamKey, 'team').then(() => {
+        this.favorite = false;
+      });
     } else { // Add to favorites
-      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).set(true);
-      this.db.object(`Users/${this.user.uid}/favTeams/${this.teamKey}`).query.once('value').then(items => {
-        this.favorite = items !== null && items.val() === true
-        });
+      this.cloud.addToFavorite(this.user.firebaseUser, this.teamKey, 'team').then(() => {
+        this.favorite = true;
+      });
     }
   }
 

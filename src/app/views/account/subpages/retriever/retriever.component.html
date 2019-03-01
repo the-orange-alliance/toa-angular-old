@@ -1,0 +1,8 @@
+<div mdcHeadline5 *ngIf="!newEvents">Loading...</div>
+<div *ngIf="newEvents">Double Click to remove an Event from the list</div>
+<div *ngIf="newEvents">
+  <button mdc-button primary (click)="createEvents()" class="mt-2">Add all the new {{ newEvents.length }} events</button>
+  <mdc-list>
+    <toa-event-item *ngFor="let event of newEvents" [event]="event" [clickable]="false" (dblclick)="removeEventFromList(event)"></toa-event-item>
+  </mdc-list>
+</div>

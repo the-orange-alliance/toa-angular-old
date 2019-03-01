@@ -1,24 +1,23 @@
-import { Component, OnInit, ViewChild, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { TeamSorter } from '../../util/team-utils';
 import { EventSorter } from '../../util/event-utils';
-import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
+import { MdcSnackbar } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { CloudFunctions } from '../../providers/cloud-functions';
+import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
 import { auth as providers } from 'firebase/app';
 import { AppBarService } from '../../app-bar.service';
+import { environment } from '../../../environments/environment';
+import { initializeApp as initFbApp } from 'firebase/app';
+import TOAUser from '../../models/User';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
-import Season from '../../models/Season';
-import Region from '../../models/Region';
-import EventType from '../../models/EventType';
 
 @Component({
   selector: 'toa-account',
@@ -27,46 +26,28 @@ import EventType from '../../models/EventType';
   providers: [CloudFunctions, TheOrangeAllianceGlobals, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 
-export class AccountComponent implements OnInit, AfterViewChecked {
+export class AccountComponent implements OnInit {
 
-  user: firebase.User = null;
-  userData: {} = {};
-  adminEvents = {};
-  profileUrl: string = null;
+  firebaseUser: firebase.User = null;
+  user: TOAUser = null;
   activeTab: number = -1;
 
   teams: Team[];
   events: Event[];
 
-  seasons: Season[];
-  regions: Region[];
-  eventTypes: EventType[];
-
-  loaded: boolean;
   generatingApiKey: boolean;
-  generatingEventApiKey: boolean;
   emailVerified = true;
   googleProvider = new providers.GoogleAuthProvider();
   githubProvider = new providers.GithubAuthProvider();
+  phoneProvider;
+  recaptchaVerifier;
 
-  // These are for creating the Events
-  @ViewChild('event_name') eventName: MdcTextField;
-  @ViewChild('event_id') eventId: MdcTextField;
-  // @ViewChild('division_number') divisionNumber: MdcTextField;
-  @ViewChild('start_date') startDate: MdcTextField;
-  @ViewChild('end_date') endDate: MdcTextField;
-  @ViewChild('website') website: MdcTextField;
-  @ViewChild('venue') venue: MdcTextField;
-  @ViewChild('city') city: MdcTextField;
-  @ViewChild('state') state: MdcTextField;
-  @ViewChild('country') country: MdcTextField;
-  currentSeason: Season = null;
-  currentRegion: Region = null;
-  currentEventType: EventType = null;
+  showCaptcha: boolean = true;
+  isDevMode: boolean = false;
 
-  constructor(app: TheOrangeAllianceGlobals, private router: Router, private ftc: FTCDatabase, private httpClient: HttpClient, private appBarService: AppBarService,
-              private snackbar: MdcSnackbar, private db: AngularFireDatabase, private auth: AngularFireAuth, private storage: AngularFireStorage,
-              private cloud: CloudFunctions, private translate: TranslateService, private loca: Location, private cdRef: ChangeDetectorRef) {
+  constructor(app: TheOrangeAllianceGlobals, private router: Router, private appBarService: AppBarService, private snackbar: MdcSnackbar,
+              private db: AngularFireDatabase, private auth: AngularFireAuth, private cloud: CloudFunctions, private translate: TranslateService,
+              private loca: Location, @Inject(LOCAL_STORAGE) localStorage: StorageService, private ftc: FTCDatabase) {
 
     app.setTitle('myTOA');
     app.setDescription('Your myTOA account overview');
@@ -75,81 +56,26 @@ export class AccountComponent implements OnInit, AfterViewChecked {
       this.activeTab = 1;
     } else if (this.router.url.indexOf('/account/new-event') > -1) {
       this.activeTab = 2;
+    } else if (this.router.url.indexOf('/account/users') > -1) {
+      this.activeTab = 3;
+    } else if (this.router.url.indexOf('/account/cache') > -1) {
+      this.activeTab = 4;
+    } else if (this.router.url.indexOf('/account/retriever') > -1) {
+      this.activeTab = 5;
     } else {
       this.activeTab = 0;
     }
 
-    auth.authState.subscribe(user => {
-      if (user !== null && user !== undefined) {
-        this.user = user;
+    this.isDevMode = !environment.production;
 
-        this.emailVerified = user.emailVerified;
+    auth.auth.languageCode = localStorage.get('lang') || translate.getBrowserLang() || 'en';
 
-        db.list(`Users/${user.uid}`).snapshotChanges()
-          .subscribe(items => {
+    this.phoneProvider = new providers.PhoneAuthProvider(auth.auth);
 
-            items.forEach(element => {
-              this.userData[element.key] = element.payload.val();
-            });
-
-            this.generatingApiKey = this.userData['APIKey'];
-
-            if (!this.loaded) {
-              this.teams = [];
-              this.events = [];
-
-              const teams = this.userData['favTeams'];
-              for (const key in teams) {
-                if (teams[key] === true) {
-                  this.ftc.getTeamBasic(key).then((team: Team) => {
-                    if (team) {
-                      this.teams.push(team);
-                      this.teams = new TeamSorter().sort(this.teams);
-                    }
-                  });
-                }
-              }
-
-              const events = this.userData['favEvents'];
-              for (const key in events) {
-                if (events[key] === true) {
-                  this.ftc.getEventBasic(key).then((event: Event) => {
-                    if (event) {
-                      this.events.push(event);
-                      this.events = new EventSorter().sort(this.events);
-                    }
-                  });
-                }
-              }
-
-              this.loaded = true;
-            }
-
-            const adminEvents = this.userData['adminEvents'];
-            if (adminEvents) {
-              for (const key in adminEvents) {
-                if (adminEvents[key] === true) {
-                  db.object(`eventAPIs/${key}`).snapshotChanges()
-                    .subscribe(item => {
-                    this.adminEvents[key] = item.payload.val() || null;
-                  });
-                }
-              }
-            }
-
-            for (const provider of this.user.providerData) {
-              if (provider.photoURL != null) {
-                this.profileUrl = provider.photoURL;
-                break;
-              }
-            }
-            if (this.profileUrl === null && this.userData['profileImage'] != null) {
-              const storageRef = this.storage.ref(`images/users/${ this.userData['profileImage'] }`);
-              storageRef.getDownloadURL().toPromise().then((url) => {
-                this.profileUrl = url;
-              });
-            }
-          });
+    auth.authState.subscribe(firebaseUser => {
+      if (firebaseUser !== null && firebaseUser !== undefined) {
+        this.firebaseUser = firebaseUser;
+        this.getUser()
       } else {
         this.router.navigateByUrl('/account/login');
       }
@@ -158,78 +84,92 @@ export class AccountComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.appBarService.setTitle('myTOA', true);
-    this.ftc.getAllRegions().then((data: Region[]) => {
-      this.regions = data;
-      this.currentRegion = this.regions[0];
-    });
-    this.ftc.getAllSeasons().then((data: Season[]) => {
-      this.seasons = data.reverse();
-      this.currentSeason = this.seasons[0];
-    });
-    this.ftc.getAllEventTypes().then((data: EventType[]) => {
-      this.eventTypes = data;
-      this.currentEventType = this.eventTypes[0];
-    });
+    initFbApp(environment.firebase);
   }
 
-  ngAfterViewChecked() {
-    this.cdRef.detectChanges();
-  }
+  getUser() {
+    if (this.firebaseUser !== null) {
+      this.cloud.getUserData(this.firebaseUser).then((user: TOAUser) => {
+        this.user = user;
+        this.user.firebaseUser = this.firebaseUser;
+        this.emailVerified = this.user.emailVerified;
+        this.generatingApiKey = this.user.apiKey !== null;
 
-  onSeasonChange(event: {index: any, value: any}) {
-    this.currentSeason = this.seasons[event.index-1];
-  }
+        this.teams = [];
+        for (const key of this.user.favoriteTeams) {
+          this.ftc.getTeamBasic(key).then((team: Team) => {
+            if (team) {
+              this.teams.push(team);
+              this.teams = new TeamSorter().sort(this.teams);
+            }
+          });
+        }
 
-  onRegionChange(event: {index: any, value: any}) {
-    this.currentRegion = this.regions[event.index-1];
-  }
-
-  onEventTypeChange(event: {index: any, value: any}) {
-    this.currentEventType = this.eventTypes[event.index-1];
-  }
-
-  createEvent() {
-    const event = new Event;
-    event.eventKey = this.currentSeason.seasonKey + '-' + this.currentRegion.regionKey + '-' + this.eventId.value;
-    event.seasonKey = this.currentSeason.seasonKey;
-    event.regionKey = this.currentRegion.regionKey;
-    event.eventCode = this.eventId.value;
-    event.eventTypeKey = this.currentEventType.eventTypeKey;
-    event.eventName = this.eventName.value;
-    // event.divisionKey = this.divisionNumber.value;
-    event.activeTournamentLevel = '0';
-    event.startDate = this.startDate.value;
-    event.endDate = this.endDate.value;
-    event.weekKey = this.dateToMonth(this.startDate.value);
-    event.city = this.city.value;
-    event.stateProv = this.state.value;
-    event.country = this.country.value;
-    event.venue = this.venue.value;
-    event.isPublic = true;
-
-    this.cloud.createEvent(this.user.uid, [event.toJSON()]).then((data: {}) => {
-      this.showSnackbar('pages.account.create_event_card.success', null, null, event.eventKey);
-    }, (err) => {
-      this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
-    });
-  }
-
-  dateToMonth(date: number): string {
-    const month = date.toString().split('-')[1];
-    switch (parseInt(month, 10)) {
-      case 1: return 'January';
-      case 2: return 'February';
-      case 3: return 'March';
-      case 4: return 'April';
-      case 5: return 'May';
-      case 6: return 'June';
-      case 7: return 'July';
-      case 8: return 'August';
-      case 9: return 'September';
-      case 10: return 'October';
-      case 11: return 'November';
-      case 12: return 'December';
+        this.events = [];
+        for (const key of this.user.favoriteEvents) {
+          this.ftc.getEventBasic(key).then((event: Event) => {
+            if (event) {
+              this.events.push(event);
+              this.events = new EventSorter().sort(this.events);
+            }
+          });
+        }
+      });
     }
+  }
+
+
+  getDebugInput(title: string) {
+    const input = prompt(title, '');
+    if (input === null || input.trim() === '' || input === undefined) {
+      return this.getDebugInput(title);
+    } else {
+      return input;
+    }
+  }
+
+  renderCaptcha() {
+    this.showCaptcha = true;
+    this.recaptchaVerifier = new providers.RecaptchaVerifier('recaptcha', {
+      'size': 'normal',
+      'callback': (response) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        this.linkPhone();
+      }});
+    this.recaptchaVerifier.render().then((result) => { }).catch( (error) => { console.error(error); });
+  }
+
+  linkPhone() {
+    const phoneNumber = this.getDebugInput('Enter your phone number');
+    let confResult;
+    // TODO: move the db calls to backend
+    this.firebaseUser.linkWithPhoneNumber(phoneNumber, this.recaptchaVerifier).then((confirmationResult) => {
+      // SMS sent. Prompt user to type the code from the message
+      confResult = confirmationResult;
+      return this.getDebugInput('Please enter the confirmation code sent to your phone');
+    }).then((code) => {
+      return confResult.confirm(code);
+    }).then((result) => {
+      this.db.object(`Phones/${phoneNumber.substr(1)}/opted`).query.once('value').then(items => {
+        if (items.val() !== false) {
+          return this.db.object(`Phones/${phoneNumber.substr(1)}/opted`).set(true);
+        } else {
+          return;
+        }
+      });
+    }).then( (resp) => {
+      return this.db.object(`Phones/${phoneNumber.substr(1)}/uid`).set(`${this.user.uid}`);
+    }).then( (resp) => {
+      this.translate.get('pages.account.success_link', {name: this.getProviderName(this.phoneProvider)}).subscribe((res: string) => {
+        this.snackbar.open(res)
+      });
+      this.getUser();
+    }).catch( (error) => {
+      // Error; SMS not sent
+      console.log(error);
+      this.showSnackbar('general.error_occurred');
+    });
+    this.showCaptcha = false;
   }
 
   signOut(): void {
@@ -241,24 +181,12 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   generateApiKey(): void {
     if (this.emailVerified) {
       this.generatingApiKey = true;
-      this.cloud.generateApiKey(this.user.uid).catch(console.log);
+      this.cloud.generateApiKey(this.firebaseUser).catch(console.log);
     }
   }
 
-  generateEventApiKey(eventKey: string): void {
-    this.cloud.generateEventApiKey(this.user.uid, eventKey).then(() => {
-      this.generatingEventApiKey = false;
-    }, (err) => {
-      this.generatingEventApiKey = false;
-    }).catch(console.log);
-  }
-
-  getAdminEvents(): string[] {
-    return Object.keys(this.adminEvents);
-  }
-
   sendEmailVerification() {
-    this.user.sendEmailVerification().then(() => {
+    this.firebaseUser.sendEmailVerification().then(() => {
       // Show Success
       this.translate.get('pages.event.subpages.admin.success_sent_verify_email').subscribe((success_sent: string) => {
         this.snackbar.open(success_sent);
@@ -287,20 +215,13 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     })
   }
 
-  isUserLinkToProvider(provider: firebase.auth.AuthProvider): boolean {
-    for (const cProvider of this.user.providerData) {
-      if (cProvider.providerId === provider.providerId) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   linkProvider(provider: firebase.auth.AuthProvider) {
-    this.user.linkWithPopup(provider).then(result => {
+    this.firebaseUser.linkWithPopup(provider).then(result => {
       // Accounts successfully linked.
       const credential = result.credential;
       const user = result.user;
+
+      this.getUser();
 
       // Show success in snackbar
       this.translate.get('pages.account.success_link', {name: this.getProviderName(provider)}).subscribe((res: string) => {
@@ -316,8 +237,15 @@ export class AccountComponent implements OnInit, AfterViewChecked {
 
   unlinkProvider(provider: firebase.auth.AuthProvider) {
     // Don't leave the user without any provider
-    if (this.user.providerData.length > 1) {
-      this.user.unlink(provider.providerId).then(result => {
+    const phoneNumber = this.firebaseUser.phoneNumber;
+    if (this.firebaseUser.providerData.length > 1) {
+      this.firebaseUser.unlink(provider.providerId).then(result => {
+        if (provider.providerId.indexOf('hone') > -1) {
+          this.db.object(`Phones/${phoneNumber.substr(1)}/uid`).remove();
+        }
+
+        this.getUser();
+
         // Show success in snackbar
         this.translate.get('pages.account.success_unlink', {name: this.getProviderName(provider)}).subscribe((res: string) => {
           this.snackbar.open(res)
@@ -351,26 +279,20 @@ export class AccountComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  showSnackbar(translateKey: string, errorKey?: string, value?: number, eventKey?: string) {
+  showSnackbar(translateKey: string, errorKey?: string, value?: number) {
     const isEmail = (errorKey) ? errorKey.indexOf('428') > -1 : undefined;
     const msg = (isEmail) ? 'pages.event.subpages.admin.verify_email' : translateKey;
-
     this.translate.get(msg, {value: value}).subscribe((res: string) => {
-
       const message = (errorKey && !isEmail) ? `${res} (${errorKey})` : res;
-
-      const snackBarRef = this.snackbar.open(message, (isEmail) ? 'Verify' : (eventKey) ? 'Go' : null);
-
+      const snackBarRef = this.snackbar.open(message, isEmail ? 'Verify' : null);
       snackBarRef.afterDismiss().subscribe(reason => {
         if (reason === 'action') {
           if (isEmail) {
-            this.user.sendEmailVerification().then(() => {
+            this.firebaseUser.sendEmailVerification().then(() => {
               this.showSnackbar(`pages.event.subpages.admin.success_sent_verify_email`);
             }).catch((err) => {
               this.showSnackbar(`general.error_occurred`, `HTTP-${err.status}`);
             })
-          } else if (eventKey) {
-            this.router.navigateByUrl('/events/' + eventKey);
           }
         }
       });

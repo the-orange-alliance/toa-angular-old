@@ -52,8 +52,6 @@ export default class Match implements ISerializable {
     this._blueTeleScore = 0;
     this._videoURL = '';
 
-    this._event = new Event();
-    this._matchDetails = new MatchDetails();
     this._matchParticipants = [];
   }
 

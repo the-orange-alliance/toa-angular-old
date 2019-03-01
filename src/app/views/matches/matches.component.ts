@@ -4,6 +4,7 @@ import { FTCDatabase } from '../../providers/ftc-database';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { AppBarService } from '../../app-bar.service';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import MatchBreakdown1718 from './years/MatchBreakdown1718';
 import urlParser from 'js-video-url-parser';
 import Match from '../../models/Match';
 import Event from '../../models/Event';
@@ -29,7 +30,6 @@ export class MatchesComponent implements OnInit {
     this.ftc.getMatchDetails(this.matchKey).then((match: Match) => {
       if (match) {
         this.match = match;
-        this.appBarService.setTitle(match.matchName);
 
         if (match.videoURL != null) {
           const video = urlParser.parse(match.videoURL);
@@ -50,6 +50,7 @@ export class MatchesComponent implements OnInit {
         this.ftc.getEventBasic(match.eventKey).then((event: Event) => {
           this.match.event = event;
           this.app.setTitle(this.match.matchName + ' - ' + this.match.event.eventName);
+          this.appBarService.setTitle(match.matchName + ' - ' + this.match.event.fullEventName, true);
           this.app.setDescription(`Match results ${ this.match.videoURL ? 'and video ' : '' }for ${ this.match.matchName } at the ${ this.match.event.eventName } FIRST Tech Challenge`);
         });
       } else {
@@ -59,13 +60,10 @@ export class MatchesComponent implements OnInit {
   }
 
   getMatchSeason(): number {
-    const match = this.matchKey.substr(0, 4);
-    try {
-      const seasonKey = parseInt(match);
-      return seasonKey;
-    } catch (e) {
-      return 0;
+    if (this.match) {
+      return parseInt(this.match.matchKey.split('-')[0]);
     }
+    return 0;
   }
 
   sendAnalytic(category, action): void {

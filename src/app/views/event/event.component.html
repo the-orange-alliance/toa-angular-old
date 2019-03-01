@@ -1,6 +1,6 @@
-<div *ngIf="event_data">
+<div *ngIf="eventData">
   <div class="row">
-    <h2 class="col-md-9 col-12">{{ event_data.startDate | date : "y" }} {{ event_data.divisionName ? event_data.eventName + ' - ' +  event_data.divisionName + ' Division' : event_data.eventName }} <span class="badge bg-primary" *ngIf="event_data.isLive">LIVE</span></h2>
+    <h2 class="col-md-9 col-12">{{ eventData.startDate | date : "y" }} {{ eventData.fullEventName }} <span class="badge bg-primary" *ngIf="eventData.isLive">LIVE</span></h2>
     <div *ngIf="user !== null" class="col-12 col-md-3">
       <button mdc-button primary (click)="toggleEvent()" class="align-self-end black" style="text-transform:initial; height: auto; padding: 7px">
         <mdc-icon *ngIf="favorite" class="mr-1 ml-1">favorite</mdc-icon>
@@ -18,48 +18,56 @@
         <div class="p-3">
           <div class="info-state">
             <mdc-icon svgIcon="calendar"></mdc-icon>
-            <p>{{ event_data.startDate == event_data.endDate ? (event_data.startDate | date :  "mediumDate") : (event_data.startDate | date :  "mediumDate") + ' - ' + (event_data.endDate | date :  "mediumDate") }}</p>
+            <p>{{ eventData.startDate == eventData.endDate ? (eventData.startDate | date :  "mediumDate") : (eventData.startDate | date :  "mediumDate") + ' - ' + (eventData.endDate | date :  "mediumDate") }}</p>
           </div>
           <div class="info-state">
             <mdc-icon svgIcon="map-marker"></mdc-icon>
-            <p style="text-transform: capitalize"><a href="https://www.google.com/maps/search/?api=1&query={{ ((event_data.venue ? event_data.venue + ', ' : '') + event_data.city + ', ' + (event_data.stateProv ? event_data.stateProv + ', ' : '') + event_data.country) }}" target="_blank" (click)="this.sendAnalytic('leaving', event_data.eventKey + ' location');">{{ (event_data.venue ? event_data.venue + ', ' : '') + event_data.city + ', ' + (event_data.stateProv ? event_data.stateProv + ', ' : '') + event_data.country }}</a></p>
+            <p style="text-transform: capitalize"><a href="https://www.google.com/maps/search/?api=1&query={{ ((eventData.venue ? eventData.venue + ', ' : '') + eventData.city + ', ' + (eventData.stateProv ? eventData.stateProv + ', ' : '') + eventData.country) }}" target="_blank" (click)="this.sendAnalytic('leaving', eventData.eventKey + ' location');">{{ (eventData.venue ? eventData.venue + ', ' : '') + eventData.city + ', ' + (eventData.stateProv ? eventData.stateProv + ', ' : '') + eventData.country }}</a></p>
           </div>
-          <div class="info-state" *ngIf="event_type_name">
+          <div class="info-state" *ngIf="eventTypeName">
             <mdc-icon svgIcon="calendar-question"></mdc-icon>
-            <p>{{ event_type_name }}</p>
+            <p>{{ eventTypeName }}</p>
           </div>
-          <div class="info-state" *ngIf="event_data.website">
+          <div class="info-state" *ngIf="eventData.website">
             <mdc-icon svgIcon="earth"></mdc-icon>
-            <p><a [href]="event_data.website" target="_blank" (click)="this.sendAnalytic('leaving', event_data.eventKey + ' website');">{{ 'pages.event.view_website' | translate }}</a></p>
+            <p><a [href]="eventData.website" target="_blank" (click)="this.sendAnalytic('leaving', eventData.eventKey + ' website');">{{ 'pages.event.view_website' | translate }}</a></p>
           </div>
           <div class="info-state">
             <mdc-icon svgIcon="code-tags"></mdc-icon>
-            <p>{{ 'pages.event.event_key' | translate }}: </p><p><code dir="ltr">{{ event_data.eventKey }}</code></p>
+            <p>{{ 'pages.event.event_key' | translate }}: </p><p><code dir="ltr">{{ eventData.eventKey }}</code></p>
           </div>
         </div>
       </mdc-card>
     </div>
 
-    <div class="col-md-5 col-sm-12 mt-3" *ngIf="event_data.allianceCount || event_data.fieldCount || event_season_name || stream">
+    <div class="col-md-5 col-sm-12 mt-3">
       <mdc-card class="toa-card h-100">
         <div class="toa-card-header" mdcHeadline5>{{ 'pages.event.game_info' | translate }}</div>
         <mdc-list-divider></mdc-list-divider>
         <div class="p-3">
-          <div class="info-state" *ngIf="event_season_name">
+          <div class="info-state" *ngIf="eventSeasonName">
             <mdc-icon svgIcon="gamepad-variant"></mdc-icon>
-            <p>{{ event_season_name }}</p>
+            <p>{{ eventSeasonName }}</p>
           </div>
-          <div class="info-state" *ngIf="event_data.allianceCount">
+          <div class="info-state" *ngIf="eventData.allianceCount">
             <mdc-icon svgIcon="human-handsup"></mdc-icon>
-            <p>{{ 'pages.event.alliances_count' | translate:{'value': event_data.allianceCount} }}</p>
+            <p>{{ 'pages.event.alliances_count' | translate:{'value': eventData.allianceCount} }}</p>
           </div>
-          <div class="info-state" *ngIf="event_data.fieldCount">
+          <div class="info-state" *ngIf="eventData.fieldCount">
             <mdc-icon svgIcon="soccer-field"></mdc-icon>
-            <p>{{ 'pages.event.fields_count' | translate:{'value': event_data.fieldCount} }}</p>
+            <p>{{ 'pages.event.fields_count' | translate:{'value': eventData.fieldCount} }}</p>
+          </div>
+          <div class="info-state" *ngIf="matchesPerTeam">
+            <!--<mdc-icon [svgIcon]="'numeric-' + matchesPerTeam + '-circle-outline'"></mdc-icon>-->
+            <mdc-icon svgIcon="counter"></mdc-icon>
+            <p>{{ 'pages.event.matches_per_team' | translate:{'value': matchesPerTeam} }}</p>
           </div>
           <a mdc-button primary *ngIf="stream && stream.isActive" routerLink="/stream">
             <mdc-icon svgIcon="video-outline" class="stream-icon"></mdc-icon> {{ 'pages.event.stream_available' | translate }}
           </a>
+          <div *ngIf="divisions && divisions.length > 0">
+            <button mdc-button *ngFor="let division of divisions" [disabled]="division.divisionName === eventData.divisionName" (click)="openEvent(division)">{{ division.divisionName }} Division</button>
+          </div>
         </div>
       </mdc-card>
     </div>
@@ -72,23 +80,23 @@
   <div class="mt-5 row" *ngIf="admin || totalmedia > 0 || totalteams > 0 || totalmatches > 0 || totalrankings > 0 || totalawards > 0">
     <div class="col-12">
       <mdc-card class="toa-card">
-        <mdc-tab-bar class="w-100" [focusOnActivate]="false">
+        <mdc-tab-bar #tabs class="w-100" [focusOnActivate]="false" [activeTabIndex]="activeTab">
           <mdc-tab-scroller>
-            <mdc-tab label="{{ 'pages.event.subpages.for-participants.title' | translate }}" (click)="select('media')" *ngIf="totalmedia > 0"></mdc-tab>
-            <mdc-tab label="{{ 'pages.event.subpages.rankings.title' | translate }}" (click)="select('rankings')" *ngIf="totalrankings > 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalrankings }}</span></mdc-tab>
-            <mdc-tab label="{{ 'pages.event.subpages.matches.title' | translate }}" (click)="select('matches')" *ngIf="totalmatches > 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalmatches }}</span></mdc-tab>
-            <mdc-tab label="{{ 'pages.event.subpages.teams.title' | translate }}" (click)="select('teams')" *ngIf="totalteams > 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalteams }}</span></mdc-tab>
-            <mdc-tab label="{{ 'pages.event.subpages.awards.title' | translate }}" (click)="select('awards')" *ngIf="totalawards > 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalawards }}</span></mdc-tab>
-            <mdc-tab label="{{ 'pages.event.subpages.admin.title' | translate }}" (click)="select('admin')" *ngIf="admin" [disabled]="!emailVerified"></mdc-tab>
+            <mdc-tab label="{{ 'pages.event.subpages.rankings.title' | translate }}" [class.d-none]="totalrankings === 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalrankings }}</span></mdc-tab>
+            <mdc-tab label="{{ 'pages.event.subpages.matches.title' | translate }}" [class.d-none]="totalmatches === 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalmatches }}</span></mdc-tab>
+            <mdc-tab label="{{ 'pages.event.subpages.teams.title' | translate }}" [class.d-none]="totalteams === 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalteams }}</span></mdc-tab>
+            <mdc-tab label="{{ 'pages.event.subpages.awards.title' | translate }}" [class.d-none]="totalawards === 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalawards }}</span></mdc-tab>
+            <mdc-tab label="{{ 'pages.event.subpages.for-participants.title' | translate }}" [class.d-none]="totalmedia === 0"></mdc-tab>
+            <mdc-tab label="{{ 'pages.event.subpages.admin.title' | translate }}" [class.d-none]="!admin" [disabled]="!emailVerified"></mdc-tab>
           </mdc-tab-scroller>
         </mdc-tab-bar>
         <div class="mt-4">
-          <toa-event-for-participants *ngIf="isSelected('media')" [event]="event_data" [media]="media"></toa-event-for-participants>
-          <toa-event-rankings *ngIf="isSelected('rankings')" [event]="event_data" [rankings]="event_data.rankings"></toa-event-rankings>
-          <toa-event-teams *ngIf="isSelected('teams')" [teams]="event_data.teams"></toa-event-teams>
-          <toa-event-matches *ngIf="isSelected('matches')" [matches]="event_data.matches" [teams]="event_data.teams" [rankings]="event_data.rankings"></toa-event-matches>
-          <toa-event-awards *ngIf="isSelected('awards')" [event]="event_data"></toa-event-awards>
-          <toa-event-admin *ngIf="admin" [class.d-none]="!emailVerified || !(isSelected('admin') || (totalmedia === 0 && totalteams === 0 && totalmatches === 0 && totalrankings === 0))" [user]="user" [uid]="user.uid" [eventKey]="event_data.eventKey" [eventData]="event_data"></toa-event-admin>
+          <toa-event-rankings *ngIf="tabs.activeTabIndex === 0" [event]="eventData" [rankings]="eventData.rankings"></toa-event-rankings>
+          <toa-event-matches *ngIf="tabs.activeTabIndex === 1" [matches]="eventData.matches" [teams]="eventData.teams" [rankings]="eventData.rankings"></toa-event-matches>
+          <toa-event-teams *ngIf="tabs.activeTabIndex === 2" [teams]="eventData.teams"></toa-event-teams>
+          <toa-event-awards *ngIf="tabs.activeTabIndex === 3" [event]="eventData"></toa-event-awards>
+          <toa-event-for-participants *ngIf="tabs.activeTabIndex === 4" [event]="eventData" [media]="media"></toa-event-for-participants>
+          <toa-event-admin *ngIf="admin" [class.d-none]="!emailVerified || !(tabs.activeTabIndex === 5 || (totalrankings === 0 && totalmatches === 0 && totalteams === 0 && totalawards === 0 && totalmedia === 0))" [user]="user" [uid]="user.uid" [eventKey]="eventData.eventKey" [eventData]="eventData" [toaAdmin]="toaAdmin"></toa-event-admin>
         </div>
       </mdc-card>
     </div>

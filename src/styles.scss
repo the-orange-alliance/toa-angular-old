@@ -111,6 +111,10 @@ mdc-icon svg {
   justify-content: space-between;
 }
 
+.mdc-dialog {
+  z-index: 10!important;
+}
+
 /* ==========================================================================
    Colors
    ========================================================================== */
@@ -122,6 +126,22 @@ mdc-icon svg {
 .bg-primary {
   background: $mdc-theme-primary!important;
   color: #fff!important;
+}
+
+.red {
+  background-color: rgba(255, 82, 82, 0.13);
+}
+
+.blue {
+  background-color: rgba(68, 138, 255, 0.13);
+}
+
+.lightRed {
+  background-color: rgba(255, 82, 82, 0.07);
+}
+
+.lightBlue {
+  background-color: rgba(68, 138, 255, 0.07);
 }
 
 .gray {
@@ -327,7 +347,12 @@ mdc-drawer mdc-list a {
 
 .toa-card {
   border-radius: 6px!important;
+  overflow: hidden;
   padding: 5px;
+}
+
+.toa-card.overflow {
+  overflow: unset !important;
 }
 
 .toa-card-header {
@@ -406,11 +431,20 @@ mdc-drawer mdc-list a {
 
 
 /* ==========================================================================
+   List Item
+   ========================================================================== */
+
+.mdc-list-item__primary-text span:first-child {
+   display: inline-block;
+}
+
+
+/* ==========================================================================
    Team Item
    ========================================================================== */
 
 .item-team {
-  height: 80px!important;
+  height: 70px!important;
   padding-left: 10px!important;
 }
 
@@ -447,7 +481,7 @@ mdc-drawer mdc-list a {
   position: absolute;
   display: block;
   bottom: 125%;
-  left: -80%;
+  //left: -80%;
 }
 
 .toa-tooltip:hover .tooltiptext {
@@ -457,8 +491,52 @@ mdc-drawer mdc-list a {
 
 
 /* ==========================================================================
-   Match Item Table
+   Match Table
    ========================================================================== */
+
+.match-details-table, .match-details-row {
+  width: 100%;
+}
+
+.match-details-row {
+  display: flex;
+  display: -webkit-flex; /* Safari */
+}
+
+.match-details-title {
+  width: 40%;
+  text-align: center;
+  padding: 10px;
+}
+
+.match-details-row.part {
+  font-weight: bold;
+}
+
+.match-details-row.part .match-details-title {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.match-details-points {
+  width: 30%;
+  text-align: center;
+  padding: 10px;
+}
+
+
+/* ==========================================================================
+   Match Table
+   ========================================================================== */
+
+@media (min-width: 900px) {
+  .mdc-dialog .mdc-dialog__surface {
+    max-width: 600px;
+  }
+
+  .mdc-dialog .toa-match-details, .mdc-dialog .toa-match-video {
+    width: 500px;
+  }
+}
 
 table.match-table {
   padding: 3px 0;
@@ -481,28 +559,20 @@ table.match-table>thead {
 }
 
 table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
-  padding: 5px;
-}
-
-table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
   padding: 12px;
   line-height: 1.42857143;
   vertical-align: middle;
   border-top: 1px solid #efefef;
 }
 
-table.match-table>tbody > tr > td:not(.selected-team) {
+table.match-table>tbody > tr > td {
   padding: 15px!important;
 }
 
 @media (max-width: 601px) {
   table.match-table > tbody > tr > td, table.match-table > thead > tr > th {
-    padding: 5px 2px!important;
+    padding: 8px 4px!important;
     font-size: 14px!important;
-  }
-
-  table.match-table>tbody > tr > td:not(.selected-team) {
-    padding: 8px 4px !important;;
   }
 
   /*
@@ -522,14 +592,6 @@ table.match-table th, table.oprTable th {
 
 table.match-table tr {
   text-align: center;
-}
-
-.red {
-  background-color: #fee;
-}
-
-.blue {
-  background-color: #eef;
 }
 
 .not-played {
@@ -562,7 +624,7 @@ table.match-table tr {
 }
 
 .selected-team {
-  border: 3px solid #000!important;
+  background-color: #FBCC81!important;
 }
 
 .selected-team-snackbar {
@@ -586,26 +648,126 @@ table.match-table tr {
    Search
    ========================================================================== */
 
-.mobile-search-modal .modal-dialog {
-  margin: 0!important;
-  height: 100%!important;
-  width: 100%!important;
-}
-.mobile-search-modal .modal-content {
-   border: none;
-   border-radius: 0;
-}
-.mobile-search {
-  width: 100%!important;
-  background-color: white!important;
+.toa-search {
+  background: #fff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 12;
 }
 
-.mobile-search::before, .mobile-search::after {
-  display: none!important;
+.toa-search-toolbar {
+  display: flex;
 }
 
-.mobile-search input {
-  font-size: 25px
+.toa-search-icon {
+  height: 24px;
+  align-self: center;
+}
+
+.toa-search-icon svg {
+  fill: #80868b;
+}
+
+.toa-search-content, .toa-search-box {
+  margin: 16px auto;
+  max-width: 720px;
+  position: relative;
+  width: 50%;
+}
+
+@media screen and (max-width: 599px) {
+  .toa-search-toolbar-spacer {
+    display: none !important;
+  }
+
+  .toa-search-box {
+    flex-grow: 1;
+    margin: 16px !important;;
+    border-radius: 8px !important;
+  }
+
+  .toa-search-box:after {
+    display: none !important;;
+  }
+
+  .toa-search-content {
+    margin: unset !important;
+    max-width: unset !important;
+    width: 100% !important;
+  }
+
+  .toa-search-results {
+    box-shadow: unset !important;
+    border-top: unset !important;
+    margin-top: -16px !important;
+  }
+}
+
+.toa-search-box {
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12);
+  -webkit-box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12);
+  background: #fff;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  display: flex;
+}
+
+.toa-search-box:after {
+  content: "";
+  background: #fff;
+  border-top: none;
+  box-shadow: -1px 0 0 #dadce0, 1px 0 0 #dadce0, 0 1px 0 #dadce0, 0 5px 0 #fff;
+  -webkit-box-shadow: -1px 0 0 #dadce0, 1px 0 0 #dadce0, 0 1px 0 #dadce0, 0 5px 0 #fff;
+  height: 6px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.toa-search-box-input::placeholder {
+  color: #9aa0a6!important;
+  opacity: 1; /* Firefox */
+}
+
+.toa-search-box-input:-ms-input-placeholder { /* IE 10-11 */
+  color: #9aa0a6!important;
+}
+
+.toa-search-box-input::-ms-input-placeholder { /* Microsoft Edge */
+  color: #9aa0a6!important;
+}
+
+.toa-search-box-input {
+  color: #3c4043;
+  letter-spacing: 0.00625em;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+  border: none;
+  outline: none;
+  background: none;
+  vertical-align: top;
+  padding: 0;
+  z-index: auto;
+  text-overflow: ellipsis;
+  height: 48px;
+  width: 100%;
+  margin: 6px 12px;
+}
+
+.toa-search-results {
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 -5px 0 0 #fff, 0 2px 1px -1px rgba(0,0,0,0.2), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
+  margin-top: -32px;
+  height: calc(100vh - 110px);
+  border-top: 1px solid #dadce0;
+  overflow-y: auto;
 }
 
 .search-anchor {
@@ -894,4 +1056,8 @@ table.match-table tr {
   40% {
     opacity: 1;
   }
+}
+
+.clickable {
+  cursor: pointer;
 }

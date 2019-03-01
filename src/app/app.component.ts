@@ -4,14 +4,17 @@ import { Location } from '@angular/common';
 import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
 import { TranslateService } from '@ngx-translate/core';
 import { FTCDatabase } from './providers/ftc-database';
+import { CloudFunctions, Service } from './providers/cloud-functions';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { NavigationEnd, Router } from '@angular/router';
 import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
-import { MdcTopAppBar, MdcTextField } from '@angular-mdc/web';
+import { MdcTopAppBar, MdcDrawer } from '@angular-mdc/web';
+import { environment } from '../environments/environment';
 import Team from './models/Team';
 import Event from './models/Event';
+import mdcInfo from '../../node_modules/@angular-mdc/web/package.json'
 
 const SMALL_WIDTH_BREAKPOINT = 1240;
 
@@ -24,7 +27,16 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
 @Injectable()
 export class TheOrangeAllianceComponent implements OnInit {
 
+  server: { 'is_dev': boolean, 'last_commit': string, 'build_time': string, 'api_version': string, 'mdc_version': string } = {
+    'is_dev': false,
+    'last_commit': null,
+    'build_time': null,
+    'api_version': null,
+    'mdc_version': null
+  };
+
   teams: Team[];
+  services = Service;
 
   events: Event[];
   eventsFilter: EventFilter;
@@ -33,26 +45,34 @@ export class TheOrangeAllianceComponent implements OnInit {
   teamSearchResults: Team[];
   eventSearchResults: Event[];
   showSearch: boolean;
+  showMobileSearch: boolean;
 
   current_year: any;
   selectedLanguage = '';
 
   user: firebase.User;
+  isAdmin: boolean = false;
 
   matcher: MediaQueryList;
   @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
+  @ViewChild(MdcDrawer) drawer: MdcDrawer;
   title: string;
 
   constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,
-              db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService,
+              db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService, private cloud: CloudFunctions,
               @Inject(LOCAL_STORAGE) private storage: StorageService, private appBarService: AppBarService) {
 
     translate.setDefaultLang('en'); // this language will be used as a fallback when a translation isn't found in the current language
     this.selectedLanguage = this.storage.get('lang') || translate.getBrowserLang();
     this.languageSelected();
 
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
+
     this.router.events.subscribe(() => {
-      setTimeout(()=>{
+      this.showMobileSearch = false;
+      setTimeout(() => {
         this.title = this.appBarService.titleLong;
       });
     });
@@ -65,17 +85,29 @@ export class TheOrangeAllianceComponent implements OnInit {
 
     auth.authState.subscribe(user => {
       this.user = user;
+      db.object(`Users/${this.user.uid}/level`).query.once('value').then(level => {
+         this.isAdmin = level.val() && level.val() >= 6;
+         if (this.isAdmin) {
+           this.ftc.getApiVersion().then((version: string) => {
+             this.server.api_version = version;
+           });
+           this.server.is_dev = !environment.production;
+           if (!this.server.is_dev) {
+             this.server.last_commit = environment.commit;
 
-      // Fix the old users
-      if (this.user && !this.user.displayName) {
-        db.object(`Users/${this.user.uid}/fullName`).query.once('value').then(name => {
-          this.user.updateProfile({displayName: name.val(), photoURL: null});
-        });
-      }
-
-      if (this.user && this.user.displayName) {
-        db.database.ref(`Users/${this.user.uid}/fullName`).set(this.user.displayName)
-      }
+             const d = new Date(environment.build_time);
+             const dateString = // 2019/02/24 16:03:57
+             d.getUTCFullYear() + '/' +
+               ('0' + (d.getUTCMonth() + 1)).slice(-2) + '/' +
+               ('0' + d.getUTCDate()).slice(-2) + ' ' +
+               ('0' + d.getUTCHours()).slice(-2) + ':' +
+               ('0' + d.getUTCMinutes()).slice(-2) + ':' +
+               ('0' + d.getUTCSeconds()).slice(-2);
+             this.server.build_time = dateString;
+           }
+           this.server.mdc_version = mdcInfo.version;
+         }
+      });
     });
 
     this.current_year = new Date().getFullYear();
@@ -112,8 +144,12 @@ export class TheOrangeAllianceComponent implements OnInit {
     this.location.back();
   }
 
+  drawerItemClicked() {
+    this.drawer.open = false;
+  }
+
   performSearch(): void {
-    const maxResults = 5;
+    const maxResults = this.showMobileSearch ? 8 : 5;
     const query = this.search && this.search.trim().length > 0 ? this.search.toLowerCase().trim() : null;
 
     if (query && this.teams && this.eventsFilter) {
@@ -136,7 +172,8 @@ export class TheOrangeAllianceComponent implements OnInit {
     }
   }
 
-  focusSearchInput(searchInput: MdcTextField): void {
+  showMobileSearchModal(searchInput): void {
+    this.showMobileSearch = true;
     // When the modal opens, it takes the focus
     // We'll wait 6ms until it opens
     setTimeout(function () {
@@ -199,6 +236,9 @@ export class TheOrangeAllianceComponent implements OnInit {
     this.translate.use(this.selectedLanguage);
   }
 
+  updateService(service: Service) {
+    this.cloud.update(this.user, service);
+  }
 
   sendAnalytic(category, action): void {
     (<any>window).ga('send', 'event', {
@@ -208,5 +248,4 @@ export class TheOrangeAllianceComponent implements OnInit {
       eventValue: 10
     });
   }
-
 }

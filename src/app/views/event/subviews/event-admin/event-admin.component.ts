@@ -1,14 +1,14 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
+import { FTCDatabase } from '../../../../providers/ftc-database';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
 import { UploadService } from '../../../../providers/imgur';
 import { AngularFireDatabase } from '@angular/fire/database';
-import {MdcIcon, MdcSnackbar, MdcTextField} from '@angular-mdc/web';
+import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { User } from 'firebase/app';
 import Event from '../../../../models/Event';
 import EventLiveStream from '../../../../models/EventLiveStream';
-import {FTCDatabase} from '../../../../providers/ftc-database';
 
 @Component({
   providers: [CloudFunctions, UploadService],
@@ -22,6 +22,12 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   @Input() uid: string;
   @Input() eventKey: string;
   @Input() eventData: Event;
+  @Input() toaAdmin: boolean;
+
+  deleteEvent1: boolean = true;
+  deleteEvent2: boolean = false;
+  deleteEvent3: boolean = false;
+  deleteEvent4: boolean = false;
 
   generatingEventApiKey: boolean;
   eventApiKey: string;
@@ -34,8 +40,9 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   uploadingVideos: boolean;
 
   images: any = {};
-  pitsMap: 'pits_map';
-  schedule: 'schedule';
+  pitsMap: string = 'pits_map';
+  schedule: string = 'schedule';
+  venueMap: string = 'venue_map';
 
   streamType = 'Youtube';
   hasStream = false;
@@ -51,8 +58,8 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   @ViewChild('state') state: MdcTextField;
   @ViewChild('country') country: MdcTextField;
 
-
   @ViewChild('stream_url') streamUrl: MdcTextField;
+  @ViewChild('stream_name') streamName: MdcTextField;
 
   constructor(private cloud: CloudFunctions, private db: AngularFireDatabase, private snackbar: MdcSnackbar,
               private translate: TranslateService, private router: Router, public imgur: UploadService,
@@ -69,11 +76,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       for (const stream of data) {
         if (stream.eventKey === this.eventData.eventKey) {
-          if (stream.isActive) {
-            this.hasStream = true;
-          } else {
-            this.hasStream = false;
-          }
+          this.hasStream = stream.isActive;
           this.linkedStream = stream;
           break;
         }
@@ -93,6 +96,8 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     this.setFieldText(this.city, this.eventData.city);
     this.setFieldText(this.state, this.eventData.stateProv);
     this.setFieldText(this.country, this.eventData.country);
+
+    this.setFieldText(this.streamName, this.eventData.divisionName ? this.eventData.eventName + ' - ' + this.eventData.divisionName + ' Division' : this.eventData.eventName);
   }
 
   streamRadioClick(type: string): void {
@@ -130,7 +135,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
       stream.streamKey = this.eventData.eventKey + '-LS1';
       stream.eventKey = this.eventData.eventKey;
       stream.channelName = channelName;
-      stream.streamName = this.eventData.eventName;
+      stream.streamName = this.getFieldText(this.streamName);
       stream.streamType = streamType;
       stream.isActive = true;
       stream.streamURL = streamLink;
@@ -138,7 +143,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
       stream.endDateTime = new Date(this.eventData.endDate).toJSON().slice(0, 19).replace('T', ' ');
       stream.channelURL = channelLink;
 
-      this.cloud.addStream(this.uid, [stream.toJSON()]).then( (data: {}) => {
+      this.cloud.addStream(this.user, [stream.toJSON()]).then( (data: {}) => {
         this.showSnackbar('pages.event.subpages.admin.stream_card.success_linked');
         this.hasStream = true;
         this.linkedStream = stream;
@@ -153,7 +158,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   removeStream(): void {
     this.linkedStream.startDateTime = new Date(this.eventData.startDate).toJSON().slice(0, 19).replace('T', ' ');
     this.linkedStream.endDateTime = new Date(this.eventData.endDate).toJSON().slice(0, 19).replace('T', ' ');
-    this.cloud.hideStream(this.uid, [this.linkedStream.toJSON()]).then( (data: {}) => {
+    this.cloud.hideStream(this.user, [this.linkedStream.toJSON()]).then( (data: {}) => {
       this.showSnackbar('pages.event.subpages.admin.stream_card.success_unlinked');
       this.hasStream = false;
       this.linkedStream = null;
@@ -164,7 +169,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
 
   generateEventApiKey(): void {
     this.generatingEventApiKey = true;
-    this.cloud.generateEventApiKey(this.uid, this.eventKey).then(() => {
+    this.cloud.generateEventApiKey(this.user, this.eventKey).then(() => {
       this.generatingEventApiKey = false;
     }, (err) => {
       this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
@@ -178,7 +183,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
       this.playlistURL = '';
       this.videos = [];
       this.loadingVideos = true;
-      this.cloud.playlistMatchify(this.uid, this.eventKey, playlistId[1]).then((data: {}) => {
+      this.cloud.playlistMatchify(this.user, this.eventKey, playlistId[1]).then((data: {}) => {
         this.loadingVideos = false;
         if (data && data['matches'].length > 0) {
           this.videos = data['matches'];
@@ -206,7 +211,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
           'video_url': video['video_url']
         })
       });
-      this.cloud.setVideos(this.uid, this.eventKey, toUpload).then((data: {}) => {
+      this.cloud.setVideos(this.user, this.eventKey, toUpload).then((data: {}) => {
         this.uploadingVideos = false;
         this.showGetObjects = true;
         this.showConfirm = false;
@@ -239,7 +244,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
       }
     ];
 
-    this.cloud.updateEvent(this.uid, this.eventKey, json).then((data: {}) => {
+    this.cloud.updateEvent(this.user, this.eventKey, json).then((data: {}) => {
       this.showSnackbar('pages.event.subpages.admin.update_info_card.successfully');
     }, (err) => {
       this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
@@ -306,10 +311,12 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
             mediaData.media_type = 0;
           } else if (type === this.schedule) {
             mediaData.media_type = 1;
+          } else if (type === this.venueMap) {
+            mediaData.media_type = 2;
           }
 
           if (mediaData.media_type > -1) {
-            this.cloud.addEventMedia(this.uid, mediaData).then(() => {
+            this.cloud.addEventMedia(this.user, mediaData).then(() => {
               this.showSnackbar('pages.event.subpages.admin.update_info_card.successfully');
               this.images[type] = null;
             }).catch((err) => {
@@ -331,6 +338,14 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
       return this.images[type]['filename'];
     }
     return null
+  }
+
+  deleteEvent() {
+    this.cloud.toaDelete(this.user, `/event/${this.eventData.eventKey}`).then((data: {}) => {
+      this.router.navigate([`/events`]);
+    }).catch((err) => {
+      this.showSnackbar(`general.error_occurred`, `HTTP-${err.status}`);
+    });
   }
 
   sendAnalytic(category, action): void {

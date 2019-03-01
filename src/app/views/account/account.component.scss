@@ -38,8 +38,26 @@
   margin-bottom: 9px;
 }
 
+.cache-radio-group {
+  display: block;
+  width: 100%;
+}
+
+.cache-radio-group .mdc-form-field {
+  width: 30%;
+}
+
+.user-modal .mdc-list-item {
+  height: auto !important;
+  min-height: 48px;
+}
+
 @media (max-width: 991px) {
   .server-illustration {
     display: none;
+  }
+
+  .cache-radio-group .mdc-form-field {
+    width: 100% !important;
   }
 }

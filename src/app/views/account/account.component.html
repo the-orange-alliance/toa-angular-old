@@ -5,14 +5,14 @@
   </div>
 </div>
 
-<div class="w-100 align-items-center text-center" *ngIf="user">
-  <div *ngIf="!profileUrl && user.displayName" class="profile-image">{{ user.displayName.substring(0, 1) }}</div>
-  <img *ngIf="profileUrl " class="profile-image" src="{{ profileUrl }}" height="100" />
+<div class="w-100 align-items-center text-center" *ngIf="user && user">
+  <div *ngIf="!user.photoURL && user.displayName" class="profile-image">{{ user.displayName.substring(0, 1) }}</div>
+  <img *ngIf="user.photoURL " class="profile-image" [src]="user.photoURL" height="100" />
   <div class="profile-name">{{ 'drawer.mytoa.hello' | translate: {'name': user.displayName || 'User' } }}</div>
-  <div class="profile-detail">{{ ('pages.account.level' | translate: {'level': userData['level'] || 1 }) + (userData['team'] ? ' ⋅ #' + userData['team'] : '')}}</div>
+  <div class="profile-detail">{{ ('pages.account.level' | translate: {'level': user.level }) + (user.team ? ' ⋅ #' + user.team : '')}}</div>
 </div>
 
-<div class="mt-5 m-2" *ngIf="user">
+<div class="mt-5 m-2" *ngIf="user && user">
 
   <div class="w-100 m-2" *ngIf="!emailVerified">
     <div class="outline-card p-3" style="border: 2px solid #F89808!important;">
@@ -24,11 +24,14 @@
     </div>
   </div>
 
-  <mdc-tab-bar #tabs [activeTabIndex]="activeTab" [class.d-none]="getAdminEvents().length === 0 && userData['level'] < 6" class="mb-3">
+  <mdc-tab-bar #tabs [activeTabIndex]="activeTab" [class.d-none]="user.adminEvents.length === 0 && user.level < 6" class="mb-3">
     <mdc-tab-scroller>
       <mdc-tab (click)="changeUrlNoRoute('')" style="text-transform: initial" label="myTOA"></mdc-tab>
-      <mdc-tab (click)="changeUrlNoRoute('events')" [label]="'pages.account.manage_events' | translate" [class.d-none]="getAdminEvents().length === 0"></mdc-tab>
-      <mdc-tab (click)="changeUrlNoRoute('new-event')" [label]="'pages.account.create_event_card.title' | translate" [class.d-none]="userData['level'] < 6"></mdc-tab>
+      <mdc-tab (click)="changeUrlNoRoute('events')" [label]="'pages.account.manage_events' | translate" [class.d-none]="user.adminEvents.length === 0"></mdc-tab>
+      <mdc-tab (click)="changeUrlNoRoute('new-event')" [label]="'pages.account.create_event_card.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
+      <mdc-tab (click)="changeUrlNoRoute('users')" label="Users" [class.d-none]="user.level < 6"></mdc-tab>
+      <mdc-tab (click)="changeUrlNoRoute('cache')" [label]="'pages.account.dump_cache.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
+      <mdc-tab (click)="changeUrlNoRoute('retriever')" label="Retriever" [class.d-none]="user.level < 6"></mdc-tab>
     </mdc-tab-scroller>
   </mdc-tab-bar>
 
@@ -54,18 +57,18 @@
       </div>
     </div>
     <div class="col-md-5 col-12 ps-md-3">
-      <div class="outline-card space-between p-3" *ngIf="userData['APIKey']">
+      <div class="outline-card space-between p-3" *ngIf="user.apiKey">
         <div>
           <div mdcHeadline5 class="black mt-3">{{ 'pages.account.api_card.title' | translate }}</div>
           <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.your_key' | translate }}</div>
-          <code dir="ltr">{{ userData['APIKey'] || 'Not found' }}</code>
+          <code dir="ltr">{{ user.apiKey || 'Not found' }}</code>
           <div mdcSubtitle1 class="mt-2">{{ 'pages.account.api_card.docs' | translate }}
             <a href="https://orange-alliance.github.io/TOA-API" target="_blank" (click)="this.sendAnalytic('leaving', '/account', 'api docs');">{{ 'general.here' | translate }}</a>.
           </div>
         </div>
         <img class="server-illustration" src="../../../assets/imgs/server_illustration.svg" />
       </div>
-      <div class="outline-card space-between p-3" *ngIf="!userData['APIKey']">
+      <div class="outline-card space-between p-3" *ngIf="!user.apiKey">
         <div>
           <div mdcHeadline5 class="black mt-3">{{ 'pages.account.api_card.title' | translate }}</div>
           <div *ngIf="!generatingApiKey">
@@ -88,108 +91,35 @@
             {{ 'pages.account.reset_password' | translate }}
           </mdc-list-item>
 
-          <mdc-list-item (click)="isUserLinkToProvider(googleProvider) ? unlinkProvider(googleProvider) : linkProvider(googleProvider)">
+          <mdc-list-item (click)="user.googleLinked ? unlinkProvider(googleProvider) : linkProvider(googleProvider)">
             <mdc-icon mdcListItemGraphic svgIcon="google"></mdc-icon>
-            {{ (isUserLinkToProvider(googleProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'Google'} }}
+            {{ (user.googleLinked ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'Google'} }}
           </mdc-list-item>
 
-          <mdc-list-item (click)="isUserLinkToProvider(githubProvider) ? unlinkProvider(githubProvider) : linkProvider(githubProvider)">
+          <mdc-list-item (click)="user.githubLinked ? unlinkProvider(githubProvider) : linkProvider(githubProvider)">
             <mdc-icon mdcListItemGraphic svgIcon="github-circle"></mdc-icon>
-            {{ (isUserLinkToProvider(githubProvider) ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'GitHub'} }}
+            {{ (user.githubLinked ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'GitHub'} }}
+          </mdc-list-item>
+
+          <mdc-list-item *ngIf="isDevMode" (click)="user.phoneLinked ? unlinkProvider(phoneProvider) : renderCaptcha()">
+            <mdc-icon mdcListItemGraphic svgIcon="phone"></mdc-icon>
+            {{ (user.phoneLinked ? 'pages.account.unlink_phone' : 'pages.account.link_phone') | translate }}
+          </mdc-list-item>
+        </mdc-list>
+        <!-- For phone auth, this has to be here -->
+        <div id="recaptcha" *ngIf="showCaptcha"></div>
+        <mdc-list disableRipple twoLine [interactive]="false">
+          <mdc-list-item>
+            <mdc-list-item-text [secondaryText]="'pages.account.last_signin' | translate">{{ user.metadata.lastSignInTime | date: 'MMM d yyyy, h:mm a' }}</mdc-list-item-text>
           </mdc-list-item>
         </mdc-list>
       </div>
     </div>
   </div>
 
-  <div *ngIf="tabs.activeTabIndex === 1 && getAdminEvents().length > 0" class="w-100">
-    <div class="outline-card p-0">
-        <div mdcHeadline5 class="black p-3">{{ 'pages.account.datasync_card.title' | translate }}</div>
-        <div class="table-responsive">
-          <table class="table table-striped mb-0" dir="ltr">
-            <thead>
-            <tr>
-              <th scope="col">Event Key</th>
-              <th scope="col">API Key</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let eventKey of getAdminEvents()">
-              <td><code style="white-space:nowrap">{{ eventKey }}</code></td>
-              <td *ngIf="adminEvents[eventKey]"><code style="white-space:nowrap">{{ adminEvents[eventKey] }}</code></td>
-              <td *ngIf="!adminEvents[eventKey] && !generatingEventApiKey"><button mdc-button (click)="generateEventApiKey(eventKey)">{{ 'pages.account.api_card.generate_key' | translate }}</button></td>
-              <td *ngIf="!adminEvents[eventKey] && generatingEventApiKey"><mdc-linear-progress></mdc-linear-progress></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div mdcSubtitle1 class="p-3">{{ 'pages.account.datasync_card.docs' | translate }}
-          <a href="https://github.com/orange-alliance/TOA-DataSync/wiki/DataSync-Documentation" target="_blank" (click)="this.sendAnalytic('leaving', '/account', 'datasync docs');">{{ 'general.here' | translate }}</a>.
-        </div>
-      </div>
-  </div>
-
-  <div *ngIf="tabs.activeTabIndex === 2 && userData['level'] >= 6">
-    <div class="outline-card">
-      <div mdcHeadline5 class="black pb-4">{{ 'pages.account.create_event_card.title' | translate }}</div>
-      <div class="row edit-event">
-        <div class="col-md-6 col-12 mb-3">
-          <mdc-text-field #event_name dense [label]="'pages.event.subpages.admin.update_info_card.event_name' | translate" class="w-100">
-            <mdc-icon mdcTextFieldIcon leading svgIcon="rename-box"></mdc-icon>
-          </mdc-text-field>
-          <mdc-select *ngIf="currentSeason"  [placeholder]="'pages.account.create_event_card.season' | translate" (selectionChange)="onSeasonChange($event)" class="w-100">
-            <option disabled></option>
-            <option *ngFor="let season of seasons" [value]="season.seasonKey">
-              20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}
-            </option>
-          </mdc-select>
-          <mdc-select *ngIf="currentRegion"  [placeholder]="'pages.account.create_event_card.region' | translate" (selectionChange)="onRegionChange($event)" class="w-100">
-            <option disabled></option>
-            <option *ngFor="let region of regions" [value]="region.regionKey">
-              {{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}
-            </option>
-          </mdc-select>
-<!--
-          <mdc-text-field #division_number dense [label]="'pages.account.create_event_card.division_number' | translate" [value]="0" class="w-100">
-            <mdc-icon mdcTextFieldIcon leading svgIcon="earth"></mdc-icon>
-          </mdc-text-field>
--->
-          <mdc-text-field #website dense [label]="'pages.event.subpages.admin.update_info_card.website' | translate" class="w-100">
-            <mdc-icon mdcTextFieldIcon leading svgIcon="earth"></mdc-icon>
-          </mdc-text-field>
-          <mdc-text-field #start_date dense type="date" [label]="'pages.event.subpages.admin.update_info_card.start_date' | translate" class="w-100">
-            <mdc-icon mdcTextFieldIcon leading svgIcon="calendar"></mdc-icon>
-          </mdc-text-field>
-          <mdc-text-field #end_date dense type="date" [label]="'pages.event.subpages.admin.update_info_card.end_date' | translate" class="w-100">
-            <mdc-icon mdcTextFieldIcon leading svgIcon="calendar"></mdc-icon>
-          </mdc-text-field>
-        </div>
-        <div class="col-md-6 col-12 ps-md-3">
-          <mdc-text-field #event_id dense [label]="'pages.account.create_event_card.event_id' | translate" class="w-100">
-            <mdc-icon mdcTextFieldIcon leading svgIcon="key"></mdc-icon>
-          </mdc-text-field>
-          <mdc-select *ngIf="currentEventType"  [placeholder]="'pages.account.create_event_card.event_type' | translate" (selectionChange)="onEventTypeChange($event)" class="w-100">
-            <option disabled></option>
-            <option *ngFor="let eventType of eventTypes" [value]="eventType.eventTypeKey">
-              {{ eventType.eventTypeKey }} - {{ eventType.description }}
-            </option>
-          </mdc-select>
-          <mdc-text-field #venue dense [label]="'pages.event.subpages.admin.update_info_card.venue' | translate" class="w-100">
-            <mdc-icon mdcTextFieldIcon leading svgIcon="spotlight"></mdc-icon>
-          </mdc-text-field>
-          <mdc-text-field #city dense [label]="'pages.event.subpages.admin.update_info_card.city' | translate" class="w-100">
-            <mdc-icon mdcTextFieldIcon leading svgIcon="city-variant-outline"></mdc-icon>
-          </mdc-text-field>
-          <mdc-text-field #state dense [label]="'pages.event.subpages.admin.update_info_card.state' | translate" class="w-100">
-            <mdc-icon mdcTextFieldIcon leading svgIcon="map-marker-outline"></mdc-icon>
-          </mdc-text-field>
-          <mdc-text-field #country dense [label]="'pages.event.subpages.admin.update_info_card.country' | translate" class="w-100">
-            <mdc-icon mdcTextFieldIcon leading svgIcon="globe-model"></mdc-icon>
-          </mdc-text-field>
-        </div>
-        <button mdc-button primary (click)="createEvent()" class="mt-2">{{ 'pages.account.create_event_card.create' | translate }}</button>
-      </div>
-    </div>
-  </div>
+  <toa-account-manage-events *ngIf="tabs.activeTabIndex === 1 && user.adminEvents.length > 0" [user]="user"></toa-account-manage-events>
+  <toa-account-create-event *ngIf="tabs.activeTabIndex === 2 && user.level >= 6" [user]="user"></toa-account-create-event>
+  <toa-account-users *ngIf="tabs.activeTabIndex === 3 && user.level >= 6" [user]="user"></toa-account-users>
+  <toa-account-cache *ngIf="tabs.activeTabIndex === 4 && user.level >= 6" [user]="user"></toa-account-cache>
+  <toa-account-retriever *ngIf="tabs.activeTabIndex === 5 && user.level >= 6" [user]="user"></toa-account-retriever>
 </div>

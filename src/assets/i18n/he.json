@@ -10,10 +10,13 @@
     "teams": "קבוצות",
     "event": "אירוע",
     "events": "אירועים",
+    "match": "מקצה",
+    "matches": "מקצים",
     "live": "LIVE",
     "here": "כאן",
     "verify": "אימות",
     "add": "הוספה",
+    "close": "סגירה",
     "error_occurred": "אירעה שגיאה, אנא נסו שוב מאוחר יותר",
     "search_text_long": "חפש קבוצה או אירוע",
     "search_text_short": "מס׳ קבוצה או שם אירוע",
@@ -27,6 +30,7 @@
     "events": "אירועים",
     "streaming": "שידוריים חיים",
     "android_app": "אפליקציית Android",
+    "ios_app": "אפליקציית iOS",
     "add_data": "הוספת מידע",
     "api": "API",
     "github": "GitHub",
@@ -80,8 +84,11 @@
       "reset_password_email": "מייל לאיפוס סיסמה נשלח אליך.",
       "link_account": "קישור חשבון {{ name }}",
       "unlink_account": "ניתוק חשבון {{ name }}",
+      "link_phone": "קישור מספר טלפון",
+      "unlink_phone": "ניתוק מספר טלפון",
       "success_link": "חשבון {{ name }} קושר בהצלחה",
       "success_unlink": "חשבון {{ name }} נותק בהצלחה",
+      "last_signin": "התחברות אחרונה",
       "datasync_card": {
         "title": "סנכרן את האירוע שלך עם TOA בלייב",
         "docs": "ניתן לבדוק את תיעוד ה־DataSync המלא שלנו"
@@ -95,6 +102,12 @@
         "season": "עונה",
         "division_number": "מספר בית",
         "success": "האירוע נוצר בהצלחה"
+      },
+      "dump_cache": {
+        "title": "ניקיון מטמון",
+        "general": "כללי",
+        "dump": "ניקיון",
+        "success": "המטמון נוקה בהצלחה"
       },
       "subpages": {
         "login": {
@@ -143,6 +156,7 @@
       "event_key": "קוד אירוע",
       "stream_available": "שידור חיי זמין!",
       "alliances_count": "{{ value }} בריתות",
+      "matches_per_team": "{{ value }} מקצים לקבוצה",
       "fields_count": "{{ value }} מגרשים",
       "subpages": {
         "rankings": {
@@ -154,7 +168,8 @@
           "ranking_points": "נקודות Ranking",
           "tie_reaker_points": "נקודות שובר שיוויון",
           "highest_score": "הניקוד הכי גבוה",
-          "matches_played": "מקצים ששוחקו"
+          "matches_played": "מקצים ששוחקו",
+          "what_is_opr": "Offensive Power Rating, הידוע גם כ־OPR, הוא סטטיסטיקה המשומשת לעיתים קרובות בקהילת FIRST בכדי להשוות את הביצועים של קבוצות על המגרש. OPR זה דרך מעניינת לפרוס את הנתונים עבור קבוצות באירועים מסוימים, אבל זה לא תמיד המערכת הכי טובה להערכת הביצועים של קבוצה."
         },
         "matches": {
           "title": "מקצים"
@@ -168,6 +183,7 @@
         "for-participants": {
           "title": "למשתתפים",
           "pits_map": "מפת פיטים",
+          "venue_map": "מפת האולם",
           "schedule": "לוח זמנים"
         },
         "admin": {
@@ -192,8 +208,6 @@
             "state": "מחוז (ארה\"ב בלבד)",
             "country": "מדינה",
             "update": "עדכון",
-            "pits_map": "מפת פיטים",
-            "schedule": "לוח זמנים",
             "upload": "העלאה",
             "image_only": "ניתן להעלות את זה כתמונה בלבד",
             "choose_image": "בחר תמונה...",
@@ -204,6 +218,7 @@
             "unlink_stream": "ניתוק שידור חי",
             "currently_linked": "שידור חי מקושר כרגע",
             "url": "{{ provider }} URL",
+            "stream_name": "שם השידור",
             "link": "קישור",
             "unlink": "ניתוק",
             "stream": "שידור חי {{ provider }}",
@@ -298,6 +313,7 @@
     "event_long": "לא דווחו תוצאות עבור אירוע זה.",
     "streams_long": "אין כרגע שידורים חיים פועלים.",
     "events_for_season": "אין אירועים עבור עונת {{ season }}",
-    "events_for_season_long": "הקבוצה הזאת עדיין לא שיחקה באף אירוע העונה.<br/>נסה לשנות את העונה דרך כפתור הבחירה שלמעלה."
+    "events_for_season_long": "הקבוצה הזאת עדיין לא שיחקה באף אירוע העונה.<br/>נסה לשנות את העונה דרך כפתור הבחירה שלמעלה.",
+    "match_breakdown": "לא נמצא מידע על מקצה"
   }
 }
