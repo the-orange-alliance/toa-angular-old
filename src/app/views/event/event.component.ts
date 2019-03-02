@@ -16,6 +16,7 @@ import EventType from '../../models/EventType';
 import Season from '../../models/Season';
 import EventLiveStream from '../../models/EventLiveStream';
 import Media from '../../models/Media';
+import Alliance from "../../models/Alliance";
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -34,6 +35,7 @@ export class EventComponent implements OnInit {
   eventSeasonName: string;
   matchesPerTeam: number;
   stream: EventLiveStream;
+  alliances: Alliance[];
   media: Media[];
   divisions: Event[] = [];
 
@@ -42,6 +44,7 @@ export class EventComponent implements OnInit {
   totalteams: any;
   totalmatches: any;
   totalrankings: any;
+  totalalliances: any;
   totalawards: any;
 
   user: User = null;
@@ -65,7 +68,7 @@ export class EventComponent implements OnInit {
             this.admin = userData.adminEvents.includes(this.eventKey) || userData.level >= 6;
             this.favorite = userData.favoriteEvents.includes(this.eventKey);
 
-            if (this.admin && this.totalrankings === 0 && this.totalmatches === 0 &&
+            if (this.admin && this.totalrankings === 0 && this.totalalliances === 0 && this.totalmatches === 0 &&
               this.totalteams === 0 && this.totalawards === 0 && this.totalmedia === 0) {
               this.select('admin');
             }
@@ -106,6 +109,7 @@ export class EventComponent implements OnInit {
           this.totalteams = this.eventData.teams.length;
           this.totalmatches = this.eventData.matches.length;
           this.totalrankings = this.eventData.rankings.length;
+          this.totalalliances = this.eventData.alliances.length;
           this.totalawards = this.eventData.awards.length;
 
           this.ftc.getEventStreams(this.eventKey).then((eventLiveStream: EventLiveStream[]) => {
@@ -209,14 +213,17 @@ export class EventComponent implements OnInit {
       case 'teams':
         this.activeTab = 2;
         break;
-      case 'awards':
+      case 'alliances':
         this.activeTab = 3;
         break;
-      case 'media':
+      case 'awards':
         this.activeTab = 4;
         break;
-      case 'admin':
+      case 'media':
         this.activeTab = 5;
+        break;
+      case 'admin':
+        this.activeTab = 6;
         break;
     }
   }

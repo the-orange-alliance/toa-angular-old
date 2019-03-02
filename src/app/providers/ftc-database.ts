@@ -16,6 +16,7 @@ import EventParticipant from '../models/EventParticipant';
 import * as GameData from '../models/game-specifics/GameData';
 import Media from '../models/Media';
 import TeamSeasonRecord from '../models/TeamSeasonRecord';
+import Alliance from '../models/Alliance';
 
 @Injectable()
 export class FTCDatabase {
@@ -190,6 +191,7 @@ export class FTCDatabase {
       promises.push(this.request('/event/' + eventKey + '/rankings').catch(() => []));
       promises.push(this.request('/event/' + eventKey + '/awards').catch(() => []));
       promises.push(this.request('/event/' + eventKey + '/teams').catch(() => []));
+      promises.push(this.request('/event/' + eventKey + '/alliances').catch(() => []));
       Promise.all(promises).then((data: any[]) => {
         if (data[0]) {
           const event: Event = (data[0][0]) ? new Event().fromJSON(data[0][0]) : null;
@@ -197,6 +199,7 @@ export class FTCDatabase {
           event.rankings = data[2].map((rankJSON: any) => new Ranking().fromJSON(rankJSON));
           event.awards = data[3].map((awardJSON: any) => new AwardRecipient().fromJSON(awardJSON));
           event.teams = data[4].map((teamJSON: any) => new EventParticipant().fromJSON(teamJSON));
+          event.alliances = data[5].map((allianceJSON: any) => new Alliance().fromJSON(allianceJSON));
           resolve(event);
         } else {
           reject(null);

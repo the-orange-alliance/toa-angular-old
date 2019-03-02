@@ -180,6 +180,9 @@
         "awards": {
           "title": "פרסים"
         },
+        "alliances": {
+          "title": "בריתות"
+        },
         "for-participants": {
           "title": "למשתתפים",
           "pits_map": "מפת פיטים",

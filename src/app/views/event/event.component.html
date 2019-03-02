@@ -77,7 +77,7 @@
     <h4 class="col-12">{{ 'no_data.event_long' | translate }}</h4>
   </div>
 
-  <div class="mt-5 row" *ngIf="admin || totalmedia > 0 || totalteams > 0 || totalmatches > 0 || totalrankings > 0 || totalawards > 0">
+  <div class="mt-5 row" *ngIf="admin || totalmedia > 0 || totalteams > 0 || totalmatches > 0 || totalrankings > 0 || totalalliances > 0|| totalawards > 0">
     <div class="col-12">
       <mdc-card class="toa-card">
         <mdc-tab-bar #tabs class="w-100" [focusOnActivate]="false" [activeTabIndex]="activeTab">
@@ -85,6 +85,7 @@
             <mdc-tab label="{{ 'pages.event.subpages.rankings.title' | translate }}" [class.d-none]="totalrankings === 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalrankings }}</span></mdc-tab>
             <mdc-tab label="{{ 'pages.event.subpages.matches.title' | translate }}" [class.d-none]="totalmatches === 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalmatches }}</span></mdc-tab>
             <mdc-tab label="{{ 'pages.event.subpages.teams.title' | translate }}" [class.d-none]="totalteams === 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalteams }}</span></mdc-tab>
+            <mdc-tab label="{{ 'pages.event.subpages.alliances.title' | translate }}" [class.d-none]="totalalliances === 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalalliances }}</span></mdc-tab>
             <mdc-tab label="{{ 'pages.event.subpages.awards.title' | translate }}" [class.d-none]="totalawards === 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalawards }}</span></mdc-tab>
             <mdc-tab label="{{ 'pages.event.subpages.for-participants.title' | translate }}" [class.d-none]="totalmedia === 0"></mdc-tab>
             <mdc-tab label="{{ 'pages.event.subpages.admin.title' | translate }}" [class.d-none]="!admin" [disabled]="!emailVerified"></mdc-tab>
@@ -94,9 +95,10 @@
           <toa-event-rankings *ngIf="tabs.activeTabIndex === 0" [event]="eventData" [rankings]="eventData.rankings"></toa-event-rankings>
           <toa-event-matches *ngIf="tabs.activeTabIndex === 1" [matches]="eventData.matches" [teams]="eventData.teams" [rankings]="eventData.rankings"></toa-event-matches>
           <toa-event-teams *ngIf="tabs.activeTabIndex === 2" [teams]="eventData.teams"></toa-event-teams>
-          <toa-event-awards *ngIf="tabs.activeTabIndex === 3" [event]="eventData"></toa-event-awards>
-          <toa-event-for-participants *ngIf="tabs.activeTabIndex === 4" [event]="eventData" [media]="media"></toa-event-for-participants>
-          <toa-event-admin *ngIf="admin" [class.d-none]="!emailVerified || !(tabs.activeTabIndex === 5 || (totalrankings === 0 && totalmatches === 0 && totalteams === 0 && totalawards === 0 && totalmedia === 0))" [user]="user" [uid]="user.uid" [eventKey]="eventData.eventKey" [eventData]="eventData" [toaAdmin]="toaAdmin"></toa-event-admin>
+          <toa-event-alliances *ngIf="tabs.activeTabIndex === 3" [alliances]="eventData.alliances"></toa-event-alliances>
+          <toa-event-awards *ngIf="tabs.activeTabIndex === 4" [event]="eventData"></toa-event-awards>
+          <toa-event-for-participants *ngIf="tabs.activeTabIndex === 5" [event]="eventData" [media]="media"></toa-event-for-participants>
+          <toa-event-admin *ngIf="admin" [class.d-none]="!emailVerified || !(tabs.activeTabIndex === 6 || (totalrankings === 0 && totalmatches === 0 && totalteams === 0 && totalalliances === 0 && totalawards === 0 && totalmedia === 0))" [user]="user" [uid]="user.uid" [eventKey]="eventData.eventKey" [eventData]="eventData" [toaAdmin]="toaAdmin"></toa-event-admin>
         </div>
       </mdc-card>
     </div>

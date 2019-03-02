@@ -2,6 +2,7 @@ import Match from './Match';
 import Ranking from './Ranking';
 import AwardRecipient from './AwardRecipient';
 import EventParticipant from './EventParticipant';
+import Alliance from './Alliance';
 
 export default class Event implements ISerializable {
   private _eventKey: string;
@@ -38,6 +39,7 @@ export default class Event implements ISerializable {
   private _rankings: Ranking[];
   private _awards: AwardRecipient[];
   private _teams: EventParticipant[];
+  private _alliances: Alliance[];
 
   constructor() {
     this._eventKey = '';
@@ -73,6 +75,7 @@ export default class Event implements ISerializable {
     this._rankings = [];
     this._awards = [];
     this._teams = [];
+    this._alliances = [];
   }
 
   toJSON(): object {
@@ -389,6 +392,14 @@ export default class Event implements ISerializable {
 
   set teams(value: EventParticipant[]) {
     this._teams = value;
+  }
+
+  get alliances(): Alliance[] {
+    return this._alliances;
+  }
+
+  set alliances(value: Alliance[]) {
+    this._alliances = value;
   }
 
   fixDate(date: any): any {

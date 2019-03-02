@@ -188,6 +188,9 @@
         "teams": {
           "title": "Teams"
         },
+        "alliances": {
+          "title": "Alliances"
+        },
         "awards": {
           "title": "Awards"
         },
