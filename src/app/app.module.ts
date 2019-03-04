@@ -48,6 +48,7 @@ import { DialogMatch } from './dialogs/match/dialog-match';
 import { MatchDetailsComponent } from './views/matches/details/match-details.component';
 import { MatchTableComponent } from './components/match-table/match-table.component';
 import { EventItemComponent } from './components/event/event.item.component';
+import { ModifiedEventItemComponent } from './components/modified_event/modified-event.item.component';
 import { TeamItemComponent } from './components/team/team.item.component';
 import { AwardItemComponent } from './components/award/award.item.component';
 import { LoginComponent } from './views/account/login/login.component';
@@ -100,6 +101,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     DialogMatch,
     MatchTableComponent,
     EventItemComponent,
+    ModifiedEventItemComponent,
     TeamItemComponent,
     AwardItemComponent
   ],
