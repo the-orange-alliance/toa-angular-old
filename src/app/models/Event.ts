@@ -12,6 +12,7 @@ export default class Event implements ISerializable {
   private _eventCode: string;
   private _eventTypeKey: string;
   private _eventRegionNumber: number;
+  private _firstEventCode: string;
   private _divisionKey: number;
   private _divisionName: string;
   private _eventName: string;
@@ -49,6 +50,7 @@ export default class Event implements ISerializable {
     this._eventCode = '';
     this._eventTypeKey = '';
     this._eventRegionNumber = 0;
+    this._firstEventCode = '';
     this._divisionKey = 100;
     this._divisionName = '';
     this._eventName = '';
@@ -88,6 +90,7 @@ export default class Event implements ISerializable {
       event_type_key: this.eventTypeKey,
       division_key: this.divisionKey,
       division_name: this.divisionName,
+      first_event_code: this.firstEventCode,
       event_name: this.eventName,
       start_date: this.startDate,
       end_date: this.endDate,
@@ -118,6 +121,7 @@ export default class Event implements ISerializable {
     event.eventRegionNumber = parseInt(json.event_region_number);
     event.divisionKey = json.division_key;
     event.eventTypeKey = json.event_type_key;
+    event.firstEventCode = json.first_event_code;
     event.eventName = json.event_name;
     event.divisionName = json.division_name;
     event.startDate = this.fixDate(json.start_date);
@@ -195,6 +199,14 @@ export default class Event implements ISerializable {
 
   set eventRegionNumber(value: number) {
     this._eventRegionNumber = value;
+  }
+
+  get firstEventCode(): string {
+    return this._firstEventCode;
+  }
+
+  set firstEventCode(value: string) {
+    this._firstEventCode = value;
   }
 
   get divisionKey(): number {
