@@ -7,7 +7,7 @@ import TOAUser from '../models/User';
 export class CloudFunctions {
 
   private baseUrl = 'https://functions.theorangealliance.org';
-  // private baseUrl = 'http://localhost:5001/the-orange-alliance/us-central1/requireValidations'; // Tests Only
+  // private baseUrl = 'http://localhost:5000/the-orange-alliance/us-central1/requireValidations'; // Tests Only
 
   constructor(private http: HttpClient) {
 
@@ -402,6 +402,24 @@ export class CloudFunctions {
         });
 
         this.http.get(this.baseUrl + `/update${Service[service]}`, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public getPm2Data(user: User): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`
+        });
+
+        this.http.get(this.baseUrl + `/serverStatus`, {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
           reject(err);
