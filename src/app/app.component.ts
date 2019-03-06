@@ -268,6 +268,6 @@ export class TheOrangeAllianceComponent implements OnInit {
     delta -= minutes * 60;
     // what's left is seconds
     const seconds = delta % 60;  // in theory the modulus is not required
-    return `${days} days, ${hours} hours, and ${minutes} minutes`;
+    return `${days} day${(days === 1) ? '' : 's'}, ${hours} hour${(hours === 1) ? '' : 's'}, and ${minutes} minute${(minutes === 1) ? '' : 's'}`;
   }
 }
