@@ -218,7 +218,7 @@
               <a href="https://github.com/orange-alliance/the-orange-alliance/commit/{{ server.last_commit }}" target="_blank" *ngIf="!server.is_dev">
                 <code>{{ server.last_commit ? server.last_commit.substr(0, 7) : 'Error' }}</code>
               </a>
-              <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[0].pm2_env.pm_uptime)}}</a>
+              <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[1].pm2_env.pm_uptime)}}</a>
             </p>
             <a mdcListItemMeta mdcIcon title="Restart" (click)="updateService(services.Live)">refresh</a>
           </mdc-list-item>
@@ -242,9 +242,9 @@
               <b>Redis Cache</b>
               <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[1].pm2_env.pm_uptime)}}</a>
             </p>
-            <a *ngIf="serverData && serverData[1].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
-            <a *ngIf="serverData && serverData[1].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
-            <a *ngIf="serverData && serverData[1].pm2_env.status === 'errored'" mdcListItemMeta mdcIcon style="color: red" title="Errored">error</a>
+            <a *ngIf="serverData && serverData[2].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
+            <a *ngIf="serverData && serverData[2].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
+            <a *ngIf="serverData && serverData[2].pm2_env.status === 'errored'" mdcListItemMeta mdcIcon style="color: red" title="Errored">error</a>
           </mdc-list-item>
           <mdc-list-item style="height: auto">
             <mdc-icon mdcListItemGraphic>textsms</mdc-icon>
@@ -252,9 +252,9 @@
               <b>TOA Text</b>
               <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[2].pm2_env.pm_uptime)}}</a>
             </p>
-            <a *ngIf="serverData && serverData[2].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
-            <a *ngIf="serverData && serverData[2].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
-            <a *ngIf="serverData && serverData[2].pm2_env.status === 'errored'" mdcListItemMeta mdcIcon style="color: red" title="Errored">error</a>
+            <a *ngIf="serverData && serverData[3].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
+            <a *ngIf="serverData && serverData[3].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
+            <a *ngIf="serverData && serverData[3].pm2_env.status === 'errored'" mdcListItemMeta mdcIcon style="color: red" title="Errored">error</a>
           </mdc-list-item>
           <mdc-list-item style="height: auto">
             <mdc-icon mdcListItemGraphic svgIcon="update"></mdc-icon>
@@ -262,9 +262,9 @@
               <b>TOA Server Updater</b>
               <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[3].pm2_env.pm_uptime)}}</a>
             </p>
-            <a *ngIf="serverData && serverData[3].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
-            <a *ngIf="serverData && serverData[3].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
-            <a *ngIf="serverData && serverData[3].pm2_env.status === 'errored'" mdcListItemMeta mdcIcon style="color: red" title="Errored">error</a>
+            <a *ngIf="serverData && serverData[4].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
+            <a *ngIf="serverData && serverData[4].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
+            <a *ngIf="serverData && serverData[4].pm2_env.status === 'errored'" mdcListItemMeta mdcIcon style="color: red" title="Errored">error</a>
           </mdc-list-item>
         </mdc-list>
       </mdc-dialog-content>
