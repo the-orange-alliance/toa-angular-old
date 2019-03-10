@@ -81,6 +81,11 @@
           <p><b>{{ wlt.wins }}-{{ wlt.losses }}-{{wlt.ties}}</b> (W-L-T) {{ getSeasonString(currentSeason.seasonKey, false) }} season</p>
         </div>
 
+        <div class="info-state" *ngIf="wlt">
+          <mdc-icon svgIcon="flash"></mdc-icon>
+          <p><b>{{topOpr.opr}}</b> Top OPR</p> <p (click)="scrollToEvent(topOpr.eventKey)" class="nav-item text-primary"> (Jump)</p>
+        </div>
+
         <div class="info-state" *ngIf="team.lastActive < 1819">
           <mdc-icon svgIcon="clock-end"></mdc-icon>
           <p>{{ 'pages.team.last_active' | translate }}: {{ getSeasonString(team.lastActive, true) }}</p>

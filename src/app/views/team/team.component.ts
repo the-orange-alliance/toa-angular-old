@@ -36,6 +36,7 @@ export class TeamComponent implements OnInit {
   thisSeason: Season;
   view_type: string;
   wlt: TeamSeasonRecord = null;
+  topOpr: Ranking;
 
   user: TOAUser = null;
   favorite: boolean;
@@ -143,6 +144,7 @@ export class TeamComponent implements OnInit {
 
   private getEventRankings() {
     this.ftc.getTeamResults(this.teamKey, this.currentSeason.seasonKey).then((data: Ranking[]) => {
+      this.getTopOpr(data);
       for (const event of this.team.events) {
         for (const ranking of data) {
           if (ranking.eventKey === event.eventKey) {
@@ -264,6 +266,16 @@ export class TeamComponent implements OnInit {
 
   public isSelected(view_type): boolean {
     return this.view_type === view_type;
+  }
+
+  getTopOpr(events: Ranking[]): void {
+    let topOPR = new Ranking();
+    for (const ranking of events) {
+      if (ranking.opr > topOPR.opr) {
+        topOPR = ranking;
+      }
+    }
+    this.topOpr = topOPR;
   }
 
   sendAnalytic(category, action): void {
