@@ -240,7 +240,7 @@
             <mdc-icon mdcListItemGraphic>save</mdc-icon>
             <p class="p-0 m-0">
               <b>Redis Cache</b>
-              <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[1].pm2_env.pm_uptime)}}</a>
+              <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[2].pm2_env.pm_uptime)}}</a>
             </p>
             <a *ngIf="serverData && serverData[2].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
             <a *ngIf="serverData && serverData[2].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
@@ -250,7 +250,7 @@
             <mdc-icon mdcListItemGraphic>textsms</mdc-icon>
             <p class="p-0 m-0">
               <b>TOA Text</b>
-              <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[2].pm2_env.pm_uptime)}}</a>
+              <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[3].pm2_env.pm_uptime)}}</a>
             </p>
             <a *ngIf="serverData && serverData[3].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
             <a *ngIf="serverData && serverData[3].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
@@ -260,7 +260,7 @@
             <mdc-icon mdcListItemGraphic svgIcon="update"></mdc-icon>
             <p class="p-0 m-0">
               <b>TOA Server Updater</b>
-              <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[3].pm2_env.pm_uptime)}}</a>
+              <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[4].pm2_env.pm_uptime)}}</a>
             </p>
             <a *ngIf="serverData && serverData[4].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
             <a *ngIf="serverData && serverData[4].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
