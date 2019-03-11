@@ -132,6 +132,9 @@
           <a mdc-list-item href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZE3YC297GJNUW&source=url" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
             <mdc-icon mdcListItemGraphic svgIcon="paypal"></mdc-icon>{{ "drawer.donate" | translate }}
           </a>
+          <a mdc-list-item href="https://smile.amazon.com/ch/83-2083376" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
+            <mdc-icon mdcListItemGraphic svgIcon="amazon"></mdc-icon>{{ "drawer.amazon_smile" | translate }}
+          </a>
           <a mdc-list-item routerLink="/privacy-terms" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon mdcListItemGraphic svgIcon="gavel"></mdc-icon>{{ "drawer.privacy_and_terms" | translate }}
           </a>
@@ -141,6 +144,14 @@
           <a href="https://revrobotics.com/" target="_blank" class="p-4" mdc-list-item (click)="this.sendAnalytic('leaving', 'rev robotics logo')">
             <img class="img-fit-w" src="../assets/imgs/powered_by_rev.png" title="Powered by REV" />
           </a>
+
+          <a style="height: 75px;" href="https://www.firstinspires.org/robotics/ftc" target="_blank" class="p-4" mdc-list-item (click)="this.sendAnalytic('leaving', 'ftc logo')">
+            <div>
+              {{ "drawer.official_ftc" | translate }}
+              <img class="img-fit-w" src="../assets/imgs/FIRSTTech_iconHorz_RGB.png" title="Official FIRST Tech Challenge Data Provider" />
+            </div>
+          </a>
+
 
         </mdc-list>
       </mdc-list-group>

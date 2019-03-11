@@ -36,7 +36,9 @@
     "github": "GitHub",
     "about": "About",
     "donate": "Donate",
+    "amazon_smile": "Amazon Smile",
     "privacy_and_terms": "Privacy & Terms",
+    "official_ftc": "Official Data Provider for",
     "mytoa": {
       "hello": "Hello, {{ name }}",
       "guest": "Guest",
