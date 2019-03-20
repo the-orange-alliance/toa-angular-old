@@ -376,14 +376,34 @@ export class CloudFunctions {
     });
   }
 
-  public eventsRetriever(user: User): Promise<any> {
+  public eventsRetriever(user: User, year: number): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${token}`
+          'authorization': `Bearer ${token}`,
+          'data': `${year}`
         });
 
         this.http.get(this.baseUrl + '/firstEvents', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public teamsRetriever(user: User, year: number): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': `${year}`
+        });
+
+        this.http.get(this.baseUrl + '/firstTeams', {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
           reject(err);
