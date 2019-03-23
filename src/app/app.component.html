@@ -239,13 +239,13 @@
             <a mdcListItemMeta mdcIcon title="Restart" (click)="updateService(services.Api)">refresh</a>
           </mdc-list-item>
           <mdc-list-item>
-            <mdc-icon mdcListItemGraphic svgIcon="material-design"></mdc-icon>
-            <b>MDC Version:</b>&nbsp;{{ server.mdc_version }}
-          </mdc-list-item>
-          <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="test-tube"></mdc-icon>
             <b>Update Dev WebApp</b>
             <a mdcListItemMeta mdcIcon title="Restart" (click)="updateService(services.Dev)">refresh</a>
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="material-design"></mdc-icon>
+            <b>MDC Version:</b>&nbsp;{{ server.mdc_version }}
           </mdc-list-item>
           <mdc-list-item style="height: auto">
             <mdc-icon mdcListItemGraphic>save</mdc-icon>

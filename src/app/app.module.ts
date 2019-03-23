@@ -30,6 +30,7 @@ import { ApiDocsComponent } from './views/apidocs/apidocs.component';
 import { FTCDatabase } from './providers/ftc-database';
 import { CloudFunctions } from './providers/cloud-functions';
 import { UploadService } from './providers/imgur';
+import { EventInsightsComponent } from './views/event/subviews/event-insights/event-insights.component';
 import { EventForParticipantsComponent } from './views/event/subviews/event-for-participants/event-for-participants.component';
 import { EventRankingsComponent } from './views/event/subviews/event-rankings/event-rankings.component';
 import { EventAlliancesComponent } from './views/event/subviews/event-alliances/event-alliances.component';
@@ -87,6 +88,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     EventMatchesComponent,
     EventTeamsComponent,
     EventAwardsComponent,
+    EventInsightsComponent,
     EventAdminComponent,
     TeamRobotComponent,
     TeamResultsComponent,

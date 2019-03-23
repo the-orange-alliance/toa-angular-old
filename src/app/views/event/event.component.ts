@@ -17,6 +17,7 @@ import Season from '../../models/Season';
 import EventLiveStream from '../../models/EventLiveStream';
 import Media from '../../models/Media';
 import Alliance from "../../models/Alliance";
+import EventInsights from "../../models/EventInsights";
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -36,6 +37,7 @@ export class EventComponent implements OnInit {
   matchesPerTeam: number;
   stream: EventLiveStream;
   alliances: Alliance[];
+  insights: EventInsights = null;
   media: Media[];
   divisions: Event[] = [];
 
@@ -126,6 +128,13 @@ export class EventComponent implements OnInit {
                 this.select('media');
               }
             }
+          });
+
+          this.ftc.getEventInsights(this.eventKey, 'qual').then((data) => {
+            this.insights = data;
+          });
+          this.ftc.getEventInsights(this.eventKey, 'elim').then((data) => {
+            this.insights = data;
           });
 
           this.ftc.getEventTypes().then((types: EventType[]) => {
@@ -219,11 +228,14 @@ export class EventComponent implements OnInit {
       case 'awards':
         this.activeTab = 4;
         break;
-      case 'media':
+      case 'insights':
         this.activeTab = 5;
         break;
-      case 'admin':
+      case 'media':
         this.activeTab = 6;
+        break;
+      case 'admin':
+        this.activeTab = 7;
         break;
     }
   }

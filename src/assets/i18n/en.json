@@ -197,6 +197,15 @@
         "awards": {
           "title": "Awards"
         },
+        "insights": {
+          "title": "Insights",
+          "qual": "Qualification",
+          "playoff": "Playoff",
+          "high_score": "High Score",
+          "avg_score": "Average Score",
+          "avg_winning_score": "Average Winning Score",
+          "avg_winning_margin": "Average Winning Margin"
+        },
         "for-participants": {
           "title": "For Participants",
           "pits_map": "Pits Map",

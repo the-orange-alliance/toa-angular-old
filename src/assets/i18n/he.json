@@ -180,6 +180,15 @@
         "awards": {
           "title": "פרסים"
         },
+        "insights": {
+          "title": "תובנות",
+          "qual": "Qualification",
+          "playoff": "Playoff",
+          "high_score": "ניקוד הכי גבוה",
+          "avg_score": "ממוצע נקודות",
+          "avg_winning_score": "ממוצע ניקוד מנצח",
+          "avg_winning_margin": "ממוצע הפרשי ניצחון"
+        },
         "alliances": {
           "title": "בריתות"
         },
