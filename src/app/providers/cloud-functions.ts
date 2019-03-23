@@ -395,7 +395,7 @@ export class CloudFunctions {
     });
   }
 
-  public teamsRetriever(user: User, year: number): Promise<any> {
+  public teamsRetriever(user: User, year: string): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({

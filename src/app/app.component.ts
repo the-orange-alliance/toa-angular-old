@@ -80,13 +80,16 @@ export class TheOrangeAllianceComponent implements OnInit {
     });
 
     this.appBarService.titleChange.subscribe(title => {
-      setTimeout(()=>{
+      setTimeout(() => {
         this.title = title;
       });
     });
 
     auth.authState.subscribe(user => {
       this.user = user;
+      this.cloud.getPm2Data( (this.user)).then( data => {
+        this.serverData = data;
+      });
       db.object(`Users/${this.user.uid}/level`).query.once('value').then(level => {
          this.isAdmin = level.val() && level.val() >= 6;
          if (this.isAdmin) {
@@ -110,9 +113,6 @@ export class TheOrangeAllianceComponent implements OnInit {
            this.server.mdc_version = mdcInfo.version;
          }
       });
-      this.cloud.getPm2Data( (this.user)).then( data => {
-        this.serverData = data;
-      })
     });
 
     this.current_year = new Date().getFullYear();

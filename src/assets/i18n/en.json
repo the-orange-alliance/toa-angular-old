@@ -120,7 +120,8 @@
       },
       "retriever": {
         "title": "Retriever",
-        "success": "Successfully Created {{value}} Events"
+        "success_events": "Successfully Created {{value}} Events",
+        "success_teams": "Successfully Created {{value}} Teams"
       },
       "subpages": {
         "login": {

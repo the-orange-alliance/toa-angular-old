@@ -57,6 +57,7 @@ import { TeamRobotComponent } from './views/team/subviews/team-robot/team-robot.
 import { TeamResultsComponent } from './views/team/subviews/team-results/team-results.component';
 import { StreamItemComponent } from './components/stream-item/stream-item.component';
 import { StorageServiceModule } from 'angular-webstorage-service';
+import {ModifiedTeamItemComponent} from './components/modified_team/modified-team.item.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -102,6 +103,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     MatchTableComponent,
     EventItemComponent,
     ModifiedEventItemComponent,
+    ModifiedTeamItemComponent,
     TeamItemComponent,
     AwardItemComponent
   ],
