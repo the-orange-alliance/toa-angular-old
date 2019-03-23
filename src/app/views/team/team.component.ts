@@ -241,11 +241,13 @@ export class TeamComponent implements OnInit {
 
   scrollToEvent(id: string) {
     const element = document.getElementById(id);
-    window.scroll({
-      behavior: 'smooth',
-      left: 0,
-      top: element.getBoundingClientRect().top - 85
-    });
+    if (element) {
+      window.scroll({
+        behavior: 'smooth',
+        left: 0,
+        top: element.getBoundingClientRect().top - 85
+      });
+    }
   }
 
   toggleTeam(): void {
