@@ -131,12 +131,12 @@ export class EventComponent implements OnInit {
             }
           });
 
-          this.ftc.getEventInsights(this.eventKey, 'qual').then((data) => {
-            this.insights = data;
-          });
-          this.ftc.getEventInsights(this.eventKey, 'elim').then((data) => {
-            this.insights = data;
-          });
+          this.ftc.getEventInsights(this.eventKey, 'qual').then((insights) => {
+            this.insights = insights;
+          }).catch((error) => console.log('Qual Insights Failed to Load'));
+          this.ftc.getEventInsights(this.eventKey, 'elim').then((insights) => {
+            this.insights = insights;
+          }).catch((error) => console.log('Elim Insights Failed to Load'));
 
           this.ftc.getEventTypes().then((types: EventType[]) => {
             this.eventTypes = types;
@@ -162,17 +162,17 @@ export class EventComponent implements OnInit {
           if (this.eventData.matches && this.eventData.teams && this.eventData.teams.length > 0) {
             let matches = 0;
             let surrogateTeams = 0;
-            for (let match of this.eventData.matches) {
+            for (const match of this.eventData.matches) {
               if (match.tournamentLevel === 1 && match.participants.length === 4) {
                 matches++;
-                for (let participant of match.participants) {
+                for (const participant of match.participants) {
                   if (participant.stationStatus === 0) {
                     surrogateTeams++;
                   }
                 }
               }
             }
-            let number = ((matches * 4) - surrogateTeams) / this.eventData.teams.length;
+            const number = ((matches * 4) - surrogateTeams) / this.eventData.teams.length;
             if (number === 6 || number === 5) {
               this.matchesPerTeam = number;
             }
@@ -192,8 +192,8 @@ export class EventComponent implements OnInit {
                     }
                     this.divisions.push(eventData);
                     this.divisions.sort((a, b) => {
-                      let division1 = a.divisionKey;
-                      let division2 = b.divisionKey;
+                      const division1 = a.divisionKey;
+                      const division2 = b.divisionKey;
                       return (division1 > division2) ? 1 : ((division2 > division1) ? -1 : 0);
                     })
                   }
