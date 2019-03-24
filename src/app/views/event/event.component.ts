@@ -69,6 +69,7 @@ export class EventComponent implements OnInit {
           this.cloud.getShortUserData(this.user).then((userData: TOAUser) => {
             this.admin = userData.adminEvents.includes(this.eventKey) || userData.level >= 6;
             this.favorite = userData.favoriteEvents.includes(this.eventKey);
+            this.toaAdmin = userData.level === 6;
 
             if (this.admin && this.totalrankings === 0 && this.totalalliances === 0 && this.totalmatches === 0 &&
               this.totalteams === 0 && this.totalawards === 0 && this.totalmedia === 0) {
