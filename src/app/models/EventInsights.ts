@@ -1,117 +1,65 @@
 import Match from './Match';
 
 export default class EventInsights implements ISerializable {
-  private _qualHighScoreMatch: Match|null;
-  private _qualAverageMatchScore: number;
-  private _qualAverageWinningScore: number;
-  private _qualAverageWinningMargin: number;
-
-  private _elimHighScoreMatch: Match|null;
-  private _elimAverageMatchScore: number;
-  private _elimAverageWinningScore: number;
-  private _elimAverageWinningMargin: number;
+  private _highScoreMatch: Match | null;
+  private _averageMatchScore: number;
+  private _averageWinningScore: number;
+  private _averageWinningMargin: number;
 
   constructor() {
-    this._qualHighScoreMatch = null;
-    this._qualAverageMatchScore = 0;
-    this._qualAverageWinningScore = 0;
-    this._qualAverageWinningMargin = 0;
-
-    this._elimHighScoreMatch = null;
-    this._elimAverageMatchScore = 0;
-    this._elimAverageWinningScore = 0;
-    this._elimAverageWinningMargin = 0;
+    this._highScoreMatch = null;
+    this._averageMatchScore = 0;
+    this._averageWinningScore = 0;
+    this._averageWinningMargin = 0;
   }
 
   toJSON(): object {
     return {
-      qual_high_score_match: this.qualHighScoreMatch ? this.qualHighScoreMatch.toJSON() : null,
-      qual_average_match_score: this.qualAverageMatchScore,
-      qual_average_winning_score: this.qualAverageWinningScore,
-      qual_average_winning_margin: this.qualAverageWinningMargin,
-
-      elim_high_score_match: this.qualHighScoreMatch ? this.qualHighScoreMatch.toJSON() : null,
-      elim_average_match_score: this.qualAverageMatchScore,
-      elim_average_winning_score: this.qualAverageWinningScore,
-      elim_average_winning_margin: this.qualAverageWinningMargin
+      high_score_match: this.highScoreMatch ? this.highScoreMatch.toJSON() : null,
+      average_match_score: this.averageMatchScore,
+      average_winning_score: this.averageWinningScore,
+      average_winning_margin: this.averageWinningMargin
     };
   }
 
   fromJSON(json: any): EventInsights {
     const insights: EventInsights = new EventInsights();
-    insights.qualHighScoreMatch = json.qual_high_score_match ? new Match().fromJSON(json.qual_high_score_match) : null;
-    insights.qualAverageMatchScore = json.qual_average_match_score;
-    insights.qualAverageWinningScore = json.qual_average_winning_score;
-    insights.qualAverageWinningMargin = json.qual_average_winning_margin;
-
-    insights.elimHighScoreMatch = json.elim_high_score_match ? new Match().fromJSON(json.elim_high_score_match) : null;
-    insights.elimAverageMatchScore = json.elim_average_match_score;
-    insights.elimAverageWinningScore = json.elim_average_winning_score;
-    insights.elimAverageWinningMargin = json.elim_average_winning_margin;
+    insights.highScoreMatch = json.high_score_match ? new Match().fromJSON(json.high_score_match) : null;
+    insights.averageMatchScore = json.average_match_score;
+    insights.averageWinningScore = json.average_winning_score;
+    insights.averageWinningMargin = json.average_winning_margin;
     return insights;
   }
 
-  get qualHighScoreMatch(): Match|null {
-    return this._qualHighScoreMatch;
+  get highScoreMatch(): Match | null {
+    return this._highScoreMatch;
   }
 
-  set qualHighScoreMatch(value: Match|null) {
-    this._qualHighScoreMatch = value;
+  set highScoreMatch(value: Match | null) {
+    this._highScoreMatch = value;
   }
 
-  get qualAverageMatchScore(): number {
-    return this._qualAverageMatchScore;
+  get averageMatchScore(): number {
+    return this._averageMatchScore;
   }
 
-  set qualAverageMatchScore(value: number) {
-    this._qualAverageMatchScore = value;
+  set averageMatchScore(value: number) {
+    this._averageMatchScore = value;
   }
 
-  get qualAverageWinningScore(): number {
-    return this._qualAverageWinningScore;
+  get averageWinningScore(): number {
+    return this._averageWinningScore;
   }
 
-  set qualAverageWinningScore(value: number) {
-    this._qualAverageWinningScore = value;
+  set averageWinningScore(value: number) {
+    this._averageWinningScore = value;
   }
 
-  get qualAverageWinningMargin(): number {
-    return this._qualAverageWinningMargin;
+  get averageWinningMargin(): number {
+    return this._averageWinningMargin;
   }
 
-  set qualAverageWinningMargin(value: number) {
-    this._qualAverageWinningMargin = value;
-  }
-
-  get elimHighScoreMatch(): Match|null {
-    return this._elimHighScoreMatch;
-  }
-
-  set elimHighScoreMatch(value: Match|null) {
-    this._elimHighScoreMatch = value;
-  }
-
-  get elimAverageMatchScore(): number {
-    return this._elimAverageMatchScore;
-  }
-
-  set elimAverageMatchScore(value: number) {
-    this._elimAverageMatchScore = value;
-  }
-
-  get elimAverageWinningScore(): number {
-    return this._elimAverageWinningScore;
-  }
-
-  set elimAverageWinningScore(value: number) {
-    this._elimAverageWinningScore = value;
-  }
-
-  get elimAverageWinningMargin(): number {
-    return this._elimAverageWinningMargin;
-  }
-
-  set elimAverageWinningMargin(value: number) {
-    this._elimAverageWinningMargin = value;
+  set averageWinningMargin(value: number) {
+    this._averageWinningMargin = value;
   }
 }

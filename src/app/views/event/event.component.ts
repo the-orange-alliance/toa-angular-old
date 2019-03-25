@@ -37,7 +37,8 @@ export class EventComponent implements OnInit {
   matchesPerTeam: number;
   stream: EventLiveStream;
   alliances: Alliance[];
-  insights: EventInsights = null;
+  qualInsights: EventInsights = null;
+  elimInsights: EventInsights = null;
   media: Media[];
   divisions: Event[] = [];
 
@@ -131,11 +132,12 @@ export class EventComponent implements OnInit {
             }
           });
 
-          this.ftc.getEventInsights(this.eventKey, 'qual').then((insights) => {
-            this.insights = insights;
+          this.ftc.getEventInsights(this.eventKey, 'quals').then((insights) => {
+            this.qualInsights = insights;
           }).catch((error) => console.log('Qual Insights Failed to Load'));
-          this.ftc.getEventInsights(this.eventKey, 'elim').then((insights) => {
-            this.insights = insights;
+          this.ftc.getEventInsights(this.eventKey, 'elims').then((insights) => {
+            this.elimInsights = insights;
+            console.log(this.elimInsights);
           }).catch((error) => console.log('Elim Insights Failed to Load'));
 
           this.ftc.getEventTypes().then((types: EventType[]) => {

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FTCDatabase } from '../../../../providers/ftc-database';
 import Event from '../../../../models/Event';
-import EventInsights from "../../../../models/EventInsights";
+import EventInsights from '../../../../models/EventInsights';
 
 @Component({
   providers: [FTCDatabase],
@@ -12,18 +12,18 @@ import EventInsights from "../../../../models/EventInsights";
 export class EventInsightsComponent implements OnInit{
 
   @Input() event: Event;
-  @Input() insights: EventInsights;
+  @Input() qualInsights: EventInsights;
+  @Input() elimInsights: EventInsights;
 
   qualHighScore: number = 0;
   elimHighScore: number = 0;
 
   ngOnInit() {
-    console.log(this.insights)
-    if (this.insights && this.insights.qualHighScoreMatch) {
-      this.qualHighScore = Math.max(this.insights.qualHighScoreMatch.redScore, this.insights.qualHighScoreMatch.blueScore);
+    if (this.qualInsights && this.qualInsights.highScoreMatch) {
+      this.qualHighScore = Math.max(this.qualInsights.highScoreMatch.redScore, this.qualInsights.highScoreMatch.blueScore);
     }
-    if (this.insights && this.insights.elimHighScoreMatch) {
-      this.elimHighScore = Math.max(this.insights.elimHighScoreMatch.redScore, this.insights.elimHighScoreMatch.blueScore);
+    if (this.elimInsights && this.elimInsights.highScoreMatch) {
+      this.elimHighScore = Math.max(this.elimInsights.highScoreMatch.redScore, this.elimInsights.highScoreMatch.blueScore);
     }
   }
 }

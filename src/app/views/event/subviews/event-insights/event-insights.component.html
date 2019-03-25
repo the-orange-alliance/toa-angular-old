@@ -3,25 +3,25 @@
     <div class="insight-card">
       <div class="insight-card-header">{{ 'pages.event.subpages.insights.qual' | translate }}</div>
       <hr/>
-      <div class="align-items-center" *ngIf="insights.qualHighScoreMatch">
+      <div class="align-items-center" *ngIf="qualInsights.highScoreMatch">
         <div class="insight-card-title">{{ 'pages.event.subpages.insights.high_score' | translate }}</div>
         <div class="insight-card-content">{{ qualHighScore }}</div>
-        <div>{{ insights.qualHighScoreMatch.matchName }}</div>
+        <div>{{ qualInsights.highScoreMatch.matchName }}</div>
       </div>
-      <hr *ngIf="insights.qualHighScoreMatch" />
+      <hr *ngIf="qualInsights.highScoreMatch" />
       <div class="align-items-center">
         <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_score' | translate }}</div>
-        <div class="insight-card-content">{{ insights.qualAverageMatchScore }}</div>
+        <div class="insight-card-content">{{ qualInsights.averageMatchScore }}</div>
       </div>
       <hr/>
       <div class="align-items-center">
         <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_winning_score' | translate }}</div>
-        <div class="insight-card-content">{{ insights.qualAverageWinningScore }}</div>
+        <div class="insight-card-content">{{ qualInsights.averageWinningScore }}</div>
       </div>
       <hr/>
       <div class="align-items-center">
         <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_winning_margin' | translate }}</div>
-        <div class="insight-card-content">{{ insights.qualAverageWinningMargin }}</div>
+        <div class="insight-card-content">{{ qualInsights.averageWinningMargin }}</div>
       </div>
     </div>
   </div>
@@ -29,25 +29,25 @@
     <div class="insight-card">
       <div class="insight-card-header">{{ 'pages.event.subpages.insights.playoff' | translate }}</div>
       <hr/>
-      <div class="align-items-center" *ngIf="insights.elimHighScoreMatch">
+      <div class="align-items-center" *ngIf="elimInsights.highScoreMatch">
         <div class="insight-card-title">{{ 'pages.event.subpages.insights.high_score' | translate }}</div>
         <div class="insight-card-content">{{ elimHighScore }}</div>
-        <div>{{ insights.elimHighScoreMatch.matchName }}</div>
+        <div>{{ elimInsights.highScoreMatch.matchName }}</div>
       </div>
-      <hr *ngIf="insights.elimHighScoreMatch" />
+      <hr *ngIf="elimInsights.highScoreMatch" />
       <div class="align-items-center">
         <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_score' | translate }}</div>
-        <div class="insight-card-content">{{ insights.elimAverageMatchScore }}</div>
+        <div class="insight-card-content">{{ elimInsights.averageMatchScore }}</div>
       </div>
       <hr/>
       <div class="align-items-center">
         <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_winning_score' | translate }}</div>
-        <div class="insight-card-content">{{ insights.elimAverageWinningScore }}</div>
+        <div class="insight-card-content">{{ elimInsights.averageWinningScore }}</div>
       </div>
       <hr/>
       <div class="align-items-center">
         <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_winning_margin' | translate }}</div>
-        <div class="insight-card-content">{{ insights.elimAverageWinningMargin }}</div>
+        <div class="insight-card-content">{{ elimInsights.averageWinningMargin }}</div>
       </div>
     </div>
   </div>

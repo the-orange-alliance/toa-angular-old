@@ -25,8 +25,8 @@ export class FTCDatabase {
   public year = '1819';
   public allYears = ['1617', '1718', '1819'];
 
-  public baseURL = 'https://theorangealliance.org/api';
-  // public baseURL = 'http://127.0.0.1:8008/api';
+  // public baseURL = 'https://theorangealliance.org/api';
+  public baseURL = 'http://127.0.0.1:8008/api';
 
   constructor(private http: HttpClient) {}
 
@@ -302,8 +302,8 @@ export class FTCDatabase {
 
   public getEventInsights(eventKey: string, type: string): Promise<EventInsights> {
     return new Promise<EventInsights>((resolve, reject) => {
-      this.request('/event/' + eventKey + '/insights?type='+type).then((data: any[]) => {
-        resolve(new EventInsights().fromJSON(data[0] || {}));
+      this.request('/event/' + eventKey + '/insights?type=' + type).then((data: any[]) => {
+        resolve(new EventInsights().fromJSON(data[0]));
       }).catch((err: any) => reject(err));
     });
   }
