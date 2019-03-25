@@ -147,8 +147,9 @@ export class TeamComponent implements OnInit {
       this.getTopOpr(data);
       for (const event of this.team.events) {
         for (const ranking of data) {
-          if (ranking.eventKey === event.eventKey) {
+          if (ranking.eventKey.toUpperCase() === event.eventKey.toUpperCase()) {
             event.rankings = [ranking];
+            break;
           }
         }
       }
