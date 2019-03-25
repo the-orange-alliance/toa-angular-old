@@ -8,13 +8,15 @@ import { CloudFunctions, Service } from './providers/cloud-functions';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { NavigationEnd, Router } from '@angular/router';
-import { EventFilter } from './util/event-utils';
+import {EventFilter, EventSorter} from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
 import { MdcTopAppBar, MdcDrawer } from '@angular-mdc/web';
 import { environment } from '../environments/environment';
 import Team from './models/Team';
 import Event from './models/Event';
 import mdcInfo from '../../node_modules/@angular-mdc/web/package.json'
+import TOAUser from './models/User';
+import {TeamSorter} from './util/team-utils';
 
 const SMALL_WIDTH_BREAKPOINT = 1240;
 
@@ -52,6 +54,7 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   user: firebase.User;
   isAdmin: boolean = false;
+  isToaDev: boolean = false;
 
   serverData: [];
 
@@ -90,8 +93,9 @@ export class TheOrangeAllianceComponent implements OnInit {
       this.cloud.getPm2Data( (this.user)).then( data => {
         this.serverData = data;
       });
-      db.object(`Users/${this.user.uid}/level`).query.once('value').then(level => {
-         this.isAdmin = level.val() && level.val() >= 6;
+      db.object(`Users/${this.user.uid}`).query.once('value').then(level => { // TODO: Move To Backend
+         this.isAdmin = level.val().level && level.val().level >= 6;
+         this.isToaDev = level.val().isDev;
          if (this.isAdmin) {
            this.ftc.getApiVersion().then((version: string) => {
              this.server.api_version = version;

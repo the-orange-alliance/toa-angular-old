@@ -231,17 +231,17 @@
               </a>
               <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[1].pm2_env.pm_uptime)}}</a>
             </p>
-            <a mdcListItemMeta mdcIcon title="Restart" (click)="updateService(services.Live)">refresh</a>
+            <a mdcListItemMeta *ngIf="isToaDev" mdcIcon title="Restart" (click)="updateService(services.Live)">refresh</a>
           </mdc-list-item>
           <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="webhook"></mdc-icon>
             <b>API Version:</b>&nbsp;{{ server.api_version || 'Loading' }}
-            <a mdcListItemMeta mdcIcon title="Restart" (click)="updateService(services.Api)">refresh</a>
+            <a mdcListItemMeta *ngIf="isToaDev"  mdcIcon title="Restart" (click)="updateService(services.Api)">refresh</a>
           </mdc-list-item>
           <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="test-tube"></mdc-icon>
             <b>Update Dev WebApp</b>
-            <a mdcListItemMeta mdcIcon title="Restart" (click)="updateService(services.Dev)">refresh</a>
+            <a mdcListItemMeta *ngIf="isToaDev"  mdcIcon title="Restart" (click)="updateService(services.Dev)">refresh</a>
           </mdc-list-item>
           <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="material-design"></mdc-icon>
