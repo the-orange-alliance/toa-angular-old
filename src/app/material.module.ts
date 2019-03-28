@@ -29,7 +29,7 @@ import {
 } from '@angular-mdc/web';
 
 import { DomSanitizer } from '@angular/platform-browser';
-import {isPlatformBrowser} from '@angular/common';
+import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 @NgModule({
   exports: [
@@ -64,8 +64,8 @@ import {isPlatformBrowser} from '@angular/common';
 
 export class AppMaterialModule {
   constructor(mdcIconRegistry: MdcIconRegistry, domSanitizer: DomSanitizer, @Inject(PLATFORM_ID) private platformId: Object) {
-    if (isPlatformBrowser(this.platformId)) {
-      mdcIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('../assets/mdi.svg'));
-    }
+    const svgUrl = 'assets/mdi.svg';
+    const domain = (isPlatformServer(platformId)) ? 'http://localhost:4000/' : '';
+    mdcIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl(domain + svgUrl));
   }
 }
