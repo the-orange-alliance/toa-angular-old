@@ -45,3 +45,4 @@ Thumbs.db
 the-orange-alliance.iml
 
 src/environments
+package-lock.json
