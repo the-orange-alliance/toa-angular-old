@@ -434,29 +434,37 @@ export class CloudFunctions {
 
   public getPm2Data(user: User): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
-      this.userToToken(user).then((token) => {
-        const headers = new HttpHeaders({
-          'authorization': `Bearer ${token}`
-        });
+      if (user) {
+        this.userToToken(user).then((token) => {
+          const headers = new HttpHeaders({
+            'authorization': `Bearer ${token}`
+          });
 
-        this.http.get(this.baseUrl + `/serverStatus`, {headers: headers}).subscribe((data: any) => {
-          resolve(data);
-        }, (err: any) => {
+          this.http.get(this.baseUrl + `/serverStatus`, {headers: headers}).subscribe((data: any) => {
+            resolve(data);
+          }, (err: any) => {
+            reject(err);
+          });
+        }).catch((err: any) => {
           reject(err);
         });
-      }).catch((err: any) => {
-        reject(err);
-      });
+      } else {
+        reject();
+      }
     });
   }
 
   private userToToken(user: User): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      user.getIdToken(true).then((token) => {
-        resolve(token);
-      }).catch((err: any) => {
-        reject(err);
-      });
+      if (user === null) {
+        reject();
+      } else {
+        user.getIdToken(true).then((token) => {
+          resolve(token);
+        }).catch((err: any) => {
+          reject(err);
+        });
+      }
     });
   }
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {Inject, NgModule, PLATFORM_ID} from '@angular/core';
 import {
   MdcIconRegistry,
   MdcButtonModule,
@@ -29,6 +29,7 @@ import {
 } from '@angular-mdc/web';
 
 import { DomSanitizer } from '@angular/platform-browser';
+import {isPlatformBrowser} from '@angular/common';
 
 @NgModule({
   exports: [
@@ -62,7 +63,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 
 export class AppMaterialModule {
-  constructor(mdcIconRegistry: MdcIconRegistry, domSanitizer: DomSanitizer) {
-    mdcIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('/assets/mdi.svg'));
+  constructor(mdcIconRegistry: MdcIconRegistry, domSanitizer: DomSanitizer, @Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      mdcIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('../assets/mdi.svg'));
+    }
   }
 }

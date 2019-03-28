@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import {Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppBarService } from '../../app-bar.service';
 import { FTCDatabase } from '../../providers/ftc-database';
@@ -18,6 +19,7 @@ import Media from '../../models/Media';
 import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 import EventParticipant from '../../models/EventParticipant';
 import TOAUser from '../../models/User';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'toa-team',
@@ -41,7 +43,7 @@ export class TeamComponent implements OnInit {
   user: TOAUser = null;
   favorite: boolean;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, @Inject(WINDOW) private window: Window, private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public cloud: CloudFunctions, public auth: AngularFireAuth, private appBarService: AppBarService) {
     this.teamKey = this.route.snapshot.params['team_key'];
     this.select('results');
@@ -242,8 +244,8 @@ export class TeamComponent implements OnInit {
 
   scrollToEvent(id: string) {
     const element = document.getElementById(id);
-    if (element) {
-      window.scroll({
+    if (element && isPlatformBrowser(this.platformId)) {
+      this.window.scroll({
         behavior: 'smooth',
         left: 0,
         top: element.getBoundingClientRect().top - 85
@@ -282,7 +284,7 @@ export class TeamComponent implements OnInit {
   }
 
   sendAnalytic(category, action): void {
-    (<any>window).ga('send', 'event', {
+    (<any>this.window).ga('send', 'event', {
       eventCategory: category,
       eventLabel: this.router.url,
       eventAction: action,

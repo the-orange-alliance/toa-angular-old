@@ -1,3 +1,6 @@
+import { NgtUniversalModule } from '@ng-toolkit/universal';
+import { CommonModule } from '@angular/common';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -57,7 +60,6 @@ import { RegisterComponent } from './views/account/register/register.component';
 import { TeamRobotComponent } from './views/team/subviews/team-robot/team-robot.component';
 import { TeamResultsComponent } from './views/team/subviews/team-results/team-results.component';
 import { StreamItemComponent } from './components/stream-item/stream-item.component';
-import { StorageServiceModule } from 'angular-webstorage-service';
 import {ModifiedTeamItemComponent} from './components/modified_team/modified-team.item.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -114,12 +116,18 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     DialogMatch
   ],
   imports: [
+    // Angular Uni Stuff
+    CommonModule,
+    NgtUniversalModule,
+    TransferHttpCacheModule,
+    HttpClientModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    // Firebase Stuffs
     AngularFireModule.initializeApp(environment.firebase, 'T'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-
-    BrowserModule.withServerTransition({appId: 'TOA-WebApp-1819'}),
+    // Translator Stuff
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -127,7 +135,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    StorageServiceModule,
+    // Other Angular Stuff?
+    // StorageServiceModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,

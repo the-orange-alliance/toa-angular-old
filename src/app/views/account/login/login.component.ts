@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import {Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../../app-bar.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { auth as providers } from 'firebase/app';
+import {isBrowser} from '@angular/animations/browser/src/render/shared';
+import {isPlatformBrowser} from '@angular/common';
 
 
 @Component({
@@ -22,8 +25,8 @@ export class LoginComponent implements OnInit {
   googleProvider = new providers.GoogleAuthProvider();
   githubProvider = new providers.GithubAuthProvider();
 
-  constructor(private router: Router, public auth: AngularFireAuth, private snackbar: MdcSnackbar,
-              private translate: TranslateService, private appBarService: AppBarService) {
+  constructor(@Inject(WINDOW) private window: Window, private router: Router, public auth: AngularFireAuth, private snackbar: MdcSnackbar,
+              private translate: TranslateService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
     auth.authState.subscribe(user => {
       if (user !== null) {
         this.router.navigateByUrl('/account');
@@ -47,7 +50,9 @@ export class LoginComponent implements OnInit {
     this.auth.auth.signInWithPopup(provider).then(result => {
       // The signed-in user info.
       const user = result.user;
-      window.location.reload(true);
+      if (isPlatformBrowser(this.platformId)) {
+        this.window.location.reload(true);
+      }
     }).catch((error) => {
       // Handle Errors here.
       // Show Success

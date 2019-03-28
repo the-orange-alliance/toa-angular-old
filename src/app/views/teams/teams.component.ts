@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import {Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
 import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
@@ -6,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../app-bar.service';
 import Team from '../../models/Team';
 import Region from '../../models/Region';
+import {isPlatformBrowser} from '@angular/common';
 
 const TEAMS_PER_PAGE = 500;
 
@@ -26,8 +28,8 @@ export class TeamsComponent implements OnInit {
   public rightSide: Team[];
   public leftSide: Team[];
 
-  constructor(private router: Router, private ftc: FTCDatabase,private app: TheOrangeAllianceGlobals,
-              private translate: TranslateService, private appBarService: AppBarService) {
+  constructor(@Inject(WINDOW) private window: Window, private router: Router, private ftc: FTCDatabase,private app: TheOrangeAllianceGlobals,
+              private translate: TranslateService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
     this.query = null;
     this.app.setTitle('Teams');
     this.app.setDescription(`List of FIRST Tech Challenge teams`);
@@ -96,6 +98,11 @@ export class TeamsComponent implements OnInit {
   }
 
   showFAB(): boolean {
-    return window.pageYOffset > 200;
+    if (isPlatformBrowser(this.platformId)) {
+      return this.window.pageYOffset > 200;
+    } else {
+      return false;
+    }
+
   }
 }

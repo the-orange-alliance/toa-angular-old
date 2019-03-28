@@ -1,0 +1,8 @@
+{
+  "universal": {
+    "project": "the-orange-alliance",
+    "skipInstall": false,
+    "directory": ".",
+    "http": true
+  }
+}
