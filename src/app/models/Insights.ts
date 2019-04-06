@@ -15,7 +15,7 @@ export default class Insights implements ISerializable {
 
   toJSON(): object {
     return {
-      high_score_match: this.highScoreMatch,
+      high_score_match: this.highScoreMatch ? this.highScoreMatch.toJSON() : null,
       average_match_score: this.averageMatchScore,
       average_winning_score: this.averageWinningScore,
       average_winning_margin: this.averageWinningMargin
@@ -24,7 +24,7 @@ export default class Insights implements ISerializable {
 
   fromJSON(json: any): Insights {
     const insights = new Insights();
-    insights.highScoreMatch = json.high_score_match;
+    insights.highScoreMatch = json.high_score_match ? new Match().fromJSON(json.high_score_match) : null;
     insights.averageMatchScore = json.average_match_score;
     insights.averageWinningScore = json.average_winning_score;
     insights.averageWinningMargin = json.average_winning_margin;
