@@ -148,7 +148,7 @@
 
     "home": {
       "title": "Home",
-      "short_info": "The Orange Alliance is a project to help make FTC match, event, and team information more accessible.",
+      "short_info": "The Orange Alliance is the <b>official</b> match, event, and team data provider for <i>FIRST</i> Tech Challenge.",
       "active_teams": "Active Teams",
       "matches_played": "Matches Played",
       "todays_events": "Today's Events",
