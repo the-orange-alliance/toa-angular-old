@@ -908,7 +908,7 @@ table.match-table tr {
 }
 
 #loading-spinner {
-  background-color: #ff9800;
+  background-color: $mdc-theme-primarys;
   width: 100vw;
   height: 100vh;
   display: flex;
