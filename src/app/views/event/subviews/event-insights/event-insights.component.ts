@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FTCDatabase } from '../../../../providers/ftc-database';
 import Event from '../../../../models/Event';
-import EventInsights from '../../../../models/EventInsights';
+import EventInsights from '../../../../models/Insights';
 
 @Component({
   providers: [FTCDatabase],

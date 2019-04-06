@@ -1,6 +1,6 @@
 import Match from './Match';
 
-export default class EventInsights implements ISerializable {
+export default class Insights implements ISerializable {
   private _highScoreMatch: Match | null;
   private _averageMatchScore: number;
   private _averageWinningScore: number;
@@ -15,16 +15,16 @@ export default class EventInsights implements ISerializable {
 
   toJSON(): object {
     return {
-      high_score_match: this.highScoreMatch ? this.highScoreMatch.toJSON() : null,
+      high_score_match: this.highScoreMatch,
       average_match_score: this.averageMatchScore,
       average_winning_score: this.averageWinningScore,
       average_winning_margin: this.averageWinningMargin
     };
   }
 
-  fromJSON(json: any): EventInsights {
-    const insights: EventInsights = new EventInsights();
-    insights.highScoreMatch = json.high_score_match ? new Match().fromJSON(json.high_score_match) : null;
+  fromJSON(json: any): Insights {
+    const insights = new Insights();
+    insights.highScoreMatch = json.high_score_match;
     insights.averageMatchScore = json.average_match_score;
     insights.averageWinningScore = json.average_winning_score;
     insights.averageWinningMargin = json.average_winning_margin;

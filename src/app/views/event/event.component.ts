@@ -17,7 +17,7 @@ import Season from '../../models/Season';
 import EventLiveStream from '../../models/EventLiveStream';
 import Media from '../../models/Media';
 import Alliance from "../../models/Alliance";
-import EventInsights from "../../models/EventInsights";
+import EventInsights from "../../models/Insights";
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],

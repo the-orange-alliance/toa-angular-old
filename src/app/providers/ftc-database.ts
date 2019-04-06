@@ -17,7 +17,7 @@ import * as GameData from '../models/game-specifics/GameData';
 import Media from '../models/Media';
 import TeamSeasonRecord from '../models/TeamSeasonRecord';
 import Alliance from '../models/Alliance';
-import EventInsights from "../models/EventInsights";
+import EventInsights from "../models/Insights";
 
 @Injectable()
 export class FTCDatabase {
