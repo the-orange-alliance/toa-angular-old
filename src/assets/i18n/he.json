@@ -141,8 +141,8 @@
       "no_events_today": "אין אירועים שמתרחשים היום.",
       "leaderboards": {
         "title": "לוח שיאים",
-        "high_score_qual": "ניקוד מקצה Qualification הגבוה ביותר",
-        "high_score_elim": "ניקוד מקצה Elimination הגבוה ביותר",
+        "high_score_qual": "ניקוד מקצה דירוג הגבוה ביותר",
+        "high_score_elim": "ניקוד מקצה פלייאוף הגבוה ביותר",
         "high_score_all": "ניקוד המקצה הגבוה ביותר",
         "with_enalties": "כולל עונשין",
         "penalty_free": "ללא עונשין"
@@ -182,12 +182,17 @@
         },
         "insights": {
           "title": "תובנות",
-          "qual": "Qualification",
-          "playoff": "Playoff",
+          "qual": "משחקי דירוג",
+          "playoff": "פלייאוף",
           "high_score": "ניקוד הכי גבוה",
           "avg_score": "ממוצע נקודות",
           "avg_winning_score": "ממוצע ניקוד מנצח",
-          "avg_winning_margin": "ממוצע הפרשי ניצחון"
+          "avg_winning_margin": "ממוצע הפרשי ניצחון",
+          "prc_landed": "אחוזי רובוטים שנחתו",
+          "prc_latched": "אחוזי רובטים שטפסו",
+          "avg_golds": "ממוצע מינרלים זהובים בלנדר",
+          "avg_silvers": "ממוצע מינרלים כסופים בלנדר",
+          "avg_depot": "ממוצע מינרלים במכתש"
         },
         "alliances": {
           "title": "בריתות"

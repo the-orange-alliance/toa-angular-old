@@ -1,4 +1,5 @@
 import Insights from '../Insights';
+import Match from '../Match';
 
 export default class RelicRecoveryInsights extends Insights implements ISerializable {
   private _autoAverageGlyphs: number;
@@ -34,7 +35,7 @@ export default class RelicRecoveryInsights extends Insights implements ISerializ
         tele_average_ciphers: this.teleAverageCiphers,
         end_average_relic1: this.endAverageRelic1,
         end_average_relic2: this.endAverageRelic2,
-        end_average_relic3: this.endAverageRelic2,
+        end_average_relic3: this.endAverageRelic3,
         end_percent_relics_standing: this.endPercentReliceStanding,
         end_average_balanced: this.endAverageBalanced
       }
@@ -42,7 +43,20 @@ export default class RelicRecoveryInsights extends Insights implements ISerializ
   }
 
   fromJSON(json: any): RelicRecoveryInsights {
-    return new RelicRecoveryInsights();
+    const insights = new RelicRecoveryInsights();
+    insights.highScoreMatch = json.high_score_match ? new Match().fromJSON(json.high_score_match) : null;
+    insights.averageMatchScore = json.average_match_score;
+    insights.averageWinningScore = json.average_winning_score;
+    insights.averageWinningMargin = json.average_winning_margin;
+    insights.autoAverageGlyphs = json.game.auto_average_glyphs;
+    insights.teleAverageGlyphs = json.game.tele_average_glyphs;
+    insights.teleAverageCiphers = json.game.tele_average_ciphers;
+    insights.endAverageRelic1 = json.game.end_average_relic1;
+    insights.endAverageRelic2 = json.game.end_average_relic2;
+    insights.endAverageRelic3 = json.game.end_average_relic3;
+    insights.endPercentReliceStanding = json.game.end_percent_relics_standing;
+    insights.endAverageBalanced = json.game.end_average_balanced;
+    return insights;
   }
 
   get autoAverageGlyphs(): number {

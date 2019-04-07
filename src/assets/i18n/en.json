@@ -203,8 +203,13 @@
           "playoff": "Playoff",
           "high_score": "High Score",
           "avg_score": "Average Score",
-          "avg_winning_score": "Average Winning Score",
-          "avg_winning_margin": "Average Winning Margin"
+          "avg_winning_score": "Average Win Score",
+          "avg_winning_margin": "Average Win Margin",
+          "prc_landed": "Percent of Landed Robots",
+          "prc_latched": "Percent of Latched Robots",
+          "avg_golds": "Average # of Golds Minerals in Cargo Hold",
+          "avg_silvers": "Average # of Silvers Minerals in Cargo Hold",
+          "avg_depot": "Average # of Minerals in Depot"
         },
         "for-participants": {
           "title": "For Participants",

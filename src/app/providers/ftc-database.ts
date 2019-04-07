@@ -17,7 +17,8 @@ import * as GameData from '../models/game-specifics/GameData';
 import Media from '../models/Media';
 import TeamSeasonRecord from '../models/TeamSeasonRecord';
 import Alliance from '../models/Alliance';
-import EventInsights from "../models/Insights";
+import Insights from '../models/Insights';
+import * as InsightsData from '../models/game-specifics/InsightsData';
 
 @Injectable()
 export class FTCDatabase {
@@ -300,10 +301,10 @@ export class FTCDatabase {
     });
   }
 
-  public getEventInsights(eventKey: string, type: string): Promise<EventInsights> {
-    return new Promise<EventInsights>((resolve, reject) => {
+  public getEventInsights(eventKey: string, type: string): Promise<Insights> {
+    return new Promise<Insights>((resolve, reject) => {
       this.request('/event/' + eventKey + '/insights?type=' + type).then((data: any[]) => {
-        resolve(new EventInsights().fromJSON(data[0]));
+        resolve(InsightsData.getInsights(eventKey.split('-')[0]).fromJSON(data[0] || {}));
       }).catch((err: any) => reject(err));
     });
   }

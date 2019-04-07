@@ -1,27 +1,28 @@
 import Insights from '../Insights';
+import Match from '../Match';
 
 export default class RoverRuckusInsights extends Insights implements ISerializable {
-  private _autoAverageLanding: number;
-  private _autoAverageSampling: number;
-  private _autoAverageClaiming: number;
-  private _autoAverageParking: number;
-  private _teleAverageGolds: number;
-  private _teleAverageSilvers: number;
-  private _teleAverageDepotMinerals: number;
-  private _endAverageLatched: number;
-  private _endAverageParked: number;
+  private _autoPercentLanding: number;
+  private _autoPercentSampling: number;
+  private _autoPercentClaiming: number;
+  private _autoPercentParking: number;
+  private _telePercentGolds: number;
+  private _telePercentSilvers: number;
+  private _telePercentDepotMinerals: number;
+  private _endPercentLatched: number;
+  private _endPercentParked: number;
 
   constructor() {
     super();
-    this._autoAverageLanding = 0;
-    this._autoAverageSampling = 0;
-    this._autoAverageClaiming = 0;
-    this._autoAverageParking = 0;
-    this._teleAverageGolds = 0;
-    this._teleAverageSilvers = 0;
-    this._teleAverageDepotMinerals = 0;
-    this._endAverageLatched = 0;
-    this._endAverageParked = 0;
+    this._autoPercentLanding = 0;
+    this._autoPercentSampling = 0;
+    this._autoPercentClaiming = 0;
+    this._autoPercentParking = 0;
+    this._telePercentGolds = 0;
+    this._telePercentSilvers = 0;
+    this._telePercentDepotMinerals = 0;
+    this._endPercentLatched = 0;
+    this._endPercentParked = 0;
   }
 
   toJSON(): object {
@@ -31,93 +32,106 @@ export default class RoverRuckusInsights extends Insights implements ISerializab
       average_winning_score: this.averageWinningScore,
       average_winning_margin: this.averageWinningMargin,
       game: {
-        auto_average_landing: this.autoAverageLanding,
-        auto_average_sampling: this.autoAverageSampling,
-        auto_average_claiming: this.autoAverageClaiming,
-        auto_average_parking: this.autoAverageParking,
-        tele_average_golds: this.teleAverageGolds,
-        tele_average_silvers: this.teleAverageSilvers,
-        tele_average_depot_minerals: this.teleAverageDepotMinerals,
-        end_average_latched: this.endAverageLatched,
-        end_average_parked: this.endAverageParked
+        auto_percent_landing: this.autoPercentLanding,
+        auto_percent_sampling: this.autoPercentSampling,
+        auto_percent_claiming: this.autoPercentClaiming,
+        auto_percent_parking: this.autoPercentParking,
+        tele_percent_golds: this.telePercentGolds,
+        tele_percent_silvers: this.telePercentSilvers,
+        tele_percent_depot_minerals: this.telePercentDepotMinerals,
+        end_percent_latched: this.endPercentLatched,
+        end_percent_parked: this.endPercentParked
       }
     }
   }
 
   fromJSON(json: any): RoverRuckusInsights {
-    return new RoverRuckusInsights();
+    const insights = new RoverRuckusInsights();
+    insights.highScoreMatch = json.high_score_match ? new Match().fromJSON(json.high_score_match) : null;
+    insights.averageMatchScore = json.average_match_score;
+    insights.averageWinningScore = json.average_winning_score;
+    insights.averageWinningMargin = json.average_winning_margin;
+    insights.autoPercentLanding = json.game.auto_percent_landing;
+    insights.autoPercentSampling = json.game.auto_percent_sampling;
+    insights.autoPercentClaiming = json.game.auto_percent_claiming;
+    insights.autoPercentParking = json.game.auto_percent_parking;
+    insights.telePercentGolds = json.game.tele_percent_golds;
+    insights.telePercentSilvers = json.game.tele_percent_silvers;
+    insights.telePercentDepotMinerals = json.game.tele_percent_depot_minerals;
+    insights.endPercentLatched = json.game.end_percent_latched;
+    insights.endPercentParked = json.game.end_percent_parked;
+    return insights;
   }
 
-
-  get autoAverageLanding(): number {
-    return this._autoAverageLanding;
+  get autoPercentLanding(): number {
+    return this._autoPercentLanding;
   }
 
-  set autoAverageLanding(value: number) {
-    this._autoAverageLanding = value;
+  set autoPercentLanding(value: number) {
+    this._autoPercentLanding = value;
   }
 
-  get autoAverageSampling(): number {
-    return this._autoAverageSampling;
+  get autoPercentSampling(): number {
+    return this._autoPercentSampling;
   }
 
-  set autoAverageSampling(value: number) {
-    this._autoAverageSampling = value;
+  set autoPercentSampling(value: number) {
+    this._autoPercentSampling = value;
   }
 
-  get autoAverageClaiming(): number {
-    return this._autoAverageClaiming;
+  get autoPercentClaiming(): number {
+    return this._autoPercentClaiming;
   }
 
-  set autoAverageClaiming(value: number) {
-    this._autoAverageClaiming = value;
+  set autoPercentClaiming(value: number) {
+    this._autoPercentClaiming = value;
   }
 
-  get autoAverageParking(): number {
-    return this._autoAverageParking;
+  get autoPercentParking(): number {
+    return this._autoPercentParking;
   }
 
-  set autoAverageParking(value: number) {
-    this._autoAverageParking = value;
+  set autoPercentParking(value: number) {
+    this._autoPercentParking = value;
   }
 
-  get teleAverageGolds(): number {
-    return this._teleAverageGolds;
+  get telePercentGolds(): number {
+    return this._telePercentGolds;
   }
 
-  set teleAverageGolds(value: number) {
-    this._teleAverageGolds = value;
+  set telePercentGolds(value: number) {
+    this._telePercentGolds = value;
   }
 
-  get teleAverageSilvers(): number {
-    return this._teleAverageSilvers;
+  get telePercentSilvers(): number {
+    return this._telePercentSilvers;
   }
 
-  set teleAverageSilvers(value: number) {
-    this._teleAverageSilvers = value;
+  set telePercentSilvers(value: number) {
+    this._telePercentSilvers = value;
   }
 
-  get teleAverageDepotMinerals(): number {
-    return this._teleAverageDepotMinerals;
+  get telePercentDepotMinerals(): number {
+    return this._telePercentDepotMinerals;
   }
 
-  set teleAverageDepotMinerals(value: number) {
-    this._teleAverageDepotMinerals = value;
+  set telePercentDepotMinerals(value: number) {
+    this._telePercentDepotMinerals = value;
   }
 
-  get endAverageLatched(): number {
-    return this._endAverageLatched;
+  get endPercentLatched(): number {
+    return this._endPercentLatched;
   }
 
-  set endAverageLatched(value: number) {
-    this._endAverageLatched = value;
+  set endPercentLatched(value: number) {
+    this._endPercentLatched = value;
   }
 
-  get endAverageParked(): number {
-    return this._endAverageParked;
+  get endPercentParked(): number {
+    return this._endPercentParked;
   }
 
-  set endAverageParked(value: number) {
-    this._endAverageParked = value;
+  set endPercentParked(value: number) {
+    this._endPercentParked = value;
   }
 }

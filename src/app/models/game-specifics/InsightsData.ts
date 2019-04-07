@@ -2,7 +2,7 @@ import Insights from '../Insights';
 import RelicRecoveryInsights from './RelicRecoveryInsights';
 import RoverRuckusInsights from './RoverRuckusInsights';
 
-export default function getInsights(seasonKey: string): Insights {
+export function getInsights(seasonKey: string): Insights {
   switch (seasonKey) {
     // case '1617':
     //   return new VelocityVortexInsights();

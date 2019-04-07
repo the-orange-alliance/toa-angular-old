@@ -55,12 +55,15 @@ import { EventItemComponent } from './components/event/event.item.component';
 import { ModifiedEventItemComponent } from './components/modified_event/modified-event.item.component';
 import { TeamItemComponent } from './components/team/team.item.component';
 import { AwardItemComponent } from './components/award/award.item.component';
+import { InsightsCardComponent } from './components/insights-card/insights-card.component';
+import { CircularPercentageComponent } from './components/circular-percentage/circular-percentage.component';
 import { LoginComponent } from './views/account/login/login.component';
 import { RegisterComponent } from './views/account/register/register.component';
 import { TeamRobotComponent } from './views/team/subviews/team-robot/team-robot.component';
 import { TeamResultsComponent } from './views/team/subviews/team-results/team-results.component';
 import { StreamItemComponent } from './components/stream-item/stream-item.component';
-import {ModifiedTeamItemComponent} from './components/modified_team/modified-team.item.component';
+import { ModifiedTeamItemComponent } from './components/modified_team/modified-team.item.component';
+import { Insights1819Component } from './components/insights-card/years/insights1819component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -109,7 +112,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ModifiedEventItemComponent,
     ModifiedTeamItemComponent,
     TeamItemComponent,
-    AwardItemComponent
+    AwardItemComponent,
+    InsightsCardComponent,
+    CircularPercentageComponent,
+    Insights1819Component
   ],
   entryComponents: [
     DialogText,

@@ -9,18 +9,16 @@ import { auth as providers } from 'firebase/app';
 import {isBrowser} from '@angular/animations/browser/src/render/shared';
 import {isPlatformBrowser} from '@angular/common';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
-
 })
 
 export class LoginComponent implements OnInit {
 
-  email: string = '';
-  password: string = '';
+  email = '';
+  password = '';
 
   googleProvider = new providers.GoogleAuthProvider();
   githubProvider = new providers.GithubAuthProvider();

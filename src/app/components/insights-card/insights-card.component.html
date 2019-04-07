@@ -1,0 +1,28 @@
+<div class="W-100 p-2">
+  <div class="insight-card">
+    <div class="insight-card-header">{{ 'pages.event.subpages.insights.' + (isQual ? 'qual' : 'playoff') | translate }}</div>
+    <hr/>
+    <div class="align-items-center" *ngIf="insights.highScoreMatch">
+      <div class="insight-card-title">{{ 'pages.event.subpages.insights.high_score' | translate }}</div>
+      <div class="insight-card-content">{{ highScore }}</div>
+      <div>{{ insights.highScoreMatch.matchName }}</div>
+    </div>
+    <hr *ngIf="insights.highScoreMatch" />
+    <div class="align-items-center">
+      <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_score' | translate }}</div>
+      <div class="insight-card-content">{{ insights.averageMatchScore }}</div>
+    </div>
+    <hr/>
+    <div class="align-items-center">
+      <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_winning_score' | translate }}</div>
+      <div class="insight-card-content">{{ insights.averageWinningScore }}</div>
+    </div>
+    <hr/>
+    <div class="align-items-center">
+      <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_winning_margin' | translate }}</div>
+      <div class="insight-card-content">{{ insights.averageWinningMargin }}</div>
+    </div>
+
+    <toa-insights-rover-ruckus *ngIf="seasonKey === '1819'" [insights]="insights"></toa-insights-rover-ruckus>
+  </div>
+</div>

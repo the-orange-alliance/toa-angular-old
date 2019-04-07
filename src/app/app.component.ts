@@ -1,6 +1,6 @@
 import {Component, HostListener, Inject, Injectable, NgZone, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
 import { AppBarService } from './app-bar.service';
-import {isPlatformBrowser, Location} from '@angular/common';
+import { isPlatformBrowser, Location } from '@angular/common';
 // import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
 import { TranslateService } from '@ngx-translate/core';
 import { FTCDatabase } from './providers/ftc-database';
@@ -8,15 +8,13 @@ import { CloudFunctions, Service } from './providers/cloud-functions';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { NavigationEnd, Router } from '@angular/router';
-import {EventFilter, EventSorter} from './util/event-utils';
+import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
 import { MdcTopAppBar, MdcDrawer } from '@angular-mdc/web';
 import { environment } from '../environments/environment';
 import Team from './models/Team';
 import Event from './models/Event';
 import mdcInfo from '../../node_modules/@angular-mdc/web/package.json'
-import TOAUser from './models/User';
-import {TeamSorter} from './util/team-utils';
 
 const SMALL_WIDTH_BREAKPOINT = 1240;
 
@@ -53,8 +51,8 @@ export class TheOrangeAllianceComponent implements OnInit {
   selectedLanguage = '';
 
   user: firebase.User;
-  isAdmin: boolean = false;
-  isToaDev: boolean = false;
+  isAdmin: boolean;
+  isToaDev: boolean;
 
   serverData: [];
 

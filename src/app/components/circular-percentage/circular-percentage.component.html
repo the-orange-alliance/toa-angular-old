@@ -1,0 +1,8 @@
+<div class="pie-title" *ngIf="title">{{ title }}</div>
+<div [class]="'circular-percentage small p' + css">
+  <span>{{ centerText }}</span>
+  <div class="slice">
+    <div class="bar"></div>
+    <div class="fill"></div>
+  </div>
+</div>
