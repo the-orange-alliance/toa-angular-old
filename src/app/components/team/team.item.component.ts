@@ -7,5 +7,5 @@ import Team from '../../models/Team';
 })
 export class TeamItemComponent {
   @Input() team: Team;
-  @Input() clickable: boolean;
+  @Input() clickable = true;
 }
