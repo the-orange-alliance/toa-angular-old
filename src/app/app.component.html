@@ -179,6 +179,12 @@
   </div>
 
   <div class="page" [class.toa-page]="router.url !== '/stream'">
+    <div class="championship-banner full-page">
+      <i>FIRST</i> Championship (Houston) is live!<br/>
+      <a routerLink="/events/1819-CMP-HOU1" routerLinkActive="division-activated">Franklin</a> |
+      <a routerLink="/events/1819-CMP-HOU2" routerLinkActive="division-activated">Jemison</a> |
+      <a routerLink="/events/1819-CMP-HOU0" routerLinkActive="division-activated">Finals</a>
+    </div>
     <router-outlet></router-outlet>
   </div>
 </div>
