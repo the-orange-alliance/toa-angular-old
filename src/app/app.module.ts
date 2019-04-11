@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { translateFactory } from './translate-universal-loader.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -128,7 +129,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     NgtUniversalModule,
     TransferHttpCacheModule,
     HttpClientModule,
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({ appId: 'server-app' }),
     // Firebase Stuffs
     AngularFireModule.initializeApp(environment.firebase, 'T'),
     AngularFireDatabaseModule,
@@ -138,12 +139,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
+        useFactory: translateFactory
       }
     }),
-    // Other Angular Stuff?
-    // StorageServiceModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,

@@ -1,13 +1,12 @@
 import { TheOrangeAllianceComponent } from './app.component';
 import { AppModule } from './app.module';
 import { NgModule } from '@angular/core';
-import { BrowserModule , BrowserTransferStateModule} from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   bootstrap: [TheOrangeAllianceComponent],
   imports: [
-    BrowserModule.withServerTransition({appId: 'app-root'}),
-    BrowserTransferStateModule,
+    BrowserModule.withServerTransition({appId: 'toa-webapp'}),
     AppModule,
   ]
 })
