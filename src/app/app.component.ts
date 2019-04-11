@@ -1,7 +1,7 @@
 import {Component, HostListener, Inject, Injectable, NgZone, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
 import { AppBarService } from './app-bar.service';
 import { isPlatformBrowser, Location } from '@angular/common';
-// import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
+import { CookieService } from 'ngx-cookie-service';
 import { TranslateService } from '@ngx-translate/core';
 import { FTCDatabase } from './providers/ftc-database';
 import { CloudFunctions, Service } from './providers/cloud-functions';
@@ -63,11 +63,13 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,
               db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService, private cloud: CloudFunctions,
-              /* @Inject(LOCAL_STORAGE) private storage: StorageService,*/ private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
+              private cookieService: CookieService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
 
     translate.setDefaultLang('en'); // this language will be used as a fallback when a translation isn't found in the current language
-    this.selectedLanguage = /* this.storage.get('lang') || */ translate.getBrowserLang();
-    this.languageSelected();
+    if (isPlatformBrowser(this.platformId)) {
+      this.selectedLanguage = this.cookieService.get('lang') || translate.getBrowserLang();
+      this.languageSelected();
+    }
 
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
@@ -251,7 +253,7 @@ export class TheOrangeAllianceComponent implements OnInit {
   }
 
   languageSelected(): void {
-    // this.storage.set('lang', this.selectedLanguage); // TODO: Use Cookies, Storage Doesnt Work on SSR
+    this.cookieService.set('lang', this.selectedLanguage);
     this.translate.use(this.selectedLanguage);
   }
 

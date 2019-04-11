@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -148,7 +149,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppRoutingModule,
     AppMaterialModule
   ],
-  providers: [FTCDatabase, CloudFunctions, UploadService],
+  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService],
   bootstrap: [TheOrangeAllianceComponent]
 })
 export class AppModule { }
