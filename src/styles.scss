@@ -239,10 +239,21 @@ $breakpoints: (
   text-align: center;
   padding: 10px;
   margin-bottom: 30px!important;
+  direction: ltr;
+}
+
+.championship-banner--home {
+  min-height: 260px!important;
+  padding: 20px;
+  color: #dadada!important;
 }
 
 .championship-banner a {
   color: #ccc!important;
+}
+
+.championship-banner--home a {
+  color: #fff!important;
 }
 
 .championship-banner a:hover, .championship-banner .division-activated {
