@@ -50,6 +50,7 @@
     "express-rate-limit": "^2.11.0",
     "firebase": "^5.5.5",
     "js-video-url-parser": "^0.2.8",
+    "localize-router-lazy-universal-module-loader": "^1.0.1",
     "memory-cache": "^0.2.0",
     "ngx-cookie-service": "^2.1.0",
     "rxjs": "^6.1.0",
