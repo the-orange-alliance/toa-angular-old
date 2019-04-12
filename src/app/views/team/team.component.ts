@@ -84,7 +84,7 @@ export class TeamComponent implements OnInit {
           this.app.setTitle('Team ' + this.team.teamNumber);
           this.appBarService.setTitle('Team #' + this.team.teamNumber, true);
         }
-        this.app.setDescription(`Team information and competition results for FIRST Tech Challenge Team #${ this.team.teamNumber }`);
+        this.app.setDescription(`Team information and competition results for FIRST Tech Challenge Team #${ this.team.teamNumber } from ${team.city}, ${(team.stateProv ? team.stateProv + ', ' : '') + team.country }.`);
       } else {
         this.router.navigate(['/not-found']);
       }
