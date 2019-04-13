@@ -2,17 +2,15 @@ import { NgModule } from '@angular/core';
 import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
 import { AppModule } from './app.module';
 import { TheOrangeAllianceComponent } from './app.component';
-import { LazyUniversalModuleLoaderProvider } from 'localize-router-lazy-universal-module-loader';
+import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 
 
 @NgModule({
   imports: [
     AppModule,
     ServerModule,
-    ServerTransferStateModule,
-  ],
-  providers: [
-    LazyUniversalModuleLoaderProvider
+    ModuleMapLoaderModule,
+    ServerTransferStateModule
   ],
   bootstrap: [TheOrangeAllianceComponent]
 })
