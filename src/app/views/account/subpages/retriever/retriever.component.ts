@@ -26,8 +26,8 @@ export class RetrieverComponent implements OnInit {
 
   newTeams: Team[] = null;
   modifiedTeams: ModifiedTeam[] = null;
-  viewNewTeams: boolean = false;
-  viewModTeams: boolean = false;
+  viewNewTeams = false;
+  viewModTeams = false;
 
   allSeasons: Season[] = null;
   selectedSeason: Season = null;
