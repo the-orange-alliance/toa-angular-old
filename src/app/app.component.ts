@@ -95,31 +95,32 @@ export class TheOrangeAllianceComponent implements OnInit {
           this.cloud.getPm2Data( user ).then( data => {
             this.serverData = data;
           }).catch((err) => null);
-        }
-        db.object(`Users/${this.user.uid}`).query.once('value').then(level => { // TODO: Move To Backend
-          this.isAdmin = level.val().level && level.val().level >= 6;
-          this.isToaDev = level.val().isDev;
-          if (this.isAdmin) {
-            this.ftc.getApiVersion().then((version: string) => {
-              this.server.api_version = version;
-            });
-            this.server.is_dev = !environment.production;
-            if (!this.server.is_dev) {
-              this.server.last_commit = environment.commit;
 
-              const d = new Date(environment.build_time);
-              const dateString = // 2019/02/24 16:03:57
-                d.getUTCFullYear() + '/' +
-                ('0' + (d.getUTCMonth() + 1)).slice(-2) + '/' +
-                ('0' + d.getUTCDate()).slice(-2) + ' ' +
-                ('0' + d.getUTCHours()).slice(-2) + ':' +
-                ('0' + d.getUTCMinutes()).slice(-2) + ':' +
-                ('0' + d.getUTCSeconds()).slice(-2);
-              this.server.build_time = dateString;
+          db.object(`Users/${this.user.uid}`).query.once('value').then(level => { // TODO: Move To Backend
+            this.isAdmin = level.val().level && level.val().level >= 6;
+            this.isToaDev = level.val().isDev;
+            if (this.isAdmin) {
+              this.ftc.getApiVersion().then((version: string) => {
+                this.server.api_version = version;
+              });
+              this.server.is_dev = !environment.production;
+              if (!this.server.is_dev) {
+                this.server.last_commit = environment.commit;
+
+                const d = new Date(environment.build_time);
+                const dateString = // 2019/02/24 16:03:57
+                  d.getUTCFullYear() + '/' +
+                  ('0' + (d.getUTCMonth() + 1)).slice(-2) + '/' +
+                  ('0' + d.getUTCDate()).slice(-2) + ' ' +
+                  ('0' + d.getUTCHours()).slice(-2) + ':' +
+                  ('0' + d.getUTCMinutes()).slice(-2) + ':' +
+                  ('0' + d.getUTCSeconds()).slice(-2);
+                this.server.build_time = dateString;
+              }
+              this.server.mdc_version = mdcInfo.version;
             }
-            this.server.mdc_version = mdcInfo.version;
-          }
-        });
+          });
+        }
       });
     }
 

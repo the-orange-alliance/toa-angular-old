@@ -139,7 +139,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: translateFactory
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
     }),
     FormsModule,
