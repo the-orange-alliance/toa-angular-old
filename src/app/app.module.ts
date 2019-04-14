@@ -1,10 +1,15 @@
+import { NgtUniversalModule } from '@ng-toolkit/universal';
+import { CommonModule } from '@angular/common';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { translateFactory } from './translate-universal-loader.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -30,8 +35,10 @@ import { ApiDocsComponent } from './views/apidocs/apidocs.component';
 import { FTCDatabase } from './providers/ftc-database';
 import { CloudFunctions } from './providers/cloud-functions';
 import { UploadService } from './providers/imgur';
+import { EventInsightsComponent } from './views/event/subviews/event-insights/event-insights.component';
 import { EventForParticipantsComponent } from './views/event/subviews/event-for-participants/event-for-participants.component';
 import { EventRankingsComponent } from './views/event/subviews/event-rankings/event-rankings.component';
+import { EventAlliancesComponent } from './views/event/subviews/event-alliances/event-alliances.component';
 import { EventMatchesComponent } from './views/event/subviews/event-matches/event-matches.component';
 import { EventTeamsComponent } from './views/event/subviews/event-teams/event-teams.component';
 import { EventAwardsComponent } from './views/event/subviews/event-awards/event-awards.component';
@@ -47,14 +54,18 @@ import { DialogMatch } from './dialogs/match/dialog-match';
 import { MatchDetailsComponent } from './views/matches/details/match-details.component';
 import { MatchTableComponent } from './components/match-table/match-table.component';
 import { EventItemComponent } from './components/event/event.item.component';
+import { ModifiedEventItemComponent } from './components/modified_event/modified-event.item.component';
 import { TeamItemComponent } from './components/team/team.item.component';
 import { AwardItemComponent } from './components/award/award.item.component';
+import { InsightsCardComponent } from './components/insights-card/insights-card.component';
+import { CircularPercentageComponent } from './components/circular-percentage/circular-percentage.component';
 import { LoginComponent } from './views/account/login/login.component';
 import { RegisterComponent } from './views/account/register/register.component';
 import { TeamRobotComponent } from './views/team/subviews/team-robot/team-robot.component';
 import { TeamResultsComponent } from './views/team/subviews/team-results/team-results.component';
 import { StreamItemComponent } from './components/stream-item/stream-item.component';
-import { StorageServiceModule } from 'angular-webstorage-service';
+import { ModifiedTeamItemComponent } from './components/modified_team/modified-team.item.component';
+import { Insights1819Component } from './components/insights-card/years/insights1819component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -80,9 +91,11 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TeamComponent,
     EventForParticipantsComponent,
     EventRankingsComponent,
+    EventAlliancesComponent,
     EventMatchesComponent,
     EventTeamsComponent,
     EventAwardsComponent,
+    EventInsightsComponent,
     EventAdminComponent,
     TeamRobotComponent,
     TeamResultsComponent,
@@ -98,20 +111,31 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     DialogMatch,
     MatchTableComponent,
     EventItemComponent,
+    ModifiedEventItemComponent,
+    ModifiedTeamItemComponent,
     TeamItemComponent,
-    AwardItemComponent
+    AwardItemComponent,
+    InsightsCardComponent,
+    CircularPercentageComponent,
+    Insights1819Component
   ],
   entryComponents: [
     DialogText,
     DialogMatch
   ],
   imports: [
+    // Angular Uni Stuff
+    CommonModule,
+    NgtUniversalModule,
+    TransferHttpCacheModule,
+    HttpClientModule,
+    BrowserModule.withServerTransition({ appId: 'server-app' }),
+    // Firebase Stuffs
     AngularFireModule.initializeApp(environment.firebase, 'T'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-
-    BrowserModule.withServerTransition({appId: 'TOA-WebApp-1819'}),
+    // Translator Stuff
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -119,13 +143,12 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    StorageServiceModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
     AppMaterialModule
   ],
-  providers: [FTCDatabase, CloudFunctions, UploadService],
+  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService],
   bootstrap: [TheOrangeAllianceComponent]
 })
 export class AppModule { }

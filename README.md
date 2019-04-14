@@ -12,7 +12,7 @@ The Orange Alliance is a project to centralize _FIRST_ Tech Challenge (FTC) Scou
 [Chat with us on Discord](https://discord.gg/5fH66UV)<br/>
 [Like us on Facebook](https://www.facebook.com/theorangealliance/) 
 
-![Home Page](https://user-images.githubusercontent.com/16443111/48767939-8986f800-ecc0-11e8-9d5f-0939dfb6efc5.png)
+![Home Page](https://user-images.githubusercontent.com/16443111/54284767-399eaa80-45a9-11e9-908a-c876451790f0.png)
 
 ## Built with
 - [Angular 6](https://angular.io)

@@ -229,6 +229,40 @@ $breakpoints: (
 
 
 /* ==========================================================================
+   FIRST Championship Banners
+   ========================================================================== */
+
+.championship-banner {
+  background: url('assets/imgs/star-background-banner.jpg') center/cover;
+  min-height: 50px;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 30px!important;
+  direction: ltr;
+}
+
+.championship-banner--home {
+  min-height: 260px!important;
+  padding: 20px;
+  color: #dadada!important;
+}
+
+.championship-banner a {
+  color: #ccc!important;
+}
+
+.championship-banner--home a {
+  color: #fff!important;
+}
+
+.championship-banner a:hover, .championship-banner .division-activated {
+  color: #fff!important;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* ==========================================================================
    Drawer
    ========================================================================== */
 
@@ -274,6 +308,11 @@ mdc-drawer mdc-list a {
   padding-bottom: 45px;
 }
 
+.full-page {
+  margin-top: -40px;
+  margin-bottom: 40px;
+}
+
 @media (min-width: 1240px) {
   mdc-drawer {
     padding-bottom: 64px;
@@ -286,14 +325,33 @@ mdc-drawer mdc-list a {
   }
 
   [dir="rtl"] .toa-page {
-    margin-right: 256px!important;
-    margin-left: 0!important;
+    margin-right: 256px !important;
+    margin-left: 0 !important;
+  }
+
+  .full-page {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  .page-padding {
+    padding-right: 20px;
+    padding-left: 20px;
   }
 }
 
 @media (max-width: 1239px) {
   .toa-page {
     padding: 12px;
+  }
+
+  .full-page {
+    margin: -12px;
+  }
+
+  .page-padding {
+    padding-right: 12px;
+    padding-left: 12px;
   }
 
   .page-title {
@@ -446,6 +504,10 @@ mdc-drawer mdc-list a {
 .item-team {
   height: 70px!important;
   padding-left: 10px!important;
+}
+
+.item-team .mdc-list-item__text {
+  margin: auto;
 }
 
 .item-team img {
@@ -884,7 +946,7 @@ table.match-table tr {
 }
 
 #loading-spinner {
-  background-color: #ff9800;
+  background-color: $mdc-theme-primary;
   width: 100vw;
   height: 100vh;
   display: flex;

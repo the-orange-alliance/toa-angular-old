@@ -12,7 +12,7 @@ export class UsersComponent implements OnInit {
 
   @Input() user: User;
   selectedUser: User = null;
-  users: firebase.User[] = [];
+  users: User[] = [];
 
   constructor(private appBarService: AppBarService, private cloud: CloudFunctions) {
 
@@ -25,7 +25,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  async selectUser(user: firebase.User) {
-    this.selectedUser = await this.cloud.getUserDataByUID(this.user.firebaseUser, user.uid);
+  selectUser(user: User) {
+    this.selectedUser = user;
   }
 }

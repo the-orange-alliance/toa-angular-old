@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import {Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppBarService } from '../../app-bar.service';
 import { FTCDatabase } from '../../providers/ftc-database';
@@ -18,6 +19,7 @@ import Media from '../../models/Media';
 import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 import EventParticipant from '../../models/EventParticipant';
 import TOAUser from '../../models/User';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'toa-team',
@@ -36,11 +38,12 @@ export class TeamComponent implements OnInit {
   thisSeason: Season;
   view_type: string;
   wlt: TeamSeasonRecord = null;
+  topOpr: Ranking;
 
   user: TOAUser = null;
   favorite: boolean;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, @Inject(WINDOW) private window: Window, private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public cloud: CloudFunctions, public auth: AngularFireAuth, private appBarService: AppBarService) {
     this.teamKey = this.route.snapshot.params['team_key'];
     this.select('results');
@@ -81,7 +84,7 @@ export class TeamComponent implements OnInit {
           this.app.setTitle('Team ' + this.team.teamNumber);
           this.appBarService.setTitle('Team #' + this.team.teamNumber, true);
         }
-        this.app.setDescription(`Team information and competition results for FIRST Tech Challenge Team #${ this.team.teamNumber }`);
+        this.app.setDescription(`Team information and competition results for FIRST Tech Challenge Team #${ this.team.teamNumber } from ${team.city}, ${(team.stateProv ? team.stateProv + ', ' : '') + team.country }.`);
       } else {
         this.router.navigate(['/not-found']);
       }
@@ -143,10 +146,12 @@ export class TeamComponent implements OnInit {
 
   private getEventRankings() {
     this.ftc.getTeamResults(this.teamKey, this.currentSeason.seasonKey).then((data: Ranking[]) => {
+      this.getTopOpr(data);
       for (const event of this.team.events) {
         for (const ranking of data) {
-          if (ranking.eventKey === event.eventKey) {
+          if (ranking.eventKey.toUpperCase() === event.eventKey.toUpperCase()) {
             event.rankings = [ranking];
+            break;
           }
         }
       }
@@ -239,11 +244,13 @@ export class TeamComponent implements OnInit {
 
   scrollToEvent(id: string) {
     const element = document.getElementById(id);
-    window.scroll({
-      behavior: 'smooth',
-      left: 0,
-      top: element.getBoundingClientRect().top - 85
-    });
+    if (element && isPlatformBrowser(this.platformId)) {
+      this.window.scroll({
+        behavior: 'smooth',
+        left: 0,
+        top: element.getBoundingClientRect().top - 85
+      });
+    }
   }
 
   toggleTeam(): void {
@@ -266,8 +273,18 @@ export class TeamComponent implements OnInit {
     return this.view_type === view_type;
   }
 
+  getTopOpr(events: Ranking[]): void {
+    let topOPR = new Ranking();
+    for (const ranking of events) {
+      if (ranking.opr > topOPR.opr) {
+        topOPR = ranking;
+      }
+    }
+    this.topOpr = topOPR;
+  }
+
   sendAnalytic(category, action): void {
-    (<any>window).ga('send', 'event', {
+    (<any>this.window).ga('send', 'event', {
       eventCategory: category,
       eventLabel: this.router.url,
       eventAction: action,

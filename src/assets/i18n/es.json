@@ -137,7 +137,7 @@
 
     "home": {
       "title": "Página de inicio",
-      "short_info": "The Orange Alliance es un proyecto para ayudar hacer FTC partidos, eventos, y equipo información.",
+      "short_info": "The Orange Alliance es el proveedor <b>oficial</b> para informacion de eventos, equipos, y partidos para <i>FIRST</i> Tech Challenge",
       "active_teams": "Equipos activos",
       "matches_played": "Partidos jugados",
       "todays_events": "Eventos de hoy",
@@ -189,7 +189,7 @@
         "admin": {
           "title": "Administración",
           "playlist_card": {
-            "title": "Add match videos from a YouTube Playlist",
+            "title": "Añadir videos de partidos de una lista de reproducción de YouTube",
             "playlist_url": "URL de lista de reproducción",
             "load": "Cargar",
             "confirm": "Confirmar y subir",

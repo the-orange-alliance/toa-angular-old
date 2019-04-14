@@ -12,7 +12,7 @@
 
 <div class="row mt-3" *ngIf="team">
   <div class="col-12 col-md-3 pb-5 pe-md-3 d-none d-md-block">
-    <mdc-card class="toa-card">
+    <mdc-card class="toa-card overflow">
       <div class="w-100 p-3">
         <div *ngIf="seasons && team.rookieYear" class="dropdown">
           <button *ngIf="currentSeason" class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -79,6 +79,11 @@
         <div class="info-state" *ngIf="wlt">
           <mdc-icon svgIcon="flag"></mdc-icon>
           <p><b>{{ wlt.wins }}-{{ wlt.losses }}-{{wlt.ties}}</b> (W-L-T) {{ getSeasonString(currentSeason.seasonKey, false) }} season</p>
+        </div>
+
+        <div class="info-state" *ngIf="topOpr && topOpr.opr">
+          <mdc-icon svgIcon="flash"></mdc-icon>
+          <p><b>{{topOpr.opr}}</b> Top OPR</p> <p (click)="scrollToEvent(topOpr.eventKey)" class="nav-item text-primary clickable"> (Jump)</p>
         </div>
 
         <div class="info-state" *ngIf="team.lastActive < 1819">

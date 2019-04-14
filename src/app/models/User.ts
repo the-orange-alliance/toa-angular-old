@@ -21,6 +21,7 @@ export default class TOAUser implements ISerializable {
   googleLinked: boolean;
   githubLinked: boolean;
   phoneLinked: boolean;
+  isDev: boolean;
 
   firebaseUser: firebase.User = null;
 
@@ -47,6 +48,7 @@ export default class TOAUser implements ISerializable {
       google_linked: this.googleLinked,
       github_linked: this.githubLinked,
       phone_linked: this.phoneLinked,
+      isDev: this.isDev
     };
   }
 
@@ -73,6 +75,7 @@ export default class TOAUser implements ISerializable {
     user.googleLinked = json.google_linked;
     user.githubLinked = json.github_linked;
     user.phoneLinked = json.phone_linked;
+    user.isDev = json.isDev;
     return user;
   }
 }

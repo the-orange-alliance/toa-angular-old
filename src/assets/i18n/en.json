@@ -36,7 +36,9 @@
     "github": "GitHub",
     "about": "About",
     "donate": "Donate",
+    "amazon_smile": "Amazon Smile",
     "privacy_and_terms": "Privacy & Terms",
+    "official_ftc": "Official Data Provider for",
     "mytoa": {
       "hello": "Hello, {{ name }}",
       "guest": "Guest",
@@ -58,7 +60,7 @@
 
     "404": {
       "title": "Page Not found",
-      "short_info": "Looks like you've followed a broken link or entered team/event/match that doesn't exist."
+      "short_info": "Looks like you've followed a broken link or entered a team/event/match that doesn't exist."
     },
 
     "about": {
@@ -118,7 +120,8 @@
       },
       "retriever": {
         "title": "Retriever",
-        "success": "Successfully Created {{value}} Events"
+        "success_events": "Successfully Created {{value}} Events",
+        "success_teams": "Successfully Created {{value}} Teams"
       },
       "subpages": {
         "login": {
@@ -145,7 +148,7 @@
 
     "home": {
       "title": "Home",
-      "short_info": "The Orange Alliance is a project to help make FTC match, event, and team information more accessible.",
+      "short_info": "The Orange Alliance is the <b>official</b> match, event, and team data provider for <i>FIRST</i> Tech Challenge.",
       "active_teams": "Active Teams",
       "matches_played": "Matches Played",
       "todays_events": "Today's Events",
@@ -188,8 +191,25 @@
         "teams": {
           "title": "Teams"
         },
+        "alliances": {
+          "title": "Alliances"
+        },
         "awards": {
           "title": "Awards"
+        },
+        "insights": {
+          "title": "Insights",
+          "qual": "Qualification",
+          "playoff": "Playoff",
+          "high_score": "High Score",
+          "avg_score": "Average Score",
+          "avg_winning_score": "Average Win Score",
+          "avg_winning_margin": "Average Win Margin",
+          "prc_landed": "Percent of Landed Robots",
+          "prc_latched": "Percent of Latched Robots",
+          "avg_golds": "Average # of Golds Minerals in Cargo Hold",
+          "avg_silvers": "Average # of Silvers Minerals in Cargo Hold",
+          "avg_depot": "Average # of Minerals in Depot"
         },
         "for-participants": {
           "title": "For Participants",

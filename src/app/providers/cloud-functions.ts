@@ -7,7 +7,7 @@ import TOAUser from '../models/User';
 export class CloudFunctions {
 
   private baseUrl = 'https://functions.theorangealliance.org';
-  // private baseUrl = 'http://localhost:5001/the-orange-alliance/us-central1/requireValidations'; // Tests Only
+  // private baseUrl = 'http://localhost:5000/the-orange-alliance/us-central1/requireValidations'; // Tests Only
 
   constructor(private http: HttpClient) {
 
@@ -77,7 +77,7 @@ export class CloudFunctions {
         });
 
         this.http.get(this.baseUrl + '/allUsers', {headers: headers}).subscribe((data: any) => {
-          resolve(data);
+          resolve(data.map((result: any) => new TOAUser().fromJSON(result)));
         }, (err: any) => {
           reject(err);
         });
@@ -376,14 +376,34 @@ export class CloudFunctions {
     });
   }
 
-  public eventsRetriever(user: User): Promise<any> {
+  public eventsRetriever(user: User, year: number): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${token}`
+          'authorization': `Bearer ${token}`,
+          'data': `${year}`
         });
 
         this.http.get(this.baseUrl + '/firstEvents', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public teamsRetriever(user: User, year: string): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': `${year}`
+        });
+
+        this.http.get(this.baseUrl + '/firstTeams', {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
           reject(err);
@@ -412,13 +432,39 @@ export class CloudFunctions {
     });
   }
 
+  public getPm2Data(user: User): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      if (user) {
+        this.userToToken(user).then((token) => {
+          const headers = new HttpHeaders({
+            'authorization': `Bearer ${token}`
+          });
+
+          this.http.get(this.baseUrl + `/serverStatus`, {headers: headers}).subscribe((data: any) => {
+            resolve(data);
+          }, (err: any) => {
+            reject(err);
+          });
+        }).catch((err: any) => {
+          reject(err);
+        });
+      } else {
+        reject();
+      }
+    });
+  }
+
   private userToToken(user: User): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      user.getIdToken(true).then((token) => {
-        resolve(token);
-      }).catch((err: any) => {
-        reject(err);
-      });
+      if (user === null) {
+        reject();
+      } else {
+        user.getIdToken(true).then((token) => {
+          resolve(token);
+        }).catch((err: any) => {
+          reject(err);
+        });
+      }
     });
   }
 }

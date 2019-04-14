@@ -17,7 +17,7 @@ export class ApiDocsComponent implements OnInit {
 
   docs: any = null;
   baseRoutes: any[] = [];
-  activeTab: number = -1;
+  activeTab = -1;
 
   constructor(private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals, protected sanitizer: DomSanitizer,
               private loca: Location, private router: Router, private appBarService: AppBarService) {

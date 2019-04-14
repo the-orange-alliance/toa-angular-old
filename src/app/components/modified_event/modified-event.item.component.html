@@ -1,0 +1,25 @@
+<a [routerLink]="clickable ? '/events/' + event.eventKey : null" class="no-underline mdc-list--two-line">
+  <mdc-list-item interactive style="height: 100px;">
+    <div class="data-indicator" [dir]="'config.direction' | translate" *ngIf="event.teamCount > 0"></div>
+    <mdc-list-item-text>
+       <span class="black">{{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} </span>
+      <span class="mdc-list-item__secondary-text" *ngIf="event.startDate == event.endDate"><span style="text-transform: capitalize">{{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : '' }} {{ event.country }}</span> on {{ event.startDate | date :  "mediumDate"}}</span>
+      <span class="mdc-list-item__secondary-text" *ngIf="event.startDate != event.endDate"><span style="text-transform: capitalize">{{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : '' }} {{ event.country }}</span> from {{ event.startDate | date :  "mediumDate"}} to {{ event.endDate | date :  "mediumDate"}}</span>
+      <span class="mdc-list-item__secondary-text">Differences:
+        <span *ngIf="modified_event.discStartDate">Start Date</span>
+        <span *ngIf="modified_event.discStartDate && (modified_event.discEndDate || modified_event.discVenue || modified_event.discCity || modified_event.discState || modified_event.discCountry || modified_event.discWebsite)">, </span>
+        <span *ngIf="modified_event.discEndDate">End Date</span>
+        <span *ngIf="modified_event.discEndDate && (modified_event.discVenue || modified_event.discCity || modified_event.discState || modified_event.discCountry || modified_event.discWebsite)">, </span>
+        <span *ngIf="modified_event.discVenue">Venue</span>
+        <span *ngIf="modified_event.discVenue && (modified_event.discCity || modified_event.discState || modified_event.discCountry || modified_event.discWebsite)">, </span>
+        <span *ngIf="modified_event.discCity">City</span>
+        <span *ngIf="modified_event.discCity && (modified_event.discState || modified_event.discCountry || modified_event.discWebsite)">, </span>
+        <span *ngIf="modified_event.discState">State</span>
+        <span *ngIf="modified_event.discState && (modified_event.discCountry || modified_event.discWebsite)">, </span>
+        <span *ngIf="modified_event.discCountry">Country</span>
+        <span *ngIf="modified_event.discCountry && modified_event.discWebsite">, </span>
+        <span *ngIf="modified_event.discWebsite">Website</span>
+      </span>
+    </mdc-list-item-text>
+  </mdc-list-item>
+</a>

@@ -27,9 +27,6 @@ export class CacheComponent implements OnInit {
 
   ngOnInit() {
     this.appBarService.setTitle('Retriever');
-    this.cloud.eventsRetriever(this.user.firebaseUser).then((events) => {
-      console.log(events);
-    });
   }
 
   dumpGeneralCache(): void {

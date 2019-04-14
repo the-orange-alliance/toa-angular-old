@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
@@ -8,9 +8,8 @@ import { TeamSorter } from '../../util/team-utils';
 import { EventSorter } from '../../util/event-utils';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {isPlatformBrowser, Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { CloudFunctions } from '../../providers/cloud-functions';
-import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
 import { auth as providers } from 'firebase/app';
 import { AppBarService } from '../../app-bar.service';
 import { environment } from '../../../environments/environment';
@@ -30,7 +29,7 @@ export class AccountComponent implements OnInit {
 
   firebaseUser: firebase.User = null;
   user: TOAUser = null;
-  activeTab: number = -1;
+  activeTab = -1;
 
   teams: Team[];
   events: Event[];
@@ -42,12 +41,12 @@ export class AccountComponent implements OnInit {
   phoneProvider;
   recaptchaVerifier;
 
-  showCaptcha: boolean = true;
-  isDevMode: boolean = false;
-
-  constructor(app: TheOrangeAllianceGlobals, private router: Router, private appBarService: AppBarService, private snackbar: MdcSnackbar,
+  showCaptcha = true;
+  isDevMode = false;
+                // TODO: LocalStorage doesnt work in SSR
+  constructor(/*@Inject(LOCAL_STORAGE) private localStorage: any,*/ app: TheOrangeAllianceGlobals, private router: Router, private appBarService: AppBarService, private snackbar: MdcSnackbar,
               private db: AngularFireDatabase, private auth: AngularFireAuth, private cloud: CloudFunctions, private translate: TranslateService,
-              private loca: Location, @Inject(LOCAL_STORAGE) localStorage: StorageService, private ftc: FTCDatabase) {
+              private loca: Location, private ftc: FTCDatabase) {
 
     app.setTitle('myTOA');
     app.setDescription('Your myTOA account overview');
@@ -68,7 +67,11 @@ export class AccountComponent implements OnInit {
 
     this.isDevMode = !environment.production;
 
-    auth.auth.languageCode = localStorage.get('lang') || translate.getBrowserLang() || 'en';
+    if (isPlatformBrowser(this)) {
+      auth.auth.languageCode = translate.getBrowserLang() || 'en';
+    } else {
+      auth.auth.languageCode = 'en';
+    }
 
     this.phoneProvider = new providers.PhoneAuthProvider(auth.auth);
 

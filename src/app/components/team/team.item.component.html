@@ -1,4 +1,4 @@
-<a routerLink="/teams/{{ team.teamKey }}" class="no-underline">
+<a [routerLink]="clickable ? '/teams/' + team.teamKey : null" class="no-underline mdc-list--two-line">
   <mdc-list-item class="item-team p-0">
     <div class="row mdc-list-item__text w-100">
       <div mdcHeadline6 class="black align-self-center text-center" style="width: 30%; max-width: 150px">{{ team.teamNumber }}</div>

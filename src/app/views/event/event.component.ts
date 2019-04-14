@@ -16,6 +16,8 @@ import EventType from '../../models/EventType';
 import Season from '../../models/Season';
 import EventLiveStream from '../../models/EventLiveStream';
 import Media from '../../models/Media';
+import Alliance from "../../models/Alliance";
+import EventInsights from "../../models/Insights";
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -34,6 +36,9 @@ export class EventComponent implements OnInit {
   eventSeasonName: string;
   matchesPerTeam: number;
   stream: EventLiveStream;
+  alliances: Alliance[];
+  qualInsights: EventInsights = null;
+  elimInsights: EventInsights = null;
   media: Media[];
   divisions: Event[] = [];
 
@@ -42,6 +47,7 @@ export class EventComponent implements OnInit {
   totalteams: any;
   totalmatches: any;
   totalrankings: any;
+  totalalliances: any;
   totalawards: any;
 
   user: User = null;
@@ -64,8 +70,9 @@ export class EventComponent implements OnInit {
           this.cloud.getShortUserData(this.user).then((userData: TOAUser) => {
             this.admin = userData.adminEvents.includes(this.eventKey) || userData.level >= 6;
             this.favorite = userData.favoriteEvents.includes(this.eventKey);
+            this.toaAdmin = userData.level === 6;
 
-            if (this.admin && this.totalrankings === 0 && this.totalmatches === 0 &&
+            if (this.admin && this.totalrankings === 0 && this.totalalliances === 0 && this.totalmatches === 0 &&
               this.totalteams === 0 && this.totalawards === 0 && this.totalmedia === 0) {
               this.select('admin');
             }
@@ -106,6 +113,7 @@ export class EventComponent implements OnInit {
           this.totalteams = this.eventData.teams.length;
           this.totalmatches = this.eventData.matches.length;
           this.totalrankings = this.eventData.rankings.length;
+          this.totalalliances = this.eventData.alliances.length;
           this.totalawards = this.eventData.awards.length;
 
           this.ftc.getEventStreams(this.eventKey).then((eventLiveStream: EventLiveStream[]) => {
@@ -123,6 +131,14 @@ export class EventComponent implements OnInit {
               }
             }
           });
+
+          this.ftc.getEventInsights(this.eventKey, 'quals').then((insights) => {
+            this.qualInsights = insights;
+          }).catch((error) => console.log('Qual Insights Failed to Load'));
+          this.ftc.getEventInsights(this.eventKey, 'elims').then((insights) => {
+            this.elimInsights = insights;
+            console.log(this.elimInsights);
+          }).catch((error) => console.log('Elim Insights Failed to Load'));
 
           this.ftc.getEventTypes().then((types: EventType[]) => {
             this.eventTypes = types;
@@ -148,17 +164,17 @@ export class EventComponent implements OnInit {
           if (this.eventData.matches && this.eventData.teams && this.eventData.teams.length > 0) {
             let matches = 0;
             let surrogateTeams = 0;
-            for (let match of this.eventData.matches) {
+            for (const match of this.eventData.matches) {
               if (match.tournamentLevel === 1 && match.participants.length === 4) {
                 matches++;
-                for (let participant of match.participants) {
+                for (const participant of match.participants) {
                   if (participant.stationStatus === 0) {
                     surrogateTeams++;
                   }
                 }
               }
             }
-            let number = ((matches * 4) - surrogateTeams) / this.eventData.teams.length;
+            const number = ((matches * 4) - surrogateTeams) / this.eventData.teams.length;
             if (number === 6 || number === 5) {
               this.matchesPerTeam = number;
             }
@@ -178,8 +194,8 @@ export class EventComponent implements OnInit {
                     }
                     this.divisions.push(eventData);
                     this.divisions.sort((a, b) => {
-                      let division1 = a.divisionKey;
-                      let division2 = b.divisionKey;
+                      const division1 = a.divisionKey;
+                      const division2 = b.divisionKey;
                       return (division1 > division2) ? 1 : ((division2 > division1) ? -1 : 0);
                     })
                   }
@@ -209,14 +225,20 @@ export class EventComponent implements OnInit {
       case 'teams':
         this.activeTab = 2;
         break;
-      case 'awards':
+      case 'alliances':
         this.activeTab = 3;
         break;
-      case 'media':
+      case 'awards':
         this.activeTab = 4;
         break;
-      case 'admin':
+      case 'insights':
         this.activeTab = 5;
+        break;
+      case 'media':
+        this.activeTab = 6;
+        break;
+      case 'admin':
+        this.activeTab = 7;
         break;
     }
   }

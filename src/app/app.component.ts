@@ -1,7 +1,7 @@
-import { Component, HostListener, Inject, Injectable, NgZone, OnInit, ViewChild } from '@angular/core';
+import {Component, HostListener, Inject, Injectable, NgZone, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
 import { AppBarService } from './app-bar.service';
-import { Location } from '@angular/common';
-import { LOCAL_STORAGE, StorageService } from 'angular-webstorage-service';
+import { isPlatformBrowser, Location } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 import { TranslateService } from '@ngx-translate/core';
 import { FTCDatabase } from './providers/ftc-database';
 import { CloudFunctions, Service } from './providers/cloud-functions';
@@ -51,7 +51,10 @@ export class TheOrangeAllianceComponent implements OnInit {
   selectedLanguage = '';
 
   user: firebase.User;
-  isAdmin: boolean = false;
+  isAdmin: boolean;
+  isToaDev: boolean;
+
+  serverData: [];
 
   matcher: MediaQueryList;
   @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
@@ -60,11 +63,13 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,
               db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService, private cloud: CloudFunctions,
-              @Inject(LOCAL_STORAGE) private storage: StorageService, private appBarService: AppBarService) {
+              private cookieService: CookieService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
 
     translate.setDefaultLang('en'); // this language will be used as a fallback when a translation isn't found in the current language
-    this.selectedLanguage = this.storage.get('lang') || translate.getBrowserLang();
-    this.languageSelected();
+    if (isPlatformBrowser(this.platformId)) {
+      this.selectedLanguage = this.cookieService.get('lang') || translate.getBrowserLang();
+      this.languageSelected();
+    }
 
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
@@ -78,53 +83,64 @@ export class TheOrangeAllianceComponent implements OnInit {
     });
 
     this.appBarService.titleChange.subscribe(title => {
-      setTimeout(()=>{
+      setTimeout(() => {
         this.title = title;
       });
     });
 
-    auth.authState.subscribe(user => {
-      this.user = user;
-      db.object(`Users/${this.user.uid}/level`).query.once('value').then(level => {
-         this.isAdmin = level.val() && level.val() >= 6;
-         if (this.isAdmin) {
-           this.ftc.getApiVersion().then((version: string) => {
-             this.server.api_version = version;
-           });
-           this.server.is_dev = !environment.production;
-           if (!this.server.is_dev) {
-             this.server.last_commit = environment.commit;
+    if (isPlatformBrowser(this.platformId)) {
+      auth.authState.subscribe(user => {
+        this.user = user;
+        if (user !== null) {
+          this.cloud.getPm2Data( user ).then( data => {
+            this.serverData = data;
+          }).catch((err) => null);
 
-             const d = new Date(environment.build_time);
-             const dateString = // 2019/02/24 16:03:57
-             d.getUTCFullYear() + '/' +
-               ('0' + (d.getUTCMonth() + 1)).slice(-2) + '/' +
-               ('0' + d.getUTCDate()).slice(-2) + ' ' +
-               ('0' + d.getUTCHours()).slice(-2) + ':' +
-               ('0' + d.getUTCMinutes()).slice(-2) + ':' +
-               ('0' + d.getUTCSeconds()).slice(-2);
-             this.server.build_time = dateString;
-           }
-           this.server.mdc_version = mdcInfo.version;
-         }
+          db.object(`Users/${this.user.uid}`).query.once('value').then(level => { // TODO: Move To Backend
+            this.isAdmin = level.val().level && level.val().level >= 6;
+            this.isToaDev = level.val().isDev;
+            if (this.isAdmin) {
+              this.ftc.getApiVersion().then((version: string) => {
+                this.server.api_version = version;
+              });
+              this.server.is_dev = !environment.production;
+              if (!this.server.is_dev) {
+                this.server.last_commit = environment.commit;
+
+                const d = new Date(environment.build_time);
+                const dateString = // 2019/02/24 16:03:57
+                  d.getUTCFullYear() + '/' +
+                  ('0' + (d.getUTCMonth() + 1)).slice(-2) + '/' +
+                  ('0' + d.getUTCDate()).slice(-2) + ' ' +
+                  ('0' + d.getUTCHours()).slice(-2) + ':' +
+                  ('0' + d.getUTCMinutes()).slice(-2) + ':' +
+                  ('0' + d.getUTCSeconds()).slice(-2);
+                this.server.build_time = dateString;
+              }
+              this.server.mdc_version = mdcInfo.version;
+            }
+          });
+        }
       });
-    });
+    }
 
     this.current_year = new Date().getFullYear();
     this.teamSearchResults = [];
     this.eventSearchResults = [];
 
-    this.ftc.getAllTeams().then((data: Team[]) => {
-      this.teams = data;
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.ftc.getAllTeams().then((data: Team[]) => {
+        this.teams = data;
+      });
 
-    this.ftc.getAllEvents().then((data: Event[]) => {
-      this.events = data;
-      this.eventsFilter = new EventFilter(this.events);
-    });
+      this.ftc.getAllEvents().then((data: Event[]) => {
+        this.events = data;
+        this.eventsFilter = new EventFilter(this.events);
+      });
+    }
 
     this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
+      if (event instanceof NavigationEnd && isPlatformBrowser(this.platformId)) {
         (<any>window).ga('set', 'page', event.urlAfterRedirects);
         (<any>window).ga('send', 'pageview');
       }
@@ -132,12 +148,18 @@ export class TheOrangeAllianceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.matcher = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
-    this.matcher.addListener((event: MediaQueryListEvent) => this.ngZone.run(() => event.matches));
+    if (isPlatformBrowser(this.platformId)) {
+      this.matcher = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
+      this.matcher.addListener((event: MediaQueryListEvent) => this.ngZone.run(() => event.matches));
+    }
   }
 
   isScreenSmall(): boolean {
-    return this.router.url === '/stream' || this.matcher.matches;
+    if (isPlatformBrowser(this.platformId)) {
+      return this.router.url === '/stream' || this.matcher.matches;
+    } else {
+      return this.router.url === '/stream';
+    }
   }
 
   back() {
@@ -232,7 +254,7 @@ export class TheOrangeAllianceComponent implements OnInit {
   }
 
   languageSelected(): void {
-    this.storage.set('lang', this.selectedLanguage);
+    this.cookieService.set('lang', this.selectedLanguage);
     this.translate.use(this.selectedLanguage);
   }
 
@@ -247,5 +269,22 @@ export class TheOrangeAllianceComponent implements OnInit {
       eventAction: action,
       eventValue: 10
     });
+  }
+
+  calculateUptime(unixTime): any {
+    // get total seconds between the times
+    let delta = Math.abs(new Date().getTime() - unixTime) / 1000;
+    // calculate (and subtract) whole days
+    const days = Math.floor(delta / 86400);
+    delta -= days * 86400;
+    // calculate (and subtract) whole hours
+    const hours = Math.floor(delta / 3600) % 24;
+    delta -= hours * 3600;
+    // calculate (and subtract) whole minutes
+    const minutes = Math.floor(delta / 60) % 60;
+    delta -= minutes * 60;
+    // what's left is seconds
+    const seconds = delta % 60;  // in theory the modulus is not required
+    return `${days} day${(days === 1) ? '' : 's'}, ${hours} hour${(hours === 1) ? '' : 's'}, and ${minutes} minute${(minutes === 1) ? '' : 's'}`;
   }
 }

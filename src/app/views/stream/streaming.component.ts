@@ -1,10 +1,12 @@
-import { Component, HostListener, NgZone, OnInit } from '@angular/core';
+import { WINDOW } from '@ng-toolkit/universal';
+import {Component, HostListener, NgZone, OnInit, Inject, PLATFORM_ID} from '@angular/core';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import EventLiveStream from '../../models/EventLiveStream';
+import {isPlatformBrowser} from '@angular/common';
 
 export class Layout {
   width: number;
@@ -45,19 +47,21 @@ export class StreamingComponent implements OnInit {
   selectedLayout: number = -1;
 
   constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer,
-              private app: TheOrangeAllianceGlobals, private ngZone: NgZone) {
+              private app: TheOrangeAllianceGlobals, private ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {
     this.app.setTitle('Streaming');
     this.app.setDescription('Watch live FIRST Tech Challenge events');
 
-    window.onresize = (e) => {
-      this.ngZone.run(() => {
-        this.checkSize(window.innerWidth);
-      });
-    };
+    if (isPlatformBrowser(this.platformId)) {
+      window.onresize = (e) => {
+        this.ngZone.run(() => {
+          this.checkSize(window.innerWidth);
+        });
+      };
+    }
   }
 
   ngOnInit() {
-    this.checkSize(window.innerWidth);
+    // this.checkSize(this.window.innerWidth); // TODO: Ofek Pleae Fix
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       this.streams = [];
       for (const stream of data) {
@@ -74,7 +78,7 @@ export class StreamingComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event){
+  onResize(event) {
     this.checkSize(event.target.innerWidth);
   }
 
@@ -97,7 +101,7 @@ export class StreamingComponent implements OnInit {
 
     // The layouts, names, and icons were taken from TBA
     // https://github.com/the-blue-alliance/the-blue-alliance/blob/master/react/gameday2/constants/LayoutConstants.js
-    let layouts: Layout[] = [];
+    const layouts: Layout[] = [];
     if (layoutKey === 0) {
       /*
         +------+------+
