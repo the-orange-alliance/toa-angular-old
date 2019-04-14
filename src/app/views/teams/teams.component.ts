@@ -28,7 +28,7 @@ export class TeamsComponent implements OnInit {
   public rightSide: Team[];
   public leftSide: Team[];
 
-  constructor(@Inject(WINDOW) private window: Window, private router: Router, private ftc: FTCDatabase,private app: TheOrangeAllianceGlobals,
+  constructor(@Inject(WINDOW) private window: Window, private router: Router, private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals,
               private translate: TranslateService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
     this.query = null;
     this.app.setTitle('Teams');
@@ -49,16 +49,12 @@ export class TeamsComponent implements OnInit {
     });
   }
 
-  openTeam(team_number): void {
-    this.router.navigate(['/teams', team_number]);
-  }
-
   getTeams() {
-    let query = this.query && this.query.trim().length > 0 ? this.query.toLowerCase().trim() : null;
+    const query = this.query && this.query.trim().length > 0 ? this.query.toLowerCase().trim() : null;
     if (query) {
       let isRegion = false;
       if (this.regions && query) {
-        for (let region of this.regions) {
+        for (const region of this.regions) {
           if (region.regionKey.toLowerCase() === query) {
             isRegion = true;
           }

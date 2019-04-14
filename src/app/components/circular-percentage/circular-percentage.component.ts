@@ -9,16 +9,17 @@ export class CircularPercentageComponent implements OnInit {
 
   @Input() title: string;
   @Input() value: number;
-  @Input() showInNumber: number;
+  @Input() max: number;
 
   css: string;
   centerText: string;
 
   ngOnInit() {
-    this.css = Math.round(this.value).toString().split('.')[0];
-    if (this.showInNumber) {
-      this.centerText = Math.round(this.value * this.showInNumber / 100) + '';
+    if (this.max) {
+      this.css = Math.round(this.value / this.max * 100).toString().split('.')[0];
+      this.centerText = String(this.value);
     } else {
+      this.css = Math.round(this.value).toString().split('.')[0];
       this.centerText = `${this.value}%`;
     }
   }

@@ -6,9 +6,9 @@ export default class RoverRuckusInsights extends Insights implements ISerializab
   private _autoPercentSampling: number;
   private _autoPercentClaiming: number;
   private _autoPercentParking: number;
-  private _telePercentGolds: number;
-  private _telePercentSilvers: number;
-  private _telePercentDepotMinerals: number;
+  private _teleAvgGolds: number;
+  private _teleAvgSilvers: number;
+  private _teleAvgDepotMinerals: number;
   private _endPercentLatched: number;
   private _endPercentParked: number;
 
@@ -18,9 +18,9 @@ export default class RoverRuckusInsights extends Insights implements ISerializab
     this._autoPercentSampling = 0;
     this._autoPercentClaiming = 0;
     this._autoPercentParking = 0;
-    this._telePercentGolds = 0;
-    this._telePercentSilvers = 0;
-    this._telePercentDepotMinerals = 0;
+    this._teleAvgGolds = 0;
+    this._teleAvgSilvers = 0;
+    this._teleAvgDepotMinerals = 0;
     this._endPercentLatched = 0;
     this._endPercentParked = 0;
   }
@@ -36,9 +36,9 @@ export default class RoverRuckusInsights extends Insights implements ISerializab
         auto_percent_sampling: this.autoPercentSampling,
         auto_percent_claiming: this.autoPercentClaiming,
         auto_percent_parking: this.autoPercentParking,
-        tele_percent_golds: this.telePercentGolds,
-        tele_percent_silvers: this.telePercentSilvers,
-        tele_percent_depot_minerals: this.telePercentDepotMinerals,
+        tele_avg_golds: this.teleAvgGolds,
+        tele_avg_silvers: this.teleAvgSilvers,
+        tele_avg_depot_minerals: this.teleAvgDepotMinerals,
         end_percent_latched: this.endPercentLatched,
         end_percent_parked: this.endPercentParked
       }
@@ -55,9 +55,9 @@ export default class RoverRuckusInsights extends Insights implements ISerializab
     insights.autoPercentSampling = json.game.auto_percent_sampling;
     insights.autoPercentClaiming = json.game.auto_percent_claiming;
     insights.autoPercentParking = json.game.auto_percent_parking;
-    insights.telePercentGolds = json.game.tele_percent_golds;
-    insights.telePercentSilvers = json.game.tele_percent_silvers;
-    insights.telePercentDepotMinerals = json.game.tele_percent_depot_minerals;
+    insights.teleAvgGolds = json.game.tele_avg_golds;
+    insights.teleAvgSilvers = json.game.tele_avg_silvers;
+    insights.teleAvgDepotMinerals = json.game.tele_avg_depot_minerals;
     insights.endPercentLatched = json.game.end_percent_latched;
     insights.endPercentParked = json.game.end_percent_parked;
     return insights;
@@ -95,28 +95,28 @@ export default class RoverRuckusInsights extends Insights implements ISerializab
     this._autoPercentParking = value;
   }
 
-  get telePercentGolds(): number {
-    return this._telePercentGolds;
+  get teleAvgGolds(): number {
+    return this._teleAvgGolds;
   }
 
-  set telePercentGolds(value: number) {
-    this._telePercentGolds = value;
+  set teleAvgGolds(value: number) {
+    this._teleAvgGolds = value;
   }
 
-  get telePercentSilvers(): number {
-    return this._telePercentSilvers;
+  get teleAvgSilvers(): number {
+    return this._teleAvgSilvers;
   }
 
-  set telePercentSilvers(value: number) {
-    this._telePercentSilvers = value;
+  set teleAvgSilvers(value: number) {
+    this._teleAvgSilvers = value;
   }
 
-  get telePercentDepotMinerals(): number {
-    return this._telePercentDepotMinerals;
+  get teleAvgDepotMinerals(): number {
+    return this._teleAvgDepotMinerals;
   }
 
-  set telePercentDepotMinerals(value: number) {
-    this._telePercentDepotMinerals = value;
+  set teleAvgDepotMinerals(value: number) {
+    this._teleAvgDepotMinerals = value;
   }
 
   get endPercentLatched(): number {

@@ -108,12 +108,13 @@ export class EventsComponent implements OnInit {
   selectSeason(season: Season) {
     if (this.currentSeason === null || this.currentSeason.seasonKey !== season.seasonKey) {
       this.currentSeason = season;
-      this.ftc.getSeasonEvents(this.currentSeason.seasonKey).then((data: Event[]) => {
+      return this.ftc.getSeasonEvents(this.currentSeason.seasonKey).then((data: Event[]) => {
         this.events = new EventSorter().sort(data);
         this.eventFilter = new EventFilter(this.events);
         this.selectRegion(this.currentRegion)
       });
     }
+    return null;
   }
 
   selectRegion(region: Region) {
