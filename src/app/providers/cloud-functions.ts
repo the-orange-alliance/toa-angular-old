@@ -77,7 +77,7 @@ export class CloudFunctions {
         });
 
         this.http.get(this.baseUrl + '/allUsers', {headers: headers}).subscribe((data: any) => {
-          resolve(data);
+          resolve(data.map((result: any) => new TOAUser().fromJSON(result)));
         }, (err: any) => {
           reject(err);
         });

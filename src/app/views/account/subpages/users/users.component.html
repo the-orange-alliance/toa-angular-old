@@ -5,10 +5,10 @@
       <mdc-list-item *ngFor="let listUser of users" (click)="selectUser(listUser)" data-toggle="modal" data-target="#userdialog">
         <mdc-list-item-text [secondaryText]="listUser.uid"><b>{{ listUser.displayName || ''}}</b>{{ listUser.displayName ? ' - '  + listUser.email : listUser.email }}</mdc-list-item-text>
         <div mdcListItemMeta class="d-none d-sm-block">
-          <mdc-icon [class.d-none]="!listUser.email_linked" svgIcon="email" class="ms-2"></mdc-icon>
-          <mdc-icon [class.d-none]="!listUser.phone_linked" svgIcon="phone" class="ms-2"></mdc-icon>
-          <mdc-icon [class.d-none]="!listUser.google_linked" svgIcon="google" class="ms-2"></mdc-icon>
-          <mdc-icon [class.d-none]="!listUser.github_linked" svgIcon="github-circle" class="ms-2"></mdc-icon>
+          <mdc-icon [class.d-none]="!listUser.emailLinked" svgIcon="email" class="ms-2"></mdc-icon>
+          <mdc-icon [class.d-none]="!listUser.phoneLinked" svgIcon="phone" class="ms-2"></mdc-icon>
+          <mdc-icon [class.d-none]="!listUser.googleLinked" svgIcon="google" class="ms-2"></mdc-icon>
+          <mdc-icon [class.d-none]="!listUser.githubLinked" svgIcon="github-circle" class="ms-2"></mdc-icon>
         </div>
       </mdc-list-item>
     </mdc-list>
@@ -43,10 +43,16 @@
           </mdc-list-item>
           <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="calendar-outline"></mdc-icon>
-            <b>Favorite Events:</b>&nbsp;{{ selectedUser.favoriteEvents.join(', ') }}</mdc-list-item>
+            <b>Favorite Events:</b>&nbsp;{{ selectedUser.favoriteEvents.join(', ') }}
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="earth"></mdc-icon>
+            <b>Region Admin:</b>&nbsp;{{ selectedUser.adminRegions.join(', ') }}
+          </mdc-list-item>
           <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="wrench-outline"></mdc-icon>
-            <b>Event Admin:</b>&nbsp;{{ selectedUser.adminEvents.join(', ') }}</mdc-list-item>
+            <b>Event Admin:</b>&nbsp;{{ selectedUser.adminEvents.join(', ') }}
+          </mdc-list-item>
           <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="key-outline"></mdc-icon>
             <b>API Key:</b>&nbsp;<code>{{ selectedUser.apiKey || '' }}</code>
