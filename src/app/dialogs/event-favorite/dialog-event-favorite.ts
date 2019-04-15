@@ -2,10 +2,10 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { MDC_DIALOG_DATA, MdcDialogRef, MdcCheckbox, MdcCheckboxChange, MdcSnackbar } from '@angular-mdc/web';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { FTCDatabase } from '../../providers/ftc-database';
-import { User } from 'firebase/app';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { CloudFunctions } from '../../providers/cloud-functions';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   templateUrl: 'dialog-event-favorite.html',
@@ -21,6 +21,7 @@ export class DialogEventFavorite {
     favorite: false,
     subscriptions: {}
   };
+  isDevMode = false;
 
   @ViewChild('favorite') favorite: MdcCheckbox;
   @ViewChild('matchScores') matchScores: MdcCheckbox;
@@ -28,6 +29,7 @@ export class DialogEventFavorite {
   constructor(dialogRef: MdcDialogRef<DialogEventFavorite>, @Inject(MDC_DIALOG_DATA) data: any, private messaging: AngularFireMessaging,
               private snackbar: MdcSnackbar, cloud: CloudFunctions, translate: TranslateService) {
     this.settings = data.settings;
+    this.isDevMode = !environment.production || window.location.href.includes('dev.theorangealliance.org');
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'save') {
