@@ -59,7 +59,10 @@ export class DialogEventFavorite {
 
   requestPermission() {
     this.messaging.requestToken.subscribe(
-      (token) => { console.log('Permission granted!', token); },
+      (token) => {
+          console.log('Permission granted!', token);
+          this.messaging.messages.subscribe((message) => { console.log(message); });
+      },
       (error) => {
         this.snackbar.open(error.message);
         console.error(error);
