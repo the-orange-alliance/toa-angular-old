@@ -7,7 +7,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../../app-bar.service';
 
 @Component({
-  selector: 'app-root',
   templateUrl: './register.component.html'
 })
 
@@ -54,14 +53,12 @@ export class RegisterComponent implements OnInit {
               this.translate.get(`pages.event.subpages.admin.success_sent_verify_email`).subscribe((res: string) => {
                 this.snackbar.open(res)
               });
-
             }).catch((error) => {
               // Show Error in snackbar
               this.translate.get(`general.error_occurred`).subscribe((res: string) => {
                 console.log(error);
                 this.snackbar.open(res + ' (HTTP-500)')
               });
-
             });
           });
         })

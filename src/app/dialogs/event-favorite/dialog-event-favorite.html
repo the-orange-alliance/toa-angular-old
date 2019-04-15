@@ -1,0 +1,38 @@
+<mdc-dialog>
+  <mdc-dialog-container>
+    <mdc-dialog-surface [dir]="'config.direction' | translate">
+      <mdc-dialog-title>{{ 'pages.event.settings.title' | translate }}</mdc-dialog-title>
+      <mdc-dialog-content>
+        <mdc-list>
+          <mdc-list-item class="big-item">
+            <mdc-checkbox [checked]="settings.favorite" (change)="onChange($event, 'favorite')"></mdc-checkbox>
+            <mdc-list-item-text class="mdc-list-item__text">
+              <span class="mdc-list-item__primary-text">{{ 'pages.event.settings.favorite' | translate }}</span>
+              <span class="mdc-list-item__secondary-text" style="white-space: normal!important">{{ 'pages.event.settings.favorite_summary' | translate }}</span>
+            </mdc-list-item-text>
+          </mdc-list-item>
+
+          <mdc-list-divider></mdc-list-divider>
+          <h3 mdcListGroupSubheader class="mb-0">{{ 'pages.event.settings.notification_settings' | translate }}</h3>
+          <div mdcCaption style="margin: 0 16px 0.75rem 16px">{{ 'pages.event.settings.notification_settings_summary' | translate }}</div>
+          <mdc-list-item>
+            <mdc-checkbox [checked]="settings.subscriptions.match_scored" (change)="onChange($event, 'match_scored')"></mdc-checkbox> {{ 'pages.event.settings.match_scores' | translate }}
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-checkbox [checked]="settings.subscriptions.schedule_updated" (change)="onChange($event, 'schedule_updated')"></mdc-checkbox> {{ 'pages.event.settings.schedule_updated' | translate }}
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-checkbox [checked]="settings.subscriptions.alliances_posted" (change)="onChange($event, 'alliances_posted')"></mdc-checkbox> {{ 'pages.event.settings.alliances_posted' | translate }}
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-checkbox [checked]="settings.subscriptions.awards_posted" (change)="onChange($event, 'awards_posted')"></mdc-checkbox> {{ 'pages.event.settings.awards_posted' | translate }}
+          </mdc-list-item>
+        </mdc-list>
+      </mdc-dialog-content>
+      <mdc-dialog-actions>
+        <button mdcDialogButton mdcDialogAction="close">{{ 'general.close' | translate }}</button>
+        <button mdcDialogButton mdcDialogAction="save">{{ 'general.save' | translate }}</button>
+      </mdc-dialog-actions>
+    </mdc-dialog-surface>
+  </mdc-dialog-container>
+</mdc-dialog>

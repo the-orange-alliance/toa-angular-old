@@ -17,6 +17,7 @@
     "verify": "Verify",
     "add": "Add",
     "close": "Close",
+    "save": "Save",
     "error_occurred": "An error occurred, Please try again later",
     "search_text_long": "Search teams and events",
     "search_text_short": "Team # or Event",
@@ -172,6 +173,19 @@
       "alliances_count": "{{ value }} Alliances",
       "fields_count": "{{ value }} Fields",
       "matches_per_team": "{{ value }} Matches per team",
+      "settings": {
+        "title": "Event Settings",
+        "favorite": "Favorite",
+        "favorite_summary": "You can save teams, events, and more for easy access by marking them as \"favorites\".",
+        "notification_settings": "Notification Settings",
+        "notification_settings_summary": "Subscribing to something lets you get a push notification whenever there is an update.",
+        "match_scores": "Match Scores",
+        "schedule_updated": "Match Schedule Posted",
+        "awards_posted": "Awards Posted",
+        "alliances_posted": "Alliance Selections",
+        "saved": "Your event settings have been saved successfully!",
+        "failed": "Saving event settings failed. Please try again later"
+      },
       "subpages": {
         "rankings": {
           "title": "Rankings",

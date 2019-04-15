@@ -15,6 +15,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { environment } from '../environments/environment';
 
 import { TheOrangeAllianceComponent } from './app.component';
@@ -51,6 +52,7 @@ import { MatchesComponent } from './views/matches/matches.component';
 import { AppMaterialModule } from './material.module';
 import { DialogText } from './dialogs/text/dialog-text';
 import { DialogMatch } from './dialogs/match/dialog-match';
+import { DialogEventFavorite } from './dialogs/event-favorite/dialog-event-favorite';
 import { MatchDetailsComponent } from './views/matches/details/match-details.component';
 import { MatchTableComponent } from './components/match-table/match-table.component';
 import { EventItemComponent } from './components/event/event.item.component';
@@ -109,6 +111,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TeamRobotComponent,
     DialogText,
     DialogMatch,
+    DialogEventFavorite,
     MatchTableComponent,
     EventItemComponent,
     ModifiedEventItemComponent,
@@ -121,7 +124,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   ],
   entryComponents: [
     DialogText,
-    DialogMatch
+    DialogMatch,
+    DialogEventFavorite
   ],
   imports: [
     // Angular Uni Stuff
@@ -135,6 +139,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    AngularFireMessagingModule,
     // Translator Stuff
     TranslateModule.forRoot({
       loader: {

@@ -6,11 +6,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { auth as providers } from 'firebase/app';
-import {isBrowser} from '@angular/animations/browser/src/render/shared';
-import {isPlatformBrowser} from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
-  selector: 'app-root',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })

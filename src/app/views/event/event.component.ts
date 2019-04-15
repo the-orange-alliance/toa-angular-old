@@ -10,14 +10,15 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { User } from 'firebase/app';
-import TOAUser from '../../models/User';
 import Event from '../../models/Event';
 import EventType from '../../models/EventType';
 import Season from '../../models/Season';
 import EventLiveStream from '../../models/EventLiveStream';
 import Media from '../../models/Media';
-import Alliance from "../../models/Alliance";
-import EventInsights from "../../models/Insights";
+import Alliance from '../../models/Alliance';
+import EventInsights from '../../models/Insights';
+import { DialogEventFavorite } from '../../dialogs/event-favorite/dialog-event-favorite';
+import { MdcDialog } from '@angular-mdc/web';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -27,7 +28,6 @@ import EventInsights from "../../models/Insights";
 })
 export class EventComponent implements OnInit {
 
-  seasons: any;
   eventTypes: any;
 
   eventKey: string;
@@ -42,8 +42,8 @@ export class EventComponent implements OnInit {
   media: Media[];
   divisions: Event[] = [];
 
-  activeTab: number = -1;
-  totalmedia: number = 0;
+  activeTab = -1;
+  totalmedia = 0;
   totalteams: any;
   totalmatches: any;
   totalrankings: any;
@@ -51,12 +51,12 @@ export class EventComponent implements OnInit {
   totalawards: any;
 
   user: User = null;
-  favorite: boolean;
-  emailVerified: boolean = true;
+  emailVerified = true;
   admin: boolean;
-  toaAdmin: boolean = false;
+  toaAdmin = false;
+  userSettings: any;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
+  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals, private dialog: MdcDialog,
               public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService, private cloud: CloudFunctions) {
     this.eventKey = this.route.snapshot.params['event_key'];
   }
@@ -67,10 +67,11 @@ export class EventComponent implements OnInit {
         if (user !== null && user !== undefined) {
           this.user = user;
 
-          this.cloud.getShortUserData(this.user).then((userData: TOAUser) => {
-            this.admin = userData.adminEvents.includes(this.eventKey) || userData.level >= 6;
-            this.favorite = userData.favoriteEvents.includes(this.eventKey);
-            this.toaAdmin = userData.level === 6;
+          this.cloud.getEventSettings(this.user, this.eventKey).then((data: any) => {
+            this.userSettings = data;
+
+            this.toaAdmin = this.userSettings.admin === 'toa-admin';
+            this.admin = this.toaAdmin || this.userSettings.admin === 'event-admin';
 
             if (this.admin && this.totalrankings === 0 && this.totalalliances === 0 && this.totalmatches === 0 &&
               this.totalteams === 0 && this.totalawards === 0 && this.totalmedia === 0) {
@@ -151,8 +152,7 @@ export class EventComponent implements OnInit {
           });
 
           this.ftc.getAllSeasons().then((seasons: Season[]) => {
-            this.seasons = seasons;
-            const seasonObj = this.seasons.filter(obj => obj.seasonKey === this.eventData.seasonKey);
+            const seasonObj = seasons.filter(obj => obj.seasonKey === this.eventData.seasonKey);
             if (seasonObj && seasonObj.length === 1 && seasonObj[0] && seasonObj[0].description) {
               this.eventSeasonName = seasonObj[0].description;
             }
@@ -243,18 +243,6 @@ export class EventComponent implements OnInit {
     }
   }
 
-  toggleEvent(): void {
-    if (this.favorite) { // Remove from favorites
-      this.cloud.removeFromFavorite(this.user, this.eventKey, 'event').then(() => {
-        this.favorite = false;
-      });
-    } else { // Add to favorites
-      this.cloud.addToFavorite(this.user, this.eventKey, 'event').then(() => {
-        this.favorite = true;
-      });
-    }
-  }
-
   public hasEventEnded(): boolean {
     const today = new Date();
     const diff = (new Date(this.eventData.endDate).valueOf() - today.valueOf()) / 1000 / 60 / 60; // Convert milliseconds to hours
@@ -263,6 +251,17 @@ export class EventComponent implements OnInit {
 
   openEvent(event: Event) {
     this.router.navigate(['/events', event.eventKey]);
+  }
+
+  openEventSettings() {
+    this.dialog.open(DialogEventFavorite, {
+      scrollable: true,
+      data: {
+        'settings': this.userSettings,
+        'eventKey': this.eventKey,
+        'user': this.user
+      }
+    });
   }
 
   sendAnalytic(category, action): void {

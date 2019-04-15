@@ -17,7 +17,7 @@ export class MatchTableComponent {
 
   @Input() teams?: EventParticipant[];
   @Input() rankings?: Ranking[];
-  private selectedTeam: string = '';
+  private selectedTeam = '';
   selectedTeamParticipant: EventParticipant = null;
 
   constructor(private dialog: MdcDialog) {

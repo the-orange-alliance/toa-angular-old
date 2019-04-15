@@ -17,6 +17,7 @@
     "verify": "אימות",
     "add": "הוספה",
     "close": "סגירה",
+    "save": "שמירה",
     "error_occurred": "אירעה שגיאה, אנא נסו שוב מאוחר יותר",
     "search_text_long": "חפש קבוצה או אירוע",
     "search_text_short": "מס׳ קבוצה או שם אירוע",
@@ -158,6 +159,19 @@
       "alliances_count": "{{ value }} בריתות",
       "matches_per_team": "{{ value }} מקצים לקבוצה",
       "fields_count": "{{ value }} מגרשים",
+      "settings": {
+        "title": "הגדרות אירוע",
+        "favorite": "מועדף",
+        "favorite_summary": "ניתן לשמור קבוצות, אירועים, ועוד עבור גישה קלה על ידי סימון כ\"מועדפים\".",
+        "notification_settings": "הגדרות התראה",
+        "notification_settings_summary": "הרשמה למשהו תאפשר לך לקבל הודעת דחיפה בכל פעם שיש עדכון.",
+        "match_scores": "ניקוד מקצים",
+        "schedule_updated": "פרסום לוח המקצים",
+        "awards_posted": "פרסום פרסים",
+        "alliances_posted": "בחירת בריתות",
+        "saved": "ההגדרות שלך נשמרו בהצלחה!",
+        "failed": "שמירת הגדרות האירוע נכשלה. אנא נסה שוב מאוחר יותר"
+      },
       "subpages": {
         "rankings": {
           "title": "דירוגים",

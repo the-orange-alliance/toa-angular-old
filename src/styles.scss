@@ -705,6 +705,9 @@ table.match-table tr {
   padding: 7px;
 }
 
+.mdc-snackbar:not(.selected-team-snackbar) {
+  z-index: 30;
+}
 
 /* ==========================================================================
    Search
