@@ -2,9 +2,9 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { MDC_DIALOG_DATA, MdcDialogRef, MdcCheckbox, MdcCheckboxChange, MdcSnackbar } from '@angular-mdc/web';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { FTCDatabase } from '../../providers/ftc-database';
-import { AngularFireMessaging } from '@angular/fire/messaging';
 import { CloudFunctions } from '../../providers/cloud-functions';
 import { TranslateService } from '@ngx-translate/core';
+import { MessagingService } from '../../messaging.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -26,7 +26,7 @@ export class DialogEventFavorite {
   @ViewChild('favorite') favorite: MdcCheckbox;
   @ViewChild('matchScores') matchScores: MdcCheckbox;
 
-  constructor(dialogRef: MdcDialogRef<DialogEventFavorite>, @Inject(MDC_DIALOG_DATA) data: any, private messaging: AngularFireMessaging,
+  constructor(dialogRef: MdcDialogRef<DialogEventFavorite>, @Inject(MDC_DIALOG_DATA) data: any, private messaging: MessagingService,
               private snackbar: MdcSnackbar, cloud: CloudFunctions, translate: TranslateService) {
     this.settings = data.settings;
     this.isDevMode = !environment.production || window.location.href.includes('dev.theorangealliance.org');
@@ -54,21 +54,8 @@ export class DialogEventFavorite {
     } else {
       this.settings.subscriptions[key] = checked;
       if (checked) {
-        this.requestPermission();
+        this.messaging.requestPermission('');
       }
     }
-  }
-
-  requestPermission() {
-    this.messaging.requestToken.subscribe(
-      (token) => {
-          console.log('Permission granted!', token);
-          this.messaging.messages.subscribe((message) => { console.log(message); });
-      },
-      (error) => {
-        this.snackbar.open(error.message);
-        console.error(error);
-      },
-    );
   }
 }
