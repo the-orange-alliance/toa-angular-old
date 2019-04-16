@@ -55,6 +55,7 @@ export class DialogEventFavorite {
       this.settings.subscriptions[key] = checked;
       if (checked) {
         this.messaging.requestPermission('');
+        this.messaging.receiveMessage();
       }
     }
   }
