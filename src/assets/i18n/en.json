@@ -76,7 +76,7 @@
       "manage_events": "Manage Events",
       "notifications_card": {
         "title": "Notifications",
-        "summary": "Get push notifications based your events' settings.",
+        "summary": "Get push notifications base on your events’ settings.",
         "grant_access": "Grant Access",
         "enabled": "Notifications are enabled on this device",
         "blocked": "Notifications are blocked on this device",
