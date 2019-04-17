@@ -12,3 +12,7 @@ if (environment.production) {
 document.addEventListener('DOMContentLoaded', () => {
   platformBrowserDynamic().bootstrapModule(AppModule);
 });
+
+if ('serviceWorker' in navigator && environment.production) {
+  navigator.serviceWorker.register('/firebase-messaging-sw.js');
+}
