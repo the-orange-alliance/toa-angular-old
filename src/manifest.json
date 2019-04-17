@@ -1,7 +1,6 @@
 {
   "short_name": "TOA",
   "name": "The Orange Alliance",
-  "start_url": "/home?source=pwa",
   "background_color": "#F5F6F7",
   "display": "standalone",
   "theme_color": "#F89808",
