@@ -1,8 +1,27 @@
 {
   "short_name": "TOA",
   "name": "The Orange Alliance",
+  "description": "The Orange Alliance is the official match, event, and team data provider for FIRST Tech Challenge.",
   "background_color": "#F5F6F7",
   "display": "standalone",
   "theme_color": "#F89808",
-  "messagingSenderId": "495169296462"
+  "start_url": "/",
+  "gcm_sender_id": "495169296462",
+  "icons": [
+    {
+      "src": "assets/imgs/favicon.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "assets/imgs/icon192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/imgs/icon512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
 }
