@@ -12,6 +12,7 @@ import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
 import { MdcTopAppBar, MdcDrawer } from '@angular-mdc/web';
 import { environment } from '../environments/environment';
+import { MessagingService } from './messaging.service';
 import Team from './models/Team';
 import Event from './models/Event';
 import mdcInfo from '../../node_modules/@angular-mdc/web/package.json'
@@ -61,7 +62,7 @@ export class TheOrangeAllianceComponent implements OnInit {
   @ViewChild(MdcDrawer) drawer: MdcDrawer;
   title: string;
 
-  constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,
+  constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,  messaging: MessagingService,
               db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService, private cloud: CloudFunctions,
               private cookieService: CookieService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
 
@@ -138,6 +139,9 @@ export class TheOrangeAllianceComponent implements OnInit {
         this.eventsFilter = new EventFilter(this.events);
       });
     }
+
+    // Listen for foreground notifications
+    messaging.receiveMessage();
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && isPlatformBrowser(this.platformId)) {

@@ -452,6 +452,24 @@ export class CloudFunctions {
     });
   }
 
+  public saveMessagingToken(user: User, messagingToken: string): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`
+        });
+
+        this.http.post(this.baseUrl + '/user/saveMessagingToken', messagingToken, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
   public update(user: User, service: Service): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       this.userToToken(user).then((token) => {

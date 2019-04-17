@@ -57,8 +57,33 @@
       </div>
     </div>
     <div class="col-md-5 col-12 ps-md-3">
-      <div class="outline-card space-between p-3" *ngIf="user.apiKey">
-        <div>
+      <div class="outline-card space-between p-3" *ngIf="notifications">
+        <div class="icon-panel">
+          <div mdcHeadline5 class="black mt-3">{{ 'pages.account.notifications_card.title' | translate }}</div>
+          <div mdcSubtitle1 class="mt-1">{{ 'pages.account.notifications_card.summary' | translate }}</div>
+          <div class="mt-2" *ngIf="notifications === 'default'">
+            <button mdc-button raised class="request-permission-btn" (click)="requestPermission()">
+              {{ 'pages.account.notifications_card.grant_access' | translate }}
+            </button>
+          </div>
+          <div class="mt-2" *ngIf="notifications === 'granted'">
+            <mdc-chip class="green-chip">
+              <mdc-chip-icon leading>done_outline</mdc-chip-icon>
+              <mdc-chip-text>{{ 'pages.account.notifications_card.enabled' | translate }}</mdc-chip-text>
+            </mdc-chip>
+          </div>
+          <div class="mt-2" *ngIf="notifications === 'denied'">
+            <mdc-chip class="red-chip">
+              <mdc-chip-icon leading>not_interested</mdc-chip-icon>
+              <mdc-chip-text>{{ 'pages.account.notifications_card.blocked' | translate }}</mdc-chip-text>
+            </mdc-chip>
+            <div mdcBody2 class="mt-1">{{ 'pages.account.notifications_card.help' | translate }}</div>
+          </div>
+        </div>
+        <img class="server-illustration" src="../../../assets/imgs/message-icon.svg" />
+      </div>
+      <div class="outline-card space-between p-3 mt-3" *ngIf="user.apiKey">
+        <div class="icon-panel">
           <div mdcHeadline5 class="black mt-3">{{ 'pages.account.api_card.title' | translate }}</div>
           <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.your_key' | translate }}</div>
           <code dir="ltr">{{ user.apiKey || 'Not found' }}</code>
@@ -66,10 +91,10 @@
             <a href="https://orange-alliance.github.io/TOA-API" target="_blank" (click)="this.sendAnalytic('leaving', '/account', 'api docs');">{{ 'general.here' | translate }}</a>.
           </div>
         </div>
-        <img class="server-illustration" src="../../../assets/imgs/server_illustration.svg" />
+        <img class="server-illustration" src="../../../assets/imgs/api-icon.svg" />
       </div>
-      <div class="outline-card space-between p-3" *ngIf="!user.apiKey">
-        <div>
+      <div class="outline-card space-between p-3 mt-3" *ngIf="!user.apiKey">
+        <div class="icon-panel">
           <div mdcHeadline5 class="black mt-3">{{ 'pages.account.api_card.title' | translate }}</div>
           <div *ngIf="!generatingApiKey">
             <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.no_key' | translate }}</div>
@@ -80,7 +105,7 @@
             <mdc-linear-progress></mdc-linear-progress>
           </div>
         </div>
-        <img class="server-illustration" src="../../../assets/imgs/server_illustration.svg" />
+        <img class="server-illustration" src="../../../assets/imgs/api-icon.svg" />
       </div>
 
       <div class="outline-card p-3 mt-3" *ngIf="emailVerified">
