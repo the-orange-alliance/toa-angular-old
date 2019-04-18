@@ -98,7 +98,23 @@
       </div>
     </mdc-card>
 
-    <div class="pt-5 pb-1" *ngIf="currentSeason && currentSeason.seasonKey">
+    <div class="col-12 d-md-none mt-3">
+      <mdc-card class="toa-card overflow">
+        <div class="w-100 p-2">
+          <div *ngIf="seasons && team.rookieYear" class="dropdown">
+            <button *ngIf="currentSeason" class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              {{ getSeasonString(currentSeason.seasonKey, true)}}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="ftc_season">
+              <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">{{ getSeasonString(season.seasonKey, true)}}</mdc-list-item>
+            </ul>
+          </div>
+        </div>
+      </mdc-card>
+    </div>
+
+    <div class="pt-md-5 pt-3 pb-1" *ngIf="currentSeason && currentSeason.seasonKey">
       <mdc-card class="toa-card">
         <mdc-tab-bar class="w-100" [focusOnActivate]="false" [activeTabIndex]="isSelected('results') ? 0 : 1">
           <mdc-tab-scroller>
