@@ -5,6 +5,16 @@
   </div>
 </div>
 
+<div class="w-100 m-2" *ngIf="!emailVerified">
+  <div class="outline-card p-3" style="border: 2px solid #F89808!important;">
+    <div mdcHeadline5 class="black">{{ 'pages.account.no_verify' | translate }}</div>
+    <div mdcSubtitle1 class="mt-1">{{ 'pages.account.why_verify' | translate }}</div>
+    <button mdc-button primary (click)="sendEmailVerification()">
+      {{ 'general.verify' | translate }}
+    </button>
+  </div>
+</div>
+
 <div class="w-100 align-items-center text-center" *ngIf="user && user">
   <div *ngIf="!user.photoURL && user.displayName" class="profile-image">{{ user.displayName.substring(0, 1) }}</div>
   <img *ngIf="user.photoURL " class="profile-image" [src]="user.photoURL" height="100" />
@@ -13,16 +23,6 @@
 </div>
 
 <div class="mt-5 m-2" *ngIf="user && user">
-
-  <div class="w-100 m-2" *ngIf="!emailVerified">
-    <div class="outline-card p-3" style="border: 2px solid #F89808!important;">
-      <div mdcHeadline5 class="black">{{ 'pages.account.no_verify' | translate }}</div>
-      <div mdcSubtitle1 class="mt-1">{{ 'pages.account.why_verify' | translate }}</div>
-      <button mdc-button primary (click)="sendEmailVerification()">
-        {{ 'general.verify' | translate }}
-      </button>
-    </div>
-  </div>
 
   <mdc-tab-bar #tabs [activeTabIndex]="activeTab" [class.d-none]="user.adminEvents.length === 0 && user.level < 6" class="mb-3">
     <mdc-tab-scroller>

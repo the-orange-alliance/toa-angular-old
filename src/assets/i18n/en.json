@@ -71,7 +71,7 @@
     "account": {
       "logout": "Logout",
       "level": "Level {{ level }}",
-      "no_verify": "Please consider verifying your email",
+      "no_verify": "Please verify your email",
       "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
       "manage_events": "Manage Events",
       "notifications_card": {

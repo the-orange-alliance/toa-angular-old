@@ -121,6 +121,10 @@ export class AccountComponent implements OnInit {
             }
           });
         }
+      }).catch((error) => {
+        if (error.status) {
+          this.emailVerified = false;
+        }
       });
     }
   }
