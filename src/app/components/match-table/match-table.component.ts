@@ -33,7 +33,8 @@ export class MatchTableComponent {
       }
     }
 
-    if (match.redScore == null || match.blueScore == null) {
+    if (match.redScore === null || match.blueScore === null ||
+        match.redScore === -1 || match.blueScore === -1) {
       return '';
     } else if (teamStation < 20 && match.redScore > match.blueScore) {
       return 'W';
