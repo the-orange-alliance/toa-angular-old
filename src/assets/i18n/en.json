@@ -313,6 +313,7 @@
       "event_results": "Event Results",
       "close_stream": "Close Stream",
       "select_stream": "Select Stream",
+      "show_chat": "Show Chat",
       "select": "Select",
       "cancel": "Cancel",
       "layouts": {

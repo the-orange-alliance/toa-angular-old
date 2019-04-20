@@ -5,6 +5,7 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import { isPlatformBrowser } from '@angular/common';
+import { MdcCheckboxChange } from '@angular-mdc/web';
 import EventLiveStream from '../../models/EventLiveStream';
 
 export class Layout {
@@ -45,6 +46,7 @@ export class StreamingComponent implements OnInit {
   streams: EventLiveStream[];
   layouts: Layout[] = [];
   selectedLayout = -1;
+  showChat = true;
 
   constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer,
               private app: TheOrangeAllianceGlobals, private ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {
@@ -88,6 +90,10 @@ export class StreamingComponent implements OnInit {
     this.checkSize(event.target.innerWidth);
   }
 
+  onChatChange(event: MdcCheckboxChange) {
+    this.showChat = event.checked;
+  }
+
   checkSize(innerWidth: number) {
     if (innerWidth < SMALL_WIDTH_BREAKPOINT) {
       this.selectLayout(4, false);
@@ -98,6 +104,11 @@ export class StreamingComponent implements OnInit {
 
   selectLayout(layoutKey: number, user: boolean = true) {
     this.layouts = this.getLayouts(layoutKey, user)
+  }
+
+  unselectLayout() {
+    this.layouts = [];
+    this.selectedLayout = -1;
   }
 
   getLayouts(layoutKey: number, user: boolean = true): Layout[] {
