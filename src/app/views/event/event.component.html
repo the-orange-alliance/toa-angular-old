@@ -55,7 +55,7 @@
             <mdc-icon svgIcon="counter"></mdc-icon>
             <p>{{ 'pages.event.matches_per_team' | translate:{'value': matchesPerTeam} }}</p>
           </div>
-          <a mdc-button primary *ngIf="stream && stream.isActive" routerLink="/stream">
+          <a mdc-button primary *ngIf="stream && stream.isActive" routerLink="/stream" [queryParams]="{ e: eventKey.substring(5) }">
             <mdc-icon svgIcon="video-outline" class="stream-icon"></mdc-icon> {{ 'pages.event.stream_available' | translate }}
           </a>
           <div *ngIf="divisions && divisions.length > 0">

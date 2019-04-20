@@ -65,7 +65,7 @@
     </div>
 
     <div class="p-0 m-0 col-12 col-12 col-lg-10" *ngIf="layouts.length > 0 && streams.length > 0">
-      <toa-stream-item *ngFor="let layout of layouts; let i = index" [id]="i" [streams]="streams" [ngStyle]="layout.getStyle()"></toa-stream-item>
+      <toa-stream-item *ngFor="let layout of layouts; let i = index" [id]="i" [streams]="streams" [stream]="mainStream" [ngStyle]="layout.getStyle()"></toa-stream-item>
     </div>
 
     <h5 class="text-center mt-5 col-12 col-lg-10" *ngIf="streams && streams.length <= 0">

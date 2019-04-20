@@ -178,7 +178,7 @@
     </div>
   </div>
 
-  <div class="page" [class.toa-page]="router.url !== '/stream'">
+  <div class="page" [class.toa-page]="!router.url.startsWith('/stream')">
     <div class="championship-banner championship-banner--home full-page" *ngIf="router.url === '/home'">
       <img class="mw-100" style="max-height: 130px;" src="../assets/imgs/TOA-Championship-Logo.png">
       <h3><b>Houston</b> is live!</h3>
@@ -188,7 +188,7 @@
         <a routerLink="/events/1819-CMP-HOU0" routerLinkActive="division-activated">Finals</a>
       </h5>
     </div>
-    <div class="championship-banner full-page" *ngIf="router.url !== '/home' && router.url !== '/stream'">
+    <div class="championship-banner full-page" *ngIf="router.url !== '/home' && !router.url.startsWith('/stream')">
       <i>FIRST</i> Championship (Houston) is live!<br/>
       <a routerLink="/events/1819-CMP-HOU1" routerLinkActive="division-activated">Franklin</a> |
       <a routerLink="/events/1819-CMP-HOU2" routerLinkActive="division-activated">Jemison</a> |

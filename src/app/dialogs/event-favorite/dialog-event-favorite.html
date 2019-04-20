@@ -27,7 +27,7 @@
             <mdc-checkbox [checked]="settings.subscriptions.awards_posted" (change)="onChange($event, 'awards_posted')"></mdc-checkbox> {{ 'pages.event.settings.awards_posted' | translate }}
           </mdc-list-item>
         </mdc-list>
-        <div>Note: please make sure that notifications are enabled on this device in <a routerLink="/account">your Account page</a>.</div>
+        <div>Note: please make sure that notifications are enabled on this device in <a routerLink="/account" mdcDialogAction="save">your Account page</a>.</div>
       </mdc-dialog-content>
       <mdc-dialog-actions>
         <button mdcDialogButton mdcDialogAction="close">{{ 'general.close' | translate }}</button>

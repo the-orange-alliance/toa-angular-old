@@ -1,4 +1,4 @@
-import {Component, HostListener, Inject, Injectable, NgZone, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
+import { Component, HostListener, Inject, Injectable, NgZone, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { AppBarService } from './app-bar.service';
 import { isPlatformBrowser, Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
@@ -142,6 +142,18 @@ export class TheOrangeAllianceComponent implements OnInit {
 
     // Listen for foreground notifications
     messaging.receiveMessage();
+    messaging.currentMessage.asObservable().subscribe((message) => {
+      if (message) {
+        const options = {
+          body: message.body,
+          icon: message.icon
+        };
+        const notification = new Notification(message.title, options);
+        notification.onclick = () => {
+          window.open(message.click_action, '_self');
+        };
+      }
+    });
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && isPlatformBrowser(this.platformId)) {
@@ -160,9 +172,9 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   isScreenSmall(): boolean {
     if (isPlatformBrowser(this.platformId)) {
-      return this.router.url === '/stream' || this.matcher.matches;
+      return this.router.url.startsWith('/stream') || this.matcher.matches;
     } else {
-      return this.router.url === '/stream';
+      return this.router.url.startsWith('/stream');
     }
   }
 
