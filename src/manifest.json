@@ -23,5 +23,16 @@
       "type": "image/png",
       "sizes": "512x512"
     }
+  ],
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.theorangealliance.android",
+      "id": "com.theorangealliance.android"
+    }, {
+      "platform": "itunes",
+      "url": "https://itunes.apple.com/us/app/toa-ios/id1449596765"
+    }
   ]
 }
