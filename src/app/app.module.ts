@@ -70,7 +70,7 @@ import { ModifiedTeamItemComponent } from './components/modified_team/modified-t
 import { Insights1819Component } from './components/insights-card/years/insights1819component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient);
+  return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
 }
 
 @NgModule({
