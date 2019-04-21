@@ -74,13 +74,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
 }
 
-export const redirectConst = {
-    provide: 'externalUrlRedirectResolver',
-    useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-      window.location.href = (route.data as any).externalUrl;
-    }
-  };
-
 @NgModule({
   declarations: [
     TheOrangeAllianceComponent,
@@ -161,7 +154,7 @@ export const redirectConst = {
     AppRoutingModule,
     AppMaterialModule
   ],
-  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService, redirectConst],
+  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService, {provide: 'externalUrlRedirectResolver', useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {window.location.href = (route.data as any).externalUrl;}}],
   bootstrap: [TheOrangeAllianceComponent]
 })
 export class AppModule { }
