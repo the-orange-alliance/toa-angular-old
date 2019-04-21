@@ -68,10 +68,18 @@ import { TeamResultsComponent } from './views/team/subviews/team-results/team-re
 import { StreamItemComponent } from './components/stream-item/stream-item.component';
 import { ModifiedTeamItemComponent } from './components/modified_team/modified-team.item.component';
 import { Insights1819Component } from './components/insights-card/years/insights1819component';
+import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
 }
+
+export const redirectConst = {
+    provide: 'externalUrlRedirectResolver',
+    useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+      window.location.href = (route.data as any).externalUrl;
+    }
+  };
 
 @NgModule({
   declarations: [
@@ -153,7 +161,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppRoutingModule,
     AppMaterialModule
   ],
-  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService],
+  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService, redirectConst],
   bootstrap: [TheOrangeAllianceComponent]
 })
 export class AppModule { }

@@ -17,6 +17,8 @@ import { AddDataComponent } from './views/add-data/add-data.component';
 import { LoginComponent } from './views/account/login/login.component';
 import { RegisterComponent } from './views/account/register/register.component';
 
+const donateUrl = 'https://www.paypal.com/donate/?token=6Mm_17HVz4hWmEp5RZS052WhAnucfA0pqv2arAjZHSlR-xdeyTZHx4zduqEV23zUGuMPom&country.x=US&locale.x=US';
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'account',  children: [
@@ -53,6 +55,7 @@ const routes: Routes = [
   { path: 'livedocs', redirectTo: 'https://github.com/orange-alliance/TOA-DataSync/wiki/DataSync-Documentation', pathMatch: 'full' },
   { path: 'terms', redirectTo: '/privacy-terms', pathMatch: 'full' },
   { path: 'privacy', redirectTo: '/privacy-terms', pathMatch: 'full' },
+  { path: 'donate', component: HomeComponent, resolve: {url: 'externalUrlRedirectResolver'}, data: {externalUrl: donateUrl}},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
