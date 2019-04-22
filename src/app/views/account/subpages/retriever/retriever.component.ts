@@ -40,7 +40,7 @@ export class RetrieverComponent implements OnInit {
 
   ngOnInit() {
     this.appBarService.setTitle('Retriever');
-    this.cloud.eventsRetriever(this.user.firebaseUser, 2018).then((events: any) => { // TODO: Make a season selector
+    this.cloud.eventsRetriever(this.user.firebaseUser, 2018).then((events: any) => {
       this.newEvents = events.new_events.map((result: any) => new Event().fromJSON(result));
       this.modifiedEvents = events.modified_events.map((result: any) => new ModifiedEvent().fromJSON(result));
     });
@@ -83,8 +83,8 @@ export class RetrieverComponent implements OnInit {
       });
       this.newTeams = undefined;
       return this.cloud.teamsRetriever(this.user.firebaseUser, '20' + this.rerunSelectedSeason.seasonKey.substring(0, 2));
-    }).then((events: any) => {
-      this.newTeams = events.new_events.map((result: any) => new Team().fromJSON(result));
+    }).then((teams: any) => {
+      this.newTeams = teams.new_teams.map((result: any) => new Team().fromJSON(result));
     }).catch((err) => {
       this.translate.get('general.error_occurred').subscribe((str) => {
         this.snackbar.open(`${str} (HTTP-${err.status})`);
@@ -145,8 +145,8 @@ export class RetrieverComponent implements OnInit {
       });
       this.newTeams = undefined;
       return this.cloud.teamsRetriever(this.user.firebaseUser, '20' + this.rerunSelectedSeason.seasonKey.substring(0, 2));
-    }).then((events: any) => {
-      this.newTeams = events.new_events.map((result: any) => new Team().fromJSON(result));
+    }).then((teams: any) => {
+      this.modifiedTeams = teams.modified_teams.map((result: any) => new ModifiedTeam().fromJSON(result));
     }).catch((err) => {
       this.translate.get('general.error_occurred').subscribe((str) => {
         this.snackbar.open(`${str} (HTTP-${err.status})`);
