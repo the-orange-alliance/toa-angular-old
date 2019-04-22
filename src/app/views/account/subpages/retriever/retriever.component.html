@@ -87,7 +87,7 @@
       <button mdc-button primary *ngIf="!viewModTeams" (click)="viewModTeams = true;" >View</button>
       <button mdc-button primary *ngIf="viewModTeams"  (click)="viewModTeams = false;">Hide</button>
     </div>
-    <button mdc-button primary class="mt-2">Update Teams</button>
+    <button mdc-button primary (click)="updateTeams()" class="mt-2">Update Teams</button>
   </div>
 
   <!-- The Optional Modified Teams List -->
