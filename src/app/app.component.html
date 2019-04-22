@@ -183,18 +183,18 @@
   <div class="page" [class.toa-page]="!router.url.startsWith('/stream')">
     <div class="championship-banner championship-banner--home full-page" *ngIf="router.url === '/home'">
       <img class="mw-100" style="max-height: 130px;" src="../assets/imgs/TOA-Championship-Logo.png">
-      <h3><b>Houston</b> is live!</h3>
+      <h3><b>Detroit</b> is live!</h3>
       <h5 class="mt-3 w-100">
-        <a routerLink="/events/1819-CMP-HOU1" routerLinkActive="division-activated">Franklin</a> |
-        <a routerLink="/events/1819-CMP-HOU2" routerLinkActive="division-activated">Jemison</a> |
-        <a routerLink="/events/1819-CMP-HOU0" routerLinkActive="division-activated">Finals</a>
+        <a routerLink="/events/1819-CMP-DET1" routerLinkActive="division-activated">Edison</a> |
+        <a routerLink="/events/1819-CMP-DET2" routerLinkActive="division-activated">Ochoa</a> |
+        <a routerLink="/events/1819-CMP-DET0" routerLinkActive="division-activated">Finals</a>
       </h5>
     </div>
     <div class="championship-banner full-page" *ngIf="router.url !== '/home' && !router.url.startsWith('/stream')">
-      <i>FIRST</i> Championship (Houston) is live!<br/>
-      <a routerLink="/events/1819-CMP-HOU1" routerLinkActive="division-activated">Franklin</a> |
-      <a routerLink="/events/1819-CMP-HOU2" routerLinkActive="division-activated">Jemison</a> |
-      <a routerLink="/events/1819-CMP-HOU0" routerLinkActive="division-activated">Finals</a>
+      <i>FIRST</i> Championship (Detroit) is live!<br/>
+      <a routerLink="/events/1819-CMP-DET1" routerLinkActive="division-activated">Edison</a> |
+      <a routerLink="/events/1819-CMP-DET2" routerLinkActive="division-activated">Ochoa</a> |
+      <a routerLink="/events/1819-CMP-DET0" routerLinkActive="division-activated">Finals</a>
     </div>
     <router-outlet></router-outlet>
   </div>
