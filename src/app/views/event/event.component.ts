@@ -73,7 +73,7 @@ export class EventComponent implements OnInit {
 
             const COOKIEKEY = 'event_notification_settings_info';
             if (messaging.isSupported() && !this.cookieService.check(COOKIEKEY) && this.eventKey.startsWith('1819-CMP-DET')) {
-              const snackbarRef = this.snackbar.open('Do you know you can get push notifications about results on real time? Just click on the start button.', 'Amazing!', {
+              const snackbarRef = this.snackbar.open('Do you know you can get push notifications about results on real time? Just click on the star button.', 'Amazing!', {
                 timeoutMs: 10000
               });
 
