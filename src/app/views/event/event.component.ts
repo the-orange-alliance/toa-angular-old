@@ -83,8 +83,7 @@ export class EventComponent implements OnInit {
                 }
               });
 
-              const oneYear = 3600 * 1000 * 24 * 365;
-              this.cookieService.set(COOKIEKEY, 'true', oneYear);
+              this.cookieService.set(COOKIEKEY, 'true', 365, '/'); // 365 days, one year
             }
             this.toaAdmin = this.userSettings.admin === 'toa-admin';
             this.admin = this.toaAdmin || this.userSettings.admin === 'event-admin';

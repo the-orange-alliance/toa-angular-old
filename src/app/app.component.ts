@@ -68,7 +68,7 @@ export class TheOrangeAllianceComponent implements OnInit {
 
     translate.setDefaultLang('en'); // this language will be used as a fallback when a translation isn't found in the current language
     if (isPlatformBrowser(this.platformId)) {
-      this.selectedLanguage = this.cookieService.get('lang') || translate.getBrowserLang();
+      this.selectedLanguage = this.cookieService.get('toa-lang') || translate.getBrowserLang();
       this.languageSelected();
     }
 
@@ -270,8 +270,7 @@ export class TheOrangeAllianceComponent implements OnInit {
   }
 
   languageSelected(): void {
-    const oneYear = 3600 * 1000 * 24 * 365;
-    this.cookieService.set('lang', this.selectedLanguage, oneYear);
+    this.cookieService.set('toa-lang', this.selectedLanguage, 365, '/'); // 365 days, one year
     this.translate.use(this.selectedLanguage);
   }
 
