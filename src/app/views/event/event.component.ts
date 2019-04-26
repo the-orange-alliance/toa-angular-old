@@ -82,7 +82,9 @@ export class EventComponent implements OnInit {
                   this.openEventSettings();
                 }
               });
-              this.cookieService.set(COOKIEKEY, 'true');
+
+              const oneYear = 3600 * 1000 * 24 * 365;
+              this.cookieService.set(COOKIEKEY, 'true', oneYear);
             }
             this.toaAdmin = this.userSettings.admin === 'toa-admin';
             this.admin = this.toaAdmin || this.userSettings.admin === 'event-admin';

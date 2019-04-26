@@ -270,7 +270,8 @@ export class TheOrangeAllianceComponent implements OnInit {
   }
 
   languageSelected(): void {
-    this.cookieService.set('lang', this.selectedLanguage);
+    const oneYear = 3600 * 1000 * 24 * 365;
+    this.cookieService.set('lang', this.selectedLanguage, oneYear);
     this.translate.use(this.selectedLanguage);
   }
 
