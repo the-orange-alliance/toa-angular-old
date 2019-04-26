@@ -14,20 +14,26 @@
           <mdc-list-divider></mdc-list-divider>
           <h3 mdcListGroupSubheader class="mb-0">{{ 'pages.event.settings.notification_settings' | translate }}</h3>
           <div mdcCaption style="margin: 0 16px 0.75rem 16px">{{ 'pages.event.settings.notification_settings_summary' | translate }}</div>
-          <mdc-list-item>
-            <mdc-checkbox [checked]="settings.subscriptions.match_scored" (change)="onChange($event, 'match_scored')"></mdc-checkbox> {{ 'pages.event.settings.match_scores' | translate }}
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-checkbox [checked]="settings.subscriptions.schedule_updated" (change)="onChange($event, 'schedule_updated')"></mdc-checkbox> {{ 'pages.event.settings.schedule_updated' | translate }}
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-checkbox [checked]="settings.subscriptions.alliances_posted" (change)="onChange($event, 'alliances_posted')"></mdc-checkbox> {{ 'pages.event.settings.alliances_posted' | translate }}
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-checkbox [checked]="settings.subscriptions.awards_posted" (change)="onChange($event, 'awards_posted')"></mdc-checkbox> {{ 'pages.event.settings.awards_posted' | translate }}
-          </mdc-list-item>
+          <div *ngIf="!isSupported">
+            Sorry! At the moment your browser doesn't support web push notifications, please try another browser.<br/>
+            We promise to try and get over it, more details soon.
+          </div>
+          <div *ngIf="isSupported">
+            <mdc-list-item>
+              <mdc-checkbox [checked]="settings.subscriptions.match_scored" (change)="onChange($event, 'match_scored')"></mdc-checkbox> {{ 'pages.event.settings.match_scores' | translate }}
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-checkbox [checked]="settings.subscriptions.schedule_updated" (change)="onChange($event, 'schedule_updated')"></mdc-checkbox> {{ 'pages.event.settings.schedule_updated' | translate }}
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-checkbox [checked]="settings.subscriptions.alliances_posted" (change)="onChange($event, 'alliances_posted')"></mdc-checkbox> {{ 'pages.event.settings.alliances_posted' | translate }}
+            </mdc-list-item>
+            <mdc-list-item>
+              <mdc-checkbox [checked]="settings.subscriptions.awards_posted" (change)="onChange($event, 'awards_posted')"></mdc-checkbox> {{ 'pages.event.settings.awards_posted' | translate }}
+            </mdc-list-item>
+            <div>Note: please make sure that notifications are enabled on this device in <a routerLink="/account" mdcDialogAction="save">your Account page</a>.</div>
+          </div>
         </mdc-list>
-        <div>Note: please make sure that notifications are enabled on this device in <a routerLink="/account" mdcDialogAction="save">your Account page</a>.</div>
       </mdc-dialog-content>
       <mdc-dialog-actions>
         <button mdcDialogButton mdcDialogAction="close">{{ 'general.close' | translate }}</button>

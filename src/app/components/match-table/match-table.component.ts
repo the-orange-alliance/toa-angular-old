@@ -3,7 +3,7 @@ import { MdcDialog } from '@angular-mdc/web';
 import { DialogMatch } from '../../dialogs/match/dialog-match';
 import Match from '../../models/Match';
 import Team from '../../models/Team';
-import Ranking from  '../../models/Ranking';
+import Ranking from '../../models/Ranking';
 import EventParticipant from '../../models/EventParticipant';
 
 @Component({

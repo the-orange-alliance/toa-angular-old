@@ -9,7 +9,10 @@ import { MatchSorter } from '../../util/match-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { User } from 'firebase/app';
+import { DialogEventFavorite } from '../../dialogs/event-favorite/dialog-event-favorite';
+import { MdcDialog, MdcSnackbar } from '@angular-mdc/web';
+import { CookieService } from 'ngx-cookie-service';
+import { User, messaging } from 'firebase/app';
 import Event from '../../models/Event';
 import EventType from '../../models/EventType';
 import Season from '../../models/Season';
@@ -17,8 +20,6 @@ import EventLiveStream from '../../models/EventLiveStream';
 import Media from '../../models/Media';
 import Alliance from '../../models/Alliance';
 import EventInsights from '../../models/Insights';
-import { DialogEventFavorite } from '../../dialogs/event-favorite/dialog-event-favorite';
-import { MdcDialog } from '@angular-mdc/web';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -56,8 +57,8 @@ export class EventComponent implements OnInit {
   toaAdmin = false;
   userSettings: any;
 
-  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals, private dialog: MdcDialog,
-              public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService, private cloud: CloudFunctions) {
+  constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals, private dialog: MdcDialog, private snackbar: MdcSnackbar,
+              public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService, private cloud: CloudFunctions, private cookieService: CookieService) {
     this.eventKey = this.route.snapshot.params['event_key'];
   }
 
@@ -70,6 +71,19 @@ export class EventComponent implements OnInit {
           this.cloud.getEventSettings(this.user, this.eventKey).then((data: any) => {
             this.userSettings = data;
 
+            const COOKIEKEY = 'event_notification_settings_info';
+            if (messaging.isSupported() && !this.cookieService.check(COOKIEKEY) && this.eventKey.startsWith('1819-CMP-DET')) {
+              const snackbarRef = this.snackbar.open('Do you know you can get push notifications about results on real time? Just click on the start button.', 'Amazing!', {
+                timeoutMs: 10000
+              });
+
+              snackbarRef.afterDismiss().subscribe(reason => {
+                if (reason === 'action') {
+                  this.openEventSettings();
+                }
+              });
+              this.cookieService.set(COOKIEKEY, 'true');
+            }
             this.toaAdmin = this.userSettings.admin === 'toa-admin';
             this.admin = this.toaAdmin || this.userSettings.admin === 'event-admin';
 

@@ -10,7 +10,7 @@ import { MdcSnackbar } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import {isPlatformBrowser, Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { CloudFunctions } from '../../providers/cloud-functions';
-import { auth as providers } from 'firebase/app';
+import { auth as providers, messaging as fcm } from 'firebase/app';
 import { AppBarService } from '../../app-bar.service';
 import { environment } from '../../../environments/environment';
 import { initializeApp as initFbApp } from 'firebase/app';
@@ -45,7 +45,10 @@ export class AccountComponent implements OnInit {
 
   showCaptcha = true;
   isDevMode = false;
-                // TODO: LocalStorage doesnt work in SSR
+  isSupported: boolean;
+
+
+            // TODO: LocalStorage doesnt work in SSR
   constructor(/*@Inject(LOCAL_STORAGE) private localStorage: any,*/ app: TheOrangeAllianceGlobals, private router: Router, private appBarService: AppBarService, private snackbar: MdcSnackbar,
               private db: AngularFireDatabase, private auth: AngularFireAuth, private cloud: CloudFunctions, private translate: TranslateService,
               private loca: Location, private ftc: FTCDatabase, private messaging: MessagingService) {
@@ -67,6 +70,7 @@ export class AccountComponent implements OnInit {
       this.activeTab = 0;
     }
 
+    this.isSupported = fcm.isSupported();
     this.isDevMode = !environment.production;
 
     if (isPlatformBrowser(this)) {

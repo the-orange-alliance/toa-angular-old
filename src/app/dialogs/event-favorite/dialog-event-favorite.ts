@@ -6,7 +6,7 @@ import { CloudFunctions } from '../../providers/cloud-functions';
 import { TranslateService } from '@ngx-translate/core';
 import { MessagingService } from '../../messaging.service';
 import { environment } from '../../../environments/environment';
-import { User } from 'firebase/app';
+import { User, messaging as fcm } from 'firebase/app';
 
 @Component({
   templateUrl: 'dialog-event-favorite.html',
@@ -24,6 +24,7 @@ export class DialogEventFavorite {
   };
   isDevMode = false;
   user: User = null;
+  isSupported: boolean;
 
   @ViewChild('favorite') favorite: MdcCheckbox;
   @ViewChild('matchScores') matchScores: MdcCheckbox;
@@ -32,6 +33,7 @@ export class DialogEventFavorite {
               private snackbar: MdcSnackbar, cloud: CloudFunctions, translate: TranslateService) {
     this.settings = data.settings;
     this.isDevMode = !environment.production || window.location.href.includes('dev.theorangealliance.org');
+    this.isSupported = fcm.isSupported();
     this.user = data.user;
 
     dialogRef.afterClosed().subscribe((result) => {

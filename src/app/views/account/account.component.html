@@ -57,7 +57,7 @@
       </div>
     </div>
     <div class="col-md-5 col-12 ps-md-3">
-      <div class="outline-card space-between p-3" *ngIf="notifications">
+      <div class="outline-card space-between p-3" *ngIf="notifications && isSupported">
         <div class="icon-panel">
           <div mdcHeadline5 class="black mt-3">{{ 'pages.account.notifications_card.title' | translate }}</div>
           <div mdcSubtitle1 class="mt-1">{{ 'pages.account.notifications_card.summary' | translate }}</div>
