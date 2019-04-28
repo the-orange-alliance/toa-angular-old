@@ -62,6 +62,8 @@ export class TheOrangeAllianceComponent implements OnInit {
   @ViewChild(MdcDrawer) drawer: MdcDrawer;
   title: string;
 
+  kickoffString = '';
+
   constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,  messaging: MessagingService,
               db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService, private cloud: CloudFunctions,
               private cookieService: CookieService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
@@ -161,6 +163,26 @@ export class TheOrangeAllianceComponent implements OnInit {
         (<any>window).ga('send', 'pageview');
       }
     });
+
+    const self = this;
+    const kickoffDate = new Date('Sep 7, 2019 12:00:00 GMT-4').getTime();
+    const kickoffInterval = setInterval(function() {
+
+      const now = new Date().getTime();
+      const distance = kickoffDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      self.kickoffString  = `${days}D ${hours}H ${minutes}M ${seconds}S`;
+
+      if (distance < 0) {
+        clearInterval(kickoffInterval);
+        self.kickoffString = '0D 0H 0M 0S';
+      }
+    }, 1000);
+
   }
 
   ngOnInit() {
