@@ -233,7 +233,7 @@ $breakpoints: (
    ========================================================================== */
 
 .kickoff-banner {
-  background: url('assets/imgs/first-rise-bg.jpg') center/cover;
+  background: url('assets/imgs/first-rise-bg.jpg') center/cover #0a1d25;
   min-height: 50px;
   color: #fff;
   text-align: center;
@@ -243,7 +243,7 @@ $breakpoints: (
 }
 
 .kickoff-banner--home {
-  min-height: unset!important;
+  // min-height: unset!important;
   padding: 20px;
 }
 
