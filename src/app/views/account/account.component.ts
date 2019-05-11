@@ -70,7 +70,6 @@ export class AccountComponent implements OnInit {
       this.activeTab = 0;
     }
 
-    this.isSupported = fcm.isSupported();
     this.isDevMode = !environment.production;
 
     if (isPlatformBrowser(this)) {
@@ -96,6 +95,7 @@ export class AccountComponent implements OnInit {
   ngOnInit() {
     this.appBarService.setTitle('myTOA', true);
     initFbApp(environment.firebase);
+    this.isSupported = fcm && fcm.isSupported();
   }
 
   getUser() {
