@@ -1,8 +1,8 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: "\U0001F929 Feature request"
+about: Suggest an idea for TOA
 title: ''
-labels: ''
+labels: enhancement
 assignees: ''
 
 ---
