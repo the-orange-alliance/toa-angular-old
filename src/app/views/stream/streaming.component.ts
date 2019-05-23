@@ -1,12 +1,12 @@
-import { WINDOW } from '@ng-toolkit/universal';
 import {Component, HostListener, NgZone, OnInit, Inject, PLATFORM_ID} from '@angular/core';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
+import { isPlatformBrowser } from '@angular/common';
+import { MdcCheckboxChange } from '@angular-mdc/web';
 import EventLiveStream from '../../models/EventLiveStream';
-import {isPlatformBrowser} from '@angular/common';
 
 export class Layout {
   width: number;
@@ -42,9 +42,11 @@ const SMALL_WIDTH_BREAKPOINT = 700;
 })
 export class StreamingComponent implements OnInit {
 
+  mainStream: EventLiveStream = null;
   streams: EventLiveStream[];
   layouts: Layout[] = [];
-  selectedLayout: number = -1;
+  selectedLayout = -1;
+  showChat = true;
 
   constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer,
               private app: TheOrangeAllianceGlobals, private ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {
@@ -61,13 +63,19 @@ export class StreamingComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.checkSize(this.window.innerWidth); // TODO: Ofek Pleae Fix
+    const event = new URL(window.location.href).searchParams.get('e');
+    this.checkSize(window.innerWidth); // TODO: Fix for SSR
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       this.streams = [];
       for (const stream of data) {
         stream.safeURL = this.getSafeURL(stream.streamURL);
         if (stream.isActive) {
           this.streams.push(stream);
+          if (stream.eventKey && event && (stream.eventKey.toUpperCase() === `${this.ftc.year}-${event}`.toUpperCase() ||
+            stream.eventKey.toUpperCase() === event.toUpperCase())) {
+            this.mainStream = stream;
+            this.selectLayout(0, false)
+          }
         }
       }
     });
@@ -82,6 +90,10 @@ export class StreamingComponent implements OnInit {
     this.checkSize(event.target.innerWidth);
   }
 
+  onChatChange(event: MdcCheckboxChange) {
+    this.showChat = event.checked;
+  }
+
   checkSize(innerWidth: number) {
     if (innerWidth < SMALL_WIDTH_BREAKPOINT) {
       this.selectLayout(4, false);
@@ -92,6 +104,11 @@ export class StreamingComponent implements OnInit {
 
   selectLayout(layoutKey: number, user: boolean = true) {
     this.layouts = this.getLayouts(layoutKey, user)
+  }
+
+  unselectLayout() {
+    this.layouts = [];
+    this.selectedLayout = -1;
   }
 
   getLayouts(layoutKey: number, user: boolean = true): Layout[] {

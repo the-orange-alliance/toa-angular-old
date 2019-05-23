@@ -229,11 +229,11 @@ $breakpoints: (
 
 
 /* ==========================================================================
-   FIRST Championship Banners
+   FIRST RISE Banners
    ========================================================================== */
 
-.championship-banner {
-  background: url('assets/imgs/star-background-banner.jpg') center/cover;
+.kickoff-banner {
+  background: url('assets/imgs/first-rise-bg.jpg') center/cover #0a1d25;
   min-height: 50px;
   color: #fff;
   text-align: center;
@@ -242,21 +242,20 @@ $breakpoints: (
   direction: ltr;
 }
 
-.championship-banner--home {
-  min-height: 260px!important;
+.kickoff-banner--home {
+  // min-height: unset!important;
   padding: 20px;
-  color: #dadada!important;
 }
 
-.championship-banner a {
+.kickoff-banner a {
   color: #ccc!important;
 }
 
-.championship-banner--home a {
+.kickoff-banner--home a {
   color: #fff!important;
 }
 
-.championship-banner a:hover, .championship-banner .division-activated {
+.kickoff-banner a:hover {
   color: #fff!important;
   font-weight: bold;
   text-decoration: none;
@@ -705,6 +704,9 @@ table.match-table tr {
   padding: 7px;
 }
 
+.mdc-snackbar:not(.selected-team-snackbar) {
+  z-index: 30;
+}
 
 /* ==========================================================================
    Search

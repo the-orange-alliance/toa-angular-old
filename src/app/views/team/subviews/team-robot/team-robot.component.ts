@@ -30,7 +30,7 @@ export class TeamRobotComponent implements OnInit {
   ngOnInit() {
     if (this.team && this.team.media) {
       this.images = [];
-      for (let media of this.team.media) {
+      for (const media of this.team.media) {
         if (media.mediaType === MediaType.GITHUB) {
           this.github = media;
         }

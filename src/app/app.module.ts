@@ -15,6 +15,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { environment } from '../environments/environment';
 
 import { TheOrangeAllianceComponent } from './app.component';
@@ -51,6 +52,7 @@ import { MatchesComponent } from './views/matches/matches.component';
 import { AppMaterialModule } from './material.module';
 import { DialogText } from './dialogs/text/dialog-text';
 import { DialogMatch } from './dialogs/match/dialog-match';
+import { DialogEventFavorite } from './dialogs/event-favorite/dialog-event-favorite';
 import { MatchDetailsComponent } from './views/matches/details/match-details.component';
 import { MatchTableComponent } from './components/match-table/match-table.component';
 import { EventItemComponent } from './components/event/event.item.component';
@@ -66,9 +68,10 @@ import { TeamResultsComponent } from './views/team/subviews/team-results/team-re
 import { StreamItemComponent } from './components/stream-item/stream-item.component';
 import { ModifiedTeamItemComponent } from './components/modified_team/modified-team.item.component';
 import { Insights1819Component } from './components/insights-card/years/insights1819component';
+import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient);
+  return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
 }
 
 @NgModule({
@@ -109,6 +112,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TeamRobotComponent,
     DialogText,
     DialogMatch,
+    DialogEventFavorite,
     MatchTableComponent,
     EventItemComponent,
     ModifiedEventItemComponent,
@@ -121,7 +125,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   ],
   entryComponents: [
     DialogText,
-    DialogMatch
+    DialogMatch,
+    DialogEventFavorite
   ],
   imports: [
     // Angular Uni Stuff
@@ -135,6 +140,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    AngularFireMessagingModule,
     // Translator Stuff
     TranslateModule.forRoot({
       loader: {
@@ -148,7 +154,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppRoutingModule,
     AppMaterialModule
   ],
-  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService],
+  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService, {provide: 'externalUrlRedirectResolver', useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {window.location.href = (route.data as any).externalUrl;}}],
   bootstrap: [TheOrangeAllianceComponent]
 })
 export class AppModule { }

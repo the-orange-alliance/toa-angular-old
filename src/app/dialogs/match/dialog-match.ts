@@ -37,7 +37,7 @@ export class DialogMatch implements OnInit {
     this.ftc.getMatchDetails(this.match.matchKey).then((match: Match) => {
       if (match) {
         this.match = match;
-        this.searchVideo()
+        this.searchVideo();
         this.loaded = true;
       }
     });

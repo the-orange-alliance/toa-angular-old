@@ -1,9 +1,9 @@
 <div class="w-100" *ngIf="rows.length > 0">
   <div class="match-details-table">
-    <div *ngFor="let row of rows" class="match-details-row" [class.part]="row.isTitle">
-      <div class="match-details-points" [class.red]="row.isTitle" [class.lightRed]="!row.isTitle">{{ row.getRedPoints() }}</div>
+    <div *ngFor="let row of rows" class="match-details-row" [class.part]="row.isTitle && match.details">
+      <div class="match-details-points" [class.red]="row.isTitle && match.details" [class.lightRed]="!row.isTitle || !match.details">{{ row.getRedPoints() }}</div>
       <div class="match-details-title">{{ row.name }}</div>
-      <div class="match-details-points" [class.blue]="row.isTitle" [class.lightBlue]="!row.isTitle">{{ row.getBluePoints() }}</div>
+      <div class="match-details-points" [class.blue]="row.isTitle && match.details" [class.lightBlue]="!row.isTitle || !match.details">{{ row.getBluePoints() }}</div>
     </div>
   </div>
 </div>

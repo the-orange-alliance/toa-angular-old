@@ -61,3 +61,34 @@
     width: 100% !important;
   }
 }
+
+.request-permission-btn {
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.green-chip {
+  color: #fff;
+  font-weight: bold;
+  background: #0d8f4f;
+
+  mdc-chip-icon {
+    color: #fff!important;
+  }
+}
+
+.red-chip {
+  color: #fff;
+  font-weight: bold;
+  background: #f44336;
+
+  mdc-chip-icon {
+    color: #fff!important;
+  }
+}
+
+@media (min-width: 900px) {
+  .icon-panel {
+    max-width: 70%;
+  }
+}

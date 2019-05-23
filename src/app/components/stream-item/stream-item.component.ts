@@ -11,7 +11,7 @@ export class StreamItemComponent {
 
   @Input() id: number;
   @Input() streams: EventLiveStream[];
-  stream: EventLiveStream = null;
+  @Input() stream: EventLiveStream = null;
   selectedStreamKey = '';
 
   constructor(public router: Router) {}

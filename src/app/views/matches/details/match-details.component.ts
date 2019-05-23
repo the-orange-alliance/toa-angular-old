@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
-import { MatchBreakdownRow } from '../../../models/MatchBreakdownRow';
+import { MatchBreakdownRow, MatchBreakdownTitle } from '../../../models/MatchBreakdownRow';
 import MatchBreakdown1617 from '../years/MatchBreakdown1617';
 import MatchBreakdown1718 from '../years/MatchBreakdown1718';
 import MatchBreakdown1819 from '../years/MatchBreakdown1819';
@@ -16,21 +15,29 @@ export class MatchDetailsComponent implements OnInit {
 
   rows: MatchBreakdownRow[] = [];
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit() {
-    if (this.match.details) {
+    const match = this.match;
+    if (match.details) {
       switch (this.getMatchSeason()) {
         case 1617:
-          this.rows = new MatchBreakdown1617().getRows(this.match);
+          this.rows = new MatchBreakdown1617().getRows(match);
           break;
         case 1718:
-          this.rows = new MatchBreakdown1718().getRows(this.match);
+          this.rows = new MatchBreakdown1718().getRows(match);
           break;
         case 1819:
-          this.rows = new MatchBreakdown1819().getRows(this.match);
+          this.rows = new MatchBreakdown1819().getRows(match);
           break;
       }
+    } else if (this.match.blueAutoScore > -1) {
+      this.rows = [
+        MatchBreakdownTitle('Autonomous', match.redAutoScore, match.blueAutoScore),
+        MatchBreakdownTitle('Teleop', match.redTeleScore, match.blueTeleScore),
+        MatchBreakdownTitle('End Game', match.redEndScore, match.blueEndScore),
+        MatchBreakdownTitle('Penalty', match.bluePenalty, match.redPenalty)
+      ]
     }
   }
 

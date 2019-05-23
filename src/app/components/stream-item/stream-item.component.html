@@ -29,7 +29,7 @@
       <mdc-dialog-content>
         <mdc-list>
           <mdc-radio-group [(ngModel)]="selectedStreamKey">
-            <mdc-list-item *ngFor="let _stream of streams">
+            <mdc-list-item *ngFor="let _stream of streams" style="height: auto!important">
               <mdc-radio mdcListItemGraphic [value]="_stream.streamKey"></mdc-radio>
               {{ _stream.streamName }}
             </mdc-list-item>

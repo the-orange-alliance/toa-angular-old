@@ -414,6 +414,62 @@ export class CloudFunctions {
     });
   }
 
+  public getEventSettings(user: User, eventKey: string): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': eventKey
+        });
+
+        this.http.get(this.baseUrl + '/user/getEventSettings', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public updateEventSettings(user: User, eventKey: string, settings: any): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': eventKey
+        });
+
+        this.http.post(this.baseUrl + '/user/updateEventSettings', settings, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public saveMessagingToken(user: User, messagingToken: string): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`
+        });
+
+        this.http.post(this.baseUrl + '/user/saveMessagingToken', messagingToken, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
   public update(user: User, service: Service): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       this.userToToken(user).then((token) => {

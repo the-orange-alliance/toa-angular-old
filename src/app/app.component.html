@@ -86,6 +86,7 @@
 
           <mdc-list-divider></mdc-list-divider>
 
+<!--
           <a mdc-list-item href="https://play.google.com/store/apps/details?id=com.theorangealliance.android" target="_blank">
             <mdc-icon mdcListItemGraphic svgIcon="android-head"></mdc-icon>{{ "drawer.android_app" | translate }}
           </a>
@@ -93,6 +94,7 @@
           <a mdc-list-item href="https://itunes.apple.com/us/app/toa-ios/id1449596765" target="_blank">
             <mdc-icon mdcListItemGraphic svgIcon="apple"></mdc-icon>{{ "drawer.ios_app" | translate }}
           </a>
+-->
 
           <a mdc-list-item routerLink="/add-data" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon mdcListItemGraphic svgIcon="upload"></mdc-icon>{{ "drawer.add_data" | translate }}
@@ -178,21 +180,11 @@
     </div>
   </div>
 
-  <div class="page" [class.toa-page]="router.url !== '/stream'">
-    <div class="championship-banner championship-banner--home full-page" *ngIf="router.url === '/home'">
-      <img class="mw-100" style="max-height: 130px;" src="../assets/imgs/TOA-Championship-Logo.png">
-      <h3><b>Houston</b> is live!</h3>
-      <h5 class="mt-3 w-100">
-        <a routerLink="/events/1819-CMP-HOU1" routerLinkActive="division-activated">Franklin</a> |
-        <a routerLink="/events/1819-CMP-HOU2" routerLinkActive="division-activated">Jemison</a> |
-        <a routerLink="/events/1819-CMP-HOU0" routerLinkActive="division-activated">Finals</a>
-      </h5>
-    </div>
-    <div class="championship-banner full-page" *ngIf="router.url !== '/home' && router.url !== '/stream'">
-      <i>FIRST</i> Championship (Houston) is live!<br/>
-      <a routerLink="/events/1819-CMP-HOU1" routerLinkActive="division-activated">Franklin</a> |
-      <a routerLink="/events/1819-CMP-HOU2" routerLinkActive="division-activated">Jemison</a> |
-      <a routerLink="/events/1819-CMP-HOU0" routerLinkActive="division-activated">Finals</a>
+  <div class="page" [class.toa-page]="!router.url.startsWith('/stream')">
+    <div class="kickoff-banner kickoff-banner--home full-page" *ngIf="router.url === '/home'">
+      <img class="my-3 mw-100" style="max-height: 140px;" src="../assets/imgs/first-rise-logo.png">
+      <h3><b>{{ kickoffString }}</b>&nbsp;<small>until the Kickoff</small></h3>
+      <p>September 7, 2019, 12:00 EST</p>
     </div>
     <router-outlet></router-outlet>
   </div>

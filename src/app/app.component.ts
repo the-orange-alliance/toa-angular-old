@@ -1,4 +1,4 @@
-import {Component, HostListener, Inject, Injectable, NgZone, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
+import { Component, HostListener, Inject, Injectable, NgZone, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { AppBarService } from './app-bar.service';
 import { isPlatformBrowser, Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
@@ -12,6 +12,7 @@ import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
 import { MdcTopAppBar, MdcDrawer } from '@angular-mdc/web';
 import { environment } from '../environments/environment';
+import { MessagingService } from './messaging.service';
 import Team from './models/Team';
 import Event from './models/Event';
 import mdcInfo from '../../node_modules/@angular-mdc/web/package.json'
@@ -61,13 +62,15 @@ export class TheOrangeAllianceComponent implements OnInit {
   @ViewChild(MdcDrawer) drawer: MdcDrawer;
   title: string;
 
-  constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,
+  kickoffString = '';
+
+  constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,  messaging: MessagingService,
               db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService, private cloud: CloudFunctions,
               private cookieService: CookieService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
 
     translate.setDefaultLang('en'); // this language will be used as a fallback when a translation isn't found in the current language
     if (isPlatformBrowser(this.platformId)) {
-      this.selectedLanguage = this.cookieService.get('lang') || translate.getBrowserLang();
+      this.selectedLanguage = this.cookieService.get('toa-lang') || translate.getBrowserLang();
       this.languageSelected();
     }
 
@@ -139,12 +142,47 @@ export class TheOrangeAllianceComponent implements OnInit {
       });
     }
 
+    // Listen for foreground notifications
+    messaging.receiveMessage();
+    messaging.currentMessage.asObservable().subscribe((message) => {
+      if (message) {
+        const options = {
+          body: message.body,
+          icon: message.icon
+        };
+        const notification = new Notification(message.title, options);
+        notification.onclick = () => {
+          window.open(message.click_action, '_self');
+        };
+      }
+    });
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && isPlatformBrowser(this.platformId)) {
         (<any>window).ga('set', 'page', event.urlAfterRedirects);
         (<any>window).ga('send', 'pageview');
       }
     });
+
+    const self = this;
+    const kickoffDate = new Date('Sep 7, 2019 12:00:00 GMT-4').getTime();
+    const kickoffInterval = setInterval(function() {
+
+      const now = new Date().getTime();
+      const distance = kickoffDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      self.kickoffString  = `${days}D ${hours}H ${minutes}M ${seconds}S`;
+
+      if (distance < 0) {
+        clearInterval(kickoffInterval);
+        self.kickoffString = '0D 0H 0M 0S';
+      }
+    }, 1000);
+
   }
 
   ngOnInit() {
@@ -156,9 +194,9 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   isScreenSmall(): boolean {
     if (isPlatformBrowser(this.platformId)) {
-      return this.router.url === '/stream' || this.matcher.matches;
+      return this.router.url.startsWith('/stream') || this.matcher.matches;
     } else {
-      return this.router.url === '/stream';
+      return this.router.url.startsWith('/stream');
     }
   }
 
@@ -254,7 +292,7 @@ export class TheOrangeAllianceComponent implements OnInit {
   }
 
   languageSelected(): void {
-    this.cookieService.set('lang', this.selectedLanguage);
+    this.cookieService.set('toa-lang', this.selectedLanguage, 365, '/'); // 365 days, one year
     this.translate.use(this.selectedLanguage);
   }
 

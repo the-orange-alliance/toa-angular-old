@@ -1,13 +1,6 @@
 <div *ngIf="eventData">
   <div class="row">
-    <h2 class="col-md-9 col-12">{{ eventData.startDate | date : "y" }} {{ eventData.fullEventName }} <span class="badge bg-primary" *ngIf="eventData.isLive">LIVE</span></h2>
-    <div *ngIf="user !== null" class="col-12 col-md-3">
-      <button mdc-button primary (click)="toggleEvent()" class="align-self-end black" style="text-transform:initial; height: auto; padding: 7px">
-        <mdc-icon *ngIf="favorite" class="mr-1 ml-1">favorite</mdc-icon>
-        <mdc-icon *ngIf="!favorite" class="mr-1 ml-1">favorite_border</mdc-icon>
-        {{ (favorite ? 'general.remove_from_mytoa' : 'general.add_to_mytoa') | translate }}
-      </button>
-    </div>
+    <h2 class="col-12">{{ eventData.startDate | date : "y" }} {{ eventData.fullEventName }} <span class="badge bg-primary" *ngIf="eventData.isLive">LIVE</span></h2>
   </div>
 
   <div class="row mt-3">
@@ -62,7 +55,7 @@
             <mdc-icon svgIcon="counter"></mdc-icon>
             <p>{{ 'pages.event.matches_per_team' | translate:{'value': matchesPerTeam} }}</p>
           </div>
-          <a mdc-button primary *ngIf="stream && stream.isActive" routerLink="/stream">
+          <a mdc-button primary *ngIf="stream && stream.isActive" routerLink="/stream" [queryParams]="{ e: eventKey.substring(5) }">
             <mdc-icon svgIcon="video-outline" class="stream-icon"></mdc-icon> {{ 'pages.event.stream_available' | translate }}
           </a>
           <div *ngIf="divisions && divisions.length > 0">
@@ -104,4 +97,6 @@
       </mdc-card>
     </div>
   </div>
+
+  <button mdc-fab *ngIf="userSettings" (click)="openEventSettings()" [position]="('config.direction' | translate) === 'rtl' ? 'bottomLeft' : 'bottomRight'" icon="star"></button>
 </div>

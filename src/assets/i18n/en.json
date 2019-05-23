@@ -17,6 +17,7 @@
     "verify": "Verify",
     "add": "Add",
     "close": "Close",
+    "save": "Save",
     "error_occurred": "An error occurred, Please try again later",
     "search_text_long": "Search teams and events",
     "search_text_short": "Team # or Event",
@@ -70,9 +71,17 @@
     "account": {
       "logout": "Logout",
       "level": "Level {{ level }}",
-      "no_verify": "Please consider verifying your email",
+      "no_verify": "Please verify your email",
       "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
       "manage_events": "Manage Events",
+      "notifications_card": {
+        "title": "Notifications",
+        "summary": "Get push notifications base on your events’ settings.",
+        "grant_access": "Grant Access",
+        "enabled": "Notifications are enabled on this device",
+        "blocked": "Notifications are blocked on this device",
+        "help": "To disable the blocking, click the lock icon left of the web address, click Site settings and change the notifications permission."
+      },
       "api_card": {
         "title": "Build amazing things with our API",
         "your_key": "Here is your API Key:",
@@ -172,6 +181,19 @@
       "alliances_count": "{{ value }} Alliances",
       "fields_count": "{{ value }} Fields",
       "matches_per_team": "{{ value }} Matches per team",
+      "settings": {
+        "title": "Event Settings",
+        "favorite": "Favorite",
+        "favorite_summary": "You can save teams, events, and more for easy access by marking them as \"favorites\".",
+        "notification_settings": "Notification Settings",
+        "notification_settings_summary": "Subscribing to something lets you get a push notification whenever there is an update.",
+        "match_scores": "Match Scores",
+        "schedule_updated": "Match Schedule Posted",
+        "awards_posted": "Awards Posted",
+        "alliances_posted": "Alliance Selections",
+        "saved": "Your event settings have been saved successfully!",
+        "failed": "Saving event settings failed. Please try again later"
+      },
       "subpages": {
         "rankings": {
           "title": "Rankings",
@@ -205,8 +227,11 @@
           "avg_score": "Average Score",
           "avg_winning_score": "Average Win Score",
           "avg_winning_margin": "Average Win Margin",
-          "prc_landed": "Percent of Landed Robots",
-          "prc_latched": "Percent of Latched Robots",
+          "prc_landed": "% of Landed Robots",
+          "prc_latched": "% of Latched Robots",
+          "prc_sampling": "% of Successful Samples",
+          "prc_claiming": "% of Depots Claimed",
+          "prc_parking": "% of Parked Robots",
           "avg_golds": "Average # of Golds Minerals in Cargo Hold",
           "avg_silvers": "Average # of Silvers Minerals in Cargo Hold",
           "avg_depot": "Average # of Minerals in Depot"
@@ -288,6 +313,7 @@
       "event_results": "Event Results",
       "close_stream": "Close Stream",
       "select_stream": "Select Stream",
+      "show_chat": "Show Chat",
       "select": "Select",
       "cancel": "Cancel",
       "layouts": {

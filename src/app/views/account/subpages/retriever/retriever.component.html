@@ -1,7 +1,7 @@
-<mdc-tab-bar #retr_sel [activeTabIndex]="0">
+<mdc-tab-bar #retr_sel [activeTabIndex]="0" stacked>
   <mdc-tab-scroller>
-    <mdc-tab label="Events"><mdc-icon mdcTabIcon svgIcon="calendar"></mdc-icon></mdc-tab>
-    <mdc-tab label="Teams"><mdc-icon mdcTabIcon svgIcon="account-group"></mdc-icon></mdc-tab>
+    <mdc-tab label="Events" icon="event"></mdc-tab>
+    <mdc-tab label="Teams" icon="supervisor_account"></mdc-tab>
   </mdc-tab-scroller>
 </mdc-tab-bar>
 
@@ -87,7 +87,7 @@
       <button mdc-button primary *ngIf="!viewModTeams" (click)="viewModTeams = true;" >View</button>
       <button mdc-button primary *ngIf="viewModTeams"  (click)="viewModTeams = false;">Hide</button>
     </div>
-    <button mdc-button primary class="mt-2">Update Teams</button>
+    <button mdc-button primary (click)="updateTeams()" class="mt-2">Update Teams</button>
   </div>
 
   <!-- The Optional Modified Teams List -->

@@ -3,7 +3,7 @@ import { MdcDialog } from '@angular-mdc/web';
 import { DialogMatch } from '../../dialogs/match/dialog-match';
 import Match from '../../models/Match';
 import Team from '../../models/Team';
-import Ranking from  '../../models/Ranking';
+import Ranking from '../../models/Ranking';
 import EventParticipant from '../../models/EventParticipant';
 
 @Component({
@@ -17,7 +17,7 @@ export class MatchTableComponent {
 
   @Input() teams?: EventParticipant[];
   @Input() rankings?: Ranking[];
-  private selectedTeam: string = '';
+  private selectedTeam = '';
   selectedTeamParticipant: EventParticipant = null;
 
   constructor(private dialog: MdcDialog) {
@@ -33,7 +33,8 @@ export class MatchTableComponent {
       }
     }
 
-    if (match.redScore == null || match.blueScore == null) {
+    if (match.redScore === null || match.blueScore === null ||
+        match.redScore === -1 || match.blueScore === -1) {
       return '';
     } else if (teamStation < 20 && match.redScore > match.blueScore) {
       return 'W';

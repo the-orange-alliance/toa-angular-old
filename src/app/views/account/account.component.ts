@@ -10,10 +10,11 @@ import { MdcSnackbar } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import {isPlatformBrowser, Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { CloudFunctions } from '../../providers/cloud-functions';
-import { auth as providers } from 'firebase/app';
+import { auth as providers, messaging as fcm } from 'firebase/app';
 import { AppBarService } from '../../app-bar.service';
 import { environment } from '../../../environments/environment';
 import { initializeApp as initFbApp } from 'firebase/app';
+import { MessagingService } from '../../messaging.service';
 import TOAUser from '../../models/User';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
@@ -34,6 +35,7 @@ export class AccountComponent implements OnInit {
   teams: Team[];
   events: Event[];
 
+  notifications: string = null;
   generatingApiKey: boolean;
   emailVerified = true;
   googleProvider = new providers.GoogleAuthProvider();
@@ -43,10 +45,13 @@ export class AccountComponent implements OnInit {
 
   showCaptcha = true;
   isDevMode = false;
-                // TODO: LocalStorage doesnt work in SSR
+  isSupported: boolean;
+
+
+            // TODO: LocalStorage doesnt work in SSR
   constructor(/*@Inject(LOCAL_STORAGE) private localStorage: any,*/ app: TheOrangeAllianceGlobals, private router: Router, private appBarService: AppBarService, private snackbar: MdcSnackbar,
               private db: AngularFireDatabase, private auth: AngularFireAuth, private cloud: CloudFunctions, private translate: TranslateService,
-              private loca: Location, private ftc: FTCDatabase) {
+              private loca: Location, private ftc: FTCDatabase, private messaging: MessagingService) {
 
     app.setTitle('myTOA');
     app.setDescription('Your myTOA account overview');
@@ -83,11 +88,14 @@ export class AccountComponent implements OnInit {
         this.router.navigateByUrl('/account/login');
       }
     });
+
+    this.notifications = Notification ? Notification.permission : null;
   }
 
   ngOnInit() {
     this.appBarService.setTitle('myTOA', true);
     initFbApp(environment.firebase);
+    this.isSupported = fcm && fcm.isSupported();
   }
 
   getUser() {
@@ -116,6 +124,10 @@ export class AccountComponent implements OnInit {
               this.events = new EventSorter().sort(this.events);
             }
           });
+        }
+      }).catch((error) => {
+        if (error.status) {
+          this.emailVerified = false;
         }
       });
     }
@@ -299,6 +311,14 @@ export class AccountComponent implements OnInit {
           }
         }
       });
+    });
+  }
+
+  requestPermission() {
+    this.messaging.requestPermission(this.user.firebaseUser).then(() => {
+      this.notifications = Notification ? Notification.permission : null;
+    }).catch(() => {
+      this.notifications = Notification ? Notification.permission : null;
     });
   }
 
