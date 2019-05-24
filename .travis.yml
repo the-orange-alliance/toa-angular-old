@@ -7,3 +7,6 @@ before_script: npm install serializer.ts typescript@3.2.2
 script:
   - ng lint
   - npm test
+
+addons:
+  chrome: stable
