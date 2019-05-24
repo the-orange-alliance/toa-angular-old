@@ -5,5 +5,5 @@ node_js:
 sudo: false
 before_script: npm build
 script:
-  - npm lint
+  - ng lint
   - npm test
