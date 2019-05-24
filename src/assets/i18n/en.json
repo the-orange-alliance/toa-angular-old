@@ -76,11 +76,11 @@
       "manage_events": "Manage Events",
       "notifications_card": {
         "title": "Notifications",
-        "summary": "Get push notifications base on your events’ settings.",
+        "summary": "Get push notifications based on your events’ settings.",
         "grant_access": "Grant Access",
         "enabled": "Notifications are enabled on this device",
         "blocked": "Notifications are blocked on this device",
-        "help": "To disable the blocking, click the lock icon left of the web address, click Site settings and change the notifications permission."
+        "help": "To disable pop-up blocking, click the lock icon left of the web address, click Site settings and change the notifications permission."
       },
       "api_card": {
         "title": "Build amazing things with our API",
