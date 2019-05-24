@@ -1,5 +1,9 @@
 language: node_js
 dist: xenial
 node_js: 
-  - "node"
+  - "lts"
 sudo: false
+before_script: npm build
+script:
+  - npm lint
+  - npm test
