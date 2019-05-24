@@ -3,7 +3,7 @@ dist: xenial
 node_js: 
   - "10.15.3"
 sudo: false
-before_script: npm install serializer.ts
+before_script: npm install serializer.ts typescript
 script:
   - ng lint
   - npm test

@@ -54,6 +54,7 @@
     "ngx-cookie-service": "^2.1.0",
     "rxjs": "^6.1.0",
     "rxjs-compat": "^6.1.0",
+    "serializer.ts": "0.0.12",
     "utf-8-validate": "^5.0.2",
     "webpack-cli": "^3.1.2",
     "winston": "^2.4.2",
