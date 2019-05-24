@@ -1,2 +1,3 @@
 language: node_js
-node: "node"
+node: node
+sudo: false
