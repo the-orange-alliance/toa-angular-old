@@ -5,7 +5,7 @@ node_js:
 sudo: false
 before_script: npm install serializer.ts typescript@3.2.2
 script:
-  - ng lint
+  # - ng lint
   - npm test
 
 addons:
