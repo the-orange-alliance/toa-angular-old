@@ -4,7 +4,7 @@ node_js:
   - "10.15.3"
 
 before_script: npm build
-install: npm i -g npm-recursive-install && npm-recursive-install
+install: npm i -g recursive-install && npm-recursive-install
 
 addons:
   chrome: stable
