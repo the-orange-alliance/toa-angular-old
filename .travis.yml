@@ -2,18 +2,18 @@ language: node_js
 node_js:
 - 10.15.3
 
-
 os: osx
-before_script: npm run-script build
-install: npm i -g recursive-install && npm-recursive-install
+
 addons:
   chrome: stable
 
 jobs:
   include:
     - stage: test
-      script: echo Temporary placeholder
+      before_script: npm run-script build
+      install: npm i -g recursive-install && npm-recursive-install
     - stage: deploy
+      install: false
       script: curl $DEPLOY_SCRIPT | bash
       after_success:
         - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
