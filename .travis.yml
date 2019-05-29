@@ -3,7 +3,8 @@ os: osx
 node_js: 
   - "10.15.3"
 
-before_script: npm install serializer.ts typescript@3.2.2 && npm build
+before_script: npm build
+install: npm i -g npm-recursive-install && npm-recursive-install
 
 addons:
   chrome: stable
