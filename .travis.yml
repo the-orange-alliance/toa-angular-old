@@ -2,9 +2,8 @@ language: node_js
 os: osx
 node_js: 
   - "10.15.3"
-sudo: false
-before_install: npm install serializer.ts typescript@3.2.2
-before_script: npm build
+
+before_script: npm install serializer.ts typescript@3.2.2 && npm build
 
 addons:
   chrome: stable
