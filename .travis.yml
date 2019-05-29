@@ -1,27 +1,25 @@
 language: node_js
 node_js:
-  - "10.15.3"
-
-
+- 10.15.3
 jobs:
   include:
   - stage: test
     os: osx
     before_script: npm run-script build
     install: npm i -g recursive-install && npm-recursive-install
-
     addons:
       chrome: stable
-
-    after_success:
-      - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-      - chmod +x send.sh
-      - ./send.sh success $WEBHOOK_URL
-    after_failure:
-      - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-      - chmod +x send.sh
-      - ./send.sh failure $WEBHOOK_URL
-
   - stage: deploy
     if: type = push AND repo = orange-alliance/the-orange-alliance AND branch = master
     script: curl $DEPLOY_SCRIPT | bash
+    after_success:
+      - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+      - chmod +x send.sh
+      - "./send.sh success $WEBHOOK_URL"
+      after_failure:
+        - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+        - chmod +x send.sh
+        - "./send.sh failure $WEBHOOK_URL"
+env:
+  global:
+  - secure: UkgxxJd82EWZDEVBo/VrhfFW0aiOxG/SRszFYnH5eVukUAJBm5nA+0dAQ0L2krOWkOpGtU/zgbsXYdU8ZNsqGHLv6Ld5q6qcrib9qCtrhnB2pl3el8ByRywtxNZenJt+r6crKec11v9W0gllBIKJjHXn6Fbv54/yNLHDe4EO1sgpjK0z3HWmeWc01AVolv0JEBZF16YbDjbbFrWZ+A3pjUFo92XMwIqMKZNmo7iBw6a8rLEUzeprrIyb8/+rTae8bTzhbMUws0ZVTrCI6mTpg5X7oUW0Qa/ju7fhPNs+m70drYTwIoxvtCsz9X0xwgErOpGWwCjFxVdsYHrBcvIcwIeLoikEl7Od+agTjps6Fif5gIaBo/glBKVbH+dTbKlU4G4tE8Zp5OeV6XkiKBjHTeQpOpyYcB0VZwj/3SdAsa8s8Lp/Hel/mHz5q/TN/PEsYCHN6w0RGa+ckTfSOc/XuIacOfntmhXkkZg5oBW/0Q5DzG6tlkzOJrv0xqbYvBfbpJl7FZ7FK7HF1AW1/VLzLXJeuyycfaVEVB9yWSLzjF43XbIxvp3cW5kbe4uci1TXkbP6HBXDqKCNBS34S7aokc7VAELD0WrxgHs2JHugRbxt5jz/i1xSsoLbfIHYfBM+xjIxgsr7ptY8jVggh1dpvJB9pJ8MkMYOfnJBIcT3dB0=
