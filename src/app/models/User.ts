@@ -1,5 +1,6 @@
-export default class TOAUser implements ISerializable {
+import { ISerializable } from './ISerializable';
 
+export default class TOAUser implements ISerializable {
   uid: string;
   email: string;
   emailVerified: boolean;

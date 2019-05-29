@@ -1,3 +1,5 @@
+import { ISerializable } from './ISerializable';
+
 export default class TeamSeasonRecord implements ISerializable {
   private _wins: number;
   private _losses: number;

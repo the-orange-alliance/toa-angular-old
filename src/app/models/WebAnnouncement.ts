@@ -1,3 +1,5 @@
+import { ISerializable } from './ISerializable';
+
 export default class WebAnnouncement implements ISerializable {
   private _announcementKey: string;
   private _title: string;

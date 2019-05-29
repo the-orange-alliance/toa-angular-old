@@ -1,3 +1,4 @@
+import { ISerializable } from './ISerializable';
 import Event from './Event';
 
 export default class ModifiedEvent implements ISerializable {
