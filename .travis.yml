@@ -3,10 +3,8 @@ os: osx
 node_js: 
   - "10.15.3"
 sudo: false
-before_script: npm install serializer.ts typescript@3.2.2
-script:
-  # - ng lint
-  - npm test
+before_install: npm install serializer.ts typescript@3.2.2
+before_script: npm build
 
 addons:
   chrome: stable
