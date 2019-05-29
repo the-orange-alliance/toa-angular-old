@@ -3,7 +3,7 @@ os: osx
 node_js: 
   - "10.15.3"
 
-before_script: npm build
+before_script: npm run-script build
 install: npm i -g recursive-install && npm-recursive-install
 
 addons:
