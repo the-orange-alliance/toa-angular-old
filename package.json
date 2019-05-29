@@ -7,7 +7,7 @@
     "prestart": "ng build --prod && ngc",
     "build": "ng build --prod",
     "start": "ng serve",
-    "test": "ng test",
+    "test": "ng test --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:server:prod": "ng run the-orange-alliance:server && webpack --config webpack.server.config.js --progress --colors",
