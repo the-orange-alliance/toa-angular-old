@@ -2,26 +2,32 @@ language: node_js
 node_js:
 - 10.15.3
 
+
+os: osx
+before_script: npm run-script build
+install: npm i -g recursive-install && npm-recursive-install
+addons:
+  chrome: stable
+
 jobs:
   include:
-  - stage: test
-    os: osx
-    before_script: npm run-script build
-    install: npm i -g recursive-install && npm-recursive-install
-    addons:
-      chrome: stable
-  - stage: deploy
-    script: curl $DEPLOY_SCRIPT | bash
-    after_success:
-      - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-      - chmod +x send.sh
-      - "./send.sh success $WEBHOOK_URL"
-      after_failure:
+    - stage: test
+    - stage: deploy
+      script: curl $DEPLOY_SCRIPT | bash
+      after_success:
         - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
         - chmod +x send.sh
-        - "./send.sh failure $WEBHOOK_URL"
+        - "./send.sh success $WEBHOOK_URL"
 
 stages:
+  - test
   - name: deploy
-    # if: type = push AND repo = orange-alliance/the-orange-alliance AND branch = master
+    if: type = push AND repo = orange-alliance/the-orange-alliance AND branch = master
 
+notifications:
+  email: false
+
+after_failure:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - "./send.sh failure $WEBHOOK_URL"
