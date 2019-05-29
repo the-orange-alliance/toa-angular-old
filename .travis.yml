@@ -12,6 +12,7 @@ addons:
 jobs:
   include:
     - stage: test
+      script: echo Temporary placeholder
     - stage: deploy
       script: curl $DEPLOY_SCRIPT | bash
       after_success:
