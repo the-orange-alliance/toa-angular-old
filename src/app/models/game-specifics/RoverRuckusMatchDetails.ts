@@ -1,3 +1,4 @@
+import { ISerializable } from '../ISerializable';
 import MatchDetails from '../MatchDetails';
 
 export default class RoverRuckusMatchDetails extends MatchDetails implements ISerializable {

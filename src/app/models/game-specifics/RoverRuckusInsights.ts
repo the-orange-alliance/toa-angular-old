@@ -1,3 +1,4 @@
+import { ISerializable } from '../ISerializable';
 import Insights from '../Insights';
 import Match from '../Match';
 

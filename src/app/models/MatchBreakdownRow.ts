@@ -1,6 +1,6 @@
 export class MatchBreakdownConstants {
-  trueValue: number = -100;
-  falseValue: number = -200;
+  trueValue = -100;
+  falseValue = -200;
 }
 
 export class MatchBreakdownRow {
@@ -49,7 +49,7 @@ export class MatchBreakdownRow {
       if (s === constants.trueValue || s === constants.falseValue) {
         mark = s === constants.trueValue ? '✅️' : '❎';
       }
-      return s > 0 ? `${mark} (+${s * this.points})`: '0';
+      return s > 0 ? `${mark} (+${s * this.points})` : '0';
     }
   }
 

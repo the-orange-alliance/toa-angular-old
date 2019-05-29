@@ -1,3 +1,4 @@
+import { ISerializable } from './ISerializable';
 import MatchDetails from './MatchDetails';
 import MatchParticipant from './MatchParticipant';
 import Event from './Event';

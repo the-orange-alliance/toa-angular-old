@@ -1,3 +1,4 @@
+import { ISerializable } from '../ISerializable';
 import Insights from '../Insights';
 import Match from '../Match';
 
@@ -8,7 +9,7 @@ export default class RelicRecoveryInsights extends Insights implements ISerializ
   private _endAverageRelic1: number;
   private _endAverageRelic2: number;
   private _endAverageRelic3: number;
-  private _endPercentReliceStanding: number;
+  private _endPercentRelicStanding: number;
   private _endAverageBalanced: number;
 
   constructor() {
@@ -19,7 +20,7 @@ export default class RelicRecoveryInsights extends Insights implements ISerializ
     this._endAverageRelic1 = 0;
     this._endAverageRelic2 = 0;
     this._endAverageRelic3 = 0;
-    this._endPercentReliceStanding = 0;
+    this._endPercentRelicStanding = 0;
     this._endAverageBalanced = 0;
   }
 
@@ -36,7 +37,7 @@ export default class RelicRecoveryInsights extends Insights implements ISerializ
         end_average_relic1: this.endAverageRelic1,
         end_average_relic2: this.endAverageRelic2,
         end_average_relic3: this.endAverageRelic3,
-        end_percent_relics_standing: this.endPercentReliceStanding,
+        end_percent_relics_standing: this.endPercentRelicStanding,
         end_average_balanced: this.endAverageBalanced
       }
     }
@@ -54,7 +55,7 @@ export default class RelicRecoveryInsights extends Insights implements ISerializ
     insights.endAverageRelic1 = json.game.end_average_relic1;
     insights.endAverageRelic2 = json.game.end_average_relic2;
     insights.endAverageRelic3 = json.game.end_average_relic3;
-    insights.endPercentReliceStanding = json.game.end_percent_relics_standing;
+    insights.endPercentRelicStanding = json.game.end_percent_relics_standing;
     insights.endAverageBalanced = json.game.end_average_balanced;
     return insights;
   }
@@ -107,12 +108,12 @@ export default class RelicRecoveryInsights extends Insights implements ISerializ
     this._endAverageRelic3 = value;
   }
 
-  get endPercentReliceStanding(): number {
-    return this._endPercentReliceStanding;
+  get endPercentRelicStanding(): number {
+    return this._endPercentRelicStanding;
   }
 
-  set endPercentReliceStanding(value: number) {
-    this._endPercentReliceStanding = value;
+  set endPercentRelicStanding(value: number) {
+    this._endPercentRelicStanding = value;
   }
 
   get endAverageBalanced(): number {
