@@ -1,3 +1,4 @@
+import { ISerializable } from './ISerializable';
 import Team from './Team';
 
 export default class EventParticipant implements ISerializable {

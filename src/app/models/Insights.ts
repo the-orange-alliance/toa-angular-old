@@ -1,3 +1,4 @@
+import { ISerializable } from './ISerializable';
 import Match from './Match';
 
 export default class Insights implements ISerializable {

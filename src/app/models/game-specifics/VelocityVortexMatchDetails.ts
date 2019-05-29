@@ -1,3 +1,4 @@
+import { ISerializable } from '../ISerializable';
 import MatchDetails from '../MatchDetails';
 
 export default class VelocityVortexMatchDetails extends MatchDetails implements ISerializable {
@@ -112,7 +113,7 @@ export default class VelocityVortexMatchDetails extends MatchDetails implements 
   /**
    * Getter redAutoBeacons
    * @return {number}
-   */ 
+   */
   public get redAutoBeacons(): number {
     return this._redAutoBeacons;
   }
@@ -429,4 +430,4 @@ export default class VelocityVortexMatchDetails extends MatchDetails implements 
     this._blueTeleCap = value;
   }
 
-} 
+}

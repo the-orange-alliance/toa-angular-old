@@ -1,3 +1,4 @@
+import { ISerializable } from './ISerializable';
 import { SafeResourceUrl } from '@angular/platform-browser';
 
 export default class EventLiveStream implements ISerializable {

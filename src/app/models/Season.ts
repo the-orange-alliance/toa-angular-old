@@ -1,3 +1,5 @@
+import { ISerializable } from './ISerializable';
+
 export default class Season implements ISerializable {
   private _seasonKey: string;
   private _description: string;

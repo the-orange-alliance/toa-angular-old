@@ -1,3 +1,5 @@
+import { ISerializable } from './ISerializable';
+
 export default class Region implements ISerializable {
   private _regionKey: string;
   private _description: string;

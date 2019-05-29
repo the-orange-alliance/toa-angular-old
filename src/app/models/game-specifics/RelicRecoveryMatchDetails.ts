@@ -1,3 +1,4 @@
+import { ISerializable } from '../ISerializable';
 import MatchDetails from '../MatchDetails';
 
 export default class RelicRecoveryMatchDetails extends MatchDetails implements ISerializable {

@@ -1,3 +1,4 @@
+import { ISerializable } from './ISerializable';
 import Ranking from './Ranking';
 import AwardRecipient from './AwardRecipient';
 import Event from './Event';

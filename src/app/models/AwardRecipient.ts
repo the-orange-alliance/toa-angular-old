@@ -1,3 +1,4 @@
+import { ISerializable } from './ISerializable';
 import Award from './Award';
 import Team from './Team';
 
