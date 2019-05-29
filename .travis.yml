@@ -11,6 +11,7 @@ jobs:
   include:
     - stage: test
       before_script: npm run-script build
+      script: npm run test && echo $?
       install: npm i -g recursive-install && npm-recursive-install
     - stage: deploy
       install: false
