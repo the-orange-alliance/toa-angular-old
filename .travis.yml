@@ -9,7 +9,8 @@ jobs:
   include:
   - stage: test
     before_script: npm run-script build
-    script: xvfb-run npm run test && echo $?
+    script: false
+    # script: xvfb-run npm run test && echo $?
     install: npm i -g recursive-install && npm-recursive-install
   - stage: deploy
     install: false
