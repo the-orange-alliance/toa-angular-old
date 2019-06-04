@@ -1,3 +1,5 @@
+import { ISerializable } from './ISerializable';
+
 export default class League implements ISerializable {
   private _leagueKey: string;
   private _regionKey: string;

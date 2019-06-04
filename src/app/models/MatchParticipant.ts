@@ -1,3 +1,5 @@
+import { ISerializable } from './ISerializable';
+
 export default class MatchParticipant implements ISerializable {
  private _matchParticipantKey: string;
  private _matchKey: string;

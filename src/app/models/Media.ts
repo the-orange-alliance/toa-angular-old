@@ -1,3 +1,5 @@
+import { ISerializable } from './ISerializable';
+
 export default class Media implements ISerializable {
   private _mediaKey: string;
   private _eventKey: string;

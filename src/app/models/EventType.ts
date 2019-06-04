@@ -1,3 +1,5 @@
+import { ISerializable } from './ISerializable';
+
 export default class EventType implements ISerializable {
   private _eventTypeKey: string;
   private _description: string;

@@ -1,3 +1,5 @@
+import { ISerializable } from './ISerializable';
+
 export default class Award implements ISerializable {
   private _awardKey: string;
   private _awardType: string;
