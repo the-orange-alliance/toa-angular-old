@@ -33,7 +33,6 @@ import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 @NgModule({
   exports: [
-    MdcIconModule,
     MdcButtonModule,
     MdcCardModule,
     MdcCheckboxModule,
