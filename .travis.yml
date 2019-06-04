@@ -1,48 +1,48 @@
 language: node_js
 node_js:
 - 10.15.3
-
 os: linux
 dist: xenial
-
 addons:
   chrome: stable
-
 jobs:
   include:
-    - stage: test
-      before_script: npm run-script build
-      script: xvfb-run npm run test && echo $?
-      install: npm i -g recursive-install && npm-recursive-install
-    - stage: deploy
-      env: deploypoint = "dev"
-      install: false
-      script: curl $DEPLOY_SCRIPT | bash
-      after_success:
-        - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-        - chmod +x send.sh
-        - "./send.sh success $WEBHOOK_URL"
-    - stage: deploydev
-      install: false
-      env: deploypoint = "dev"
-      script: curl $DEPLOY_SCRIPT | bash
-      after_success:
-        - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-        - chmod +x send.sh
-        - "./send.sh success $WEBHOOK_URL"
-
-
+  - stage: test
+    before_script: npm run-script build
+    script: xvfb-run npm run test && echo $?
+    install: npm i -g recursive-install && npm-recursive-install
+  - stage: deploy
+    install: false
+    env:
+      global:
+        secure: uxs0b23Mt7hNfH3FAcgidFqo94XGjDRFIRYZcVkKL59yns75BCIELN3uqHryJxWVM75xzbfL20xi4ad1LS+ilioU5jzHZvzAFO2VGnAnthaXduE8HgEHQpmEDBQ4YOQ68OKfKZBWSUTcapbLuJqn0lRsWtkAHtxTCuxnJ17qO8r9WHYlvQMU8sLe4zL6H9zs13ibtlUlDfKrDKU0bHO21FXci7/CLDe+n23gX6EQTaSjaPoX3c8vYosb9XMwS8cpyXFg+36Lsep7mvrHCbT5Lgu4G+y3ZtNOCWecY8CGOjXtBZQsA6BPBdussk7MRiZDW4Vqagt20yoEdPbtE0CUAIje0iUuzystYO3J55L1NaKcRCrL3/ZN4pg49yERFtc5oRatgwjIUsTgs5mDv9aAOhnIbcnj4Wblw16nQ/sF2V53DB3g/+40Hr1w79qdPpsUBzNtBr/SyXpSdta5Jf6bNOu9RyAM8R0ikv03KUF1lGmvH/64XqoZjT4vzLxKJ5Y5XEdCB6G3HVL1uSYIDgEsLnqJPHTXoqzIqACC0twK82MP+hDBw9dTJOiOgslbY0LL85lmHRPyQqABdAyTKjchHF9Xn6Sc0UHZnGv5LT2TiGMnrhiDiFfZsWcv3S9Z35ZiIAx+SbLjBf8hLcw0bfubxJDHmbJU3cB2jK4fe63z4m4=
+    script: curl $DEPLOY_SCRIPT | bash
+    after_success:
+    - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+    - chmod +x send.sh
+    - "./send.sh success $WEBHOOK_URL"
+  - stage: deploydev
+    install: false
+    env:
+      global:
+        secure: H3gSZXJQ+HCazQPBeaAbA67RHlKhe1qnXQG7J78ud+6cneqvMkvGgBhhZa6BH/C3QcwT+KAVolitez+rZG6q16j/tsxec3clz5GTvh8twLvpP717I6izBw2MDxu+7g4qSEO1bO9Y/gcYU51U5BZGOqzwQZPISeAQXSwdZcX1LAsNfa7cwQuaf/hUipTot5O8Bpjlp/vcHYMU32TD/hMo93oEPOpt7RZyZwPm24AuMK0gPA0dNs8frzA19JZEjco44lEY+WXqgcCnbKHBrVpc1NWSF+GavwzfvKQebltICYGo9e6IaNyaPIDC7slxLDyIrYi8oZassSEflYwEaqXeV0ZTcjYQwIVjE5wskP7sr9gl0j7n+S1S+/jQ1yC7kPVrW1glnZcYdsH7RkWfD0+OcUJ0iWnlvH2oWQ3rpDoz9KplmFs3bJb3J8+UFL7kQ4j/SSx14A+H0Ps0jcSR+XYjg+n0vvzBJyjxi+VPc5FgZywEamKxCPhgh097NGQtuhjAXYp7oOKkxi7pqOkQeIumh2iztARse8gBx7VO5A3PKwtss1KbCACXuu0vKw3oz+Ypwt/2aOm2gkUB4GsbTiWYS9L43PotKZrnSQNDY2lo5RdHiahR1Ea09erIUJibhkHIuqvN9L4Dxi0uy5blptCVUBnmEJ3gXA2A7AnMvf5dhuY=
+    script: curl $DEPLOY_SCRIPT | bash
+    after_success:
+    - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+    - chmod +x send.sh
+    - "./send.sh success $WEBHOOK_URL"
 stages:
-  - test
-  - name: deploy
-    if: type = push AND repo = orange-alliance/the-orange-alliance AND branch = master
-  - name: deploydev
-    if: type = push AND repo = orange-alliance/the-orange-alliance AND branch = ssr
-
+- test
+- name: deploy
+  if: type = push AND repo = orange-alliance/the-orange-alliance AND branch = master
+- name: deploydev
+  if: type = push AND repo = orange-alliance/the-orange-alliance AND branch = ssr
 notifications:
   email: false
-
 after_failure:
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-  - chmod +x send.sh
-  - "./send.sh failure $WEBHOOK_URL"
+- wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+- chmod +x send.sh
+- "./send.sh failure $WEBHOOK_URL"
+env:
+  global:
+    secure: Cw/nCFmfZzEk/Ulxph988KO/qqKeChgNMQp9SlmAYBE/bH23Wbkp4DSaOZZuJOiyyX4uYJux1XlWfwhbhhz6C+eJkB9Xu7/CkzeyPYPbby0Un74bqCyN4kLqLTeGaJiSvI1cMRiQgqUb0H7U1cFCaqgdF7Q87cGpJRB6SjFBdpsYwI7U8bGxSPnChIExLoy9+B5LCjIJa0hLPhjWUVpjN0F18eWCjAxdGywnHNNP+3ZdTryh8VVwPN/5UprD0BE1rgHcZFTkVSFyA81xK9UCIET6qNDbYiena7MXXoIb1/Yuu7fVHEVQhEILGvIwnsgFPgy3oquL/F/kc6kc2BN6B1CjHx9taPbnUmdViJxBs19I0YVvRBJGD2plE4cvxWGlKJW/IKprRZCgAmAedhnn5suzYPu1IfKNM4y1TyvetjfRFUfMauhXnX4sWqtzp6LWW5rtdob9g5butjNxZErmeca+iIv2OGGb1T0PscUU3F+Dxvh6BL7YZo/UORpzwS8HqMTCfnLIx573B4o1NY038uxuwMLL7wxAPGfUPSySYzyCc4TVwi1qpMWnoGoJL0cmV7dujf48TEcZr15urI/Qmw4htmDVJjrhao8aZSL9P2J9m0Ry0l0s9Kd3IJaUGh3mTMdnBmBbD/MpvbFYoAp0KpGX54qmmoC+z8xwkXaGVO8=
