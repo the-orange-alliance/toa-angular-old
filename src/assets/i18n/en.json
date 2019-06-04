@@ -80,7 +80,7 @@
         "grant_access": "Grant Access",
         "enabled": "Notifications are enabled on this device",
         "blocked": "Notifications are blocked on this device",
-        "help": "To disable pop-up blocking, click the lock icon left of the web address, click Site settings and change the notifications permission."
+        "help": "To disable notification blocking, click the lock icon to the left of the web address, click Site settings and change the notifications permission."
       },
       "api_card": {
         "title": "Build amazing things with our API",
