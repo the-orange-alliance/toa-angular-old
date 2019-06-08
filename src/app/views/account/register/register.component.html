@@ -8,6 +8,7 @@
       <mdc-text-field outlined class="mt-2" label="{{ 'pages.account.subpages.register.confirm_password' | translate }}" [(ngModel)]="confirmPassword" type="password" required></mdc-text-field>
       <mdc-text-field outlined class="mt-2" label="{{ 'pages.account.subpages.register.your_team' | translate }}" [(ngModel)]="team"></mdc-text-field>
       <button mdc-button primary class="mt-4" (click)="createUser()">{{ "pages.account.subpages.register.sign_up" | translate }}</button>
+      <div mdcCaption class="mt-1">By clicking {{ "pages.account.subpages.register.sign_up" | translate }}, you agree to our <a href="https://theorangealliance.org/privacy-terms" target="_blank">Terms and Conditions</a> and that you have read our <a href="https://theorangealliance.org/privacy-terms" target="_blank">Privacy Policy</a>.</div>
     </mdc-card>
   </div>
 </div>
