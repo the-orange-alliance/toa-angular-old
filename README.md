@@ -28,10 +28,6 @@ And [more](https://github.com/orange-alliance/the-orange-alliance/blob/master/pa
 ### Setting up the project
 Clone the repository and run ``npm install``.
 
-### Setting up Firebase
-You'll need to set up Firebase's Realtime Database properly in order to make this app work.
-You'll need to ֿfill the appropriate details in [environment.ts](https://github.com/orange-alliance/the-orange-alliance/blob/master/src/environments/environment.ts) and in [environment.prod.ts](https://github.com/orange-alliance/the-orange-alliance/blob/master/src/environments/environment.prod.ts).
-
 ### Running the dev server
 Run ``ng serve`` for a dev server and navigate to [http://localhost:4200](http://localhost:4200).<br/>
 The app will automatically reload if you change any of the source files.
