@@ -45,6 +45,10 @@ export class EventAwardsComponent {
       return 'Winning Alliance Award Winners';
     } else if (key.startsWith('FIN')) {
       return 'Finalist Alliance Award Winners';
+    } else if (key.startsWith('DNSSF')) {
+      return 'Dean\'s List Finalist Award Winners';
+    } else if (key.startsWith('DNSF')) {
+      return 'Dean\'s List Award Winners';
     } else {
       return awardRecipient.awardName + 's';
     }
