@@ -246,9 +246,9 @@
             <b>MDC Version:</b>&nbsp;{{ server.mdc_version }}
           </mdc-list-item>
           <mdc-list-item style="height: auto">
-            <mdc-icon mdcListItemGraphic>save</mdc-icon>
+            <mdc-icon mdcListItemGraphic svgIcon="update"></mdc-icon>
             <p class="p-0 m-0">
-              <b>Redis Cache</b>
+              <b>Auto Deploy</b>
               <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[2].pm2_env.pm_uptime)}}</a>
             </p>
             <a *ngIf="serverData && serverData[2].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
@@ -265,16 +265,18 @@
             <a *ngIf="serverData && serverData[3].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
             <a *ngIf="serverData && serverData[3].pm2_env.status === 'errored'" mdcListItemMeta mdcIcon style="color: red" title="Errored">error</a>
           </mdc-list-item>
+          <!--
           <mdc-list-item style="height: auto">
-            <mdc-icon mdcListItemGraphic svgIcon="update"></mdc-icon>
+            <mdc-icon mdcListItemGraphic>save</mdc-icon>
             <p class="p-0 m-0">
-              <b>TOA Server Updater</b>
+              <b>Redis Cache</b>
               <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[4].pm2_env.pm_uptime)}}</a>
             </p>
             <a *ngIf="serverData && serverData[4].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
             <a *ngIf="serverData && serverData[4].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
             <a *ngIf="serverData && serverData[4].pm2_env.status === 'errored'" mdcListItemMeta mdcIcon style="color: red" title="Errored">error</a>
           </mdc-list-item>
+          -->
         </mdc-list>
       </mdc-dialog-content>
       <mdc-dialog-actions>
