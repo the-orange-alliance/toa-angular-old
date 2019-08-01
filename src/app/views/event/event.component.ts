@@ -10,12 +10,10 @@ import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { DialogEventFavorite } from '../../dialogs/event-favorite/dialog-event-favorite';
-import { MdcDialog, MdcSnackbar } from '@angular-mdc/web';
+import { MdcDialog, MdcMenuSelectedEvent, MdcSnackbar } from '@angular-mdc/web';
 import { CookieService } from 'ngx-cookie-service';
 import { User, messaging } from 'firebase/app';
 import Event from '../../models/Event';
-import EventType from '../../models/EventType';
-import Season from '../../models/Season';
 import EventLiveStream from '../../models/EventLiveStream';
 import Media from '../../models/Media';
 import Alliance from '../../models/Alliance';
@@ -29,12 +27,8 @@ import EventInsights from '../../models/Insights';
 })
 export class EventComponent implements OnInit {
 
-  eventTypes: any;
-
   eventKey: string;
   eventData: Event;
-  eventTypeName: string;
-  eventSeasonName: string;
   matchesPerTeam: number;
   stream: EventLiveStream;
   alliances: Alliance[];
@@ -150,30 +144,10 @@ export class EventComponent implements OnInit {
 
           this.ftc.getEventInsights(this.eventKey, 'quals').then((insights) => {
             this.qualInsights = insights;
-          }).catch((error) => console.log('Qual Insights Failed to Load'));
+          }).catch(() => console.log('Qual Insights Failed to Load'));
           this.ftc.getEventInsights(this.eventKey, 'elims').then((insights) => {
             this.elimInsights = insights;
-            console.log(this.elimInsights);
-          }).catch((error) => console.log('Elim Insights Failed to Load'));
-
-          this.ftc.getEventTypes().then((types: EventType[]) => {
-            this.eventTypes = types;
-            const typeObj = this.eventTypes.filter(obj => obj.eventTypeKey === this.eventData.eventTypeKey);
-            if (typeObj && typeObj[0] && typeObj[0].description) {
-              this.eventTypeName = typeObj[0].description;
-            }
-          }, (err) => {
-            console.log(err);
-          });
-
-          this.ftc.getAllSeasons().then((seasons: Season[]) => {
-            const seasonObj = seasons.filter(obj => obj.seasonKey === this.eventData.seasonKey);
-            if (seasonObj && seasonObj.length === 1 && seasonObj[0] && seasonObj[0].description) {
-              this.eventSeasonName = seasonObj[0].description;
-            }
-          }, (err) => {
-            console.log(err);
-          });
+          }).catch(() => console.log('Elim Insights Failed to Load'));
 
           // Find matches per team                           // Can't divide by 0
           if (this.eventData.matches && this.eventData.teams && this.eventData.teams.length > 0) {
@@ -264,8 +238,8 @@ export class EventComponent implements OnInit {
     return diff < -24; // 24 hours extra
   }
 
-  openEvent(event: Event) {
-    this.router.navigate(['/events', event.eventKey]);
+  switchDivision(event: MdcMenuSelectedEvent) {
+    this.router.navigate(['/events', this.divisions[event.index].eventKey]);
   }
 
   openEventSettings() {
