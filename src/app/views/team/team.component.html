@@ -25,13 +25,13 @@
           </ul>
         </div>
 
-        <ul *ngIf="team.events" class="nav flex-column mt-2" style="padding-left: 0.75rem">
+        <ul *ngIf="team.events" class="nav flex-column mt-2" style="padding: 0 12px!important;">
           <li class="nav-item text-primary">
             <a (click)="scrollToEvent('info')">{{ 'pages.team.team_info' | translate }}</a>
           </li>
           <li class="nav-item mt-1">
             {{ 'pages.team.event_results' | translate }}
-            <ul class="nav flex-column">
+            <ul class="nav flex-column p-0">
               <li class="nav-item text-primary"><a *ngFor="let event of team.events" (click)="scrollToEvent(event.eventKey)" class="nav-link">{{ event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName}}</a></li>
             </ul>
           </li>
@@ -83,7 +83,7 @@
 
         <div class="info-state" *ngIf="topOpr && topOpr.opr">
           <mdc-icon svgIcon="flash"></mdc-icon>
-          <p><b>{{topOpr.opr}}</b> Top OPR</p> <p (click)="scrollToEvent(topOpr.eventKey)" class="nav-item text-primary clickable"> (Jump)</p>
+          <p><b>{{ topOpr.opr }}</b> Top OPR</p> <p (click)="scrollToEvent(topOpr.eventKey)" class="nav-item text-primary clickable"> (Jump)</p>
         </div>
 
         <div class="info-state" *ngIf="team.lastActive < 1819">
