@@ -9,7 +9,10 @@
     </div>
     <div class="info-state">
       <mdc-icon svgIcon="map-marker"></mdc-icon>
-      <p style="text-transform: capitalize"><a href="https://www.google.com/maps/search/?api=1&query={{ ((eventData.venue ? eventData.venue + ', ' : '') + eventData.city + ', ' + (eventData.stateProv ? eventData.stateProv + ', ' : '') + eventData.country) }}" target="_blank" (click)="this.sendAnalytic('leaving', eventData.eventKey + ' location');">{{ (eventData.venue ? eventData.venue + ', ' : '') + eventData.city + ', ' + (eventData.stateProv ? eventData.stateProv + ', ' : '') + eventData.country }}</a></p>
+      <p style="text-transform: capitalize">
+        <a href="https://www.google.com/maps/search/?api=1&query={{ eventData.getLocation() }}" target="_blank"
+           (click)="this.sendAnalytic('leaving', eventData.eventKey + ' location');"
+        >{{ eventData.venue || eventData.getLocation() }}</a>{{ eventData.venue ? ', ' + eventData.getLocation(false) : '' }}</p>
     </div>
     <div class="info-state" *ngIf="eventData.website">
       <mdc-icon svgIcon="earth"></mdc-icon>

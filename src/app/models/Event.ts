@@ -423,6 +423,10 @@ export default class Event implements ISerializable {
     }
   }
 
+  getLocation(venue: boolean = true): string {
+    return (this.venue && venue ? this.venue + ', ' : '') + this.city + ', ' + (this.stateProv ? this.stateProv + ', ' : '') + this.country;
+  }
+
   get fullEventName(): string {
     return this._divisionName ? this._eventName + ' - ' +  this._divisionName + ' Division' : this._eventName;
   }

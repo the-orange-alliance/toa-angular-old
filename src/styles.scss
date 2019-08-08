@@ -380,7 +380,6 @@ mdc-drawer mdc-list a {
   }
 
   mdc-icon {
-    color: $mdc-theme-primary;
     margin-right: 12px;
     margin-left: 0;
     width: 24px;
@@ -405,13 +404,14 @@ mdc-drawer mdc-list a {
   }
 
   p {
-    margin: 4px 8px;
+    margin: 2px 8px;
   }
 
   mdc-icon {
     width: 14px;
     height: 14px;
     margin: 0!important;
+    fill: #000;
   }
 }
 
