@@ -22,13 +22,14 @@
   <a mdc-button primary *ngIf="stream && stream.isActive" routerLink="/stream" [queryParams]="{ e: eventKey.substring(5) }">
     <mdc-icon svgIcon="video-outline" class="stream-icon"></mdc-icon> {{ 'pages.event.stream_available' | translate }}
   </a>
-  <div mdcMenuSurfaceAnchor #demoAnchor  *ngIf="divisions && divisions.length > 0">
+  <div mdcMenuSurfaceAnchor #divisionsAnchor  *ngIf="divisions && divisions.length > 0">
     <button mdc-button class="divisions-btn" (click)="divisionDropdown.open = !divisionDropdown.open">
       {{ eventData.divisionName }} Division
       <mdc-icon>arrow_drop_down</mdc-icon>
     </button>
 
-    <mdc-menu #divisionDropdown [anchorElement]="demoAnchor" (selected)="switchDivision($event)">
+    <mdc-menu #divisionDropdown [anchorElement]="divisionsAnchor" (selected)="switchDivision($event)"
+              anchorCorner="bottomStart">
       <mdc-list dense>
         <mdc-list-item *ngFor="let division of divisions" [disabled]="division.divisionName === eventData.divisionName">
           {{ division.divisionName }} Division
