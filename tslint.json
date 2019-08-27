@@ -109,6 +109,7 @@
     ],
     "component-selector": [
       true,
+      "app",
       "element",
       "toa",
       "kebab-case"

@@ -58,8 +58,8 @@ export class TheOrangeAllianceComponent implements OnInit {
   serverData: [];
 
   matcher: MediaQueryList;
-  @ViewChild(MdcTopAppBar) appBar: MdcTopAppBar;
-  @ViewChild(MdcDrawer) drawer: MdcDrawer;
+  @ViewChild(MdcTopAppBar, {static: false}) appBar: MdcTopAppBar;
+  @ViewChild(MdcDrawer, {static: false}) drawer: MdcDrawer;
   title: string;
 
   kickoffString = '';

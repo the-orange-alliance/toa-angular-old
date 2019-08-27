@@ -26,8 +26,8 @@ export class DialogEventFavorite {
   user: User = null;
   isSupported: boolean;
 
-  @ViewChild('favorite') favorite: MdcCheckbox;
-  @ViewChild('matchScores') matchScores: MdcCheckbox;
+  @ViewChild('favorite', {static: false}) favorite: MdcCheckbox;
+  @ViewChild('matchScores', {static: false}) matchScores: MdcCheckbox;
 
   constructor(dialogRef: MdcDialogRef<DialogEventFavorite>, @Inject(MDC_DIALOG_DATA) data: any, private messaging: MessagingService,
               private snackbar: MdcSnackbar, cloud: CloudFunctions, translate: TranslateService) {
