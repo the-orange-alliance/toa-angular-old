@@ -100,8 +100,8 @@ export class EventSorter {
 
   public sort(items: Event[]) {
     items.sort(function (a, b) {
-      let date1 = new Date(a.startDate);
-      let date2 = new Date(b.startDate);
+      const date1 = new Date(a.startDate);
+      const date2 = new Date(b.startDate);
       return (date1 > date2) ? 1 : ((date2 > date1) ? -1 : 0);
     });
     return items;

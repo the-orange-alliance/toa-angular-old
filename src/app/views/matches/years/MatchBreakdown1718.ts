@@ -1,5 +1,5 @@
 import { MatchBreakdownTitle, MatchBreakdownField, MatchBreakdownRow } from '../../../models/MatchBreakdownRow';
-import RelicRecoveryMatchDetails from "../../../models/game-specifics/RelicRecoveryMatchDetails";
+import RelicRecoveryMatchDetails from '../../../models/game-specifics/RelicRecoveryMatchDetails';
 import Match from '../../../models/Match';
 
 export default class MatchBreakdown1718 {

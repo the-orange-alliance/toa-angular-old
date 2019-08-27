@@ -3,6 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'firebase/app';
 import TOAUser from '../models/User';
 
+export enum Service {
+  Dev = 'Dev',
+  Live = 'Live',
+  Api = 'Api'
+}
+
 @Injectable()
 export class CloudFunctions {
 
@@ -113,7 +119,7 @@ export class CloudFunctions {
           'data': type
         });
 
-        this.http.post(this.baseUrl + '/user/addFavorite', key,{headers: headers}).subscribe((data: any) => {
+        this.http.post(this.baseUrl + '/user/addFavorite', key, {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
           reject(err);
@@ -132,7 +138,7 @@ export class CloudFunctions {
           'data': type
         });
 
-        this.http.post(this.baseUrl + '/user/removeFavorite', key,{headers: headers}).subscribe((data: any) => {
+        this.http.post(this.baseUrl + '/user/removeFavorite', key, {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
           reject(err);
@@ -523,10 +529,4 @@ export class CloudFunctions {
       }
     });
   }
-}
-
-export enum Service {
-  Dev = 'Dev',
-  Live = 'Live',
-  Api = 'Api'
 }

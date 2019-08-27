@@ -154,7 +154,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppRoutingModule,
     AppMaterialModule
   ],
-  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService, {provide: 'externalUrlRedirectResolver', useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {window.location.href = (route.data as any).externalUrl;}}],
+  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService, {provide: 'externalUrlRedirectResolver', useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {window.location.href = (route.data as any).externalUrl}}],
   bootstrap: [TheOrangeAllianceComponent]
 })
 export class AppModule { }
