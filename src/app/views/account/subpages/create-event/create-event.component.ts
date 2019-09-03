@@ -4,12 +4,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../../../app-bar.service';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
 import { FTCDatabase} from '../../../../providers/ftc-database';
+import { Router } from '@angular/router';
 import Season from '../../../../models/Season';
 import EventType from '../../../../models/EventType';
 import Region from '../../../../models/Region';
 import Event from '../../../../models/Event';
 import User from '../../../../models/User';
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'toa-account-create-event',
@@ -20,26 +20,26 @@ export class CreateEventComponent implements OnInit {
 
   @Input() user: User;
 
-  @ViewChild('event_name') eventName: MdcTextField;
-  @ViewChild('event_id') eventId: MdcTextField;
-  @ViewChild('start_date') startDate: MdcTextField;
-  @ViewChild('end_date') endDate: MdcTextField;
-  @ViewChild('website') website: MdcTextField;
-  @ViewChild('venue') venue: MdcTextField;
-  @ViewChild('city') city: MdcTextField;
-  @ViewChild('state') state: MdcTextField;
-  @ViewChild('country') country: MdcTextField;
-  @ViewChild('eventCache') eventCache: MdcTextField;
-  @ViewChild('teamCache') teamCache: MdcTextField;
-  @ViewChild('matchCache') matchCache: MdcTextField;
-  @ViewChild('dual_division') dualDivision: MdcCheckbox;
-  @ViewChild('division_number') divisionNumber: MdcTextField;
-  @ViewChild('division_name') divisionName: MdcTextField;
-  @ViewChild('advanced') advanced: MdcCheckbox;
-  @ViewChild('number_fields') numberFields: MdcTextField;
-  @ViewChild('number_alliances') numberAlliances: MdcTextField;
-  @ViewChild('advancement_spots') advSpots: MdcTextField;
-  @ViewChild('advancement_event') advEvent: MdcTextField;
+  @ViewChild('event_name', {static: false}) eventName: MdcTextField;
+  @ViewChild('event_id', {static: false}) eventId: MdcTextField;
+  @ViewChild('start_date', {static: false}) startDate: MdcTextField;
+  @ViewChild('end_date', {static: false}) endDate: MdcTextField;
+  @ViewChild('website', {static: false}) website: MdcTextField;
+  @ViewChild('venue', {static: false}) venue: MdcTextField;
+  @ViewChild('city', {static: false}) city: MdcTextField;
+  @ViewChild('state', {static: false}) state: MdcTextField;
+  @ViewChild('country', {static: false}) country: MdcTextField;
+  @ViewChild('eventCache', {static: false}) eventCache: MdcTextField;
+  @ViewChild('teamCache', {static: false}) teamCache: MdcTextField;
+  @ViewChild('matchCache', {static: false}) matchCache: MdcTextField;
+  @ViewChild('dual_division', {static: false}) dualDivision: MdcCheckbox;
+  @ViewChild('division_number', {static: false}) divisionNumber: MdcTextField;
+  @ViewChild('division_name', {static: false}) divisionName: MdcTextField;
+  @ViewChild('advanced', {static: false}) advanced: MdcCheckbox;
+  @ViewChild('number_fields', {static: false}) numberFields: MdcTextField;
+  @ViewChild('number_alliances', {static: false}) numberAlliances: MdcTextField;
+  @ViewChild('advancement_spots', {static: false}) advSpots: MdcTextField;
+  @ViewChild('advancement_event', {static: false}) advEvent: MdcTextField;
 
   seasons: Season[];
   regions: Region[];

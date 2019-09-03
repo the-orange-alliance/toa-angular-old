@@ -1,5 +1,5 @@
 import { MatchBreakdownTitle, MatchBreakdownField, MatchBreakdownRow } from '../../../models/MatchBreakdownRow';
-import RoverRuckusMatchDetails from "../../../models/game-specifics/RoverRuckusMatchDetails";
+import RoverRuckusMatchDetails from '../../../models/game-specifics/RoverRuckusMatchDetails';
 import Match from '../../../models/Match';
 
 export default class MatchBreakdown1819 {

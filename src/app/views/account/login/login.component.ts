@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   onLoginEmail(): void {
     this.auth.auth.signInWithEmailAndPassword(this.email, this.password).catch(error => {
-      this.snackbar.open(error.toString());
+      this.snackbar.open('Error: ' + JSON.parse(error.message).error.message);
     });
   }
 
@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
       }
     }).catch((error) => {
       // Handle Errors here.
-      // Show Success
       this.translate.get(`pages.account.subpages.login.no_account_linked`).subscribe((no_acct: string) => {
         this.snackbar.open(no_acct);
       });

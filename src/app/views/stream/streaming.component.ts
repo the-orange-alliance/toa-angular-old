@@ -1,9 +1,8 @@
 import {Component, HostListener, NgZone, OnInit, Inject, PLATFORM_ID} from '@angular/core';
 import { FTCDatabase } from '../../providers/ftc-database';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
-import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
 import { isPlatformBrowser } from '@angular/common';
 import { MdcCheckboxChange } from '@angular-mdc/web';
 import EventLiveStream from '../../models/EventLiveStream';

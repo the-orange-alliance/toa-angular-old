@@ -8,7 +8,7 @@ import { TeamSorter } from '../../util/team-utils';
 import { EventSorter } from '../../util/event-utils';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
-import {isPlatformBrowser, Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { isPlatformBrowser, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { CloudFunctions } from '../../providers/cloud-functions';
 import { auth as providers, messaging as fcm } from 'firebase/app';
 import { AppBarService } from '../../app-bar.service';

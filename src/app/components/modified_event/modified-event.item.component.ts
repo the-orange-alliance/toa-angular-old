@@ -9,7 +9,7 @@ import Event from '../../models/Event';
 export class ModifiedEventItemComponent implements OnInit {
 
   @Input() modified_event: ModifiedEvent;
-  @Input() clickable: boolean = true;
+  @Input() clickable = true;
   event: Event;
 
   ngOnInit(): void {

@@ -32,7 +32,7 @@ export class EventsComponent implements OnInit {
 
   eventFilter: EventFilter;
 
-  @ViewChild('tabbar') tabbar: MdcTabBar;
+  @ViewChild('tabbar', {static: false}) tabbar: MdcTabBar;
 
   constructor(private ftc: FTCDatabase, private router: Router, private app: TheOrangeAllianceGlobals,
               private translate: TranslateService, private appBarService: AppBarService) {

@@ -6,7 +6,7 @@ import {
   MatchBreakdownVelocityVortexParkingField,
   MatchBreakdownVelocityVortexCapBallField
 } from '../../../models/MatchBreakdownRow';
-import VelocityVortexMatchDetails from "../../../models/game-specifics/VelocityVortexMatchDetails";
+import VelocityVortexMatchDetails from '../../../models/game-specifics/VelocityVortexMatchDetails';
 import Match from '../../../models/Match';
 
 export default class MatchBreakdown1617 {

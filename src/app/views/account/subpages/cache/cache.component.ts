@@ -1,10 +1,10 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AppBarService } from '../../../../app-bar.service';
-import { CloudFunctions } from "../../../../providers/cloud-functions";
-import {MdcSnackbar, MdcTextField} from "@angular-mdc/web";
-import TOAUser from "../../../../models/User";
-import {TranslateService} from "@ngx-translate/core";
-import {FTCDatabase} from "../../../../providers/ftc-database";
+import { CloudFunctions } from '../../../../providers/cloud-functions';
+import {MdcSnackbar, MdcTextField} from '@angular-mdc/web';
+import TOAUser from '../../../../models/User';
+import {TranslateService} from '@ngx-translate/core';
+import {FTCDatabase} from '../../../../providers/ftc-database';
 
 @Component({
   selector: 'toa-account-cache',
@@ -15,9 +15,9 @@ export class CacheComponent implements OnInit {
 
   @Input() user: TOAUser;
 
-  @ViewChild('eventCache') eventCache: MdcTextField;
-  @ViewChild('teamCache') teamCache: MdcTextField;
-  @ViewChild('matchCache') matchCache: MdcTextField;
+  @ViewChild('eventCache', {static: false}) eventCache: MdcTextField;
+  @ViewChild('teamCache', {static: false}) teamCache: MdcTextField;
+  @ViewChild('matchCache', {static: false}) matchCache: MdcTextField;
   generalCache: string = null;
 
   constructor(private appBarService: AppBarService, private cloud: CloudFunctions, private snackbar: MdcSnackbar, private translate: TranslateService,

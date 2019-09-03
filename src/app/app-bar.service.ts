@@ -3,8 +3,8 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 @Injectable()
 export class AppBarService {
 
-  titleShort: string = 'TOA';
-  titleLong: string = 'The Orange Alliance';
+  titleShort = 'TOA';
+  titleLong = 'The Orange Alliance';
 
   title: string = this.titleLong;
   @Output() titleChange: EventEmitter<string> = new EventEmitter();
