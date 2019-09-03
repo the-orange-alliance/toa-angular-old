@@ -19,8 +19,8 @@ export class LeagueCreatorComponent implements OnInit {
   apiKeys: any = {};
   generatingEventApiKey: boolean;
 
-  @ViewChild('league_key') leagueId: MdcTextField;
-  @ViewChild('league_description') leagueDesc: MdcTextField;
+  @ViewChild('league_key', {static: false}) leagueId: MdcTextField;
+  @ViewChild('league_description', {static: false}) leagueDesc: MdcTextField;
 
   regions: Region[];
 
