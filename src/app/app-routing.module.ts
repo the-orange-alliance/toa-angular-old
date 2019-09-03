@@ -25,6 +25,7 @@ const routes: Routes = [
       { path: '', component: AccountComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'create-league', component: AccountComponent },
       { path: 'events', component: AccountComponent },
       { path: 'new-event', component: AccountComponent },
       { path: 'users', component: AccountComponent },

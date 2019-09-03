@@ -58,14 +58,16 @@ export class AccountComponent implements OnInit {
 
     if (this.router.url.indexOf('/account/events') > -1) {
       this.activeTab = 1;
-    } else if (this.router.url.indexOf('/account/new-event') > -1) {
+    } else if (this.router.url.indexOf('/account/create-league') > -1) {
       this.activeTab = 2;
-    } else if (this.router.url.indexOf('/account/users') > -1) {
+    }  else if (this.router.url.indexOf('/account/new-event') > -1) {
       this.activeTab = 3;
-    } else if (this.router.url.indexOf('/account/cache') > -1) {
+    } else if (this.router.url.indexOf('/account/users') > -1) {
       this.activeTab = 4;
-    } else if (this.router.url.indexOf('/account/retriever') > -1) {
+    } else if (this.router.url.indexOf('/account/cache') > -1) {
       this.activeTab = 5;
+    } else if (this.router.url.indexOf('/account/retriever') > -1) {
+      this.activeTab = 6;
     } else {
       this.activeTab = 0;
     }

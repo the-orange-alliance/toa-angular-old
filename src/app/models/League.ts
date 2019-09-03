@@ -15,7 +15,7 @@ export default class League implements ISerializable {
     return {
       league_key: this.leagueKey,
       region_key: this.regionKey,
-      description: this.description
+      league_description: this.description
     };
   }
 
@@ -23,7 +23,7 @@ export default class League implements ISerializable {
     const league: League = new League();
     league.leagueKey = json.league_key;
     league.regionKey = json.region_key;
-    league.description = json.description;
+    league.description = json.league_description;
     return league;
   }
 

@@ -74,6 +74,11 @@
       "no_verify": "Please verify your email",
       "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
       "manage_events": "Manage Events",
+      "create_league": "Create League",
+      "create_league_fields": {
+        "league_key": "League Key",
+        "league_description": "League Description"
+      },
       "notifications_card": {
         "title": "Notifications",
         "summary": "Get push notifications based on your events’ settings.",
