@@ -1,14 +1,15 @@
-import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
+import {Component, OnInit, AfterViewInit, Input, ViewChild, AfterContentInit, ChangeDetectorRef} from '@angular/core';
 import { FTCDatabase } from '../../../../providers/ftc-database';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
 import { UploadService } from '../../../../providers/imgur';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { MdcSnackbar, MdcTextField } from '@angular-mdc/web';
+import {MdcSelect, MdcSnackbar, MdcTextField} from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { User } from 'firebase/app';
 import Event from '../../../../models/Event';
 import EventLiveStream from '../../../../models/EventLiveStream';
+import League from '../../../../models/League';
 
 @Component({
   providers: [CloudFunctions, UploadService],
@@ -22,7 +23,11 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   @Input() uid: string;
   @Input() eventKey: string;
   @Input() eventData: Event;
+  @Input() league: League;
+  @Input() leagues: League[];
   @Input() toaAdmin: boolean;
+
+  currentLeague: League = this.league;
 
   deleteEvent1 = true;
   deleteEvent2 = false;
@@ -57,15 +62,18 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   @ViewChild('city', {static: false}) city: MdcTextField;
   @ViewChild('state', {static: false}) state: MdcTextField;
   @ViewChild('country', {static: false}) country: MdcTextField;
+  @ViewChild('league_selector', {static: false}) leagueSelector: MdcSelect;
 
   @ViewChild('stream_url', {static: false}) streamUrl: MdcTextField;
   @ViewChild('stream_name', {static: false}) streamName: MdcTextField;
 
   constructor(private cloud: CloudFunctions, private db: AngularFireDatabase, private snackbar: MdcSnackbar,
               private translate: TranslateService, private router: Router, public imgur: UploadService,
-              private ftc: FTCDatabase) {
+              private ftc: FTCDatabase, private cd: ChangeDetectorRef) {
 
   }
+
+
 
   ngOnInit() {
     this.db.object(`eventAPIs/${ this.eventKey }`).snapshotChanges().subscribe(item => {
@@ -98,6 +106,15 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     this.setFieldText(this.country, this.eventData.country);
 
     this.setFieldText(this.streamName, this.eventData.divisionName ? this.eventData.eventName + ' - ' + this.eventData.divisionName + ' Division' : this.eventData.eventName);
+
+    for (const i in this.leagues) {
+      if (this.leagues.hasOwnProperty(i)) {
+        if (this.leagues[i].leagueKey === this.league.leagueKey) {
+          this.leagueSelector.setSelectedIndex(parseInt(i, 0))
+        }
+      }
+    }
+    this.cd.detectChanges();
   }
 
   streamRadioClick(type: string): void {
@@ -107,6 +124,10 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
       this.streamUrl.disabled = true; // Forces Text on the text box to update
       this.streamUrl.disabled = false;
     });
+  }
+
+  onLeagueChange(event: {index: any, value: any}) {
+    this.currentLeague = this.leagues[event.index];
   }
 
   addStream(): void {
@@ -240,7 +261,8 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
        'city':  this.getFieldText(this.city),
        'state_prov':  this.getFieldText(this.state),
        'country':  this.getFieldText(this.country),
-       'website':  this.getFieldText(this.website)
+       'website':  this.getFieldText(this.website),
+       'league_key': this.currentLeague.leagueKey
       }
     ];
 

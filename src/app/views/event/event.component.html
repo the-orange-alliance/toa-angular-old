@@ -64,7 +64,7 @@
           <toa-event-awards *ngIf="tabs.activeTabIndex === 4" [event]="eventData"></toa-event-awards>
           <toa-event-insights *ngIf="tabs.activeTabIndex === 5" [event]="eventData" [matches]="eventData.matches" [qualInsights]="qualInsights" [elimInsights]="elimInsights"></toa-event-insights>
           <toa-event-for-participants *ngIf="tabs.activeTabIndex === 6" [event]="eventData" [media]="media"></toa-event-for-participants>
-          <toa-event-admin *ngIf="admin" [class.d-none]="!emailVerified || !(tabs.activeTabIndex === 7 || (totalrankings === 0 && totalmatches === 0 && totalteams === 0 && totalalliances === 0 && totalawards === 0 && totalmedia === 0))" [user]="user" [uid]="user.uid" [eventKey]="eventData.eventKey" [eventData]="eventData" [toaAdmin]="toaAdmin"></toa-event-admin>
+          <toa-event-admin *ngIf="admin" [class.d-none]="!emailVerified || !(tabs.activeTabIndex === 7 || (totalrankings === 0 && totalmatches === 0 && totalteams === 0 && totalalliances === 0 && totalawards === 0 && totalmedia === 0))" [user]="user" [uid]="user.uid" [eventKey]="eventData.eventKey" [eventData]="eventData" [toaAdmin]="toaAdmin" [league]="eventLeague" [leagues]="allLeagues"></toa-event-admin>
         </div>
       </mdc-card>
     </div>

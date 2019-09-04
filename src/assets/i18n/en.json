@@ -114,6 +114,7 @@
         "create": "Create",
         "event_id": "Event ID",
         "event_type": "Event Type",
+        "league": "League",
         "region": "Region",
         "season": "Season",
         "division_number": "Division Number",

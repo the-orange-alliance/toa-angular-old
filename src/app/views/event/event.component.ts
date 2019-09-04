@@ -18,6 +18,7 @@ import EventLiveStream from '../../models/EventLiveStream';
 import Media from '../../models/Media';
 import Alliance from '../../models/Alliance';
 import EventInsights from '../../models/Insights';
+import League from '../../models/League';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -44,6 +45,10 @@ export class EventComponent implements OnInit {
   totalrankings: any;
   totalalliances: any;
   totalawards: any;
+
+  allLeagues: League[];
+  eventLeague: League;
+  nullLeague = new League();
 
   user: User = null;
   emailVerified = true;
@@ -196,6 +201,24 @@ export class EventComponent implements OnInit {
         } else {
           this.router.navigate(['/not-found']);
         }
+
+        this.nullLeague.leagueKey = 'League';
+        this.nullLeague.regionKey = 'No';
+        this.nullLeague.description = 'No League Assoc.';
+        // Get the leaguess, as well as find the currently set league in the list
+        this.ftc.getAllLeagues().then((data: League[]) => {
+          // The professional way to insert something at the beginning of an array
+          data.reverse();
+          data.push(this.nullLeague);
+          data.reverse();
+          this.allLeagues = data;
+          for (const league of data) {
+            if (league.leagueKey === this.eventData.leagueKey) {
+              this.eventLeague = league;
+              break;
+            }
+          }
+        });
       }, (err) => {
         console.log(err);
         // this.router.navigate(['/not-found']);
