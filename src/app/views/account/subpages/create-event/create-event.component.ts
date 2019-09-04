@@ -10,6 +10,7 @@ import EventType from '../../../../models/EventType';
 import Region from '../../../../models/Region';
 import Event from '../../../../models/Event';
 import User from '../../../../models/User';
+import League from '../../../../models/League';
 
 @Component({
   selector: 'toa-account-create-event',
@@ -44,9 +45,13 @@ export class CreateEventComponent implements OnInit {
   seasons: Season[];
   regions: Region[];
   eventTypes: EventType[];
+  leagues: League[];
   currentSeason: Season = null;
   currentRegion: Region = null;
   currentEventType: EventType = null;
+  currentLeague: League = null;
+
+  nullLeague = new League();
 
   constructor(private appBarService: AppBarService, private cloud: CloudFunctions, private ftc: FTCDatabase,
               private translate: TranslateService, private snackbar: MdcSnackbar, private router: Router) {
@@ -54,6 +59,9 @@ export class CreateEventComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.nullLeague.leagueKey = 'League';
+    this.nullLeague.regionKey = 'No';
+    this.nullLeague.description = 'No League Assoc.';
     this.translate.get('pages.account.manage_events').subscribe((res) => {
       this.appBarService.setTitle('myTOA - ' + res, true)
     });
@@ -69,6 +77,13 @@ export class CreateEventComponent implements OnInit {
       this.eventTypes = data;
       this.currentEventType = this.eventTypes[0];
     });
+    this.ftc.getAllLeagues().then((data: League[]) => {
+      data.reverse();
+      data.push(this.nullLeague);
+      data.reverse();
+      this.leagues = data;
+      this.currentLeague = this.leagues[0];
+    });
   }
 
   onSeasonChange(event: {index: any, value: any}) {
@@ -81,6 +96,14 @@ export class CreateEventComponent implements OnInit {
 
   onEventTypeChange(event: {index: any, value: any}) {
     this.currentEventType = this.eventTypes[event.index - 1];
+  }
+
+  onLeagueChange(event: {index: any, value: any}) {
+    if (event.index > 1) {
+      this.currentLeague = this.leagues[event.index - 1];
+    } else {
+      this.currentLeague = null;
+    }
   }
 
   resetAdvanced() {
@@ -116,6 +139,7 @@ export class CreateEventComponent implements OnInit {
     event.eventKey = this.currentSeason.seasonKey + '-' + this.currentRegion.regionKey + '-' + this.eventId.value + (this.divisionNumber ? this.divisionNumber.value : '');
     event.seasonKey = this.currentSeason.seasonKey;
     event.regionKey = this.currentRegion.regionKey;
+    event.leagueKey = (this.currentLeague === null) ? null : this.currentLeague.leagueKey;
     event.eventCode = this.eventId.value;
     event.eventTypeKey = this.currentEventType.eventTypeKey;
     event.eventName = this.eventName.value;

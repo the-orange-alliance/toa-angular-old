@@ -18,6 +18,12 @@
             {{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}
           </option>
         </mdc-select>
+        <mdc-select [placeholder]="'pages.account.create_event_card.league' | translate" (selectionChange)="onLeagueChange($event)" class="w-100">
+          <option disabled></option>
+          <option *ngFor="let league of leagues" [value]="league.leagueKey">
+            {{ league.description ? league.regionKey + "-" + league.leagueKey + " - " + league.description : league.regionKey + "-" + league.leagueKey }}
+          </option>
+        </mdc-select>
         <mdc-text-field #website dense [label]="'pages.event.subpages.admin.update_info_card.website' | translate" class="w-100">
           <mdc-icon mdcTextFieldIcon leading svgIcon="earth"></mdc-icon>
         </mdc-text-field>
