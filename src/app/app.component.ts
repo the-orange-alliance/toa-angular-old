@@ -165,7 +165,7 @@ export class TheOrangeAllianceComponent implements OnInit {
     });
 
     const self = this;
-    const kickoffDate = new Date('Sep 7, 2019 12:00:00 GMT-4').getTime();
+    const kickoffDate = new Date('Sep 7, 2019 11:30:00 GMT-4').getTime();
     const kickoffInterval = setInterval(function() {
 
       const now = new Date().getTime();
