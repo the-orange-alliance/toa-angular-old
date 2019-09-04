@@ -107,11 +107,15 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
 
     this.setFieldText(this.streamName, this.eventData.divisionName ? this.eventData.eventName + ' - ' + this.eventData.divisionName + ' Division' : this.eventData.eventName);
 
+    this.currentLeague = null;
     for (const i in this.leagues) {
-      if (this.leagues.hasOwnProperty(i)) {
+      if (this.leagues.hasOwnProperty(i) && this.league !== undefined) {
         if (this.leagues[i].leagueKey === this.league.leagueKey) {
           this.leagueSelector.setSelectedIndex(parseInt(i, 0))
+          this.currentLeague = this.leagues[i];
         }
+      } else {
+        this.leagueSelector.setSelectedIndex(0);
       }
     }
     this.cd.detectChanges();
@@ -127,7 +131,11 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   }
 
   onLeagueChange(event: {index: any, value: any}) {
-    this.currentLeague = this.leagues[event.index];
+    if (event.index > 0) {
+      this.currentLeague = this.leagues[event.index];
+    } else {
+      this.currentLeague = null;
+    }
   }
 
   addStream(): void {
@@ -262,7 +270,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
        'state_prov':  this.getFieldText(this.state),
        'country':  this.getFieldText(this.country),
        'website':  this.getFieldText(this.website),
-       'league_key': this.currentLeague.leagueKey
+       'league_key': (this.currentLeague === null) ? null : this.currentLeague.leagueKey
       }
     ];
 
