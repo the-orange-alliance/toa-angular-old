@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../../../app-bar.service';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
 import User from '../../../../models/User';
-import {MdcTextField} from '@angular-mdc/web';
+import {MdcSnackbar, MdcTextField} from '@angular-mdc/web';
 import Region from '../../../../models/Region';
 import {FTCDatabase} from '../../../../providers/ftc-database';
 import League from '../../../../models/League';
@@ -26,7 +26,7 @@ export class LeagueCreatorComponent implements OnInit {
 
   currentRegion: Region = null;
 
-  constructor(private appBarService: AppBarService, private cloud: CloudFunctions,  private ftc: FTCDatabase, private translate: TranslateService) {
+  constructor(private appBarService: AppBarService, private cloud: CloudFunctions,  private ftc: FTCDatabase, private translate: TranslateService, private snackbar: MdcSnackbar) {
 
   }
 
@@ -46,11 +46,18 @@ export class LeagueCreatorComponent implements OnInit {
     newLeague.description = this.leagueDesc.value;
     newLeague.leagueKey = this.leagueId.value;
     newLeague.regionKey = this.currentRegion.regionKey;
-    this.cloud.toaPost(this.user.firebaseUser, [newLeague.toJSON()], '/league/').then(async () => {
-      this.generatingEventApiKey = false;
-      this.user = await this.cloud.getUserData(this.user.firebaseUser);
+
+    this.cloud.toaPost(this.user.firebaseUser, [newLeague.toJSON()], '/league/').then( (data) => {
+      this.translate.get('pages.account.league_creation_success').subscribe((str) => {
+        this.snackbar.open(`${str}`);
+        // this.snackbar.open(str, 'Go').afterDismiss().subscribe(reason => {
+          // if (reason === 'action') { this.router.navigateByUrl('/leagues/' + league.leagueKey); } // TODO: Add 'go' button when League page is created
+        // });
+      });
     }).catch((err) => {
-      this.generatingEventApiKey = false;
+      this.translate.get('general.error_occurred').subscribe((str) => {
+        this.snackbar.open(`${str} (HTTP-${err.status})`);
+      });
       console.log(err);
     });
   }
