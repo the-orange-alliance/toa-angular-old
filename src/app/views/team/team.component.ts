@@ -1,5 +1,5 @@
 import { WINDOW } from '@ng-toolkit/universal';
-import {Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
+import {Component, OnInit, Inject, PLATFORM_ID, AfterViewInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppBarService } from '../../app-bar.service';
 import { FTCDatabase } from '../../providers/ftc-database';
@@ -20,6 +20,7 @@ import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 import EventParticipant from '../../models/EventParticipant';
 import TOAUser from '../../models/User';
 import {isPlatformBrowser} from '@angular/common';
+import {MdcSelect} from '@angular-mdc/web';
 
 @Component({
   selector: 'toa-team',
@@ -27,7 +28,7 @@ import {isPlatformBrowser} from '@angular/common';
   styleUrls: ['./team.component.scss'],
   providers: [FTCDatabase, TheOrangeAllianceGlobals]
 })
-export class TeamComponent implements OnInit {
+export class TeamComponent implements OnInit, AfterViewInit {
 
   team: Team;
   teamKey: string;
@@ -39,6 +40,8 @@ export class TeamComponent implements OnInit {
   view_type: string;
   wlt: TeamSeasonRecord = null;
   topOpr: Ranking;
+
+  @ViewChild('ftc_season', {static: false}) ftcSeason: MdcSelect;
 
   user: TOAUser = null;
   favorite: boolean;
@@ -94,6 +97,18 @@ export class TeamComponent implements OnInit {
     })
   }
 
+  ngAfterViewInit(): void {
+    this.checkForTeam()
+  }
+
+  checkForTeam() { // This function waits for the element to be available on the page
+    if (this.ftcSeason === undefined) {
+      window.setInterval(() => this.checkForTeam(), 100); /* this checks the flag every 100 milliseconds*/
+    } else {
+      this.ftcSeason.setSelectedIndex(0);
+    }
+  }
+
   public getTeamSeasons(seasons: Season[]): Season[] {
     const year_code = parseInt((this.team.rookieYear + '').toString().substring(2, 4), 10);
     const second_code = year_code + 1;
@@ -114,6 +129,11 @@ export class TeamComponent implements OnInit {
       }
     }
     return seasons;
+  }
+
+  public onSeasonChange(event: {index: any, value: any}) {
+    event.index = (event.index < 0) ? 0 : event.index;
+    this.selectSeason(this.seasons[event.index])
   }
 
   public selectSeason(season: any) {
@@ -193,11 +213,15 @@ export class TeamComponent implements OnInit {
 
   private getTeamWLT() {
     this.wlt = null;
-    this.ftc.getTeamWLT(this.teamKey, this.currentSeason.seasonKey).then((wlt: TeamSeasonRecord) => {
-      if (wlt) {
-        this.wlt = wlt;
-      }
-    });
+    if (this.currentSeason.seasonKey) {
+      this.ftc.getTeamWLT(this.teamKey, this.currentSeason.seasonKey).then((wlt: TeamSeasonRecord) => {
+        if (wlt) {
+          this.wlt = wlt;
+        }
+      });
+    } else {
+      this.wlt = new TeamSeasonRecord();
+    }
   }
 
   private sortAndFind(event: Event): Match[] {

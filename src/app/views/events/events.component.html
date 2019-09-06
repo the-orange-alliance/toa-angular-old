@@ -10,24 +10,16 @@
 
         <div *ngIf="currentSeason" class="col-md-4 col-xs-12 filter-row dropdown">
           <div class="filter-info">{{ 'pages.events.filter_season' | translate }}: </div>
-          <button class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            20{{ currentSeason.seasonKey.substring(0, 2) }}/{{ currentSeason.seasonKey.substring(2, 4) }} - {{ currentSeason.description }}
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="ftc_season">
-            <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-list-item>
-          </ul>
+          <mdc-select #current_season (selectionChange)="onSeasonChange($event)" >
+            <option *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</option>
+          </mdc-select>
         </div>
 
         <div *ngIf="currentRegion" class="col-md-4 col-xs-12 filter-row dropdown">
           <div class="filter-info">{{ 'pages.events.filter_region' | translate }}: </div>
-          <button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          {{ currentRegion.description ? currentRegion.regionKey + " - " + currentRegion.description : currentRegion.regionKey }}
-          <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="ftc_district">
-            <mdc-list-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}</mdc-list-item>
-          </ul>
+          <mdc-select #current_region (selectionChange)="onRegionChange($event)">
+            <option *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}</option>
+          </mdc-select>
         </div>
       </div>
 

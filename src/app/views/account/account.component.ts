@@ -18,6 +18,7 @@ import { MessagingService } from '../../messaging.service';
 import TOAUser from '../../models/User';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
+import * as fbApps from 'firebase/app';
 
 @Component({
   selector: 'toa-account',
@@ -96,7 +97,9 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.appBarService.setTitle('myTOA', true);
-    initFbApp(environment.firebase);
+    if (fbApps.apps.length === 0) {
+      initFbApp(environment.firebase);
+    }
     this.isSupported = fcm && fcm.isSupported();
   }
 
@@ -191,6 +194,7 @@ export class AccountComponent implements OnInit {
 
   signOut(): void {
     this.auth.auth.signOut().then(() => {
+
       this.router.navigateByUrl('/account/login');
     });
   }

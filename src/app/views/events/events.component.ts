@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../app-bar.service';
 import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { EventFilter, EventSorter } from '../../util/event-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import { MdcTabBar } from '@angular-mdc/web';
+import {MdcSelect, MdcTabBar} from '@angular-mdc/web';
 import Event from '../../models/Event';
 import Season from '../../models/Season';
 import Region from '../../models/Region';
@@ -17,7 +17,7 @@ import Week from '../../models/Week';
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss']
 })
-export class EventsComponent implements OnInit {
+export class EventsComponent implements OnInit, AfterViewInit {
 
   seasons: Season[];
   regions: Region[];
@@ -33,6 +33,8 @@ export class EventsComponent implements OnInit {
   eventFilter: EventFilter;
 
   @ViewChild('tabbar', {static: false}) tabbar: MdcTabBar;
+  @ViewChild('current_region', {static: false}) regionSelector: MdcSelect;
+  @ViewChild('current_season', {static: false}) seasonSelector: MdcSelect;
 
   constructor(private ftc: FTCDatabase, private router: Router, private app: TheOrangeAllianceGlobals,
               private translate: TranslateService, private appBarService: AppBarService) {
@@ -55,9 +57,32 @@ export class EventsComponent implements OnInit {
       const allRegions: Region = new Region();
       allRegions.regionKey = 'All Regions';
       this.regions = data;
+      this.regions.reverse();
       this.regions.push(allRegions);
+      this.regions.reverse();
       this.currentRegion = this.regions[this.regions.length - 1];
     });
+  }
+
+  ngAfterViewInit(): void {
+    // this.checkForSeasonSelect();
+    // this.checkForRegionSelect();
+  }
+
+  checkForRegionSelect() { // This function waits for the element to be available on the page
+    if (this.regionSelector === undefined) {
+      window.setInterval(() => this.checkForRegionSelect(), 100); /* this checks the flag every 100 milliseconds*/
+    } else {
+      this.regionSelector.setSelectedIndex(0);
+    }
+  }
+
+  checkForSeasonSelect() { // This function waits for the element to be available on the page
+    if (this.seasonSelector === undefined) {
+      window.setInterval(() => this.checkForSeasonSelect(), 100); /* this checks the flag every 100 milliseconds*/
+    } else {
+      this.seasonSelector.setSelectedIndex(0);
+    }
   }
 
   organizeEventsByWeek(): void {
@@ -105,6 +130,11 @@ export class EventsComponent implements OnInit {
     this.router.navigate(['/events', eventKey]);
   }
 
+  onSeasonChange (event: {index: any, value: any}) {
+    event.index = (event.index < 0) ? 0 : event.index;
+    this.selectSeason(this.seasons[event.index])
+  }
+
   selectSeason(season: Season) {
     if (this.currentSeason === null || this.currentSeason.seasonKey !== season.seasonKey) {
       this.currentSeason = season;
@@ -117,12 +147,17 @@ export class EventsComponent implements OnInit {
     return null;
   }
 
+  onRegionChange (event: {index: any, value: any}) {
+    event.index = (event.index < 0) ? 0 : event.index;
+    this.selectRegion(this.regions[event.index])
+  }
+
   selectRegion(region: Region) {
     this.currentRegion = region;
-    if (this.currentRegion.description) {
+    if (this.currentRegion !== undefined && this.currentRegion.description) {
       this.eventFilter.filterArray(this.currentRegion.regionKey);
       this.events = this.eventFilter.getFilteredArray();
-    } else {
+    } else if (this.eventFilter !== undefined) {
       this.events = this.eventFilter.getOriginalArray();
     }
     if (this.events.length > 0) {
