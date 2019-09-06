@@ -63,6 +63,7 @@ export class StreamingComponent implements OnInit {
 
   ngOnInit() {
     const event = new URL(window.location.href).searchParams.get('e');
+    const kickoff = new URL(window.location.href).searchParams.get('kickoff') === '';
     this.checkSize(window.innerWidth); // TODO: Fix for SSR
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       this.streams = [];
@@ -70,7 +71,10 @@ export class StreamingComponent implements OnInit {
         stream.safeURL = this.getSafeURL(stream.streamURL);
         if (stream.isActive) {
           this.streams.push(stream);
-          if (stream.eventKey && event && (stream.eventKey.toUpperCase() === `${this.ftc.year}-${event}`.toUpperCase() ||
+          if (kickoff && stream.streamKey.toLowerCase() === 'kickoff') {
+            this.mainStream = stream;
+            this.selectLayout(0, false)
+          } else if (stream.eventKey && event && (stream.eventKey.toUpperCase() === `${this.ftc.year}-${event}`.toUpperCase() ||
             stream.eventKey.toUpperCase() === event.toUpperCase())) {
             this.mainStream = stream;
             this.selectLayout(0, false)

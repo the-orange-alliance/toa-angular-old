@@ -181,10 +181,16 @@
   </div>
 
   <div class="page" [class.toa-page]="!router.url.startsWith('/stream')">
-    <div class="kickoff-banner kickoff-banner--home full-page" *ngIf="router.url === '/home'">
+    <div class="kickoff-banner kickoff-banner--home full-page" *ngIf="!kickoffLive && router.url === '/home'">
       <img class="my-3 mw-100" style="max-height: 140px;" src="../assets/imgs/first-rise-logo.png">
       <h3><b>{{ kickoffString }}</b>&nbsp;<small>until the Kickoff</small></h3>
       <p>September 7, 2019, 11:30 ET</p>
+    </div>
+    <div class="kickoff-banner kickoff-banner--home full-page p-5" *ngIf="kickoffLive && router.url === '/home'">
+      <h4 class="mb-4">2019/20 SKYSTONE Kickoff</h4>
+      <button mdc-fab extended label="Watch Kickoff Live" style="background-color: #ffe546" routerLink="/kickoff">
+        <mdc-icon>play_circle_outline</mdc-icon>
+      </button>
     </div>
     <router-outlet></router-outlet>
   </div>
