@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../app-bar.service';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import Week from '../../models/Week';
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss']
 })
-export class EventsComponent implements OnInit, AfterViewInit {
+export class EventsComponent implements OnInit {
 
   seasons: Season[];
   regions: Region[];
@@ -29,9 +29,6 @@ export class EventsComponent implements OnInit, AfterViewInit {
 
   currentSeason: Season = null;
   currentRegion: Region;
-
-  seasonInterval: any;
-  regionInterval: any;
 
   eventFilter: EventFilter;
 
@@ -59,35 +56,12 @@ export class EventsComponent implements OnInit, AfterViewInit {
     this.ftc.getAllRegions().then((data: Region[]) => {
       const allRegions: Region = new Region();
       allRegions.regionKey = 'All Regions';
-      this.regions = data;
-      this.regions.reverse();
-      this.regions.push(allRegions);
-      this.regions.reverse();
-      this.currentRegion = this.regions[this.regions.length - 1];
+      this.regions = [
+        allRegions,
+        ...data
+      ];
+      this.currentRegion  = allRegions;
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.checkForSeasonSelect();
-    this.checkForRegionSelect();
-  }
-
-  checkForRegionSelect() { // This function waits for the element to be available on the page
-    if (this.regionSelector === undefined) {
-      this.regionInterval = window.setInterval(() => this.checkForRegionSelect(), 500); /* this checks the flag every 100 milliseconds*/
-    } else {
-      this.regionSelector.setSelectedIndex(0);
-      window.clearInterval(this.regionInterval);
-    }
-  }
-
-  checkForSeasonSelect() { // This function waits for the element to be available on the page
-    if (this.seasonSelector === undefined) {
-      this.seasonInterval = window.setInterval(() => this.checkForSeasonSelect(), 500); /* this checks the flag every 100 milliseconds*/
-    } else {
-      this.seasonSelector.setSelectedIndex(0);
-      window.clearInterval(this.seasonInterval);
-    }
   }
 
   organizeEventsByWeek(): void {
@@ -129,10 +103,6 @@ export class EventsComponent implements OnInit, AfterViewInit {
       }
     }
     return filteredEvents;
-  }
-
-  openEvent(eventKey): void {
-    this.router.navigate(['/events', eventKey]);
   }
 
   onSeasonChange (event: {index: any, value: any}) {
@@ -220,5 +190,24 @@ export class EventsComponent implements OnInit, AfterViewInit {
 
   public isSelected(index): boolean {
     return this.weekNumber === index;
+  }
+
+  getSeasonString(seasonKey: string, description?: string) {
+    const codeOne = seasonKey.toString().substring(0, 2);
+    const codeTwo = seasonKey.toString().substring(2, 4);
+
+    if (description) {
+      return '20' + codeOne + '/' + codeTwo + ' - ' + description;
+    } else {
+      return '20' + codeOne + '/' + codeTwo;
+    }
+  }
+
+  getRegionString(regionKey: string, description?: string) {
+    if (description) {
+      return regionKey + ' - ' + description;
+    } else {
+      return regionKey;
+    }
   }
 }

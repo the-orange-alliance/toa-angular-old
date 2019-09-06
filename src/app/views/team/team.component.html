@@ -14,9 +14,23 @@
   <div class="col-12 col-md-3 pb-5 pe-md-3 d-none d-md-block">
     <mdc-card class="toa-card overflow">
       <div class="w-100 p-3">
-        <mdc-select #ftc_season (selectionChange)="onSeasonChange($event)">
-          <option *ngFor="let season of seasons">{{ getSeasonString(season.seasonKey, true)}}</option>
-        </mdc-select>
+
+        <div mdcMenuSurfaceAnchor #seasonAnchor class="toa-dropdown"
+             *ngIf="currentSeason && seasons && seasons.length > 0">
+
+          <button mdc-button (click)="seasonDropdown.open = !seasonDropdown.open">
+            {{ currentSeason.description || getSeasonString(currentSeason.seasonKey) }}
+            <mdc-icon>arrow_drop_down</mdc-icon>
+          </button>
+          <mdc-menu #seasonDropdown [anchorElement]="seasonAnchor" (selected)="onSeasonChange($event)"
+                    anchorCorner="bottomStart">
+            <mdc-list dense>
+              <mdc-list-item *ngFor="let season of seasons" [disabled]="season.seasonKey === currentSeason.seasonKey">
+                {{ getSeasonString(season.seasonKey, season.description) }}
+              </mdc-list-item>
+            </mdc-list>
+          </mdc-menu>
+        </div>
 
         <ul *ngIf="team.events" class="nav flex-column mt-2" style="padding: 0 12px!important;">
           <li class="nav-item text-primary">

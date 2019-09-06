@@ -570,6 +570,27 @@ mdc-drawer mdc-list a {
 
 
 /* ==========================================================================
+   Dropdown
+   ========================================================================== */
+
+.toa-dropdown {
+  .mdc-button {
+    color: black!important;
+    justify-content: start!important;
+    padding: 0 8px;
+
+    ::before, ::after {
+      background: black!important;
+    }
+  }
+
+  .mdc-menu {
+    min-width: max-content;
+  }
+}
+
+
+/* ==========================================================================
    Match Table
    ========================================================================== */
 

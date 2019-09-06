@@ -1,5 +1,5 @@
 import { WINDOW } from '@ng-toolkit/universal';
-import {Component, OnInit, Inject, PLATFORM_ID, AfterViewInit, ViewChild} from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppBarService } from '../../app-bar.service';
 import { FTCDatabase } from '../../providers/ftc-database';
@@ -28,7 +28,7 @@ import {MdcSelect} from '@angular-mdc/web';
   styleUrls: ['./team.component.scss'],
   providers: [FTCDatabase, TheOrangeAllianceGlobals]
 })
-export class TeamComponent implements OnInit, AfterViewInit {
+export class TeamComponent implements OnInit {
 
   team: Team;
   teamKey: string;
@@ -40,10 +40,6 @@ export class TeamComponent implements OnInit, AfterViewInit {
   view_type: string;
   wlt: TeamSeasonRecord = null;
   topOpr: Ranking;
-
-  teamCheckInterval: any;
-
-  @ViewChild('ftc_season', {static: false}) ftcSeason: MdcSelect;
 
   user: TOAUser = null;
   favorite: boolean;
@@ -99,39 +95,14 @@ export class TeamComponent implements OnInit, AfterViewInit {
     })
   }
 
-  ngAfterViewInit(): void {
-    if (!this.ftcSeason) {
-      this.checkForTeam()
-    }
-  }
-
-  checkForTeam() { // This function waits for the element to be available on the page
-    if (typeof this.ftcSeason === 'undefined' && !this.ftcSeason) {
-      this.teamCheckInterval = window.setInterval(() => this.checkForTeam(), 500); /* this checks the flag every 500 milliseconds*/
-    } else {
-      if (this.ftcSeason.getSelectedIndex() < 0 ) {
-        this.ftcSeason.setSelectedIndex(0);
-        window.clearInterval(this.teamCheckInterval)
-      }
-    }
-  }
-
   public getTeamSeasons(seasons: Season[]): Season[] {
-    const year_code = parseInt((this.team.rookieYear + '').toString().substring(2, 4), 10);
-    const second_code = year_code + 1;
-    let rookie_season_id = '';
-    if (year_code < 10) {
-      rookie_season_id = '0' + year_code;
-    } else {
-      rookie_season_id = '' + year_code;
-    }
-    if (second_code < 10) {
-      rookie_season_id += '0' + second_code;
-    } else {
-      rookie_season_id += '' + second_code;
-    }
+    const pad = (num) => (num < 10 ? '0' : '') + num;
+    const yearCode = parseInt((this.team.rookieYear + '').toString().substring(2, 4), 10);
+    const secondCode = yearCode + 1;
+    const rookieSeasonId = pad(yearCode) + pad(secondCode);
+
     for (let i = 0; i < seasons.length; i++) {
-      if (rookie_season_id === seasons[i].seasonKey) {
+      if (rookieSeasonId === seasons[i].seasonKey) {
         return seasons.splice(i, seasons.length - 1);
       }
     }
@@ -250,18 +221,15 @@ export class TeamComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/matches', match_data.match_key]);
   }
 
-  getSeasonString(seasonKey: string, description: boolean) {
-    const code_one = seasonKey.toString().substring(0, 2);
-    const code_two = seasonKey.toString().substring(2, 4);
+  getSeasonString(seasonKey: string, description?: string) {
+    const codeOne = seasonKey.toString().substring(0, 2);
+    const codeTwo = seasonKey.toString().substring(2, 4);
 
-    if (this.seasons) {
-      for (const season of this.seasons) {
-        if (season.seasonKey === seasonKey) {
-          return '20' + code_one + '/' + code_two + (description && season.description ? ' - ' + season.description : '');
-        }
-      }
+    if (description) {
+      return '20' + codeOne + '/' + codeTwo + ' - ' + description;
+    } else {
+      return '20' + codeOne + '/' + codeTwo;
     }
-    return '20' + code_one + '/' + code_two;
   }
 
   beautifulURL(website: string) {

@@ -8,25 +8,42 @@
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3 row">
 
-        <div *ngIf="currentSeason" class="col-md-4 col-xs-12 filter-row dropdown">
-          <div class="filter-info">{{ 'pages.events.filter_season' | translate }}: </div>
-          <mdc-select #current_season (selectionChange)="onSeasonChange($event)" >
-            <option *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</option>
-          </mdc-select>
+        <div mdcMenuSurfaceAnchor #seasonAnchor *ngIf="currentSeason && seasons && seasons.length > 0"
+             class="toa-dropdown">
+          <button mdc-button (click)="seasonDropdown.open = !seasonDropdown.open">
+            {{ currentSeason.description || getSeasonString(currentSeason.seasonKey) }}
+            <mdc-icon>arrow_drop_down</mdc-icon>
+          </button>
+          <mdc-menu #seasonDropdown [anchorElement]="seasonAnchor" (selected)="onSeasonChange($event)"
+                    anchorCorner="bottomStart">
+            <mdc-list dense>
+              <mdc-list-item *ngFor="let season of seasons" [disabled]="season.seasonKey === currentSeason.seasonKey">
+                {{ getSeasonString(season.seasonKey, season.description) }}
+              </mdc-list-item>
+            </mdc-list>
+          </mdc-menu>
         </div>
 
-        <div *ngIf="currentRegion" class="col-md-4 col-xs-12 filter-row dropdown">
-          <div class="filter-info">{{ 'pages.events.filter_region' | translate }}: </div>
-          <mdc-select #current_region (selectionChange)="onRegionChange($event)">
-            <option *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}</option>
-          </mdc-select>
+        <div mdcMenuSurfaceAnchor #regionAnchor *ngIf="currentRegion && regions && regions.length > 0"
+             class="toa-dropdown">
+          <button mdc-button (click)="regionDropdown.open = !regionDropdown.open">
+            {{ currentRegion.description || getRegionString(currentRegion.regionKey) }}
+            <mdc-icon>arrow_drop_down</mdc-icon>
+          </button>
+          <mdc-menu #regionDropdown [anchorElement]="regionAnchor" (selected)="onRegionChange($event)"
+                    anchorCorner="bottomStart">
+            <mdc-list dense>
+              <mdc-list-item *ngFor="let region of regions" [disabled]="region.regionKey === currentRegion.regionKey">
+                {{ getRegionString(region.regionKey, region.description) }}
+              </mdc-list-item>
+            </mdc-list>
+          </mdc-menu>
         </div>
       </div>
 
       <mdc-list-divider></mdc-list-divider>
 
       <button mdc-button (click)="clearFilter()">{{ 'pages.events.clear_filter' | translate }}</button>
-
     </mdc-card>
   </div>
 </div>
@@ -71,11 +88,14 @@
     <div mdcDialogSurface class="modal-content border-0 ru">
       <mdc-dialog-title>Filter Options</mdc-dialog-title>
       <mdc-dialog-content>
+&lt;!&ndash;
         <mdc-chip-set filter>
           <mdc-chip *ngFor="let region of regions">
             <mdc-chip-text>{{ region.description }}</mdc-chip-text>
           </mdc-chip>
         </mdc-chip-set>
+&ndash;&gt;
+
       </mdc-dialog-content>
       <mdc-dialog-actions>
         <button mdcDialogButton data-dismiss="modal">Cancel</button>
