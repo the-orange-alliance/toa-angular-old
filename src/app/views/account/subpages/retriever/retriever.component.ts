@@ -19,7 +19,6 @@ import ModifiedTeam from '../../../../models/ModifiedTeam';
 export class RetrieverComponent implements OnInit {
 
   @Input() user: User;
-  @ViewChild('retr_sel', {static: false}) retrieverSelector: MdcTabBar;
 
   newEvents: Event[] = null;
   modifiedEvents: ModifiedEvent[] = null;

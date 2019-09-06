@@ -205,14 +205,14 @@ export class EventComponent implements OnInit {
         this.nullLeague.leagueKey = 'League';
         this.nullLeague.regionKey = 'No';
         this.nullLeague.description = 'No League Assoc.';
-        // Get the leaguess, as well as find the currently set league in the list
-        this.ftc.getAllLeagues().then((data: League[]) => {
+        // Get the leagues, as well as find the currently set league in the list
+        this.ftc.getAllLeagues().then((leagues: League[]) => {
           // The professional way to insert something at the beginning of an array
-          data.reverse();
-          data.push(this.nullLeague);
-          data.reverse();
-          this.allLeagues = data;
-          for (const league of data) {
+          leagues.reverse();
+          leagues.push(this.nullLeague);
+          leagues.reverse();
+          this.allLeagues = leagues;
+          for (const league of leagues) {
             if (league.leagueKey === this.eventData.leagueKey) {
               this.eventLeague = league;
               break;
@@ -221,7 +221,6 @@ export class EventComponent implements OnInit {
         });
       }, (err) => {
         console.log(err);
-        // this.router.navigate(['/not-found']);
       })
       }
   }
