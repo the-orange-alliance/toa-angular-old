@@ -30,6 +30,9 @@ export class EventsComponent implements OnInit, AfterViewInit {
   currentSeason: Season = null;
   currentRegion: Region;
 
+  seasonInterval: any;
+  regionInterval: any;
+
   eventFilter: EventFilter;
 
   @ViewChild('tabbar', {static: false}) tabbar: MdcTabBar;
@@ -65,23 +68,25 @@ export class EventsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.checkForSeasonSelect();
-    // this.checkForRegionSelect();
+    this.checkForSeasonSelect();
+    this.checkForRegionSelect();
   }
 
   checkForRegionSelect() { // This function waits for the element to be available on the page
     if (this.regionSelector === undefined) {
-      window.setInterval(() => this.checkForRegionSelect(), 100); /* this checks the flag every 100 milliseconds*/
+      this.regionInterval = window.setInterval(() => this.checkForRegionSelect(), 500); /* this checks the flag every 100 milliseconds*/
     } else {
       this.regionSelector.setSelectedIndex(0);
+      window.clearInterval(this.regionInterval);
     }
   }
 
   checkForSeasonSelect() { // This function waits for the element to be available on the page
     if (this.seasonSelector === undefined) {
-      window.setInterval(() => this.checkForSeasonSelect(), 100); /* this checks the flag every 100 milliseconds*/
+      this.seasonInterval = window.setInterval(() => this.checkForSeasonSelect(), 500); /* this checks the flag every 100 milliseconds*/
     } else {
       this.seasonSelector.setSelectedIndex(0);
+      window.clearInterval(this.seasonInterval);
     }
   }
 

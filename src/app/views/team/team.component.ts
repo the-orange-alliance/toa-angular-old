@@ -41,6 +41,8 @@ export class TeamComponent implements OnInit, AfterViewInit {
   wlt: TeamSeasonRecord = null;
   topOpr: Ranking;
 
+  teamCheckInterval: any;
+
   @ViewChild('ftc_season', {static: false}) ftcSeason: MdcSelect;
 
   user: TOAUser = null;
@@ -98,14 +100,19 @@ export class TeamComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    //this.checkForTeam()
+    if (!this.ftcSeason) {
+      this.checkForTeam()
+    }
   }
 
   checkForTeam() { // This function waits for the element to be available on the page
-    if (this.ftcSeason === undefined) {
-      window.setInterval(() => this.checkForTeam(), 100); /* this checks the flag every 100 milliseconds*/
+    if (typeof this.ftcSeason === 'undefined' && !this.ftcSeason) {
+      this.teamCheckInterval = window.setInterval(() => this.checkForTeam(), 500); /* this checks the flag every 500 milliseconds*/
     } else {
-      this.ftcSeason.setSelectedIndex(0);
+      if (this.ftcSeason.getSelectedIndex() < 0 ) {
+        this.ftcSeason.setSelectedIndex(0);
+        window.clearInterval(this.teamCheckInterval)
+      }
     }
   }
 
