@@ -98,7 +98,7 @@ export class TeamComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.checkForTeam()
+    //this.checkForTeam()
   }
 
   checkForTeam() { // This function waits for the element to be available on the page
