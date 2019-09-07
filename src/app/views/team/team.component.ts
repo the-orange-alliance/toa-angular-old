@@ -1,5 +1,5 @@
 import { WINDOW } from '@ng-toolkit/universal';
-import {Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppBarService } from '../../app-bar.service';
 import { FTCDatabase } from '../../providers/ftc-database';
@@ -20,6 +20,7 @@ import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 import EventParticipant from '../../models/EventParticipant';
 import TOAUser from '../../models/User';
 import {isPlatformBrowser} from '@angular/common';
+import {MdcSelect} from '@angular-mdc/web';
 
 @Component({
   selector: 'toa-team',
@@ -35,7 +36,6 @@ export class TeamComponent implements OnInit {
   years: any;
   seasons: Season[];
   currentSeason: Season;
-  thisSeason: Season;
   view_type: string;
   wlt: TeamSeasonRecord = null;
   topOpr: Ranking;
@@ -73,8 +73,11 @@ export class TeamComponent implements OnInit {
         if (this.team.rookieYear >= 0) {
           this.ftc.getAllSeasons().then((data: Season[]) => {
             this.seasons = this.getTeamSeasons(data).reverse();
-            this.selectSeason(this.seasons[0]);
-            this.thisSeason = this.seasons[0];
+            for (const season of this.seasons) {
+              if (season.seasonKey === this.ftc.year) {
+                this.selectSeason(season);
+              }
+            }
           });
         }
         if (this.team.teamNameShort !== null) {
@@ -95,28 +98,25 @@ export class TeamComponent implements OnInit {
   }
 
   public getTeamSeasons(seasons: Season[]): Season[] {
-    const year_code = parseInt((this.team.rookieYear + '').toString().substring(2, 4), 10);
-    const second_code = year_code + 1;
-    let rookie_season_id = '';
-    if (year_code < 10) {
-      rookie_season_id = '0' + year_code;
-    } else {
-      rookie_season_id = '' + year_code;
-    }
-    if (second_code < 10) {
-      rookie_season_id += '0' + second_code;
-    } else {
-      rookie_season_id += '' + second_code;
-    }
+    const pad = (num) => (num < 10 ? '0' : '') + num;
+    const yearCode = parseInt((this.team.rookieYear + '').toString().substring(2, 4), 10);
+    const secondCode = yearCode + 1;
+    const rookieSeasonId = pad(yearCode) + pad(secondCode);
+
     for (let i = 0; i < seasons.length; i++) {
-      if (rookie_season_id === seasons[i].seasonKey) {
+      if (rookieSeasonId === seasons[i].seasonKey) {
         return seasons.splice(i, seasons.length - 1);
       }
     }
     return seasons;
   }
 
-  public selectSeason(season: any) {
+  public onSeasonChange(event: {index: any, value: any}) {
+    event.index = (event.index < 0) ? 0 : event.index;
+    this.selectSeason(this.seasons[event.index])
+  }
+
+  public selectSeason(season: Season) {
     this.currentSeason = season;
     this.team.events = [];
     this.ftc.getTeamEvents(this.teamKey, this.currentSeason.seasonKey).then((data: EventParticipant[]) => {
@@ -181,7 +181,7 @@ export class TeamComponent implements OnInit {
     this.team.media = null;
     this.ftc.getTeamMedia(this.teamKey, this.currentSeason.seasonKey).then((data: Media[]) => {
       this.team.media = [];
-      for (let media of data) {
+      for (const media of data) {
         if (media.mediaType === 5) {
           this.teamLogo = media;
         } else {
@@ -193,11 +193,15 @@ export class TeamComponent implements OnInit {
 
   private getTeamWLT() {
     this.wlt = null;
-    this.ftc.getTeamWLT(this.teamKey, this.currentSeason.seasonKey).then((wlt: TeamSeasonRecord) => {
-      if (wlt) {
-        this.wlt = wlt;
-      }
-    });
+    if (this.currentSeason.seasonKey) {
+      this.ftc.getTeamWLT(this.teamKey, this.currentSeason.seasonKey).then((wlt: TeamSeasonRecord) => {
+        if (wlt) {
+          this.wlt = wlt;
+        }
+      });
+    } else {
+      this.wlt = new TeamSeasonRecord();
+    }
   }
 
   private sortAndFind(event: Event): Match[] {
@@ -219,18 +223,15 @@ export class TeamComponent implements OnInit {
     this.router.navigate(['/matches', match_data.match_key]);
   }
 
-  getSeasonString(seasonKey: string, description: boolean) {
-    const code_one = seasonKey.toString().substring(0, 2);
-    const code_two = seasonKey.toString().substring(2, 4);
+  getSeasonString(seasonKey: string, description?: string) {
+    const codeOne = seasonKey.toString().substring(0, 2);
+    const codeTwo = seasonKey.toString().substring(2, 4);
 
-    if (this.seasons) {
-      for (const season of this.seasons) {
-        if (season.seasonKey === seasonKey) {
-          return '20' + code_one + '/' + code_two + (description && season.description ? ' - ' + season.description : '');
-        }
-      }
+    if (description) {
+      return '20' + codeOne + '/' + codeTwo + ' - ' + description;
+    } else {
+      return '20' + codeOne + '/' + codeTwo;
     }
-    return '20' + code_one + '/' + code_two;
   }
 
   beautifulURL(website: string) {

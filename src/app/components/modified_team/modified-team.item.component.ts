@@ -9,7 +9,7 @@ import Team from '../../models/Team';
 export class ModifiedTeamItemComponent implements OnInit {
 
   @Input() modified_team: ModifiedTeam;
-  @Input() clickable: boolean = true;
+  @Input() clickable = true;
   team: Team;
 
   ngOnInit(): void {

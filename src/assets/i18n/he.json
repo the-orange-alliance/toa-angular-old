@@ -37,7 +37,9 @@
     "github": "GitHub",
     "about": "אודות",
     "donate": "תרומה",
+    "amazon_smile": "Amazon Smile",
     "privacy_and_terms": "פרטיות ותנאי שימוש",
+    "official_ftc": "ספק התוצאות הרשמי עבור ",
     "mytoa": {
       "hello": "שלום {{ name }}",
       "guest": "אורח",
@@ -59,7 +61,7 @@
 
     "404": {
       "title": "העמוד לא נמצא",
-      "short_info": "נראה הגעתם לכאן על ידי לינק שבור. או שנכנסתם לקבוצה/אירוע/מקצה שלא קיימים"
+      "short_info": "נראה הגעתם לכאן על ידי לינק שבור. או שנכנסתם לקבוצה/אירוע/מקצה שלא קיימים."
     },
 
     "about": {
@@ -72,6 +74,12 @@
       "no_verify": "בבקשה אמת את האימייל שלך",
       "why_verify": "כדי ליהנות מכל האפשרויות של חשבונך, יש לאמת את כתובת האימייל שלך.",
       "manage_events": "נהל אירועים",
+      "manage_leagues": "נהל ליגות",
+      "create_league": "צור ליגה",
+      "create_league_fields": {
+        "league_key": "מזהה ליגה (באנגלית)",
+        "league_description": "תיאור הליגה"
+      },
       "notifications_card": {
         "title": "התראות",
         "summary": "לקבל הודעת דחיפה לפי הגדרות האירועים שלך.",
@@ -98,6 +106,7 @@
       "success_link": "חשבון {{ name }} קושר בהצלחה",
       "success_unlink": "חשבון {{ name }} נותק בהצלחה",
       "last_signin": "התחברות אחרונה",
+      "league_creation_success": "הליגה נוצרה בהצלחה!",
       "datasync_card": {
         "title": "סנכרן את האירוע שלך עם TOA בלייב",
         "docs": "ניתן לבדוק את תיעוד ה־DataSync המלא שלנו"
@@ -107,16 +116,29 @@
         "create": "יצירה",
         "event_id": "מזהה אירוע (באנגלית)",
         "event_type": "סוג אירוע",
+        "league": "ליגה",
         "region": "אזור",
         "season": "עונה",
-        "division_number": "מספר בית",
-        "success": "האירוע נוצר בהצלחה"
+        "division_number": "מספר הבית",
+        "division_name": "שם הבית",
+        "advancement_spots": "Advancement Spots",
+        "advancement_event": "אירוע התקדמות",
+        "number_fields": "מספר המגרשים",
+        "number_alliances": "מספר הבריתות",
+        "success": "האירוע נוצר בהצלחה",
+        "dual_division": "2 בתים",
+        "advanced": "מתקדם"
       },
       "dump_cache": {
         "title": "ניקיון מטמון",
         "general": "כללי",
         "dump": "ניקיון",
         "success": "המטמון נוקה בהצלחה"
+      },
+      "retriever": {
+        "title": "מייבא נתונים",
+        "success_events": "{{value}} אירועים נוצרו בהצלחה",
+        "success_teams": "{{value}} קבוצות נוצרו בהצלחה"
       },
       "subpages": {
         "login": {
@@ -199,6 +221,9 @@
         "teams": {
           "title": "קבוצות"
         },
+        "alliances": {
+          "title": "בריתות"
+        },
         "awards": {
           "title": "פרסים"
         },
@@ -212,12 +237,12 @@
           "avg_winning_margin": "ממוצע הפרשי ניצחון",
           "prc_landed": "אחוזי רובוטים שנחתו",
           "prc_latched": "אחוזי רובטים שטפסו",
+          "prc_sampling": "% of Successful Samples",
+          "prc_claiming": "% of Depots Claimed",
+          "prc_parking": "אחוזי רובוטים חונים",
           "avg_golds": "ממוצע מינרלים זהובים בלנדר",
           "avg_silvers": "ממוצע מינרלים כסופים בלנדר",
           "avg_depot": "ממוצע מינרלים במכתש"
-        },
-        "alliances": {
-          "title": "בריתות"
         },
         "for-participants": {
           "title": "למשתתפים",
@@ -264,6 +289,14 @@
             "success_linked": "שידור חי קושר בהצלחה",
             "success_unlinked": "שידור חי נותק בהצלחה"
           },
+          "delete_card": {
+            "delete_event": "מחיקת אירוע",
+            "delete_failed": "המחיקה נכשלה",
+            "delete": "מחיקה",
+            "delete_all_data": "אתה תמחק את כל הנתונים מאירוע זה!",
+            "delete_sure": "האם אתה בטוח שאתה רוצה למחוק את האירוע?",
+            "delete_final": "זה ימחק את האירוע!"
+          },
           "verify_email": "בבקשה אמת את האימייל שלך ונסה שנית.",
           "success_sent_verify_email": "אמייל אימות נשלח אלייך בהצלחה."
         }
@@ -273,6 +306,7 @@
     "events": {
       "filter_season": "עונה",
       "filter_region": "איזור",
+      "filter": "אפשרויות סינון",
       "clear_filter": "נקה פילטרים"
     },
 
@@ -354,6 +388,8 @@
     "streams_long": "אין כרגע שידורים חיים פועלים.",
     "events_for_season": "אין אירועים עבור עונת {{ season }}",
     "events_for_season_long": "הקבוצה הזאת עדיין לא שיחקה באף אירוע העונה.<br/>נסה לשנות את העונה דרך כפתור הבחירה שלמעלה.",
+    "events_filter": "לא נמצאו אירועים עבור סינון זה",
+    "events_filter_long": "נסה לשנות את העונה או את האזור דרך כפתורי הבחירה שלמעלה.",
     "match_breakdown": "לא נמצא מידע על מקצה"
   }
 }

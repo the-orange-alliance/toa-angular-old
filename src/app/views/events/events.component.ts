@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../app-bar.service';
 import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { EventFilter, EventSorter } from '../../util/event-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import { MdcTabBar } from '@angular-mdc/web';
+import {MdcSelect, MdcTabBar} from '@angular-mdc/web';
 import Event from '../../models/Event';
 import Season from '../../models/Season';
 import Region from '../../models/Region';
@@ -32,7 +32,9 @@ export class EventsComponent implements OnInit {
 
   eventFilter: EventFilter;
 
-  @ViewChild('tabbar') tabbar: MdcTabBar;
+  @ViewChild('tabbar', {static: false}) tabbar: MdcTabBar;
+  @ViewChild('current_region', {static: false}) regionSelector: MdcSelect;
+  @ViewChild('current_season', {static: false}) seasonSelector: MdcSelect;
 
   constructor(private ftc: FTCDatabase, private router: Router, private app: TheOrangeAllianceGlobals,
               private translate: TranslateService, private appBarService: AppBarService) {
@@ -48,15 +50,17 @@ export class EventsComponent implements OnInit {
 
     this.ftc.getAllSeasons().then((data: Season[]) => {
       this.seasons = data.reverse();
-      this.selectSeason(this.seasons[0]);
+      this.selectSeason(this.getCurrentSeason());
     });
 
     this.ftc.getAllRegions().then((data: Region[]) => {
       const allRegions: Region = new Region();
       allRegions.regionKey = 'All Regions';
-      this.regions = data;
-      this.regions.push(allRegions);
-      this.currentRegion = this.regions[this.regions.length - 1];
+      this.regions = [
+        allRegions,
+        ...data
+      ];
+      this.currentRegion  = allRegions;
     });
   }
 
@@ -101,8 +105,9 @@ export class EventsComponent implements OnInit {
     return filteredEvents;
   }
 
-  openEvent(eventKey): void {
-    this.router.navigate(['/events', eventKey]);
+  onSeasonChange(event: {index: any, value: any}) {
+    event.index = (event.index < 0) ? 0 : event.index;
+    this.selectSeason(this.seasons[event.index])
   }
 
   selectSeason(season: Season) {
@@ -117,25 +122,43 @@ export class EventsComponent implements OnInit {
     return null;
   }
 
+  onRegionChange (event: {index: any, value: any}) {
+    event.index = (event.index < 0) ? 0 : event.index;
+    this.selectRegion(this.regions[event.index])
+  }
+
   selectRegion(region: Region) {
     this.currentRegion = region;
-    if (this.currentRegion.description) {
+    if (this.currentRegion !== undefined && this.currentRegion.description) {
       this.eventFilter.filterArray(this.currentRegion.regionKey);
       this.events = this.eventFilter.getFilteredArray();
-    } else {
+    } else if (this.eventFilter !== undefined) {
       this.events = this.eventFilter.getOriginalArray();
     }
-    if (this.events.length > 0) {
-      this.events = new EventSorter().sort(this.events);
-      this.organizeEventsByWeek();
-    }
+    this.events = new EventSorter().sort(this.events);
+    this.organizeEventsByWeek();
   }
 
   clearFilter() {
-    this.currentSeason = this.seasons[0];
-    this.currentRegion = this.regions[this.regions.length - 1];
-    this.events = this.eventFilter.getOriginalArray();
-    this.organizeEventsByWeek()
+    this.currentRegion = this.regions[0];
+
+    const defaultSeason = this.getCurrentSeason();
+    if (defaultSeason.seasonKey === this.currentSeason.seasonKey) {
+      this.currentSeason = defaultSeason;
+      this.events = this.eventFilter.getOriginalArray();
+      this.organizeEventsByWeek();
+    } else {
+      this.selectSeason(defaultSeason);
+    }
+  }
+
+  getCurrentSeason(): Season {
+    for (const season of this.seasons) {
+      if (season.seasonKey === this.ftc.year) {
+        return season;
+      }
+    }
+    return null;
   }
 
   public getWeekName(week): string {
@@ -180,5 +203,24 @@ export class EventsComponent implements OnInit {
 
   public isSelected(index): boolean {
     return this.weekNumber === index;
+  }
+
+  getSeasonString(seasonKey: string, description?: string) {
+    const codeOne = seasonKey.toString().substring(0, 2);
+    const codeTwo = seasonKey.toString().substring(2, 4);
+
+    if (description) {
+      return '20' + codeOne + '/' + codeTwo + ' - ' + description;
+    } else {
+      return '20' + codeOne + '/' + codeTwo;
+    }
+  }
+
+  getRegionString(regionKey: string, description?: string) {
+    if (description) {
+      return regionKey + ' - ' + description;
+    } else {
+      return regionKey;
+    }
   }
 }

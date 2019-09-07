@@ -1,10 +1,10 @@
-import {Inject, NgModule, PLATFORM_ID} from '@angular/core';
+import { Inject, NgModule, PLATFORM_ID } from '@angular/core';
 import {
-  MdcIconRegistry,
   MdcButtonModule,
   MdcCardModule,
   MdcCheckboxModule,
   MdcChipsModule,
+  // MDCDataTableModule,
   MdcDialogModule,
   MdcDrawerModule,
   MdcElevationModule,
@@ -12,8 +12,9 @@ import {
   MdcFormFieldModule,
   MdcIconButtonModule,
   MdcIconModule,
-  MdcLinearProgressModule,
+  MdcIconRegistry,
   MdcImageListModule,
+  MdcLinearProgressModule,
   MdcListModule,
   MdcMenuModule,
   MdcRadioModule,
@@ -29,7 +30,7 @@ import {
 } from '@angular-mdc/web';
 
 import { DomSanitizer } from '@angular/platform-browser';
-import {isPlatformBrowser, isPlatformServer} from '@angular/common';
+import { isPlatformServer } from '@angular/common';
 
 @NgModule({
   exports: [
@@ -37,6 +38,7 @@ import {isPlatformBrowser, isPlatformServer} from '@angular/common';
     MdcCardModule,
     MdcCheckboxModule,
     MdcChipsModule,
+    // MDCDataTableModule,
     MdcDialogModule,
     MdcDrawerModule,
     MdcElevationModule,
@@ -44,8 +46,8 @@ import {isPlatformBrowser, isPlatformServer} from '@angular/common';
     MdcFormFieldModule,
     MdcIconButtonModule,
     MdcIconModule,
-    MdcLinearProgressModule,
     MdcImageListModule,
+    MdcLinearProgressModule,
     MdcListModule,
     MdcMenuModule,
     MdcRadioModule,

@@ -20,11 +20,13 @@ import { RegisterComponent } from './views/account/register/register.component';
 const donateUrl = 'https://www.paypal.com/donate/?token=6Mm_17HVz4hWmEp5RZS052WhAnucfA0pqv2arAjZHSlR-xdeyTZHx4zduqEV23zUGuMPom&country.x=US&locale.x=US';
 
 const routes: Routes = [
+  { path: 'kickoff', redirectTo: '/stream?kickoff' },
   { path: 'home', component: HomeComponent },
   { path: 'account',  children: [
       { path: '', component: AccountComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'create-league', component: AccountComponent },
       { path: 'events', component: AccountComponent },
       { path: 'new-event', component: AccountComponent },
       { path: 'users', component: AccountComponent },

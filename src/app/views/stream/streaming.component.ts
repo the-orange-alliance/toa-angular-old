@@ -1,10 +1,9 @@
 import {Component, HostListener, NgZone, OnInit, Inject, PLATFORM_ID} from '@angular/core';
 import { FTCDatabase } from '../../providers/ftc-database';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
-import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, Location } from '@angular/common';
 import { MdcCheckboxChange } from '@angular-mdc/web';
 import EventLiveStream from '../../models/EventLiveStream';
 
@@ -46,9 +45,10 @@ export class StreamingComponent implements OnInit {
   streams: EventLiveStream[];
   layouts: Layout[] = [];
   selectedLayout = -1;
+  currentlyLayout = -1;
   showChat = true;
 
-  constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer,
+  constructor(private router: Router, private ftc: FTCDatabase, private sanitizer: DomSanitizer, private loca: Location,
               private app: TheOrangeAllianceGlobals, private ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {
     this.app.setTitle('Streaming');
     this.app.setDescription('Watch live FIRST Tech Challenge events');
@@ -64,6 +64,8 @@ export class StreamingComponent implements OnInit {
 
   ngOnInit() {
     const event = new URL(window.location.href).searchParams.get('e');
+    const kickoff = new URL(window.location.href).searchParams.get('kickoff') === '';
+    this.loca.go('/stream'); // Remove query parameters
     this.checkSize(window.innerWidth); // TODO: Fix for SSR
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       this.streams = [];
@@ -71,10 +73,13 @@ export class StreamingComponent implements OnInit {
         stream.safeURL = this.getSafeURL(stream.streamURL);
         if (stream.isActive) {
           this.streams.push(stream);
-          if (stream.eventKey && event && (stream.eventKey.toUpperCase() === `${this.ftc.year}-${event}`.toUpperCase() ||
+          if (kickoff && stream.streamKey.toLowerCase() === 'kickoff') {
+            this.mainStream = stream;
+            this.selectLayout(0);
+          } else if (stream.eventKey && event && (stream.eventKey.toUpperCase() === `${this.ftc.year}-${event}`.toUpperCase() ||
             stream.eventKey.toUpperCase() === event.toUpperCase())) {
             this.mainStream = stream;
-            this.selectLayout(0, false)
+            this.selectLayout(0);
           }
         }
       }
@@ -95,10 +100,11 @@ export class StreamingComponent implements OnInit {
   }
 
   checkSize(innerWidth: number) {
-    if (innerWidth < SMALL_WIDTH_BREAKPOINT) {
+    if (this.currentlyLayout !== 4 && this.currentlyLayout !== 0 && innerWidth < SMALL_WIDTH_BREAKPOINT) {
       this.selectLayout(4, false);
-    } else if (this.selectedLayout < 0) {
+    } else if (innerWidth >= SMALL_WIDTH_BREAKPOINT && this.selectedLayout < 0) {
       this.layouts = [];
+      this.currentlyLayout = -1;
     }
   }
 
@@ -109,12 +115,14 @@ export class StreamingComponent implements OnInit {
   unselectLayout() {
     this.layouts = [];
     this.selectedLayout = -1;
+    this.currentlyLayout = -1;
   }
 
   getLayouts(layoutKey: number, user: boolean = true): Layout[] {
     if (user) {
       this.selectedLayout = layoutKey;
     }
+    this.currentlyLayout = layoutKey;
 
     // The layouts, names, and icons were taken from TBA
     // https://github.com/the-blue-alliance/the-blue-alliance/blob/master/react/gameday2/constants/LayoutConstants.js

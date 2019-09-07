@@ -43,7 +43,7 @@ export class MatchDetailsComponent implements OnInit {
 
   getMatchSeason(): number {
     if (this.match) {
-      return parseInt(this.match.matchKey.split('-')[0]);
+      return parseInt(this.match.matchKey.split('-')[0], 10);
     }
     return 0;
   }

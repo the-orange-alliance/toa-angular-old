@@ -119,7 +119,7 @@ export default class Event implements ISerializable {
     event.regionKey = json.region_key;
     event.leagueKey = json.league_key;
     event.eventCode = json.event_code;
-    event.eventRegionNumber = parseInt(json.event_region_number);
+    event.eventRegionNumber = parseInt(json.event_region_number, 10);
     event.divisionKey = json.division_key;
     event.eventTypeKey = json.event_type_key;
     event.firstEventCode = json.first_event_code;
@@ -137,12 +137,12 @@ export default class Event implements ISerializable {
     event.isActive = json.is_active;
     event.isPublic = json.is_public;
     event.activeTournamentLevel = json.active_tournament_level;
-    event.allianceCount = parseInt(json.alliance_count);
-    event.fieldCount = parseInt(json.field_count);
-    event.advanceSpots = parseInt(json.advance_spots);
+    event.allianceCount = parseInt(json.alliance_count, 10);
+    event.fieldCount = parseInt(json.field_count, 10);
+    event.advanceSpots = parseInt(json.advance_spots, 10);
     event.advanceEvent = json.advance_event;
-    event.teamCount = json.team_count && parseInt(json.team_count) > -1 ? parseInt(json.team_count) : -1;
-    event.matchCount = json.match_count && parseInt(json.match_count) > -1 ? parseInt(json.match_count) : -1;
+    event.teamCount = json.team_count && parseInt(json.team_count, 10) > -1 ? parseInt(json.team_count, 10) : -1;
+    event.matchCount = json.match_count && parseInt(json.match_count, 10) > -1 ? parseInt(json.match_count, 10) : -1;
     return event;
   }
 
@@ -421,6 +421,10 @@ export default class Event implements ISerializable {
     } else {
       return date;
     }
+  }
+
+  getLocation(venue: boolean = true): string {
+    return (this.venue && venue ? this.venue + ', ' : '') + this.city + ', ' + (this.stateProv ? this.stateProv + ', ' : '') + this.country;
   }
 
   get fullEventName(): string {

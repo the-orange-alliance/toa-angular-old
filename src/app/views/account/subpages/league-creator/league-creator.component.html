@@ -1,0 +1,24 @@
+<div class="w-100">
+  <div class="outline-card">
+    <div mdcHeadline5 class="black pb-4">{{ 'pages.account.create_league' | translate }}</div>
+    <div class="row edit-event">
+      <div class="col-md-6 col-12 mb-3">
+        <mdc-text-field #league_key dense [label]="'pages.account.create_league_fields.league_key' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="key"></mdc-icon>
+        </mdc-text-field>
+        <mdc-select *ngIf="currentRegion"  [placeholder]="'pages.account.create_event_card.region' | translate" (selectionChange)="onRegionChange($event)" class="w-100">
+          <option disabled></option>
+          <option *ngFor="let region of regions" [value]="region.regionKey">
+            {{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}
+          </option>
+        </mdc-select>
+      </div>
+      <div class="col-md-6 col-12 ps-md-3">
+        <mdc-text-field #league_description dense [label]="'pages.account.create_league_fields.league_description' | translate" class="w-100">
+          <mdc-icon mdcTextFieldIcon leading svgIcon="rename-box"></mdc-icon>
+        </mdc-text-field>
+      </div>
+      <button mdc-button primary (click)="createLeague()" class="mt-2">{{ 'pages.account.create_event_card.create' | translate }}</button>
+    </div>
+  </div>
+</div>

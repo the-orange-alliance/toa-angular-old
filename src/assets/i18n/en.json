@@ -74,13 +74,19 @@
       "no_verify": "Please verify your email",
       "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
       "manage_events": "Manage Events",
+      "manage_leagues": "Manage Leagues",
+      "create_league": "Create League",
+      "create_league_fields": {
+        "league_key": "League Key",
+        "league_description": "League Description"
+      },
       "notifications_card": {
         "title": "Notifications",
         "summary": "Get push notifications based on your events’ settings.",
         "grant_access": "Grant Access",
         "enabled": "Notifications are enabled on this device",
         "blocked": "Notifications are blocked on this device",
-        "help": "To disable pop-up blocking, click the lock icon left of the web address, click Site settings and change the notifications permission."
+        "help": "To disable notification blocking, click the lock icon to the left of the web address, click Site settings and change the notifications permission."
       },
       "api_card": {
         "title": "Build amazing things with our API",
@@ -100,6 +106,7 @@
       "success_link": "Successfully linked {{ name }} account",
       "success_unlink": "Successfully unlinked {{ name }} account",
       "last_signin": "Last Sign In",
+      "league_creation_success": "Successfully created league!",
       "datasync_card": {
         "title": "Sync your event live with TOA",
         "docs": "You can check out our full DataSync Documentation"
@@ -109,6 +116,7 @@
         "create": "Create",
         "event_id": "Event ID",
         "event_type": "Event Type",
+        "league": "League",
         "region": "Region",
         "season": "Season",
         "division_number": "Division Number",
@@ -298,6 +306,7 @@
     "events": {
       "filter_season": "Season",
       "filter_region": "Region",
+      "filter": "Filter Options",
       "clear_filter": "Clear Filter"
     },
 
@@ -379,6 +388,8 @@
     "streams_long": "There are currently no active streams.",
     "events_for_season": "No events for {{ season }} season",
     "events_for_season_long": "This team hasn't yet played at any events this season.<br/>Try changing the season using the selector above.",
+    "events_filter": "No events found for this filter",
+    "events_filter_long": "Try changing the season or region using the selectors above.",
     "match_breakdown": "No match breakdown found"
   }
 }

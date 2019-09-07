@@ -369,34 +369,52 @@ mdc-drawer mdc-list a {
    ========================================================================== */
 
 .info-state {
-  align-content: center !important;
+  align-items: center;
   display: flex;
   margin: 5px 0;
+
+  p {
+    margin: 0 0 10px 10px;
+    word-break: break-word;
+    padding: 0;
+  }
+
+  mdc-icon {
+    margin-right: 12px;
+    margin-left: 0;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    fill: $mdc-theme-primary;
+  }
+
+  [dir="rtl"] mdc-icon {
+    margin-right: 0!important;
+    margin-left: 12px!important;;
+  }
 }
 
-.info-state p {
-  margin: 0 0 10px 10px;
-  word-break: break-word;
-  padding: 0;
+.info-state-dense {
+  .info-state {
+    margin: 0!important;
+    font-size: 14px;
+  }
+
+  p {
+    margin: 2px 8px;
+  }
+
+  mdc-icon {
+    width: 14px;
+    height: 14px;
+    margin: 0!important;
+    fill: #000;
+  }
 }
 
-.info-state mdc-icon {
-  color: $mdc-theme-primary;
-  margin-right: 12px;
-  margin-left: 0;
-  width: 24px;
-  height: 24px;
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  fill: $mdc-theme-primary;
-}
-
-[dir="rtl"] .info-state mdc-icon {
-  margin-right: 0!important;
-  margin-left: 12px!important;;
-}
 
 /* ==========================================================================
    Basic Card
@@ -548,6 +566,27 @@ mdc-drawer mdc-list a {
 .toa-tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+
+/* ==========================================================================
+   Dropdown
+   ========================================================================== */
+
+.toa-dropdown {
+  .mdc-button {
+    color: black!important;
+    justify-content: start!important;
+    padding: 0 8px;
+
+    ::before, ::after {
+      background: black!important;
+    }
+  }
+
+  .mdc-menu {
+    min-width: max-content;
+  }
 }
 
 

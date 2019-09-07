@@ -28,6 +28,7 @@
     <mdc-tab-scroller>
       <mdc-tab (click)="changeUrlNoRoute('')" style="text-transform: initial" label="myTOA"></mdc-tab>
       <mdc-tab (click)="changeUrlNoRoute('events')" [label]="'pages.account.manage_events' | translate" [class.d-none]="user.adminEvents.length === 0"></mdc-tab>
+      <mdc-tab (click)="changeUrlNoRoute('create-league')" [label]="'pages.account.manage_leagues' | translate" [class.d-none]="user.level < 6"></mdc-tab>
       <mdc-tab (click)="changeUrlNoRoute('new-event')" [label]="'pages.account.create_event_card.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
       <mdc-tab (click)="changeUrlNoRoute('users')" label="Users" [class.d-none]="user.level < 6"></mdc-tab>
       <mdc-tab (click)="changeUrlNoRoute('cache')" [label]="'pages.account.dump_cache.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
@@ -143,8 +144,9 @@
   </div>
 
   <toa-account-manage-events *ngIf="tabs.activeTabIndex === 1 && user.adminEvents.length > 0" [user]="user"></toa-account-manage-events>
-  <toa-account-create-event *ngIf="tabs.activeTabIndex === 2 && user.level >= 6" [user]="user"></toa-account-create-event>
-  <toa-account-users *ngIf="tabs.activeTabIndex === 3 && user.level >= 6" [user]="user"></toa-account-users>
-  <toa-account-cache *ngIf="tabs.activeTabIndex === 4 && user.level >= 6" [user]="user"></toa-account-cache>
-  <toa-account-retriever *ngIf="tabs.activeTabIndex === 5 && user.level >= 6" [user]="user"></toa-account-retriever>
+  <toa-account-create-league *ngIf="tabs.activeTabIndex === 2 && user.adminEvents.length >= 6" [user]="user"></toa-account-create-league>
+  <toa-account-create-event *ngIf="tabs.activeTabIndex === 3 && user.level >= 6" [user]="user"></toa-account-create-event>
+  <toa-account-users *ngIf="tabs.activeTabIndex === 4 && user.level >= 6" [user]="user"></toa-account-users>
+  <toa-account-cache *ngIf="tabs.activeTabIndex === 5 && user.level >= 6" [user]="user"></toa-account-cache>
+  <toa-account-retriever *ngIf="tabs.activeTabIndex === 6 && user.level >= 6" [user]="user"></toa-account-retriever>
 </div>

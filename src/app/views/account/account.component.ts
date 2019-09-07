@@ -8,7 +8,7 @@ import { TeamSorter } from '../../util/team-utils';
 import { EventSorter } from '../../util/event-utils';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
-import {isPlatformBrowser, Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { isPlatformBrowser, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { CloudFunctions } from '../../providers/cloud-functions';
 import { auth as providers, messaging as fcm } from 'firebase/app';
 import { AppBarService } from '../../app-bar.service';
@@ -18,6 +18,7 @@ import { MessagingService } from '../../messaging.service';
 import TOAUser from '../../models/User';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
+import * as fbApps from 'firebase/app';
 
 @Component({
   selector: 'toa-account',
@@ -58,14 +59,16 @@ export class AccountComponent implements OnInit {
 
     if (this.router.url.indexOf('/account/events') > -1) {
       this.activeTab = 1;
-    } else if (this.router.url.indexOf('/account/new-event') > -1) {
+    } else if (this.router.url.indexOf('/account/create-league') > -1) {
       this.activeTab = 2;
-    } else if (this.router.url.indexOf('/account/users') > -1) {
+    }  else if (this.router.url.indexOf('/account/new-event') > -1) {
       this.activeTab = 3;
-    } else if (this.router.url.indexOf('/account/cache') > -1) {
+    } else if (this.router.url.indexOf('/account/users') > -1) {
       this.activeTab = 4;
-    } else if (this.router.url.indexOf('/account/retriever') > -1) {
+    } else if (this.router.url.indexOf('/account/cache') > -1) {
       this.activeTab = 5;
+    } else if (this.router.url.indexOf('/account/retriever') > -1) {
+      this.activeTab = 6;
     } else {
       this.activeTab = 0;
     }
@@ -94,7 +97,9 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.appBarService.setTitle('myTOA', true);
-    initFbApp(environment.firebase);
+    if (fbApps.apps.length === 0) {
+      initFbApp(environment.firebase);
+    }
     this.isSupported = fcm && fcm.isSupported();
   }
 
@@ -189,6 +194,7 @@ export class AccountComponent implements OnInit {
 
   signOut(): void {
     this.auth.auth.signOut().then(() => {
+
       this.router.navigateByUrl('/account/login');
     });
   }

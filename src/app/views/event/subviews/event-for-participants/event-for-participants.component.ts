@@ -9,7 +9,7 @@ import Media from '../../../../models/Media';
   templateUrl: './event-for-participants.component.html',
   styleUrls: ['./event-for-participants.component.scss']
 })
-export class EventForParticipantsComponent implements OnInit{
+export class EventForParticipantsComponent implements OnInit {
 
   @Input() event: Event;
   @Input() media: Media[];
@@ -20,7 +20,7 @@ export class EventForParticipantsComponent implements OnInit{
 
   ngOnInit() {
     if (this.media) {
-      for (let media of this.media) {
+      for (const media of this.media) {
         if (media.mediaType === 0) {
           this.pitsMap = media;
         } else if (media.mediaType === 1) {

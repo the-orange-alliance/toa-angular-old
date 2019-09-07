@@ -199,6 +199,31 @@
 
     <div class="col-12 col-sm-6 col-lg-4 mt-3 p-0">
       <mdc-card class="toa-card dev-card">
+        <img src="../../../assets/imgs/bio_photos/travis.png" class="profile" />
+        <div class="content">
+          <div class="title">
+            <h1 class="toa-card-header m-0 p-0" mdcHeadline6>Travis Weir</h1>
+            <h1 class="toa-card-subtitle m-0 p-0" mdcSubtitle2>CI Manager & Developer</h1>
+          </div>
+
+          <div class="toa-card-subtitle text" mdcBody2>
+            Travis is the CI Manager for The Orange Alliance. He is a current student in high school in the Austin, TX area.
+            He participates in the robotics programs at his school, as well as competitive programming.
+            In his very limited spare time he likes to program even more and play around with Linux.
+            He will fix your computer at competitions if he's not busy and you ask nicely.
+          </div>
+        </div>
+        <mdc-list-divider></mdc-list-divider>
+        <mdc-card-actions>
+          <mdc-card-action-icons>
+            <a href="https://github.com/tweirtx" target="_blank" class="p-1 text-black-50" (click)="this.sendAnalytic('leaving', 'travis weir github');"><mdc-icon svgIcon="github-circle"></mdc-icon></a>
+          </mdc-card-action-icons>
+        </mdc-card-actions>
+      </mdc-card>
+    </div>
+
+    <div class="col-12 col-sm-6 col-lg-4 mt-3 p-0">
+      <mdc-card class="toa-card dev-card">
         <img src="../../../assets/imgs/bio_photos/dominic.jpg" class="profile" />
         <div class="content">
           <div class="title">
@@ -207,7 +232,7 @@
           </div>
 
           <div class="toa-card-subtitle text" mdcBody2>
-            Dominic is the core developer for TOAText and a junior in high school. He joined FIRST in the
+            Dominic is the core developer for TOAText and a senior in high school. He joined FIRST in the
             2018-2019 season and is the team captain of <a href="https://theorangealliance.org/teams/15692" target="_blank" (click)="this.sendAnalytic('team', 'dominic hupp ftc team');">FTC team 15692, Rust in Pieces</a>. When he isn’t working on robotics
             or TOAText, you can find him distance running, messing around with hobby electronics, or running the lights
             for his high-school theater program. If you ever see him at a competition, feel free to stop him and say ‘Hey!’.
@@ -222,31 +247,5 @@
         </mdc-card-actions>
       </mdc-card>
     </div>
-
-    <div class="col-12 col-sm-6 col-lg-4 mt-3 p-0">
-      <mdc-card class="toa-card dev-card">
-        <img src="../../../assets/imgs/bio_photos/noprofile.png" class="profile" />
-        <div class="content">
-          <div class="title">
-            <h1 class="toa-card-header m-0 p-0" mdcHeadline6>Kevin Fang</h1>
-            <h1 class="toa-card-subtitle m-0 p-0" mdcSubtitle2>Developer</h1>
-          </div>
-
-          <div class="toa-card-subtitle text" mdcBody2>
-            Kevin Fang is a college student and made FTCRoot prior before deciding to help develop The Orange Alliance front end.
-            He likes the word blub and dislikes writing about himself in third person.
-            Also he's always free to answer any questions!
-          </div>
-        </div>
-        <mdc-list-divider></mdc-list-divider>
-        <mdc-card-actions>
-          <mdc-card-action-icons>
-            <a href="https://github.com/TheReddKing" target="_blank" class="p-1 text-black-50" (click)="this.sendAnalytic('leaving', 'kevin fang github');"><mdc-icon svgIcon="github-circle"></mdc-icon></a>
-            <a href="https://www.linkedin.com/in/kevinfang21" target="_blank" class="p-1 text-black-50" (click)="this.sendAnalytic('leaving', 'kevin fang linkedin');"><mdc-icon svgIcon="linkedin"></mdc-icon></a>
-          </mdc-card-action-icons>
-        </mdc-card-actions>
-      </mdc-card>
-    </div>
-
   </div>
 </div>

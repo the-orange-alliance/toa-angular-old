@@ -3,38 +3,47 @@
 <div class="row">
   <div class="col-12">
     <mdc-card class="toa-card overflow" *ngIf="weeks">
-      <div class="toa-card-header">Filter Options</div>
+      <div class="toa-card-header">{{ 'pages.events.filter' | translate }}</div>
 
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3 row">
 
-        <div *ngIf="currentSeason" class="col-md-4 col-xs-12 filter-row dropdown">
-          <div class="filter-info">{{ 'pages.events.filter_season' | translate }}: </div>
-          <button class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            20{{ currentSeason.seasonKey.substring(0, 2) }}/{{ currentSeason.seasonKey.substring(2, 4) }} - {{ currentSeason.description }}
-            <span class="caret"></span>
+        <div mdcMenuSurfaceAnchor #seasonAnchor *ngIf="currentSeason && seasons && seasons.length > 0"
+             class="toa-dropdown">
+          <button mdc-button (click)="seasonDropdown.open = !seasonDropdown.open">
+            {{ currentSeason.description || getSeasonString(currentSeason.seasonKey) }}
+            <mdc-icon>arrow_drop_down</mdc-icon>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="ftc_season">
-            <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-list-item>
-          </ul>
+          <mdc-menu #seasonDropdown [anchorElement]="seasonAnchor" (selected)="onSeasonChange($event)"
+                    anchorCorner="bottomStart">
+            <mdc-list dense>
+              <mdc-list-item *ngFor="let season of seasons" [disabled]="season.seasonKey === currentSeason.seasonKey">
+                {{ getSeasonString(season.seasonKey, season.description) }}
+              </mdc-list-item>
+            </mdc-list>
+          </mdc-menu>
         </div>
 
-        <div *ngIf="currentRegion" class="col-md-4 col-xs-12 filter-row dropdown">
-          <div class="filter-info">{{ 'pages.events.filter_region' | translate }}: </div>
-          <button class="btn btn-default dropdown-toggle" type="button" id="ftc_district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          {{ currentRegion.description ? currentRegion.regionKey + " - " + currentRegion.description : currentRegion.regionKey }}
-          <span class="caret"></span>
+        <div mdcMenuSurfaceAnchor #regionAnchor *ngIf="currentRegion && regions && regions.length > 0"
+             class="toa-dropdown">
+          <button mdc-button (click)="regionDropdown.open = !regionDropdown.open">
+            {{ currentRegion.description || getRegionString(currentRegion.regionKey) }}
+            <mdc-icon>arrow_drop_down</mdc-icon>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="ftc_district">
-            <mdc-list-item *ngFor="let region of regions" (click)="selectRegion(region)">{{ region.description ? region.regionKey + " - " + region.description : region.regionKey }}</mdc-list-item>
-          </ul>
+          <mdc-menu #regionDropdown [anchorElement]="regionAnchor" (selected)="onRegionChange($event)"
+                    anchorCorner="bottomStart">
+            <mdc-list dense>
+              <mdc-list-item *ngFor="let region of regions" [disabled]="region.regionKey === currentRegion.regionKey">
+                {{ getRegionString(region.regionKey, region.description) }}
+              </mdc-list-item>
+            </mdc-list>
+          </mdc-menu>
         </div>
       </div>
 
       <mdc-list-divider></mdc-list-divider>
 
       <button mdc-button (click)="clearFilter()">{{ 'pages.events.clear_filter' | translate }}</button>
-
     </mdc-card>
   </div>
 </div>
@@ -67,7 +76,11 @@
     </mdc-card>
   </div>
 </div>
-
+<div class="mt-5 text-center" *ngIf="availableWeeks && availableWeeks.length === 0">
+  <img src="../../../assets/imgs/empty-icon.svg" height="110" class="mb-3">
+  <div mdcHeadline6>{{ 'no_data.events_filter' | translate }}</div>
+  <div mdcBody1>{{ 'no_data.events_filter_long' | translate }}</div>
+</div>
 <!--
 <button mdc-fab position='bottomRight' class="toa-fab" data-toggle="modal" data-target="#filterModal">
   <mdc-icon svgIcon="filter-outline"></mdc-icon>
@@ -79,11 +92,14 @@
     <div mdcDialogSurface class="modal-content border-0 ru">
       <mdc-dialog-title>Filter Options</mdc-dialog-title>
       <mdc-dialog-content>
+&lt;!&ndash;
         <mdc-chip-set filter>
           <mdc-chip *ngFor="let region of regions">
             <mdc-chip-text>{{ region.description }}</mdc-chip-text>
           </mdc-chip>
         </mdc-chip-set>
+&ndash;&gt;
+
       </mdc-dialog-content>
       <mdc-dialog-actions>
         <button mdcDialogButton data-dismiss="modal">Cancel</button>

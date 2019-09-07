@@ -1,13 +1,13 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {MdcSnackbar, MdcTabBar} from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../../../app-bar.service';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
+import { FTCDatabase } from '../../../../providers/ftc-database';
 import User from '../../../../models/User';
 import Event from '../../../../models/Event';
 import ModifiedEvent from '../../../../models/ModifiedEvent';
 import Team from '../../../../models/Team';
-import {FTCDatabase} from '../../../../providers/ftc-database';
 import Season from '../../../../models/Season';
 import ModifiedTeam from '../../../../models/ModifiedTeam';
 
@@ -19,7 +19,6 @@ import ModifiedTeam from '../../../../models/ModifiedTeam';
 export class RetrieverComponent implements OnInit {
 
   @Input() user: User;
-  @ViewChild('retr_sel') retrieverSelector: MdcTabBar;
 
   newEvents: Event[] = null;
   modifiedEvents: ModifiedEvent[] = null;

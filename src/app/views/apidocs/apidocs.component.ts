@@ -85,7 +85,7 @@ export class ApiDocsComponent implements OnInit {
         break;
     }
 
-    for (const title in base) {
+    for (const title of Object.keys(base)) {
       response.push({
         'title': '/api' + (title.length > 1 && title.endsWith('/') ? title.substr(0, title.length - 1) : title),
         'key': title.replace('/', '').toLowerCase(),
