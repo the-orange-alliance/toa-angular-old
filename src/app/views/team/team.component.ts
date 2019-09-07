@@ -36,7 +36,6 @@ export class TeamComponent implements OnInit {
   years: any;
   seasons: Season[];
   currentSeason: Season;
-  thisSeason: Season;
   view_type: string;
   wlt: TeamSeasonRecord = null;
   topOpr: Ranking;
@@ -74,8 +73,11 @@ export class TeamComponent implements OnInit {
         if (this.team.rookieYear >= 0) {
           this.ftc.getAllSeasons().then((data: Season[]) => {
             this.seasons = this.getTeamSeasons(data).reverse();
-            this.selectSeason(this.seasons[0]);
-            this.thisSeason = this.seasons[0];
+            for (const season of this.seasons) {
+              if (season.seasonKey === this.ftc.year) {
+                this.selectSeason(season);
+              }
+            }
           });
         }
         if (this.team.teamNameShort !== null) {
@@ -114,7 +116,7 @@ export class TeamComponent implements OnInit {
     this.selectSeason(this.seasons[event.index])
   }
 
-  public selectSeason(season: any) {
+  public selectSeason(season: Season) {
     this.currentSeason = season;
     this.team.events = [];
     this.ftc.getTeamEvents(this.teamKey, this.currentSeason.seasonKey).then((data: EventParticipant[]) => {

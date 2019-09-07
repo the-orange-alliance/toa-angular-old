@@ -50,7 +50,7 @@ export class EventsComponent implements OnInit {
 
     this.ftc.getAllSeasons().then((data: Season[]) => {
       this.seasons = data.reverse();
-      this.selectSeason(this.seasons[0]);
+      this.selectSeason(this.getCurrentSeason());
     });
 
     this.ftc.getAllRegions().then((data: Region[]) => {
@@ -105,7 +105,7 @@ export class EventsComponent implements OnInit {
     return filteredEvents;
   }
 
-  onSeasonChange (event: {index: any, value: any}) {
+  onSeasonChange(event: {index: any, value: any}) {
     event.index = (event.index < 0) ? 0 : event.index;
     this.selectSeason(this.seasons[event.index])
   }
@@ -142,10 +142,25 @@ export class EventsComponent implements OnInit {
   }
 
   clearFilter() {
-    this.currentSeason = this.seasons[0];
-    this.currentRegion = this.regions[this.regions.length - 1];
-    this.events = this.eventFilter.getOriginalArray();
-    this.organizeEventsByWeek()
+    this.currentRegion = this.regions[0];
+
+    const defaultSeason = this.getCurrentSeason();
+    if (defaultSeason.seasonKey === this.currentSeason.seasonKey) {
+      this.currentSeason = defaultSeason;
+      this.events = this.eventFilter.getOriginalArray();
+      this.organizeEventsByWeek();
+    } else {
+      this.selectSeason(defaultSeason);
+    }
+  }
+
+  getCurrentSeason(): Season {
+    for (const season of this.seasons) {
+      if (season.seasonKey === this.ftc.year) {
+        return season;
+      }
+    }
+    return null;
   }
 
   public getWeekName(week): string {
