@@ -306,6 +306,7 @@
     "events": {
       "filter_season": "Season",
       "filter_region": "Region",
+      "filter": "Filter Options",
       "clear_filter": "Clear Filter"
     },
 
@@ -387,6 +388,8 @@
     "streams_long": "There are currently no active streams.",
     "events_for_season": "No events for {{ season }} season",
     "events_for_season_long": "This team hasn't yet played at any events this season.<br/>Try changing the season using the selector above.",
+    "events_filter": "No events found for this filter",
+    "events_filter_long": "Try changing the season or region using the selectors above.",
     "match_breakdown": "No match breakdown found"
   }
 }

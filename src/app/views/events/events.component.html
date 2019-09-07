@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-12">
     <mdc-card class="toa-card overflow" *ngIf="weeks">
-      <div class="toa-card-header">Filter Options</div>
+      <div class="toa-card-header">{{ 'pages.events.filter' | translate }}</div>
 
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3 row">
@@ -76,7 +76,11 @@
     </mdc-card>
   </div>
 </div>
-
+<div class="mt-5 text-center" *ngIf="availableWeeks && availableWeeks.length === 0">
+  <img src="../../../assets/imgs/empty-icon.svg" height="110" class="mb-3">
+  <div mdcHeadline6>{{ 'no_data.events_filter' | translate }}</div>
+  <div mdcBody1>{{ 'no_data.events_filter_long' | translate }}</div>
+</div>
 <!--
 <button mdc-fab position='bottomRight' class="toa-fab" data-toggle="modal" data-target="#filterModal">
   <mdc-icon svgIcon="filter-outline"></mdc-icon>

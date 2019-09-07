@@ -135,10 +135,8 @@ export class EventsComponent implements OnInit {
     } else if (this.eventFilter !== undefined) {
       this.events = this.eventFilter.getOriginalArray();
     }
-    if (this.events.length > 0) {
-      this.events = new EventSorter().sort(this.events);
-      this.organizeEventsByWeek();
-    }
+    this.events = new EventSorter().sort(this.events);
+    this.organizeEventsByWeek();
   }
 
   clearFilter() {
