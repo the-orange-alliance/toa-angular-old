@@ -212,8 +212,8 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   showMobileSearchModal(searchInput): void {
     this.showMobileSearch = true;
-    // When the modal opens, it takes the focus
-    // We'll wait 6ms until it opens
+    // When the modal opens, it takes the focus.
+    // We'll wait 6ms until it opens.
     setTimeout(function () {
       searchInput.focus();
     }, 600);
@@ -250,20 +250,19 @@ export class TheOrangeAllianceComponent implements OnInit {
   @HostListener('document:click', ['$event']) clickedOutside($event) {
     this.showSearch = false;
   }
-
   navToTopSearch(): void {
+    const query = this.search ? this.search.trim() : '';
     if (this.teamSearchResults.length > 0) {
       this.router.navigate(['/teams', this.teamSearchResults[0].teamKey]);
       this.sendAnalytic('search',  this.teamSearchResults[0].teamKey);
     } else if (this.eventSearchResults.length > 0) {
       this.router.navigate(['/events', this.eventSearchResults[0].eventKey]);
       this.sendAnalytic('search',  this.eventSearchResults[0].eventKey);
-    } else if (this.search && this.search.trim().length > 0) {
-      this.router.navigate(['/teams', this.search.trim()]);
-      this.sendAnalytic('search',  this.search.trim());
+    } else if (this.search && query.length > 0 && !isNaN(parseInt(query, 10))) {
+      this.router.navigate(['/teams', query]);
+      this.sendAnalytic('search',  query);
     } else {
-
-      this.router.navigate(['/not-found']);
+      return;
     }
     this.showSearch = false;
     this.search = '';
