@@ -525,7 +525,7 @@ export class CloudFunctions {
       if (user === null) {
         reject();
       } else {
-        user.getIdToken(true).then((token) => {
+        user.getIdToken(false).then((token) => {
           resolve(token);
         }).catch((err: any) => {
           reject(err);

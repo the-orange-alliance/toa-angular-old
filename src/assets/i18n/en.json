@@ -74,11 +74,18 @@
       "no_verify": "Please verify your email",
       "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
       "manage_events": "Manage Events",
-      "manage_leagues": "Manage Leagues",
-      "create_league": "Create League",
-      "create_league_fields": {
-        "league_key": "League Key",
-        "league_description": "League Description"
+      "division_tab": {
+        "manage_leagues": "Manage Leagues",
+        "create_league": "Create League",
+        "create_league_div": "Create League Division",
+        "division_key": "Division Key",
+        "leagues": "Leagues",
+        "league_divisions": "League Divisions",
+        "create_league_fields": {
+          "league_key": "League Key",
+          "league_description": "League Description",
+          "division_desc": "Division Description"
+        }
       },
       "notifications_card": {
         "title": "Notifications",
@@ -107,6 +114,7 @@
       "success_unlink": "Successfully unlinked {{ name }} account",
       "last_signin": "Last Sign In",
       "league_creation_success": "Successfully created league!",
+      "league_division_creation_success": "Successfully created league division!",
       "datasync_card": {
         "title": "Sync your event live with TOA",
         "docs": "You can check out our full DataSync Documentation"

@@ -28,7 +28,7 @@
     <mdc-tab-scroller>
       <mdc-tab (click)="changeUrlNoRoute('')" style="text-transform: initial" label="myTOA"></mdc-tab>
       <mdc-tab (click)="changeUrlNoRoute('events')" [label]="'pages.account.manage_events' | translate" [class.d-none]="user.adminEvents.length === 0"></mdc-tab>
-      <mdc-tab (click)="changeUrlNoRoute('create-league')" [label]="'pages.account.manage_leagues' | translate" [class.d-none]="user.level < 6"></mdc-tab>
+      <mdc-tab (click)="changeUrlNoRoute('create-league')" [label]="'pages.account.division_tab.manage_leagues' | translate" [class.d-none]="user.level < 6"></mdc-tab>
       <mdc-tab (click)="changeUrlNoRoute('new-event')" [label]="'pages.account.create_event_card.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
       <mdc-tab (click)="changeUrlNoRoute('users')" label="Users" [class.d-none]="user.level < 6"></mdc-tab>
       <mdc-tab (click)="changeUrlNoRoute('cache')" [label]="'pages.account.dump_cache.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
