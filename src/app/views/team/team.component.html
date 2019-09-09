@@ -16,7 +16,7 @@
       <div class="w-100 p-3">
 
         <div mdcMenuSurfaceAnchor #seasonAnchor class="toa-dropdown"
-             *ngIf="currentSeason && seasons && seasons.length > 0">
+             *ngIf="currentSeason && seasons && seasons.length > 0 && team.rookieYear && team.rookieYear > 0">
 
           <button mdc-button (click)="seasonDropdown.open = !seasonDropdown.open">
             {{ currentSeason.description || getSeasonString(currentSeason.seasonKey) }}
@@ -105,17 +105,23 @@
       </div>
     </mdc-card>
 
-    <div class="col-12 d-md-none mt-3">
+    <div class="col-12 d-md-none mt-3"
+         *ngIf="currentSeason && seasons && seasons.length > 0 && team.rookieYear && team.rookieYear > 0">
       <mdc-card class="toa-card overflow">
         <div class="w-100 p-2">
-          <div *ngIf="seasons && team.rookieYear" class="dropdown">
-            <button *ngIf="currentSeason" class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              {{ getSeasonString(currentSeason.seasonKey, true)}}
-              <span class="caret"></span>
+          <div mdcMenuSurfaceAnchor #seasonAnchorMobile class="toa-dropdown">
+            <button mdc-button (click)="seasonDropdownMobile.open = !seasonDropdownMobile.open">
+              {{ getSeasonString(currentSeason.seasonKey, currentSeason.description) }}
+              <mdc-icon>arrow_drop_down</mdc-icon>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="ftc_season">
-              <mdc-list-item *ngFor="let season of seasons" (click)="selectSeason(season)">{{ getSeasonString(season.seasonKey, true)}}</mdc-list-item>
-            </ul>
+            <mdc-menu #seasonDropdownMobile [anchorElement]="seasonAnchorMobile" (selected)="onSeasonChange($event)"
+                      anchorCorner="bottomStart">
+              <mdc-list dense>
+                <mdc-list-item *ngFor="let season of seasons" [disabled]="season.seasonKey === currentSeason.seasonKey">
+                  {{ getSeasonString(season.seasonKey, season.description) }}
+                </mdc-list-item>
+              </mdc-list>
+            </mdc-menu>
           </div>
         </div>
       </mdc-card>
