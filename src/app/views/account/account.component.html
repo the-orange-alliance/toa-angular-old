@@ -144,7 +144,7 @@
   </div>
 
   <toa-account-manage-events *ngIf="tabs.activeTabIndex === 1 && user.adminEvents.length > 0" [user]="user"></toa-account-manage-events>
-  <toa-account-create-league *ngIf="tabs.activeTabIndex === 2 && user.adminEvents.length >= 6" [user]="user"></toa-account-create-league>
+  <toa-account-create-league *ngIf="tabs.activeTabIndex === 2 && user.level >= 6" [user]="user"></toa-account-create-league>
   <toa-account-create-event *ngIf="tabs.activeTabIndex === 3 && user.level >= 6" [user]="user"></toa-account-create-event>
   <toa-account-users *ngIf="tabs.activeTabIndex === 4 && user.level >= 6" [user]="user"></toa-account-users>
   <toa-account-cache *ngIf="tabs.activeTabIndex === 5 && user.level >= 6" [user]="user"></toa-account-cache>

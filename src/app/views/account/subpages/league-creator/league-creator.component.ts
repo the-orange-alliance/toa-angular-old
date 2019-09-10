@@ -40,7 +40,7 @@ export class LeagueCreatorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.translate.get('pages.account.manage_events').subscribe((res) => {
+    this.translate.get('pages.account.division_tab.manage_leagues').subscribe((res) => {
       this.appBarService.setTitle('myTOA - ' + res, true)
     });
     this.ftc.getAllRegions().then((data: Region[]) => {
