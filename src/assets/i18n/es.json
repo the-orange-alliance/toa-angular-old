@@ -83,13 +83,13 @@
         "league_divisions": "",
         "create_league_fields": {
           "league_key": "",
-          "league_description": """,
+          "league_description": "",
           "division_desc": ""
         }
       },
       "notifications_card": {
         "title": "",
-        "summary": """,
+        "summary": "",
         "grant_access": "",
         "enabled": "",
         "blocked": "",
