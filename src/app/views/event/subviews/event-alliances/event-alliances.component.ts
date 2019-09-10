@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import Alliance from '../../../../models/Alliance';
 
 @Component({
@@ -6,8 +6,14 @@ import Alliance from '../../../../models/Alliance';
   templateUrl: './event-alliances.component.html',
   styleUrls: ['./event-alliances.component.scss']
 })
-export class EventAlliancesComponent {
+export class EventAlliancesComponent implements OnInit {
 
   @Input() alliances: Alliance[];
+  showPick2 = false;
 
+  ngOnInit() {
+    if (this.alliances) {
+      this.showPick2 = this.alliances.every((alliance) => alliance.pick2)
+    }
+  }
 }
