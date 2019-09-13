@@ -2,8 +2,7 @@
   <mdc-list-item interactive>
     <mdc-list-item-text>
        <span class="black">{{ league.description }}</span>
-      <span *ngIf="league.divisionParent" class="mdc-list-item__secondary-text"><span>Part of the {{ league.divisionParent.description }} league ({{league.regionKey.toUpperCase() + '-' + league.leagueKey.toUpperCase()}})</span></span>
-      <span *ngIf="!league.divisionParent" class="mdc-list-item__secondary-text"><span style="text-transform: capitalize">{{ league.regionKey + '-' + league.leagueKey }}</span></span>
+      <span class="mdc-list-item__secondary-text"><span style="text-transform: capitalize">{{ league.leagueKey }}</span></span>
     </mdc-list-item-text>
   </mdc-list-item>
 </a>

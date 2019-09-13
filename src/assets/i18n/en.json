@@ -76,6 +76,7 @@
       "manage_events": "Manage Events",
       "division_tab": {
         "manage_leagues": "Manage Leagues",
+        "select_season": "Select Season",
         "create_league": "Create League",
         "create_league_div": "Create League Division",
         "division_key": "Division Key",

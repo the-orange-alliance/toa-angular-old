@@ -7,6 +7,8 @@ import {MdcSelect, MdcSnackbar, MdcTextField} from '@angular-mdc/web';
 import Region from '../../../../models/Region';
 import {FTCDatabase} from '../../../../providers/ftc-database';
 import League from '../../../../models/League';
+import Season from '../../../../models/Season';
+import LeagueDiv from '../../../../models/LeagueDiv';
 
 @Component({
   selector: 'toa-account-create-league',
@@ -27,13 +29,13 @@ export class LeagueCreatorComponent implements OnInit {
 
 
   regions: Region[];
-
   leagues: League[] = [];
-
-  divisions: League[] = [];
+  divisions: LeagueDiv[] = [];
+  seasons: Season[] = [];
 
   currentRegion: Region = null;
   currentLeague: League = null;
+  currentSeason: Season = null;
 
   constructor(private appBarService: AppBarService, private cloud: CloudFunctions,  private ftc: FTCDatabase, private translate: TranslateService, private snackbar: MdcSnackbar) {
 
@@ -47,30 +49,25 @@ export class LeagueCreatorComponent implements OnInit {
       this.regions = data;
       this.currentRegion = this.regions[0];
     });
-    this.ftc.getAllLeagues().then( (data: League[]) => {
-      // TODO: There has got to be a better way of linking the division to their parent league
-      for (const object of data) {
-        if (object.division !== undefined && object.division !== null && object.division.length > 0) {
-          for (const league of data) {
-            if (object.leagueKey.indexOf(league.leagueKey) > -1 && object.regionKey === league.regionKey) {
-              object.divisionParent = league;
-              this.divisions.push(object);
-              break;
-            }
-          }
-        } else {
-          this.leagues.push(object);
-        }
-      }
+    this.ftc.getAllLeagues(this.ftc.year).then( (data: League[]) => {
+      this.leagues = data;
       this.currentLeague = this.leagues[0];
+    });
+    this.ftc.getAllLeagueDivisions(this.ftc.year).then( (data: LeagueDiv[]) => {
+      this.divisions = data;
+    });
+    this.ftc.getAllSeasons().then((data: Season[]) => {
+      this.seasons = data;
+      this.currentSeason = this.seasons[0];
     });
   }
 
   createLeague(): void {
     const newLeague = new League();
     newLeague.description = this.leagueDesc.value;
-    newLeague.leagueKey = this.leagueId.value;
+    newLeague.leagueKey = this.currentSeason.seasonKey + '-' + this.currentRegion.regionKey + '-' + this.leagueId.value;
     newLeague.regionKey = this.currentRegion.regionKey;
+    newLeague.seasonKey = this.currentSeason.seasonKey;
 
     this.cloud.toaPost(this.user.firebaseUser, [newLeague.toJSON()], '/league/').then( (data) => {
       this.translate.get('pages.account.league_creation_success').subscribe((str) => {
@@ -90,20 +87,20 @@ export class LeagueCreatorComponent implements OnInit {
   }
 
   createDivision(): void {
-    const newLeague = new League();
+    const newLeague = new LeagueDiv();
     newLeague.description = this.divisionDesc.value;
-    newLeague.leagueKey = this.currentLeague.leagueKey + '-' + this.divisionId.value;
+    newLeague.divisionKey = this.currentLeague.leagueKey + '-' + this.divisionId.value;
+    newLeague.leagueKey = this.currentLeague.leagueKey;
     newLeague.regionKey = this.currentLeague.regionKey;
-    newLeague.division = this.divisionId.value;
+    newLeague.seasonKey = this.currentLeague.seasonKey;
 
-    this.cloud.toaPost(this.user.firebaseUser, [newLeague.toJSON()], '/league/').then( (data) => {
+    this.cloud.toaPost(this.user.firebaseUser, [newLeague.toJSON()], '/league/division/').then( (data) => {
       this.translate.get('pages.account.league_division_creation_success').subscribe((str) => {
         this.snackbar.open(`${str}`);
         // this.snackbar.open(str, 'Go').afterDismiss().subscribe(reason => {
           // if (reason === 'action') { this.router.navigateByUrl('/leagues/' + league.leagueKey); } // TODO: Add 'go' button when League page is created
         // });
       });
-      newLeague.divisionParent = this.currentLeague;
       this.divisions.push(newLeague);
     }).catch((err) => {
       this.translate.get('general.error_occurred').subscribe((str) => {
@@ -119,6 +116,28 @@ export class LeagueCreatorComponent implements OnInit {
 
   onLeagueChange(event: {index: any, value: any}) {
     this.currentLeague = this.leagues[event.index - 1];
+  }
+
+  onSeasonChange(event: {index: any, value: any}) {
+    this.currentSeason = this.seasons[event.index];
+    this.ftc.getAllLeagues(this.currentSeason.seasonKey).then( (data: League[]) => {
+      this.leagues = data;
+      this.currentLeague = this.leagues[0];
+    });
+    this.ftc.getAllLeagueDivisions(this.currentSeason.seasonKey).then( (data: LeagueDiv[]) => {
+      this.divisions = data;
+    });
+  }
+
+  getSeasonString(seasonKey: string, description?: string) {
+    const codeOne = seasonKey.toString().substring(0, 2);
+    const codeTwo = seasonKey.toString().substring(2, 4);
+
+    if (description) {
+      return '20' + codeOne + '/' + codeTwo + ' - ' + description;
+    } else {
+      return '20' + codeOne + '/' + codeTwo;
+    }
   }
 
   sendAnalytic(category, label, action): void {

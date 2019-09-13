@@ -1,6 +1,20 @@
 <div class="row">
   <div class="w-100">
     <div class="outline-card col-12 mb-2">
+      <div mdcHeadline5 class="black pb-4">{{ 'pages.account.division_tab.select_season' | translate }}</div>
+      <div class="row edit-event">
+        <mdc-select *ngIf="currentSeason"  [placeholder]="'pages.account.create_event_card.season' | translate" (selectionChange)="onSeasonChange($event)" class="w-100">
+          <option *ngFor="let season of seasons" [value]="season.seasonKey">
+            {{ getSeasonString(season.seasonKey, season.description) }}
+          </option>
+        </mdc-select>
+      </div>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="w-100">
+    <div class="outline-card col-12 mb-2">
       <div mdcHeadline5 class="black pb-4">{{ 'pages.account.division_tab.create_league' | translate }}</div>
       <div class="row edit-event">
         <div class="col-md-6 col-12 mb-3">
@@ -35,7 +49,7 @@
           <mdc-select #division_league *ngIf="currentLeague"  [placeholder]="'pages.account.create_event_card.league' | translate" (selectionChange)="onLeagueChange($event)" class="w-100">
             <option disabled></option>
             <option *ngFor="let league of leagues" [value]="league.leagueKey">
-              {{ league.description ? league.regionKey + "-" + league.leagueKey + " - " + league.description : league.regionKey + "-" + league.leagueKey }}
+              {{ league.description ? league.leagueKey + " - " + league.description : league.leagueKey }}
             </option>
           </mdc-select>
         </div>
