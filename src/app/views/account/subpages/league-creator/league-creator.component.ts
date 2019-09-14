@@ -51,10 +51,21 @@ export class LeagueCreatorComponent implements OnInit {
     });
     this.ftc.getAllLeagues(this.ftc.year).then( (data: League[]) => {
       this.leagues = data;
+      const newDivisions = [];
       this.currentLeague = this.leagues[0];
-    });
-    this.ftc.getAllLeagueDivisions(this.ftc.year).then( (data: LeagueDiv[]) => {
-      this.divisions = data;
+      this.ftc.getAllLeagueDivisions(this.ftc.year).then( (leagueDiv: LeagueDiv[]) => {
+        this.divisions = leagueDiv;
+        for (const division of leagueDiv) {
+          for (const league of this.leagues) {
+            if (league.leagueKey === division.leagueKey) {
+              division.leagueDesc = league.description;
+              newDivisions.push(division);
+              break;
+            }
+          }
+        }
+        this.divisions = newDivisions;
+      });
     });
     this.ftc.getAllSeasons().then((data: Season[]) => {
       this.seasons = data;
@@ -122,11 +133,22 @@ export class LeagueCreatorComponent implements OnInit {
     this.currentSeason = this.seasons[event.index];
     this.ftc.getAllLeagues(this.currentSeason.seasonKey).then( (data: League[]) => {
       this.leagues = data;
+      const newDivisions = [];
       this.currentLeague = this.leagues[0];
-    });
-    this.ftc.getAllLeagueDivisions(this.currentSeason.seasonKey).then( (data: LeagueDiv[]) => {
-      this.divisions = data;
-    });
+      this.ftc.getAllLeagueDivisions(this.currentSeason.seasonKey).then( (leagueDiv: LeagueDiv[]) => {
+        this.divisions = leagueDiv;
+        for (const division of leagueDiv) {
+          for (const league of this.leagues) {
+            if (league.leagueKey === division.leagueKey) {
+              division.leagueDesc = league.description;
+              newDivisions.push(division);
+              break;
+            }
+          }
+        }
+        this.divisions = newDivisions;
+      }).catch((err) => this.divisions = []);
+    }).catch((err) => this.leagues = []);
   }
 
   getSeasonString(seasonKey: string, description?: string) {

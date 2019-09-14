@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import League from '../../models/League';
+import LeagueDiv from '../../models/LeagueDiv';
 
 @Component({
   selector: 'toa-league-item',
@@ -8,7 +9,8 @@ import League from '../../models/League';
 })
 export class LeagueItemComponent {
 
-  @Input() league: League;
+  @Input() league: League = undefined;
+  @Input() division: LeagueDiv = undefined;
   @Input() hideDelete = true;
   @Input() clickable = true;
 

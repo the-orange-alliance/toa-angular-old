@@ -27,8 +27,8 @@ export class FTCDatabase {
   public year = '1819';
   public allYears = ['1617', '1718', '1819'];
 
-  // public baseURL = 'https://theorangealliance.org/api';
-  public baseURL = 'http://127.0.0.1:8008/api';
+  public baseURL = 'https://theorangealliance.org/api';
+  // public baseURL = 'http://127.0.0.1:8008/api';
 
   constructor(private http: HttpClient) {}
 
@@ -117,7 +117,7 @@ export class FTCDatabase {
       queries += (queries.length > 1 && leagueKey !== undefined) ? `&${leagueQuery}` : (queries.length === 1 && leagueKey !== undefined) ? leagueQuery : '';
     }
     return new Promise<LeagueDiv[]>((resolve, reject) => {
-      this.request('/league/division' + queries).then((data: any[]) => {
+      this.request('/league/divisions' + queries).then((data: any[]) => {
         resolve(data.map((result: any) => new LeagueDiv().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });

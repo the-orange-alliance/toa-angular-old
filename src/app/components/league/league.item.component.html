@@ -1,8 +1,17 @@
-<a [routerLink]="clickable ? '/leagues/' + league.leagueKey : null" class="no-underline mdc-list--two-line">
+<a *ngIf="league" [routerLink]="clickable ? '/leagues/' + league.leagueKey : null" class="no-underline mdc-list--two-line">
   <mdc-list-item interactive>
     <mdc-list-item-text>
        <span class="black">{{ league.description }}</span>
       <span class="mdc-list-item__secondary-text"><span style="text-transform: capitalize">{{ league.leagueKey }}</span></span>
+    </mdc-list-item-text>
+  </mdc-list-item>
+</a>
+
+<a *ngIf="division" [routerLink]="clickable ? '/leagues/division' + division.divisionKey : null" class="no-underline mdc-list--two-line">
+  <mdc-list-item interactive>
+    <mdc-list-item-text>
+       <span class="black">{{ division.description }}</span>
+      <span class="mdc-list-item__secondary-text"><span style="text-transform: capitalize">({{ division.divisionKey }}) Division of {{ division.leagueDesc }}</span></span>
     </mdc-list-item-text>
   </mdc-list-item>
 </a>

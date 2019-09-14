@@ -72,9 +72,10 @@
         </div>
         <div class="col-md-6 col-12 ps-md-3">
           <div mdcHeadline5 class="black pb-4">{{ 'pages.account.division_tab.league_divisions' | translate }}</div>
-          <toa-league-item *ngFor="let league of divisions" [league]="league" [clickable]="false" [hideDelete]="false"></toa-league-item>
+          <toa-league-item *ngFor="let division of divisions" [division]="division" [clickable]="false" [hideDelete]="false"></toa-league-item>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
