@@ -359,7 +359,11 @@ export class CloudFunctions {
         this.http.put(this.baseUrl + '/toaapi', body, {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
-          reject(err);
+          if (err.status === 200) {
+            resolve(err);
+          } else {
+            reject(err);
+          }
         });
       }).catch((err: any) => {
         reject(err);
@@ -378,7 +382,11 @@ export class CloudFunctions {
         this.http.delete(this.baseUrl + '/toaapi', {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
-          reject(err);
+          if (err.status === 200) {
+            resolve(err);
+          } else {
+            reject(err);
+          }
         });
       }).catch((err: any) => {
         reject(err);

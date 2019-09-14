@@ -115,7 +115,9 @@
       "success_unlink": "Successfully unlinked {{ name }} account",
       "last_signin": "Last Sign In",
       "league_creation_success": "Successfully created league!",
+      "league_deletion_success": "Successfully deleted league!",
       "league_division_creation_success": "Successfully created league division!",
+      "league_division_deletion_success": "Successfully deleted league division!",
       "datasync_card": {
         "title": "Sync your event live with TOA",
         "docs": "You can check out our full DataSync Documentation"

@@ -112,6 +112,7 @@ export class LeagueCreatorComponent implements OnInit {
           // if (reason === 'action') { this.router.navigateByUrl('/leagues/' + league.leagueKey); } // TODO: Add 'go' button when League page is created
         // });
       });
+      newLeague.leagueDesc = this.currentLeague.description;
       this.divisions.push(newLeague);
     }).catch((err) => {
       this.translate.get('general.error_occurred').subscribe((str) => {
