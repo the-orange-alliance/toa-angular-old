@@ -70,6 +70,7 @@ import { ModifiedTeamItemComponent } from './components/modified_team/modified-t
 import { Insights1819Component } from './components/insights-card/years/insights1819component';
 import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {LeagueCreatorComponent} from './views/account/subpages/league-creator/league-creator.component';
+import {LeagueItemComponent} from './components/league/league.item.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
@@ -93,6 +94,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     EventComponent,
     AboutComponent,
     TeamComponent,
+    LeagueItemComponent,
     EventForParticipantsComponent,
     EventRankingsComponent,
     EventAlliancesComponent,

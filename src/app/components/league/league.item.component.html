@@ -1,0 +1,23 @@
+<a *ngIf="league && viewable" [routerLink]="clickable ? '/leagues/' + league.leagueKey : null" class="no-underline mdc-list--two-line">
+  <mdc-list-item disabled>
+    <mdc-list-item-text>
+       <span class="black">{{ league.description }}</span>
+      <span class="mdc-list-item__secondary-text"><span style="text-transform: capitalize">{{ league.leagueKey }}</span></span>
+    </mdc-list-item-text>
+    <div mdcListItemMeta class="d-none d-sm-block" (click)="deleteLeague(league)">
+      <mdc-icon svgIcon="delete" class="ms-2"></mdc-icon>
+    </div>
+  </mdc-list-item>
+</a>
+
+<a *ngIf="division && viewable" [routerLink]="clickable ? '/leagues/division' + division.divisionKey : null" class="no-underline mdc-list--two-line">
+  <mdc-list-item disabled>
+    <mdc-list-item-text>
+       <span class="black">{{ division.description }}</span>
+      <span class="mdc-list-item__secondary-text"><span style="text-transform: capitalize">({{ division.divisionKey }}) {{ (division.leagueDesc ) ? "Division of " + division.leagueDesc : "No matching league" }}</span></span>
+    </mdc-list-item-text>
+    <div mdcListItemMeta class="d-none d-sm-block" (click)="deleteDivision(division)">
+      <mdc-icon svgIcon="delete" class="ms-2"></mdc-icon>
+    </div>
+  </mdc-list-item>
+</a>

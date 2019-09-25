@@ -19,6 +19,7 @@ import TeamSeasonRecord from '../models/TeamSeasonRecord';
 import Alliance from '../models/Alliance';
 import Insights from '../models/Insights';
 import * as InsightsData from '../models/game-specifics/InsightsData';
+import LeagueDiv from '../models/LeagueDiv';
 
 @Injectable()
 export class FTCDatabase {
@@ -89,10 +90,35 @@ export class FTCDatabase {
     });
   }
 
-  public getAllLeagues(): Promise<League[]> {
+  public getAllLeagues(seasonKey = undefined, regionKey = undefined): Promise<League[]> {
+    const seasonQuery = 'season_key=' + seasonKey;
+    const regionQuery = 'region_key=' + regionKey;
+    let queries;
+    if (regionKey !== undefined && seasonKey !== undefined) {
+      queries = `?${regionQuery}&${seasonQuery}`
+    } else {
+      queries = (regionKey !== undefined) ? `?${regionQuery}` : (seasonKey !== undefined) ? `?${seasonQuery}` : '';
+    }
     return new Promise<League[]>((resolve, reject) => {
-      this.request('/leagues').then((data: any[]) => {
+      this.request('/leagues' + queries).then((data: any[]) => {
         resolve(data.map((result: any) => new League().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
+  public getAllLeagueDivisions(seasonKey = undefined, regionKey = undefined, leagueKey = undefined): Promise<LeagueDiv[]> {
+    const seasonQuery = 'season_key=' + seasonKey;
+    const regionQuery = 'region_key=' + regionKey;
+    const leagueQuery = 'league_key=' + leagueKey;
+    let queries = '';
+    if (seasonKey !== undefined || regionKey !== undefined || leagueKey !== undefined) {
+      queries = `?${(seasonKey !== undefined) ? seasonQuery : ''}`;
+      queries += (queries.length > 1 && regionKey !== undefined) ? `&${regionQuery}` : (queries.length === 1 && regionKey !== undefined) ? regionQuery : '';
+      queries += (queries.length > 1 && leagueKey !== undefined) ? `&${leagueQuery}` : (queries.length === 1 && leagueKey !== undefined) ? leagueQuery : '';
+    }
+    return new Promise<LeagueDiv[]>((resolve, reject) => {
+      this.request('/league/divisions' + queries).then((data: any[]) => {
+        resolve(data.map((result: any) => new LeagueDiv().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });
   }

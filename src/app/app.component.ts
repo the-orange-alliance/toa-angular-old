@@ -62,9 +62,6 @@ export class TheOrangeAllianceComponent implements OnInit {
   @ViewChild(MdcDrawer, {static: false}) drawer: MdcDrawer;
   title: string;
 
-  kickoffString = '';
-  kickoffLive = false;
-
   constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,  messaging: MessagingService,
               db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService, private cloud: CloudFunctions,
               private cookieService: CookieService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
@@ -164,31 +161,6 @@ export class TheOrangeAllianceComponent implements OnInit {
         (<any>window).ga('send', 'pageview');
       }
     });
-
-    const self = this;
-    const kickoffDate = new Date('Sep 7, 2019 11:30:00 GMT-4').getTime();
-    if (kickoffDate - new Date().getTime() <= 0) {
-      this.kickoffLive = true
-    } else {
-      this.kickoffLive = false;
-      const kickoffInterval = setInterval(() =>  {
-        const now = new Date().getTime();
-        const distance = kickoffDate - now;
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        self.kickoffString  = `${hours}H ${minutes}M ${seconds}S`;
-        // self.kickoffString  = `${days}D ${hours}H ${minutes}M ${seconds}S`;
-
-        if (distance < 0) {
-          clearInterval(kickoffInterval);
-          self.kickoffString = '0D 0H 0M 0S';
-          self.kickoffLive = true;
-        }
-      }, 1000);
-    }
   }
 
   ngOnInit() {
@@ -240,8 +212,8 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   showMobileSearchModal(searchInput): void {
     this.showMobileSearch = true;
-    // When the modal opens, it takes the focus
-    // We'll wait 6ms until it opens
+    // When the modal opens, it takes the focus.
+    // We'll wait 6ms until it opens.
     setTimeout(function () {
       searchInput.focus();
     }, 600);
@@ -278,20 +250,19 @@ export class TheOrangeAllianceComponent implements OnInit {
   @HostListener('document:click', ['$event']) clickedOutside($event) {
     this.showSearch = false;
   }
-
   navToTopSearch(): void {
+    const query = this.search ? this.search.trim() : '';
     if (this.teamSearchResults.length > 0) {
       this.router.navigate(['/teams', this.teamSearchResults[0].teamKey]);
       this.sendAnalytic('search',  this.teamSearchResults[0].teamKey);
     } else if (this.eventSearchResults.length > 0) {
       this.router.navigate(['/events', this.eventSearchResults[0].eventKey]);
       this.sendAnalytic('search',  this.eventSearchResults[0].eventKey);
-    } else if (this.search && this.search.trim().length > 0) {
-      this.router.navigate(['/teams', this.search.trim()]);
-      this.sendAnalytic('search',  this.search.trim());
+    } else if (this.search && query.length > 0 && !isNaN(parseInt(query, 10))) {
+      this.router.navigate(['/teams', query]);
+      this.sendAnalytic('search',  query);
     } else {
-
-      this.router.navigate(['/not-found']);
+      return;
     }
     this.showSearch = false;
     this.search = '';
