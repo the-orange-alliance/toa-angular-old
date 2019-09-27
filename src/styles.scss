@@ -165,6 +165,10 @@ mdc-icon svg {
   fill: #fff;
 }
 
+.currentColor {
+  color: currentColor;
+}
+
 
 /* ==========================================================================
    Padding and Margin
@@ -747,6 +751,16 @@ table.match-table tr {
 .mdc-snackbar:not(.selected-team-snackbar) {
   z-index: 30;
 }
+
+
+/* ==========================================================================
+   Rankings Table
+   ========================================================================== */
+
+.rankings-table td, .rankings-table th {
+  padding: .75rem;
+}
+
 
 /* ==========================================================================
    Search
