@@ -601,6 +601,7 @@ mdc-drawer mdc-list a {
 .match-details-row {
   display: flex;
   display: -webkit-flex; /* Safari */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .match-details-title {
