@@ -2,6 +2,7 @@ import MatchDetails from '../MatchDetails';
 import RelicRecoveryMatchDetails from './RelicRecoveryMatchDetails';
 import VelocityVortexMatchDetails from './VelocityVortexMatchDetails';
 import RoverRuckusMatchDetails from './RoverRuckusMatchDetails';
+import SkystoneMatchDetails from './SkystoneMatchDetails';
 
 export function getMatchDetails(seasonKey: string): MatchDetails {
   switch (seasonKey) {
@@ -11,6 +12,8 @@ export function getMatchDetails(seasonKey: string): MatchDetails {
       return new RelicRecoveryMatchDetails();
     case '1819':
       return new RoverRuckusMatchDetails();
+    case '1920':
+      return new SkystoneMatchDetails();
     default:
       return new MatchDetails();
   }
