@@ -37,14 +37,14 @@ export class RetrieverComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngOnInit() { // TODO Update Year Yearly :P
     this.appBarService.setTitle('Retriever');
-    this.cloud.eventsRetriever(this.user.firebaseUser, 2018).then((events: any) => {
+    this.cloud.eventsRetriever(this.user.firebaseUser, 2019).then((events: any) => {
       this.newEvents = events.new_events.map((result: any) => new Event().fromJSON(result));
       this.modifiedEvents = events.modified_events.map((result: any) => new ModifiedEvent().fromJSON(result));
     });
 
-    this.cloud.teamsRetriever(this.user.firebaseUser, '2018').then((teams: any) => {
+    this.cloud.teamsRetriever(this.user.firebaseUser, '2019').then((teams: any) => {
       this.newTeams = teams.new_teams.map((result: any) => new Team().fromJSON(result));
       this.modifiedTeams = teams.modified_teams.map((result: any) => new ModifiedTeam().fromJSON(result));
     });
