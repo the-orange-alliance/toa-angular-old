@@ -38,7 +38,6 @@ export default class SkystoneMatchDetails extends MatchDetails implements ISeria
     details.redMajPen = json.red_maj_pen;
     details.blueMajPen = json.blue_maj_pen;
 
-    console.log(json.red);
     details.redDtls = new SkystoneAllianceDetails().fromJSON(json.red);
     details.blueDtls = new SkystoneAllianceDetails().fromJSON(json.blue);
     details.randomization = json.randomization;

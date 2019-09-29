@@ -12,7 +12,7 @@ export default class MatchBreakdown1819 {
     return [
       MatchBreakdownTitle('Autonomous', match.redAutoScore, match.blueAutoScore),
       MatchBreakdownBoolField('Repositioning Foundation', red.foundationRepositioned , blue.foundationRepositioned, 10),
-      MatchBreakdownField('Delivering Skystones', 0 , 0, 10),
+      MatchBreakdownField('Delivering Skystones', red.autoDeliveredSkystones, blue.autoDeliveredSkystones, 10),
       MatchBreakdownField('Delivering Stones under Alliance Skybridge', 0 , 0, 4),
       MatchBreakdownField('Stones on Foundation', red.autoPlaced , blue.autoPlaced, 4),
       MatchBreakdownField('Navigating under Skybridge', this.getNavigatingRobots(red) , this.getNavigatingRobots(blue), 5),
@@ -25,13 +25,13 @@ export default class MatchBreakdown1819 {
       MatchBreakdownTitle('Driver-Controlled', match.redTeleScore, match.blueTeleScore),
       MatchBreakdownField('Delivering Stones under Alliance Skybridge', red.teleDelivered , blue.teleDelivered, 1),
       MatchBreakdownField('Stones on Foundation', red.telePlaced , blue.telePlaced, 1),
-      MatchBreakdownField('Skyscraper Bonus', red.towerBonusPts / 2, red.towerBonusPts / 2, 2),
+      MatchBreakdownField('Skyscraper Bonus', red.towerBonus, red.towerBonus, 2),
       MatchBreakdownField('Returned Stones', red.teleReturned, blue.teleReturned, -2),
 
       MatchBreakdownTitle('End Game', match.redEndScore, match.blueEndScore),
-      MatchBreakdownField('Capping Bonus', (red.capPts - this.getCapLevel(red)) / 5, (blue.capPts - this.getCapLevel(blue)) / 5, 5),
+      MatchBreakdownField('Capping Bonus', red.cappingBonus, blue.cappingBonus, 5),
       MatchBreakdownField('Level Bonus', this.getCapLevel(red), this.getCapLevel(blue), 1),
-      MatchBreakdownField('Robots Parked', red.parkPts / 5, blue.parkPts / 5, 5),
+      MatchBreakdownField('Robots Parked', red.endRobotsParked, blue.endRobotsParked, 5),
 
       MatchBreakdownTitle('Penalty', match.bluePenalty, match.redPenalty),
       MatchBreakdownField('Minor Penalty', details.blueMinPen, details.redMinPen, 10),

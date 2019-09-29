@@ -1,13 +1,20 @@
 import { ISerializable } from '../ISerializable';
 
+export enum Stone {
+  'NONE',
+  'STONE',
+  'SKYSTONE'
+}
+
 export default class SkystoneAllianceDetails implements ISerializable {
-  private _autoStone1: number;
-  private _autoStone2: number;
-  private _autoStone3: number;
-  private _autoStone4: number;
-  private _autoStone5: number;
-  private _autoStone6: number;
-  private _autoDelivered: number;
+  private _autoStone1: Stone;
+  private _autoStone2: Stone;
+  private _autoStone3: Stone;
+  private _autoStone4: Stone;
+  private _autoStone5: Stone;
+  private _autoStone6: Stone;
+  private _autoDeliveredSkystones: number;
+  private _autoDeliveredStones: number;
   private _autoReturned: number;
   private _firstReturnedIsSkystone: boolean;
   private _autoPlaced: number;
@@ -28,9 +35,10 @@ export default class SkystoneAllianceDetails implements ISerializable {
   private _navPts: number;
   private _teleTransportPts: number;
   private _telePlacedPts: number;
-  private _towerBonusPts: number;
-  private _capPts: number;
-  private _parkPts: number;
+  private _towerBonus: number;
+  private _cappingBonus: number;
+  private _levelBonus: number;
+  private _endRobotsParked: number;
   private _autoPts: number;
   private _auto: number;
   private _tele: number;
@@ -38,13 +46,14 @@ export default class SkystoneAllianceDetails implements ISerializable {
   private _penalty: number;
 
   constructor() {
-    this._autoStone1 = -1;
-    this._autoStone2 = -1;
-    this._autoStone3 = -1;
-    this._autoStone4 = -1;
-    this._autoStone5 = -1;
-    this._autoStone6 = -1;
-    this._autoDelivered = -1;
+    this._autoStone1 = null;
+    this._autoStone2 = null;
+    this._autoStone3 = null;
+    this._autoStone4 = null;
+    this._autoStone5 = null;
+    this._autoStone6 = null;
+    this._autoDeliveredSkystones = -1;
+    this._autoDeliveredStones = -1;
     this._autoReturned = -1;
     this._firstReturnedIsSkystone = false;
     this._autoPlaced = -1;
@@ -65,9 +74,10 @@ export default class SkystoneAllianceDetails implements ISerializable {
     this._navPts = -1;
     this._teleTransportPts = -1;
     this._telePlacedPts = -1;
-    this._towerBonusPts = -1;
-    this._capPts = -1;
-    this._parkPts = -1;
+    this._towerBonus = -1;
+    this._cappingBonus = -1;
+    this._levelBonus = -1;
+    this._endRobotsParked = -1;
     this._autoPts = -1;
     this._auto = -1;
     this._tele = -1;
@@ -77,13 +87,14 @@ export default class SkystoneAllianceDetails implements ISerializable {
 
   toJSON(): object {
     return {
-      auto_stone_1: this.stoneIntToString(this.autoStone1),
-      auto_stone_2: this.stoneIntToString(this.autoStone2),
-      auto_stone_3: this.stoneIntToString(this.autoStone3),
-      auto_stone_4: this.stoneIntToString(this.autoStone4),
-      auto_stone_5: this.stoneIntToString(this.autoStone5),
-      auto_stone_6: this.stoneIntToString(this.autoStone6),
-      auto_delivered: this.autoDelivered,
+      auto_stone_1: Stone[this.autoStone1],
+      auto_stone_2: Stone[this.autoStone1],
+      auto_stone_3: Stone[this.autoStone1],
+      auto_stone_4: Stone[this.autoStone1],
+      auto_stone_5: Stone[this.autoStone1],
+      auto_stone_6: Stone[this.autoStone1],
+      auto_delivered_skystones: this.autoDeliveredSkystones,
+      auto_delivered_stones: this.autoDeliveredStones,
       auto_returned: this.autoReturned,
       first_returned_is_skystone: this.firstReturnedIsSkystone,
       auto_placed: this.autoPlaced,
@@ -108,9 +119,10 @@ export default class SkystoneAllianceDetails implements ISerializable {
       nav_points: this.navPts,
       tele_transport_points: this.teleTransportPts,
       tele_placed_points: this.telePlacedPts,
-      tower_bonus_points: this.towerBonusPts,
-      tower_cap_points: this.capPts,
-      tower_park_points: this.parkPts,
+      tower_bonus: this.towerBonus,
+      tower_capping_bonus: this.cappingBonus,
+      tower_level_bonus: this.levelBonus,
+      end_robots_parked: this.endRobotsParked,
       auto_points: this.autoPts,
       auto_total: this.auto,
       tele_total: this.tele,
@@ -119,15 +131,16 @@ export default class SkystoneAllianceDetails implements ISerializable {
     };
   }
 
-  fromJSON(json: any): SkystoneAllianceDetails { // FROM NORMAL JSON
+  fromJSON(json: any): SkystoneAllianceDetails {
     const alliance: SkystoneAllianceDetails  = new SkystoneAllianceDetails();
-    alliance.autoStone1 = this.stoneStringToInt(json.auto_stone_1);
-    alliance.autoStone2 = this.stoneStringToInt(json.auto_stone_2);
-    alliance.autoStone3 = this.stoneStringToInt(json.auto_stone_3);
-    alliance.autoStone4 = this.stoneStringToInt(json.auto_stone_4);
-    alliance.autoStone5 = this.stoneStringToInt(json.auto_stone_5);
-    alliance.autoStone6 = this.stoneStringToInt(json.auto_stone_6);
-    alliance.autoDelivered = json.auto_delivered;
+    alliance.autoStone1 = this.intToStone(json.auto_stone_1);
+    alliance.autoStone2 = this.intToStone(json.auto_stone_2);
+    alliance.autoStone3 = this.intToStone(json.auto_stone_3);
+    alliance.autoStone4 = this.intToStone(json.auto_stone_4);
+    alliance.autoStone5 = this.intToStone(json.auto_stone_5);
+    alliance.autoStone6 = this.intToStone(json.auto_stone_6);
+    alliance.autoDeliveredSkystones = json.auto_delivered_skystones;
+    alliance.autoDeliveredStones = json.auto_delivered_stones;
     alliance.autoReturned = json.auto_returned;
     alliance.firstReturnedIsSkystone = json.first_returned_is_skystone;
     alliance.autoPlaced = json.auto_placed;
@@ -148,9 +161,10 @@ export default class SkystoneAllianceDetails implements ISerializable {
     alliance.navPts = json.nav_points;
     alliance.teleTransportPts = json.tele_transport_points;
     alliance.telePlacedPts = json.tele_placed_points;
-    alliance.towerBonusPts = json.tower_bonus_points;
-    alliance.capPts = json.tower_cap_points;
-    alliance.parkPts = json.tower_park_points;
+    alliance.towerBonus = json.tower_bonus;
+    alliance.cappingBonus = json.tower_capping_bonus;
+    alliance.levelBonus = json.tower_level_bonus;
+    alliance.endRobotsParked = json.end_robots_parked;
     alliance.autoPts = json.auto_points;
     alliance.auto = json.auto_total;
     alliance.tele = json.tele_total;
@@ -159,158 +173,72 @@ export default class SkystoneAllianceDetails implements ISerializable {
     return alliance;
   }
 
-  fromRedDBJson(json: any): SkystoneAllianceDetails {
-    const alliance: SkystoneAllianceDetails  = new SkystoneAllianceDetails();
-    alliance.autoStone1 = json.RedAutoStone1;
-    alliance.autoStone2 = json.RedAutoStone2;
-    alliance.autoStone3 = json.RedAutoStone3;
-    alliance.autoStone4 = json.RedAutoStone4;
-    alliance.autoStone5 = json.RedAutoStone5;
-    alliance.autoStone6 = json.RedAutoStone6;
-    alliance.autoDelivered = json.RedAutoDelivered;
-    alliance.autoReturned = json.RedAutoReturned;
-    alliance.firstReturnedIsSkystone = json.RedFirstReturnedIsSkystone;
-    alliance.autoPlaced = json.RedAutoPlaced;
-    alliance.foundationRepositioned = json.RedFoundationRepositioned;
-    alliance.teleDelivered = json.RedTeleDelivered;
-    alliance.teleReturned = json.RedTeleReturned;
-    alliance.telePlaced = json.RedTelePlaced;
-    alliance.robot1Nav = json.RedRobot1Nav;
-    alliance.robot2Nav = json.RedRobot2Nav;
-    alliance.robot1Parked = json.RedRobot1Parked;
-    alliance.robot2Parked = json.RedRobot2Parked;
-    alliance.robot1CapLevel = json.RedRobot1CapLevel;
-    alliance.robot2CapLevel = json.RedRobot2CapLevel;
-    alliance.foundationMoved = json.RedFoundationMoved;
-    alliance.autoTransportPts = json.RedAutoTransportPts;
-    alliance.autoPlacedPts = json.RedAutoPlacedPts;
-    alliance.repositionPts = json.RedRepositionPts;
-    alliance.navPts = json.RedNavPts;
-    alliance.teleTransportPts = json.RedTeleTransportPts;
-    alliance.telePlacedPts = json.RedTelePlacedPts;
-    alliance.towerBonusPts = json.RedTowerBonusPts;
-    alliance.capPts = json.RedCapPts;
-    alliance.parkPts = json.RedParkPts;
-    alliance.autoPts = json.RedAutoPts;
-    alliance.auto = json.RedAuto;
-    alliance.tele = json.RedTele;
-    alliance.end = json.RedEnd;
-    alliance.penalty = json.RedPenalty;
-    return alliance;
+  intToStone(num: number): Stone {
+    return Stone[Object.keys(Stone).find(x => Stone[x] === num)];
   }
 
-  fromBlueDBJson(json: any): SkystoneAllianceDetails {
-    const alliance: SkystoneAllianceDetails  = new SkystoneAllianceDetails();
-    alliance.autoStone1 = json.BlueAutoStone1;
-    alliance.autoStone2 = json.BlueAutoStone2;
-    alliance.autoStone3 = json.BlueAutoStone3;
-    alliance.autoStone4 = json.BlueAutoStone4;
-    alliance.autoStone5 = json.BlueAutoStone5;
-    alliance.autoStone6 = json.BlueAutoStone6;
-    alliance.autoDelivered = json.BlueAutoDelivered;
-    alliance.autoReturned = json.BlueAutoReturned;
-    alliance.firstReturnedIsSkystone = json.BlueFirstReturnedIsSkystone;
-    alliance.autoPlaced = json.BlueAutoPlaced;
-    alliance.foundationRepositioned = json.BlueFoundationRepositioned;
-    alliance.teleDelivered = json.BlueTeleDelivered;
-    alliance.teleReturned = json.BlueTeleReturned;
-    alliance.telePlaced = json.BlueTelePlaced;
-    alliance.robot1Nav = json.BlueRobot1Nav;
-    alliance.robot2Nav = json.BlueRobot2Nav;
-    alliance.robot1Parked = json.BlueRobot1Parked;
-    alliance.robot2Parked = json.BlueRobot2Parked;
-    alliance.robot1CapLevel = json.BlueRobot1CapLevel;
-    alliance.robot2CapLevel = json.BlueRobot2CapLevel;
-    alliance.foundationMoved = json.BlueFoundationMoved;
-    alliance.autoTransportPts = json.BlueAutoTransportPts;
-    alliance.autoPlacedPts = json.BlueAutoPlacedPts;
-    alliance.repositionPts = json.BlueRepositionPts;
-    alliance.navPts = json.BlueNavPts;
-    alliance.teleTransportPts = json.BlueTeleTransportPts;
-    alliance.telePlacedPts = json.BlueTelePlacedPts;
-    alliance.towerBonusPts = json.BlueTowerBonusPts;
-    alliance.capPts = json.BlueCapPts;
-    alliance.parkPts = json.BlueParkPts;
-    alliance.autoPts = json.BlueAutoPts;
-    alliance.auto = json.BlueAuto;
-    alliance.tele = json.BlueTele;
-    alliance.end = json.BlueEnd;
-    alliance.penalty = json.BluePenalty;
-    return alliance;
-  }
-
-  stoneIntToString(num: number): string {
-    switch (num) {
-      case 0: return 'NONE';
-      case 1: return 'STONE';
-      case 2: return 'SKYSTONE';
-      default: return 'NONE';
-    }
-  }
-  stoneStringToInt(str: string): number {
-    switch (str) {
-      case 'NONE': return 0;
-      case 'STONE': return 1;
-      case 'SKYSTONE': return 2;
-      default: return 0;
-    }
-  }
-
-
-  get autoStone1(): number {
+  get autoStone1(): Stone {
     return this._autoStone1;
   }
 
-  set autoStone1(value: number) {
+  set autoStone1(value: Stone) {
     this._autoStone1 = value;
   }
 
-  get autoStone2(): number {
+  get autoStone2(): Stone {
     return this._autoStone2;
   }
 
-  set autoStone2(value: number) {
+  set autoStone2(value: Stone) {
     this._autoStone2 = value;
   }
 
-  get autoStone3(): number {
+  get autoStone3(): Stone {
     return this._autoStone3;
   }
 
-  set autoStone3(value: number) {
+  set autoStone3(value: Stone) {
     this._autoStone3 = value;
   }
 
-  get autoStone4(): number {
+  get autoStone4(): Stone {
     return this._autoStone4;
   }
 
-  set autoStone4(value: number) {
+  set autoStone4(value: Stone) {
     this._autoStone4 = value;
   }
 
-  get autoStone5(): number {
+  get autoStone5(): Stone {
     return this._autoStone5;
   }
 
-  set autoStone5(value: number) {
+  set autoStone5(value: Stone) {
     this._autoStone5 = value;
   }
 
-  get autoStone6(): number {
+  get autoStone6(): Stone {
     return this._autoStone6;
   }
 
-  set autoStone6(value: number) {
+  set autoStone6(value: Stone) {
     this._autoStone6 = value;
   }
 
-  get autoDelivered(): number {
-    return this._autoDelivered;
+  get autoDeliveredSkystones(): number {
+    return this._autoDeliveredSkystones;
   }
 
-  set autoDelivered(value: number) {
-    this._autoDelivered = value;
+  set autoDeliveredSkystones(value: number) {
+    this._autoDeliveredSkystones = value;
+  }
+
+  get autoDeliveredStones(): number {
+    return this._autoDeliveredStones;
+  }
+
+  set autoDeliveredStones(value: number) {
+    this._autoDeliveredStones = value;
   }
 
   get autoReturned(): number {
@@ -473,28 +401,36 @@ export default class SkystoneAllianceDetails implements ISerializable {
     this._telePlacedPts = value;
   }
 
-  get towerBonusPts(): number {
-    return this._towerBonusPts;
+  get towerBonus(): number {
+    return this._towerBonus;
   }
 
-  set towerBonusPts(value: number) {
-    this._towerBonusPts = value;
+  set towerBonus(value: number) {
+    this._towerBonus = value;
   }
 
-  get capPts(): number {
-    return this._capPts;
+  get cappingBonus(): number {
+    return this._cappingBonus;
   }
 
-  set capPts(value: number) {
-    this._capPts = value;
+  set cappingBonus(value: number) {
+    this._cappingBonus = value;
   }
 
-  get parkPts(): number {
-    return this._parkPts;
+  get levelBonus(): number {
+    return this._levelBonus;
   }
 
-  set parkPts(value: number) {
-    this._parkPts = value;
+  set levelBonus(value: number) {
+    this._levelBonus = value;
+  }
+
+  get endRobotsParked(): number {
+    return this._endRobotsParked;
+  }
+
+  set endRobotsParked(value: number) {
+    this._endRobotsParked = value;
   }
 
   get autoPts(): number {
