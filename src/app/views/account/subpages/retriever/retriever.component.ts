@@ -84,6 +84,7 @@ export class RetrieverComponent implements OnInit {
       return this.cloud.teamsRetriever(this.user.firebaseUser, '20' + this.rerunSelectedSeason.seasonKey.substring(0, 2));
     }).then((teams: any) => {
       this.newTeams = teams.new_teams.map((result: any) => new Team().fromJSON(result));
+      this.modifiedTeams = teams.modified_teams.map((result: any) => new ModifiedTeam().fromJSON(result));
     }).catch((err) => {
       this.translate.get('general.error_occurred').subscribe((str) => {
         this.snackbar.open(`${str} (HTTP-${err.status})`);
@@ -139,12 +140,13 @@ export class RetrieverComponent implements OnInit {
     const json = this.modifiedTeams.map((team) => team.toJSON());
     const route = (this.ftc.year === this.selectedSeason.seasonKey) ? `/team` : `/team/history/${this.selectedSeason.seasonKey}`;
     this.cloud.toaPut(this.user.firebaseUser, json, route).then((data) => {
-      this.translate.get('pages.account.retriever.success_teams', {value: this.newTeams.length}).subscribe((str) => {
+      this.translate.get('pages.account.retriever.success_teams', {value: this.modifiedTeams.length}).subscribe((str) => {
         this.snackbar.open(str).afterDismiss();
       });
-      this.newTeams = undefined;
+      this.modifiedTeams = undefined;
       return this.cloud.teamsRetriever(this.user.firebaseUser, '20' + this.rerunSelectedSeason.seasonKey.substring(0, 2));
     }).then((teams: any) => {
+      this.newTeams = teams.new_teams.map((result: any) => new Team().fromJSON(result));
       this.modifiedTeams = teams.modified_teams.map((result: any) => new ModifiedTeam().fromJSON(result));
     }).catch((err) => {
       this.translate.get('general.error_occurred').subscribe((str) => {

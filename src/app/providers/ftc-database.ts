@@ -330,7 +330,10 @@ export class FTCDatabase {
   public getEventInsights(eventKey: string, type: string): Promise<Insights> {
     return new Promise<Insights>((resolve, reject) => {
       this.request('/event/' + eventKey + '/insights?type=' + type).then((data: any[]) => {
-        resolve(InsightsData.getInsights(eventKey.split('-')[0]).fromJSON(data[0] || {}));
+        if (!data || !data[0]) {
+          return null;
+        }
+        resolve(InsightsData.getInsights(eventKey.split('-')[0]).fromJSON(data[0]));
       }).catch((err: any) => reject(err));
     });
   }
