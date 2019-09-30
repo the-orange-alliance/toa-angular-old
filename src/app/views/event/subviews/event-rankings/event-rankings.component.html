@@ -3,15 +3,15 @@
     <table mdcDataTableTable>
       <thead>
       <tr mdcDataTableHeaderRow>
-        <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.rank' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.rank' | translate }}</th>
         <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.team' | translate }}</th>
-        <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.wlt_record' | translate }}</th>
-        <th mdcDataTableHeaderCell *ngIf="showOPR" style="cursor: help" (click)="showOprHelp()">OPR</th>
-        <th mdcDataTableHeaderCell *ngIf="showQualPoints">{{ 'pages.event.subpages.rankings.qual_points' | translate }}</th>
-        <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.ranking_points' | translate }}</th>
-        <th mdcDataTableHeaderCell *ngIf="showTieBreakerPoints">{{ 'pages.event.subpages.rankings.tie_reaker_points' | translate }}</th>
-        <th mdcDataTableHeaderCell *ngIf="showHighScore">{{ 'pages.event.subpages.rankings.highest_score' | translate }}</th>
-        <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.matches_played' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.wlt_record' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showOPR" style="cursor: help" (click)="showOprHelp()">OPR</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showQualPoints">{{ 'pages.event.subpages.rankings.qual_points' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.ranking_points' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showTieBreakerPoints">{{ 'pages.event.subpages.rankings.tie_reaker_points' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showHighScore">{{ 'pages.event.subpages.rankings.highest_score' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.matches_played' | translate }}</th>
       </tr>
       </thead>
       <tbody mdcDataTableContent>
