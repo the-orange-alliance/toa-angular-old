@@ -17,7 +17,7 @@ import { AddDataComponent } from './views/add-data/add-data.component';
 import { LoginComponent } from './views/account/login/login.component';
 import { RegisterComponent } from './views/account/register/register.component';
 
-const donateUrl = 'https://www.paypal.com/donate/?token=6Mm_17HVz4hWmEp5RZS052WhAnucfA0pqv2arAjZHSlR-xdeyTZHx4zduqEV23zUGuMPom&country.x=US&locale.x=US';
+const donateUrl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CDE5Q5XXPM25J&source=toa_donate_link';
 
 const routes: Routes = [
   { path: 'kickoff', redirectTo: '/stream?kickoff' },
