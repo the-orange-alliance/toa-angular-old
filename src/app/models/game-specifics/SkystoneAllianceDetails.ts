@@ -99,7 +99,7 @@ export default class SkystoneAllianceDetails implements ISerializable {
       first_returned_is_skystone: this.firstReturnedIsSkystone,
       auto_placed: this.autoPlaced,
       foundation_repositioned: this.foundationRepositioned,
-      tele_delevered: this.teleDelivered,
+      tele_delivered: this.teleDelivered,
       tele_returned: this.teleReturned,
       tele_placed: this.telePlaced,
       robot_1: {
@@ -145,7 +145,7 @@ export default class SkystoneAllianceDetails implements ISerializable {
     alliance.firstReturnedIsSkystone = json.first_returned_is_skystone;
     alliance.autoPlaced = json.auto_placed;
     alliance.foundationRepositioned = json.foundation_repositioned;
-    alliance.teleDelivered = json.tele_delevered;
+    alliance.teleDelivered = json.tele_delivered;
     alliance.teleReturned = json.tele_returned;
     alliance.telePlaced = json.tele_placed;
     alliance.robot1Nav = json.robot_1.nav;
