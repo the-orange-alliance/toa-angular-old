@@ -13,7 +13,7 @@ export default class MatchBreakdown1819 {
       MatchBreakdownTitle('Autonomous', match.redAutoScore, match.blueAutoScore),
       MatchBreakdownBoolField('Repositioning Foundation', red.foundationRepositioned , blue.foundationRepositioned, 10),
       MatchBreakdownField('Delivering Skystones', red.autoDeliveredSkystones, blue.autoDeliveredSkystones, 10),
-      MatchBreakdownField('Delivering Stones under Alliance Skybridge', 0 , 0, 4),
+      MatchBreakdownField('Delivering Stones under Alliance Skybridge', red.autoDeliveredStones , blue.autoDeliveredStones, 2),
       MatchBreakdownField('Stones on Foundation', red.autoPlaced , blue.autoPlaced, 4),
       MatchBreakdownField('Navigating under Skybridge', this.getNavigatingRobots(red) , this.getNavigatingRobots(blue), 5),
 
@@ -26,7 +26,7 @@ export default class MatchBreakdown1819 {
       MatchBreakdownField('Delivering Stones under Alliance Skybridge', red.teleDelivered , blue.teleDelivered, 1),
       MatchBreakdownField('Stones on Foundation', red.telePlaced , blue.telePlaced, 1),
       MatchBreakdownField('Skyscraper Bonus', red.towerBonus, red.towerBonus, 2),
-      MatchBreakdownField('Returned Stones', red.teleReturned, blue.teleReturned, -2),
+      MatchBreakdownField('Returned Stones', red.teleReturned, blue.teleReturned, -1),
 
       MatchBreakdownTitle('End Game', match.redEndScore, match.blueEndScore),
       MatchBreakdownField('Capping Bonus', red.cappingBonus, blue.cappingBonus, 5),
