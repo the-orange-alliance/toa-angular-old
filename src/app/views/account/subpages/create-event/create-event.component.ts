@@ -11,6 +11,7 @@ import Region from '../../../../models/Region';
 import Event from '../../../../models/Event';
 import User from '../../../../models/User';
 import League from '../../../../models/League';
+import {FormControl, FormGroup, ValidationErrors} from '@angular/forms';
 
 @Component({
   selector: 'toa-account-create-event',
@@ -21,143 +22,114 @@ export class CreateEventComponent implements OnInit {
 
   @Input() user: User;
 
-  @ViewChild('event_name', {static: false}) eventName: MdcTextField;
-  @ViewChild('event_id', {static: false}) eventId: MdcTextField;
-  @ViewChild('start_date', {static: false}) startDate: MdcTextField;
-  @ViewChild('end_date', {static: false}) endDate: MdcTextField;
-  @ViewChild('website', {static: false}) website: MdcTextField;
-  @ViewChild('venue', {static: false}) venue: MdcTextField;
-  @ViewChild('city', {static: false}) city: MdcTextField;
-  @ViewChild('state', {static: false}) state: MdcTextField;
-  @ViewChild('country', {static: false}) country: MdcTextField;
-  @ViewChild('eventCache', {static: false}) eventCache: MdcTextField;
-  @ViewChild('teamCache', {static: false}) teamCache: MdcTextField;
-  @ViewChild('matchCache', {static: false}) matchCache: MdcTextField;
-  @ViewChild('dual_division', {static: false}) dualDivision: MdcCheckbox;
-  @ViewChild('division_number', {static: false}) divisionNumber: MdcTextField;
-  @ViewChild('division_name', {static: false}) divisionName: MdcTextField;
-  @ViewChild('advanced', {static: false}) advanced: MdcCheckbox;
-  @ViewChild('number_fields', {static: false}) numberFields: MdcTextField;
-  @ViewChild('number_alliances', {static: false}) numberAlliances: MdcTextField;
-  @ViewChild('advancement_spots', {static: false}) advSpots: MdcTextField;
-  @ViewChild('advancement_event', {static: false}) advEvent: MdcTextField;
+  form: FormGroup;
 
   seasons: Season[];
   regions: Region[];
   eventTypes: EventType[];
   leagues: League[];
-  currentSeason: Season = null;
-  currentRegion: Region = null;
-  currentEventType: EventType = null;
-  currentLeague: League = null;
-
-  nullLeague = new League();
 
   constructor(private appBarService: AppBarService, private cloud: CloudFunctions, private ftc: FTCDatabase,
               private translate: TranslateService, private snackbar: MdcSnackbar, private router: Router) {
+    this.form = new FormGroup({
+      eventName: new FormControl(),
+      season: new FormControl(),
+      region: new FormControl(),
+      league: new FormControl('no-league'),
+      website: new FormControl(),
+      startDate: new FormControl(),
+      endDate: new FormControl(),
+      divisionName: new FormControl(),
+      numberFields: new FormControl(2),
+      numberAlliances: new FormControl(4),
+      dualDivision: new FormControl(false),
+      advanced: new FormControl(false),
+      eventId: new FormControl(),
+      eventType: new FormControl(),
+      venue: new FormControl(),
+      city: new FormControl(),
+      state: new FormControl(),
+      country: new FormControl(),
+      divisionNumber: new FormControl(0),
+      advancementSpots: new FormControl(),
+      advancementEvent: new FormControl()
 
+    }, {
+      validators: (control: FormGroup): ValidationErrors | null => {
+        const dualDivision = control.get('dualDivision');
+        const eventId = control.get('eventId');
+        const lastChar = (eventId.value || '').substr((eventId.value || '').length - 1);
+
+        return dualDivision.value && !isNaN(parseInt(lastChar, 10)) ? { 'eventIdNumber': true } : null;
+      }
+    });
   }
 
   ngOnInit() {
-    this.nullLeague.leagueKey = 'League';
-    this.nullLeague.regionKey = 'No';
-    this.nullLeague.description = 'No League Assoc.';
     this.translate.get('pages.account.manage_events').subscribe((res) => {
       this.appBarService.setTitle('myTOA - ' + res, true)
     });
     this.ftc.getAllRegions().then((data: Region[]) => {
       this.regions = data;
-      this.currentRegion = this.regions[0];
+
+      const testRegion = new Region();
+      testRegion.regionKey = 'TEST';
+      this.regions.push(testRegion);
     });
     this.ftc.getAllSeasons().then((data: Season[]) => {
       this.seasons = data.reverse();
-      this.currentSeason = this.seasons[0];
+      this.form.controls.season.setValue(this.seasons[0].seasonKey);
     });
     this.ftc.getAllEventTypes().then((data: EventType[]) => {
       this.eventTypes = data;
-      this.currentEventType = this.eventTypes[0];
     });
     this.ftc.getAllLeagues().then((data: League[]) => {
-      data.reverse();
-      data.push(this.nullLeague);
-      data.reverse();
       this.leagues = data;
-      this.currentLeague = this.leagues[0];
     });
-  }
-
-  onSeasonChange(event: {index: any, value: any}) {
-    this.currentSeason = this.seasons[event.index - 1];
-  }
-
-  onRegionChange(event: {index: any, value: any}) {
-    this.currentRegion = this.regions[event.index - 1];
-  }
-
-  onEventTypeChange(event: {index: any, value: any}) {
-    this.currentEventType = this.eventTypes[event.index - 1];
-  }
-
-  onLeagueChange(event: {index: any, value: any}) {
-    if (event.index > 1) {
-      this.currentLeague = this.leagues[event.index - 1];
-    } else {
-      this.currentLeague = null;
-    }
   }
 
   resetAdvanced() {
-    this.numberAlliances.value = 4;
-    this.numberFields.value = 2;
-    this.advSpots.value = '';
-    this.advEvent.value = '';
-
-    this.numberAlliances.disabled = true;
-    this.numberFields.disabled = true;
-    this.advSpots.disabled = true;
-    this.advEvent.disabled = true;
-
-    this.numberAlliances.disabled = false;
-    this.numberFields.disabled = false;
-    this.advSpots.disabled = false;
-    this.advEvent.disabled = false;
+    this.form.controls.numberAlliances.setValue(4);
+    this.form.controls.numberFields.setValue(2);
+    this.form.controls.advancementSpots.setValue('');
+    this.form.controls.advancementEvent.setValue('');
   }
 
   resetDualDivision() {
-    this.divisionNumber.value = 0;
-    this.divisionName.value = '';
-
-    this.divisionNumber.disabled = true;
-    this.divisionName.disabled = true;
-
-    this.divisionNumber.disabled = false;
-    this.divisionName.disabled = false;
+    this.form.controls.divisionNumber.setValue(0);
+    this.form.controls.divisionName.setValue('');
   }
 
   createEvent() {
+    if ((this.form.errors || {}).eventIdNumber) {
+      return this.snackbar.open('The eventId cannot end in a number!');
+    } else if (this.form.invalid) {
+      return this.snackbar.open('Please fill all required fields');
+    }
     const event = new Event;
-    event.eventKey = this.currentSeason.seasonKey + '-' + this.currentRegion.regionKey + '-' + this.eventId.value + (this.divisionNumber ? this.divisionNumber.value : '');
-    event.seasonKey = this.currentSeason.seasonKey;
-    event.regionKey = this.currentRegion.regionKey;
-    event.leagueKey = (this.currentLeague === null) ? null : this.currentLeague.leagueKey;
-    event.eventCode = this.eventId.value;
-    event.eventTypeKey = this.currentEventType.eventTypeKey;
-    event.eventName = this.eventName.value;
-    event.divisionKey = (this.divisionNumber) ? this.divisionNumber.value : 0;
-    event.divisionName = (this.divisionName) ? this.divisionName.value : undefined;
-    event.fieldCount = (this.numberFields) ? this.numberFields.value : 2;
-    event.allianceCount = (this.numberAlliances) ? this.numberAlliances.value : 4;
-    event.advanceSpots = (this.advSpots) ? this.advSpots.value : undefined;
-    event.advanceEvent = (this.advEvent) ? this.advEvent.value : undefined;
+    const values = this.form.value;
+    event.seasonKey = values.season;
+    event.regionKey = values.region;
+    event.eventCode = values.eventId.toUpperCase();
+    event.eventKey = (event.seasonKey + '-' + event.regionKey + '-' + event.eventCode + ( values.dualDivision && values.divisionNumber ? values.divisionNumber.value : '')).toUpperCase();
+    event.leagueKey = !values.league || values.league === 'no-league' ? null : values.league;
+    event.eventTypeKey = values.eventType;
+    event.eventName = values.eventName;
+    event.divisionKey = values.dualDivision && values.divisionNumber ? values.divisionNumber : 0;
+    event.divisionName = values.dualDivision && values.divisionName ? values.divisionName : null;
+    event.fieldCount = values.numberFields ? values.numberFields : 2;
+    event.fieldCount = values.numberAlliances ? values.numberAlliances : 4;
+    event.advanceSpots = values.advancementSpots;
+    event.advanceEvent = values.advancementEvent;
     event.activeTournamentLevel = '0';
-    event.startDate = this.startDate.value;
-    event.endDate = this.endDate.value;
-    event.weekKey = this.dateToMonth(this.startDate.value);
-    event.city = this.city.value;
-    event.stateProv = this.state.value;
-    event.country = this.country.value;
-    event.venue = this.venue.value;
-    event.isPublic = true;
+    event.startDate = values.startDate;
+    event.endDate = values.endDate;
+    event.weekKey = this.dateToMonth(values.startDate);
+    event.venue = values.venue;
+    event.city = values.city;
+    event.stateProv = values.state;
+    event.country = values.country;
+    event.isPublic = event.regionKey !== 'TEST';
 
     this.cloud.createEvent(this.user.firebaseUser, [event.toJSON()]).then((data) => {
       this.translate.get('pages.account.create_event_card.success').subscribe((str) => {
