@@ -117,6 +117,10 @@ export class EventsComponent implements OnInit {
         this.events = new EventSorter().sort(data);
         this.eventFilter = new EventFilter(this.events);
         this.selectRegion(this.currentRegion)
+      }).catch(() => {
+        this.events = [];
+        this.eventFilter = new EventFilter(this.events);
+        this.selectRegion(this.currentRegion)
       });
     }
     return null;

@@ -16,6 +16,8 @@
     "here": "Aquí",
     "verify": "Verificar",
     "add": "Añadir",
+    "close": "",
+    "save": "",
     "error_occurred": "Se ha producido un error, inténtelo de nuevo más tarde",
     "search_text_long": "Buscar equipos y eventos",
     "search_text_short": "Equipo # o evento",
@@ -29,12 +31,15 @@
     "events": "Eventos",
     "streaming": "Transmisión en directo",
     "android_app": "Aplicación de Android",
+    "ios_app": "",
     "add_data": "Agregar datos",
     "api": "API",
     "github": "GitHub",
     "about": "Sobre",
     "donate": "Donar",
+    "amazon_smile": "",
     "privacy_and_terms": "Privacidad y términos",
+    "official_ftc": "",
     "mytoa": {
       "hello": "Hola, {{ name }}",
       "guest": "Invitado",
@@ -69,6 +74,27 @@
       "no_verify": "Por favor considere verificar su correo electrónico",
       "why_verify": "Para disfrutar de todas las funciones de tu cuenta, tu dirección de correo electrónico debe verificarse.",
       "manage_events": "Administrar eventos",
+      "division_tab": {
+        "manage_leagues": "",
+        "create_league": "",
+        "create_league_div": "",
+        "division_key": "",
+        "leagues": "",
+        "league_divisions": "",
+        "create_league_fields": {
+          "league_key": "",
+          "league_description": "",
+          "division_desc": ""
+        }
+      },
+      "notifications_card": {
+        "title": "",
+        "summary": "",
+        "grant_access": "",
+        "enabled": "",
+        "blocked": "",
+        "help": ""
+      },
       "api_card": {
         "title": "Construye cosas increíbles con nuestros API",
         "your_key": "Aquí está su clave de API:",
@@ -82,9 +108,13 @@
       "reset_password_email": "Se ha enviado un correo electrónico de restablecimiento de contraseña.",
       "link_account": "Vincular {{ name }} cuenta",
       "unlink_account": "desconectar {{ name }} cuenta",
+      "link_phone": "",
+      "unlink_phone": "",
       "success_link": "Cuenta de {{ name }} vinculada correctamente",
       "success_unlink": "Cuenta de {{ name }} desenlazada correctamente",
       "last_signin": "Última sesión",
+      "league_creation_success": "",
+      "league_division_creation_success": "",
       "datasync_card": {
         "title": "Sincroniza su evento en vivo con TOA",
         "docs": "Puede ver nuestros documentación completa de DataSync en"
@@ -94,6 +124,7 @@
         "create": "Crear",
         "event_id": "ID de evento",
         "event_type": "Tipo de evento",
+        "league": "",
         "region": "Región",
         "season": "Temporada",
         "division_number": "Número de división",
@@ -111,6 +142,11 @@
         "general": "General",
         "dump": "Volcado",
         "success": "Caché de volcado con éxito"
+      },
+      "retriever": {
+        "title": "",
+        "success_events": "",
+        "success_teams": ""
       },
       "subpages": {
         "login": {
@@ -160,17 +196,32 @@
       "stream_available": "¡La transmisión en directo esta disponible!",
       "alliances_count": "{{ value }} Alianzas",
       "fields_count": "{{ value }} Canchas",
+      "matches_per_team": "",
+      "settings": {
+        "title": "",
+        "favorite": "",
+        "favorite_summary": "",
+        "notification_settings": "",
+        "notification_settings_summary": "",
+        "match_scores": "",
+        "schedule_updated": "",
+        "awards_posted": "",
+        "alliances_posted": "",
+        "saved": "",
+        "failed": ""
+      },
       "subpages": {
         "rankings": {
           "title": "Clasificaciones",
           "rank": "Rango",
           "team": "Equipo",
-          "wlt_record": "Récord (G-P-E)",
+          "wlt_record": "G-P-E",
           "qual_points": "Puntos de calificación",
           "ranking_points": "Puntos de ranking",
           "tie_reaker_points": "Puntos de desempate",
           "highest_score": "Puntuación más alta",
-          "matches_played": "Partidos jugados"
+          "matches_played": "Partidos jugados",
+          "what_is_opr": ""
         },
         "matches": {
           "title": "Partidos"
@@ -178,12 +229,33 @@
         "teams": {
           "title": "Equipos"
         },
+        "alliances": {
+          "title": "Alianzas"
+        },
         "awards": {
           "title": "Premios"
+        },
+        "insights": {
+          "title": "",
+          "qual": "",
+          "playoff": "",
+          "high_score": "",
+          "avg_score": "",
+          "avg_winning_score": "",
+          "avg_winning_margin": "",
+          "prc_landed": "",
+          "prc_latched": "",
+          "prc_sampling": "",
+          "prc_claiming": "",
+          "prc_parking": "",
+          "avg_golds": "",
+          "avg_silvers": "",
+          "avg_depot": ""
         },
         "for-participants": {
           "title": "Para los participantes",
           "pits_map": "Mapa de pits",
+          "venue_map": "",
           "schedule": "Horario de evento"
         },
         "admin": {
@@ -208,8 +280,6 @@
             "state": "Estado",
             "country": "País",
             "update": "Actualización",
-            "pits_map": "Mapa de pits",
-            "schedule": "Horario de evento",
             "upload": "Subir",
             "image_only": "Puede subir sólo como una imagen",
             "choose_image": "Elegir imagen...",
@@ -244,6 +314,7 @@
     "events": {
       "filter_season": "Temporada",
       "filter_region": "Región",
+      "filter": "",
       "clear_filter": "Borrar filtro"
     },
 
@@ -259,6 +330,7 @@
       "event_results": "Resultados del evento",
       "close_stream": "Cerrar la transmisión",
       "select_stream": "Seleccionar stream",
+      "show_chat": "",
       "select": "Seleccionar",
       "cancel": "Cancelar",
       "layouts": {
@@ -323,6 +395,9 @@
     "event_long": "NO SE HAN REPORTADO RESULTADOS PARA ESTE EVENTO.",
     "streams_long": "Actualmente no hay transmisiones activas.",
     "events_for_season": "No hay eventos para {{ season }} la temporada",
-    "events_for_season_long": "Este equipo aún no ha jugado en ningún evento esta temporada.<br/>Intenta cambiar la temporada usando el selector de arriba."
+    "events_for_season_long": "Este equipo aún no ha jugado en ningún evento esta temporada.<br/>Intenta cambiar la temporada usando el selector de arriba.",
+    "events_filter": "",
+    "events_filter_long": "",
+    "match_breakdown": ""
   }
 }

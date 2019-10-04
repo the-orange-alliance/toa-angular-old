@@ -19,12 +19,13 @@ import TeamSeasonRecord from '../models/TeamSeasonRecord';
 import Alliance from '../models/Alliance';
 import Insights from '../models/Insights';
 import * as InsightsData from '../models/game-specifics/InsightsData';
+import LeagueDiv from '../models/LeagueDiv';
 
 @Injectable()
 export class FTCDatabase {
 
-  public year = '1819';
-  public allYears = ['1617', '1718', '1819'];
+  public year = '1920';
+  public allYears = ['1617', '1718', '1819', '1920'];
 
   public baseURL = 'https://theorangealliance.org/api';
   // public baseURL = 'http://127.0.0.1:8008/api';
@@ -89,10 +90,35 @@ export class FTCDatabase {
     });
   }
 
-  public getAllLeagues(): Promise<League[]> {
+  public getAllLeagues(seasonKey = undefined, regionKey = undefined): Promise<League[]> {
+    const seasonQuery = 'season_key=' + seasonKey;
+    const regionQuery = 'region_key=' + regionKey;
+    let queries;
+    if (regionKey !== undefined && seasonKey !== undefined) {
+      queries = `?${regionQuery}&${seasonQuery}`
+    } else {
+      queries = (regionKey !== undefined) ? `?${regionQuery}` : (seasonKey !== undefined) ? `?${seasonQuery}` : '';
+    }
     return new Promise<League[]>((resolve, reject) => {
-      this.request('/leagues').then((data: any[]) => {
+      this.request('/leagues' + queries).then((data: any[]) => {
         resolve(data.map((result: any) => new League().fromJSON(result)));
+      }).catch((err: any) => reject(err));
+    });
+  }
+
+  public getAllLeagueDivisions(seasonKey = undefined, regionKey = undefined, leagueKey = undefined): Promise<LeagueDiv[]> {
+    const seasonQuery = 'season_key=' + seasonKey;
+    const regionQuery = 'region_key=' + regionKey;
+    const leagueQuery = 'league_key=' + leagueKey;
+    let queries = '';
+    if (seasonKey !== undefined || regionKey !== undefined || leagueKey !== undefined) {
+      queries = `?${(seasonKey !== undefined) ? seasonQuery : ''}`;
+      queries += (queries.length > 1 && regionKey !== undefined) ? `&${regionQuery}` : (queries.length === 1 && regionKey !== undefined) ? regionQuery : '';
+      queries += (queries.length > 1 && leagueKey !== undefined) ? `&${leagueQuery}` : (queries.length === 1 && leagueKey !== undefined) ? leagueQuery : '';
+    }
+    return new Promise<LeagueDiv[]>((resolve, reject) => {
+      this.request('/league/divisions' + queries).then((data: any[]) => {
+        resolve(data.map((result: any) => new LeagueDiv().fromJSON(result)));
       }).catch((err: any) => reject(err));
     });
   }
@@ -304,7 +330,10 @@ export class FTCDatabase {
   public getEventInsights(eventKey: string, type: string): Promise<Insights> {
     return new Promise<Insights>((resolve, reject) => {
       this.request('/event/' + eventKey + '/insights?type=' + type).then((data: any[]) => {
-        resolve(InsightsData.getInsights(eventKey.split('-')[0]).fromJSON(data[0] || {}));
+        if (!data || !data[0]) {
+          return null;
+        }
+        resolve(InsightsData.getInsights(eventKey.split('-')[0]).fromJSON(data[0]));
       }).catch((err: any) => reject(err));
     });
   }

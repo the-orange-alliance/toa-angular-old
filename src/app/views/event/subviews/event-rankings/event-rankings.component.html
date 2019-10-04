@@ -1,24 +1,27 @@
 <div class="col-12">
-<!--
-  <mdc-data-table>
+  <mdc-data-table class="w-100 rankings-table">
     <table mdcDataTableTable>
       <thead>
       <tr mdcDataTableHeaderRow>
-        <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.rank' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.rank' | translate }}</th>
         <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.team' | translate }}</th>
         <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.wlt_record' | translate }}</th>
-        <th mdcDataTableHeaderCell *ngIf="showOPR" style="cursor: help" (click)="showOprHelp()">OPR</th>
-        <th mdcDataTableHeaderCell *ngIf="showQualPoints">{{ 'pages.event.subpages.rankings.qual_points' | translate }}</th>
-        <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.ranking_points' | translate }}</th>
-        <th mdcDataTableHeaderCell *ngIf="showTieBreakerPoints">{{ 'pages.event.subpages.rankings.tie_reaker_points' | translate }}</th>
-        <th mdcDataTableHeaderCell *ngIf="showHighScore">{{ 'pages.event.subpages.rankings.highest_score' | translate }}</th>
-        <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.matches_played' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showOPR" style="cursor: help" (click)="showOprHelp()">OPR</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showQualPoints">{{ 'pages.event.subpages.rankings.qual_points' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.ranking_points' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showTieBreakerPoints">{{ 'pages.event.subpages.rankings.tie_reaker_points' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showHighScore">{{ 'pages.event.subpages.rankings.highest_score' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.matches_played' | translate }}</th>
       </tr>
       </thead>
       <tbody mdcDataTableContent>
       <tr mdcDataTableRow *ngFor="let rank of rankings">
         <td mdcDataTableCell numeric>{{ rank.rank }}</td>
-        <td mdcDataTableCell><a routerLink="/teams/{{ rank.teamKey }}">#{{ rank.team.teamNumber }} {{ rank.team.teamNameShort || '' }}</a></td>
+        <td mdcDataTableCell style="max-width: 200px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden">
+          <a routerLink="/teams/{{ rank.teamKey }}" class="currentColor">
+            #{{ rank.team.teamNumber }} {{ rank.team.teamNameShort || '' }}
+          </a>
+        </td>
         <td mdcDataTableCell>{{ rank.wins }} - {{ rank.losses }} - {{ rank.ties }}</td>
         <td mdcDataTableCell numeric *ngIf="showOPR">{{ rank.opr }}</td>
         <td mdcDataTableCell numeric *ngIf="showQualPoints">{{ rank.qualifyingPoints }}</td>
@@ -30,33 +33,4 @@
       </tbody>
     </table>
   </mdc-data-table>
--->
-  <table class="table table-responsive d-md-table d-sm-block">
-    <thead class="thead-light">
-      <tr>
-        <th>{{ 'pages.event.subpages.rankings.rank' | translate }}</th>
-        <th>{{ 'pages.event.subpages.rankings.team' | translate }}</th>
-        <th>{{ 'pages.event.subpages.rankings.wlt_record' | translate }}</th>
-        <th  *ngIf="showOPR" style="cursor: help" (click)="showOprHelp()">OPR</th>
-        <th *ngIf="showQualPoints">{{ 'pages.event.subpages.rankings.qual_points' | translate }}</th>
-        <th>{{ 'pages.event.subpages.rankings.ranking_points' | translate }}</th>
-        <th *ngIf="showTieBreakerPoints">{{ 'pages.event.subpages.rankings.tie_reaker_points' | translate }}</th>
-        <th *ngIf="showHighScore">{{ 'pages.event.subpages.rankings.highest_score' | translate }}</th>
-        <th>{{ 'pages.event.subpages.rankings.matches_played' | translate }}</th>
-      </tr>
-    </thead>
-    <tbody *ngIf="rankings">
-      <tr *ngFor="let rank of rankings" >
-        <td>{{ rank.rank }}</td>
-        <td><a routerLink="/teams/{{ rank.teamKey }}">#{{ rank.team.teamNumber }} {{ rank.team.teamNameShort || '' }}</a></td>
-        <td>{{ rank.wins }} - {{ rank.losses }} - {{ rank.ties }}</td>
-        <td *ngIf="showOPR">{{ rank.opr }}</td>
-        <td *ngIf="showQualPoints">{{ rank.qualifyingPoints }}</td>
-        <td>{{ rank.rankingPoints }}</td>
-        <td *ngIf="showTieBreakerPoints">{{ rank.tieBreakerPoints }}</td>
-        <td *ngIf="showHighScore">{{ rank.highestQualScore }}</td>
-        <td>{{ rank.played }}</td>
-      </tr>
-    </tbody>
-  </table>
 </div>

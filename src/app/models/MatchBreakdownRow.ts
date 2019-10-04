@@ -1,6 +1,6 @@
 export class MatchBreakdownConstants {
-  trueValue = -100;
-  falseValue = -200;
+  trueValue = -1000;
+  falseValue = -2000;
 }
 
 export class MatchBreakdownRow {
@@ -12,6 +12,9 @@ export class MatchBreakdownRow {
   isVelocityVortexParking: boolean;
   isVelocityVortexCapBall: boolean;
 
+  redIcon: string;
+  blueIcon: string;
+
   constructor (isTitle: boolean, name: string, red: number, blue: number, points: number, velocityVortexParking: boolean, velocityVortexCapBall: boolean) {
     this.isTitle = isTitle;
     this.name = name;
@@ -20,6 +23,10 @@ export class MatchBreakdownRow {
     this.points = points;
     this.isVelocityVortexParking = velocityVortexParking;
     this.isVelocityVortexCapBall = velocityVortexCapBall;
+
+    const constants = new MatchBreakdownConstants();
+    this.redIcon = this.red === constants.trueValue ? 'check' : this.red === constants.falseValue ? 'close' : null;
+    this.blueIcon = this.blue === constants.trueValue ? 'check' : this.blue === constants.falseValue ? 'close' : null;
   }
 
   getRedPoints(): string {
@@ -45,11 +52,13 @@ export class MatchBreakdownRow {
       return this.getVelocityVortexCapBallString(s);
     } else {
       const constants = new MatchBreakdownConstants();
-      let mark = s.toString();
-      if (s === constants.trueValue || s === constants.falseValue) {
-        mark = s === constants.trueValue ? '✅️' : '❎';
-      }
-      return s > 0 ? `${mark} (+${s * this.points})` : '0';
+      const isTrue = s === constants.trueValue;
+      const isFalse = s === constants.falseValue;
+      const isTrueFalse = isTrue || isFalse;
+
+      const name = !isTrueFalse ? s : '';
+      const pts = !isTrueFalse ? s * this.points : isTrue ? this.points : 0;
+      return s !== 0 && !isFalse ? `${name} (${pts > 0 ? '+' : ''}${pts})` : isFalse ? '' : '0';
     }
   }
 

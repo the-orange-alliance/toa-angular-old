@@ -74,11 +74,19 @@
       "no_verify": "Please verify your email",
       "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
       "manage_events": "Manage Events",
-      "manage_leagues": "Manage Leagues",
-      "create_league": "Create League",
-      "create_league_fields": {
-        "league_key": "League Key",
-        "league_description": "League Description"
+      "division_tab": {
+        "manage_leagues": "Manage Leagues",
+        "select_season": "Select Season",
+        "create_league": "Create League",
+        "create_league_div": "Create League Division",
+        "division_key": "Division Key",
+        "leagues": "Leagues",
+        "league_divisions": "League Divisions",
+        "create_league_fields": {
+          "league_key": "League Key",
+          "league_description": "League Description",
+          "division_desc": "Division Description"
+        }
       },
       "notifications_card": {
         "title": "Notifications",
@@ -107,6 +115,9 @@
       "success_unlink": "Successfully unlinked {{ name }} account",
       "last_signin": "Last Sign In",
       "league_creation_success": "Successfully created league!",
+      "league_deletion_success": "Successfully deleted league!",
+      "league_division_creation_success": "Successfully created league division!",
+      "league_division_deletion_success": "Successfully deleted league division!",
       "datasync_card": {
         "title": "Sync your event live with TOA",
         "docs": "You can check out our full DataSync Documentation"
@@ -207,7 +218,7 @@
           "title": "Rankings",
           "rank": "Rank",
           "team": "Team",
-          "wlt_record": "Record (W-L-T)",
+          "wlt_record": "W-L-T",
           "qual_points": "Qualification Points",
           "ranking_points": "Ranking Points",
           "tie_reaker_points": "Tie Breaker Points",

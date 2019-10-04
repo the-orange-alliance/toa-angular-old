@@ -31,9 +31,11 @@ export class HomeComponent {
   public today: Date;
 
   constructor(private router: Router, private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals) {
+    this.app.setTitle('Home');
+    this.app.setDescription('The Orange Alliance is the official match, event, and team data provider for FIRST Tech Challenge.');
+
     this.today = new Date();
     this.currentEvents = [];
-    this.app.setTitle('Home');
     this.ftc.getTeamSize(this.ftc.year).then((data: number) => {
       this.teamsCount = data;
     });

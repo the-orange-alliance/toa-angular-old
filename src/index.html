@@ -19,42 +19,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="author" content="The Orange Alliance">
-  <meta name="description" content="Your primary source for FTC official information.">
+  <meta name="description" content="The Orange Alliance is the official match, event, and team data provider for FIRST Tech Challenge.">
+  <meta name="keywords" content="TOA,FIRST,FTC,FIRST Tech Challenge,Scores,Results,Teams,Team,Event,Event,List,Match,The Orange Alliance">
   <meta name="theme-color" content="#F89808">
   <link rel="manifest" href="/manifest.json">
   <link rel="shortcut icon" href="assets/imgs/favicon.png">
-  <meta name="og:image"  content="assets/imgs/favicon.png">
+
+  <meta property="og:title" content="The Orange Alliance" />
+  <meta property="og:description" content="The Orange Alliance is the official match, event, and team data provider for FIRST Tech Challenge.">
+  <meta property="og:image" content="https://theorangealliance.org/assets/imgs/icon512.png">
 
   <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,600,700" rel="stylesheet">
   <style>
-  body {
-    font-family: 'Roboto', sans-serif;
-  }
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .loading-spinner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #F5F6F7;
+    }
+
+    .spinner {
+      display: inline-block;
+      border: 4px solid transparent;
+      border-radius: 50%;
+      border-top-color: #F89808;
+      animation: spin 1s linear infinite;
+      -webkit-animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @-webkit-keyframes spin {
+      from { -webkit-transform: rotate(0deg); }
+      to { -webkit-transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
-
   <app-root>
-    <div id="loading-spinner">
-      <div class="sk-fading-circle">
-        <div class="sk-circle1 sk-circle"></div>
-        <div class="sk-circle2 sk-circle"></div>
-        <div class="sk-circle3 sk-circle"></div>
-        <div class="sk-circle4 sk-circle"></div>
-        <div class="sk-circle5 sk-circle"></div>
-        <div class="sk-circle6 sk-circle"></div>
-        <div class="sk-circle7 sk-circle"></div>
-        <div class="sk-circle8 sk-circle"></div>
-        <div class="sk-circle9 sk-circle"></div>
-        <div class="sk-circle10 sk-circle"></div>
-        <div class="sk-circle11 sk-circle"></div>
-        <div class="sk-circle12 sk-circle"></div>
-      </div>
-      <div class="mar-top-50">
-        <p class="loading-text"><span>Lo</span><span>ad</span><span>ing</span><span>.</span><span>.</span><span>.</span></p>
-      </div>
+    <div class="loading-spinner">
+      <svg class="spinner" width="55px" height="55px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+      </svg>
     </div>
   </app-root>
 
@@ -68,6 +83,23 @@
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
     ga('create', 'UA-105262657-1', 'auto');
     ga('send', 'pageview');
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "description": "The Orange Alliance is the official match, event, and team data provider for FIRST Tech Challenge.",
+      "email": "contact@theorangealliance.org",
+      "logo": "https://theorangealliance.org/assets/imgs/icon512.png",
+      "name": "The Orange Alliance",
+      "sameAs": [
+        "https://www.facebook.com/theorangealliance",
+        "https://github.com/orange-alliance",
+        "https://www.instagram.com/toalliance",
+        "https://twitter.com/toalliance"
+      ],
+      "url": "https://theorangealliance.org"
+    }
   </script>
 </body>
 </html>

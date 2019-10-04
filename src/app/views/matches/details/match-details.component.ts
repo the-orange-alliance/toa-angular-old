@@ -3,6 +3,7 @@ import { MatchBreakdownRow, MatchBreakdownTitle } from '../../../models/MatchBre
 import MatchBreakdown1617 from '../years/MatchBreakdown1617';
 import MatchBreakdown1718 from '../years/MatchBreakdown1718';
 import MatchBreakdown1819 from '../years/MatchBreakdown1819';
+import MatchBreakdown1920 from '../years/MatchBreakdown1920';
 import Match from '../../../models/Match';
 
 @Component({
@@ -29,6 +30,9 @@ export class MatchDetailsComponent implements OnInit {
           break;
         case 1819:
           this.rows = new MatchBreakdown1819().getRows(match);
+          break;
+        case 1920:
+          this.rows = new MatchBreakdown1920().getRows(match);
           break;
       }
     } else if (this.match.blueAutoScore > -1) {

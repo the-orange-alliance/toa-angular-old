@@ -55,8 +55,8 @@
       "datasync": "DataSync - סנכרן את האירוע שלך עם TOA בלייב",
       "add_event_data": "הוספת תוצאות אירוע לאחר סיומו",
       "add_match_video": "הוספת סרטון של מקצה",
-      "add_event_stream": "הוספת שידור חיי של אירוע",
-      "stream_your_event": "שדר את האירוע של בערוץ Twitch של TOA"
+      "add_event_stream": "הוספת שידור חי של אירוע",
+      "stream_your_event": "שדר את האירוע שלך בערוץ Twitch שלנו"
     },
 
     "404": {

@@ -2,12 +2,13 @@
 <mdc-top-app-bar #topAppBar fixed style="z-index: 7" [dir]="'config.direction' | translate">
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" [title]="title || 'The Orange Alliance'">
-      <mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="drawer.open = !drawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()"></mdc-icon>
-      <!--<mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="back()" *ngIf="!isScreenSmall() && !topAppBar.isCollapsed()"></mdc-icon>-->
+      <mdc-icon mdcTopAppBarNavIcon (click)="drawer.open = !drawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">
+        menu
+      </mdc-icon>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <a mdcTopAppBarActionItem class="d-block d-md-none" title="Search" data-toggle="modal" (click)="showMobileSearchModal(searchInput)">
-        <mdc-icon svgIcon="magnify"></mdc-icon>
+        <mdc-icon>search</mdc-icon>
       </a>
 
       <div class="search-anchor d-none d-md-block">
@@ -42,29 +43,28 @@
 <div class="mdc-top-app-bar--fixed-adjust" [dir]="'config.direction' | translate">
   <mdc-drawer #drawer="mdcDrawer" [drawer]="isScreenSmall() || topAppBar.isCollapsed() ? 'modal' : 'permanent'" class="toa-drawer--fixed">
     <mdc-drawer-content>
-      <mdc-list-item class="item-profile" disabled>
-        <div *ngIf="!user">
-          <span>{{ 'drawer.mytoa.hello' | translate: {'name': 'drawer.mytoa.guest' | translate } }}</span>
-          <span class="mdc-list-item__secondary-text">
-            <button mdc-button dense routerLink="/account/login">{{ 'drawer.mytoa.login' | translate }}</button>
-            <span>•</span>
-            <button mdc-button dense routerLink="/account/register" (click)="drawerItemClicked()">{{ 'drawer.mytoa.register' | translate }}</button>
-          </span>
-        </div>
-
-        <div *ngIf="user" routerLink="/account" (click)="drawerItemClicked()" style="cursor:pointer">
-          <mdc-list-item-text>
-            <span style="text-transform: capitalize">{{ 'drawer.mytoa.hello' | translate: {'name': user.displayName || 'User'} }}</span>
-            <span class="mdc-list-item__secondary-text">{{ user.email }}</span>
-          </mdc-list-item-text>
-        </div>
-      </mdc-list-item>
+      <mdc-list interactive="false" class="p-0">
+        <mdc-list-item class="item-profile" disabled>
+          <div *ngIf="!user">
+            <span>{{ 'drawer.mytoa.hello' | translate: {'name': 'drawer.mytoa.guest' | translate } }}</span>
+            <span class="mdc-list-item__secondary-text">
+              <button mdc-button dense routerLink="/account/login">{{ 'drawer.mytoa.login' | translate }}</button>
+              <span>•</span>
+              <button mdc-button dense routerLink="/account/register" (click)="drawerItemClicked()">{{ 'drawer.mytoa.register' | translate }}</button>
+            </span>
+          </div>
+          <div *ngIf="user" routerLink="/account" (click)="drawerItemClicked()" style="cursor:pointer">
+            <mdc-list-item-text>
+              <span style="text-transform: capitalize">{{ 'drawer.mytoa.hello' | translate: {'name': user.displayName || 'User'} }}</span>
+              <span class="mdc-list-item__secondary-text">{{ user.email }}</span>
+            </mdc-list-item-text>
+          </div>
+        </mdc-list-item>
+      </mdc-list>
 
       <mdc-list-group>
         <mdc-list>
-
           <mdc-list-divider></mdc-list-divider>
-
           <a mdc-list-item routerLink="/home" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon mdcListItemGraphic svgIcon="home"></mdc-icon>{{ "drawer.home" | translate }}
           </a>
@@ -137,7 +137,7 @@
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a mdc-list-item href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZE3YC297GJNUW&source=url" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
+          <a mdc-list-item href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CDE5Q5XXPM25J&source=toa_donate_drawer" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
             <mdc-icon mdcListItemGraphic svgIcon="paypal"></mdc-icon>{{ "drawer.donate" | translate }}
           </a>
           <a mdc-list-item href="https://smile.amazon.com/ch/83-2083376" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
@@ -181,17 +181,19 @@
   </div>
 
   <div class="page" [class.toa-page]="!router.url.startsWith('/stream')">
-    <div class="kickoff-banner kickoff-banner--home full-page" *ngIf="!kickoffLive && router.url === '/home'">
+<!--
+    <div class="kickoff-banner kickoff-banner&#45;&#45;home full-page" *ngIf="!kickoffLive && router.url === '/home'">
       <img class="my-3 mw-100" style="max-height: 140px;" src="../assets/imgs/first-rise-logo.png">
       <h3><b>{{ kickoffString }}</b>&nbsp;<small>until the Kickoff</small></h3>
       <p>September 7, 2019, 11:30 ET</p>
     </div>
-    <div class="kickoff-banner kickoff-banner--home full-page p-5" *ngIf="kickoffLive && router.url === '/home'">
+    <div class="kickoff-banner kickoff-banner&#45;&#45;home full-page p-5" *ngIf="kickoffLive && router.url === '/home'">
       <h4 class="mb-4">2019/20 SKYSTONE Kickoff</h4>
       <button mdc-fab extended label="Watch Kickoff Live" style="background-color: #ffe546" routerLink="/kickoff">
         <mdc-icon>play_circle_outline</mdc-icon>
       </button>
     </div>
+-->
     <router-outlet></router-outlet>
   </div>
 </div>
