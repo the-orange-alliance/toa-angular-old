@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'firebase/app';
 import TOAUser from '../models/User';
+import {rejects} from 'assert';
 
 export enum Service {
   Dev = 'Dev',
@@ -275,6 +276,80 @@ export class CloudFunctions {
         });
 
         this.http.post(this.baseUrl + '/addMedia', mediaData, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public addMediaToPending(user: User, mediaData: any): Promise<any> {
+    let dataHeader;
+    if (mediaData.team_key !== undefined && mediaData.event_key === undefined) {
+      dataHeader = 'team';
+    } else if (mediaData.team_key === undefined && mediaData.event_key !== undefined) {
+      dataHeader = 'event';
+    } else {
+      return new Promise<any>( ((resolve, reject) => {reject('No Team or Event is Defined! (Or both are defined!)')}))
+    }
+
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': dataHeader
+        });
+
+        this.http.post(this.baseUrl + '/addMediaToPending', mediaData, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+
+  public addSuggestion(user: User, suggestionData: any): Promise<any> {
+    let dataHeader;
+    if (suggestionData.match_key !== undefined && suggestionData.event_key === undefined) {
+      dataHeader = 'add_match_video';
+    } else if (suggestionData.match_key === undefined && suggestionData.event_key !== undefined) {
+      dataHeader = 'add_event_stream';
+    } else {
+      return new Promise<any>( ((resolve, reject) => {reject('No Suggestion Data is Defined! (Or both types are defined!)')}))
+    }
+
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': dataHeader
+        });
+
+        this.http.post(this.baseUrl + '/user/addSuggestion', suggestionData, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public getAllSuggestions(user: User): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`
+        });
+        this.http.get(this.baseUrl + '/user/allSuggestions', {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
           reject(err);
