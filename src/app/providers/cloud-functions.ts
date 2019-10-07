@@ -360,6 +360,24 @@ export class CloudFunctions {
     });
   }
 
+  public deleteSuggestion(user: User, suggestionID: any): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': suggestionID
+        });
+        this.http.delete(this.baseUrl + '/user/deleteSuggestion', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
   public addStream(user: User, streamData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       this.userToToken(user).then((token) => {
