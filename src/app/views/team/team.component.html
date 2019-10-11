@@ -46,7 +46,35 @@
       </div>
     </mdc-card>
   </div>
-
+  <div class="col-12 col-md-9">
+    <mdc-card class="toa-card overflow">
+      <h3>Add Team Data</h3>
+      <div class="outline-card">
+        <div mdcHeadline5 class="black pb-4">Add Team Video</div>
+        <mdc-text-field dense label="Youtube Video Url" ></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" >Load</button>
+        <!-- <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="setVideos()" *ngIf="!uploadingVideos && showConfirm">{{ 'pages.event.subpages.admin.playlist_card.confirm' | translate }}</button> -->
+      </div>
+      <div class="outline-card">
+        <div mdcHeadline5 class="black pb-4">Add Pictures to Team Page</div>
+        <div class="d-flex">
+          <div class="custom-file me-2">
+            <input class="custom-file-input" type="file" id="picture" />
+            <label class="custom-file-label" for="schedule" >Upload Picture...</label>
+          </div>
+        </div>
+      </div>
+      <div class="outline-card">
+        <div mdcHeadline5 class="black pb-4">Submit CAD to Team</div>
+        <div class="d-flex">
+          <div class="custom-file me-2">
+            <input class="custom-file-input" type="file" id="cad" />
+            <label class="custom-file-label" for="schedule" >Upload CAD...</label>
+          </div>
+        </div>
+      </div>
+    </mdc-card>
+  </div>
   <div class="col-12 col-md-9">
     <mdc-card class="toa-card" id="info">
       <div class="d-flex align-items-center mb-1">
@@ -103,7 +131,11 @@
           <p>{{ 'pages.team.awards_in_season' | translate: {'awards': team.awards.length, 'season': currentSeason.description} }}</p>
         </div>
       </div>
+      <div class="toa-card-subtitle">Add Team Data</div>
+
     </mdc-card>
+
+
 
     <div class="col-12 d-md-none mt-3"
          *ngIf="currentSeason && seasons && seasons.length > 0 && team.rookieYear && team.rookieYear > 0">

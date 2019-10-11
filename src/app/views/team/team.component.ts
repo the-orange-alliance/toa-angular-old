@@ -39,6 +39,7 @@ export class TeamComponent implements OnInit {
   view_type: string;
   wlt: TeamSeasonRecord = null;
   topOpr: Ranking;
+  images: any = {};
 
   user: TOAUser = null;
   favorite: boolean;
@@ -291,5 +292,19 @@ export class TeamComponent implements OnInit {
       eventAction: action,
       eventValue: 10
     });
+  }
+
+  handleImage(e, type: string) {
+    const image = e.target.files[0];
+    if (image) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.images[type] = {
+          'filename': image.name,
+          'base64': btoa(reader.result.toString())
+        };
+      };
+      reader.readAsBinaryString(image);
+    }
   }
 }
