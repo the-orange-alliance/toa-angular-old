@@ -59,8 +59,8 @@
         <div mdcHeadline5 class="black pb-4">Add Pictures to Team Page</div>
         <div class="d-flex">
           <div class="custom-file me-2">
-            <input class="custom-file-input" type="file" id="picture" />
-            <label class="custom-file-label" for="schedule" >Upload Picture...</label>
+            <input class="custom-file-input" type="file" id="picture" [ngModel]="fileNameImage" (change)="getFileName($event, fileNameImage)" />
+            <label class="custom-file-label" for="picture" >{{fileNameImage}}</label>
           </div>
         </div>
       </div>
@@ -68,8 +68,8 @@
         <div mdcHeadline5 class="black pb-4">Submit CAD to Team</div>
         <div class="d-flex">
           <div class="custom-file me-2">
-            <input class="custom-file-input" type="file" id="cad" />
-            <label class="custom-file-label" for="schedule" >Upload CAD...</label>
+            <input class="custom-file-input" type="file" id="cad" [ngModel]="fileNameCad" (change)="getFileName($event, fileNameCad)" />
+            <label class="custom-file-label" for="cad" >{{fileNameCad}}</label>
           </div>
         </div>
       </div>

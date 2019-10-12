@@ -40,6 +40,8 @@ export class TeamComponent implements OnInit {
   wlt: TeamSeasonRecord = null;
   topOpr: Ranking;
   images: any = {};
+  fileNameImage: string;
+  fileNameCad: string;
 
   user: TOAUser = null;
   favorite: boolean;
@@ -305,6 +307,18 @@ export class TeamComponent implements OnInit {
         };
       };
       reader.readAsBinaryString(image);
+    }
+  }
+
+  /**
+   * Changes the label for the file input controls
+   * @param fileInput the target control
+   * @param controlLabel the label for the control
+   */
+  getFileName(event, inputLabel: string) {
+    if (event.target.files.length > 0) {
+      inputLabel = event.target.files[0].name;
+      console.log(inputLabel);
     }
   }
 }
