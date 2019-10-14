@@ -128,7 +128,7 @@
       {{ getParticipantString(match, 5) }}
     </td>
     <td *ngIf="!(match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00'))" colspan="2" class="not-played">
-      {{ "pages.match.scheduled_time" | translate }}: {{ match.scheduledTime | date: 'MMM d, h:mm a' }}
+      {{ match.scheduledTime | date: 'EE, h:mm a' }}
     </td>
     <td class="red" [class.match-winner]="match.redScore > match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
       {{ match.redScore > -1 ? match.redScore : '?' }}
@@ -194,7 +194,7 @@
       {{ getParticipantString(match, 3) }}
     </td>
     <td *ngIf="!(match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00'))" colspan="2" class="not-played">
-      SCHEDULED TIME: {{ match.scheduledTime | date: 'MMM d, h:mm a' }}
+      {{ match.scheduledTime | date: 'EE, h:mm a' }}
     </td>
     <td class="red" [class.match-winner]="match.redScore > match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
       {{ match.redScore > -1 ? match.redScore : '?' }}
@@ -387,7 +387,7 @@
       <a routerLink="/teams/{{ match.participants[3].teamKey }}" [class.current-team]="isSelectedTeam(match, 3)">{{ getParticipantString(match, 3) }}</a>
     </td>
     <td *ngIf="!(match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00'))" colspan="2" class="not-played">
-      SCHEDULED TIME: {{ match.scheduledTime | date: 'MMM d, h:mm a' }}
+      {{ match.scheduledTime | date: 'EEE, h:mm a' }}
     </td>
     <td class="red" [class.match-winner]="match.redScore > match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
       {{ match.redScore > -1 ? match.redScore : '?' }}

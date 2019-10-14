@@ -20,6 +20,7 @@ export class MatchesComponent implements OnInit {
 
   match: Match;
   videoSafeURL: SafeResourceUrl;
+  played: boolean;
 
   constructor(private ftc: FTCDatabase, private router: Router, private sanitizer: DomSanitizer, private route: ActivatedRoute,
               private app: TheOrangeAllianceGlobals, private appBarService: AppBarService) {
@@ -30,6 +31,7 @@ export class MatchesComponent implements OnInit {
     this.ftc.getMatchDetails(this.matchKey).then((match: Match) => {
       if (match) {
         this.match = match;
+        this.played = this.match.redScore > -1 && this.match.blueScore > -1;
 
         if (match.videoURL != null) {
           const video = urlParser.parse(match.videoURL);

@@ -11,9 +11,9 @@
           <div class="toa-card-header" mdcHeadline5>{{ "pages.match.match_info" | translate }}</div>
           <mdc-list-divider></mdc-list-divider>
           <div class="pt-2 pb-3 px-3">
-            <div class="info-state" *ngIf="match.scheduledTime && match.scheduledTime !== '0000-00-00 00:00:00'">
+            <div class="info-state" *ngIf="!played && match.scheduledTime && match.scheduledTime !== '0000-00-00 00:00:00'">
               <mdc-icon svgIcon="calendar-clock"></mdc-icon>
-              <p>{{ "pages.match.scheduled_time" | translate }}: {{ match.scheduledTime | date: 'MMM d, h:mm a' }}</p>
+              <p>{{ "pages.match.scheduled_time" | translate }}: {{ match.scheduledTime | date: 'EEEE, h:mm a' }}</p>
             </div>
             <div class="info-state" *ngIf="!match.videoURL">
               <mdc-icon svgIcon="play-circle-outline"></mdc-icon>
