@@ -25,17 +25,18 @@ export default class MatchBreakdown1819 {
       MatchBreakdownTitle('Driver-Controlled', match.redTeleScore, match.blueTeleScore),
       MatchBreakdownField('Delivering Stones under Alliance Skybridge', red.teleDelivered , blue.teleDelivered, 1),
       MatchBreakdownField('Stones on Foundation', red.telePlaced , blue.telePlaced, 1),
-      MatchBreakdownField('Skyscraper Bonus', red.towerBonus, red.towerBonus, 2),
+      MatchBreakdownField('Skyscraper Bonus', red.towerBonus, blue.towerBonus, 2),
       MatchBreakdownField('Returned Stones', red.teleReturned, blue.teleReturned, -1),
 
       MatchBreakdownTitle('End Game', match.redEndScore, match.blueEndScore),
       MatchBreakdownField('Capping Bonus', red.cappingBonus, blue.cappingBonus, 5),
       MatchBreakdownField('Level Bonus', this.getCapLevel(red), this.getCapLevel(blue), 1),
+      MatchBreakdownBoolField('Moving Foundation', red.foundationMoved, blue.foundationMoved, 15),
       MatchBreakdownField('Robots Parked', red.endRobotsParked, blue.endRobotsParked, 5),
 
-      MatchBreakdownTitle('Penalty', match.bluePenalty, match.redPenalty),
-      MatchBreakdownField('Minor Penalty', details.blueMinPen, details.redMinPen, 10),
-      MatchBreakdownField('Major Penalty', details.blueMajPen, details.redMajPen, 40)
+      MatchBreakdownTitle('Penalty', match.redPenalty, match.bluePenalty),
+      MatchBreakdownField('Minor Penalty', details.blueMinPen, details.redMinPen, 5),
+      MatchBreakdownField('Major Penalty', details.blueMajPen, details.redMajPen, 20)
     ];
   }
 
