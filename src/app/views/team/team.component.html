@@ -48,30 +48,22 @@
   </div>
   <div class="col-12 col-md-9">
     <mdc-card class="toa-card overflow">
-      <h3>Add Team Data</h3>
+      <h3>{{'pages.team.add_team_data.title' | translate }}</h3>
       <div class="outline-card">
-        <div mdcHeadline5 class="black pb-4">Add Team Video</div>
-        <mdc-text-field dense label="Youtube Video Url" ></mdc-text-field>
-        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" >Load</button>
-        <!-- <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="setVideos()" *ngIf="!uploadingVideos && showConfirm">{{ 'pages.event.subpages.admin.playlist_card.confirm' | translate }}</button> -->
+        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_youtube' | translate }}</div>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.youtube_link' | translate}}" [(ngModel)]="youtubeLink"></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendVideo()">{{'pages.team.add_team_data.submit' | translate }}</button>
+        <!-- <button mdc-button primary class="ml-2 mr-2" style="height: 48px"  *ngIf="!uploadingVideos && showConfirm">{{ 'pages.team.add_team_data.submit' | translate }}</button> -->
       </div>
       <div class="outline-card">
-        <div mdcHeadline5 class="black pb-4">Add Pictures to Team Page</div>
-        <div class="d-flex">
-          <div class="custom-file me-2">
-            <input class="custom-file-input" type="file" id="picture" [ngModel]="fileNameImage" (change)="getFileName($event, fileNameImage)" />
-            <label class="custom-file-label" for="picture" >{{fileNameImage}}</label>
-          </div>
-        </div>
+        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_picture' | translate }}</div>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.image_link' | translate}}" [(ngModel)]="imageLink"></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendVideo()">{{'pages.team.add_team_data.submit' | translate }}</button>
       </div>
       <div class="outline-card">
-        <div mdcHeadline5 class="black pb-4">Submit CAD to Team</div>
-        <div class="d-flex">
-          <div class="custom-file me-2">
-            <input class="custom-file-input" type="file" id="cad" [ngModel]="fileNameCad" (change)="getFileName($event, fileNameCad)" />
-            <label class="custom-file-label" for="cad" >{{fileNameCad}}</label>
-          </div>
-        </div>
+        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_cad' | translate }}</div>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.cad_link' | translate}}" [(ngModel)]="cadLink"></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendVideo()">{{'pages.team.add_team_data.submit' | translate }}</button>
       </div>
     </mdc-card>
   </div>

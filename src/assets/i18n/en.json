@@ -360,6 +360,16 @@
         "engineering_notebook": "Engineering Notebook",
         "robot_reveal": "Robot Reveal",
         "photos": "Photos"
+      },
+      "add_team_data": {
+        "title": "Add Team Data",
+        "add_picture": "Add Pictures to Team Page",
+        "add_youtube": "Add YouTube Video to Team Playlist",
+        "add_cad": "Add CAD file to Team Page",
+        "submit": "Submit",
+        "youtube_link": "YouTube Video URL",
+        "image_link": "Imgur URL",
+        "cad_link": "GrabCAD URL"
       }
     },
 

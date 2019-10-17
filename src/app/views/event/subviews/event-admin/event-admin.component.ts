@@ -67,9 +67,15 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   @ViewChild('stream_url', {static: false}) streamUrl: MdcTextField;
   @ViewChild('stream_name', {static: false}) streamName: MdcTextField;
 
-  constructor(private cloud: CloudFunctions, private db: AngularFireDatabase, private snackbar: MdcSnackbar,
-              private translate: TranslateService, private router: Router, public imgur: UploadService,
-              private ftc: FTCDatabase, private cd: ChangeDetectorRef) {
+  constructor(
+    private cloud: CloudFunctions, 
+    private db: AngularFireDatabase, 
+    private snackbar: MdcSnackbar,
+    private translate: TranslateService, 
+    private router: Router, 
+    public imgur: UploadService,
+    private ftc: FTCDatabase, 
+    private cd: ChangeDetectorRef) {
 
   }
 

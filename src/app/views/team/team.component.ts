@@ -21,6 +21,7 @@ import EventParticipant from '../../models/EventParticipant';
 import TOAUser from '../../models/User';
 import {isPlatformBrowser} from '@angular/common';
 import {MdcSelect} from '@angular-mdc/web';
+import { request } from 'https';
 
 @Component({
   selector: 'toa-team',
@@ -40,22 +41,34 @@ export class TeamComponent implements OnInit {
   wlt: TeamSeasonRecord = null;
   topOpr: Ranking;
   images: any = {};
-  fileNameImage: string;
-  fileNameCad: string;
+  
+  imageLink: string;
+  cadLink: string;
+  youtubeLink: string;
 
   user: TOAUser = null;
   favorite: boolean;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, @Inject(WINDOW) private window: Window, private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
-              public cloud: CloudFunctions, public auth: AngularFireAuth, private appBarService: AppBarService) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object, 
+    @Inject(WINDOW) private window: Window, 
+    private ftc: FTCDatabase, 
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private app: TheOrangeAllianceGlobals,
+    public cloud: CloudFunctions, 
+    public auth: AngularFireAuth, 
+    private appBarService: AppBarService) {
+
     this.teamKey = this.route.snapshot.params['team_key'];
     this.select('results');
+
   }
 
   public ngOnInit(): void {
     this.auth.authState.subscribe(user => {
       if (user !== null && user !== undefined) {
-        this.cloud.getShortUserData(user).then((userData: TOAUser) => {
+        this.cloud.getUserData(user).then((userData: TOAUser) => {
           this.user = userData;
           userData.firebaseUser = user;
           this.favorite = userData.favoriteTeams.includes(this.teamKey);
@@ -84,11 +97,11 @@ export class TeamComponent implements OnInit {
           });
         }
         if (this.team.teamNameShort !== null) {
-          this.app.setTitle(this.team.teamNameShort + ' (' + this.team.teamNumber + ')');
-          this.appBarService.setTitle('#' + this.team.teamNumber + ' ' + this.team.teamNameShort, true);
+          this.app.setTitle(`${this.team.teamNameShort} (${this.team.teamNumber})`);
+          this.appBarService.setTitle(`#${this.team.teamNumber} ${this.team.teamNameShort}`, true);
         } else {
-          this.app.setTitle('Team ' + this.team.teamNumber);
-          this.appBarService.setTitle('Team #' + this.team.teamNumber, true);
+          this.app.setTitle(`${Team} ${this.team.teamNumber}`);
+          this.appBarService.setTitle(`Team # ${this.team.teamNumber}`, true);
         }
         this.app.setDescription(`Team information and competition results for FIRST Tech Challenge Team #${ this.team.teamNumber } from ${team.city}, ${(team.stateProv ? team.stateProv + ', ' : '') + team.country }.`);
       } else {
@@ -231,9 +244,9 @@ export class TeamComponent implements OnInit {
     const codeTwo = seasonKey.toString().substring(2, 4);
 
     if (description) {
-      return '20' + codeOne + '/' + codeTwo + ' - ' + description;
+      return `20${codeOne}/${codeTwo} - ${description}`;
     } else {
-      return '20' + codeOne + '/' + codeTwo;
+      return `20${codeOne}/${codeTwo}`;
     }
   }
 
@@ -310,15 +323,51 @@ export class TeamComponent implements OnInit {
     }
   }
 
-  /**
-   * Changes the label for the file input controls
-   * @param fileInput the target control
-   * @param controlLabel the label for the control
-   */
-  getFileName(event, inputLabel: string) {
-    if (event.target.files.length > 0) {
-      inputLabel = event.target.files[0].name;
-      console.log(inputLabel);
+
+  sendVideo() {
+    const mediaType = 3;
+    if (this.youtubeLink !== "") {
+      const requestBody = {
+        team_key: this.teamKey,
+        media_type: mediaType,
+        primary: false,
+        media_title: "",
+        media_link: this.youtubeLink
+      }
+      console.log(requestBody);
+      this.cloud.addTeamMedia(this.user.firebaseUser, JSON.stringify(requestBody));
+      
+    }
+    
+  }
+
+  sendPicture() {
+    const mediaType = 4;
+    if (this.imageLink !== "") {
+      const requestBody = {
+        team_key: this.teamKey,
+        media_type: mediaType,
+        primary: false,
+        media_title: "",
+        media_link: this.imageLink
+      }
+      console.log(requestBody);
+      this.cloud.addTeamMedia(this.user.firebaseUser, JSON.stringify(requestBody));
+    }
+  }
+
+  sendCad() {
+    const mediaType = 2;
+    if (this.cadLink !== "") {
+      const requestBody = {
+        team_key: this.teamKey,
+        media_type: mediaType,
+        primary: false,
+        media_title: "",
+        media_link: this.cadLink
+      }
+      console.log(requestBody);
+      this.cloud.addTeamMedia(this.user.firebaseUser, JSON.stringify(requestBody));
     }
   }
 }
