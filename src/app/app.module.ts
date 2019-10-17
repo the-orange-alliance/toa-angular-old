@@ -26,6 +26,7 @@ import { UsersComponent } from './views/account/subpages/users/users.component';
 import { CreateEventComponent } from './views/account/subpages/create-event/create-event.component';
 import { CacheComponent } from './views/account/subpages/cache/cache.component';
 import { RetrieverComponent } from './views/account/subpages/retriever/retriever.component';
+import { ManageTeamDataComponent } from './views/account/subpages/manage-team-data/manage-team-data.component';
 import { AccountComponent } from './views/account/account.component';
 import { EventsComponent } from './views/events/events.component';
 import { TeamsComponent } from './views/teams/teams.component';
@@ -125,7 +126,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     InsightsCardComponent,
     CircularPercentageComponent,
     Insights1819Component,
-    LeagueCreatorComponent
+    LeagueCreatorComponent,
+    ManageTeamDataComponent
   ],
   entryComponents: [
     DialogText,

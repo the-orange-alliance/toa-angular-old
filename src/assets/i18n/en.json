@@ -75,6 +75,7 @@
       "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
       "manage_events": "Manage Events",
       "division_tab": {
+        "manage_team_data": "Manage Team Data",
         "manage_leagues": "Manage Leagues",
         "select_season": "Select Season",
         "create_league": "Create League",

@@ -20,8 +20,8 @@ import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 import EventParticipant from '../../models/EventParticipant';
 import TOAUser from '../../models/User';
 import {isPlatformBrowser} from '@angular/common';
-import {MdcSelect} from '@angular-mdc/web';
-import { request } from 'https';
+//import {MdcSelect} from '@angular-mdc/web';
+//import { request } from 'https';
 
 @Component({
   selector: 'toa-team',
