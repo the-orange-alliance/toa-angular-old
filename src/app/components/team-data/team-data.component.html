@@ -1,0 +1,18 @@
+<div class="toa-card">
+  <!-- <iframe src="https://www.youtube.com/embed/oHg5SJYRHA0?autoplay=1" frameborder="0" allowfullscreen></iframe> -->
+  <h2>{{ teamName }}</h2>
+  <ul>
+    <li *ngFor="let link of sampleData.videos">
+      <iframe [src]=videoUrl(link) frameborder="0" allowfullscreen></iframe>
+    </li>
+  </ul>
+  
+  <ul>
+    <li *ngFor="let link of sampleData.images">{{link}}</li>
+  </ul>
+  
+  <ul>
+    <li *ngFor="let link of sampleData.cad">{{link}}</li>
+  </ul>
+</div>
+

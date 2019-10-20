@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import User from '../../../../models/User';
+import Team from '../../../../models/Team';
 
 @Component({
   selector: 'toa-account-manage-team-data',
@@ -9,6 +10,8 @@ import User from '../../../../models/User';
 export class ManageTeamDataComponent implements OnInit {
 
   @Input() user: User;
+
+  selectedTeam: Team;
 
   constructor() { }
 

@@ -72,6 +72,8 @@ import { Insights1819Component } from './components/insights-card/years/insights
 import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {LeagueCreatorComponent} from './views/account/subpages/league-creator/league-creator.component';
 import {LeagueItemComponent} from './components/league/league.item.component';
+import { TeamDataComponent } from './components/team-data/team-data.component';
+import { SafePipe } from './safe.pipe';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
@@ -127,7 +129,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     CircularPercentageComponent,
     Insights1819Component,
     LeagueCreatorComponent,
-    ManageTeamDataComponent
+    ManageTeamDataComponent,
+    TeamDataComponent,
+    SafePipe
   ],
   entryComponents: [
     DialogText,

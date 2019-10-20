@@ -30,7 +30,7 @@
     "@angular/core": "^8.2.3",
     "@angular/fire": "^5.2.1",
     "@angular/forms": "^8.2.3",
-    "@angular/platform-browser": "^8.2.3",
+    "@angular/platform-browser": "^8.2.11",
     "@angular/platform-browser-dynamic": "^8.2.3",
     "@angular/platform-server": "^8.2.3",
     "@angular/router": "^8.2.3",
