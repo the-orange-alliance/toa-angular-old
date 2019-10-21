@@ -3,12 +3,14 @@
   <h2>{{ teamName }}</h2>
   <ul>
     <li *ngFor="let link of sampleData.videos">
-      <iframe [src]=videoUrl(link) frameborder="0" allowfullscreen></iframe>
+      <iframe [src]="link | safe: 'resourceUrl'" frameborder="0" allowfullscreen></iframe>
     </li>
   </ul>
   
   <ul>
-    <li *ngFor="let link of sampleData.images">{{link}}</li>
+    <li *ngFor="let link of sampleData.images">
+      <img [src]="link | safe: 'resourceUrl'" alt="userSubmittedLink">
+    </li>
   </ul>
   
   <ul>
