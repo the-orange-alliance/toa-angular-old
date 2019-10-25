@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'firebase/app';
 import TOAUser from '../models/User';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
+import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 export enum Service {
   Dev = 'Dev',
   Live = 'Live',
@@ -14,9 +17,12 @@ export class CloudFunctions {
 
   private baseUrl = 'https://functions.theorangealliance.org';
   // private baseUrl = 'http://localhost:5000/the-orange-alliance/us-central1/requireValidations'; // Tests Only
+  private handleError: HandleError;
 
-  constructor(private http: HttpClient) {
-
+  constructor(
+    private http: HttpClient,
+    httpErrorHandler: HttpErrorHandler) {
+      this.handleError = httpErrorHandler.createHandleError('CloudFunctions');
   }
 
   public getUserData(user: User): Promise<TOAUser> {

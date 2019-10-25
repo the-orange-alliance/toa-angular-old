@@ -20,6 +20,8 @@ import TeamSeasonRecord from '../../models/TeamSeasonRecord';
 import EventParticipant from '../../models/EventParticipant';
 import TOAUser from '../../models/User';
 import {isPlatformBrowser} from '@angular/common';
+import { MediaService } from '../../media.service';
+//import { HttpHeaderResponse } from '@angular/common/http';
 //import {MdcSelect} from '@angular-mdc/web';
 //import { request } from 'https';
 
@@ -58,7 +60,8 @@ export class TeamComponent implements OnInit {
     private app: TheOrangeAllianceGlobals,
     public cloud: CloudFunctions, 
     public auth: AngularFireAuth, 
-    private appBarService: AppBarService) {
+    private appBarService: AppBarService,
+    private mediaService: MediaService) {
 
     this.teamKey = this.route.snapshot.params['team_key'];
     this.select('results');
@@ -327,6 +330,9 @@ export class TeamComponent implements OnInit {
   sendVideo() {
     const mediaType = 3;
     if (this.youtubeLink !== "") {
+      // const requestOptions = {
+      //   header: new HttpHeader()
+      // }
       const requestBody = {
         team_key: this.teamKey,
         media_type: mediaType,
@@ -334,9 +340,9 @@ export class TeamComponent implements OnInit {
         media_title: "",
         media_link: this.youtubeLink
       }
+
       console.log(requestBody);
-      this.cloud.addTeamMedia(this.user.firebaseUser, JSON.stringify(requestBody));
-      
+      this.mediaService.addTeamMedia(this.user, requestBody);      
     }
     
   }
@@ -352,7 +358,7 @@ export class TeamComponent implements OnInit {
         media_link: this.imageLink
       }
       console.log(requestBody);
-      this.cloud.addTeamMedia(this.user.firebaseUser, JSON.stringify(requestBody));
+      //this.cloud.addTeamMediaToPending(this.user, JSON.stringify(requestBody));
     }
   }
 
@@ -367,7 +373,7 @@ export class TeamComponent implements OnInit {
         media_link: this.cadLink
       }
       console.log(requestBody);
-      this.cloud.addTeamMedia(this.user.firebaseUser, JSON.stringify(requestBody));
+      //this.cloud.addTeamMediaToPending(this.user, JSON.stringify(requestBody));
     }
   }
 }

@@ -1,8 +1,8 @@
 <div class="toa-card">
-  <!-- <iframe src="https://www.youtube.com/embed/oHg5SJYRHA0?autoplay=1" frameborder="0" allowfullscreen></iframe> -->
   <h2>{{ teamName }}</h2>
 
   <h3>Team Videos</h3>
+  <p *ngIf="sampleData.videos.length == 0">No videos submitted at this time.</p>
   <div class="mdc-layout-grid">
     <div class="mdc-layout-grid__inner">
       <div 
@@ -12,16 +12,16 @@
           [src]="link | safe: 'resourceUrl'" 
           frameborder="0" 
           allowfullscreen></iframe>
+          <div class="mdc-layout-grid__inner">
+            <button class="mdc-layout-grid__cell" (click)="removeVideo(i)">Reject</button>
+            <button class="mdc-layout-grid__cell">Accept</button>
+          </div>
       </div>
     </div>
   </div>
   
   <h3>Team Pictures</h3>
-  <!-- <ul>
-    <li *ngFor="let link of sampleData.images">
-      <img [src]="link | safe: 'resourceUrl'" alt="userSubmittedLink">
-    </li>
-  </ul> -->
+  <p *ngIf="sampleData.images.length == 0">No images submitted at this time.</p>
   <div class="mdc-layout-grid">
       <div class="mdc-layout-grid__inner">
         <div 
@@ -31,13 +31,19 @@
             class="submitted-pic"
             [src]="link | safe: 'resourceUrl'" 
             alt="userSubmittedLink">
+            <div class="mdc-layout-grid__inner">
+              <button class="mdc-layout-grid__cell" (click)="removePic(i)">Reject</button>
+              <button class="mdc-layout-grid__cell">Accept</button>
+            </div>
         </div>
       </div>
     </div>
   
   <h3>CAD files</h3>
   <ul>
-    <li *ngFor="let link of sampleData.cad">{{link}}</li>
+    <li *ngFor="let link of sampleData.cad">
+      <a href="{{link}}">{{link}}</a>
+    </li>
   </ul>
 </div>
 

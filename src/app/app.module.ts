@@ -74,6 +74,7 @@ import {LeagueCreatorComponent} from './views/account/subpages/league-creator/le
 import {LeagueItemComponent} from './components/league/league.item.component';
 import { TeamDataComponent } from './components/team-data/team-data.component';
 import { SafePipe } from './safe.pipe';
+import { HttpErrorHandler }     from './http-error-handler.service';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
@@ -162,9 +163,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+
   ],
-  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService, {provide: 'externalUrlRedirectResolver', useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {window.location.href = (route.data as any).externalUrl}}],
+  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService, {provide: 'externalUrlRedirectResolver', useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {window.location.href = (route.data as any).externalUrl}}, HttpErrorHandler],
   bootstrap: [TheOrangeAllianceComponent]
 })
 export class AppModule { }

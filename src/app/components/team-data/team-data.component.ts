@@ -41,8 +41,20 @@ export class TeamDataComponent implements OnInit {
   ngOnInit() {
   }
 
-  videoUrl(link: string): SafeUrl {
-    return this.domSanitizer.sanitize(SecurityContext.URL, link);
+  /* TODO: 
+   * MessageBox to undo transaction
+   * 
+   * 
+   */
+
+  removeVideo(id: number): void {
+    this.sampleData.videos.splice(id, 1);
   }
+
+  removePic(id: number): void {
+    this.sampleData.images.splice(id, 1);
+  }
+    
+
 
 }
