@@ -42,7 +42,7 @@ export class EventsComponent implements OnInit {
 
   constructor(private ftc: FTCDatabase, private router: Router, private app: TheOrangeAllianceGlobals,
               private translate: TranslateService, private appBarService: AppBarService, private route: ActivatedRoute,
-              private loca: Location,) {
+              private loca: Location, ) {
     this.app.setTitle('Events');
     this.app.setDescription(`List of FIRST Tech Challenge events`);
     this.weeks = new Map<string, Week>();
