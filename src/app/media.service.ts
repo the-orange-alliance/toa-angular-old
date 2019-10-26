@@ -43,20 +43,6 @@ export class MediaService {
       headers: this.httpHeaders(user)
     }
 
-    /*
-      The media for a youtube video in its current iteration looks like:
-
-      const requestBody = {
-        team_key: this.teamKey,
-        media_type: mediaType,
-        primary: false,
-        media_title: "",
-        media_link: this.youtubeLink
-      }
-
-      This is what is being placed into the api
-    */
-
     return this.http.post(this.apiUrl, media, httpOptions)
       .pipe(
         catchError(this.handleError('addHero', media))

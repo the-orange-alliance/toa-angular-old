@@ -330,19 +330,17 @@ export class TeamComponent implements OnInit {
   sendVideo() {
     const mediaType = 3;
     if (this.youtubeLink !== "") {
-      // const requestOptions = {
-      //   header: new HttpHeader()
-      // }
+
       const requestBody = {
-        team_key: this.teamKey,
-        media_type: mediaType,
-        primary: false,
-        media_title: "",
-        media_link: this.youtubeLink
+        "team_key": this.teamKey,
+        "media_type": mediaType,
+        "primary": false,
+        "media_title": "Test",
+        "media_link": this.youtubeLink
       }
 
       console.log(requestBody);
-      this.mediaService.addTeamMedia(this.user, requestBody);      
+      this.cloud.addMediaToPending(this.user.firebaseUser, requestBody);      
     }
     
   }
@@ -351,14 +349,14 @@ export class TeamComponent implements OnInit {
     const mediaType = 4;
     if (this.imageLink !== "") {
       const requestBody = {
-        team_key: this.teamKey,
-        media_type: mediaType,
-        primary: false,
-        media_title: "",
-        media_link: this.imageLink
+        "team_key": this.teamKey,
+        "media_type": mediaType,
+        "primary": false,
+        "media_title": "Test",
+        "media_link": this.imageLink
       }
       console.log(requestBody);
-      //this.cloud.addTeamMediaToPending(this.user, JSON.stringify(requestBody));
+      this.cloud.addMediaToPending(this.user.firebaseUser, JSON.stringify(requestBody));
     }
   }
 
@@ -366,14 +364,14 @@ export class TeamComponent implements OnInit {
     const mediaType = 2;
     if (this.cadLink !== "") {
       const requestBody = {
-        team_key: this.teamKey,
-        media_type: mediaType,
-        primary: false,
-        media_title: "",
-        media_link: this.cadLink
+        "team_key": this.teamKey,
+        "media_type": mediaType,
+        "primary": false,
+        "media_title": "Test",
+        "media_link": this.cadLink
       }
       console.log(requestBody);
-      //this.cloud.addTeamMediaToPending(this.user, JSON.stringify(requestBody));
+      this.cloud.addMediaToPending(this.user.firebaseUser, JSON.stringify(requestBody));
     }
   }
 }
