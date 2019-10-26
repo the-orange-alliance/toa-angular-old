@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../app-bar.service';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { EventFilter, EventSorter } from '../../util/event-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
@@ -10,6 +10,7 @@ import Event from '../../models/Event';
 import Season from '../../models/Season';
 import Region from '../../models/Region';
 import Week from '../../models/Week';
+import {Location} from '@angular/common';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -30,6 +31,9 @@ export class EventsComponent implements OnInit {
   currentSeason: Season = null;
   currentRegion: Region;
 
+  paramSeason: string;
+  paramRegion: string;
+
   eventFilter: EventFilter;
 
   @ViewChild('tabbar', {static: false}) tabbar: MdcTabBar;
@@ -37,10 +41,13 @@ export class EventsComponent implements OnInit {
   @ViewChild('current_season', {static: false}) seasonSelector: MdcSelect;
 
   constructor(private ftc: FTCDatabase, private router: Router, private app: TheOrangeAllianceGlobals,
-              private translate: TranslateService, private appBarService: AppBarService) {
+              private translate: TranslateService, private appBarService: AppBarService, private route: ActivatedRoute,
+              private loca: Location,) {
     this.app.setTitle('Events');
     this.app.setDescription(`List of FIRST Tech Challenge events`);
     this.weeks = new Map<string, Week>();
+    this.paramRegion = this.route.snapshot.queryParamMap.get('region');
+    this.paramSeason = this.route.snapshot.queryParamMap.get('season');
   }
 
   ngOnInit(): void {
@@ -50,7 +57,11 @@ export class EventsComponent implements OnInit {
 
     this.ftc.getAllSeasons().then((data: Season[]) => {
       this.seasons = data.reverse();
-      this.selectSeason(this.getCurrentSeason());
+      if (!this.paramSeason) {
+        this.selectSeason(this.getCurrentSeason());
+      } else {
+        this.selectSeason(this.seasonStringToSeason(this.paramSeason));
+      }
     });
 
     this.ftc.getAllRegions().then((data: Region[]) => {
@@ -60,8 +71,30 @@ export class EventsComponent implements OnInit {
         allRegions,
         ...data
       ];
-      this.currentRegion  = allRegions;
+      if (!this.paramRegion) {
+        this.currentRegion  = allRegions;
+      } else {
+        this.currentRegion = this.regionStringToRegion(this.paramRegion);
+      }
     });
+  }
+
+  seasonStringToSeason(season: string): Season {
+    for (const s of this.seasons) {
+      if (s.seasonKey === season) {
+        return s;
+      }
+    }
+    return this.getCurrentSeason();
+  }
+
+  regionStringToRegion(region: string): Region {
+    for (const r of this.regions) {
+      if (r.regionKey === region) {
+        return r;
+      }
+    }
+    return this.regions[0];
   }
 
   organizeEventsByWeek(): void {
@@ -107,7 +140,9 @@ export class EventsComponent implements OnInit {
 
   onSeasonChange(event: {index: any, value: any}) {
     event.index = (event.index < 0) ? 0 : event.index;
-    this.selectSeason(this.seasons[event.index])
+    this.selectSeason(this.seasons[event.index]);
+    // Update URL Parameter
+    this.updateQueryParam();
   }
 
   selectSeason(season: Season) {
@@ -128,7 +163,8 @@ export class EventsComponent implements OnInit {
 
   onRegionChange (event: {index: any, value: any}) {
     event.index = (event.index < 0) ? 0 : event.index;
-    this.selectRegion(this.regions[event.index])
+    this.selectRegion(this.regions[event.index]);
+    this.updateQueryParam();
   }
 
   selectRegion(region: Region) {
@@ -218,6 +254,21 @@ export class EventsComponent implements OnInit {
     } else {
       return '20' + codeOne + '/' + codeTwo;
     }
+  }
+
+  changeUrlNoRoute(route: any) {
+    this.loca.go(route);
+  }
+
+  updateQueryParam() {
+    const regionToSet = (this.currentRegion.regionKey === 'All Regions') ? undefined : this.currentRegion.regionKey;
+    const urlTree = this.router.createUrlTree([], {
+      queryParams: {season: this.currentSeason.seasonKey,
+                    region: regionToSet},
+      queryParamsHandling: 'merge',
+      preserveFragment: true });
+
+    this.changeUrlNoRoute(urlTree.toString())
   }
 
   getRegionString(regionKey: string, description?: string) {
