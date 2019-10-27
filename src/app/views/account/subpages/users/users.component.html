@@ -1,16 +1,19 @@
 <div class="row">
   <div class="outline-card col-12">
-    <div mdcHeadline5 class="black pt-2 pb-2">{{ users.length > 0 ? users.length + ' Users' : 'Loading...' }}</div>
-    <mdc-list twoLine>
-      <mdc-list-item *ngFor="let listUser of users" (click)="selectUser(listUser)" data-toggle="modal" data-target="#userdialog">
-        <mdc-list-item-text [secondaryText]="listUser.uid"><b>{{ listUser.displayName || ''}}</b>{{ listUser.displayName ? ' - '  + listUser.email : listUser.email }}</mdc-list-item-text>
-        <div mdcListItemMeta class="d-none d-sm-block">
-          <mdc-icon [class.d-none]="!listUser.emailLinked" svgIcon="email" class="ms-2"></mdc-icon>
-          <mdc-icon [class.d-none]="!listUser.phoneLinked" svgIcon="phone" class="ms-2"></mdc-icon>
-          <mdc-icon [class.d-none]="!listUser.googleLinked" svgIcon="google" class="ms-2"></mdc-icon>
-          <mdc-icon [class.d-none]="!listUser.githubLinked" svgIcon="github-circle" class="ms-2"></mdc-icon>
-        </div>
-      </mdc-list-item>
+    <div mdcHeadline5 class="black pt-2 pb-2" *ngIf="!errorLoading">{{ users.length > 0 ? users.length + ' Total Users found' : 'Loading...' }}</div>
+    <mdc-text-field label="Search Users (Name, Email)" [(ngModel)]="query" (input)="queryUsers()" [fullwidth]="true" *ngIf="users.length > 0"></mdc-text-field>
+    <div mdcHeadline5 class="black pt-2 pb-2" *ngIf="errorLoading">Error Loading Users! Please contact a dev.</div>
+    <div mdcHeadline5 class="black pt-2 pb-2" *ngIf="queriedUsers.length > 20 && users.length > 0 && query.length > 0">Your Query is too General! Please be more specific.</div>
+    <mdc-list twoLine *ngIf="queriedUsers.length < 21">
+      <mdc-list-item *ngFor="let listUser of queriedUsers" (click)="selectUser(listUser)" data-toggle="modal" data-target="#userdialog">
+          <mdc-list-item-text [secondaryText]="listUser.uid"><b>{{ listUser.displayName || ''}}</b>{{ listUser.displayName ? ' - '  + listUser.email : listUser.email }}</mdc-list-item-text>
+          <div mdcListItemMeta class="d-none d-sm-block">
+            <mdc-icon [class.d-none]="!listUser.emailLinked" svgIcon="email" class="ms-2"></mdc-icon>
+            <mdc-icon [class.d-none]="!listUser.phoneLinked" svgIcon="phone" class="ms-2"></mdc-icon>
+            <mdc-icon [class.d-none]="!listUser.googleLinked" svgIcon="google" class="ms-2"></mdc-icon>
+            <mdc-icon [class.d-none]="!listUser.githubLinked" svgIcon="github-circle" class="ms-2"></mdc-icon>
+          </div>
+        </mdc-list-item>
     </mdc-list>
   </div>
 </div>
