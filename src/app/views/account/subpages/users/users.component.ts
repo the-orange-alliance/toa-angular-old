@@ -92,13 +92,16 @@ export class UsersComponent implements OnInit {
         if (type === this.adminRegion) {
           // Add Item from selected user and full users list
           this.users[userIndex].adminRegions.push(key);
+          this.addRegion = '';
         } else if (type === this.adminEvent) {
           // Add Item from selected user and full users list
           this.users[userIndex].individualAdminEvents.push(key);
           this.users[userIndex].adminEvents.push(key);
+          this.addEvent = '';
         } else {
           // Add Item from selected user and full users list
           this.users[userIndex].adminTeams.push(key);
+          this.addTeam = '';
         }
         this.selectedUser = this.users[userIndex];
         console.log(this.selectedUser)
