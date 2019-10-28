@@ -192,6 +192,25 @@ export class CloudFunctions {
     });
   }
 
+  public manageAdmin(user: User, userToUpdate: string, body: object): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': userToUpdate
+        });
+
+        this.http.post(this.baseUrl + '/user/manageAdmin', body, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
   public setVideos(user: User, eventKey: string, videos: any[]): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       this.userToToken(user).then((token) => {
