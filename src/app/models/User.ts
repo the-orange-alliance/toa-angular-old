@@ -15,6 +15,7 @@ export default class TOAUser implements ISerializable {
   favoriteTeams: string[];
   favoriteEvents: string[];
   adminEvents: string[];
+  individualAdminEvents: string[];
   eventsApiKeys: any;
   adminRegions: string[];
   adminTeams: string[];
@@ -42,6 +43,7 @@ export default class TOAUser implements ISerializable {
       favorite_teams: this.favoriteTeams,
       favorite_events: this.favoriteEvents,
       admin_events: this.adminEvents,
+      individual_admin_events: this.individualAdminEvents,
       events_api_keys: this.eventsApiKeys,
       admin_regions: this.adminRegions,
       admin_teams: this.adminTeams,
@@ -69,6 +71,7 @@ export default class TOAUser implements ISerializable {
     user.favoriteTeams = json.favorite_teams || [];
     user.favoriteEvents = json.favorite_events || [];
     user.adminEvents = json.admin_events || [];
+    user.individualAdminEvents = json.individual_admin_events || [];
     user.eventsApiKeys = json.events_api_keys;
     user.adminRegions = json.admin_regions || [];
     user.adminTeams = json.admin_teams || [];

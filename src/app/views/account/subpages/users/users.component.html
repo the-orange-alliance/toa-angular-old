@@ -51,11 +51,50 @@
           </mdc-list-item>
           <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="earth"></mdc-icon>
-            <b>Region Admin:</b>&nbsp;{{ selectedUser.adminRegions.join(', ') }}
+            <b>Region Admin:</b>&nbsp;
+            <mdc-list disableRipple [interactive]="false" >
+              <mdc-list-item *ngFor="let region of selectedUser.adminRegions">
+                <mdc-icon mdcListItemGraphic svgIcon="delete" (click)="manageAdmin(false, adminRegion, region, selectedUser.uid)"></mdc-icon>
+                {{region.toUpperCase()}}
+              </mdc-list-item>
+              <mdc-list-item>
+                <!-- TODO: use region dropdown rather than this manual entry -->
+                <mdc-icon mdcListItemGraphic svgIcon="plus" (click)="manageAdmin(true, adminRegion, addRegion, selectedUser.uid)"></mdc-icon>
+                <mdc-text-field label="Add Region" [(ngModel)]="addRegion" [fullwidth]="true"></mdc-text-field>
+              </mdc-list-item>
+            </mdc-list>
           </mdc-list-item>
           <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="wrench-outline"></mdc-icon>
-            <b>Event Admin:</b>&nbsp;{{ selectedUser.adminEvents.join(', ') }}
+            <b>Event Admin:</b>
+            <mdc-list disableRipple [interactive]="false" >
+              <mdc-list disableRipple [interactive]="false" >
+                <mdc-list-item *ngFor="let event of selectedUser.individualAdminEvents">
+                  <mdc-icon mdcListItemGraphic svgIcon="delete" (click)="manageAdmin(false, adminEvent, event, selectedUser.uid)"></mdc-icon>
+                  {{event.toUpperCase()}}
+                </mdc-list-item>
+                <mdc-list-item>
+                  <mdc-icon mdcListItemGraphic svgIcon="plus" (click)="manageAdmin(true, adminEvent, addEvent, selectedUser.uid)"></mdc-icon>
+                  <mdc-text-field label="Add Event" [(ngModel)]="addEvent" [fullwidth]="true"></mdc-text-field>
+                </mdc-list-item>
+              </mdc-list>
+            </mdc-list>
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="help"></mdc-icon>
+            <b>Team Admin:</b>
+            <mdc-list disableRipple [interactive]="false" >
+              <mdc-list disableRipple [interactive]="false" >
+                <mdc-list-item *ngFor="let team of selectedUser.adminTeams">
+                  <mdc-icon mdcListItemGraphic svgIcon="delete" (click)="manageAdmin(false, adminTeam, team, selectedUser.uid)"></mdc-icon>
+                  {{team.toUpperCase()}}
+                </mdc-list-item>
+                <mdc-list-item>
+                  <mdc-icon mdcListItemGraphic svgIcon="plus" (click)="manageAdmin(true, adminTeam, addTeam, selectedUser.uid)"></mdc-icon>
+                  <mdc-text-field label="Add Event" [(ngModel)]="addTeam" [fullwidth]="true"></mdc-text-field>
+                </mdc-list-item>
+              </mdc-list>
+            </mdc-list>
           </mdc-list-item>
           <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="key-outline"></mdc-icon>
