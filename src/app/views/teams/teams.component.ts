@@ -1,13 +1,13 @@
 import { WINDOW } from '@ng-toolkit/universal';
 import {Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../app-bar.service';
 import Team from '../../models/Team';
 import Region from '../../models/Region';
-import {isPlatformBrowser} from '@angular/common';
+import {isPlatformBrowser, Location} from '@angular/common';
 
 const TEAMS_PER_PAGE = 500;
 
@@ -23,14 +23,19 @@ export class TeamsComponent implements OnInit {
   currentTeams: Team[];
   regions: Region[];
 
+  doneTypingInt = 2000;
+  typingTimer;
+
   query: string;
 
   public rightSide: Team[];
   public leftSide: Team[];
 
   constructor(@Inject(WINDOW) private window: Window, private router: Router, private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals,
-              private translate: TranslateService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
-    this.query = null;
+              private translate: TranslateService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object,
+              private loca: Location, private route: ActivatedRoute, ) {
+    const queryParam = this.route.snapshot.queryParamMap.get('query');
+    this.query = (queryParam) ? queryParam : null;
     this.app.setTitle('Teams');
     this.app.setDescription(`List of FIRST Tech Challenge teams`);
   }
@@ -85,6 +90,8 @@ export class TeamsComponent implements OnInit {
       this.leftSide = this.currentTeams.slice(0, this.currentTeams.length / 2);
       this.rightSide = this.currentTeams.slice(this.currentTeams.length / 2, this.currentTeams.length);
     }
+    clearTimeout(this.typingTimer);
+    this.typingTimer = setTimeout(() => this.updateQueryParam(), this.doneTypingInt);
   }
 
   scrollTo(selectors: string) {
@@ -100,5 +107,20 @@ export class TeamsComponent implements OnInit {
       return false;
     }
 
+  }
+
+  changeUrlNoRoute(route: any) {
+    this.loca.go(route);
+  }
+
+  updateQueryParam() {
+    const query = (this.query.length > 0) ? this.query : undefined;
+    const urlTree = this.router.createUrlTree([], {
+      queryParams: {query: query},
+      queryParamsHandling: 'merge',
+      preserveFragment: true });
+
+    this.changeUrlNoRoute(urlTree.toString());
+    clearTimeout(this.typingTimer);
   }
 }

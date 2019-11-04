@@ -19,6 +19,7 @@ import Media from '../../models/Media';
 import Alliance from '../../models/Alliance';
 import EventInsights from '../../models/Insights';
 import League from '../../models/League';
+import {Location} from '@angular/common';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
@@ -57,12 +58,13 @@ export class EventComponent implements OnInit {
   userSettings: any;
 
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals, private dialog: MdcDialog, private snackbar: MdcSnackbar,
-              public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService, private cloud: CloudFunctions, private cookieService: CookieService) {
+              public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService, private cloud: CloudFunctions, private loca: Location, private cookieService: CookieService) {
     this.eventKey = this.route.snapshot.params['event_key'];
   }
 
   ngOnInit() {
     if (this.eventKey) {
+
       this.auth.authState.subscribe(user => {
         if (user !== null && user !== undefined) {
           this.user = user;
@@ -89,7 +91,7 @@ export class EventComponent implements OnInit {
 
             if (this.admin && this.totalrankings === 0 && this.totalalliances === 0 && this.totalmatches === 0 &&
               this.totalteams === 0 && this.totalawards === 0 && this.totalmedia === 0) {
-              this.select('admin');
+              this.changeUrlNoRoute('admin');
             }
           });
         }
@@ -118,12 +120,16 @@ export class EventComponent implements OnInit {
           }
 
           if (this.eventData.rankings && this.eventData.rankings.length > 0) {
-            this.select('rankings');
+            this.changeUrlNoRoute('rankings');
           } else if (this.eventData.matches && this.eventData.matches.length > 0) {
-            this.select('matches')
+            this.changeUrlNoRoute('matches')
           } else {
-            this.select('teams');
+            this.changeUrlNoRoute('teams');
           }
+
+          // Select page based on last word after last / (Unrecognised words will redirect to rankings)
+          // If this page is unavailable (I.E. there is no data to fill it) the select function will see that and not change the page
+          this.changeUrlNoRoute(this.router.url.split('/')[this.router.url.split('/').length - 1]);
 
           this.totalteams = this.eventData.teams.length;
           this.totalmatches = this.eventData.matches.length;
@@ -142,7 +148,7 @@ export class EventComponent implements OnInit {
             if (this.media && this.media.length > 0 && !this.hasEventEnded()) {
               this.totalmedia = this.media.length;
               if (this.totalteams === 0 && this.totalmatches === 0 && this.totalrankings === 0 && this.totalawards === 0) {
-                this.select('media');
+                this.changeUrlNoRoute('media');
               }
             }
           });
@@ -228,28 +234,43 @@ export class EventComponent implements OnInit {
   public select(view: string) {
     switch (view) {
       case 'rankings':
-        this.activeTab = 0;
+        if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0;
+        } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
         break;
       case 'matches':
-        this.activeTab = 1;
+        if (this.eventData.matches && this.eventData.matches.length > 0) { this.activeTab = 1;
+        } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no matches, check for teams
         break;
       case 'teams':
-        this.activeTab = 2;
+        if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; }
         break;
       case 'alliances':
-        this.activeTab = 3;
+        if (this.eventData.alliances && this.eventData.alliances.length > 0) { this.activeTab = 3;
+        } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no alliances, check for rankings
+        } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
         break;
       case 'awards':
-        this.activeTab = 4;
+        if (this.eventData.awards && this.eventData.awards.length > 0) { this.activeTab = 4;
+        } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no awards, check for rankings
+        } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
         break;
       case 'insights':
-        this.activeTab = 5;
+        if (this.qualInsights || this.elimInsights) { this.activeTab = 5;
+        } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no insights, check for rankings
+        } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
         break;
       case 'media':
-        this.activeTab = 6;
+        if (this.totalmedia > 0) { this.activeTab = 6;
+        } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no media, check for rankings
+        } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
         break;
       case 'admin':
-        this.activeTab = 7;
+        if (this.admin) { this.activeTab = 7;
+        } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no admin, check for rankings
+        } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+        break;
+      default:
+        this.activeTab = 0;
         break;
     }
   }
@@ -273,6 +294,25 @@ export class EventComponent implements OnInit {
         'user': this.user
       }
     });
+  }
+
+  changeUrlNoRoute(route: any) {
+    this.select(route);
+    this.loca.go(`events/${this.eventKey}/${this.viewNumToName(this.activeTab)}`);
+  }
+
+  viewNumToName(viewNumber: number) {
+    switch(viewNumber) {
+      case 0: return 'rankings';
+      case 1: return'matches';
+      case 2: return 'teams';
+      case 3: return 'alliances';
+      case 4: return 'awards';
+      case 5: return 'insights';
+      case 6: return 'media';
+      case 7: return 'admin';
+      default: return 'rankings';
+    }
   }
 
   sendAnalytic(category, action): void {

@@ -1,16 +1,20 @@
 <div class="row">
   <div class="outline-card col-12">
-    <div mdcHeadline5 class="black pt-2 pb-2">{{ users.length > 0 ? users.length + ' Users' : 'Loading...' }}</div>
-    <mdc-list twoLine>
-      <mdc-list-item *ngFor="let listUser of users" (click)="selectUser(listUser)" data-toggle="modal" data-target="#userdialog">
-        <mdc-list-item-text [secondaryText]="listUser.uid"><b>{{ listUser.displayName || ''}}</b>{{ listUser.displayName ? ' - '  + listUser.email : listUser.email }}</mdc-list-item-text>
-        <div mdcListItemMeta class="d-none d-sm-block">
-          <mdc-icon [class.d-none]="!listUser.emailLinked" svgIcon="email" class="ms-2"></mdc-icon>
-          <mdc-icon [class.d-none]="!listUser.phoneLinked" svgIcon="phone" class="ms-2"></mdc-icon>
-          <mdc-icon [class.d-none]="!listUser.googleLinked" svgIcon="google" class="ms-2"></mdc-icon>
-          <mdc-icon [class.d-none]="!listUser.githubLinked" svgIcon="github-circle" class="ms-2"></mdc-icon>
-        </div>
-      </mdc-list-item>
+    <div mdcHeadline5 class="black pt-2 pb-2" *ngIf="!errorLoading">{{ users.length > 0 ? users.length + ' Total Users found' : 'Loading...' }}</div>
+    <mdc-text-field label="Search Users (Name, Email)" [(ngModel)]="query" (input)="queryUsers()" [fullwidth]="true" *ngIf="users && users.length > 0"></mdc-text-field>
+    <div mdcHeadline5 class="black pt-2 pb-2" *ngIf="errorLoading">Error Loading Users! Please contact a dev.</div>
+    <div mdcHeadline5 class="black pt-2 pb-2" *ngIf="users !== undefined && queriedUsers.length > 20 && users.length > 0 && query.length > 0">Your Query is too General! Please be more specific.</div>
+    <div mdcHeadline5 class="black pt-2 pb-2" *ngIf="users && queriedUsers && queriedUsers.length < 1 && users.length > 0">No results.</div>
+    <mdc-list twoLine *ngIf="queriedUsers.length < 21">
+      <mdc-list-item *ngFor="let listUser of queriedUsers" (click)="selectUser(listUser)" data-toggle="modal" data-target="#userdialog">
+          <mdc-list-item-text [secondaryText]="listUser.uid"><b>{{ listUser.displayName || ''}}</b>{{ listUser.displayName ? ' - '  + listUser.email : listUser.email }}</mdc-list-item-text>
+          <div mdcListItemMeta class="d-none d-sm-block">
+            <mdc-icon [class.d-none]="!listUser.emailLinked" svgIcon="email" class="ms-2"></mdc-icon>
+            <mdc-icon [class.d-none]="!listUser.phoneLinked" svgIcon="phone" class="ms-2"></mdc-icon>
+            <mdc-icon [class.d-none]="!listUser.googleLinked" svgIcon="google" class="ms-2"></mdc-icon>
+            <mdc-icon [class.d-none]="!listUser.githubLinked" svgIcon="github-circle" class="ms-2"></mdc-icon>
+          </div>
+        </mdc-list-item>
     </mdc-list>
   </div>
 </div>
@@ -47,11 +51,50 @@
           </mdc-list-item>
           <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="earth"></mdc-icon>
-            <b>Region Admin:</b>&nbsp;{{ selectedUser.adminRegions.join(', ') }}
+            <b>Region Admin:</b>&nbsp;
+            <mdc-list disableRipple [interactive]="false" >
+              <mdc-list-item *ngFor="let region of selectedUser.adminRegions">
+                <mdc-icon mdcListItemGraphic svgIcon="delete" (click)="manageAdmin(false, adminRegion, region, selectedUser.uid)"></mdc-icon>
+                {{region.toUpperCase()}}
+              </mdc-list-item>
+              <mdc-list-item>
+                <!-- TODO: use region dropdown rather than this manual entry -->
+                <mdc-icon mdcListItemGraphic svgIcon="plus" (click)="manageAdmin(true, adminRegion, addRegion, selectedUser.uid)"></mdc-icon>
+                <mdc-text-field label="Add Region" [(ngModel)]="addRegion" [fullwidth]="true"></mdc-text-field>
+              </mdc-list-item>
+            </mdc-list>
           </mdc-list-item>
           <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="wrench-outline"></mdc-icon>
-            <b>Event Admin:</b>&nbsp;{{ selectedUser.adminEvents.join(', ') }}
+            <b>Event Admin:</b>
+            <mdc-list disableRipple [interactive]="false" >
+              <mdc-list disableRipple [interactive]="false" >
+                <mdc-list-item *ngFor="let event of selectedUser.individualAdminEvents">
+                  <mdc-icon mdcListItemGraphic svgIcon="delete" (click)="manageAdmin(false, adminEvent, event, selectedUser.uid)"></mdc-icon>
+                  {{event.toUpperCase()}}
+                </mdc-list-item>
+                <mdc-list-item>
+                  <mdc-icon mdcListItemGraphic svgIcon="plus" (click)="manageAdmin(true, adminEvent, addEvent, selectedUser.uid)"></mdc-icon>
+                  <mdc-text-field label="Add Event" [(ngModel)]="addEvent" [fullwidth]="true"></mdc-text-field>
+                </mdc-list-item>
+              </mdc-list>
+            </mdc-list>
+          </mdc-list-item>
+          <mdc-list-item>
+            <mdc-icon mdcListItemGraphic svgIcon="help"></mdc-icon>
+            <b>Team Admin:</b>
+            <mdc-list disableRipple [interactive]="false" >
+              <mdc-list disableRipple [interactive]="false" >
+                <mdc-list-item *ngFor="let team of selectedUser.adminTeams">
+                  <mdc-icon mdcListItemGraphic svgIcon="delete" (click)="manageAdmin(false, adminTeam, team, selectedUser.uid)"></mdc-icon>
+                  {{team.toUpperCase()}}
+                </mdc-list-item>
+                <mdc-list-item>
+                  <mdc-icon mdcListItemGraphic svgIcon="plus" (click)="manageAdmin(true, adminTeam, addTeam, selectedUser.uid)"></mdc-icon>
+                  <mdc-text-field label="Add Team" [(ngModel)]="addTeam" [fullwidth]="true"></mdc-text-field>
+                </mdc-list-item>
+              </mdc-list>
+            </mdc-list>
           </mdc-list-item>
           <mdc-list-item>
             <mdc-icon mdcListItemGraphic svgIcon="key-outline"></mdc-icon>
