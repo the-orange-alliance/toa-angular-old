@@ -43,10 +43,8 @@
             </ul>
           </li>
 		  <li class="nav-item mt-2">
-            {{ 'pages.team.team_insights' | translate }}
+            <a (click)="scrollToEvent('info')">{{ 'pages.team.team_insights' | translate }}</a>
             <ul class="nav flex-column p-0">
-            <!--  <li class="nav-item text-primary"><a *ngFor="let event of team.events" (click)="scrollToEvent(event.eventKey)" class="nav-link">{{ event.divisionName ? event.eventName + ' - ' + event.divisionName + ' Division' : event.eventName}}</a></li>
-			-->
 			</ul>
           </li>
         </ul>
@@ -174,6 +172,24 @@
       </mdc-card>
     </div>
   </div>
+  
+  <!-- Team Insights -->
+   <div class="pt-md-5 pt-3 pb-1" *ngIf="currentSeason && currentSeason.seasonKey">
+      <mdc-card class="toa-card">
+        <mdc-tab-bar class="w-100" [focusOnActivate]="false" [activeTabIndex]="isSelected('results') ? 0 : 1">
+          <mdc-tab-scroller>
+            <mdc-tab label="{{ 'pages.team.team_insights' | translate }}" (click)="select('results')"></mdc-tab>
+          </mdc-tab-scroller>
+        </mdc-tab-bar>
+        <div class="mt-4 p-2">
+          <toa-team-results *ngIf="isSelected('results')" [team]="team" [season]="getSeasonString(currentSeason.seasonKey, false)"></toa-team-results>
+          <toa-team-robot *ngIf="isSelected('robot')" [team]="team"></toa-team-robot>
+        </div>
+      </mdc-card>
+    </div>
+  
+  
+  
 
   
 </div>
