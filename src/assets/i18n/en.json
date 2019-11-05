@@ -360,6 +360,7 @@
     "team": {
       "team_info": "Team Information",
       "event_results": "Event Results",
+	  "team_insights": "Team Insights" , 
       "part_of_region": "Part of the {{ regionKey }} Region",
       "website": "Website",
       "rookie_year": "Rookie Year",
