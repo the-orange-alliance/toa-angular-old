@@ -32,6 +32,7 @@
     "streaming": "Streaming",
     "android_app": "Android App",
     "ios_app": "iOS App",
+	"region": "Regions" ,
     "add_data": "Add Data",
     "api": "API",
     "github": "GitHub",
