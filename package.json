@@ -34,6 +34,7 @@
     "@angular/platform-browser-dynamic": "^8.2.3",
     "@angular/platform-server": "^8.2.3",
     "@angular/router": "^8.2.3",
+    "@material/radio": "^4.0.0",
     "@ng-toolkit/universal": "^7.1.2",
     "@nguniversal/aspnetcore-engine": "^8.1.1",
     "@nguniversal/common": "^8.1.1",

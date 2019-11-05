@@ -311,6 +311,14 @@
           },
           "verify_email": "Please verify your email and try again.",
           "success_sent_verify_email": "Successfully sent a verification email."
+        },
+        "add_stream": {
+          "title": "Add Event Stream",
+          "youtube": "YouTube",
+          "twitch": "Twitch",
+          "stream_title": "Stream Title",
+          "stream_link": "Stream URL",
+          "submit": "Submit Stream"
         }
       }
     },
@@ -368,8 +376,11 @@
         "add_youtube": "Add YouTube Video to Team Playlist",
         "add_cad": "Add CAD file to Team Page",
         "submit": "Submit",
+        "youtube_title": "Video Title",
         "youtube_link": "YouTube Video URL",
+        "image_title": "Image Title",
         "image_link": "Imgur URL",
+        "cad_title": "GrabCAD Title",
         "cad_link": "GrabCAD URL"
       }
     },

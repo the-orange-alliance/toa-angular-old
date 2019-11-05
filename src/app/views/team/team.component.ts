@@ -45,8 +45,11 @@ export class TeamComponent implements OnInit {
   images: any = {};
   
   imageLink: string;
+  imageTitle: string;
   cadLink: string;
+  cadTitle: string;
   youtubeLink: string;
+  youtubeTitle: string;
 
   user: TOAUser = null;
   favorite: boolean;
@@ -335,7 +338,7 @@ export class TeamComponent implements OnInit {
         "team_key": this.teamKey,
         "media_type": mediaType,
         "primary": false,
-        "media_title": "Test",
+        "media_title": this.youtubeTitle,
         "media_link": this.youtubeLink
       }
 
@@ -352,7 +355,7 @@ export class TeamComponent implements OnInit {
         "team_key": this.teamKey,
         "media_type": mediaType,
         "primary": false,
-        "media_title": "Test",
+        "media_title": this.imageTitle,
         "media_link": this.imageLink
       }
       console.log(requestBody);
@@ -367,7 +370,7 @@ export class TeamComponent implements OnInit {
         "team_key": this.teamKey,
         "media_type": mediaType,
         "primary": false,
-        "media_title": "Test",
+        "media_title": this.cadTitle,
         "media_link": this.cadLink
       }
       console.log(requestBody);

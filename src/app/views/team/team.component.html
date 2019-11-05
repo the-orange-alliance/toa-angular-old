@@ -46,27 +46,7 @@
       </div>
     </mdc-card>
   </div>
-  <div class="col-12 col-md-9">
-    <mdc-card class="toa-card overflow">
-      <h3>{{'pages.team.add_team_data.title' | translate }}</h3>
-      <div class="outline-card">
-        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_youtube' | translate }}</div>
-        <mdc-text-field dense label="{{'pages.team.add_team_data.youtube_link' | translate}}" [(ngModel)]="youtubeLink"></mdc-text-field>
-        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendVideo()">{{'pages.team.add_team_data.submit' | translate }}</button>
-        <!-- <button mdc-button primary class="ml-2 mr-2" style="height: 48px"  *ngIf="!uploadingVideos && showConfirm">{{ 'pages.team.add_team_data.submit' | translate }}</button> -->
-      </div>
-      <div class="outline-card">
-        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_picture' | translate }}</div>
-        <mdc-text-field dense label="{{'pages.team.add_team_data.image_link' | translate}}" [(ngModel)]="imageLink"></mdc-text-field>
-        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendVideo()">{{'pages.team.add_team_data.submit' | translate }}</button>
-      </div>
-      <div class="outline-card">
-        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_cad' | translate }}</div>
-        <mdc-text-field dense label="{{'pages.team.add_team_data.cad_link' | translate}}" [(ngModel)]="cadLink"></mdc-text-field>
-        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendVideo()">{{'pages.team.add_team_data.submit' | translate }}</button>
-      </div>
-    </mdc-card>
-  </div>
+  
   <div class="col-12 col-md-9">
     <mdc-card class="toa-card" id="info">
       <div class="d-flex align-items-center mb-1">
@@ -126,6 +106,28 @@
 
     </mdc-card>
 
+    <mdc-card class="toa-card overflow" *ngIf="user != null">
+      <h3>{{'pages.team.add_team_data.title' | translate }}</h3>
+      <div class="outline-card">
+        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_youtube' | translate }}</div>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.youtube_title' | translate}}" [(ngModel)]="youtubeTitle"></mdc-text-field>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.youtube_link' | translate}}" [(ngModel)]="youtubeLink"></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendVideo()">{{'pages.team.add_team_data.submit' | translate }}</button>
+        <!-- <button mdc-button primary class="ml-2 mr-2" style="height: 48px"  *ngIf="!uploadingVideos && showConfirm">{{ 'pages.team.add_team_data.submit' | translate }}</button> -->
+      </div>
+      <div class="outline-card">
+        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_picture' | translate }}</div>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.image_title' | translate}}" [(ngModel)]="imageTitle"></mdc-text-field>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.image_link' | translate}}" [(ngModel)]="imageLink"></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendVideo()">{{'pages.team.add_team_data.submit' | translate }}</button>
+      </div>
+      <div class="outline-card">
+        <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_cad' | translate }}</div>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.cad_title' | translate}}" [(ngModel)]="cadTitle"></mdc-text-field>
+        <mdc-text-field dense label="{{'pages.team.add_team_data.cad_link' | translate}}" [(ngModel)]="cadLink"></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendVideo()">{{'pages.team.add_team_data.submit' | translate }}</button>
+      </div>
+    </mdc-card>
 
 
     <div class="col-12 d-md-none mt-3"
@@ -165,4 +167,6 @@
       </mdc-card>
     </div>
   </div>
+
+  
 </div>

@@ -75,6 +75,7 @@ import {LeagueItemComponent} from './components/league/league.item.component';
 import { TeamDataComponent } from './components/team-data/team-data.component';
 import { SafePipe } from './safe.pipe';
 import { HttpErrorHandler }     from './http-error-handler.service';
+import { EventAddStreamComponent } from './views/event/subviews/event-add-stream/event-add-stream.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
@@ -132,7 +133,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     LeagueCreatorComponent,
     ManageTeamDataComponent,
     TeamDataComponent,
-    SafePipe
+    SafePipe,
+    EventAddStreamComponent
   ],
   entryComponents: [
     DialogText,
