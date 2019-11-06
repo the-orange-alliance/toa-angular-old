@@ -368,6 +368,7 @@
 	  "total_skystones": "Skystones Delivered:",
 	  "bridge_skystones": "Skystones Delivered Under Alliance Skybridge:",
 	  "total_foundation": "Stones Placed on Foundation:",
+	  "building_park": "# of Robots Parked in Building Site:",
       "awards_in_season": "{{ awards }} awards in {{ season }}",
       "robot_profile": {
         "title": "Robot",
