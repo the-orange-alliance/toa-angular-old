@@ -179,7 +179,7 @@
         <div *ngIf="teamLogo" class="team-logo m-2" [style.backgroundImage]="'url('+teamLogo.mediaLink+')'"></div>
         <div>
           <div class="toa-card-header" [class.pb-1]="team.teamNameLong" mdcHeadline5>Team Insights</div>
-          <div class="toa-card-subtitle pt-0" *ngIf="team.teamNameLong">#{{ team.teamNumber }} - {{ team.teamNameShort }}</div>
+          <div class="toa-card-subtitle pt-0" *ngIf="team.teamNameLong">#{{ team.teamNumber }} - {{ team.teamNameShort }} - {{ getSeasonString(currentSeason.seasonKey, false) }} season</div>
         </div>
       </div>
       <mdc-list-divider></mdc-list-divider>
