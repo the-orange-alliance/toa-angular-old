@@ -42,7 +42,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   loadingVideos: boolean;
   showGetObjects: boolean;
   showConfirm: boolean;
-  uploadingVideos: boolean;
+  uploadingVideos: boolean; 
 
   images: any = {};
   pitsMap = 'pits_map';
@@ -78,8 +78,6 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     private cd: ChangeDetectorRef) {
 
   }
-
-
 
   ngOnInit() {
     this.db.object(`eventAPIs/${ this.eventKey }`).snapshotChanges().subscribe(item => {
