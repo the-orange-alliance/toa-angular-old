@@ -34,9 +34,6 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   deleteEvent3 = false;
   deleteEvent4 = false;
 
-  generatingEventApiKey: boolean;
-  eventApiKey: string;
-
   playlistURL: string;
   videos: any[];
   loadingVideos: boolean;
@@ -76,9 +73,6 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    this.db.object(`eventAPIs/${ this.eventKey }`).snapshotChanges().subscribe(item => {
-      this.eventApiKey = item && item.payload.val() ? item.payload.val() + '' : null;
-    });
     this.showGetObjects = true;
 
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
@@ -191,15 +185,6 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
       this.showSnackbar('pages.event.subpages.admin.stream_card.success_unlinked');
       this.hasStream = false;
       this.linkedStream = null;
-    }, (err) => {
-      this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
-    }).catch(console.log);
-  }
-
-  generateEventApiKey(): void {
-    this.generatingEventApiKey = true;
-    this.cloud.generateEventApiKey(this.user, this.eventKey).then(() => {
-      this.generatingEventApiKey = false;
     }, (err) => {
       this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
     }).catch(console.log);
