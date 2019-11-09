@@ -141,6 +141,8 @@
         <div class="w-100 p-2">
           <div mdcMenuSurfaceAnchor #seasonAnchorMobile class="toa-dropdown">
             <button mdc-button (click)="seasonDropdownMobile.open = !seasonDropdownMobile.open">
+			
+
               {{ getSeasonString(currentSeason.seasonKey, currentSeason.description) }}
               <mdc-icon>arrow_drop_down</mdc-icon>
             </button>
@@ -171,9 +173,7 @@
         </div>
       </mdc-card>
     </div>
-  </div>
-  
-  <!-- Team Insights -->
+	<!-- Team Insights -->
    <mdc-card class="toa-card" id="insights">
       <div class="d-flex align-items-center mb-1">
         <div *ngIf="teamLogo" class="team-logo m-2" [style.backgroundImage]="'url('+teamLogo.mediaLink+')'"></div>
@@ -208,9 +208,7 @@
       </div>
 
     </mdc-card>
+  </div>
   
-  
-  
-
   
 </div>
