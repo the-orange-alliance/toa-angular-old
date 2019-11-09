@@ -1,0 +1,22 @@
+@import "../../../../../constants";
+
+.edit-event mdc-text-field {
+  width: 100%;
+  margin: 6px 2px;
+}
+
+.edit-event mdc-icon {
+  fill: rgba(0,0,0,.54)!important;
+}
+
+.videos-list {
+  height: 300px;
+  overflow-x: hidden;
+  margin-top: .5rem;
+}
+
+.videos-list .thumbnail {
+  width: 105px!important;
+  height: 60px!important;
+  border-radius: 4px!important;
+}

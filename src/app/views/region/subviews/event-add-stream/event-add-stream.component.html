@@ -1,0 +1,13 @@
+<mdc-card class="toa-card overflow">
+  <div class="outline-card">
+    <div mdcHeadline5 class="black pb-4">{{'pages.event.add_stream.title' | translate }}</div>
+    <mdc-radio>
+      <input type="radio" id="rdbYoutube" class="mdc-radio__native-control" value="0">
+      <input type="radio" id="rdbTwitch" class="mdc-radio__native-control" value="1">
+      <input type="radio" id="rdbCustom" class="mdc-radio__native-control" value="3">
+    </mdc-radio>
+    <mdc-text-field dense label="{{'pages.event.add_stream.title' | translate}}" [(ngModel)]="streamTitle"></mdc-text-field>
+    <mdc-text-field dense label="{{'pages.event.add_stream.link' | translate}}" [(ngModel)]="streamLink"></mdc-text-field>
+    <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendStream()">{{'pages.event.add_stream.submit' | translate }}</button>
+  </div>
+</mdc-card>

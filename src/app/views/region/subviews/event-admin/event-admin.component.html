@@ -1,0 +1,159 @@
+<div class="row pr-2 pl-2 pb-4">
+  <div class="col-md-6 col-12">
+    <div class="outline-card">
+      <div mdcHeadline5 class="black pb-4">{{ 'pages.account.datasync_card.title' | translate }}</div>
+
+      <div class="table-responsive" dir="ltr">
+        <div style="white-space:nowrap" class="align-items-center d-flex"><b>API Key:&nbsp;</b>
+          <code *ngIf="eventApiKey">{{ eventApiKey }}</code>
+          <button mdc-button *ngIf="!eventApiKey && !generatingEventApiKey" (click)="generateEventApiKey()">{{ 'pages.account.api_card.generate_key' | translate }}</button>
+          <mdc-linear-progress *ngIf="!eventApiKey && generatingEventApiKey" class="ml-2 mr-2"  style="width: 140px;"></mdc-linear-progress>
+        </div>
+        <div style="white-space:nowrap"><b>Event Key:&nbsp;</b><code>{{ eventKey }}</code></div>
+      </div>
+
+      <div mdcSubtitle1 class="pt-3">{{ 'pages.account.datasync_card.docs' | translate }}
+        <a href="https://github.com/orange-alliance/TOA-DataSync/wiki/DataSync-Documentation" target="_blank" (click)="this.sendAnalytic('leaving', 'datasync docs')">{{ 'general.here' | translate }}</a>.
+      </div>
+    </div>
+
+    <div class="outline-card mt-2 mb-2">
+      <div mdcHeadline5 class="black pb-4">{{ 'pages.event.subpages.admin.update_info_card.title' | translate }}</div>
+      <div class="row edit-event">
+        <div class="col-md-6 col-12 p-1">
+          <mdc-text-field #event_name dense [label]="'pages.event.subpages.admin.update_info_card.event_name' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="rename-box"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #website dense [label]="'pages.event.subpages.admin.update_info_card.website' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="earth"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #start_date dense type="date" [label]="'pages.event.subpages.admin.update_info_card.start_date' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="calendar"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #end_date dense type="date" [label]="'pages.event.subpages.admin.update_info_card.end_date' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="calendar"></mdc-icon>
+          </mdc-text-field>
+          <mdc-select #league_selector [placeholder]="'pages.account.create_event_card.league' | translate" (selectionChange)="onLeagueChange($event)" class="w-100">
+            <option *ngFor="let league of leagues" [value]="league.leagueKey">
+              {{ league.description ? league.regionKey + "-" + league.leagueKey + " - " + league.description : league.regionKey + "-" + league.leagueKey }}
+            </option>
+          </mdc-select>
+        </div>
+
+        <div class="col-md-6 col-12 p-1">
+          <mdc-text-field #venue dense [label]="'pages.event.subpages.admin.update_info_card.venue' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="spotlight"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #city dense [label]="'pages.event.subpages.admin.update_info_card.city' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="city-variant-outline"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #state dense [label]="'pages.event.subpages.admin.update_info_card.state' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="map-marker-outline"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #country dense [label]="'pages.event.subpages.admin.update_info_card.country' | translate">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="globe-model"></mdc-icon>
+          </mdc-text-field>
+        </div>
+      </div>
+      <button mdc-button primary (click)="updateEvent()">{{ 'pages.event.subpages.admin.update_info_card.update' | translate }}</button>
+    </div>
+
+    <div class="outline-card mt-2 mb-2" *ngIf="toaAdmin">
+      <div mdcHeadline5 class="black pb-4">{{ 'pages.event.subpages.admin.delete_card.delete_event' | translate }}</div>
+      <button mdc-button primary style="background-color: #ff0021" *ngIf="deleteEvent1" (click)="deleteEvent1 = false; deleteEvent2 = true;">{{ 'pages.event.subpages.admin.delete_card.delete' | translate }}</button>
+      <button mdc-button primary style="background-color: #ff0021" *ngIf="deleteEvent2" (click)="deleteEvent2 = false; deleteEvent3 = true;">{{ 'pages.event.subpages.admin.delete_card.delete_all_data' | translate }}</button>
+      <button mdc-button primary style="background-color: #ff0021" *ngIf="deleteEvent3" (click)="deleteEvent3 = false; deleteEvent4 = true;">{{ 'pages.event.subpages.admin.delete_card.delete_sure' | translate }}</button>
+      <button mdc-button primary style="background-color: #ff0021" *ngIf="deleteEvent4" (click)="deleteEvent(); deleteEvent4 = false; deleteEvent1 = true;">{{ 'pages.event.subpages.admin.delete_card.delete_final' | translate }}</button>
+    </div>
+
+  </div>
+
+  <div class="col-md-6 col-12 pt-2 pt-md-0 ps-md-2">
+    <div class="outline-card">
+      <div mdcHeadline5 class="black pb-4">{{ 'pages.event.subpages.admin.playlist_card.title' | translate }}</div>
+      <div class="d-inline-flex align-items-center">
+        <mdc-text-field dense label="{{ 'pages.event.subpages.admin.playlist_card.playlist_url' | translate }}" *ngIf="showGetObjects" [(ngModel)]="playlistURL"></mdc-text-field>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="playlistMatchify()" *ngIf="!loadingVideos && showGetObjects">{{ 'pages.event.subpages.admin.playlist_card.load' | translate }}</button>
+        <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="setVideos()" *ngIf="!uploadingVideos && showConfirm">{{ 'pages.event.subpages.admin.playlist_card.confirm' | translate }}</button>
+        <mdc-linear-progress class="ml-2 mr-2" style="width: 64px" *ngIf="loadingVideos || uploadingVideos"></mdc-linear-progress>
+      </div>
+      <span class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent" *ngIf="showGetObjects && eventData">Ex. video name: <b><i>{{ eventData.startDate | date : "y" }} {{ eventData.divisionName ? eventData.eventName + ' - ' +  eventData.divisionName + ' Division' : eventData.eventName }} - Qualification Match 1</i></b></span>
+
+      <mdc-list #custom twoLine avatar class="videos-list" *ngIf="videos && videos.length > 0">
+        <mdc-list-item  *ngFor="let video of videos">
+          <img mdcListItemGraphic src="{{ video['video_thumbnail'] }}" class="thumbnail" title="Video thumbnail">
+          <mdc-list-item-text secondaryText="{{ video['video_title'] }}">{{ video['match_name'] }}</mdc-list-item-text>
+          <a href="#" mdcListItemMeta mdcIcon title="Play Video" [href]="video['video_url']" target="_blank">play_circle_outline</a>
+        </mdc-list-item>
+      </mdc-list>
+    </div>
+
+    <div class="outline-card mt-2">
+      <div mdcHeadline5 class="black">{{ 'pages.event.subpages.for-participants.schedule' | translate }}</div>
+      <div mdcSubtitle1 class="pb-3">{{ 'pages.event.subpages.admin.update_info_card.image_only' | translate }}</div>
+      <div class="d-flex">
+        <div class="custom-file me-2">
+          <input class="custom-file-input" type="file" id="schedule" (change)="handleImage($event, schedule)" />
+          <label class="custom-file-label" for="schedule" [dir]="'config.direction' | translate">{{ getFileName(schedule) || ('pages.event.subpages.admin.update_info_card.choose_image' | translate) }}</label>
+        </div>
+        <button mdc-button primary (click)="uploadImage(schedule)" [disabled]="!getFileName(schedule)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
+      </div>
+    </div>
+
+    <div class="outline-card mt-2">
+      <div mdcHeadline5 class="black">{{ 'pages.event.subpages.for-participants.pits_map' | translate }}</div>
+      <div mdcSubtitle1 class="pb-3">{{ 'pages.event.subpages.admin.update_info_card.image_only' | translate }}</div>
+      <div class="d-flex">
+        <div class="custom-file me-2">
+          <input class="custom-file-input" type="file" id="pitsMap" (change)="handleImage($event, pitsMap)" />
+          <label class="custom-file-label" for="pitsMap" [dir]="'config.direction' | translate">{{ getFileName(pitsMap) || ('pages.event.subpages.admin.update_info_card.choose_image' | translate) }}</label>
+        </div>
+        <button mdc-button primary (click)="uploadImage(pitsMap)" [disabled]="!getFileName(pitsMap)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
+      </div>
+    </div>
+
+    <div class="outline-card mt-2">
+      <div mdcHeadline5 class="black">{{ 'pages.event.subpages.for-participants.venue_map' | translate }}</div>
+      <div mdcSubtitle1 class="pb-3">{{ 'pages.event.subpages.admin.update_info_card.image_only' | translate }}</div>
+      <div class="d-flex">
+        <div class="custom-file me-2">
+          <input class="custom-file-input" type="file" id="venueMap" (change)="handleImage($event, venueMap)" />
+          <label class="custom-file-label" for="venueMap" [dir]="'config.direction' | translate">{{ getFileName(venueMap) || ('pages.event.subpages.admin.update_info_card.choose_image' | translate) }}</label>
+        </div>
+        <button mdc-button primary (click)="uploadImage(venueMap)" [disabled]="!getFileName(venueMap)">{{ 'pages.event.subpages.admin.update_info_card.upload' | translate }}</button>
+      </div>
+    </div>
+
+    <div *ngIf="!hasStream" class="outline-card mt-2">
+      <div mdcHeadline5 class="black">{{ 'pages.event.subpages.admin.stream_card.add_stream' | translate }}</div>
+      <div>
+        <mdc-list (click)="streamRadioClick()">
+          <mdc-radio-group [(ngModel)]="streamType">
+            <mdc-form-field>
+              <mdc-list-item><mdc-radio mdcListItemGraphic value="Youtube" (change)="streamRadioClick('Youtube')"></mdc-radio>{{ 'pages.event.subpages.admin.stream_card.stream' | translate: { provider: 'YouTube'} }}</mdc-list-item>
+              <mdc-list-item><mdc-radio mdcListItemGraphic value="Twitch"  (change)="streamRadioClick('Twitch')"></mdc-radio>{{ 'pages.event.subpages.admin.stream_card.stream' | translate: { provider: 'Twitch'} }}</mdc-list-item>
+            </mdc-form-field>
+          </mdc-radio-group>
+        </mdc-list>
+      </div>
+      <div class="d-flex">
+        <div class="w-100 me-2">
+          <mdc-text-field #stream_url dense class="w-100" [label]="'pages.event.subpages.admin.stream_card.url' | translate: { provider: 'YouTube' }">
+            <mdc-icon *ngIf="streamType === 'Youtube'" mdcTextFieldIcon leading svgIcon="youtube"></mdc-icon>
+            <mdc-icon *ngIf="streamType === 'Twitch'" mdcTextFieldIcon leading svgIcon="twitch"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #stream_name dense class="w-100 mt-2" [label]="'pages.event.subpages.admin.stream_card.stream_name' | translate"></mdc-text-field>
+        </div>
+        <button mdc-button primary class="mt-3" (click)="addStream()">{{ 'pages.event.subpages.admin.stream_card.link' | translate }}</button>
+      </div>
+    </div>
+
+    <div *ngIf="hasStream && linkedStream && linkedStream.isActive" class="outline-card mt-2">
+      <div mdcHeadline5 class="black">{{ 'pages.event.subpages.admin.stream_card.unlink_stream' | translate }}</div>
+      <div mdcSubtitle1 class="pb-3">{{ 'pages.event.subpages.admin.stream_card.currently_linked' | translate }}: {{ linkedStream.channelURL ? linkedStream.channelURL : linkedStream.streamURL }}</div>
+      <div class="d-flex">
+        <button mdc-button primary (click)="removeStream()">{{ 'pages.event.subpages.admin.stream_card.unlink' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

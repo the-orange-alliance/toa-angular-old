@@ -10,6 +10,8 @@
     "teams": "Teams",
     "event": "Event",
     "events": "Events",
+    "region": "Region",
+    "regions": "Regions",
     "match": "Match",
     "matches": "Matches",
     "live": "LIVE",
@@ -88,7 +90,7 @@
           "league_key": "League Key",
           "league_description": "League Description",
           "division_desc": "Division Description"
-        }
+        }   
       },
       "notifications_card": {
         "title": "Notifications",
@@ -98,6 +100,7 @@
         "blocked": "Notifications are blocked on this device",
         "help": "To disable notification blocking, click the lock icon to the left of the web address, click Site settings and change the notifications permission."
       },
+        
       "api_card": {
         "title": "Build amazing things with our API",
         "your_key": "Here is your API Key:",
@@ -337,6 +340,13 @@
       "scheduled_time": "Scheduled Time",
       "no_video": "No video available",
       "add_one": "Add one"
+    },
+      
+    "regions": {
+        "filter_season": "Season",
+      "filter_region": "Region",
+      "filter": "Filter Options",
+      "clear_filter": "Clear Filter"
     },
 
     "streams": {
