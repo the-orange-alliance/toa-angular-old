@@ -1,43 +1,71 @@
-<h2>{{ "pages.home.title" | translate }}</h2>
-<p  [innerHTML]="'pages.home.short_info' | translate"></p>
+<div class="d-flex align-items-center flex-column">
+  <h1 class="my-5">The Orange Alliance</h1>
+  <div class="relative-container">
+    <div class="new-search-box-container">
+      <div class="new-search-box">
+        <mdc-icon svgIcon="magnify"></mdc-icon>
+        <input autocomplete="off" type="text" [(ngModel)]="search" placeholder="Search for teams or events">
+      </div>
+      <mdc-list #searchresults class="results" *ngIf="teamSearchResults.length > 0 || eventSearchResults.length > 0">
+        <div class="mdc-list-item mdc-list-item--disabled" *ngIf="teamSearchResults.length > 0">{{ "general.teams" | translate }}</div>
+        <a mdc-list-item *ngFor="let team of teamSearchResults" (click)="teamClicked($event, team.teamKey)"
+           (keydown.enter)="teamClicked($event, team.teamKey)"
+           [innerHTML]="getBoldText(team.teamNumber + ' - ' + (team.teamNameShort ? team.teamNameShort : 'Team ' + team.teamNumber))">
+        </a>
+
+        <div class="mdc-list-item mdc-list-item--disabled" *ngIf="eventSearchResults.length > 0">{{ "general.events" | translate }}</div>
+        <a mdc-list-item *ngFor="let event of eventSearchResults" (click)="eventClicked($event, event.eventKey)"
+           (keydown.enter)="eventClicked($event, event.eventKey)"
+           [innerHTML]="getBoldText(event.fullEventName)">
+        </a>
+      </mdc-list>
+    </div>
+  </div>
+  <div class="d-flex mt-3 mb-5">
+    <mdc-ripple [attachTo]="eventsButton">
+      <a #eventsButton class="home-icon-container" routerLink="/events">
+        <mdc-icon svgIcon="calendar-outline"></mdc-icon>
+        Events
+      </a>
+    </mdc-ripple>
+    <mdc-ripple [attachTo]="teamsButton">
+      <a #teamsButton class="home-icon-container" routerLink="/teams">
+        <mdc-icon svgIcon="account-group-outline"></mdc-icon>
+        Teams
+      </a>
+    </mdc-ripple>
+    <mdc-ripple [attachTo]="leaguesButton">
+      <div #leaguesButton class="home-icon-container">
+        <mdc-icon svgIcon="map-outline"></mdc-icon>
+        Leagues
+      </div>
+    </mdc-ripple>
+  </div>
+</div>
+
+<mdc-card class="d-none" outlined style="background: transparent">
+  <div class="py-2 px-3" mdcSubtitle2>{{ "pages.home.todays_events" | translate }}</div>
+  <div *ngFor="let event of currentEvents">
+    <mdc-list-divider></mdc-list-divider>
+    <toa-event-item [event]="event" [dense]="true"></toa-event-item>
+
+    <!--
+        <mdc-ripple class="demo-card-article">
+          <h2 class="py-2 px-3" mdcHeadline5>Copper on the rise</h2>
+          <p class="demo-card-article__snippet" mdcBody2>
+            Copper price soars amid global market optimism and increased demand.
+          </p>
+        </mdc-ripple>
+    -->
+  </div>
+</mdc-card>
 
 <div class="row m-0">
   <div class="col-sm-12 col-lg-6 p-lg-3 p-0 mt-1">
-    <div class="row" [dir]="'config.direction' | translate">
-      <div class="col-12 p-1 mb-3" *ngIf="currentAnnouncement" dir="ltr">
-        <mdc-card class="toa-card p-0">
-          <h1 class="toa-card-header pt-3 mb-0 pb-0" mdcHeadline6>{{ currentAnnouncement.title }}</h1>
-          <div class="toa-card-subtitle p-3" mdcBody2>{{ currentAnnouncement.text }}</div>
-        </mdc-card>
-      </div>
-      <div class="col-6 p-1">
-        <mdc-card class="toa-card counting-card">
-          <div class="counting-card-icon">
-            <mdc-icon svgIcon="account-group"></mdc-icon>
-          </div>
-          <div class="counting-card-content">
-            <div class="counting-card-title">{{ teamsCount ? teamsCount : 0 }}</div>
-            <div class="counting-card-info">{{ "pages.home.active_teams" | translate }}</div>
-          </div>
-        </mdc-card>
-      </div>
-
-      <div class="col-6 p-1">
-        <mdc-card class="toa-card counting-card">
-          <div class="counting-card-icon">
-            <mdc-icon svgIcon="gamepad-variant"></mdc-icon>
-          </div>
-          <div class="counting-card-content">
-            <div class="counting-card-title">{{ matchCount ? matchCount : 0 }}</div>
-            <div class="counting-card-info">{{ "pages.home.matches_played" | translate }}</div>
-          </div>
-        </mdc-card>
-      </div>
-    </div>
-    <div class="row mt-1" *ngIf="currentEvents">
+    <div class="row" *ngIf="currentEvents">
       <div class="p-1 col-12">
         <mdc-card class="toa-card p-0">
-          <div class="p-2">
+          <div style="padding: 5px 5px 0">
             <div class="toa-card-header pb-0" mdcSubtitle2>{{ "pages.home.todays_events" | translate }}</div>
             <div class="toa-card-subtitle pt-0" mdcSubtitle2>{{ today | date :  "mediumDate" }}</div>
           </div>
@@ -63,7 +91,16 @@
           <div class="toa-card-subtitle pt-0" mdcSubtitle2>SKYSTONE 2019/20</div>
           <mdc-list-divider></mdc-list-divider>
           <div class="p-3">
-            <div class="row" *ngIf="highScoreQual && highScoreQual.participants">
+            <div class="row" *ngIf="highScoreAll && highScoreAll.participants">
+              <div class="col-12 mt-2">
+                <h1 class="mb-0" mdcHeadline6>{{ "pages.home.leaderboards.high_score_all" | translate }}</h1>
+                <h1 class="mt-0" mdcSubtitle1>({{ "pages.home.leaderboards.with_enalties" | translate }})</h1>
+                <h1 *ngIf="highScoreAll.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreAll.eventKey, $event)">{{ highScoreAll.event.eventName }}<span *ngIf="highScoreAll.event.divisionName"> - {{ highScoreAll.event.divisionName }}</span></a>
+                  <a (click)="openMatchDetails(highScoreAll.matchKey)"> <h1 mdcCaption>{{ highScoreAll.matchName }}</h1></a></h1>
+                <match-table [match]="highScoreAll"></match-table>
+              </div>
+            </div>
+            <div class="row mt-2" *ngIf="highScoreQual && highScoreQual.participants">
               <div class="col-12">
                 <h1 class="mb-0" mdcHeadline6>{{ "pages.home.leaderboards.high_score_qual" | translate }}</h1>
                 <h1 class="mt-0" mdcSubtitle1>({{ "pages.home.leaderboards.penalty_free" | translate }})</h1>
@@ -79,15 +116,6 @@
                 <h1 *ngIf="highScoreElim.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreElim.eventKey, $event)">{{ highScoreElim.event.eventName }}<span *ngIf="highScoreElim.event.divisionName"> - {{ highScoreElim.event.divisionName }}</span></a>
                   <a (click)="openMatchDetails(highScoreElim.matchKey)"> <h1 mdcCaption>{{ highScoreElim.matchName }}</h1></a></h1>
                 <match-table [match]="highScoreElim"></match-table>
-              </div>
-            </div>
-            <div class="row mt-2" *ngIf="highScoreAll && highScoreAll.participants">
-              <div class="col-12 mt-2">
-                <h1 class="mb-0" mdcHeadline6>{{ "pages.home.leaderboards.high_score_all" | translate }}</h1>
-                <h1 class="mt-0" mdcSubtitle1>({{ "pages.home.leaderboards.with_enalties" | translate }})</h1>
-                <h1 *ngIf="highScoreAll.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreAll.eventKey, $event)">{{ highScoreAll.event.eventName }}<span *ngIf="highScoreAll.event.divisionName"> - {{ highScoreAll.event.divisionName }}</span></a>
-                  <a (click)="openMatchDetails(highScoreAll.matchKey)"> <h1 mdcCaption>{{ highScoreAll.matchName }}</h1></a></h1>
-                <match-table [match]="highScoreAll"></match-table>
               </div>
             </div>
           </div>

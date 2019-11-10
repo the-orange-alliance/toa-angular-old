@@ -7,6 +7,7 @@ import Event from '../../models/Event';
 import Match from '../../models/Match';
 import MatchParticipant from '../../models/MatchParticipant';
 import EventLiveStream from '../../models/EventLiveStream';
+import Team from '../../models/Team';
 
 @Component({
   selector: 'toa-home',
@@ -16,7 +17,10 @@ import EventLiveStream from '../../models/EventLiveStream';
 })
 export class HomeComponent {
 
-  public currentAnnouncement: WebAnnouncement;
+  search = '';
+  teamSearchResults: Team[] = [];
+  eventSearchResults: Event[] = [];
+
   public currentEvents: Event[];
 
   public highScoreQual: Match;
@@ -27,15 +31,13 @@ export class HomeComponent {
   public teamsCount: number;
 
   public firstupdatesnow: EventLiveStream;
-
   public today: Date;
 
   constructor(private router: Router, private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals) {
-    this.app.setTitle('Home');
-    this.app.setDescription('The Orange Alliance is the official match, event, and team data provider for FIRST Tech Challenge.');
-
     this.today = new Date();
     this.currentEvents = [];
+    this.app.setTitle('Home');
+    this.app.setDescription('The Orange Alliance is the official match, event, and team data provider for FIRST Tech Challenge.');
     this.ftc.getTeamSize(this.ftc.year).then((data: number) => {
       this.teamsCount = data;
     });
@@ -85,15 +87,6 @@ export class HomeComponent {
       }
     });
 
-    this.ftc.getAnnouncements().then((announcements: WebAnnouncement[]) => {
-      for (const announcement of announcements) {
-        if (announcement.isActive) {
-          this.currentAnnouncement = announcement;
-          break;
-        }
-      }
-    });
-
     this.ftc.getAllStreams().then((streams: EventLiveStream[]) => {
       for (const stream of streams) {
         if (stream.streamKey === 'firstupdatesnow') {
@@ -138,5 +131,23 @@ export class HomeComponent {
     const todayTime = new Date().valueOf();
 
     return (todayTime <= endDateTime && todayTime >= startDateTime);
+  }
+
+  getBoldText(text: string): string {
+    let pattern = this.search.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+    pattern = pattern.split(' ').filter((t) => {
+      return t.length > 0;
+    }).join('|');
+    const regex = new RegExp(pattern, 'gi');
+
+    return '<p>' + (this.search ? text.replace(regex, (match) => `<b>${match}</b>`) : text) + '</p>';
+  }
+
+  teamClicked(e, teamKey): void {
+    this.router.navigate(['/teams', teamKey]);
+  }
+
+  eventClicked(e, eventKey): void {
+    this.router.navigate(['/events', eventKey]);
   }
 }
