@@ -91,32 +91,28 @@
           <div class="toa-card-subtitle pt-0" mdcSubtitle2>SKYSTONE 2019/20</div>
           <mdc-list-divider></mdc-list-divider>
           <div class="p-3">
-            <div class="row" *ngIf="highScoreAll && highScoreAll.participants">
-              <div class="col-12 mt-2">
-                <h1 class="mb-0" mdcHeadline6>{{ "pages.home.leaderboards.high_score_all" | translate }}</h1>
-                <h1 class="mt-0" mdcSubtitle1>({{ "pages.home.leaderboards.with_enalties" | translate }})</h1>
-                <h1 *ngIf="highScoreAll.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreAll.eventKey, $event)">{{ highScoreAll.event.eventName }}<span *ngIf="highScoreAll.event.divisionName"> - {{ highScoreAll.event.divisionName }}</span></a>
-                  <a (click)="openMatchDetails(highScoreAll.matchKey)"> <h1 mdcCaption>{{ highScoreAll.matchName }}</h1></a></h1>
-                <match-table [match]="highScoreAll"></match-table>
-              </div>
+            <div *ngIf="highScoreAll && highScoreAll.participants">
+              <h1 class="mb-0" mdcSubtitle2>{{ "pages.home.leaderboards.high_score_all" | translate }}</h1>
+              <h1 class="mt-0" mdcCaption>({{ "pages.home.leaderboards.with_enalties" | translate }})</h1>
+              <h1 *ngIf="highScoreAll.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreAll.eventKey, $event)">{{ highScoreAll.event.eventName }}<span *ngIf="highScoreAll.event.divisionName"> - {{ highScoreAll.event.divisionName }}</span></a>
+                <a (click)="openMatchDetails(highScoreAll.matchKey)"> <h1 mdcCaption>{{ highScoreAll.matchName }}</h1></a></h1>
+              <match-table [match]="highScoreAll"></match-table>
             </div>
-            <div class="row mt-2" *ngIf="highScoreQual && highScoreQual.participants">
-              <div class="col-12">
-                <h1 class="mb-0" mdcHeadline6>{{ "pages.home.leaderboards.high_score_qual" | translate }}</h1>
-                <h1 class="mt-0" mdcSubtitle1>({{ "pages.home.leaderboards.penalty_free" | translate }})</h1>
-                <h1 *ngIf="highScoreQual.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreQual.eventKey, $event)">{{ highScoreQual.event.eventName }}<span *ngIf="highScoreQual.event.divisionName"> - {{ highScoreQual.event.divisionName }}</span></a>
-                  <a (click)="openMatchDetails(highScoreQual.matchKey)"> <h1 mdcCaption>{{ highScoreQual.matchName }}</h1></a></h1>
-                <match-table [match]="highScoreQual"></match-table>
-              </div>
+            <mdc-list-divider class="my-3"></mdc-list-divider>
+            <div *ngIf="highScoreQual && highScoreQual.participants">
+              <h1 class="mb-0" mdcSubtitle2>{{ "pages.home.leaderboards.high_score_qual" | translate }}</h1>
+              <h1 class="mt-0" mdcCaption>({{ "pages.home.leaderboards.penalty_free" | translate }})</h1>
+              <h1 *ngIf="highScoreQual.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreQual.eventKey, $event)">{{ highScoreQual.event.eventName }}<span *ngIf="highScoreQual.event.divisionName"> - {{ highScoreQual.event.divisionName }}</span></a>
+                <a (click)="openMatchDetails(highScoreQual.matchKey)"> <h1 mdcCaption>{{ highScoreQual.matchName }}</h1></a></h1>
+              <match-table [match]="highScoreQual"></match-table>
             </div>
-            <div class="row mt-2" *ngIf="highScoreElim && highScoreElim.participants">
-              <div class="col-12 mt-2">
-                <h1 class="mb-0" mdcHeadline6>{{ "pages.home.leaderboards.high_score_elim" | translate }}</h1>
-                <h1 class="mt-0" mdcSubtitle1>({{ "pages.home.leaderboards.penalty_free" | translate }})</h1>
-                <h1 *ngIf="highScoreElim.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreElim.eventKey, $event)">{{ highScoreElim.event.eventName }}<span *ngIf="highScoreElim.event.divisionName"> - {{ highScoreElim.event.divisionName }}</span></a>
-                  <a (click)="openMatchDetails(highScoreElim.matchKey)"> <h1 mdcCaption>{{ highScoreElim.matchName }}</h1></a></h1>
-                <match-table [match]="highScoreElim"></match-table>
-              </div>
+            <mdc-list-divider class="my-3"></mdc-list-divider>
+            <div *ngIf="highScoreElim && highScoreElim.participants">
+              <h1 class="mb-0" mdcSubtitle2>{{ "pages.home.leaderboards.high_score_elim" | translate }}</h1>
+              <h1 class="mt-0" mdcCaption>({{ "pages.home.leaderboards.penalty_free" | translate }})</h1>
+              <h1 *ngIf="highScoreElim.event" mdcBody2><a class="text-primary" (click)="openEvent(highScoreElim.eventKey, $event)">{{ highScoreElim.event.eventName }}<span *ngIf="highScoreElim.event.divisionName"> - {{ highScoreElim.event.divisionName }}</span></a>
+                <a (click)="openMatchDetails(highScoreElim.matchKey)"> <h1 mdcCaption>{{ highScoreElim.matchName }}</h1></a></h1>
+              <match-table [match]="highScoreElim"></match-table>
             </div>
           </div>
         </mdc-card>
