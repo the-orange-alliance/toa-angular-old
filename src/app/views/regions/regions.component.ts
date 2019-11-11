@@ -13,11 +13,11 @@ import Week from '../../models/Week';
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
-  selector: 'toa-events',
-  templateUrl: './events.component.html',
-  styleUrls: ['./events.component.scss']
+  selector: 'toa-regions',
+  templateUrl: './regions.component.html',
+  styleUrls: ['./regions.component.scss']
 })
-export class EventsComponent implements OnInit {
+export class RegionsComponent implements OnInit {
 
   seasons: Season[];
   regions: Region[];

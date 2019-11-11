@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './views/home/home.component';
 import { AccountComponent } from './views/account/account.component';
 import { EventsComponent } from './views/events/events.component';
+import { RegionsComponent } from './views/regions/regions.component';
 import { TeamComponent } from './views/team/team.component';
 import { TeamsComponent } from './views/teams/teams.component';
 import { EventComponent } from './views/event/event.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'add-data', component: AddDataComponent },
   { path: 'events', component: EventsComponent },
   { path: 'teams', component: TeamsComponent },
+  { path: 'regions', component: RegionsComponent }, 
   { path: 'about', component: AboutComponent },
   { path: 'apidocs', component: ApiDocsComponent,  children: [
       { path: '', redirectTo: 'get', pathMatch: 'full' },

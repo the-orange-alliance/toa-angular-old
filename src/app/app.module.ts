@@ -31,6 +31,7 @@ import { AccountComponent } from './views/account/account.component';
 import { EventsComponent } from './views/events/events.component';
 import { TeamsComponent } from './views/teams/teams.component';
 import { EventComponent } from './views/event/event.component';
+import { RegionsComponent } from './views/regions/regions.component';
 import { AboutComponent } from './views/about/about.component';
 import { ApiDocsComponent } from './views/apidocs/apidocs.component';
 
@@ -95,6 +96,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     LoginComponent,
     RegisterComponent,
     EventsComponent,
+	RegionsComponent,
     TeamsComponent,
     EventComponent,
     AboutComponent,
