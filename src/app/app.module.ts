@@ -26,7 +26,6 @@ import { UsersComponent } from './views/account/subpages/users/users.component';
 import { CreateEventComponent } from './views/account/subpages/create-event/create-event.component';
 import { CacheComponent } from './views/account/subpages/cache/cache.component';
 import { RetrieverComponent } from './views/account/subpages/retriever/retriever.component';
-import { ManageTeamDataComponent } from './views/account/subpages/manage-team-data/manage-team-data.component';
 import { AccountComponent } from './views/account/account.component';
 import { EventsComponent } from './views/events/events.component';
 import { TeamsComponent } from './views/teams/teams.component';
@@ -73,10 +72,11 @@ import { Insights1819Component } from './components/insights-card/years/insights
 import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {LeagueCreatorComponent} from './views/account/subpages/league-creator/league-creator.component';
 import {LeagueItemComponent} from './components/league/league.item.component';
-import { TeamDataComponent } from './components/team-data/team-data.component';
 import { SafePipe } from './safe.pipe';
 import { HttpErrorHandler }     from './http-error-handler.service';
 import { EventAddStreamComponent } from './views/event/subviews/event-add-stream/event-add-stream.component';
+import { PendingDataComponent } from './components/pending-data/pending-data.component';
+import { ManagePendingDataComponent } from './views/account/subpages/manage-pending-data/manage-pending-data.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
@@ -133,10 +133,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     CircularPercentageComponent,
     Insights1819Component,
     LeagueCreatorComponent,
-    ManageTeamDataComponent,
-    TeamDataComponent,
     SafePipe,
-    EventAddStreamComponent
+    EventAddStreamComponent,
+    PendingDataComponent,
+    ManagePendingDataComponent
   ],
   entryComponents: [
     DialogText,
