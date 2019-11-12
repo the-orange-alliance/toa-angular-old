@@ -318,24 +318,6 @@ export class CloudFunctions {
       });
     });
   }
-  
-  public addStreamToPending(user: User, streamData: any): Promise<any> {
-    return new Promise<any[]>((resolve, reject) => {
-      this.userToToken(user).then((token) => {
-        const headers = new HttpHeaders({
-          'authorization': `Bearer ${token}`
-        });
-
-        this.http.post(this.baseUrl + '/addStreamToPending', streamData, {headers: headers}).subscribe((data: any) => {
-          resolve(data);
-        }, (err: any) => {
-          reject(err);
-        });
-      }).catch((err: any) => {
-        reject(err);
-      });
-    });
-  }
 
   public addStream(user: User, streamData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
@@ -580,6 +562,24 @@ export class CloudFunctions {
     });
   }
 
+  public getPendingMedia(user: User): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`
+        });
+
+        this.http.get(this.baseUrl + '/getPendingMedia', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+ 
   private userToToken(user: User): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       if (user === null) {

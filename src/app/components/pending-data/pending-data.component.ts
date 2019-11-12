@@ -1,15 +1,19 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, OnInit, SecurityContext, Input } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import Team from '../../models/Team';
+import { CloudFunctions }  from '../../providers/cloud-functions';
+import User from '../../models/User';
+//import { User } from 'firebase';
 
 @Component({
-  selector: 'toa-team-data',
-  templateUrl: './team-data.component.html',
-  styleUrls: ['./team-data.component.css']
+  selector: 'toa-pending-data',
+  templateUrl: './pending-data.component.html',
+  styleUrls: ['./pending-data.component.css']
 })
-export class TeamDataComponent implements OnInit {
+export class PendingDataComponent implements OnInit {
 
-  teamName: string = "The Benjaminville Vultures";
+  @Input() user: User;
+
+  pendingData: any;
   sampleData: any = {
     videos: [
       "https://www.youtube.com/embed/oHg5SJYRHA0",
@@ -36,9 +40,14 @@ export class TeamDataComponent implements OnInit {
     ]
   }
 
-  constructor(protected domSanitizer: DomSanitizer) { }
+  constructor(
+    protected domSanitizer: DomSanitizer,
+    private cloud: CloudFunctions
+  ) { }
 
   ngOnInit() {
+    this.pendingData = this.cloud.getPendingMedia(this.user.firebaseUser);
+    console.log(this.pendingData);
   }
 
   /* TODO: 
