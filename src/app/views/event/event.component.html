@@ -39,7 +39,13 @@
   </div>
 
   <div class="mt-3 row" *ngIf="totalteams === 0 && totalmatches === 0 && totalrankings === 0 && totalawards === 0">
-    <h4 class="col-12">{{ 'no_data.event_long' | translate }}</h4>
+    <div class="col-12">
+      <mdc-card class="toa-card">
+        <div style="color: #757575; text-align: center">
+          <div mdcHeadline6 class="p-3" [innerHTML]="'no_data.event_long' | translate"></div>
+        </div>
+      </mdc-card>
+    </div>
   </div>
   <div class="mt-3 row" *ngIf="admin || totalmedia > 0 || totalteams > 0 || totalmatches > 0 || totalrankings > 0 || totalalliances > 0|| totalawards > 0">
     <div class="col-12">

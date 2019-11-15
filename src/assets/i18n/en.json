@@ -395,7 +395,7 @@
     "teams": "No teams found",
     "teams_long": "There are no teams that match that query",
     "events": "No events found",
-    "event_long": "NO RESULTS HAVE BEEN REPORTED FOR THIS EVENT.",
+    "event_long": "No results have been reported for this event.",
     "streams_long": "There are currently no active streams.",
     "events_for_season": "No events for {{ season }} season",
     "events_for_season_long": "This team hasn't yet played at any events this season.<br/>Try changing the season using the selector above.",
