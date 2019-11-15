@@ -202,7 +202,10 @@ export class AccountComponent implements OnInit {
   generateApiKey(): void {
     if (this.emailVerified) {
       this.generatingApiKey = true;
-      this.cloud.generateApiKey(this.firebaseUser).catch(console.log);
+      this.cloud.generateApiKey(this.firebaseUser).then(key => {
+        this.user.apiKey = key;
+        this.generatingApiKey = false;
+      }).catch(console.log);
     }
   }
 
