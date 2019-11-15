@@ -1,4 +1,4 @@
-<mdc-tab-bar #tabs [activeTabIndex]="0" stacked>
+<mdc-tab-bar #tabs [activeTabIndex]="0" stacked class="mb-3">
   <mdc-tab-scroller>
     <mdc-tab label="Events" icon="event"></mdc-tab>
     <mdc-tab label="Teams" icon="supervisor_account"></mdc-tab>
@@ -6,22 +6,23 @@
 </mdc-tab-bar>
 
 <!-- ******************* EVENTS RETRIEVER ******************* -->
-<div *ngIf="tabs.activeTabIndex === 0">
-  <div mdcHeadline5 *ngIf="!newEvents">Loading Events...</div>
-  <div *ngIf="newEvents && newEvents.length > 0">Double Click to remove an Event from the list</div>
-  <div *ngIf="newEvents && newEvents.length === 0">No New Events!</div>
-  <div *ngIf="newEvents && newEvents.length > 0">
+<div mdcHeadline5 *ngIf="tabs.activeTabIndex === 0 && (!newEvents || !modifiedEvents)">Loading Events...</div>
+<div *ngIf="tabs.activeTabIndex === 0 && newEvents && modifiedEvents">
+  <div mdcHeadline6>New Events</div>
+  <div *ngIf="newEvents.length === 0">No New Events!</div>
+  <div *ngIf="newEvents.length > 0">
     <button mdc-button primary (click)="createEvents()" class="mt-2">Add all the new {{ newEvents.length }} events</button>
+    <div>Double Click to remove an Event from the list</div>
     <mdc-list>
       <toa-event-item *ngFor="let event of newEvents" [event]="event" [clickable]="false" (dblclick)="removeNewEventFromList(event)"></toa-event-item>
     </mdc-list>
   </div>
-  <div *ngIf="modifiedEvents && modifiedEvents.length > 0">Double Click to remove an Event from the list</div>
-  <div *ngIf="modifiedEvents && modifiedEvents.length === 0">All Events are Up-to-Date!</div>
-  <div *ngIf="modifiedEvents && modifiedEvents.length > 0">
-    <button mdc-button primary class="mt-2">Update {{ modifiedEvents.length }} events</button>
+
+  <div mdcHeadline6>Update Events</div>
+  <div *ngIf="modifiedEvents.length === 0">All Events are Up-to-Date!</div>
+  <div *ngIf="modifiedEvents.length > 0">
     <mdc-list>
-      <toa-modified-event-item *ngFor="let event of modifiedEvents" [modified_event]="event" [clickable]="false" (dblclick)="removeModifiedEventFrom(event)"></toa-modified-event-item>
+      <toa-modified-event-item *ngFor="let event of modifiedEvents" [modifiedEvent]="event" [user]="user"></toa-modified-event-item>
     </mdc-list>
   </div>
 </div>

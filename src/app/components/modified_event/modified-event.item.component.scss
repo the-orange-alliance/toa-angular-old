@@ -1,0 +1,9 @@
+.modified-event {
+  height: unset;
+  .mdc-list-item__secondary-text p {
+    margin: 0;
+  }
+}
+.no-before::before {
+  display: none!important;
+}

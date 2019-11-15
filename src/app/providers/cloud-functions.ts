@@ -248,7 +248,7 @@ export class CloudFunctions {
     });
   }
 
-  public updateEvent(user: User, eventKey: string, eventData: any[]): Promise<any> {
+  public updateEvent(user: User, eventKey: string, eventData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
@@ -256,7 +256,7 @@ export class CloudFunctions {
           'data': eventKey
         });
 
-        this.http.post(this.baseUrl + '/updateEvent', eventData, {headers: headers}).subscribe((data: any) => {
+        this.http.post(this.baseUrl + '/updateEvent', [eventData], {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
           reject(err);

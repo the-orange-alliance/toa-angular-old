@@ -109,16 +109,7 @@ export class RetrieverComponent implements OnInit {
       }
     }
   }
-
-  removeModifiedEventFrom(event: ModifiedEvent) {
-    for (const e in this.modifiedEvents) {
-      if (this.modifiedEvents[e] === event) {
-        this.modifiedEvents.splice(parseInt(e, 10), 1);
-        break;
-      }
-    }
-  }
-
+  
   removeModifiedTeamFrom(team: ModifiedTeam) {
     for (const t in this.modifiedTeams) {
       if (this.modifiedTeams[t] === team) {
