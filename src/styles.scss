@@ -424,6 +424,14 @@ mdc-drawer mdc-list a {
    Basic Card
    ========================================================================== */
 
+.account-card {
+  padding: 20px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
 .toa-card {
   border-radius: 8px!important;
   overflow: hidden;

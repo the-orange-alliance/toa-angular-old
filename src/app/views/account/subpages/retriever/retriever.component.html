@@ -1,20 +1,24 @@
 <div mdcHeadline5 *ngIf="!newEvents || !modifiedEvents">Loading Events...</div>
 <div *ngIf="newEvents && modifiedEvents">
-  <div mdcHeadline6>New Events</div>
-  <div *ngIf="newEvents.length === 0">No New Events!</div>
-  <div *ngIf="newEvents.length > 0">
-    <button mdc-button primary (click)="createEvents()" class="mt-2">Add all the new {{ newEvents.length }} events</button>
-    <div>Double Click to remove an Event from the list</div>
-    <mdc-list>
-      <toa-event-item *ngFor="let event of newEvents" [event]="event" [clickable]="false" (dblclick)="removeNewEventFromList(event)"></toa-event-item>
-    </mdc-list>
+  <div class="account-card">
+    <div mdcHeadline5>New Events</div>
+    <div *ngIf="newEvents.length === 0">No New Events!</div>
+    <div *ngIf="newEvents.length > 0">
+      <button mdc-button primary (click)="createEvents()" class="mt-2">Add all the new {{ newEvents.length }} events</button>
+      <div>Double Click to remove an Event from the list</div>
+      <mdc-list>
+        <toa-event-item *ngFor="let event of newEvents" [event]="event" [clickable]="false" (dblclick)="removeNewEventFromList(event)"></toa-event-item>
+      </mdc-list>
+    </div>
   </div>
 
-  <div mdcHeadline6>Update Events</div>
-  <div *ngIf="modifiedEvents.length === 0">All Events are Up-to-Date!</div>
-  <div *ngIf="modifiedEvents.length > 0">
-    <mdc-list>
-      <toa-modified-event-item *ngFor="let event of modifiedEvents" [modifiedEvent]="event" [user]="user"></toa-modified-event-item>
-    </mdc-list>
+  <div class="account-card mt-3">
+    <div mdcHeadline5>Update Events</div>
+    <div *ngIf="modifiedEvents.length === 0">All Events are Up-to-Date!</div>
+    <div *ngIf="modifiedEvents.length > 0">
+      <mdc-list>
+        <toa-modified-event-item *ngFor="let event of modifiedEvents" [modifiedEvent]="event" [user]="user"></toa-modified-event-item>
+      </mdc-list>
+    </div>
   </div>
 </div>

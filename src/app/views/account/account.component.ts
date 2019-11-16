@@ -60,7 +60,7 @@ export class AccountComponent implements OnInit {
 
     if (this.router.url === '/account/create-league') {
       this.activeTab = 1;
-    }  else if (this.router.url === '/account/create-league') {
+    }  else if (this.router.url === '/account/new-event') {
       this.activeTab = 2;
     } else if (this.router.url === '/account/users') {
       this.activeTab = 3;
