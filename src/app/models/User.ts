@@ -1,4 +1,5 @@
 import { ISerializable } from './ISerializable';
+import Region from './Region';
 
 export default class TOAUser implements ISerializable {
   uid: string;
@@ -51,7 +52,7 @@ export default class TOAUser implements ISerializable {
       google_linked: this.googleLinked,
       github_linked: this.githubLinked,
       phone_linked: this.phoneLinked,
-      isDev: this.isDev
+      is_dev: this.isDev
     };
   }
 
@@ -79,7 +80,41 @@ export default class TOAUser implements ISerializable {
     user.googleLinked = json.google_linked;
     user.githubLinked = json.github_linked;
     user.phoneLinked = json.phone_linked;
-    user.isDev = json.isDev;
+    user.isDev = json.is_dev;
     return user;
+  }
+
+  summary(regions: Region[]) {
+    const roles = [];
+    const regionsMap = {};
+    for (const region of regions) {
+      regionsMap[region.regionKey] = region.description;
+    }
+    if (this.level === 6) {
+      roles.push('TOA Admin');
+    } else if (this.level === 5) {
+      roles.push('Moderator');
+    } else if (this.level > 1) {
+      roles.push('Level ' + this.level);
+    }
+    if (this.isDev) {
+      roles.push('Developer');
+    }
+    if (this.team) {
+      roles.push('Member of #' + this.team);
+    }
+    if (this.adminRegions.length > 0 || this.individualAdminEvents.length > 0) {
+      let txt = 'Admin of ' + this.adminRegions.map(key => regionsMap[key] || key).join(' ');
+      if (this.adminRegions.length > 0 && this.individualAdminEvents.length > 0) {
+        txt += ' and '
+      }
+      txt += this.individualAdminEvents.length + ' events';
+      roles.push(txt);
+    }
+    if (this.adminTeams.length > 0) {
+      roles.push('Manager of #' + this.adminTeams.join(' #'));
+    }
+
+    return roles.length === 0 ? this.email : roles.join(' | ');
   }
 }

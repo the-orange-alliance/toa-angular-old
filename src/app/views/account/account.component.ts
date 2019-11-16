@@ -19,6 +19,7 @@ import TOAUser from '../../models/User';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
 import * as fbApps from 'firebase/app';
+import Region from '../../models/Region';
 
 @Component({
   selector: 'toa-account',
@@ -35,6 +36,7 @@ export class AccountComponent implements OnInit {
 
   teams: Team[];
   events: Event[];
+  regions: Region[];
 
   notifications: string = null;
   generatingApiKey: boolean;
@@ -57,18 +59,16 @@ export class AccountComponent implements OnInit {
     app.setTitle('myTOA');
     app.setDescription('Your myTOA account overview');
 
-    if (this.router.url.indexOf('/account/events') > -1) {
+    if (this.router.url === '/account/create-league') {
       this.activeTab = 1;
-    } else if (this.router.url.indexOf('/account/create-league') > -1) {
+    }  else if (this.router.url === '/account/create-league') {
       this.activeTab = 2;
-    }  else if (this.router.url.indexOf('/account/new-event') > -1) {
+    } else if (this.router.url === '/account/users') {
       this.activeTab = 3;
-    } else if (this.router.url.indexOf('/account/users') > -1) {
+    } else if (this.router.url === '/account/cache') {
       this.activeTab = 4;
-    } else if (this.router.url.indexOf('/account/cache') > -1) {
+    } else if (this.router.url === '/account/retriever') {
       this.activeTab = 5;
-    } else if (this.router.url.indexOf('/account/retriever') > -1) {
-      this.activeTab = 6;
     } else {
       this.activeTab = 0;
     }
@@ -84,15 +84,19 @@ export class AccountComponent implements OnInit {
     this.phoneProvider = new providers.PhoneAuthProvider(auth.auth);
 
     auth.authState.subscribe(firebaseUser => {
-      if (firebaseUser !== null && firebaseUser !== undefined) {
+      if (firebaseUser) {
         this.firebaseUser = firebaseUser;
-        this.getUser()
+        this.getUser();
       } else {
         this.router.navigateByUrl('/account/login');
       }
     });
 
     this.notifications = Notification ? Notification.permission : null;
+
+    this.ftc.getAllRegions().then((regions: Region[]) => {
+      this.regions = regions
+    })
   }
 
   ngOnInit() {

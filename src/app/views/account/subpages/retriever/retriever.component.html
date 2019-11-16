@@ -1,13 +1,5 @@
-<mdc-tab-bar #tabs [activeTabIndex]="0" stacked class="mb-3">
-  <mdc-tab-scroller>
-    <mdc-tab label="Events" icon="event"></mdc-tab>
-    <mdc-tab label="Teams" icon="supervisor_account"></mdc-tab>
-  </mdc-tab-scroller>
-</mdc-tab-bar>
-
-<!-- ******************* EVENTS RETRIEVER ******************* -->
-<div mdcHeadline5 *ngIf="tabs.activeTabIndex === 0 && (!newEvents || !modifiedEvents)">Loading Events...</div>
-<div *ngIf="tabs.activeTabIndex === 0 && newEvents && modifiedEvents">
+<div mdcHeadline5 *ngIf="!newEvents || !modifiedEvents">Loading Events...</div>
+<div *ngIf="newEvents && modifiedEvents">
   <div mdcHeadline6>New Events</div>
   <div *ngIf="newEvents.length === 0">No New Events!</div>
   <div *ngIf="newEvents.length > 0">
@@ -26,78 +18,3 @@
     </mdc-list>
   </div>
 </div>
-
-
-<!-- ******************* TEAMS RETRIEVER ******************* -->
-<div *ngIf="tabs.activeTabIndex === 1">
-  <div mdcHeadline5 *ngIf="!newTeams">Loading Teams...</div>
-  <div *ngIf="newTeams && newTeams.length === 0">No New Teams!</div>
-
-  <!-- Rerun Options -->
-  <div *ngIf="newTeams || (newTeams && newTeams.length === 0)">
-    <div *ngIf="rerunSelectedSeason" class="filter-row dropdown">
-      <a>Rerun Retriever for </a>
-      <button class="btn btn-default dropdown-toggle" type="button" id="rerun_retriever" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        20{{ rerunSelectedSeason.seasonKey.substring(0, 2) }}/{{ rerunSelectedSeason.seasonKey.substring(2, 4) }} - {{ rerunSelectedSeason.description }}
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="ftc_season">
-        <mdc-list-item *ngFor="let season of allSeasons" (click)="onReRunSeasonChange(season)">20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-list-item>
-      </ul>
-      <button mdc-button primary (click)="rerunRetriever()">Run!</button>
-    </div>
-  </div>
-
-  <!-- When we get the new teams list -->
-  <div *ngIf="newTeams && newTeams.length > 0">
-    <!-- Stats On the Retriever Run -->
-    <div>
-      <a>There are {{newTeams.length}} New Teams!  </a>
-      <button mdc-button primary *ngIf="!viewNewTeams" (click)="viewNewTeams = true;" >View</button>
-      <button mdc-button primary *ngIf="viewNewTeams"  (click)="viewNewTeams = false;">Hide</button>
-    </div>
-
-    <!-- Location to place the Data Selector -->
-    <div *ngIf="selectedSeason" class="filter-row dropdown">
-      <a>Add To Season: </a>
-      <button class="btn btn-default dropdown-toggle" type="button" id="ftc_season" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        20{{ selectedSeason.seasonKey.substring(0, 2) }}/{{ selectedSeason.seasonKey.substring(2, 4) }} - {{ selectedSeason.description }}
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="ftc_season">
-        <mdc-list-item *ngFor="let season of allSeasons" (click)="onSeasonChange(season)">20{{ season.seasonKey.substring(0, 2) }}/{{ season.seasonKey.substring(2, 4) }} - {{ season.description }}</mdc-list-item>
-      </ul>
-      <button mdc-button primary (click)="createTeams()" class="mt-2">Add All New Teams</button>
-    </div>
-  </div>
-
-  <!-- The Optional New Teams List -->
-  <div *ngIf="newTeams && newTeams.length > 0 && viewNewTeams">
-    <div>Double Click to remove a Team from the list</div>
-    <mdc-list>
-      <toa-team-item *ngFor="let team of newTeams" [team]="team" [clickable]="false" (dblclick)="removeNewTeamFromList(team)"></toa-team-item>
-    </mdc-list>
-  </div>
-
-  <br> <br>
-  <!-- When we get the modified teams list -->
-  <div *ngIf="modifiedTeams && modifiedTeams.length > 0">
-    <!-- Stats On the Retriever Run -->
-    <div>
-      <a>There are {{modifiedTeams.length}} team(s) that need to be updated!</a>
-      <button mdc-button primary *ngIf="!viewModTeams" (click)="viewModTeams = true;" >View</button>
-      <button mdc-button primary *ngIf="viewModTeams"  (click)="viewModTeams = false;">Hide</button>
-    </div>
-    <button mdc-button primary (click)="updateTeams()" class="mt-2">Update Teams</button>
-  </div>
-
-  <!-- The Optional Modified Teams List -->
-  <div *ngIf="modifiedTeams && modifiedTeams.length > 0 && viewModTeams">
-    <div>Double Click to remove a Team from the list</div>
-    <mdc-list>
-      <toa-modified-team-item *ngFor="let team of modifiedTeams" [modified_team]="team" [clickable]="false" (dblclick)="removeModifiedTeamFrom(team)"></toa-modified-team-item>
-    </mdc-list>
-  </div>
-
-</div>
-
