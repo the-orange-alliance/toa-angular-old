@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
-import WebAnnouncement from '../../models/WebAnnouncement';
 import Event from '../../models/Event';
 import Match from '../../models/Match';
 import MatchParticipant from '../../models/MatchParticipant';
@@ -85,6 +84,7 @@ export class HomeComponent {
           this.currentEvents.push(event);
         }
       }
+      this.currentEvents.sort((a: Event, b: Event) => b.teamCount - a.teamCount);
     });
 
     this.ftc.getAllStreams().then((streams: EventLiveStream[]) => {
