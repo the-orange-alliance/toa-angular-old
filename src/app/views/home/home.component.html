@@ -1,46 +1,52 @@
 <div class="d-flex align-items-center flex-column">
-  <h1 class="my-5">The Orange Alliance</h1>
-  <div class="relative-container">
-    <div class="new-search-box-container">
-      <div class="new-search-box">
-        <mdc-icon svgIcon="magnify"></mdc-icon>
-        <input autocomplete="off" type="text" [(ngModel)]="search" placeholder="Search for teams or events">
-      </div>
-      <mdc-list #searchresults class="results" *ngIf="teamSearchResults.length > 0 || eventSearchResults.length > 0">
-        <div class="mdc-list-item mdc-list-item--disabled" *ngIf="teamSearchResults.length > 0">{{ "general.teams" | translate }}</div>
-        <a mdc-list-item *ngFor="let team of teamSearchResults" (click)="teamClicked($event, team.teamKey)"
-           (keydown.enter)="teamClicked($event, team.teamKey)"
-           [innerHTML]="getBoldText(team.teamNumber + ' - ' + (team.teamNameShort ? team.teamNameShort : 'Team ' + team.teamNumber))">
-        </a>
+  <div class="my-3">
+    <h1>The Orange Alliance</h1>
+    The official data provider for <em>FIRST</em> Tech Challenge
+  </div>
+  <!--
+    <h1 class="my-5">The Orange Alliance</h1>
+    <div class="relative-container">
+      <div class="new-search-box-container">
+        <div class="new-search-box">
+          <mdc-icon svgIcon="magnify"></mdc-icon>
+          <input autocomplete="off" type="text" [(ngModel)]="search" placeholder="Search for teams or events">
+        </div>
+        <mdc-list #searchresults class="results" *ngIf="teamSearchResults.length > 0 || eventSearchResults.length > 0">
+          <div class="mdc-list-item mdc-list-item&#45;&#45;disabled" *ngIf="teamSearchResults.length > 0">{{ "general.teams" | translate }}</div>
+          <a mdc-list-item *ngFor="let team of teamSearchResults" (click)="teamClicked($event, team.teamKey)"
+             (keydown.enter)="teamClicked($event, team.teamKey)"
+             [innerHTML]="getBoldText(team.teamNumber + ' - ' + (team.teamNameShort ? team.teamNameShort : 'Team ' + team.teamNumber))">
+          </a>
 
-        <div class="mdc-list-item mdc-list-item--disabled" *ngIf="eventSearchResults.length > 0">{{ "general.events" | translate }}</div>
-        <a mdc-list-item *ngFor="let event of eventSearchResults" (click)="eventClicked($event, event.eventKey)"
-           (keydown.enter)="eventClicked($event, event.eventKey)"
-           [innerHTML]="getBoldText(event.fullEventName)">
-        </a>
-      </mdc-list>
-    </div>
-  </div>
-  <div class="d-flex mt-3 mb-5">
-    <mdc-ripple [attachTo]="eventsButton">
-      <a #eventsButton class="home-icon-container" routerLink="/events">
-        <mdc-icon svgIcon="calendar-outline"></mdc-icon>
-        Events
-      </a>
-    </mdc-ripple>
-    <mdc-ripple [attachTo]="teamsButton">
-      <a #teamsButton class="home-icon-container" routerLink="/teams">
-        <mdc-icon svgIcon="account-group-outline"></mdc-icon>
-        Teams
-      </a>
-    </mdc-ripple>
-    <mdc-ripple [attachTo]="leaguesButton">
-      <div #leaguesButton class="home-icon-container">
-        <mdc-icon svgIcon="map-outline"></mdc-icon>
-        Leagues
+          <div class="mdc-list-item mdc-list-item&#45;&#45;disabled" *ngIf="eventSearchResults.length > 0">{{ "general.events" | translate }}</div>
+          <a mdc-list-item *ngFor="let event of eventSearchResults" (click)="eventClicked($event, event.eventKey)"
+             (keydown.enter)="eventClicked($event, event.eventKey)"
+             [innerHTML]="getBoldText(event.fullEventName)">
+          </a>
+        </mdc-list>
       </div>
-    </mdc-ripple>
-  </div>
+    </div>
+    <div class="d-flex mt-3 mb-5">
+      <mdc-ripple [attachTo]="eventsButton">
+        <a #eventsButton class="home-icon-container" routerLink="/events">
+          <mdc-icon svgIcon="calendar-outline"></mdc-icon>
+          Events
+        </a>
+      </mdc-ripple>
+      <mdc-ripple [attachTo]="teamsButton">
+        <a #teamsButton class="home-icon-container" routerLink="/teams">
+          <mdc-icon svgIcon="account-group-outline"></mdc-icon>
+          Teams
+        </a>
+      </mdc-ripple>
+      <mdc-ripple [attachTo]="leaguesButton">
+        <div #leaguesButton class="home-icon-container">
+          <mdc-icon svgIcon="map-outline"></mdc-icon>
+          Leagues
+        </div>
+      </mdc-ripple>
+    </div>
+  -->
 </div>
 
 <mdc-card class="d-none" outlined style="background: transparent">
