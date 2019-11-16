@@ -41,7 +41,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      height: 100vh; /* Fallback */
+      height: calc(var(--vh, 1vh) * 100);
       background: #F5F6F7;
     }
 
