@@ -105,7 +105,7 @@ export class AccountComponent implements OnInit {
 
   getUser() {
     if (this.firebaseUser !== null) {
-      this.cloud.getUserData(this.firebaseUser).then((user: TOAUser) => {
+      this.cloud.getUserData(this.firebaseUser, 'exclude-region').then((user: TOAUser) => {
         this.user = user;
         this.user.firebaseUser = this.firebaseUser;
         this.emailVerified = this.user.emailVerified;

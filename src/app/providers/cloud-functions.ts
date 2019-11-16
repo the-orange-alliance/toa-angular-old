@@ -20,11 +20,12 @@ export class CloudFunctions {
 
   }
 
-  public getUserData(user: User): Promise<TOAUser> {
+  public getUserData(user: User, type?: string): Promise<TOAUser> {
     return new Promise<TOAUser>((resolve, reject) => {
       this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${token}`
+          'authorization': `Bearer ${token}`,
+          ...(type ? {'data': type} : {})
         });
 
         this.http.get(this.baseUrl + '/user', {headers: headers}).subscribe((data: any) => {
