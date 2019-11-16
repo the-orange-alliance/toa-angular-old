@@ -77,6 +77,7 @@ import { HttpErrorHandler }     from './http-error-handler.service';
 import { EventAddStreamComponent } from './views/event/subviews/event-add-stream/event-add-stream.component';
 import { PendingDataComponent } from './components/pending-data/pending-data.component';
 import { ManagePendingDataComponent } from './views/account/subpages/manage-pending-data/manage-pending-data.component';
+import { SendStreamKeyComponent } from './views/account/subpages/send-stream-key/send-stream-key.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
@@ -136,7 +137,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     SafePipe,
     EventAddStreamComponent,
     PendingDataComponent,
-    ManagePendingDataComponent
+    ManagePendingDataComponent,
+    SendStreamKeyComponent
   ],
   entryComponents: [
     DialogText,
