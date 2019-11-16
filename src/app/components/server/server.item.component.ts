@@ -4,6 +4,7 @@ import { FTCDatabase } from '../../providers/ftc-database';
 import { CloudFunctions, Service } from '../../providers/cloud-functions';
 import TOAUser from '../../models/User';
 import mdcInfo from '../../../../node_modules/@angular-mdc/web/package.json'
+import { MdcSnackbar } from '@angular-mdc/web';
 
 @Component({
   selector: 'toa-server',
@@ -24,7 +25,7 @@ export class ServerItemComponent implements OnInit {
   };
 
 
-  constructor(private ftc: FTCDatabase, private cloud: CloudFunctions) { }
+  constructor(private ftc: FTCDatabase, private cloud: CloudFunctions, private nackbar: MdcSnackbar) { }
 
   ngOnInit() {
     this.cloud.getPm2Data(this.user.firebaseUser).then( data => {
@@ -51,7 +52,9 @@ export class ServerItemComponent implements OnInit {
   }
 
   updateService(service: Service) {
-    this.cloud.update(this.user.firebaseUser, service);
+    this.cloud.update(this.user.firebaseUser, service).then(() => {
+      this.nackbar.open('Restarted.');
+    });
   }
 
   calculateUptime(unixTime): any {

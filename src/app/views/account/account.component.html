@@ -35,7 +35,7 @@
       </mdc-tab-bar>
     </div>
 
-    <div *ngIf="tabs.activeTabIndex === 0" class="row">
+    <div [class.d-none]="tabs.activeTabIndex !== 0" class="row">
       <div class="col-md-7 col-12 mb-3">
         <div class="account-card p-3">
           <div class="row">
