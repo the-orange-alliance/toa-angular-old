@@ -425,9 +425,10 @@ mdc-drawer mdc-list a {
    ========================================================================== */
 
 .toa-card {
-  border-radius: 6px!important;
+  border-radius: 8px!important;
   overflow: hidden;
   padding: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12)!important;
 }
 
 .toa-card.overflow {
