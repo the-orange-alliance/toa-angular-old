@@ -66,9 +66,10 @@ import { TeamRobotComponent } from './views/team/subviews/team-robot/team-robot.
 import { TeamResultsComponent } from './views/team/subviews/team-results/team-results.component';
 import { StreamItemComponent } from './components/stream-item/stream-item.component';
 import { Insights1819Component } from './components/insights-card/years/insights1819component';
-import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
-import {LeagueCreatorComponent} from './views/account/subpages/league-creator/league-creator.component';
-import {LeagueItemComponent} from './components/league/league.item.component';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { LeagueCreatorComponent } from './views/account/subpages/league-creator/league-creator.component';
+import { LeagueItemComponent } from './components/league/league.item.component';
+import { ServerItemComponent } from './components/server/server.item.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
@@ -122,7 +123,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     InsightsCardComponent,
     CircularPercentageComponent,
     Insights1819Component,
-    LeagueCreatorComponent
+    LeagueCreatorComponent,
+    ServerItemComponent
   ],
   entryComponents: [
     DialogText,
