@@ -11,14 +11,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { isPlatformBrowser, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { CloudFunctions } from '../../providers/cloud-functions';
 import { auth as providers, messaging as fcm } from 'firebase/app';
+import 'firebase/messaging';
 import { AppBarService } from '../../app-bar.service';
 import { environment } from '../../../environments/environment';
-import { initializeApp as initFbApp } from 'firebase/app';
 import { MessagingService } from '../../messaging.service';
 import TOAUser from '../../models/User';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
-import * as fbApps from 'firebase/app';
 import Region from '../../models/Region';
 
 @Component({
@@ -96,14 +95,11 @@ export class AccountComponent implements OnInit {
 
     this.ftc.getAllRegions().then((regions: Region[]) => {
       this.regions = regions
-    })
+    });
   }
 
   ngOnInit() {
     this.appBarService.setTitle('myTOA', true);
-    if (fbApps.apps.length === 0) {
-      initFbApp(environment.firebase);
-    }
     this.isSupported = fcm && fcm.isSupported();
   }
 
