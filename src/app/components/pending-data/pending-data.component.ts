@@ -40,14 +40,28 @@ export class PendingDataComponent implements OnInit {
     ]
   }
 
+  pendingTeamData: any;
+  pendingEventData: any;
+  pendingStreamData: any;
+
   constructor(
     protected domSanitizer: DomSanitizer,
     private cloud: CloudFunctions
   ) { }
 
   ngOnInit() {
-    this.pendingData = this.cloud.getPendingMedia(this.user.firebaseUser);
-    console.log(this.pendingData);
+    this.cloud.getPendingMedia(this.user.firebaseUser)
+      .then(result => {
+        //this.pendingData = Object.keys(result).map(i => result[i]);
+        //console.log(this.pendingData);
+        Object.keys(result).forEach(obj => {
+          
+        })
+
+      });
+    // console.log(this.pendingData);
+    // console.log(this.pendingData["__zone_symbol__value"]);
+    
   }
 
   /* TODO: 

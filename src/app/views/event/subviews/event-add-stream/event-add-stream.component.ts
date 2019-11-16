@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
-import { FTCDatabase } from '../../../../providers/ftc-database';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { TranslateService } from '@ngx-translate/core';
-import {MdcSelect, MdcSnackbar, MdcTextField} from '@angular-mdc/web';
+import { MdcTextField } from '@angular-mdc/web';
 import Event from '../../../../models/Event';
 import EventLiveStream from '../../../../models/EventLiveStream';
 import { User } from 'firebase/app';
@@ -32,10 +30,7 @@ export class EventAddStreamComponent implements OnInit {
 
   constructor(
     private cloud: CloudFunctions,
-    private db: AngularFireDatabase,
-    private ftc: FTCDatabase,
     private translate: TranslateService,
-    private snackbar: MdcSnackbar
   ) { }
 
   ngOnInit() {
