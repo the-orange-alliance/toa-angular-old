@@ -166,7 +166,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     if (streamLink) {
       const stream = new EventLiveStream();
       stream.streamKey = this.eventData.eventKey + '-LS1';
-      stream.eventKey = this.eventData.eventKey;
+      stream.eventKey = this.eventData.eventKey; 
       stream.channelName = channelName;
       stream.streamName = this.getFieldText(this.streamName);
       stream.streamType = streamType;

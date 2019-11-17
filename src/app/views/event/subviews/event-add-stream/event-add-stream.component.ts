@@ -59,7 +59,7 @@ export class EventAddStreamComponent implements OnInit {
 
       console.log(requestBody);
       console.log(this.user);
-      this.cloud.addMediaToPending(this.user, requestBody);  
+      this.cloud.addMediaToPending(this.user, requestBody, true);  
 
     }
   }
