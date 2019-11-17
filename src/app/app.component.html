@@ -125,9 +125,6 @@
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a mdc-list-item data-toggle="modal" [attr.data-target]="'#serverDialog'" *ngIf="isAdmin">
-            <mdc-icon mdcListItemGraphic svgIcon="server"></mdc-icon> Server
-          </a>
           <a mdc-list-item routerLink="/about" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon mdcListItemGraphic svgIcon="information-outline"></mdc-icon>{{ "drawer.about" | translate }}
           </a>
