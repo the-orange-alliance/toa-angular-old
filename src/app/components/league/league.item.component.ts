@@ -1,11 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { CloudFunctions } from '../../providers/cloud-functions';
+import { TranslateService } from '@ngx-translate/core';
+import { MdcSnackbar } from '@angular-mdc/web';
 import League from '../../models/League';
 import LeagueDiv from '../../models/LeagueDiv';
-import {AppBarService} from '../../app-bar.service';
-import {CloudFunctions} from '../../providers/cloud-functions';
-import {FTCDatabase} from '../../providers/ftc-database';
-import {TranslateService} from '@ngx-translate/core';
-import {MdcSnackbar} from '@angular-mdc/web';
 import User from '../../models/User';
 
 @Component({
@@ -37,7 +35,7 @@ export class LeagueItemComponent {
       this.translate.get('general.error_occurred').subscribe((str) => {
         this.snackbar.open(`${str} (HTTP-${err.status})`);
       });
-    });;
+    });
   }
   deleteLeague(league: League): void {
     this.cloud.toaDelete(this.user.firebaseUser, '/league/' + league.leagueKey).then((success) => {

@@ -1,12 +1,5 @@
-<div class="row">
-  <h2 class="col-9">myTOA</h2>
-  <div class="col-3">
-    <button mdc-button primary (click)="signOut()">{{ 'pages.account.logout' | translate }}</button>
-  </div>
-</div>
-
 <div class="w-100 m-2" *ngIf="!emailVerified">
-  <div class="outline-card p-3" style="border: 2px solid #F89808!important;">
+  <div class="account-card p-3" style="border: 2px solid #F89808!important;">
     <div mdcHeadline5 class="black">{{ 'pages.account.no_verify' | translate }}</div>
     <div mdcSubtitle1 class="mt-1">{{ 'pages.account.why_verify' | translate }}</div>
     <button mdc-button primary (click)="sendEmailVerification()">
@@ -15,138 +8,155 @@
   </div>
 </div>
 
-<div class="w-100 align-items-center text-center" *ngIf="user && user">
-  <div *ngIf="!user.photoURL && user.displayName" class="profile-image">{{ user.displayName.substring(0, 1) }}</div>
-  <img *ngIf="user.photoURL " class="profile-image" [src]="user.photoURL" height="100" />
-  <div class="profile-name">{{ 'drawer.mytoa.hello' | translate: {'name': user.displayName || 'User' } }}</div>
-  <div class="profile-detail">{{ ('pages.account.level' | translate: {'level': user.level }) + (user.team ? ' ⋅ #' + user.team : '')}}</div>
-</div>
-
-<div class="mt-5 m-2" *ngIf="user && user">
-
-  <mdc-tab-bar #tabs [activeTabIndex]="activeTab" [class.d-none]="user.adminEvents.length === 0 && user.level < 6" class="mb-3">
-    <mdc-tab-scroller>
-      <mdc-tab (click)="changeUrlNoRoute('')" style="text-transform: initial" label="myTOA"></mdc-tab>
-      <mdc-tab (click)="changeUrlNoRoute('events')" [label]="'pages.account.manage_events' | translate" [class.d-none]="user.adminEvents.length === 0"></mdc-tab>
-      <mdc-tab (click)="changeUrlNoRoute('create-league')" [label]="'pages.account.division_tab.manage_leagues' | translate" [class.d-none]="user.level < 6"></mdc-tab>
-      <mdc-tab (click)="changeUrlNoRoute('new-event')" [label]="'pages.account.create_event_card.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
-      <mdc-tab (click)="changeUrlNoRoute('users')" label="Users" [class.d-none]="user.level < 6"></mdc-tab>
-      <mdc-tab (click)="changeUrlNoRoute('cache')" [label]="'pages.account.dump_cache.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
-      <mdc-tab (click)="changeUrlNoRoute('retriever')" label="Retriever" [class.d-none]="user.level < 6"></mdc-tab>
-    </mdc-tab-scroller>
-  </mdc-tab-bar>
-
-  <div *ngIf="tabs.activeTabIndex === 0" class="row">
-    <div class="col-md-7 col-12 mb-3">
-      <div class="outline-card p-3">
-        <div class="row">
-          <div class="col-md-6 col-12">
-            <div mdcHeadline5 class="black mt-3">{{ "general.teams" | translate }}</div>
-            <mdc-list *ngIf="teams">
-              <toa-team-item *ngFor="let team of teams" [team]="team"></toa-team-item>
-            </mdc-list>
-            <p *ngIf="teams && teams.length === 0">{{ "no_data.teams" | translate }}</p>
-          </div>
-          <div class="col-md-6 col-12">
-            <div mdcHeadline5 class="black mt-3">{{ "general.events" | translate }}</div>
-            <mdc-list *ngIf="events">
-              <toa-event-item *ngFor="let event of events" [event]="event"></toa-event-item>
-            </mdc-list>
-            <p *ngIf="events && events.length === 0">{{ "no_data.events" | translate }}</p>
-          </div>
-        </div>
+<div class="full-page" *ngIf="user && user.firebaseUser">
+  <div class="profile-block px-3 px-lg-5 pt-3 pb-5">
+    <div *ngIf="!user.photoURL && user.displayName" class="profile-image">{{ user.displayName.substring(0, 1) }}</div>
+    <img *ngIf="user.photoURL " class="profile-image" [src]="user.photoURL" />
+    <div class="flex-column w-100 ps-3">
+      <div class="d-flex justify-content-between">
+        <div class="profile-name">{{ user.displayName || 'User' }}</div>
+        <button mdc-button primary (click)="signOut()">{{ 'pages.account.logout' | translate }}</button>
       </div>
-    </div>
-    <div class="col-md-5 col-12 ps-md-3">
-      <div class="outline-card space-between p-3" *ngIf="notifications && isSupported">
-        <div class="icon-panel">
-          <div mdcHeadline5 class="black mt-3">{{ 'pages.account.notifications_card.title' | translate }}</div>
-          <div mdcSubtitle1 class="mt-1">{{ 'pages.account.notifications_card.summary' | translate }}</div>
-          <div class="mt-2" *ngIf="notifications === 'default'">
-            <button mdc-button raised class="request-permission-btn" (click)="requestPermission()">
-              {{ 'pages.account.notifications_card.grant_access' | translate }}
-            </button>
-          </div>
-          <div class="mt-2" *ngIf="notifications === 'granted'">
-            <mdc-chip class="green-chip">
-              <mdc-chip-icon leading>done_outline</mdc-chip-icon>
-              <mdc-chip-text>{{ 'pages.account.notifications_card.enabled' | translate }}</mdc-chip-text>
-            </mdc-chip>
-          </div>
-          <div class="mt-2" *ngIf="notifications === 'denied'">
-            <mdc-chip class="red-chip">
-              <mdc-chip-icon leading>not_interested</mdc-chip-icon>
-              <mdc-chip-text>{{ 'pages.account.notifications_card.blocked' | translate }}</mdc-chip-text>
-            </mdc-chip>
-            <div mdcBody2 class="mt-1">{{ 'pages.account.notifications_card.help' | translate }}</div>
-          </div>
-        </div>
-        <img class="server-illustration" src="../../../assets/imgs/message-icon.svg" />
-      </div>
-      <div class="outline-card space-between p-3 mt-3" *ngIf="user.apiKey">
-        <div class="icon-panel">
-          <div mdcHeadline5 class="black mt-3">{{ 'pages.account.api_card.title' | translate }}</div>
-          <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.your_key' | translate }}</div>
-          <code dir="ltr">{{ user.apiKey || 'Not found' }}</code>
-          <div mdcSubtitle1 class="mt-2">{{ 'pages.account.api_card.docs' | translate }}
-            <a href="https://orange-alliance.github.io/TOA-API" target="_blank" (click)="this.sendAnalytic('leaving', '/account', 'api docs');">{{ 'general.here' | translate }}</a>.
-          </div>
-        </div>
-        <img class="server-illustration" src="../../../assets/imgs/api-icon.svg" />
-      </div>
-      <div class="outline-card space-between p-3 mt-3" *ngIf="!user.apiKey">
-        <div class="icon-panel">
-          <div mdcHeadline5 class="black mt-3">{{ 'pages.account.api_card.title' | translate }}</div>
-          <div *ngIf="!generatingApiKey">
-            <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.no_key' | translate }}</div>
-            <button mdc-button primary [disabled]="!emailVerified" (click)="generateApiKey()">{{ 'pages.account.api_card.generate_key' | translate }}</button>
-          </div>
-          <div *ngIf="generatingApiKey">
-            <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.generating_key' | translate }}</div>
-            <mdc-linear-progress></mdc-linear-progress>
-          </div>
-        </div>
-        <img class="server-illustration" src="../../../assets/imgs/api-icon.svg" />
-      </div>
-
-      <div class="outline-card p-3 mt-3" *ngIf="emailVerified">
-        <div mdcHeadline5 class="black p-3">{{ 'pages.account.account_settings' | translate }}</div>
-        <mdc-list disableRipple>
-          <mdc-list-item (click)="sendPasswordResetEmail()">
-            <mdc-icon mdcListItemGraphic svgIcon="lock-reset"></mdc-icon>
-            {{ 'pages.account.reset_password' | translate }}
-          </mdc-list-item>
-
-          <mdc-list-item (click)="user.googleLinked ? unlinkProvider(googleProvider) : linkProvider(googleProvider)">
-            <mdc-icon mdcListItemGraphic svgIcon="google"></mdc-icon>
-            {{ (user.googleLinked ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'Google'} }}
-          </mdc-list-item>
-
-          <mdc-list-item (click)="user.githubLinked ? unlinkProvider(githubProvider) : linkProvider(githubProvider)">
-            <mdc-icon mdcListItemGraphic svgIcon="github-circle"></mdc-icon>
-            {{ (user.githubLinked ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'GitHub'} }}
-          </mdc-list-item>
-
-          <mdc-list-item *ngIf="isDevMode" (click)="user.phoneLinked ? unlinkProvider(phoneProvider) : renderCaptcha()">
-            <mdc-icon mdcListItemGraphic svgIcon="phone"></mdc-icon>
-            {{ (user.phoneLinked ? 'pages.account.unlink_phone' : 'pages.account.link_phone') | translate }}
-          </mdc-list-item>
-        </mdc-list>
-        <!-- For phone auth, this has to be here -->
-        <div id="recaptcha" *ngIf="showCaptcha"></div>
-        <mdc-list disableRipple twoLine [interactive]="false">
-          <mdc-list-item>
-            <mdc-list-item-text [secondaryText]="'pages.account.last_signin' | translate">{{ user.metadata.lastSignInTime | date: 'MMM d yyyy, h:mm a' }}</mdc-list-item-text>
-          </mdc-list-item>
-        </mdc-list>
-      </div>
+      <div class="profile-detail" *ngIf="regions">{{ user.summary(regions) }}</div>
     </div>
   </div>
 
-  <toa-account-manage-events *ngIf="tabs.activeTabIndex === 1 && user.adminEvents.length > 0" [user]="user"></toa-account-manage-events>
-  <toa-account-create-league *ngIf="tabs.activeTabIndex === 2 && user.level >= 6" [user]="user"></toa-account-create-league>
-  <toa-account-create-event *ngIf="tabs.activeTabIndex === 3 && user.level >= 6" [user]="user"></toa-account-create-event>
-  <toa-account-users *ngIf="tabs.activeTabIndex === 4 && user.level >= 6" [user]="user"></toa-account-users>
-  <toa-account-cache *ngIf="tabs.activeTabIndex === 5 && user.level >= 6" [user]="user"></toa-account-cache>
-  <toa-account-retriever *ngIf="tabs.activeTabIndex === 6 && user.level >= 6" [user]="user"></toa-account-retriever>
+  <div class="cards-container px-3 px-lg-5">
+    <div class="account-card p-3 mb-3" [class.d-none]="user.level < 6">
+      <mdc-tab-bar #tabs [activeTabIndex]="activeTab">
+        <mdc-tab-scroller>
+          <mdc-tab (click)="changeUrlNoRoute('')" style="text-transform: initial" label="myTOA"></mdc-tab>
+          <mdc-tab (click)="changeUrlNoRoute('create-league')" [label]="'pages.account.division_tab.manage_leagues' | translate" [class.d-none]="user.level < 6"></mdc-tab>
+          <mdc-tab (click)="changeUrlNoRoute('new-event')" [label]="'pages.account.create_event_card.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
+          <mdc-tab (click)="changeUrlNoRoute('users')" label="Users" [class.d-none]="user.level < 6"></mdc-tab>
+          <mdc-tab (click)="changeUrlNoRoute('cache')" [label]="'pages.account.dump_cache.title' | translate" [class.d-none]="user.level < 6"></mdc-tab>
+          <mdc-tab (click)="changeUrlNoRoute('retriever')" label="Retriever" [class.d-none]="user.level < 6"></mdc-tab>
+        </mdc-tab-scroller>
+      </mdc-tab-bar>
+    </div>
+
+    <div [class.d-none]="tabs.activeTabIndex !== 0" class="row">
+      <div class="col-md-7 col-12 mb-3">
+        <div class="account-card p-3">
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div mdcHeadline5 class="black mt-2">{{ "general.teams" | translate }}</div>
+              <mdc-list *ngIf="teams">
+                <toa-team-item *ngFor="let team of teams" [team]="team"></toa-team-item>
+              </mdc-list>
+              <p *ngIf="teams && teams.length === 0">{{ "no_data.teams" | translate }}</p>
+            </div>
+            <div class="col-md-6 col-12">
+              <div mdcHeadline5 class="black mt-2">{{ "general.events" | translate }}</div>
+              <mdc-list *ngIf="events">
+                <toa-event-item *ngFor="let event of events" [event]="event"></toa-event-item>
+              </mdc-list>
+              <p *ngIf="events && events.length === 0">{{ "no_data.events" | translate }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 col-12 ps-md-3">
+        <div class="account-card p-3 mb-3">
+          <div mdcHeadline5 class="black mt-2">Server</div>
+          <toa-server [user]="user"></toa-server>
+        </div>
+        <div class="account-card space-between p-3 mb-3" *ngIf="notifications && isSupported">
+          <div class="icon-panel">
+            <div mdcHeadline5 class="black mt-2">{{ 'pages.account.notifications_card.title' | translate }}</div>
+            <div mdcSubtitle1 class="mt-1">{{ 'pages.account.notifications_card.summary' | translate }}</div>
+            <div class="mt-2" *ngIf="notifications === 'default'">
+              <button mdc-button raised class="request-permission-btn" (click)="requestPermission()">
+                {{ 'pages.account.notifications_card.grant_access' | translate }}
+              </button>
+            </div>
+            <div class="mt-2" *ngIf="notifications === 'granted'">
+              <mdc-chip class="green-chip">
+                <mdc-chip-icon leading>done_outline</mdc-chip-icon>
+                <mdc-chip-text>{{ 'pages.account.notifications_card.enabled' | translate }}</mdc-chip-text>
+              </mdc-chip>
+            </div>
+            <div class="mt-2" *ngIf="notifications === 'denied'">
+              <mdc-chip class="red-chip">
+                <mdc-chip-icon leading>not_interested</mdc-chip-icon>
+                <mdc-chip-text>{{ 'pages.account.notifications_card.blocked' | translate }}</mdc-chip-text>
+              </mdc-chip>
+              <div mdcBody2 class="mt-1">{{ 'pages.account.notifications_card.help' | translate }}</div>
+            </div>
+          </div>
+          <img class="server-illustration" src="../../../assets/imgs/message-icon.svg" />
+        </div>
+        <div class="account-card space-between p-3 mb-3" *ngIf="user.apiKey">
+          <div class="icon-panel">
+            <div mdcHeadline5 class="black mt-2">{{ 'pages.account.api_card.title' | translate }}</div>
+            <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.your_key' | translate }}</div>
+            <code dir="ltr">{{ user.apiKey || 'Not found' }}</code>
+            <div mdcSubtitle1 class="mt-2">{{ 'pages.account.api_card.docs' | translate }}
+              <a routerLink="/apidocs" >{{ 'general.here' | translate }}</a>.
+            </div>
+          </div>
+          <img class="server-illustration" src="../../../assets/imgs/api-icon.svg" />
+        </div>
+        <div class="account-card space-between p-3 mb-3" *ngIf="!user.apiKey">
+          <div class="icon-panel">
+            <div mdcHeadline5 class="black mt-2">{{ 'pages.account.api_card.title' | translate }}</div>
+            <div *ngIf="!generatingApiKey">
+              <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.no_key' | translate }}</div>
+              <button mdc-button primary [disabled]="!emailVerified" (click)="generateApiKey()">{{ 'pages.account.api_card.generate_key' | translate }}</button>
+            </div>
+            <div *ngIf="generatingApiKey">
+              <div mdcSubtitle1 class="mt-1">{{ 'pages.account.api_card.generating_key' | translate }}</div>
+              <mdc-linear-progress></mdc-linear-progress>
+            </div>
+          </div>
+          <img class="server-illustration" src="../../../assets/imgs/api-icon.svg" />
+        </div>
+
+        <div class="account-card p-3 mb-3" *ngIf="emailVerified">
+          <div mdcHeadline5 class="black mt-2 mx-3">{{ 'pages.account.account_settings' | translate }}</div>
+          <mdc-list disableRipple>
+            <mdc-list-item (click)="sendPasswordResetEmail()">
+              <mdc-icon mdcListItemGraphic svgIcon="lock-reset"></mdc-icon>
+              {{ 'pages.account.reset_password' | translate }}
+            </mdc-list-item>
+
+            <mdc-list-item (click)="user.googleLinked ? unlinkProvider(googleProvider) : linkProvider(googleProvider)">
+              <mdc-icon mdcListItemGraphic svgIcon="google"></mdc-icon>
+              {{ (user.googleLinked ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'Google'} }}
+            </mdc-list-item>
+
+            <mdc-list-item (click)="user.githubLinked ? unlinkProvider(githubProvider) : linkProvider(githubProvider)">
+              <mdc-icon mdcListItemGraphic svgIcon="github-circle"></mdc-icon>
+              {{ (user.githubLinked ? 'pages.account.unlink_account' : 'pages.account.link_account') | translate: {name: 'GitHub'} }}
+            </mdc-list-item>
+
+            <mdc-list-item *ngIf="isDevMode" (click)="user.phoneLinked ? unlinkProvider(phoneProvider) : renderCaptcha()">
+              <mdc-icon mdcListItemGraphic svgIcon="phone"></mdc-icon>
+              {{ (user.phoneLinked ? 'pages.account.unlink_phone' : 'pages.account.link_phone') | translate }}
+            </mdc-list-item>
+          </mdc-list>
+          <!-- For phone auth, this has to be here -->
+          <div id="recaptcha" *ngIf="showCaptcha"></div>
+          <mdc-list disableRipple twoLine [interactive]="false">
+            <mdc-list-item>
+              <mdc-list-item-text [secondaryText]="'pages.account.last_signin' | translate">{{ user.metadata.lastSignInTime | date: 'MMM d yyyy, h:mm a' }}</mdc-list-item-text>
+            </mdc-list-item>
+          </mdc-list>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="user.level >= 6">
+      <toa-account-create-league [class.d-none]="tabs.activeTabIndex !== 1" [user]="user"></toa-account-create-league>
+      <toa-account-create-event [class.d-none]="tabs.activeTabIndex !== 2" [user]="user"></toa-account-create-event>
+      <toa-account-users [class.d-none]="tabs.activeTabIndex !== 3" [user]="user"></toa-account-users>
+      <toa-account-cache [class.d-none]="tabs.activeTabIndex !== 4" [user]="user"></toa-account-cache>
+      <toa-account-retriever [class.d-none]="tabs.activeTabIndex !== 5" [user]="user"></toa-account-retriever>
+    </div>
+  </div>
+</div>
+<div *ngIf="!user || !user.firebaseUser" class="w-100 d-flex align-items-center justify-content-center" style="height: 200px">
+  <svg class="spinner" width="55px" height="55px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+  </svg>
 </div>

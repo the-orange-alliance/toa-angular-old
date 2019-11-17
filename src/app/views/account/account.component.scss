@@ -1,8 +1,20 @@
 @import "../../../constants";
 
+.profile-block {
+  background: #ffffff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.cards-container {
+  margin-top: -40px;
+}
+
 .profile-image {
-  width: 96px;
-  height: 96px;
+  width: 82px;
+  height: 82px;
   line-height: 96px;
   border-radius: 50%;
   background: #ececec;

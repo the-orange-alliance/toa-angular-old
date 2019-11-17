@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { translateFactory } from './translate-universal-loader.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -66,11 +65,11 @@ import { RegisterComponent } from './views/account/register/register.component';
 import { TeamRobotComponent } from './views/team/subviews/team-robot/team-robot.component';
 import { TeamResultsComponent } from './views/team/subviews/team-results/team-results.component';
 import { StreamItemComponent } from './components/stream-item/stream-item.component';
-import { ModifiedTeamItemComponent } from './components/modified_team/modified-team.item.component';
 import { Insights1819Component } from './components/insights-card/years/insights1819component';
-import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
-import {LeagueCreatorComponent} from './views/account/subpages/league-creator/league-creator.component';
-import {LeagueItemComponent} from './components/league/league.item.component';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { LeagueCreatorComponent } from './views/account/subpages/league-creator/league-creator.component';
+import { LeagueItemComponent } from './components/league/league.item.component';
+import { ServerItemComponent } from './components/server/server.item.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
@@ -119,13 +118,13 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     MatchTableComponent,
     EventItemComponent,
     ModifiedEventItemComponent,
-    ModifiedTeamItemComponent,
     TeamItemComponent,
     AwardItemComponent,
     InsightsCardComponent,
     CircularPercentageComponent,
     Insights1819Component,
-    LeagueCreatorComponent
+    LeagueCreatorComponent,
+    ServerItemComponent
   ],
   entryComponents: [
     DialogText,

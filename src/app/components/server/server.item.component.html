@@ -1,0 +1,59 @@
+<mdc-list [interactive]="false" disableRipple *ngIf="serverData">
+  <mdc-list-item style="height: auto">
+    <mdc-icon mdcListItemGraphic svgIcon="angularjs"></mdc-icon>
+    <mdc-list-item-text secondaryText="Uptime: {{ calculateUptime(serverData[1].pm2_env.pm_uptime) }}"
+      >Build Time: {{ server.build_time || (server.is_dev ? 'Development' : 'Loading') }}<br/>
+      Last Commit: {{ server.is_dev ? 'Development' : '' }}
+      <a href="https://github.com/orange-alliance/the-orange-alliance/commit/{{ server.last_commit }}" target="_blank" *ngIf="!server.is_dev">
+        <code>{{ server.last_commit ? server.last_commit.substr(0, 7) : 'Error' }}</code>
+      </a>
+    </mdc-list-item-text>
+    <button mdc-icon-button mdcListItemMeta *ngIf="user.isDev" (click)="updateService(services.Live)" title="Restart">
+      <mdc-icon svgIcon="refresh"></mdc-icon>
+    </button>
+  </mdc-list-item>
+  <mdc-list-item>
+    <mdc-icon mdcListItemGraphic svgIcon="test-tube"></mdc-icon>
+    Dev WebApp
+    <button mdc-icon-button mdcListItemMeta *ngIf="user.isDev" (click)="updateService(services.Dev)" title="Restart">
+      <mdc-icon svgIcon="refresh"></mdc-icon>
+    </button>
+  </mdc-list-item>
+  <mdc-list-item>
+    <mdc-icon mdcListItemGraphic svgIcon="webhook"></mdc-icon>
+    API Version: {{ server.api_version || 'Loading' }}
+    <button mdc-icon-button mdcListItemMeta *ngIf="user.isDev" (click)="updateService(services.Api)" title="Restart">
+      <mdc-icon svgIcon="refresh"></mdc-icon>
+    </button>
+  </mdc-list-item>
+  <mdc-list-item>
+    <mdc-icon mdcListItemGraphic svgIcon="material-design"></mdc-icon>
+    MDC Version: {{ server.mdc_version }}
+  </mdc-list-item>
+  <mdc-list-item style="height: auto">
+    <mdc-icon mdcListItemGraphic svgIcon="update"></mdc-icon>
+    <mdc-list-item-text secondaryText="Uptime: {{ calculateUptime(serverData[2].pm2_env.pm_uptime) }}">AutoDeploy</mdc-list-item-text>
+    <mdc-icon mdcListItemMeta *ngIf="serverData[2].pm2_env.status === 'online'" svgIcon="check" style="fill: green" title="Online"></mdc-icon>
+    <mdc-icon mdcListItemMeta *ngIf="serverData[2].pm2_env.status === 'stopped'" svgIcon="cancel" style="fill: red" title="Stoped"></mdc-icon>
+    <mdc-icon mdcListItemMeta *ngIf="serverData[2].pm2_env.status === 'errored'" svgIcon="alert-decagram-outline" style="fill: red" title="Errored"></mdc-icon>
+  </mdc-list-item>
+  <mdc-list-item style="height: auto">
+    <mdc-icon mdcListItemGraphic>textsms</mdc-icon>
+    <mdc-list-item-text secondaryText="Uptime: {{ calculateUptime(serverData[3].pm2_env.pm_uptime) }}">TOA Text</mdc-list-item-text>
+    <mdc-icon mdcListItemMeta *ngIf="serverData[3].pm2_env.status === 'online'" svgIcon="check" style="fill: green" title="Online"></mdc-icon>
+    <mdc-icon mdcListItemMeta *ngIf="serverData[3].pm2_env.status === 'stopped'" svgIcon="cancel" style="fill: red" title="Stoped"></mdc-icon>
+    <mdc-icon mdcListItemMeta *ngIf="serverData[3].pm2_env.status === 'errored'" svgIcon="alert-decagram-outline" style="fill: red" title="Errored"></mdc-icon>
+  </mdc-list-item>
+  <!--
+  <mdc-list-item style="height: auto">
+    <mdc-icon mdcListItemGraphic>save</mdc-icon>
+    <p class="p-0 m-0">
+      <b>Redis Cache</b>
+      <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[4].pm2_env.pm_uptime)}}</a>
+    </p>
+    <a *ngIf="serverData && serverData[4].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
+    <a *ngIf="serverData && serverData[4].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
+    <a *ngIf="serverData && serverData[4].pm2_env.status === 'errored'" mdcListItemMeta mdcIcon style="color: red" title="Errored">error</a>
+  </mdc-list-item>
+  -->
+</mdc-list>

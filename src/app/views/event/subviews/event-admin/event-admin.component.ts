@@ -34,9 +34,6 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   deleteEvent3 = false;
   deleteEvent4 = false;
 
-  generatingEventApiKey: boolean;
-  eventApiKey: string;
-
   playlistURL: string;
   videos: any[];
   loadingVideos: boolean;
@@ -76,9 +73,6 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    this.db.object(`eventAPIs/${ this.eventKey }`).snapshotChanges().subscribe(item => {
-      this.eventApiKey = item && item.payload.val() ? item.payload.val() + '' : null;
-    });
     this.showGetObjects = true;
 
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
@@ -196,15 +190,6 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     }).catch(console.log);
   }
 
-  generateEventApiKey(): void {
-    this.generatingEventApiKey = true;
-    this.cloud.generateEventApiKey(this.user, this.eventKey).then(() => {
-      this.generatingEventApiKey = false;
-    }, (err) => {
-      this.showSnackbar('general.error_occurred', `HTTP-${err.status}`);
-    }).catch(console.log);
-  }
-
   playlistMatchify() {
     const playlistId = /[&|\?]list=([a-zA-Z0-9_-]+)/gi.exec(this.playlistURL || '');
 
@@ -258,21 +243,19 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   }
 
   updateEvent() {
-    const json = [
-      {
-       'event_key':  this.eventKey,
-       'season_key': this.eventData.seasonKey,
-       'event_name':  this.getFieldText(this.eventName),
-       'start_date':  `${this.getFieldText(this.startDate)} 00:00:00`,
-       'end_date':  `${this.getFieldText(this.endDate)} 00:00:00`,
-       'venue':  this.getFieldText(this.venue),
-       'city':  this.getFieldText(this.city),
-       'state_prov':  this.getFieldText(this.state),
-       'country':  this.getFieldText(this.country),
-       'website':  this.getFieldText(this.website),
-       'league_key': (this.currentLeague === null) ? null : this.currentLeague.leagueKey
-      }
-    ];
+    const json = {
+     'event_key': this.eventKey,
+     'season_key': this.eventData.seasonKey,
+     'event_name': this.getFieldText(this.eventName),
+     'start_date': `${this.getFieldText(this.startDate)} 00:00:00`,
+     'end_date': `${this.getFieldText(this.endDate)} 00:00:00`,
+     'venue': this.getFieldText(this.venue),
+     'city': this.getFieldText(this.city),
+     'state_prov': this.getFieldText(this.state),
+     'country': this.getFieldText(this.country),
+     'website': this.getFieldText(this.website),
+     'league_key': (this.currentLeague === null) ? null : this.currentLeague.leagueKey
+    };
 
     this.cloud.updateEvent(this.user, this.eventKey, json).then((data: {}) => {
       this.showSnackbar('pages.event.subpages.admin.update_info_card.successfully');

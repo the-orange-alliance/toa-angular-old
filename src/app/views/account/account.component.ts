@@ -11,14 +11,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { isPlatformBrowser, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { CloudFunctions } from '../../providers/cloud-functions';
 import { auth as providers, messaging as fcm } from 'firebase/app';
+import 'firebase/messaging';
 import { AppBarService } from '../../app-bar.service';
 import { environment } from '../../../environments/environment';
-import { initializeApp as initFbApp } from 'firebase/app';
 import { MessagingService } from '../../messaging.service';
 import TOAUser from '../../models/User';
 import Team from '../../models/Team';
 import Event from '../../models/Event';
-import * as fbApps from 'firebase/app';
+import Region from '../../models/Region';
 
 @Component({
   selector: 'toa-account',
@@ -35,6 +35,7 @@ export class AccountComponent implements OnInit {
 
   teams: Team[];
   events: Event[];
+  regions: Region[];
 
   notifications: string = null;
   generatingApiKey: boolean;
@@ -57,18 +58,16 @@ export class AccountComponent implements OnInit {
     app.setTitle('myTOA');
     app.setDescription('Your myTOA account overview');
 
-    if (this.router.url.indexOf('/account/events') > -1) {
+    if (this.router.url === '/account/create-league') {
       this.activeTab = 1;
-    } else if (this.router.url.indexOf('/account/create-league') > -1) {
+    }  else if (this.router.url === '/account/new-event') {
       this.activeTab = 2;
-    }  else if (this.router.url.indexOf('/account/new-event') > -1) {
+    } else if (this.router.url === '/account/users') {
       this.activeTab = 3;
-    } else if (this.router.url.indexOf('/account/users') > -1) {
+    } else if (this.router.url === '/account/cache') {
       this.activeTab = 4;
-    } else if (this.router.url.indexOf('/account/cache') > -1) {
+    } else if (this.router.url === '/account/retriever') {
       this.activeTab = 5;
-    } else if (this.router.url.indexOf('/account/retriever') > -1) {
-      this.activeTab = 6;
     } else {
       this.activeTab = 0;
     }
@@ -84,28 +83,29 @@ export class AccountComponent implements OnInit {
     this.phoneProvider = new providers.PhoneAuthProvider(auth.auth);
 
     auth.authState.subscribe(firebaseUser => {
-      if (firebaseUser !== null && firebaseUser !== undefined) {
+      if (firebaseUser) {
         this.firebaseUser = firebaseUser;
-        this.getUser()
+        this.getUser();
       } else {
         this.router.navigateByUrl('/account/login');
       }
     });
 
     this.notifications = Notification ? Notification.permission : null;
+
+    this.ftc.getAllRegions().then((regions: Region[]) => {
+      this.regions = regions
+    });
   }
 
   ngOnInit() {
     this.appBarService.setTitle('myTOA', true);
-    if (fbApps.apps.length === 0) {
-      initFbApp(environment.firebase);
-    }
     this.isSupported = fcm && fcm.isSupported();
   }
 
   getUser() {
     if (this.firebaseUser !== null) {
-      this.cloud.getUserData(this.firebaseUser).then((user: TOAUser) => {
+      this.cloud.getUserData(this.firebaseUser, 'exclude-region').then((user: TOAUser) => {
         this.user = user;
         this.user.firebaseUser = this.firebaseUser;
         this.emailVerified = this.user.emailVerified;
@@ -202,7 +202,10 @@ export class AccountComponent implements OnInit {
   generateApiKey(): void {
     if (this.emailVerified) {
       this.generatingApiKey = true;
-      this.cloud.generateApiKey(this.firebaseUser).catch(console.log);
+      this.cloud.generateApiKey(this.firebaseUser).then(key => {
+        this.user.apiKey = key;
+        this.generatingApiKey = false;
+      }).catch(console.log);
     }
   }
 

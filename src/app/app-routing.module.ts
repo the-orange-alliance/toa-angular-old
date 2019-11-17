@@ -50,7 +50,17 @@ const routes: Routes = [
   },
   { path: 'stream', component: StreamingComponent },
   { path: 'privacy-terms', component: PrivacyTermsComponent },
-  { path: 'events/:event_key', component: EventComponent },
+  { path: 'events/:event_key', component: EventComponent,  children: [
+      { path: '', redirectTo: 'rankings', pathMatch: 'full' },
+      { path: 'rankings', component: EventComponent },
+      { path: 'matches', component: EventComponent },
+      { path: 'teams', component: EventComponent },
+      { path: 'awards', component: EventComponent },
+      { path: 'media', component: EventComponent },
+      { path: 'insights', component: EventComponent },
+      { path: 'admin', component: EventComponent }
+    ]
+  },
   { path: 'teams/:team_key', component: TeamComponent },
   { path: 'matches/:match_key', component: MatchesComponent },
   { path: 'not-found', component: PageNotFoundComponent },
