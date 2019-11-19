@@ -1,4 +1,4 @@
-<a [routerLink]="clickable ? '/events/' + event.eventKey : null" [class]="'no-underline mdc-list--two-line' + (dense ? ' mdc-list--dense' : '')">
+<a [routerLink]="clickable ? '/events/' + event.eventKey + '/rankings' : null" [class]="'no-underline mdc-list--two-line' + (dense ? ' mdc-list--dense' : '')">
   <mdc-list-item interactive>
     <div class="data-indicator" [dir]="'config.direction' | translate" *ngIf="event.teamCount > 0"></div>
     <mdc-list-item-text>
