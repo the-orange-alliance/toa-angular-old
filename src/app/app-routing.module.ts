@@ -56,6 +56,7 @@ const routes: Routes = [
       { path: 'matches', component: EventComponent },
       { path: 'teams', component: EventComponent },
       { path: 'awards', component: EventComponent },
+      { path: 'alliances', component: EventComponent },
       { path: 'media', component: EventComponent },
       { path: 'insights', component: EventComponent },
       { path: 'admin', component: EventComponent }
