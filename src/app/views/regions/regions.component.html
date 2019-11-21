@@ -1,28 +1,24 @@
 <h2 class="page-title mb-4">{{ 'general.regions' | translate }}</h2>
 
-<div class="row">
+ 
+  <div class="mt-3 row" *ngIf="eventData && eventData.matches"> 
+    <div class="col-12">
+      <mdc-card class="toa-card">
+        <div class="mt-4">
+          <toa-event-insights [event]="eventData" [matches]="eventData.matches" [qualInsights]="qualInsights" [elimInsights]="elimInsights"></toa-event-insights>
+        </div>
+      </mdc-card>
+    </div>
+  </div>
+ 
+ <div class="row w-100 mt-3">
   <div class="col-12">
+  
     <mdc-card class="toa-card overflow" *ngIf="weeks">
       <div class="toa-card-header">{{ 'pages.events.filter' | translate }}</div>
 
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3 row">
-
-        <div mdcMenuSurfaceAnchor #seasonAnchor *ngIf="currentSeason && seasons && seasons.length > 0"
-             class="toa-dropdown">
-          <button mdc-button (click)="seasonDropdown.open = !seasonDropdown.open">
-            {{ currentSeason.description || getSeasonString(currentSeason.seasonKey) }}
-            <mdc-icon>arrow_drop_down</mdc-icon>
-          </button>
-          <mdc-menu #seasonDropdown [anchorElement]="seasonAnchor" (selected)="onSeasonChange($event)"
-                    anchorCorner="bottomStart">
-            <mdc-list dense>
-              <mdc-list-item *ngFor="let season of seasons" [disabled]="season.seasonKey === currentSeason.seasonKey">
-                {{ getSeasonString(season.seasonKey, season.description) }}
-              </mdc-list-item>
-            </mdc-list>
-          </mdc-menu>
-        </div>
 
         <div mdcMenuSurfaceAnchor #regionAnchor *ngIf="currentRegion && regions && regions.length > 0"
              class="toa-dropdown">
@@ -45,8 +41,11 @@
 
       <button mdc-button (click)="clearFilter()">{{ 'pages.regions.clear_filter' | translate }}</button>
     </mdc-card>
+	
   </div>
 </div>
+
+
 
 <div class="mt-5 row" *ngIf="availableWeeks && availableWeeks.length > 0">
   <div class="col-12">
@@ -76,11 +75,52 @@
     </mdc-card>
   </div>
 </div>
+
+
 <div class="mt-5 text-center" *ngIf="availableWeeks && availableWeeks.length === 0">
   <img src="../../../assets/imgs/empty-icon.svg" height="110" class="mb-3">
   <div mdcHeadline6>{{ 'no_data.events_filter' | translate }}</div>
   <div mdcBody1>{{ 'no_data.events_filter_long' | translate }}</div>
 </div>
+
+<div class="row w-100 mt-3">
+  <div class="col-12">
+    <mdc-card class="toa-card p-3" *ngIf="currentTeams">
+        <mdc-text-field label="{{ 'pages.teams.filter' | translate }}" [(ngModel)]="query" (input)="getTeams()" [fullwidth]="true"></mdc-text-field>
+
+        <div class="row mt-2" *ngIf="currentTeams && currentTeams.length > 0">
+          <div class="col-12 col-md-6">
+            <mdc-list-group>
+              <mdc-list>
+                <div *ngFor="let team of leftSide">
+                  <toa-team-item [team]="team"></toa-team-item>
+                </div>
+              </mdc-list>
+            </mdc-list-group>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <mdc-list-group>
+              <mdc-list>
+                <div *ngFor="let team of rightSide">
+                  <toa-team-item [team]="team"></toa-team-item>
+                </div>
+              </mdc-list>
+            </mdc-list-group>
+          </div>
+          <div mdcSubtitle1 class="pl-3 pr-3 pt-1">({{ 'pages.teams.results' | translate: {'results': currentTeams.length} }})</div>
+        </div>
+
+        <div *ngIf="currentTeams && currentTeams.length <= 0" class="row mt-4">
+          <div class="col-12 text-center">
+            <span><i>{{ 'no_data.teams_long' | translate }}</i></span>
+          </div>
+        </div>
+    </mdc-card>
+  </div>
+</div>
+
+
 <!--
 <button mdc-fab position='bottomRight' class="toa-fab" data-toggle="modal" data-target="#filterModal">
   <mdc-icon svgIcon="filter-outline"></mdc-icon>
