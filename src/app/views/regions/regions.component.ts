@@ -7,15 +7,19 @@ import { EventFilter, EventSorter } from '../../util/event-utils';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import {MdcSelect, MdcTabBar} from '@angular-mdc/web';
 import Event from '../../models/Event';
+import EventInsights from '../../models/Insights';
 import Season from '../../models/Season';
 import Region from '../../models/Region';
 import Week from '../../models/Week';
+import {MatchSorter} from '../../util/match-utils';
+import Team from '../../models/Team';
+
+const TEAMS_PER_PAGE = 100;
 
 @Component({
   providers: [FTCDatabase, TheOrangeAllianceGlobals],
   selector: 'toa-regions',
-  templateUrl: './regions.component.html',
-  styleUrls: ['./regions.component.scss']
+  templateUrl: './regions.component.html'
 })
 export class RegionsComponent implements OnInit {
 
@@ -32,6 +36,20 @@ export class RegionsComponent implements OnInit {
 
   eventFilter: EventFilter;
 
+  eventKey = '1920-FIM-PFQ1';
+  eventData: Event;
+  qualInsights: EventInsights = null;
+  elimInsights: EventInsights = null;
+  
+  teams: Team[];
+  currentTeams: Team[];
+
+  query: string;
+
+  public rightSide: Team[];
+  public leftSide: Team[];
+
+
   @ViewChild('tabbar', {static: false}) tabbar: MdcTabBar;
   @ViewChild('current_region', {static: false}) regionSelector: MdcSelect;
   @ViewChild('current_season', {static: false}) seasonSelector: MdcSelect;
@@ -46,6 +64,39 @@ export class RegionsComponent implements OnInit {
   ngOnInit(): void {
     this.translate.get('general.events').subscribe((str: string) => {
       this.appBarService.setTitle(str);
+    });
+
+    if (this.eventKey) {
+        this.ftc.getEvent(this.eventKey).then((data: Event) => {
+          if (data) {
+            this.eventData = data;
+
+            if (this.eventData.matches) {
+              this.eventData.matches = new MatchSorter().sort(this.eventData.matches, 0, this.eventData.matches.length - 1);
+            }
+            this.ftc.getEventInsights(this.eventKey, 'quals').then((insights) => {
+              this.qualInsights = insights;
+            }).catch(() => console.log('Qual Insights Failed to Load'));
+            this.ftc.getEventInsights(this.eventKey, 'elims').then((insights) => {
+              this.elimInsights = insights;
+            }).catch(() => console.log('Elim Insights Failed to Load'));
+
+          }
+        }, (err) => {
+          console.log(err);
+        });
+    }
+	
+	this.translate.get('general.teams').subscribe((str: string) => {
+      this.appBarService.setTitle(str);
+    });
+
+    this.ftc.getAllTeams().then((data: Team[]) => {
+      this.teams = data;
+      this.getTeams();
+    });
+    this.ftc.getAllRegions().then((data: Region[]) => {
+      this.regions = data
     });
 
     this.ftc.getAllSeasons().then((data: Season[]) => {
@@ -108,6 +159,44 @@ export class RegionsComponent implements OnInit {
   onSeasonChange(event: {index: any, value: any}) {
     event.index = (event.index < 0) ? 0 : event.index;
     this.selectSeason(this.seasons[event.index])
+  }
+  
+   getTeams() {
+    const query = this.query && this.query.trim().length > 0 ? this.query.toLowerCase().trim() : null;
+    if (query) {
+      let isRegion = false;
+      if (this.regions && query) {
+        for (const region of this.regions) {
+          if (region.regionKey.toLowerCase() === query) {
+            isRegion = true;
+          }
+        }
+      }
+
+      if (isRegion) {
+        this.currentTeams = this.teams.filter(team => (
+          team.regionKey.toLowerCase() === query
+        ));
+      } else {
+        this.currentTeams = this.teams.filter(team => (
+          String(team.teamNumber).includes(query) ||
+          (team.teamNameShort && team.teamNameShort.toLowerCase().includes(query)) ||
+          (team.city && team.city.toLowerCase().includes(query)) ||
+          (team.country && team.country.toLowerCase().includes(query))
+        ));
+      }
+    } else {
+      this.currentTeams = this.teams;
+    }
+
+    if (this.currentTeams.length === 1) {
+      this.leftSide = [this.currentTeams[0]];
+      this.rightSide = [];
+    } else {
+      this.currentTeams = this.currentTeams.slice(0, TEAMS_PER_PAGE);
+      this.leftSide = this.currentTeams.slice(0, this.currentTeams.length / 2);
+      this.rightSide = this.currentTeams.slice(this.currentTeams.length / 2, this.currentTeams.length);
+    }
   }
 
   selectSeason(season: Season) {
@@ -227,4 +316,5 @@ export class RegionsComponent implements OnInit {
       return regionKey;
     }
   }
+
 }
