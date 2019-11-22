@@ -176,6 +176,28 @@
           "confirm_password": "Confirm password",
           "your_team": "Your team #",
           "sign_up": "Sign Up"
+        },
+        "pending_data": {
+          "title": "Manage Pending Data",
+          "team_data": {
+            "title": "Team Data",
+            "videos": "Videos",
+            "logos": "Logos",
+            "cads": "CAD Files",
+            "pictures": "Pictures"
+          },
+          "event_data": "Event Data",
+          "streams": "Pending Streams",
+          "accept": "Accept",
+          "decline": "Decline",
+          "no_team": {
+            "videos": "No user submitted videos at this time",
+            "logos": "No user submitted logos at this time",
+            "images": "No user submitted pictures at this time",
+            "cads": "No user submitted CAD Files at this time"
+          },
+          "no_event": "No submitted event data at this time",
+          "no_streams": "No pending streams at this time"
         }
       }
     },
@@ -531,9 +553,11 @@
       },
       "add_team_data": {
         "title": "Add Team Data",
-        "add_picture": "Add Pictures to Team Page",
+        "add_logo": "Add a logo to the team page",
+        "add_robo": "Add pictures of robots to Team Page",
         "add_youtube": "Add YouTube Video to Team Playlist",
         "add_cad": "Add CAD file to Team Page",
+        "add_reveal": "Add Youtube Video of Robot Reveal",
         "submit": "Submit",
         "youtube_title": "Video Title",
         "youtube_link": "YouTube Video URL",

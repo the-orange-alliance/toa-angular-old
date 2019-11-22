@@ -1,49 +1,108 @@
 <div class="toa-card">
-  <h2>{{ teamName }}</h2>
 
-  <h3>Team Videos</h3>
-  <p *ngIf="sampleData.videos.length == 0">No videos submitted at this time.</p>
-  <div class="mdc-layout-grid">
-    <div class="mdc-layout-grid__inner">
-      <div 
-        class="mdc-layout-grid__cell" 
-        *ngFor="let link of sampleData.videos">
-        <iframe 
-          [src]="link | safe: 'resourceUrl'" 
-          frameborder="0" 
-          allowfullscreen></iframe>
+  <h2>{{ 'pages.account.subpages.pending_data.streams' | translate }}</h2> 
+  <p *ngIf="pendingStreamData.length == 0">{{ 'pages.account.subpages.pending_data.no_streams' | translate}}</p>
+  <div class="outline-card" *ngIf="pendingStreamData.length > 0">
+    <div class="mdc-layout-grid">
+      <div class="mdc-layout-grid__inner">
+        <div 
+          class="mdc-layout-grid__cell" 
+          *ngFor="let link of pendingStreamData">
+
+          <iframe 
+            [src]="link.media_link | safe: 'resourceUrl'" 
+            frameborder="0" 
+            allowfullscreen></iframe>
+
           <div class="mdc-layout-grid__inner">
             <button class="mdc-layout-grid__cell" (click)="removeVideo(i)">Reject</button>
             <button class="mdc-layout-grid__cell">Accept</button>
           </div>
-      </div>
-    </div>
-  </div>
-  
-  <h3>Team Pictures</h3>
-  <p *ngIf="sampleData.images.length == 0">No images submitted at this time.</p>
-  <div class="mdc-layout-grid">
-      <div class="mdc-layout-grid__inner">
-        <div 
-          class="mdc-layout-grid__cell" 
-          *ngFor="let link of sampleData.images">
-          <img 
-            class="submitted-pic"
-            [src]="link | safe: 'resourceUrl'" 
-            alt="userSubmittedLink">
-            <div class="mdc-layout-grid__inner">
-              <button class="mdc-layout-grid__cell" (click)="removePic(i)">Reject</button>
-              <button class="mdc-layout-grid__cell">Accept</button>
-            </div>
+
+          
         </div>
       </div>
     </div>
+  </div>
+
+  <h2>{{ 'pages.account.subpages.pending_data.team_data.title' | translate }}</h2> 
+  <div class="outline-card">
+    <h3>{{ 'pages.account.subpages.pending_data.team_data.videos' | translate }}</h3>
+    <p *ngIf="pendingTeamData.videos.length === 0">{{ 'pages.account.subpages.pending_data.no_team.videos' | translate}}</p>
+    <div class="mdc-layout-grid" *ngIf="pendingTeamData.videos.length > 0">
+      <div class="mdc-layout-grid__inner">
+        <div 
+          class="mdc-layout-grid__cell" 
+          *ngFor="let link of pendingTeamData.videos">
+               
+          <iframe 
+            [src]="link.media_link | safe: 'resourceUrl'" 
+            frameborder="0" 
+            allowfullscreen></iframe>   
+
+          <div class="mdc-layout-grid__inner">
+            <button class="mdc-layout-grid__cell" (click)="removeVideo(i)">Reject</button>
+            <button class="mdc-layout-grid__cell">Accept</button>
+          </div>          
+        </div>
+      </div>
+    </div>
+
+    <h3>{{ 'pages.account.subpages.pending_data.team_data.logos' | translate }}</h3>
+    <p *ngIf="pendingTeamData.logos.length === 0">{{ 'pages.account.subpages.pending_data.no_team.logos' | translate}}</p>
+    <div class="mdc-layout-grid" *ngIf="pendingTeamData.logos.length > 0">
+      <div class="mdc-layout-grid__inner">
+        <div 
+          class="mdc-layout-grid__cell"
+          *ngFor="let link of pendingTeamData.logos">
+          <img src="link.media_link" alt="link.media_title" />
+          <div class="mdc-layout-grid__inner">
+            <button class="mdc-layout-grid__cell" (click)="removeVideo(i)">Reject</button>
+            <button class="mdc-layout-grid__cell">Accept</button>
+          </div>  
+        </div>
+      </div>
+    </div>
+
+    <h3>{{ 'pages.account.subpages.pending_data.team_data.pictures' | translate }}</h3>
+    <p *ngIf="pendingTeamData.images.length === 0">{{ 'pages.account.subpages.pending_data.no_team.images' | translate}}</p>
+    <div class="mdc-layout-grid"  *ngIf="pendingTeamData.images.length > 0">
+      <div class="mdc-layout-grid__inner">
+        <div 
+          class="mdc-layout-grid__cell"
+          *ngFor="let link of pendingTeamData.images">
+          <img src="link.media_link" alt="link.media_title" />
+          <div class="mdc-layout-grid__inner">
+            <button class="mdc-layout-grid__cell" (click)="removeVideo(i)">Reject</button>
+            <button class="mdc-layout-grid__cell">Accept</button>
+          </div>  
+        </div>
+      </div>
+    </div>
+
+    <h3>{{ 'pages.account.subpages.pending_data.team_data.cads' | translate }}</h3>
+    <p *ngIf="pendingTeamData.images.length === 0">{{ 'pages.account.subpages.pending_data.no_team.cads' | translate}}</p>
+    <div class="mdc-layout-grid" *ngIf="pendingTeamData.cads.length > 0">
+      <div class="mdc-layout-grid__inner">
+        <div 
+          class="mdc-layout-grid__cell"
+          *ngFor="let link of pendingTeamData.cads">
+          <p>
+            <a ng-href="link.media_link | safe: 'resourceUrl'">link1</a>
+          </p>
+          <div class="mdc-layout-grid__inner">
+            <button class="mdc-layout-grid__cell" (click)="removeVideo(i)">Reject</button>
+            <button class="mdc-layout-grid__cell">Accept</button>
+          </div>  
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h2>{{ 'pages.account.subpages.pending_data.event_data' | translate }}</h2>
   
-  <h3>CAD files</h3>
-  <ul>
-    <li *ngFor="let link of sampleData.cad">
-      <a href="{{link}}">{{link}}</a>
-    </li>
-  </ul>
+
+  
 </div>
 

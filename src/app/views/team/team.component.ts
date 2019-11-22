@@ -46,6 +46,7 @@ export class TeamComponent implements OnInit {
   
   imageLink: string;
   imageTitle: string;
+  logoLink: string;
   cadLink: string;
   cadTitle: string;
   youtubeLink: string;
@@ -330,7 +331,7 @@ export class TeamComponent implements OnInit {
   }
 
 
-  sendVideo() {
+  sendReveal() {
     const mediaType = 3;
     if (this.youtubeLink !== "") {
 
@@ -348,7 +349,7 @@ export class TeamComponent implements OnInit {
     
   }
 
-  sendPicture() {
+  sendRoboPic() {
     const mediaType = 4;
     if (this.imageLink !== "") {
       const requestBody = {
@@ -363,8 +364,23 @@ export class TeamComponent implements OnInit {
     }
   }
 
+  sendTeamLogo() {
+    const mediaType = 5;
+    if (this.imageLink !== "") {
+      const requestBody = {
+        "team_key": this.teamKey,
+        "media_type": mediaType,
+        "primary": false,
+        "media_title": `${this.team.teamNameShort}_logo`,
+        "media_link": this.logoLink
+      }
+      console.log(requestBody);
+      this.cloud.addMediaToPending(this.user.firebaseUser, JSON.stringify(requestBody));
+    }
+  }
+
   sendCad() {
-    const mediaType = 2;
+    const mediaType = 1;
     if (this.cadLink !== "") {
       const requestBody = {
         "team_key": this.teamKey,
