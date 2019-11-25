@@ -132,11 +132,17 @@ export class PendingDataComponent implements OnInit {
    */
 
   removeVideo(id: number): void {
+    const video = this.pendingData.videos[id];
+
     this.sampleData.videos.splice(id, 1);
   }
 
-  removePic(id: number): void {
+  removeData(id: number, ): void {
     this.sampleData.images.splice(id, 1);
+  }
+
+  addData(): void {
+    // TODO Implement function
   }
     
 

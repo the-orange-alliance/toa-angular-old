@@ -79,7 +79,7 @@
       "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
       "manage_events": "Manage Events",
       "division_tab": {
-        "manage_team_data": "Manage Team Data",
+        "manage_pending_data": "Manage Pending Data",
         "manage_leagues": "Manage Leagues",
         "select_season": "Select Season",
         "create_league": "Create League",
@@ -242,6 +242,18 @@
         "failed": "Saving event settings failed. Please try again later"
       },
       "subpages": {
+        "add_data": {
+          "title": "Add Event Data",
+          "pits_map": "Add Pits Map",
+          "pits_link": "Imgur Link",
+          "schedule": "Add Schedule",
+          "schedule_link": "Imgur Link",
+          "venue_map": "Add Venue Map",
+          "venue_link": "Imgur Link",
+          "event_photo": "Add Event Photo",
+          "image_title": "Image Title",
+          "photo_link": "Imgur Link"
+        },
         "rankings": {
           "title": "Rankings",
           "rank": "Rank",

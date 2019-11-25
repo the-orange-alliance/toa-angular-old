@@ -15,8 +15,8 @@
             allowfullscreen></iframe>
 
           <div class="mdc-layout-grid__inner">
-            <button class="mdc-layout-grid__cell" (click)="removeVideo(i)">Reject</button>
-            <button class="mdc-layout-grid__cell">Accept</button>
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeVideo(i)">Reject</button>
+            <button mdc-button primary class="mdc-layout-grid__cell">Accept</button>
           </div>
 
           
@@ -101,6 +101,9 @@
   </div>
 
   <h2>{{ 'pages.account.subpages.pending_data.event_data' | translate }}</h2>
+  <div class="outline-card">
+
+  </div>
   
 
   
