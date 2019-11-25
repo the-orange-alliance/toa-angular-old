@@ -186,7 +186,13 @@
             "cads": "CAD Files",
             "pictures": "Pictures"
           },
-          "event_data": "Event Data",
+          "event_data": {
+            "title": "Event Data",
+            "pit_maps": "Pit Maps",
+            "schedules": "Schedules",
+            "venue_maps": "Venue Maps",
+            "images": "Pictures"
+          },
           "streams": "Pending Streams",
           "accept": "Accept",
           "decline": "Decline",
@@ -196,7 +202,12 @@
             "images": "No user submitted pictures at this time",
             "cads": "No user submitted CAD Files at this time"
           },
-          "no_event": "No submitted event data at this time",
+          "no_event": {
+            "pit_maps": "No user submitted pit maps at this time",
+            "schedules": "No user submitted schedules at this time",
+            "venue_maps": "No user submitted venue maps at this time",
+            "images": "No user submitted event pictures at this time"
+          },
           "no_streams": "No pending streams at this time"
         }
       }

@@ -360,7 +360,7 @@ export class TeamComponent implements OnInit {
         "media_link": this.imageLink
       }
       console.log(requestBody);
-      this.cloud.addMediaToPending(this.user.firebaseUser, JSON.stringify(requestBody));
+      this.cloud.addMediaToPending(this.user.firebaseUser, requestBody);
     }
   }
 
@@ -375,7 +375,7 @@ export class TeamComponent implements OnInit {
         "media_link": this.logoLink
       }
       console.log(requestBody);
-      this.cloud.addMediaToPending(this.user.firebaseUser, JSON.stringify(requestBody));
+      this.cloud.addMediaToPending(this.user.firebaseUser, requestBody);
     }
   }
 
@@ -390,7 +390,7 @@ export class TeamComponent implements OnInit {
         "media_link": this.cadLink
       }
       console.log(requestBody);
-      this.cloud.addMediaToPending(this.user.firebaseUser, JSON.stringify(requestBody));
+      this.cloud.addMediaToPending(this.user.firebaseUser, requestBody);
     }
   }
 }

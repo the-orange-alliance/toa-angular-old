@@ -4,7 +4,7 @@ import Event from '../../../../models/Event';
 import { User } from 'firebase/app';
 
 @Component({
-  selector: 'app-event-add-data',
+  selector: 'toa-event-add-data',
   templateUrl: './event-add-data.component.html',
   styleUrls: ['./event-add-data.component.css']
 })

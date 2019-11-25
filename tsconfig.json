@@ -10,7 +10,7 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "target": "ESNext",
+    "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],
