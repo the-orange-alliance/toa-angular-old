@@ -10,8 +10,8 @@
           <iframe [src]="link.media_link | safe: 'resourceUrl'" frameborder="0" allowfullscreen></iframe>
 
           <div class="mdc-layout-grid__inner">
-            <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeData(link)">Reject</button>
-            <button mdc-button primary class="mdc-layout-grid__cell">Accept</button>
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeData(link, true)">Reject</button>
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="addData(link, true)">Accept</button>
           </div>
 
 
@@ -33,7 +33,7 @@
 
           <div class="mdc-layout-grid__inner">
             <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeData(link)">Reject</button>
-            <button mdc-button primary class="mdc-layout-grid__cell">Accept</button>
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="addData(link)">Accept</button>
           </div>
         </div>
       </div>
@@ -45,10 +45,10 @@
     <div class="mdc-layout-grid" *ngIf="pendingTeamData.logos.length > 0">
       <div class="mdc-layout-grid__inner">
         <div class="mdc-layout-grid__cell" *ngFor="let link of pendingTeamData.logos">
-          <img class="submitted-pic" [src]="link.media_link" alt="link.media_title" />
+          <img class="submitted-pic" [src]="link.media_link" [alt]="link.media_title" />
           <div class="mdc-layout-grid__inner">
             <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeData(link)">Reject</button>
-            <button mdc-button primary class="mdc-layout-grid__cell">Accept</button>
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="addData(link)">Accept</button>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
           <img class="submitted-pic" [src]="link.media_link" alt="link.media_title" />
           <div class="mdc-layout-grid__inner">
             <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeData(link)">Reject</button>
-            <button mdc-button primary class="mdc-layout-grid__cell">Accept</button>
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="addData(link)">Accept</button>
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@
           </p>
           <div class="mdc-layout-grid__inner">
             <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeData(link)">Reject</button>
-            <button mdc-button primary class="mdc-layout-grid__cell">Accept</button>
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="addData(link)">Accept</button>
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@
 
   <h2>{{ 'pages.account.subpages.pending_data.event_data.title' | translate }}</h2>
   <div class="outline-card">
-    <h3>{{ 'pages.account.subpages.pending_data.event.pit_maps' | translate }}</h3>
+    <h3>{{ 'pages.account.subpages.pending_data.event_data.pit_maps' | translate }}</h3>
     <p *ngIf="pendingEventData.pitmaps.length === 0">
       {{ 'pages.account.subpages.pending_data.no_event.pit_maps' | translate}}</p>
     <div class="mdc-layout-grid" *ngIf="pendingEventData.pitmaps.length > 0">
@@ -99,13 +99,13 @@
           <img class="submitted-pic" [src]="link.media_link" alt="link.media_title" />
           <div class="mdc-layout-grid__inner">
             <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeData(link)">Reject</button>
-            <button mdc-button primary class="mdc-layout-grid__cell">Accept</button>
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="addData(link)">Accept</button>
           </div>
         </div>
       </div>
     </div>
 
-    <h3>{{ 'pages.account.subpages.pending_data.event.schedules' | translate }}</h3>
+    <h3>{{ 'pages.account.subpages.pending_data.event_data.schedules' | translate }}</h3>
     <p *ngIf="pendingEventData.schedules.length === 0">
       {{ 'pages.account.subpages.pending_data.no_event.pit_maps' | translate}}</p>
     <div class="mdc-layout-grid" *ngIf="pendingEventData.schedules.length > 0">
@@ -114,40 +114,42 @@
           <img class="submitted-pic" [src]="link.media_link" alt="link.media_title" />
           <div class="mdc-layout-grid__inner">
             <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeData(link)">Reject</button>
-            <button mdc-button primary class="mdc-layout-grid__cell">Accept</button>
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="addData(link)">Accept</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>{{ 'pages.account.subpages.pending_data.event_data.venue_maps' | translate }}</h3>
+    <p *ngIf="pendingEventData.venuemaps.length === 0">
+      {{ 'pages.account.subpages.pending_data.no_event.venue_maps' | translate}}</p>
+    <div class="mdc-layout-grid" *ngIf="pendingEventData.venuemaps.length > 0">
+      <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell" *ngFor="let link of pendingEventData.venuemaps">
+          <img class="submitted-pic" [src]="link.media_link" alt="link.media_title" />
+          <div class="mdc-layout-grid__inner">
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeData(link)">Reject</button>
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="addData(link)">Accept</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>{{ 'pages.account.subpages.pending_data.event_data.images' | translate }}</h3>
+    <p *ngIf="pendingEventData.images.length === 0">
+      {{ 'pages.account.subpages.pending_data.no_event.images' | translate}}</p>
+    <div class="mdc-layout-grid" *ngIf="pendingEventData.images.length > 0">
+      <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell" *ngFor="let link of pendingEventData.images">
+          <img class="submitted-pic" [src]="link.media_link" alt="link.media_title" />
+          <div class="mdc-layout-grid__inner">
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeData(link)">Reject</button>
+            <button mdc-button primary class="mdc-layout-grid__cell" (click)="addData(link)">Accept</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <h3>{{ 'pages.account.subpages.pending_data.event.venue_maps' | translate }}</h3>
-  <p *ngIf="pendingEventData.venuemaps.length === 0">
-    {{ 'pages.account.subpages.pending_data.no_event.venue_maps' | translate}}</p>
-  <div class="mdc-layout-grid" *ngIf="pendingEventData.venuemaps.length > 0">
-    <div class="mdc-layout-grid__inner">
-      <div class="mdc-layout-grid__cell" *ngFor="let link of pendingEventData.venuemaps">
-        <img class="submitted-pic" [src]="link.media_link" alt="link.media_title" />
-        <div class="mdc-layout-grid__inner">
-          <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeData(link)">Reject</button>
-          <button mdc-button primary class="mdc-layout-grid__cell">Accept</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<h3>{{ 'pages.account.subpages.pending_data.event.images' | translate }}</h3>
-<p *ngIf="pendingEventData.venuemaps.length === 0">
-  {{ 'pages.account.subpages.pending_data.no_event.images' | translate}}</p>
-<div class="mdc-layout-grid" *ngIf="pendingEventData.venuemaps.length > 0">
-  <div class="mdc-layout-grid__inner">
-    <div class="mdc-layout-grid__cell" *ngFor="let link of pendingEventData.venuemaps">
-      <img class="submitted-pic" [src]="link.media_link" alt="link.media_title" />
-      <div class="mdc-layout-grid__inner">
-        <button mdc-button primary class="mdc-layout-grid__cell" (click)="removeData(link)">Reject</button>
-        <button mdc-button primary class="mdc-layout-grid__cell">Accept</button>
-      </div>
-    </div>
-  </div>
 </div>

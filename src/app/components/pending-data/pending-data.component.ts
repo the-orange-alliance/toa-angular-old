@@ -45,7 +45,8 @@ export class PendingDataComponent implements OnInit {
           
           if (element["streams"] != null) {
             Object.keys(element["streams"]).forEach(stream => {
-              
+              console.log(stream);
+              element["streams"][stream].media_key = stream;
               if (element["streams"][stream].media_link.includes("watch?v=")) {
                 const link = element["streams"][stream].media_link.replace("watch?v=", "embed/");
                 element["streams"][stream].media_link = link;
@@ -60,7 +61,7 @@ export class PendingDataComponent implements OnInit {
 
           if (element["teams"] != null) {
             Object.keys(element["teams"]).forEach(key => {
-
+              element["teams"][key].media_key = key;
               // Sorts the team data into different media types
               switch (element["teams"][key].media_type) {
                 case 1:
@@ -68,7 +69,7 @@ export class PendingDataComponent implements OnInit {
                   break;
                 case 3:
                   if (element["teams"][key].media_link.includes("watch?v=")) {
-                    const link = element["streams"][key].media_link.replace("watch?v=", "embed/");
+                    const link = element["teams"][key].media_link.replace("watch?v=", "embed/");
                     element["teams"][key].media_link = link;
                   }
                   this.pendingTeamData.videos.push(element["teams"][key]);
@@ -85,9 +86,9 @@ export class PendingDataComponent implements OnInit {
             });  
           };
 
-          if (element["events"] != null) {
+          if (element["events"] != null ) {
             Object.keys(element["events"]).forEach(key => {
-              //this.pendingEventData.push(element["events"][key])
+              element["events"][key].media_key = key;
               switch (element["events"][key].media_type) {
                 case 0:
                   this.pendingEventData.pitmaps.push(element["events"][key]);
@@ -108,6 +109,8 @@ export class PendingDataComponent implements OnInit {
           };
           
         });
+        
+      }).then(() => {
         console.log(this.pendingStreamData);
         console.log(this.pendingTeamData);
         console.log(this.pendingEventData);
@@ -120,13 +123,135 @@ export class PendingDataComponent implements OnInit {
    * 
    */
 
-  removeData(link: any): void {
-    console.log(link)
+  removeData(link: any, isStream: boolean = false): void {
+    const deleteRequest = {
+      id : link.media_key,
+      uid: this.user.uid
+    };
+
+    const mediaType = link.media_type;
+
+    this.cloud.deletePendingMedia(this.user.firebaseUser, JSON.stringify(deleteRequest))
+      .then(() => {
+        if (isStream === true) {
+          this.pendingStreamData = this.pendingData.filter(stream => {
+            return !this.isEquivalent(stream, link);
+          })
+        } else {
+          if (!!link.team_key && !link.event_key) {
+            switch (mediaType) {
+              case 1:
+                this.pendingTeamData.cads = this.pendingData.cads.filter( data => {
+                  return !this.isEquivalent(data, link);
+                });
+                
+                break;
+              case 3:
+                this.pendingTeamData.videos = this.pendingData.videos.filter( data => {
+                  return !this.isEquivalent(data, link);
+                });
+                
+                break;
+              case 4:
+                this.pendingTeamData.images = this.pendingData.images.filter( data => {
+                  return !this.isEquivalent(data, link);
+                });
+                
+                break;
+              case 5:
+                this.pendingTeamData.logos = this.pendingData.logos.filter( data => {
+                  return !this.isEquivalent(data, link);
+                });
+                
+                break;
+              default:
+                break;
+            }
+            
+          } else if (!!link.event_key && !link.team_key) {
+            switch (mediaType) {
+              case 0:
+                this.pendingEventData.pitmaps = this.pendingEventData.pitmaps.filter( data => {
+                  return !this.isEquivalent(data, link);
+                });
+                
+                break;
+              case 1:
+                this.pendingEventData.schedules = this.pendingEventData.schedules.filter( data => {
+                  return !this.isEquivalent(data, link);
+                });
+                
+                break;
+              case 2:
+                this.pendingEventData.venuemaps = this.pendingEventData.venuemaps.filter( data => {
+                  return !this.isEquivalent(data, link);
+                });
+                
+                break;
+              case 5:
+                this.pendingEventData.images = this.pendingEventData.images.filter( data => {
+                  return !this.isEquivalent(data, link);
+                });
+                
+                break;
+              default:
+                break;
+            }
+          }
+        }
+      });
+
   }
 
-  addData(): void {
-    // TODO Implement function
+  addData(link: any, isStream: boolean = false): void {
+    const deleteRequest = {
+      id : link.media_key,
+      uid: this.user.uid
+    };
+
+    delete link.media_key;
+    
+    if (isStream === true) {
+      this.cloud.addStream(this.user.firebaseUser, link);
+    } else {
+      if (!!link.team_key && !link.event_key) {
+        this.cloud.addTeamMedia(this.user.firebaseUser, link);
+      } else if (!!link.event_key && !link.team_key) {
+        this.cloud.addEventMedia(this.user.firebaseUser, link);
+      }
+    }
+
+    this.removeData({
+      ...link,
+      media_key: deleteRequest.id
+    }, isStream);
   }
+
+  isEquivalent(firstObj, secObj): boolean {
+    // Create arrays of property names
+    var firstProps = Object.getOwnPropertyNames(firstObj);
+    var secProps = Object.getOwnPropertyNames(secObj);
+
+    // If number of properties is different,
+    // objects are not equivalent
+    if (firstProps.length != secProps.length) {
+        return false;
+    }
+
+    for (var i = 0; i < firstProps.length; i++) {
+        var propName = firstProps[i];
+
+        // If values of same property are not equal,
+        // objects are not equivalent
+        if (firstObj[propName] !== secObj[propName]) {
+            return false;
+        }
+    }
+
+    // If we made it this far, objects
+    // are considered equivalent
+    return true;
+}
     
 
 

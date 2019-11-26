@@ -26,6 +26,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'account',  children: [
       { path: '', component: AccountComponent },
+      { path: 'pending-data', component: AccountComponent},
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'create-league', component: AccountComponent },

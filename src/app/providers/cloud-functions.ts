@@ -583,6 +583,27 @@ export class CloudFunctions {
       });
     });
   }
+
+  public deletePendingMedia(user: User, media: any): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': media
+        });
+
+        this.http.delete(
+          this.baseUrl + '/deletePendingMedia', 
+           {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
  
   private userToToken(user: User): Promise<string> {
     return new Promise<string>((resolve, reject) => {
