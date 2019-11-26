@@ -12,4 +12,8 @@ export class SendStreamKeyComponent implements OnInit {
   ngOnInit() {
   }
 
+  sendStreamKey(): void {
+    
+  }
+
 }

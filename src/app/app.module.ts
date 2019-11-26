@@ -78,6 +78,7 @@ import { EventAddStreamComponent } from './views/event/subviews/event-add-stream
 import { PendingDataComponent } from './components/pending-data/pending-data.component';
 import { ManagePendingDataComponent } from './views/account/subpages/manage-pending-data/manage-pending-data.component';
 import { SendStreamKeyComponent } from './views/account/subpages/send-stream-key/send-stream-key.component';
+import { EventAddDataComponent } from './views/event/subviews/event-add-data/event-add-data.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
@@ -138,7 +139,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     EventAddStreamComponent,
     PendingDataComponent,
     ManagePendingDataComponent,
-    SendStreamKeyComponent
+    SendStreamKeyComponent,
+    EventAddDataComponent
   ],
   entryComponents: [
     DialogText,

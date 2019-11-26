@@ -79,7 +79,7 @@
       "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
       "manage_events": "Manage Events",
       "division_tab": {
-        "manage_team_data": "Manage Team Data",
+        "manage_pending_data": "Manage Pending Data",
         "manage_leagues": "Manage Leagues",
         "select_season": "Select Season",
         "create_league": "Create League",
@@ -176,6 +176,39 @@
           "confirm_password": "Confirm password",
           "your_team": "Your team #",
           "sign_up": "Sign Up"
+        },
+        "pending_data": {
+          "title": "Manage Pending Data",
+          "team_data": {
+            "title": "Team Data",
+            "videos": "Videos",
+            "logos": "Logos",
+            "cads": "CAD Files",
+            "pictures": "Pictures"
+          },
+          "event_data": {
+            "title": "Event Data",
+            "pit_maps": "Pit Maps",
+            "schedules": "Schedules",
+            "venue_maps": "Venue Maps",
+            "images": "Pictures"
+          },
+          "streams": "Pending Streams",
+          "accept": "Accept",
+          "decline": "Decline",
+          "no_team": {
+            "videos": "No user submitted videos at this time",
+            "logos": "No user submitted logos at this time",
+            "images": "No user submitted pictures at this time",
+            "cads": "No user submitted CAD Files at this time"
+          },
+          "no_event": {
+            "pit_maps": "No user submitted pit maps at this time",
+            "schedules": "No user submitted schedules at this time",
+            "venue_maps": "No user submitted venue maps at this time",
+            "images": "No user submitted event pictures at this time"
+          },
+          "no_streams": "No pending streams at this time"
         }
       }
     },
@@ -220,6 +253,18 @@
         "failed": "Saving event settings failed. Please try again later"
       },
       "subpages": {
+        "add_data": {
+          "title": "Add Event Data",
+          "pits_map": "Add Pits Map",
+          "pits_link": "Imgur Link",
+          "schedule": "Add Schedule",
+          "schedule_link": "Imgur Link",
+          "venue_map": "Add Venue Map",
+          "venue_link": "Imgur Link",
+          "event_photo": "Add Event Photo",
+          "image_title": "Image Title",
+          "photo_link": "Imgur Link"
+        },
         "rankings": {
           "title": "Rankings",
           "rank": "Rank",
@@ -535,9 +580,11 @@
       },
       "add_team_data": {
         "title": "Add Team Data",
-        "add_picture": "Add Pictures to Team Page",
+        "add_logo": "Add a logo to the team page",
+        "add_robo": "Add pictures of robots to Team Page",
         "add_youtube": "Add YouTube Video to Team Playlist",
         "add_cad": "Add CAD file to Team Page",
+        "add_reveal": "Add Youtube Video of Robot Reveal",
         "submit": "Submit",
         "youtube_title": "Video Title",
         "youtube_link": "YouTube Video URL",
