@@ -238,6 +238,9 @@
         "teams": {
           "title": "Teams"
         },
+		"regions": {
+          "title": "Regions"
+        },
         "alliances": {
           "title": "Alliances"
         },
@@ -484,7 +487,8 @@
       "filter_season": "Season",
       "filter_region": "Region",
       "filter": "Filter Options",
-      "clear_filter": "Clear Filter"
+      "clear_filter": "Clear Filter",
+	  "title": "Regions"
     },
 
     "streams": {

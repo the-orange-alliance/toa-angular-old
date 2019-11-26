@@ -87,7 +87,9 @@ export class RegionsComponent implements OnInit {
         });
     }
 	
-	this.translate.get('general.teams').subscribe((str: string) => {
+	this.app.setTitle("Regions");
+	
+	this.translate.get('general.regions').subscribe((str: string) => {
       this.appBarService.setTitle(str);
     });
 
