@@ -60,8 +60,8 @@
             <mdc-tab (click)="changeUrlNoRoute('insights')" label="{{ 'pages.event.subpages.insights.title' | translate }}" [class.d-none]="!qualInsights && !elimInsights"></mdc-tab>
             <mdc-tab (click)="changeUrlNoRoute('media')" label="{{ 'pages.event.subpages.for-participants.title' | translate }}" [class.d-none]="totalmedia === 0"></mdc-tab>
             <mdc-tab (click)="changeUrlNoRoute('admin')" label="{{ 'pages.event.subpages.admin.title' | translate }}" [class.d-none]="!admin" [disabled]="!emailVerified"></mdc-tab>
-            <mdc-tab (click)="changeUrlNoRoute('add-stream')" label="{{ 'pages.event.subpages.add_stream.title' | translate }}" [class.d-none]="admin" [disabled]="!emailVerified"></mdc-tab>
-            <mdc-tab (click)="changeUrlNoRoute('add-data')" label="{{ 'pages.event.subpages.add_data.title' | translate }}" [class.d-none]="admin" [disabled]="!emailVerified"></mdc-tab>
+            <mdc-tab *ngIf="!!user" (click)="changeUrlNoRoute('add-stream')" label="{{ 'pages.event.subpages.add_stream.title' | translate }}" [class.d-none]="admin" [disabled]="!emailVerified"></mdc-tab>
+            <mdc-tab *ngIf="!!user" (click)="changeUrlNoRoute('add-data')" label="{{ 'pages.event.subpages.add_data.title' | translate }}" [class.d-none]="admin" [disabled]="!emailVerified"></mdc-tab>
           </mdc-tab-scroller>
         </mdc-tab-bar>
         <div class="mt-4">

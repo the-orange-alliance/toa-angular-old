@@ -143,26 +143,22 @@ export class PendingDataComponent implements OnInit {
               case 1:
                 this.pendingTeamData.cads = this.pendingData.cads.filter( data => {
                   return !this.isEquivalent(data, link);
-                });
-                
+                });                
                 break;
               case 3:
                 this.pendingTeamData.videos = this.pendingData.videos.filter( data => {
                   return !this.isEquivalent(data, link);
-                });
-                
+                });                
                 break;
               case 4:
                 this.pendingTeamData.images = this.pendingData.images.filter( data => {
                   return !this.isEquivalent(data, link);
-                });
-                
+                });                
                 break;
               case 5:
                 this.pendingTeamData.logos = this.pendingData.logos.filter( data => {
                   return !this.isEquivalent(data, link);
-                });
-                
+                });                
                 break;
               default:
                 break;
@@ -171,25 +167,25 @@ export class PendingDataComponent implements OnInit {
           } else if (!!link.event_key && !link.team_key) {
             switch (mediaType) {
               case 0:
-                this.pendingEventData.pitmaps = this.pendingEventData.pitmaps.filter( data => {
+                this.pendingEventData.pitmaps = this.pendingEventData.pitmaps.filter(data => {
                   return !this.isEquivalent(data, link);
                 });
                 
                 break;
               case 1:
-                this.pendingEventData.schedules = this.pendingEventData.schedules.filter( data => {
+                this.pendingEventData.schedules = this.pendingEventData.schedules.filter(data => {
                   return !this.isEquivalent(data, link);
                 });
                 
                 break;
               case 2:
-                this.pendingEventData.venuemaps = this.pendingEventData.venuemaps.filter( data => {
+                this.pendingEventData.venuemaps = this.pendingEventData.venuemaps.filter(data => {
                   return !this.isEquivalent(data, link);
                 });
                 
                 break;
               case 5:
-                this.pendingEventData.images = this.pendingEventData.images.filter( data => {
+                this.pendingEventData.images = this.pendingEventData.images.filter(data => {
                   return !this.isEquivalent(data, link);
                 });
                 
