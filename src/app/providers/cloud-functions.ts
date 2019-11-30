@@ -372,24 +372,6 @@ export class CloudFunctions {
     });
   }
 
-  public getPendingMedia(user: User): Promise<any> {
-    return new Promise<any[]>((resolve, reject) => {
-      this.userToToken(user).then((token) => {
-        const headers = new HttpHeaders({
-          'authorization': `Bearer ${token}`
-        });
-
-        this.http.get(this.baseUrl + '/getPendingMedia', {headers: headers}).subscribe((data: any) => {
-          resolve(data);
-        }, (err: any) => {
-          reject(err);
-        });
-      }).catch((err: any) => {
-        reject(err);
-      });
-    });
-  }
-
   public addSuggestion(user: User, suggestionData: any): Promise<any> {
     let dataHeader;
     if (suggestionData.match_key !== undefined && suggestionData.event_key === undefined) {
