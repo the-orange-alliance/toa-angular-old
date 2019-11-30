@@ -274,38 +274,6 @@ export class CloudFunctions {
     });
   }
 
-  public addMediaToPending(user: User, mediaData: any, stream = false): Promise<any> {
-    let dataHeader;
-    if (mediaData.team_key !== undefined && mediaData.event_key === undefined) {
-      dataHeader = 'team';
-    } else if (mediaData.team_key === undefined && mediaData.event_key !== undefined) {
-      dataHeader = 'event';
-    } else {
-      return new Promise<any>( ((resolve, reject) => {reject('No Team or Event is Defined! (Or both are defined!)')}))
-    }
-
-    if (stream) {
-      dataHeader = 'stream';
-    }
-
-    return new Promise<any[]>((resolve, reject) => {
-      this.userToToken(user).then((token) => {
-        const headers = new HttpHeaders({
-          'authorization': `Bearer ${token}`,
-          'data': dataHeader
-        });
-
-        this.http.post(this.baseUrl + '/addMediaToPending', mediaData, {headers: headers}).subscribe((data: any) => {
-          resolve(data);
-        }, (err: any) => {
-          reject(err);
-        });
-      }).catch((err: any) => {
-        reject(err);
-      });
-    });
-  }
-
   public addEventMedia(user: User, mediaData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       this.userToToken(user).then((token) => {
