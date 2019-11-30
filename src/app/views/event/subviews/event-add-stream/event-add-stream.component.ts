@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { CloudFunctions } from '../../../../providers/cloud-functions';
 import { TranslateService } from '@ngx-translate/core';
 import { MdcTextField } from '@angular-mdc/web';
@@ -11,7 +11,7 @@ import { User } from 'firebase/app';
   templateUrl: './event-add-stream.component.html',
   styleUrls: ['./event-add-stream.component.css']
 })
-export class EventAddStreamComponent implements OnInit {
+export class EventAddStreamComponent {
 
   @Input() user: User;
   @Input() uid: string;
@@ -28,39 +28,27 @@ export class EventAddStreamComponent implements OnInit {
   eventApiKey: string;
   showGetObjects: boolean;
 
-  constructor(
-    private cloud: CloudFunctions,
-    private translate: TranslateService,
-  ) { }
-
-  ngOnInit() {
+  constructor(private cloud: CloudFunctions, private translate: TranslateService) {
 
   }
-
-  ngAfterViewInit() {
-    this.setFieldText(this.streamName, this.eventData.eventName);
-  }
-
-
 
   addStreamToPending(): void {
     const mediaType = 3;
     const streamLink = this.getFieldText(this.streamUrl);
     const streamTitle = this.getFieldText(this.streamName);
-    if (streamLink !== "") {
+    if (streamLink !== '') {
 
       const requestBody = {
-        "event_key": this.eventKey,
-        "media_type": mediaType,
-        "primary": false,
-        "media_title": streamTitle,
-        "media_link": streamLink
-      }
+        'event_key': this.eventKey,
+        'media_type': mediaType,
+        'primary': false,
+        'media_title': streamTitle,
+        'media_link': streamLink
+      };
 
       console.log(requestBody);
       console.log(this.user);
-      this.cloud.addMediaToPending(this.user, requestBody, true);  
-
+      this.cloud.addMediaToPending(this.user, requestBody, true);
     }
   }
 
@@ -73,16 +61,12 @@ export class EventAddStreamComponent implements OnInit {
     });
   }
 
-  setFieldText(elm: MdcTextField, text: string) {
-    elm.setValue(text);
-  }
-
   getFieldText(elm: MdcTextField) {
     return elm.value;
   }
 
   requestStreamKey() {
-    console.log("An email will be sent!");
+    console.log('An email will be sent!');
   }
 
 }

@@ -312,12 +312,14 @@ export class CloudFunctions {
     });
   }
 
-  public addMediaToPending(user: User, mediaData: any): Promise<any> {
+  public addMediaToPending(user: User, mediaData: any, stream = false): Promise<any> {
     let dataHeader;
-    if (mediaData.team_key !== undefined && mediaData.event_key === undefined) {
-      dataHeader = 'team';
-    } else if (mediaData.team_key === undefined && mediaData.event_key !== undefined) {
+    if (stream) {
+      dataHeader = 'stream';
+    } else if (mediaData.event_key) {
       dataHeader = 'event';
+    } else if (mediaData.team_key) {
+      dataHeader = 'team';
     } else {
       return new Promise<any>( ((resolve, reject) => {reject('No Team or Event is Defined! (Or both are defined!)')}))
     }
