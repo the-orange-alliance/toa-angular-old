@@ -1,23 +1,16 @@
-<a *ngIf="league && viewable" [routerLink]="clickable ? '/leagues/' + league.leagueKey : null" class="no-underline mdc-list--two-line">
-  <mdc-list-item disabled>
-    <mdc-list-item-text>
-       <span class="black">{{ league.description }}</span>
-      <span class="mdc-list-item__secondary-text"><span style="text-transform: capitalize">{{ league.leagueKey }}</span></span>
-    </mdc-list-item-text>
-    <div mdcListItemMeta class="d-none d-sm-block" (click)="deleteLeague(league)">
-      <mdc-icon svgIcon="delete" class="ms-2"></mdc-icon>
-    </div>
+<div *ngIf="viewable" class="mdc-list--two-line" [class.mdc-list--non-interactive]="!clickable">
+  <mdc-list-item *ngIf="league" [routerLink]="clickable ? '/leagues/' + league.leagueKey : null">
+    <mdc-list-item-text [secondaryText]="league.leagueKey">{{ league.description }}</mdc-list-item-text>
+    <button mdc-icon-button mdcListItemMeta class="d-none d-sm-block" (click)="deleteLeague(league)">
+      <mdc-icon svgIcon="delete" style="fill: black"></mdc-icon>
+    </button>
   </mdc-list-item>
-</a>
 
-<a *ngIf="division && viewable" [routerLink]="clickable ? '/leagues/division' + division.divisionKey : null" class="no-underline mdc-list--two-line">
-  <mdc-list-item disabled>
-    <mdc-list-item-text>
-       <span class="black">{{ division.description }}</span>
-      <span class="mdc-list-item__secondary-text"><span style="text-transform: capitalize">({{ division.divisionKey }}) {{ (division.leagueDesc ) ? "Division of " + division.leagueDesc : "No matching league" }}</span></span>
-    </mdc-list-item-text>
-    <div mdcListItemMeta class="d-none d-sm-block" (click)="deleteDivision(division)">
-      <mdc-icon svgIcon="delete" class="ms-2"></mdc-icon>
-    </div>
+  <mdc-list-item *ngIf="division" [routerLink]="clickable ? '/leagues/division/' + division.divisionKey : null">
+    <mdc-list-item-text secondaryText="({{ division.divisionKey }}) {{ (division.leagueDesc ) ? 'Division of ' +
+      division.leagueDesc : 'No matching league' }}">{{ division.description }}</mdc-list-item-text>
+    <button mdc-icon-button mdcListItemMeta class="d-none d-sm-block" (click)="deleteDivision(division)">
+      <mdc-icon svgIcon="delete" style="fill: black"></mdc-icon>
+    </button>
   </mdc-list-item>
-</a>
+</div>

@@ -43,3 +43,70 @@
 .fun-logo {
   background-image: url(../../../assets/imgs/fun_logo.jpg);
 }
+
+.relative-container {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  min-height: 56px;
+  z-index: 5;
+}
+
+.new-search-box-container {
+  box-shadow: 0 1px 3px rgba(60,63,66,.32), 0 4px 12px rgba(60,63,66,.15);
+  background-color: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+
+  .results {
+    background-color: #fff;
+    border-top: 1px solid #dadce0;
+  }
+}
+
+.new-search-box {
+  display: flex;
+  height: 56px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  overflow: hidden;
+  padding: 16px 24px;
+
+  input {
+    outline: none;
+    border: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 1 auto;
+    margin-left: 12px;
+    height: 24px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    align-self: center;
+    white-space: nowrap;
+  }
+}
+
+.home-icon-container {
+  border-radius: 4px;
+  min-width: 84px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  color: rgba(0,0,0,.87);
+  fill: rgba(0,0,0,.87);
+  font-size: 14px;
+  text-decoration: none!important;
+
+  mdc-icon {
+    padding: 6px;
+  }
+}

@@ -1,8 +1,8 @@
-<a [routerLink]="clickable ? '/events/' + event.eventKey : null" class="no-underline mdc-list--two-line">
+<a [routerLink]="clickable ? '/events/' + event.eventKey + '/rankings' : null" [class]="'no-underline mdc-list--two-line' + (dense ? ' mdc-list--dense' : '')">
   <mdc-list-item interactive>
     <div class="data-indicator" [dir]="'config.direction' | translate" *ngIf="event.teamCount > 0"></div>
     <mdc-list-item-text>
-       <span class="black d-inline">{{ event.divisionName ? event.eventName + ' - ' +  event.divisionName + ' Division' : event.eventName }} <span class="badge bg-primary" *ngIf="isLive()">{{ 'general.live' | translate }}</span></span>
+       <span class="black d-inline">{{ event.fullEventName }} <span class="badge bg-primary" *ngIf="isLive()">{{ 'general.live' | translate }}</span></span>
       <span class="mdc-list-item__secondary-text" *ngIf="event.startDate == event.endDate"><span style="text-transform: capitalize">{{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : '' }} {{ event.country }}</span> on {{ event.startDate | date :  "mediumDate"}}</span>
       <span class="mdc-list-item__secondary-text" *ngIf="event.startDate != event.endDate"><span style="text-transform: capitalize">{{ event.city }}, {{ event.stateProv ? event.stateProv + ', ' : '' }} {{ event.country }}</span> from {{ event.startDate | date :  "mediumDate"}} to {{ event.endDate | date :  "mediumDate"}}</span>
     </mdc-list-item-text>

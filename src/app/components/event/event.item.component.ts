@@ -11,6 +11,7 @@ export class EventItemComponent {
   @Input() event: Event;
   @Input() hideLiveBadge: boolean;
   @Input() clickable = true;
+  @Input() dense = false;
 
   isLive(): boolean {
     const liveData = this.event.teamCount > 0 || this.event.matchCount > 0 ;

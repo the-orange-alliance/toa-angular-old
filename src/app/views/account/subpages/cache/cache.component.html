@@ -1,7 +1,7 @@
 <div class="row">
-  <div class="outline-card col-12 mb-2">
-    <div mdcHeadline5 class="black pt-2 pb-2">{{ 'pages.account.dump_cache.general' | translate }}</div>
-    <mdc-radio-group class="cache-radio-group" [(ngModel)]="generalCache">
+  <div class="account-card col-12 mb-3">
+    <div mdcHeadline5>{{ 'pages.account.dump_cache.general' | translate }}</div>
+    <mdc-radio-group class="cache-radio-group mt-2" [(ngModel)]="generalCache">
       <mdc-form-field>
         <mdc-radio value="event"></mdc-radio> Events List
       </mdc-form-field>
@@ -34,30 +34,30 @@
     <button mdc-button primary class="test-button" (click)="dumpGeneralCache()" class="mt-2">{{ 'pages.account.dump_cache.dump' | translate }}</button>
   </div>
 
-  <div class="col-md-4 col-12 mb-2 pe-md-2">
-    <div class="outline-card">
-      <div mdcHeadline5 class="black pt-2 pb-2">{{ 'general.event' | translate }}</div>
-      <mdc-text-field #eventCache dense label="Event Key" class="w-100">
+  <div class="col-md-4 col-12 mb-3 pe-md-3">
+    <div class="account-card">
+      <div mdcHeadline5>{{ 'general.event' | translate }}</div>
+      <mdc-text-field #eventCache dense label="Event Key" class="w-100 mt-2">
         <mdc-icon mdcTextFieldIcon leading svgIcon="calendar-outline"></mdc-icon>
       </mdc-text-field>
       <button mdc-button primary (click)="dumpEventCache()" class="mt-2">{{ 'pages.account.dump_cache.dump' | translate }}</button>
     </div>
   </div>
 
-  <div class="col-md-4 col-12 mb-2 pe-md-2">
-    <div class="outline-card">
-      <div mdcHeadline5 class="black pt-2 pb-2">{{ 'general.team' | translate }}</div>
-      <mdc-text-field #teamCache dense label="Team Key" class="w-100">
+  <div class="col-md-4 col-12 mb-3 pe-md-3">
+    <div class="account-card">
+      <div mdcHeadline5>{{ 'general.team' | translate }}</div>
+      <mdc-text-field #teamCache dense label="Team Key" class="w-100 mt-2">
         <mdc-icon mdcTextFieldIcon leading svgIcon="account-group-outline"></mdc-icon>
       </mdc-text-field>
       <button mdc-button primary (click)="dumpTeamCache()" class="mt-2">{{ 'pages.account.dump_cache.dump' | translate }}</button>
     </div>
   </div>
 
-  <div class="col-md-4 col-12 mb-2">
-    <div class="outline-card">
-      <div mdcHeadline5 class="black pt-2 pb-2">{{ 'general.match' | translate }}</div>
-      <mdc-text-field #matchCache dense label="Match Key" class="w-100">
+  <div class="col-md-4 col-12 mb-3">
+    <div class="account-card">
+      <div mdcHeadline5>{{ 'general.match' | translate }}</div>
+      <mdc-text-field #matchCache dense label="Match Key" class="w-100 mt-2">
         <mdc-icon mdcTextFieldIcon leading svgIcon="gamepad-variant"></mdc-icon>
       </mdc-text-field>
       <button mdc-button primary (click)="dumpMatchCache()" class="mt-2">{{ 'pages.account.dump_cache.dump' | translate }}</button>

@@ -2,19 +2,9 @@
   <div class="col-md-6 col-12">
     <div class="outline-card">
       <div mdcHeadline5 class="black pb-4">{{ 'pages.account.datasync_card.title' | translate }}</div>
-
-      <div class="table-responsive" dir="ltr">
-        <div style="white-space:nowrap" class="align-items-center d-flex"><b>API Key:&nbsp;</b>
-          <code *ngIf="eventApiKey">{{ eventApiKey }}</code>
-          <button mdc-button *ngIf="!eventApiKey && !generatingEventApiKey" (click)="generateEventApiKey()">{{ 'pages.account.api_card.generate_key' | translate }}</button>
-          <mdc-linear-progress *ngIf="!eventApiKey && generatingEventApiKey" class="ml-2 mr-2"  style="width: 140px;"></mdc-linear-progress>
-        </div>
-        <div style="white-space:nowrap"><b>Event Key:&nbsp;</b><code>{{ eventKey }}</code></div>
-      </div>
-
-      <div mdcSubtitle1 class="pt-3">{{ 'pages.account.datasync_card.docs' | translate }}
-        <a href="https://github.com/orange-alliance/TOA-DataSync/wiki/DataSync-Documentation" target="_blank" (click)="this.sendAnalytic('leaving', 'datasync docs')">{{ 'general.here' | translate }}</a>.
-      </div>
+      <a mdc-button secondary raised target="_blank" href="http://upload.theorangealliance.org" style="text-decoration: none">
+        <mdc-icon>autorenew</mdc-icon>Start DataSync
+      </a>
     </div>
 
     <div class="outline-card mt-2 mb-2">

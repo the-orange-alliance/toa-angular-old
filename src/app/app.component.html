@@ -2,12 +2,13 @@
 <mdc-top-app-bar #topAppBar fixed style="z-index: 7" [dir]="'config.direction' | translate">
   <mdc-top-app-bar-row>
     <mdc-top-app-bar-section align="start" [title]="title || 'The Orange Alliance'">
-      <mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="drawer.open = !drawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()"></mdc-icon>
-      <!--<mdc-icon mdcTopAppBarNavIcon svgIcon="menu" (click)="back()" *ngIf="!isScreenSmall() && !topAppBar.isCollapsed()"></mdc-icon>-->
+      <mdc-icon mdcTopAppBarNavIcon (click)="drawer.open = !drawer.open" *ngIf="isScreenSmall() || topAppBar.isCollapsed()">
+        menu
+      </mdc-icon>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
       <a mdcTopAppBarActionItem class="d-block d-md-none" title="Search" data-toggle="modal" (click)="showMobileSearchModal(searchInput)">
-        <mdc-icon svgIcon="magnify"></mdc-icon>
+        <mdc-icon>search</mdc-icon>
       </a>
 
       <div class="search-anchor d-none d-md-block">
@@ -42,29 +43,28 @@
 <div class="mdc-top-app-bar--fixed-adjust" [dir]="'config.direction' | translate">
   <mdc-drawer #drawer="mdcDrawer" [drawer]="isScreenSmall() || topAppBar.isCollapsed() ? 'modal' : 'permanent'" class="toa-drawer--fixed">
     <mdc-drawer-content>
-      <mdc-list-item class="item-profile" disabled>
-        <div *ngIf="!user">
-          <span>{{ 'drawer.mytoa.hello' | translate: {'name': 'drawer.mytoa.guest' | translate } }}</span>
-          <span class="mdc-list-item__secondary-text">
-            <button mdc-button dense routerLink="/account/login">{{ 'drawer.mytoa.login' | translate }}</button>
-            <span>•</span>
-            <button mdc-button dense routerLink="/account/register" (click)="drawerItemClicked()">{{ 'drawer.mytoa.register' | translate }}</button>
-          </span>
-        </div>
-
-        <div *ngIf="user" routerLink="/account" (click)="drawerItemClicked()" style="cursor:pointer">
-          <mdc-list-item-text>
-            <span style="text-transform: capitalize">{{ 'drawer.mytoa.hello' | translate: {'name': user.displayName || 'User'} }}</span>
-            <span class="mdc-list-item__secondary-text">{{ user.email }}</span>
-          </mdc-list-item-text>
-        </div>
-      </mdc-list-item>
+      <mdc-list interactive="false" class="p-0">
+        <mdc-list-item class="item-profile" disabled>
+          <div *ngIf="!user">
+            <span>{{ 'drawer.mytoa.hello' | translate: {'name': 'drawer.mytoa.guest' | translate } }}</span>
+            <span class="mdc-list-item__secondary-text">
+              <button mdc-button dense routerLink="/account/login">{{ 'drawer.mytoa.login' | translate }}</button>
+              <span>•</span>
+              <button mdc-button dense routerLink="/account/register" (click)="drawerItemClicked()">{{ 'drawer.mytoa.register' | translate }}</button>
+            </span>
+          </div>
+          <div *ngIf="user" routerLink="/account" (click)="drawerItemClicked()" style="cursor:pointer">
+            <mdc-list-item-text>
+              <span style="text-transform: capitalize">{{ 'drawer.mytoa.hello' | translate: {'name': user.displayName || 'User'} }}</span>
+              <span class="mdc-list-item__secondary-text">{{ user.email }}</span>
+            </mdc-list-item-text>
+          </div>
+        </mdc-list-item>
+      </mdc-list>
 
       <mdc-list-group>
         <mdc-list>
-
           <mdc-list-divider></mdc-list-divider>
-
           <a mdc-list-item routerLink="/home" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon mdcListItemGraphic svgIcon="home"></mdc-icon>{{ "drawer.home" | translate }}
           </a>
@@ -128,9 +128,6 @@
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a mdc-list-item data-toggle="modal" [attr.data-target]="'#serverDialog'" *ngIf="isAdmin">
-            <mdc-icon mdcListItemGraphic svgIcon="server"></mdc-icon> Server
-          </a>
           <a mdc-list-item routerLink="/about" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon mdcListItemGraphic svgIcon="information-outline"></mdc-icon>{{ "drawer.about" | translate }}
           </a>
@@ -140,7 +137,7 @@
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a mdc-list-item href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZE3YC297GJNUW&source=url" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
+          <a mdc-list-item href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CDE5Q5XXPM25J&source=toa_donate_drawer" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
             <mdc-icon mdcListItemGraphic svgIcon="paypal"></mdc-icon>{{ "drawer.donate" | translate }}
           </a>
           <a mdc-list-item href="https://smile.amazon.com/ch/83-2083376" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
@@ -218,80 +215,6 @@
       <mdc-dialog-actions>
         <button mdcDialogButton data-dismiss="modal">Cancel</button>
         <button mdcDialogButton default data-dismiss="modal" (click)="languageSelected()">Select</button>
-      </mdc-dialog-actions>
-    </div>
-  </div>
-</div>
-
-<!-- Server Dialog -->
-<div class="modal fade" id="serverDialog" role="dialog" aria-hidden="true" *ngIf="isAdmin">
-  <div class="modal-dialog modal-dialog-centered user-modal" role="document">
-    <div mdcDialogSurface class="modal-content border-0">
-      <mdc-dialog-title>Server Details</mdc-dialog-title>
-      <mdc-dialog-content>
-        <mdc-list disableRipple [interactive]="false" border>
-          <mdc-list-item style="height: auto">
-            <mdc-icon mdcListItemGraphic svgIcon="angularjs"></mdc-icon>
-            <p class="p-0 m-0">
-              <b>WebApp Build Time:</b>&nbsp;{{ server.build_time || (server.is_dev ? 'Development' : 'Loading') }}<br/>
-              <b>WebApp Last Commit:</b>&nbsp;{{ server.is_dev ? 'Development' : '' }}
-              <a href="https://github.com/orange-alliance/the-orange-alliance/commit/{{ server.last_commit }}" target="_blank" *ngIf="!server.is_dev">
-                <code>{{ server.last_commit ? server.last_commit.substr(0, 7) : 'Error' }}</code>
-              </a>
-              <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[1].pm2_env.pm_uptime)}}</a>
-            </p>
-            <a mdcListItemMeta *ngIf="isToaDev" mdcIcon title="Restart" (click)="updateService(services.Live)">refresh</a>
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdcListItemGraphic svgIcon="webhook"></mdc-icon>
-            <b>API Version:</b>&nbsp;{{ server.api_version || 'Loading' }}
-            <a mdcListItemMeta *ngIf="isToaDev"  mdcIcon title="Restart" (click)="updateService(services.Api)">refresh</a>
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdcListItemGraphic svgIcon="test-tube"></mdc-icon>
-            <b>Update Dev WebApp</b>
-            <a mdcListItemMeta *ngIf="isToaDev"  mdcIcon title="Restart" (click)="updateService(services.Dev)">refresh</a>
-          </mdc-list-item>
-          <mdc-list-item>
-            <mdc-icon mdcListItemGraphic svgIcon="material-design"></mdc-icon>
-            <b>MDC Version:</b>&nbsp;{{ server.mdc_version }}
-          </mdc-list-item>
-          <mdc-list-item style="height: auto">
-            <mdc-icon mdcListItemGraphic svgIcon="update"></mdc-icon>
-            <p class="p-0 m-0">
-              <b>Auto Deploy</b>
-              <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[2].pm2_env.pm_uptime)}}</a>
-            </p>
-            <a *ngIf="serverData && serverData[2].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
-            <a *ngIf="serverData && serverData[2].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
-            <a *ngIf="serverData && serverData[2].pm2_env.status === 'errored'" mdcListItemMeta mdcIcon style="color: red" title="Errored">error</a>
-          </mdc-list-item>
-          <mdc-list-item style="height: auto">
-            <mdc-icon mdcListItemGraphic>textsms</mdc-icon>
-            <p class="p-0 m-0">
-              <b>TOA Text</b>
-              <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[3].pm2_env.pm_uptime)}}</a>
-            </p>
-            <a *ngIf="serverData && serverData[3].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
-            <a *ngIf="serverData && serverData[3].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
-            <a *ngIf="serverData && serverData[3].pm2_env.status === 'errored'" mdcListItemMeta mdcIcon style="color: red" title="Errored">error</a>
-          </mdc-list-item>
-          <!--
-          <mdc-list-item style="height: auto">
-            <mdc-icon mdcListItemGraphic>save</mdc-icon>
-            <p class="p-0 m-0">
-              <b>Redis Cache</b>
-              <a *ngIf="serverData" class="mdc-list-item__secondary-text">Uptime: {{calculateUptime(serverData[4].pm2_env.pm_uptime)}}</a>
-            </p>
-            <a *ngIf="serverData && serverData[4].pm2_env.status === 'online'" mdcListItemMeta mdcIcon style="color: green" title="Online">done</a>
-            <a *ngIf="serverData && serverData[4].pm2_env.status === 'stopped'" mdcListItemMeta mdcIcon style="color: red" title="Stoped">stop</a>
-            <a *ngIf="serverData && serverData[4].pm2_env.status === 'errored'" mdcListItemMeta mdcIcon style="color: red" title="Errored">error</a>
-          </mdc-list-item>
-          -->
-        </mdc-list>
-      </mdc-dialog-content>
-      <mdc-dialog-actions>
-        <button mdcDialogButton data-dismiss="modal">Close</button>
       </mdc-dialog-actions>
     </div>
   </div>

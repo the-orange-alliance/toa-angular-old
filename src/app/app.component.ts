@@ -11,11 +11,9 @@ import { NavigationEnd, Router } from '@angular/router';
 import { EventFilter } from './util/event-utils';
 import { TheOrangeAllianceGlobals } from './app.globals';
 import { MdcTopAppBar, MdcDrawer } from '@angular-mdc/web';
-import { environment } from '../environments/environment';
 import { MessagingService } from './messaging.service';
 import Team from './models/Team';
 import Event from './models/Event';
-import mdcInfo from '../../node_modules/@angular-mdc/web/package.json'
 
 const SMALL_WIDTH_BREAKPOINT = 1240;
 
@@ -37,7 +35,6 @@ export class TheOrangeAllianceComponent implements OnInit {
   };
 
   teams: Team[];
-  services = Service;
 
   events: Event[];
   eventsFilter: EventFilter;
@@ -52,10 +49,6 @@ export class TheOrangeAllianceComponent implements OnInit {
   selectedLanguage = '';
 
   user: firebase.User;
-  isAdmin: boolean;
-  isToaDev: boolean;
-
-  serverData: [];
 
   matcher: MediaQueryList;
   @ViewChild(MdcTopAppBar, {static: false}) appBar: MdcTopAppBar;
@@ -92,36 +85,6 @@ export class TheOrangeAllianceComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       auth.authState.subscribe(user => {
         this.user = user;
-        if (user !== null) {
-          this.cloud.getPm2Data( user ).then( data => {
-            this.serverData = data;
-          }).catch((err) => null);
-
-          db.object(`Users/${this.user.uid}`).query.once('value').then(level => { // TODO: Move To Backend
-            this.isAdmin = level.val().level && level.val().level >= 6;
-            this.isToaDev = level.val().isDev;
-            if (this.isAdmin) {
-              this.ftc.getApiVersion().then((version: string) => {
-                this.server.api_version = version;
-              });
-              this.server.is_dev = !environment.production;
-              if (!this.server.is_dev) {
-                this.server.last_commit = environment.commit;
-
-                const d = new Date(environment.build_time);
-                const dateString = // 2019/02/24 16:03:57
-                  d.getUTCFullYear() + '/' +
-                  ('0' + (d.getUTCMonth() + 1)).slice(-2) + '/' +
-                  ('0' + d.getUTCDate()).slice(-2) + ' ' +
-                  ('0' + d.getUTCHours()).slice(-2) + ':' +
-                  ('0' + d.getUTCMinutes()).slice(-2) + ':' +
-                  ('0' + d.getUTCSeconds()).slice(-2);
-                this.server.build_time = dateString;
-              }
-              this.server.mdc_version = mdcInfo.version;
-            }
-          });
-        }
       });
     }
 
@@ -273,10 +236,6 @@ export class TheOrangeAllianceComponent implements OnInit {
     this.translate.use(this.selectedLanguage);
   }
 
-  updateService(service: Service) {
-    this.cloud.update(this.user, service);
-  }
-
   sendAnalytic(category, action): void {
     (<any>window).ga('send', 'event', {
       eventCategory: category,
@@ -284,22 +243,5 @@ export class TheOrangeAllianceComponent implements OnInit {
       eventAction: action,
       eventValue: 10
     });
-  }
-
-  calculateUptime(unixTime): any {
-    // get total seconds between the times
-    let delta = Math.abs(new Date().getTime() - unixTime) / 1000;
-    // calculate (and subtract) whole days
-    const days = Math.floor(delta / 86400);
-    delta -= days * 86400;
-    // calculate (and subtract) whole hours
-    const hours = Math.floor(delta / 3600) % 24;
-    delta -= hours * 3600;
-    // calculate (and subtract) whole minutes
-    const minutes = Math.floor(delta / 60) % 60;
-    delta -= minutes * 60;
-    // what's left is seconds
-    const seconds = delta % 60;  // in theory the modulus is not required
-    return `${days} day${(days === 1) ? '' : 's'}, ${hours} hour${(hours === 1) ? '' : 's'}, and ${minutes} minute${(minutes === 1) ? '' : 's'}`;
   }
 }

@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { translateFactory } from './translate-universal-loader.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -67,13 +66,13 @@ import { RegisterComponent } from './views/account/register/register.component';
 import { TeamRobotComponent } from './views/team/subviews/team-robot/team-robot.component';
 import { TeamResultsComponent } from './views/team/subviews/team-results/team-results.component';
 import { StreamItemComponent } from './components/stream-item/stream-item.component';
-import { ModifiedTeamItemComponent } from './components/modified_team/modified-team.item.component';
 import { Insights1819Component } from './components/insights-card/years/insights1819component';
-import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
-import {LeagueCreatorComponent} from './views/account/subpages/league-creator/league-creator.component';
-import {LeagueItemComponent} from './components/league/league.item.component';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { LeagueCreatorComponent } from './views/account/subpages/league-creator/league-creator.component';
+import { LeagueItemComponent } from './components/league/league.item.component';
+import { ServerItemComponent } from './components/server/server.item.component';
 import { SafePipe } from './safe.pipe';
-import { HttpErrorHandler }     from './http-error-handler.service';
+import { HttpErrorHandler } from './http-error-handler.service';
 import { EventAddStreamComponent } from './views/event/subviews/event-add-stream/event-add-stream.component';
 import { PendingDataComponent } from './components/pending-data/pending-data.component';
 import { ManagePendingDataComponent } from './views/account/subpages/manage-pending-data/manage-pending-data.component';
@@ -98,7 +97,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     LoginComponent,
     RegisterComponent,
     EventsComponent,
-	RegionsComponent,
+    RegionsComponent,
     TeamsComponent,
     EventComponent,
     AboutComponent,
@@ -128,7 +127,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     MatchTableComponent,
     EventItemComponent,
     ModifiedEventItemComponent,
-    ModifiedTeamItemComponent,
     TeamItemComponent,
     AwardItemComponent,
     InsightsCardComponent,
@@ -140,7 +138,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     PendingDataComponent,
     ManagePendingDataComponent,
     SendStreamKeyComponent,
-    EventAddDataComponent
+    EventAddDataComponent,
+    ServerItemComponent
   ],
   entryComponents: [
     DialogText,
@@ -169,6 +168,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       }
     }),
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     AppMaterialModule,

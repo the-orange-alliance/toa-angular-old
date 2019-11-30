@@ -51,7 +51,7 @@
       </div>
     </mdc-card>
   </div>
-  
+
   <div class="col-12 col-md-9">
     <mdc-card class="toa-card" id="info">
       <div class="d-flex align-items-center mb-1">
@@ -108,7 +108,6 @@
           <p>{{ 'pages.team.awards_in_season' | translate: {'awards': team.awards.length, 'season': currentSeason.description} }}</p>
         </div>
       </div>
-
     </mdc-card>
 
     <mdc-card class="toa-card overflow" *ngIf="user != null">
@@ -131,7 +130,7 @@
         <mdc-text-field dense label="{{'pages.team.add_team_data.image_link' | translate}}" [(ngModel)]="imageLink"></mdc-text-field>
         <button mdc-button primary class="ml-2 mr-2" style="height: 48px" (click)="sendRoboPic()">{{'pages.team.add_team_data.submit' | translate }}</button>
       </div>
-      <div class="outline-card"> 
+      <div class="outline-card">
         <div mdcHeadline5 class="black pb-4">{{'pages.team.add_team_data.add_cad' | translate }}</div>
         <mdc-text-field dense label="{{'pages.team.add_team_data.cad_title' | translate}}" [(ngModel)]="cadTitle"></mdc-text-field>
         <mdc-text-field dense label="{{'pages.team.add_team_data.cad_link' | translate}}" [(ngModel)]="cadLink"></mdc-text-field>
@@ -139,15 +138,12 @@
       </div>
     </mdc-card>
 
-
     <div class="col-12 d-md-none mt-3"
          *ngIf="currentSeason && seasons && seasons.length > 0 && team.rookieYear && team.rookieYear > 0">
       <mdc-card class="toa-card overflow">
         <div class="w-100 p-2">
           <div mdcMenuSurfaceAnchor #seasonAnchorMobile class="toa-dropdown">
             <button mdc-button (click)="seasonDropdownMobile.open = !seasonDropdownMobile.open">
-			
-
               {{ getSeasonString(currentSeason.seasonKey, currentSeason.description) }}
               <mdc-icon>arrow_drop_down</mdc-icon>
             </button>
@@ -178,14 +174,12 @@
         </div>
       </mdc-card>
     </div>
-	<!-- Team Insights -->
-   <mdc-card class="toa-card" id="insights">
+
+    <!-- Team Insights -->
+    <mdc-card class="toa-card" id="insights">
       <div class="d-flex align-items-center mb-1">
-        <div *ngIf="teamLogo" class="team-logo m-2" [style.backgroundImage]="'url('+teamLogo.mediaLink+')'"></div>
-        <div>
-          <div class="toa-card-header" [class.pb-1]="team.teamNameLong" mdcHeadline5>Team Insights</div>
-          <div class="toa-card-subtitle pt-0" *ngIf="team.teamNameLong">#{{ team.teamNumber }} - {{ team.teamNameShort }} - {{ getSeasonString(currentSeason.seasonKey, false) }} season</div>
-        </div>
+        <div class="toa-card-header" [class.pb-1]="team.teamNameLong" mdcHeadline5>Team Insights</div>
+        <div class="toa-card-subtitle pt-0" *ngIf="team.teamNameLong">#{{ team.teamNumber }} - {{ team.teamNameShort }} - {{ getSeasonString(currentSeason.seasonKey, false) }} season</div>
       </div>
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3">
@@ -198,8 +192,8 @@
           <mdc-icon svgIcon="bridge"></mdc-icon>
           <p>{{ 'pages.team.auto_bridge_skystones' | translate: {'regionKey': team.regionKey} }}</p>
         </div>
-		
-		<div class="info-state">
+
+        <div class="info-state">
           <mdc-icon svgIcon="controller-classic"></mdc-icon>
           <p>{{ 'pages.team.driver_bridge_skystones' | translate: {'regionKey': team.regionKey} }}</p>
         </div>
@@ -208,37 +202,32 @@
           <mdc-icon svgIcon="cube-outline"></mdc-icon>
           <p>{{ 'pages.team.auto_stones' | translate: {'regionKey': team.regionKey} }}</p>
         </div>
-		
-		<div class="info-state">
+
+        <div class="info-state">
           <mdc-icon svgIcon="remote"></mdc-icon>
           <p>{{ 'pages.team.driver_stones' | translate: {'regionKey': team.regionKey} }}</p>
         </div>
-		
-		<div class="info-state">
+
+        <div class="info-state">
           <mdc-icon svgIcon="city-variant-outline"></mdc-icon>
           <p>{{ 'pages.team.skyscraper_levels' | translate: {'regionKey': team.regionKey} }}</p>
         </div>
-		
-		<div class="info-state">
+
+        <div class="info-state">
           <mdc-icon svgIcon="parking"></mdc-icon>
           <p>{{ 'pages.team.building_park' | translate: {'regionKey': team.regionKey} }}</p>
         </div>
-		
-		<div class="info-state">
+
+        <div class="info-state">
           <mdc-icon svgIcon="dump-truck"></mdc-icon>
           <p>{{ 'pages.team.foundation_end' | translate: {'regionKey': team.regionKey} }}</p>
         </div>
-		
-		<div class="info-state">
+
+        <div class="info-state">
           <mdc-icon svgIcon="flag-variant"></mdc-icon>
           <p>{{ 'pages.team.capstones_placed' | translate: {'regionKey': team.regionKey} }}</p>
         </div>
-
-        
       </div>
-
     </mdc-card>
   </div>
-  
-  
 </div>

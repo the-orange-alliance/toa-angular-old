@@ -4,6 +4,7 @@ import { User } from 'firebase/app';
 import TOAUser from '../models/User';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { rejects } from 'assert';
 
 import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 export enum Service {
@@ -25,11 +26,12 @@ export class CloudFunctions {
       this.handleError = httpErrorHandler.createHandleError('CloudFunctions');
   }
 
-  public getUserData(user: User): Promise<TOAUser> {
+  public getUserData(user: User, type?: string): Promise<TOAUser> {
     return new Promise<TOAUser>((resolve, reject) => {
       this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
-          'authorization': `Bearer ${token}`
+          'authorization': `Bearer ${token}`,
+          ...(type ? {'data': type} : {})
         });
 
         this.http.get(this.baseUrl + '/user', {headers: headers}).subscribe((data: any) => {
@@ -197,6 +199,25 @@ export class CloudFunctions {
     });
   }
 
+  public manageAdmin(user: User, userToUpdate: string, body: object): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': userToUpdate
+        });
+
+        this.http.post(this.baseUrl + '/user/manageAdmin', body, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
   public setVideos(user: User, eventKey: string, videos: any[]): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       this.userToToken(user).then((token) => {
@@ -234,7 +255,7 @@ export class CloudFunctions {
     });
   }
 
-  public updateEvent(user: User, eventKey: string, eventData: any[]): Promise<any> {
+  public updateEvent(user: User, eventKey: string, eventData: any): Promise<any> {
     return new Promise<any[]>((resolve, reject) => {
       this.userToToken(user).then((token) => {
         const headers = new HttpHeaders({
@@ -242,7 +263,7 @@ export class CloudFunctions {
           'data': eventKey
         });
 
-        this.http.post(this.baseUrl + '/updateEvent', eventData, {headers: headers}).subscribe((data: any) => {
+        this.http.post(this.baseUrl + '/updateEvent', [eventData], {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
           reject(err);
@@ -262,7 +283,7 @@ export class CloudFunctions {
     } else {
       return new Promise<any>( ((resolve, reject) => {reject('No Team or Event is Defined! (Or both are defined!)')}))
     }
-    
+
     if (stream) {
       dataHeader = 'stream';
     }
@@ -313,6 +334,115 @@ export class CloudFunctions {
         });
 
         this.http.post(this.baseUrl + '/addMedia', mediaData, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public addMediaToPending(user: User, mediaData: any): Promise<any> {
+    let dataHeader;
+    if (mediaData.team_key !== undefined && mediaData.event_key === undefined) {
+      dataHeader = 'team';
+    } else if (mediaData.team_key === undefined && mediaData.event_key !== undefined) {
+      dataHeader = 'event';
+    } else {
+      return new Promise<any>( ((resolve, reject) => {reject('No Team or Event is Defined! (Or both are defined!)')}))
+    }
+
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': dataHeader
+        });
+
+        this.http.post(this.baseUrl + '/addMediaToPending', mediaData, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public getPendingMedia(user: User): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`
+        });
+
+        this.http.get(this.baseUrl + '/getPendingMedia', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public addSuggestion(user: User, suggestionData: any): Promise<any> {
+    let dataHeader;
+    if (suggestionData.match_key !== undefined && suggestionData.event_key === undefined) {
+      dataHeader = 'add_match_video';
+    } else if (suggestionData.match_key === undefined && suggestionData.event_key !== undefined) {
+      dataHeader = 'add_event_stream';
+    } else {
+      return new Promise<any>( ((resolve, reject) => {reject('No Suggestion Data is Defined! (Or both types are defined!)')}))
+    }
+
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': dataHeader
+        });
+
+        this.http.post(this.baseUrl + '/user/addSuggestion', suggestionData, {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public getAllSuggestions(user: User): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`
+        });
+        this.http.get(this.baseUrl + '/user/allSuggestions', {headers: headers}).subscribe((data: any) => {
+          resolve(data);
+        }, (err: any) => {
+          reject(err);
+        });
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
+  }
+
+  public deleteSuggestion(user: User, suggestionID: any): Promise<any> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.userToToken(user).then((token) => {
+        const headers = new HttpHeaders({
+          'authorization': `Bearer ${token}`,
+          'data': suggestionID
+        });
+        this.http.delete(this.baseUrl + '/user/deleteSuggestion', {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
           reject(err);
@@ -593,7 +723,7 @@ export class CloudFunctions {
         });
 
         this.http.delete(
-          this.baseUrl + '/deletePendingMedia', 
+          this.baseUrl + '/deletePendingMedia',
            {headers: headers}).subscribe((data: any) => {
           resolve(data);
         }, (err: any) => {
@@ -604,7 +734,7 @@ export class CloudFunctions {
       });
     });
   }
- 
+
   private userToToken(user: User): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       if (user === null) {

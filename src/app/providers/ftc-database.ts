@@ -24,8 +24,8 @@ import LeagueDiv from '../models/LeagueDiv';
 @Injectable()
 export class FTCDatabase {
 
-  public year = '1819';
-  public allYears = ['1617', '1718', '1819'];
+  public year = '1920';
+  public allYears = ['1617', '1718', '1819', '1920'];
 
   public baseURL = 'https://theorangealliance.org/api';
   // public baseURL = 'http://127.0.0.1:8008/api';
@@ -330,7 +330,10 @@ export class FTCDatabase {
   public getEventInsights(eventKey: string, type: string): Promise<Insights> {
     return new Promise<Insights>((resolve, reject) => {
       this.request('/event/' + eventKey + '/insights?type=' + type).then((data: any[]) => {
-        resolve(InsightsData.getInsights(eventKey.split('-')[0]).fromJSON(data[0] || {}));
+        if (!data || !data[0]) {
+          return null;
+        }
+        resolve(InsightsData.getInsights(eventKey.split('-')[0]).fromJSON(data[0]));
       }).catch((err: any) => reject(err));
     });
   }

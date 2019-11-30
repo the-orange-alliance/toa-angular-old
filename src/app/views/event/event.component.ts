@@ -13,6 +13,7 @@ import { DialogEventFavorite } from '../../dialogs/event-favorite/dialog-event-f
 import { MdcDialog, MdcMenuSelectedEvent, MdcSnackbar } from '@angular-mdc/web';
 import { CookieService } from 'ngx-cookie-service';
 import { User, messaging } from 'firebase/app';
+import { Location } from '@angular/common';
 import Event from '../../models/Event';
 import EventLiveStream from '../../models/EventLiveStream';
 import Media from '../../models/Media';
@@ -56,13 +57,19 @@ export class EventComponent implements OnInit {
   toaAdmin = false;
   userSettings: any;
 
+  currentUrl: string;
+  possiblePages: string[];
+
   constructor(private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals, private dialog: MdcDialog, private snackbar: MdcSnackbar,
-              public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService, private cloud: CloudFunctions, private cookieService: CookieService) {
+              public db: AngularFireDatabase, public auth: AngularFireAuth, private appBarService: AppBarService, private cloud: CloudFunctions, private loca: Location, private cookieService: CookieService) {
     this.eventKey = this.route.snapshot.params['event_key'];
   }
 
   ngOnInit() {
+    this.currentUrl = this.router.url.split('/')[this.router.url.split('/').length - 1];
+    this.possiblePages = ['rankings', 'matches', 'teams', 'alliances', 'awards', 'insights', 'media', 'admin', 'add-stream', 'add-data'];
     if (this.eventKey) {
+
       this.auth.authState.subscribe(user => {
         if (user !== null && user !== undefined) {
           this.user = user;
@@ -72,7 +79,7 @@ export class EventComponent implements OnInit {
 
             const COOKIEKEY = 'event_notification_settings_info';
             if (messaging.isSupported() && !this.cookieService.check(COOKIEKEY) && this.eventKey.startsWith('1819-CMP-DET')) {
-              const snackbarRef = this.snackbar.open('Do you know you can get push notifications about results on real time? Just click on the star button.', 'Amazing!', {
+              const snackbarRef = this.snackbar.open('Do you know you can get push notifications about results in real time? Just click on the star button.', 'Amazing!', {
                 timeoutMs: 10000
               });
 
@@ -89,7 +96,11 @@ export class EventComponent implements OnInit {
 
             if (this.admin && this.totalrankings === 0 && this.totalalliances === 0 && this.totalmatches === 0 &&
               this.totalteams === 0 && this.totalawards === 0 && this.totalmedia === 0) {
-              this.select('admin');
+              this.changeUrlNoRoute('admin');
+            }
+
+            if (this.admin && this.router.url.split('/')[this.router.url.split('/').length - 1] === 'admin') { // that is the original URL, no matter how many times we change it
+              this.select(this.router.url.split('/')[this.router.url.split('/').length - 1]);
             }
           });
         }
@@ -117,14 +128,6 @@ export class EventComponent implements OnInit {
             this.eventData.teams = new TeamSorter().sortEventParticipant(this.eventData.teams);
           }
 
-          if (this.eventData.rankings && this.eventData.rankings.length > 0) {
-            this.select('rankings');
-          } else if (this.eventData.matches && this.eventData.matches.length > 0) {
-            this.select('matches')
-          } else {
-            this.select('teams');
-          }
-
           this.totalteams = this.eventData.teams.length;
           this.totalmatches = this.eventData.matches.length;
           this.totalrankings = this.eventData.rankings.length;
@@ -142,16 +145,27 @@ export class EventComponent implements OnInit {
             if (this.media && this.media.length > 0 && !this.hasEventEnded()) {
               this.totalmedia = this.media.length;
               if (this.totalteams === 0 && this.totalmatches === 0 && this.totalrankings === 0 && this.totalawards === 0) {
-                this.select('media');
+                this.changeUrlNoRoute('media');
               }
+              if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'media') { // that is the original URL, no matter how many times we change it
+                this.select(this.router.url.split('/')[this.router.url.split('/').length - 1]);
+              }
+            } else if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'media' && this.media.length < 1) {
+              this.changeUrlNoRoute('rankings');
             }
           });
 
           this.ftc.getEventInsights(this.eventKey, 'quals').then((insights) => {
             this.qualInsights = insights;
+            if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'insights') { // that is the original URL, no matter how many times we change it
+              this.select(this.router.url.split('/')[this.router.url.split('/').length - 1]);
+            }
           }).catch(() => console.log('Qual Insights Failed to Load'));
           this.ftc.getEventInsights(this.eventKey, 'elims').then((insights) => {
             this.elimInsights = insights;
+            if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'insights') { // that is the original URL, no matter how many times we change it
+              this.select(this.router.url.split('/')[this.router.url.split('/').length - 1]);
+            }
           }).catch(() => console.log('Elim Insights Failed to Load'));
 
           // Find matches per team                           // Can't divide by 0
@@ -219,38 +233,76 @@ export class EventComponent implements OnInit {
             }
           }
         });
+
+        if (this.possiblePages.includes(this.router.url.split('/')[this.router.url.split('/').length - 1])) {
+          this.select(this.router.url.split('/')[this.router.url.split('/').length - 1]);
+        } else if (this.eventData.rankings && this.eventData.rankings.length > 0) {
+          this.changeUrlNoRoute('rankings');
+        } else if (this.eventData.matches && this.eventData.matches.length > 0) {
+          this.changeUrlNoRoute('matches')
+        } else if (this.eventData.teams.length > 0) {
+          this.changeUrlNoRoute('teams');
+        }
       }, (err) => {
+        this.router.navigate(['/not-found']);
         console.log(err);
       })
       }
   }
 
   public select(view: string) {
-    switch (view) {
-      case 'rankings':
-        this.activeTab = 0;
-        break;
-      case 'matches':
-        this.activeTab = 1;
-        break;
-      case 'teams':
-        this.activeTab = 2;
-        break;
-      case 'alliances':
-        this.activeTab = 3;
-        break;
-      case 'awards':
-        this.activeTab = 4;
-        break;
-      case 'insights':
-        this.activeTab = 5;
-        break;
-      case 'media':
-        this.activeTab = 6;
-        break;
-      case 'admin':
-        this.activeTab = 7;
-        break;
+    if (this.activeTab === -1 || this.viewNumToName(this.activeTab) !== view ) { // if view is loaded and if current view does not equal requested view
+      switch (view) {
+        case 'rankings':
+          if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0;
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          break;
+        case 'matches':
+          if (this.eventData.matches && this.eventData.matches.length > 0) { this.activeTab = 1;
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no matches, check for teams
+          break;
+        case 'teams':
+          if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; }
+          break;
+        case 'alliances':
+          if (this.eventData.alliances && this.eventData.alliances.length > 0) { this.activeTab = 3;
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no alliances, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          break;
+        case 'awards':
+          if (this.eventData.awards && this.eventData.awards.length > 0) { this.activeTab = 4;
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no awards, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          break;
+        case 'insights':
+          if (this.qualInsights || this.elimInsights) { this.activeTab = 5;
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no insights, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          break;
+        case 'media':
+          if (this.totalmedia > 0) { this.activeTab = 6;
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no media, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          break;
+        case 'admin':
+          if (this.admin) { this.activeTab = 7;
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no admin, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          break;
+        case 'add-stream':
+          if (!this.admin) { this.activeTab = 8;
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no admin, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          break;
+        case 'add-data':
+          if (!this.admin) { this.activeTab = 9;
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no admin, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          break;
+        default:
+          this.activeTab = 0;
+          break;
+      }
     }
   }
 
@@ -273,6 +325,30 @@ export class EventComponent implements OnInit {
         'user': this.user
       }
     });
+  }
+
+  changeUrlNoRoute(route: any) {
+    this.select(route);
+    if (this.currentUrl !== route ) { // if view is loaded and if current view does not equal requested view
+      this.loca.go(`events/${this.eventKey}/${this.viewNumToName(this.activeTab)}`);
+      this.currentUrl = route;
+    }
+  }
+
+  viewNumToName(viewNumber: number) {
+    switch (viewNumber) {
+      case 0: return 'rankings';
+      case 1: return'matches';
+      case 2: return 'teams';
+      case 3: return 'alliances';
+      case 4: return 'awards';
+      case 5: return 'insights';
+      case 6: return 'media';
+      case 7: return 'admin';
+      case 8: return 'add-stream';
+      case 9: return 'add-data';
+      default: return 'rankings';
+    }
   }
 
   sendAnalytic(category, action): void {

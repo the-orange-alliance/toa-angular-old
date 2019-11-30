@@ -18,8 +18,7 @@ import { AddDataComponent } from './views/add-data/add-data.component';
 import { LoginComponent } from './views/account/login/login.component';
 import { RegisterComponent } from './views/account/register/register.component';
 
-
-const donateUrl = 'https://www.paypal.com/donate/?token=6Mm_17HVz4hWmEp5RZS052WhAnucfA0pqv2arAjZHSlR-xdeyTZHx4zduqEV23zUGuMPom&country.x=US&locale.x=US';
+const donateUrl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CDE5Q5XXPM25J&source=toa_donate_link';
 
 const routes: Routes = [
   { path: 'kickoff', redirectTo: '/stream?kickoff' },
@@ -40,7 +39,7 @@ const routes: Routes = [
   { path: 'add-data', component: AddDataComponent },
   { path: 'events', component: EventsComponent },
   { path: 'teams', component: TeamsComponent },
-  { path: 'regions', component: RegionsComponent }, 
+  { path: 'regions', component: RegionsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'apidocs', component: ApiDocsComponent,  children: [
       { path: '', redirectTo: 'get', pathMatch: 'full' },
@@ -54,7 +53,18 @@ const routes: Routes = [
   },
   { path: 'stream', component: StreamingComponent },
   { path: 'privacy-terms', component: PrivacyTermsComponent },
-  { path: 'events/:event_key', component: EventComponent },
+  { path: 'events/:event_key', component: EventComponent,  children: [
+      { path: '', redirectTo: 'rankings', pathMatch: 'full' },
+      { path: 'rankings', component: EventComponent },
+      { path: 'matches', component: EventComponent },
+      { path: 'teams', component: EventComponent },
+      { path: 'awards', component: EventComponent },
+      { path: 'alliances', component: EventComponent },
+      { path: 'media', component: EventComponent },
+      { path: 'insights', component: EventComponent },
+      { path: 'admin', component: EventComponent }
+    ]
+  },
   { path: 'teams/:team_key', component: TeamComponent },
   { path: 'matches/:match_key', component: MatchesComponent },
   { path: 'not-found', component: PageNotFoundComponent },
