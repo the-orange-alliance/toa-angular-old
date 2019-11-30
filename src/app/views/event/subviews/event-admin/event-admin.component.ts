@@ -20,7 +20,6 @@ import League from '../../../../models/League';
 export class EventAdminComponent implements OnInit, AfterViewInit {
 
   @Input() user: User;
-  @Input() uid: string;
   @Input() eventKey: string;
   @Input() eventData: Event;
   @Input() league: League;
@@ -39,7 +38,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   loadingVideos: boolean;
   showGetObjects: boolean;
   showConfirm: boolean;
-  uploadingVideos: boolean; 
+  uploadingVideos: boolean;
 
   images: any = {};
   pitsMap = 'pits_map';
@@ -65,13 +64,13 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   @ViewChild('stream_name', {static: false}) streamName: MdcTextField;
 
   constructor(
-    private cloud: CloudFunctions, 
-    private db: AngularFireDatabase, 
+    private cloud: CloudFunctions,
+    private db: AngularFireDatabase,
     private snackbar: MdcSnackbar,
-    private translate: TranslateService, 
-    private router: Router, 
+    private translate: TranslateService,
+    private router: Router,
     public imgur: UploadService,
-    private ftc: FTCDatabase, 
+    private ftc: FTCDatabase,
     private cd: ChangeDetectorRef) {
 
   }
@@ -160,7 +159,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     if (streamLink) {
       const stream = new EventLiveStream();
       stream.streamKey = this.eventData.eventKey + '-LS1';
-      stream.eventKey = this.eventData.eventKey; 
+      stream.eventKey = this.eventData.eventKey;
       stream.channelName = channelName;
       stream.streamName = this.getFieldText(this.streamName);
       stream.streamType = streamType;

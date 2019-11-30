@@ -12,7 +12,6 @@ export class EventAddDataComponent implements OnInit {
 
   @Input() eventData: Event;
   @Input() eventKey: string;
-  @Input() uid: string;
   @Input() user: User;
 
   pitsLink: string;
@@ -31,74 +30,62 @@ export class EventAddDataComponent implements OnInit {
 
   sendPitsMap() {
     const mediaType = 0;
-    if (this.pitsLink !== "") {
-
+    if (this.pitsLink !== '') {
       const requestBody = {
-        "event_key": this.eventKey,
-        "media_type": mediaType,
-        "primary": false,
-        "media_title": `${this.eventData.eventName}_pitsmap`,
-        "media_link": this.pitsLink
-      }
-
+        'event_key': this.eventKey,
+        'media_type': mediaType,
+        'primary': false,
+        'media_title': `${this.eventData.eventName}_pitsmap`,
+        'media_link': this.pitsLink
+      };
       console.log(requestBody);
-      this.cloud.addMediaToPending(this.user, requestBody);      
+      this.cloud.addMediaToPending(this.user, requestBody);
     }
-    
   }
 
   sendSchedule() {
     const mediaType = 1;
-    if (this.pitsLink !== "") {
+    if (this.pitsLink !== '') {
 
       const requestBody = {
-        "event_key": this.eventKey,
-        "media_type": mediaType,
-        "primary": false,
-        "media_title": `${this.eventData.eventName}_schedule`,
-        "media_link": this.scheduleLink
-      }
-
+        'event_key': this.eventKey,
+        'media_type': mediaType,
+        'primary': false,
+        'media_title': `${this.eventData.eventName}_schedule`,
+        'media_link': this.scheduleLink
+      };
       console.log(requestBody);
-      this.cloud.addMediaToPending(this.user, requestBody);      
+      this.cloud.addMediaToPending(this.user, requestBody);
     }
-    
   }
 
   sendVenueMap() {
     const mediaType = 2;
-    if (this.pitsLink !== "") {
-
+    if (this.pitsLink !== '') {
       const requestBody = {
-        "event_key": this.eventKey,
-        "media_type": mediaType,
-        "primary": false,
-        "media_title": `${this.eventData.eventName}_venuemap`,
-        "media_link": this.venueLink
-      }
-
+        'event_key': this.eventKey,
+        'media_type': mediaType,
+        'primary': false,
+        'media_title': `${this.eventData.eventName}_venuemap`,
+        'media_link': this.venueLink
+      };
       console.log(requestBody);
-      this.cloud.addMediaToPending(this.user, requestBody);      
+      this.cloud.addMediaToPending(this.user, requestBody);
     }
-    
   }
 
   sendEventPhoto() {
     const mediaType = 6;
-    if (this.pitsLink !== "") {
-
+    if (this.pitsLink !== '') {
       const requestBody = {
-        "event_key": this.eventKey,
-        "media_type": mediaType,
-        "primary": false,
-        "media_title": this.imageTitle,
-        "media_link": this.imageLink
-      }
-
+        'event_key': this.eventKey,
+        'media_type': mediaType,
+        'primary': false,
+        'media_title': this.imageTitle,
+        'media_link': this.imageLink
+      };
       console.log(requestBody);
-      this.cloud.addMediaToPending(this.user, requestBody);      
+      this.cloud.addMediaToPending(this.user, requestBody);
     }
-    
   }
-
 }

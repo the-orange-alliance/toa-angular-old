@@ -14,7 +14,6 @@ import { User } from 'firebase/app';
 export class EventAddStreamComponent {
 
   @Input() user: User;
-  @Input() uid: string;
   @Input() eventKey: string;
   @Input() eventData: Event;
 
