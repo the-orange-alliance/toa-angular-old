@@ -46,7 +46,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
   schedule = 'schedule';
   venueMap = 'venue_map';
 
-  streamType = 'Youtube';
+  streamType = 'Twitch';
   hasStream = false;
   linkedStream: EventLiveStream;
 
@@ -137,7 +137,7 @@ export class EventAdminComponent implements OnInit, AfterViewInit {
     let channelLink;
     let channelName;
     let streamType;
-    const twitchRegex = new RegExp('^(?:https?:\\/\\/)?(?:www\\.|go\\.)?twitch\\.tv\\/([a-z0-9_]+)($|\\?)');
+    const twitchRegex = new RegExp('^(?:https?:\\/\\/)?(?:www\\.|go\\.)?twitch\\.tv\\/([a-z0-9_]+)($|\\?)?');
     const youtubeRegex = new RegExp('(?:youtube(?:-nocookie)?\\.com\\/(?:[^\\/\\n\\s]+\\/\\S+\\/|(?:v|e(?:mbed)?)\\/|\\S*?[?&]v=)|youtu\\.be\\/)([a-zA-Z0-9_-]{11})');
     if (this.streamType === 'Twitch' && twitchRegex.exec(this.streamUrl.value)) {
       const channelId = twitchRegex.exec(this.streamUrl.value)[1];
