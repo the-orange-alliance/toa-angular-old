@@ -79,6 +79,6 @@
     "ts-loader": "^4.5.0",
     "ts-node": "^2.1.2",
     "tslint": "~5.10.0",
-    "typescript": "^3.7.3"
+    "typescript": "^3.5.3"
   }
 }
