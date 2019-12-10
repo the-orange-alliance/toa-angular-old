@@ -120,8 +120,8 @@
         <mdc-list (click)="streamRadioClick()">
           <mdc-radio-group [(ngModel)]="streamType">
             <mdc-form-field>
-              <mdc-list-item><mdc-radio mdcListItemGraphic value="Youtube" (change)="streamRadioClick('Youtube')"></mdc-radio>{{ 'pages.event.subpages.admin.stream_card.stream' | translate: { provider: 'YouTube'} }}</mdc-list-item>
               <mdc-list-item><mdc-radio mdcListItemGraphic value="Twitch"  (change)="streamRadioClick('Twitch')"></mdc-radio>{{ 'pages.event.subpages.admin.stream_card.stream' | translate: { provider: 'Twitch'} }}</mdc-list-item>
+              <mdc-list-item><mdc-radio mdcListItemGraphic value="Youtube" (change)="streamRadioClick('Youtube')"></mdc-radio>{{ 'pages.event.subpages.admin.stream_card.stream' | translate: { provider: 'YouTube'} }}</mdc-list-item>
             </mdc-form-field>
           </mdc-radio-group>
         </mdc-list>
