@@ -50,25 +50,51 @@
   -->
 </div>
 
+<!--
 <mdc-card class="d-none" outlined style="background: transparent">
   <div class="py-2 px-3" mdcSubtitle2>{{ "pages.home.todays_events" | translate }}</div>
   <div *ngFor="let event of currentEvents">
     <mdc-list-divider></mdc-list-divider>
     <toa-event-item [event]="event" [dense]="true"></toa-event-item>
 
-    <!--
+    &lt;!&ndash;
         <mdc-ripple class="demo-card-article">
           <h2 class="py-2 px-3" mdcHeadline5>Copper on the rise</h2>
           <p class="demo-card-article__snippet" mdcBody2>
             Copper price soars amid global market optimism and increased demand.
           </p>
         </mdc-ripple>
-    -->
+    &ndash;&gt;
   </div>
 </mdc-card>
+-->
 
 <div class="row m-0">
   <div class="col-sm-12 col-lg-6 p-lg-3 p-0 mt-1">
+    <div class="row mb-1">
+      <div class="col-6 p-1">
+        <mdc-card class="toa-card counting-card">
+          <div class="counting-card-icon">
+            <mdc-icon svgIcon="account-group"></mdc-icon>
+          </div>
+          <div class="counting-card-content">
+            <div class="counting-card-title">{{ teamsCount ? teamsCount : 0 }}</div>
+            <div class="counting-card-info">{{ "pages.home.active_teams" | translate }}</div>
+          </div>
+        </mdc-card>
+      </div>
+      <div class="col-6 p-1">
+        <mdc-card class="toa-card counting-card">
+          <div class="counting-card-icon">
+            <mdc-icon svgIcon="gamepad-variant"></mdc-icon>
+          </div>
+          <div class="counting-card-content">
+            <div class="counting-card-title">{{ matchCount ? matchCount : 0 }}</div>
+            <div class="counting-card-info">{{ "pages.home.matches_played" | translate }}</div>
+          </div>
+        </mdc-card>
+      </div>
+    </div>
     <div class="row" *ngIf="currentEvents">
       <div class="p-1 col-12">
         <mdc-card class="toa-card p-0">
