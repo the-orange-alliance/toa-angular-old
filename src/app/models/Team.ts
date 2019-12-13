@@ -62,7 +62,7 @@ export default class Team implements ISerializable {
       zip_code: this.zipCode,
       country: this.country,
       rookie_year: this.rookieYear,
-      team_website: this.website
+      website: this.website
     };
   }
 
@@ -81,7 +81,7 @@ export default class Team implements ISerializable {
     team.zipCode = json.zip_code;
     team.country = json.country;
     team.rookieYear = json.rookie_year;
-    team.website = json.team_website;
+    team.website = json.website;
     return team;
   }
 
