@@ -15,7 +15,7 @@
           <div><b>Qual Rank #{{ event.rankings[0].rank }}</b> with a record of <b style="white-space: nowrap">{{ event.rankings[0].wins }}-{{ event.rankings[0].losses }}-{{ event.rankings[0].ties }}</b> <a *ngIf="event.rankings[0].opr"> and an OPR of <b>{{event.rankings[0].opr}}</b></a></div>
         </mdc-list-item>
         <mdc-list-item *ngFor="let award of event.awards" class="h-100">
-          <mdc-icon mdcListItemGraphic svgIcon="trophy" class="mr-2"></mdc-icon>{{ award.awardName }}
+          <mdc-icon mdcListItemGraphic svgIcon="trophy" class="mr-2"></mdc-icon>{{ award.award.awardDescription }}
         </mdc-list-item>
       </mdc-list>
       <match-table [matchList]="event.matches" [team]="team"></match-table>

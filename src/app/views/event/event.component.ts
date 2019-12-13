@@ -66,7 +66,10 @@ export class EventComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUrl = this.router.url.split('/')[this.router.url.split('/').length - 1];
+    const getPath = () => this.router.url.split('/')[this.router.url.split('/').length - 1];
+    const changePage = () => this.changeUrlNoRoute(getPath());
+    const originalPath = getPath();
+    this.currentUrl = getPath();
     this.possiblePages = ['rankings', 'matches', 'teams', 'alliances', 'awards', 'insights', 'media', 'admin'];
     if (this.eventKey) {
 
@@ -99,8 +102,8 @@ export class EventComponent implements OnInit {
               this.changeUrlNoRoute('admin');
             }
 
-            if (this.admin && this.router.url.split('/')[this.router.url.split('/').length - 1] === 'admin') { // that is the original URL, no matter how many times we change it
-              this.select(this.router.url.split('/')[this.router.url.split('/').length - 1]);
+            if (this.admin && originalPath === 'admin') {
+              changePage();
             }
           });
         }
@@ -144,27 +147,24 @@ export class EventComponent implements OnInit {
             this.media = eventMedia;
             if (this.media && this.media.length > 0 && !this.hasEventEnded()) {
               this.totalmedia = this.media.length;
-              if (this.totalteams === 0 && this.totalmatches === 0 && this.totalrankings === 0 && this.totalawards === 0) {
+              if (originalPath === 'media' || this.totalteams === 0 && this.totalmatches === 0 && this.totalrankings === 0 && this.totalawards === 0) {
                 this.changeUrlNoRoute('media');
               }
-              if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'media') { // that is the original URL, no matter how many times we change it
-                this.select(this.router.url.split('/')[this.router.url.split('/').length - 1]);
-              }
-            } else if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'media' && this.media.length < 1) {
+            } else if (originalPath === 'media' && this.media.length < 1) {
               this.changeUrlNoRoute('rankings');
             }
           });
 
           this.ftc.getEventInsights(this.eventKey, 'quals').then((insights) => {
             this.qualInsights = insights;
-            if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'insights') { // that is the original URL, no matter how many times we change it
-              this.select(this.router.url.split('/')[this.router.url.split('/').length - 1]);
+            if (originalPath === 'insights') {
+              this.changeUrlNoRoute('insights');
             }
           }).catch(() => console.log('Qual Insights Failed to Load'));
           this.ftc.getEventInsights(this.eventKey, 'elims').then((insights) => {
             this.elimInsights = insights;
-            if (this.router.url.split('/')[this.router.url.split('/').length - 1] === 'insights') { // that is the original URL, no matter how many times we change it
-              this.select(this.router.url.split('/')[this.router.url.split('/').length - 1]);
+            if (originalPath === 'insights') {
+              this.changeUrlNoRoute('insights');
             }
           }).catch(() => console.log('Elim Insights Failed to Load'));
 
@@ -235,7 +235,7 @@ export class EventComponent implements OnInit {
         });
 
         if (this.possiblePages.includes(this.router.url.split('/')[this.router.url.split('/').length - 1])) {
-          this.select(this.router.url.split('/')[this.router.url.split('/').length - 1]);
+          this.changeUrlNoRoute(originalPath);
         } else if (this.eventData.rankings && this.eventData.rankings.length > 0) {
           this.changeUrlNoRoute('rankings');
         } else if (this.eventData.matches && this.eventData.matches.length > 0) {
@@ -250,44 +250,44 @@ export class EventComponent implements OnInit {
       }
   }
 
-  public select(view: string) {
+  private select(view: string) {
     if (this.activeTab === -1 || this.viewNumToName(this.activeTab) !== view ) { // if view is loaded and if current view does not equal requested view
       switch (view) {
         case 'rankings':
           if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0;
-          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.changeUrlNoRoute('matches'); } // If no rankings, check for matches
           break;
         case 'matches':
           if (this.eventData.matches && this.eventData.matches.length > 0) { this.activeTab = 1;
-          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no matches, check for teams
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.changeUrlNoRoute('teams'); } // If no matches, check for teams
           break;
         case 'teams':
           if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; }
           break;
         case 'alliances':
           if (this.eventData.alliances && this.eventData.alliances.length > 0) { this.activeTab = 3;
-          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no alliances, check for rankings
-          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.changeUrlNoRoute('rankings'); // If no alliances, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.changeUrlNoRoute('teams'); } // If no rankings, check for teams
           break;
         case 'awards':
           if (this.eventData.awards && this.eventData.awards.length > 0) { this.activeTab = 4;
-          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no awards, check for rankings
-          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.changeUrlNoRoute('rankings'); // If no awards, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.changeUrlNoRoute('teams'); } // If no rankings, check for teams
           break;
         case 'insights':
           if (this.qualInsights || this.elimInsights) { this.activeTab = 5;
-          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no insights, check for rankings
-          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.changeUrlNoRoute('rankings'); // If no insights, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.changeUrlNoRoute('teams'); } // If no rankings, check for teams
           break;
         case 'media':
           if (this.totalmedia > 0) { this.activeTab = 6;
-          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no media, check for rankings
-          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.changeUrlNoRoute('rankings'); // If no media, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.changeUrlNoRoute('teams'); } // If no rankings, check for teams
           break;
         case 'admin':
           if (this.admin) { this.activeTab = 7;
-          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.activeTab = 0; // If no admin, check for rankings
-          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.activeTab = 2; } // If no rankings, check for teams
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.changeUrlNoRoute('rankings'); // If no admin, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.changeUrlNoRoute('teams'); } // If no rankings, check for teams
           break;
         default:
           this.activeTab = 0;
@@ -303,7 +303,7 @@ export class EventComponent implements OnInit {
   }
 
   switchDivision(event: MdcMenuSelectedEvent) {
-    this.router.navigate(['/events', this.divisions[event.index].eventKey]);
+    this.router.navigate(['/events', this.divisions[event.index].eventKey, this.viewNumToName(this.activeTab)]);
   }
 
   openEventSettings() {
@@ -319,8 +319,8 @@ export class EventComponent implements OnInit {
 
   changeUrlNoRoute(route: any) {
     this.select(route);
-    if (this.currentUrl !== route ) { // if view is loaded and if current view does not equal requested view
-      this.loca.go(`events/${this.eventKey}/${this.viewNumToName(this.activeTab)}`);
+    if (this.currentUrl !== route) { // if view is loaded and if current view does not equal requested view
+      this.loca.replaceState(`events/${this.eventKey}/${this.viewNumToName(this.activeTab)}`);
       this.currentUrl = route;
     }
   }
