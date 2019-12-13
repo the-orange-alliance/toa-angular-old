@@ -303,7 +303,7 @@ export class EventComponent implements OnInit {
   }
 
   switchDivision(event: MdcMenuSelectedEvent) {
-    this.router.navigate(['/events', this.divisions[event.index].eventKey]);
+    this.router.navigate(['/events', this.divisions[event.index].eventKey, this.viewNumToName(this.activeTab)]);
   }
 
   openEventSettings() {
