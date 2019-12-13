@@ -196,7 +196,7 @@
       "game_info": "Game Information",
       "view_website": "View event's website",
       "event_key": "Event Key",
-      "stream_available": "Live Stream Available!",
+      "stream_available": "Watch the live stream",
       "alliances_count": "{{ value }} Alliances",
       "fields_count": "{{ value }} Fields",
       "matches_per_team": "{{ value }} Matches per team",
