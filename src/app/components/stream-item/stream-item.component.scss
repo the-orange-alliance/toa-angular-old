@@ -1,11 +1,9 @@
-@import "../../../constants";
-
 .stream {
   display: flex;
   align-items: center;
   justify-content: center;
   background: #000;
-  border: $mdc-theme-primary solid 1px;
+  outline: #ffffff solid 2px;
   padding: 0;
   height: 100%;
   width: 100%;
