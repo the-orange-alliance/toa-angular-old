@@ -78,14 +78,14 @@
         "manage_leagues": "管理联赛",
         "select_season": "选择赛季",
         "create_league": "创建联赛",
-        "create_league_div": "Create League Division",
-        "division_key": "Division Key",
+        "create_league_div": "创建分组联赛",
+        "division_key": "分组Key",
         "leagues": "联赛",
-        "league_divisions": "League Divisions",
+        "league_divisions": "分组联赛",
         "create_league_fields": {
-          "league_key": "League Key",
+          "league_key": "联赛Key",
           "league_description": "联赛描述",
-          "division_desc": "Division Description"
+          "division_desc": "分组描述"
         }
       },
       "notifications_card": {
@@ -116,8 +116,8 @@
       "last_signin": "最后一次登录",
       "league_creation_success": "成功创建联赛!",
       "league_deletion_success": "成功删除联赛!",
-      "league_division_creation_success": "成功创建 league division!",
-      "league_division_deletion_success": "成功删除 league division!",
+      "league_division_creation_success": "成功创建分组联赛!",
+      "league_division_deletion_success": "成功删除分组联赛!",
       "datasync_card": {
         "title": "实时与TOA同步你的活动数据",
         "docs": "你可以查阅DataSync的完整文档"
@@ -130,14 +130,14 @@
         "league": "联赛",
         "region": "区域",
         "season": "赛季",
-        "division_number": "Division Number",
-        "division_name": "Division Name",
-        "advancement_spots": "Advancement Spots",
-        "advancement_event": "Advancement Event",
-        "number_fields": "Number of Fields",
-        "number_alliances": "Number of Alliances",
+        "division_number": "分组号码",
+        "division_name": "分组名",
+        "advancement_spots": "晋级位置",
+        "advancement_event": "晋级活动",
+        "number_fields": "活动场地数量",
+        "number_alliances": "联盟数量",
         "success": "成功创建活动",
-        "dual_division": "Dual Division",
+        "dual_division": "双分组",
         "advanced": "高级"
       },
       "dump_cache": {
@@ -148,8 +148,8 @@
       },
       "retriever": {
         "title": "接收端",
-        "success_events": "成功创建 {{value}} 活动",
-        "success_teams": "成功创建 {{value}} 队伍"
+        "success_events": "成功创建{{value}}个活动",
+        "success_teams": "成功创建{{value}}个队伍"
       },
       "subpages": {
         "login": {
@@ -160,7 +160,7 @@
           "forgot_password": "忘记密码？",
           "login_google": "使用Google登录",
           "login_github": "使用Github登录",
-          "no_account_linked": "That account is not linked to any myTOA account. Please sign in to link it."
+          "no_account_linked": "此账户没有和任何myTOA账户关联。请登录后关联。"
         },
         "register": {
           "title": "注册",
@@ -192,215 +192,215 @@
     },
 
     "event": {
-      "event_info": "Event Information",
-      "game_info": "Game Information",
-      "view_website": "View event's website",
-      "event_key": "Event Key",
-      "stream_available": "Watch the live stream",
-      "alliances_count": "{{ value }} Alliances",
-      "fields_count": "{{ value }} Fields",
-      "matches_per_team": "{{ value }} Matches per team",
+      "event_info": "活动信息",
+      "game_info": "赛事信息",
+      "view_website": "访问活动网站",
+      "event_key": "活动密钥",
+      "stream_available": "观看直播",
+      "alliances_count": "{{ value }}个联盟",
+      "fields_count": "{{ value }}个场地",
+      "matches_per_team": "每支队伍{{ value }}次比赛",
       "settings": {
-        "title": "Event Settings",
-        "favorite": "Favorite",
-        "favorite_summary": "You can save teams, events, and more for easy access by marking them as \"favorites\".",
-        "notification_settings": "Notification Settings",
-        "notification_settings_summary": "Subscribing to something lets you get a push notification whenever there is an update.",
-        "match_scores": "Match Scores",
-        "schedule_updated": "Match Schedule Posted",
-        "awards_posted": "Awards Posted",
-        "alliances_posted": "Alliance Selections",
-        "saved": "Your event settings have been saved successfully!",
-        "failed": "Saving event settings failed. Please try again later"
+        "title": "活动设置",
+        "favorite": "喜欢",
+        "favorite_summary": "你可以通过\"喜欢\"来保存队伍，活动以便更方便的查看",
+        "notification_settings": "推送消息设置",
+        "notification_settings_summary": "订阅某项东西以让你在有更新时获取到推送消息。",
+        "match_scores": "比赛分数",
+        "schedule_updated": "比赛时间表已经公开",
+        "awards_posted": "奖项已经公开",
+        "alliances_posted": "联盟选择",
+        "saved": "你的活动已经被成功保存！",
+        "failed": "活动保存失败，请稍后重试"
       },
       "subpages": {
         "rankings": {
-          "title": "Rankings",
-          "rank": "Rank",
-          "team": "Team",
-          "wlt_record": "W-L-T",
-          "qual_points": "Qualification Points",
-          "ranking_points": "Ranking Points",
-          "tie_reaker_points": "Tie Breaker Points",
-          "highest_score": "Highest Score",
-          "matches_played": "Matches Played",
-          "what_is_opr": "Offensive Power Rating, also know as OPR, is a stat that is often used in the FIRST community to compare the performance of teams on the field. OPRs are an interesting way to slice the data for teams at particular events, but aren't a perfect system for assessing a team's performance or contribution."
+          "title": "排行榜",
+          "rank": "排名",
+          "team": "队伍",
+          "wlt_record": "赢-输-平",
+          "qual_points": "资格点数",
+          "ranking_points": "排名点数",
+          "tie_reaker_points": "决胜局点数",
+          "highest_score": "最高分",
+          "matches_played": "赛数总计",
+          "what_is_opr": "进攻能力评分，也称为OPR，是FIRST社区中经常使用的一项统计数据，用于比较团队的赛场表现。 OPR是一种在特定事件中为团队分割数据的方式，但它并不是评估团队绩效或贡献的理想系统。"
         },
         "matches": {
-          "title": "Matches"
+          "title": "比赛"
         },
         "teams": {
-          "title": "Teams"
+          "title": "队伍"
         },
         "alliances": {
-          "title": "Alliances"
+          "title": "联盟"
         },
         "awards": {
-          "title": "Awards"
+          "title": "荣誉"
         },
         "insights": {
-          "title": "Insights",
-          "qual": "Qualification",
-          "playoff": "Playoff",
-          "high_score": "High Score",
-          "avg_score": "Average Score",
-          "avg_winning_score": "Average Win Score",
-          "avg_winning_margin": "Average Win Margin",
-          "prc_landed": "% of Landed Robots",
-          "prc_latched": "% of Latched Robots",
-          "prc_sampling": "% of Successful Samples",
-          "prc_claiming": "% of Depots Claimed",
-          "prc_parking": "% of Parked Robots",
-          "avg_golds": "Average # of Golds Minerals in Cargo Hold",
-          "avg_silvers": "Average # of Silvers Minerals in Cargo Hold",
-          "avg_depot": "Average # of Minerals in Depot"
+          "title": "见解",
+          "qual": "资格",
+          "playoff": "决赛",
+          "high_score": "最高分",
+          "avg_score": "平均分",
+          "avg_winning_score": "平均赢场分数",
+          "avg_winning_margin": "平均赢场偏差",
+          "prc_landed": "%落地",
+          "prc_latched": "%钩回",
+          "prc_sampling": "%成功采样",
+          "prc_claiming": "%占领基地",
+          "prc_parking": "%停车",
+          "avg_golds": "平均货舱金矿石数量",
+          "avg_silvers": "平均货舱银矿石数量",
+          "avg_depot": "平均基地矿石数量"
         },
         "for-participants": {
-          "title": "For Participants",
-          "pits_map": "Pits Map",
-          "venue_map": "Venue Map",
-          "schedule": "Event Schedule"
+          "title": "参加者信息",
+          "pits_map": "活动区域地图",
+          "venue_map": "会场地图",
+          "schedule": "活动时间表"
         },
         "admin": {
-          "title": "Admin",
+          "title": "管理",
           "playlist_card": {
-            "title": "Add match videos from a YouTube Playlist",
-            "playlist_url": "Playlist URL",
-            "load": "Load",
-            "confirm": "Confirm and Upload",
-            "successfully": "Successfully uploaded {{ value }} videos",
-            "error": "We could not find any match videos",
-            "invalid_url": "Invalid URL, we could not find a YouTube playlist"
+            "title": "从YouTube添加比赛播放列表",
+            "playlist_url": "播放列表URL",
+            "load": "加载",
+            "confirm": "确定并上传",
+            "successfully": "成功上传{{ value }}个视频",
+            "error": "我们无法找到任何比赛视频",
+            "invalid_url": "无效URL，我们无法找到YouTube播放列表"
           },
           "update_info_card": {
-            "title": "Edit Your Event Info",
-            "event_name": "Event Name",
-            "website": "Website",
-            "start_date": "Start Date",
-            "end_date": "End Date",
-            "venue": "Venue",
-            "city": "City",
-            "state": "State",
-            "country": "Country",
-            "update": "Update",
-            "upload": "Upload",
-            "image_only": "You can upload it only as an image",
-            "choose_image": "Choose image...",
-            "successfully": "Successfully updated the event info"
+            "title": "编辑活动信息",
+            "event_name": "活动名称",
+            "website": "网站",
+            "start_date": "开始日期",
+            "end_date": "结束日期",
+            "venue": "活动会场",
+            "city": "城市",
+            "state": "州/省",
+            "country": "国家",
+            "update": "更新",
+            "upload": "上传",
+            "image_only": "你只可以以图片形式上传",
+            "choose_image": "选择图片...",
+            "successfully": "成功更新活动信息"
           },
           "stream_card": {
-            "add_stream": "Add Stream",
-            "unlink_stream": "Unlink Stream",
-            "currently_linked": "Currently Linked Stream",
+            "add_stream": "添加直播",
+            "unlink_stream": "解除直播关联",
+            "currently_linked": "已关联的直播",
             "url": "{{ provider }} URL",
-            "stream_name": "Stream Name",
-            "link": "Link",
-            "unlink": "Unlink",
-            "stream": "{{ provider }} Stream",
-            "success_linked": "Successfully Linked Stream",
-            "success_unlinked": "Successfully Linked Stream"
+            "stream_name": "直播名称",
+            "link": "关联",
+            "unlink": "解除关联",
+            "stream": "{{ provider }}直播",
+            "success_linked": "成功关联直播",
+            "success_unlinked": "成功解除直播关联"
           },
           "delete_card": {
-            "delete_event": "Delete Event",
-            "delete_failed": "Delete Failed",
-            "delete": "Delete",
-            "delete_all_data": "YOU WILL BE DELETING ALL DATA FROM THIS EVENT",
-            "delete_sure": "ARE YOU SURE YOU WANT TO DELETE THE EVENT",
-            "delete_final": "THIS WILL DELETE THE EVENT"
+            "delete_event": "删除活动",
+            "delete_failed": "删除失败",
+            "delete": "删除",
+            "delete_all_data": "<b>你将会删除本次活动的所有数据</b>",
+            "delete_sure": "<b>你确定要删除这次活动吗</b>",
+            "delete_final": "<b>这将彻底删除活动</b>"
           },
-          "verify_email": "Please verify your email and try again.",
-          "success_sent_verify_email": "Successfully sent a verification email."
+          "verify_email": "请验证你的电子邮箱并重试。",
+          "success_sent_verify_email": "成功发送验证电子邮件。"
         }
       }
     },
 
     "events": {
-      "filter_season": "Season",
-      "filter_region": "Region",
-      "filter": "Filter Options",
-      "clear_filter": "Clear Filter"
+      "filter_season": "赛季",
+      "filter_region": "区域",
+      "filter": "过滤选项",
+      "clear_filter": "清除过滤选项"
     },
 
     "match": {
-      "match_info": "Match Information",
-      "match_key": "Match Key",
-      "scheduled_time": "Scheduled Time",
-      "no_video": "No video available",
-      "add_one": "Add one"
+      "match_info": "比赛信息",
+      "match_key": "比赛密钥",
+      "scheduled_time": "计划的时间",
+      "no_video": "无视频",
+      "add_one": "添加"
     },
 
     "streams": {
-      "event_results": "Event Results",
-      "close_stream": "Close Stream",
-      "select_stream": "Select Stream",
-      "show_chat": "Show Chat",
-      "select": "Select",
-      "cancel": "Cancel",
+      "event_results": "活动结果",
+      "close_stream": "关闭直播",
+      "select_stream": "选择直播",
+      "show_chat": "显示聊天",
+      "select": "选择",
+      "cancel": "取消",
       "layouts": {
-        "title": "Select Layout",
-        "single_view": "Single View",
-        "vertical_split_view": "Vertical Split View",
-        "horizontal_split_view": "Horizontal Split View",
-        "1_2_view": "1+2 View",
-        "1_4_view": "1+4 View",
-        "quad_view": "Quad View"
+        "title": "选择布局",
+        "single_view": "单独视图",
+        "vertical_split_view": "垂直拆分视图",
+        "horizontal_split_view": "水平拆分视图",
+        "1_2_view": "1+2视图",
+        "1_4_view": "1+4视图",
+        "quad_view": "四视图"
       }
     },
 
     "team": {
-      "team_info": "Team Information",
-      "event_results": "Event Results",
-      "part_of_region": "Part of the {{ regionKey }} Region",
-      "website": "Website",
-      "rookie_year": "Rookie Year",
-      "last_active": "Last Active Season",
-      "awards_in_season": "{{ awards }} awards in {{ season }}",
+      "team_info": "队伍信息",
+      "event_results": "活动结果",
+      "part_of_region": "所属{{ regionKey }}区域",
+      "website": "网站",
+      "rookie_year": "第一次参赛年度",
+      "last_active": "最后一个活动赛季",
+      "awards_in_season": "在{{ season }}赛季中取得了{{ awards }}个荣誉",
       "robot_profile": {
-        "title": "Robot",
-        "engineering_notebook": "Engineering Notebook",
-        "robot_reveal": "Robot Reveal",
-        "photos": "Photos"
+        "title": "机器人",
+        "engineering_notebook": "工程笔记",
+        "robot_reveal": "机器人揭露",
+        "photos": "照片"
       }
     },
 
     "teams": {
-      "title": "Teams",
-      "filter": "Filter by number, name, or location",
-      "results": "{{ results }} Results"
+      "title": "队伍",
+      "filter": "通过号码，名字或地点过滤队伍",
+      "results": "{{ results }}个结果"
     }
   },
 
   "match_table": {
-    "teams": "Teams",
-    "score": "Score",
-    "scores": "Scores",
-    "blue_alliance": "Blue Alliance",
-    "red_alliance": "Red Alliance",
-    "blue_score": "Blue Score",
-    "red_score": "Red Score",
-    "no_matches_for_event": "There is no available matches data for this event.",
-    "match": "Match",
-    "view_team": "View team",
-    "rank": "Rank",
-    "wlt": "WLT",
-    "played": "Played",
+    "teams": "队伍",
+    "score": "分数",
+    "scores": "分数",
+    "blue_alliance": "蓝方联盟",
+    "red_alliance": "红方联盟",
+    "blue_score": "蓝方分数",
+    "red_score": "红方分数",
+    "no_matches_for_event": "此活动没有可用的比赛数据",
+    "match": "比赛",
+    "view_team": "查看队伍",
+    "rank": "排名",
+    "wlt": "赢输平",
+    "played": "比赛完毕",
     "help": {
-      "bold": "<b>Bold</b> is Winning Alliance</small>",
-      "bold_and_black": "<b>Bold and Black</b> is Selected Team</small>",
-      "surrogate": "<b>*</b> is Surrogate"
+      "bold": "<b>粗体</b>是获胜联盟</small>",
+      "bold_and_black": "<b>粗体和黑体</b>是选择的队伍</small>",
+      "surrogate": "<b>*</b>是替代"
     }
   },
 
   "no_data": {
-    "teams": "No teams found",
-    "teams_long": "There are no teams that match that query",
-    "events": "No events found",
-    "event_long": "No results have been reported for this event.",
-    "streams_long": "There are currently no active streams.",
-    "events_for_season": "No events for {{ season }} season",
-    "events_for_season_long": "This team hasn't yet played at any events this season.<br/>Try changing the season using the selector above.",
-    "events_filter": "No events found for this filter",
-    "events_filter_long": "Try changing the season or region using the selectors above.",
-    "match_breakdown": "No match breakdown found"
+    "teams": "队伍未找到",
+    "teams_long": "没有队伍符合本次查询符合条件",
+    "events": "活动未找到",
+    "event_long": "没有收到这次活动的结果",
+    "streams_long": "没有正在进行的直播",
+    "events_for_season": "没有{{ season }}赛季的活动",
+    "events_for_season_long": "这个队伍没有在这个赛季中进行过任何的比赛<br/>尝试使用上面的选项来切换赛季或区域",
+    "events_filter": "没有符合过滤条件的活动",
+    "events_filter_long": "尝试使用上面的选项来切换赛季或区域",
+    "match_breakdown": "没有找到比分详解"
   }
 }
