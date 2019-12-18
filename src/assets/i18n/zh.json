@@ -1,0 +1,406 @@
+{
+  "config": {
+    "name": "简体中文",
+    "englishName": "Chinese(Simplified)",
+    "direction": "ltr"
+  },
+
+  "general": {
+    "team": "队伍",
+    "teams": "队伍",
+    "event": "活动",
+    "events": "活动",
+    "match": "比赛",
+    "matches": "比赛",
+    "live": "直播",
+    "here": "这里",
+    "verify": "验证",
+    "add": "添加",
+    "close": "关闭",
+    "save": "保存",
+    "error_occurred": "出现了一个错误, 请稍后重试",
+    "search_text_long": "搜索队伍号码和活动",
+    "search_text_short": "队伍号码或活动",
+    "add_to_mytoa": "添加到myTOA",
+    "remove_from_mytoa": "从myTOA移除"
+  },
+
+  "drawer": {
+    "home": "主页",
+    "teams": "队伍",
+    "events": "活动",
+    "streaming": "直播中",
+    "android_app": "安卓App",
+    "ios_app": "iOS App",
+    "add_data": "添加数据",
+    "api": "API",
+    "github": "GitHub",
+    "about": "关于",
+    "donate": "捐助",
+    "amazon_smile": "Amazon Smile",
+    "privacy_and_terms": "隐私权和条款",
+    "official_ftc": "官方数据提供商",
+    "mytoa": {
+      "hello": "你好, {{ name }}",
+      "guest": "访客",
+      "register": "注册",
+      "login": "登录"
+    }
+  },
+
+  "pages": {
+    "add_data": {
+      "title": "添加数据",
+      "short_info": "你有一些想添加到The Orange Alliance的数据吗?",
+      "datasync": "DataSync - 实时与TOA同步你的活动数据",
+      "add_event_data": "在活动结束后添加数据",
+      "add_match_video": "添加比赛视频",
+      "add_event_stream": "添加活动直播",
+      "stream_your_event": "在TOA Twitch channel上直播你的活动"
+    },
+
+    "404": {
+      "title": "页面未找到",
+      "short_info": "看起来你输入了一个损坏的链接或者一个不存在的队伍/活动/比赛"
+    },
+
+    "about": {
+      "title": "关于我们"
+    },
+
+    "account": {
+      "logout": "登出",
+      "level": "Level {{ level }}",
+      "no_verify": "请验证你的电子邮箱",
+      "why_verify": "为了能体验到所有的账户功能，你的电子邮箱需要被验证。",
+      "manage_events": "管理活动",
+      "division_tab": {
+        "manage_leagues": "管理联赛",
+        "select_season": "选择赛季",
+        "create_league": "创建联赛",
+        "create_league_div": "Create League Division",
+        "division_key": "Division Key",
+        "leagues": "联赛",
+        "league_divisions": "League Divisions",
+        "create_league_fields": {
+          "league_key": "League Key",
+          "league_description": "联赛描述",
+          "division_desc": "Division Description"
+        }
+      },
+      "notifications_card": {
+        "title": "推送消息",
+        "summary": "通过你的活动设置来收到推送消息。",
+        "grant_access": "允许访问",
+        "enabled": "推送消息在此设备上被启用",
+        "blocked": "推送消息在此设备上被禁用",
+        "help": "来取消推送消息禁用，点击地址栏左边的锁型图标，点击网站设置来改变推送消息权限。"
+      },
+      "api_card": {
+        "title": "用我们的API创造出超赞的东西",
+        "your_key": "这是你的API密钥：",
+        "no_key": "你没有持有任何API密钥",
+        "generate_key": "生成密钥",
+        "generating_key": "正在生成API密钥...",
+        "docs": "你可以参考我们完整的API文档"
+      },
+      "account_settings": "账户设置",
+      "reset_password": "密码重置",
+      "reset_password_email": "一封密码重置邮件已经发出",
+      "link_account": "与 {{ name }} 关联",
+      "unlink_account": "与 {{ name }} 解除关联",
+      "link_phone": "关联手机号码",
+      "unlink_phone": "解除关联手机号码",
+      "success_link": "成功与 {{ name }} 关联",
+      "success_unlink": "成功与 {{ name }} 解除关联",
+      "last_signin": "最后一次登录",
+      "league_creation_success": "成功创建联赛!",
+      "league_deletion_success": "成功删除联赛!",
+      "league_division_creation_success": "成功创建 league division!",
+      "league_division_deletion_success": "成功删除 league division!",
+      "datasync_card": {
+        "title": "实时与TOA同步你的活动数据",
+        "docs": "你可以查阅DataSync的完整文档"
+      },
+      "create_event_card": {
+        "title": "创建活动",
+        "create": "创建",
+        "event_id": "活动ID",
+        "event_type": "活动类型",
+        "league": "联赛",
+        "region": "区域",
+        "season": "赛季",
+        "division_number": "Division Number",
+        "division_name": "Division Name",
+        "advancement_spots": "Advancement Spots",
+        "advancement_event": "Advancement Event",
+        "number_fields": "Number of Fields",
+        "number_alliances": "Number of Alliances",
+        "success": "成功创建活动",
+        "dual_division": "Dual Division",
+        "advanced": "高级"
+      },
+      "dump_cache": {
+        "title": "倾倒缓存",
+        "general": "通用",
+        "dump": "倾倒",
+        "success": "成功倾倒缓存"
+      },
+      "retriever": {
+        "title": "接收端",
+        "success_events": "成功创建 {{value}} 活动",
+        "success_teams": "成功创建 {{value}} 队伍"
+      },
+      "subpages": {
+        "login": {
+          "title": "登录",
+          "email": "电子邮箱",
+          "password": "密码",
+          "login": "登录",
+          "forgot_password": "忘记密码？",
+          "login_google": "使用Google登录",
+          "login_github": "使用Github登录",
+          "no_account_linked": "That account is not linked to any myTOA account. Please sign in to link it."
+        },
+        "register": {
+          "title": "注册",
+          "full_name": "全名",
+          "email": "电子邮箱",
+          "password": "密码",
+          "confirm_password": "确认密码",
+          "your_team": "你的队伍号码",
+          "sign_up": "注册"
+        }
+      }
+    },
+
+    "home": {
+      "title": "主页",
+      "short_info": "The Orange Alliance是<i>FIRST</i>科技挑战赛的<b>官方</b>比赛、活动、队伍数据提供方。",
+      "active_teams": "活动队伍",
+      "matches_played": "比赛总计",
+      "todays_events": "今天的活动",
+      "no_events_today": "今天没有活动",
+      "leaderboards": {
+        "title": "排行榜",
+        "high_score_qual": "最高分资格赛",
+        "high_score_elim": "最高分淘汰赛",
+        "high_score_all": "最高分比赛",
+        "with_enalties": "有处罚",
+        "penalty_free": "无处罚"
+      }
+    },
+
+    "event": {
+      "event_info": "Event Information",
+      "game_info": "Game Information",
+      "view_website": "View event's website",
+      "event_key": "Event Key",
+      "stream_available": "Watch the live stream",
+      "alliances_count": "{{ value }} Alliances",
+      "fields_count": "{{ value }} Fields",
+      "matches_per_team": "{{ value }} Matches per team",
+      "settings": {
+        "title": "Event Settings",
+        "favorite": "Favorite",
+        "favorite_summary": "You can save teams, events, and more for easy access by marking them as \"favorites\".",
+        "notification_settings": "Notification Settings",
+        "notification_settings_summary": "Subscribing to something lets you get a push notification whenever there is an update.",
+        "match_scores": "Match Scores",
+        "schedule_updated": "Match Schedule Posted",
+        "awards_posted": "Awards Posted",
+        "alliances_posted": "Alliance Selections",
+        "saved": "Your event settings have been saved successfully!",
+        "failed": "Saving event settings failed. Please try again later"
+      },
+      "subpages": {
+        "rankings": {
+          "title": "Rankings",
+          "rank": "Rank",
+          "team": "Team",
+          "wlt_record": "W-L-T",
+          "qual_points": "Qualification Points",
+          "ranking_points": "Ranking Points",
+          "tie_reaker_points": "Tie Breaker Points",
+          "highest_score": "Highest Score",
+          "matches_played": "Matches Played",
+          "what_is_opr": "Offensive Power Rating, also know as OPR, is a stat that is often used in the FIRST community to compare the performance of teams on the field. OPRs are an interesting way to slice the data for teams at particular events, but aren't a perfect system for assessing a team's performance or contribution."
+        },
+        "matches": {
+          "title": "Matches"
+        },
+        "teams": {
+          "title": "Teams"
+        },
+        "alliances": {
+          "title": "Alliances"
+        },
+        "awards": {
+          "title": "Awards"
+        },
+        "insights": {
+          "title": "Insights",
+          "qual": "Qualification",
+          "playoff": "Playoff",
+          "high_score": "High Score",
+          "avg_score": "Average Score",
+          "avg_winning_score": "Average Win Score",
+          "avg_winning_margin": "Average Win Margin",
+          "prc_landed": "% of Landed Robots",
+          "prc_latched": "% of Latched Robots",
+          "prc_sampling": "% of Successful Samples",
+          "prc_claiming": "% of Depots Claimed",
+          "prc_parking": "% of Parked Robots",
+          "avg_golds": "Average # of Golds Minerals in Cargo Hold",
+          "avg_silvers": "Average # of Silvers Minerals in Cargo Hold",
+          "avg_depot": "Average # of Minerals in Depot"
+        },
+        "for-participants": {
+          "title": "For Participants",
+          "pits_map": "Pits Map",
+          "venue_map": "Venue Map",
+          "schedule": "Event Schedule"
+        },
+        "admin": {
+          "title": "Admin",
+          "playlist_card": {
+            "title": "Add match videos from a YouTube Playlist",
+            "playlist_url": "Playlist URL",
+            "load": "Load",
+            "confirm": "Confirm and Upload",
+            "successfully": "Successfully uploaded {{ value }} videos",
+            "error": "We could not find any match videos",
+            "invalid_url": "Invalid URL, we could not find a YouTube playlist"
+          },
+          "update_info_card": {
+            "title": "Edit Your Event Info",
+            "event_name": "Event Name",
+            "website": "Website",
+            "start_date": "Start Date",
+            "end_date": "End Date",
+            "venue": "Venue",
+            "city": "City",
+            "state": "State",
+            "country": "Country",
+            "update": "Update",
+            "upload": "Upload",
+            "image_only": "You can upload it only as an image",
+            "choose_image": "Choose image...",
+            "successfully": "Successfully updated the event info"
+          },
+          "stream_card": {
+            "add_stream": "Add Stream",
+            "unlink_stream": "Unlink Stream",
+            "currently_linked": "Currently Linked Stream",
+            "url": "{{ provider }} URL",
+            "stream_name": "Stream Name",
+            "link": "Link",
+            "unlink": "Unlink",
+            "stream": "{{ provider }} Stream",
+            "success_linked": "Successfully Linked Stream",
+            "success_unlinked": "Successfully Linked Stream"
+          },
+          "delete_card": {
+            "delete_event": "Delete Event",
+            "delete_failed": "Delete Failed",
+            "delete": "Delete",
+            "delete_all_data": "YOU WILL BE DELETING ALL DATA FROM THIS EVENT",
+            "delete_sure": "ARE YOU SURE YOU WANT TO DELETE THE EVENT",
+            "delete_final": "THIS WILL DELETE THE EVENT"
+          },
+          "verify_email": "Please verify your email and try again.",
+          "success_sent_verify_email": "Successfully sent a verification email."
+        }
+      }
+    },
+
+    "events": {
+      "filter_season": "Season",
+      "filter_region": "Region",
+      "filter": "Filter Options",
+      "clear_filter": "Clear Filter"
+    },
+
+    "match": {
+      "match_info": "Match Information",
+      "match_key": "Match Key",
+      "scheduled_time": "Scheduled Time",
+      "no_video": "No video available",
+      "add_one": "Add one"
+    },
+
+    "streams": {
+      "event_results": "Event Results",
+      "close_stream": "Close Stream",
+      "select_stream": "Select Stream",
+      "show_chat": "Show Chat",
+      "select": "Select",
+      "cancel": "Cancel",
+      "layouts": {
+        "title": "Select Layout",
+        "single_view": "Single View",
+        "vertical_split_view": "Vertical Split View",
+        "horizontal_split_view": "Horizontal Split View",
+        "1_2_view": "1+2 View",
+        "1_4_view": "1+4 View",
+        "quad_view": "Quad View"
+      }
+    },
+
+    "team": {
+      "team_info": "Team Information",
+      "event_results": "Event Results",
+      "part_of_region": "Part of the {{ regionKey }} Region",
+      "website": "Website",
+      "rookie_year": "Rookie Year",
+      "last_active": "Last Active Season",
+      "awards_in_season": "{{ awards }} awards in {{ season }}",
+      "robot_profile": {
+        "title": "Robot",
+        "engineering_notebook": "Engineering Notebook",
+        "robot_reveal": "Robot Reveal",
+        "photos": "Photos"
+      }
+    },
+
+    "teams": {
+      "title": "Teams",
+      "filter": "Filter by number, name, or location",
+      "results": "{{ results }} Results"
+    }
+  },
+
+  "match_table": {
+    "teams": "Teams",
+    "score": "Score",
+    "scores": "Scores",
+    "blue_alliance": "Blue Alliance",
+    "red_alliance": "Red Alliance",
+    "blue_score": "Blue Score",
+    "red_score": "Red Score",
+    "no_matches_for_event": "There is no available matches data for this event.",
+    "match": "Match",
+    "view_team": "View team",
+    "rank": "Rank",
+    "wlt": "WLT",
+    "played": "Played",
+    "help": {
+      "bold": "<b>Bold</b> is Winning Alliance</small>",
+      "bold_and_black": "<b>Bold and Black</b> is Selected Team</small>",
+      "surrogate": "<b>*</b> is Surrogate"
+    }
+  },
+
+  "no_data": {
+    "teams": "No teams found",
+    "teams_long": "There are no teams that match that query",
+    "events": "No events found",
+    "event_long": "No results have been reported for this event.",
+    "streams_long": "There are currently no active streams.",
+    "events_for_season": "No events for {{ season }} season",
+    "events_for_season_long": "This team hasn't yet played at any events this season.<br/>Try changing the season using the selector above.",
+    "events_filter": "No events found for this filter",
+    "events_filter_long": "Try changing the season or region using the selectors above.",
+    "match_breakdown": "No match breakdown found"
+  }
+}

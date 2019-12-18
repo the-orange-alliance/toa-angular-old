@@ -4,11 +4,13 @@ import { Observable, of } from 'rxjs';
 import * as translationEn from 'assets/i18n/en.json';
 import * as translationHe from 'assets/i18n/he.json';
 import * as translationEs from 'assets/i18n/es.json';
+import * as translationZh from 'assets/i18n/zh.json';
 
 const TRANSLATIONS = {
   en: translationEn,
   he: translationHe,
-  es: translationEs
+  es: translationEs,
+  zh: translationZh
 };
 
 export class TranslateUniversalLoader implements TranslateLoader {
