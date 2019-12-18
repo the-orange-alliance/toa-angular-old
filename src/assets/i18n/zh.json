@@ -1,0 +1,406 @@
+{
+  "config": {
+    "name": "简体中文",
+    "englishName": "Chinese(Simplified)",
+    "direction": "ltr"
+  },
+
+  "general": {
+    "team": "队伍",
+    "teams": "队伍",
+    "event": "活动",
+    "events": "活动",
+    "match": "比赛",
+    "matches": "比赛",
+    "live": "直播",
+    "here": "这里",
+    "verify": "验证",
+    "add": "添加",
+    "close": "关闭",
+    "save": "保存",
+    "error_occurred": "出现了一个错误, 请稍后重试",
+    "search_text_long": "搜索队伍号码和活动",
+    "search_text_short": "队伍号码或活动",
+    "add_to_mytoa": "添加到myTOA",
+    "remove_from_mytoa": "从myTOA移除"
+  },
+
+  "drawer": {
+    "home": "主页",
+    "teams": "队伍",
+    "events": "活动",
+    "streaming": "直播中",
+    "android_app": "安卓App",
+    "ios_app": "iOS App",
+    "add_data": "添加数据",
+    "api": "API",
+    "github": "GitHub",
+    "about": "关于",
+    "donate": "捐助",
+    "amazon_smile": "Amazon Smile",
+    "privacy_and_terms": "隐私权和条款",
+    "official_ftc": "官方数据提供商",
+    "mytoa": {
+      "hello": "你好, {{ name }}",
+      "guest": "访客",
+      "register": "注册",
+      "login": "登录"
+    }
+  },
+
+  "pages": {
+    "add_data": {
+      "title": "添加数据",
+      "short_info": "你有一些想添加到The Orange Alliance的数据吗?",
+      "datasync": "DataSync - 实时与TOA同步你的活动数据",
+      "add_event_data": "在活动结束后添加数据",
+      "add_match_video": "添加比赛视频",
+      "add_event_stream": "添加活动直播",
+      "stream_your_event": "在TOA Twitch频道上直播你的活动"
+    },
+
+    "404": {
+      "title": "页面未找到",
+      "short_info": "看起来你输入了一个损坏的链接或者一个不存在的队伍/活动/比赛"
+    },
+
+    "about": {
+      "title": "关于我们"
+    },
+
+    "account": {
+      "logout": "登出",
+      "level": "Level {{ level }}",
+      "no_verify": "请验证你的电子邮箱",
+      "why_verify": "为了能体验到所有的账户功能，你的电子邮箱需要被验证。",
+      "manage_events": "管理活动",
+      "division_tab": {
+        "manage_leagues": "管理联赛",
+        "select_season": "选择赛季",
+        "create_league": "创建联赛",
+        "create_league_div": "创建分组联赛",
+        "division_key": "分组Key",
+        "leagues": "联赛",
+        "league_divisions": "分组联赛",
+        "create_league_fields": {
+          "league_key": "联赛Key",
+          "league_description": "联赛描述",
+          "division_desc": "分组描述"
+        }
+      },
+      "notifications_card": {
+        "title": "推送消息",
+        "summary": "通过你的活动设置来收到推送消息。",
+        "grant_access": "允许访问",
+        "enabled": "推送消息在此设备上被启用",
+        "blocked": "推送消息在此设备上被禁用",
+        "help": "来取消推送消息禁用，点击地址栏左边的锁型图标，点击网站设置来改变推送消息权限。"
+      },
+      "api_card": {
+        "title": "用我们的API创造出超赞的东西",
+        "your_key": "这是你的API密钥：",
+        "no_key": "你没有持有任何API密钥",
+        "generate_key": "生成密钥",
+        "generating_key": "正在生成API密钥...",
+        "docs": "你可以参考我们完整的API文档"
+      },
+      "account_settings": "账户设置",
+      "reset_password": "密码重置",
+      "reset_password_email": "一封密码重置邮件已经发出",
+      "link_account": "与 {{ name }} 关联",
+      "unlink_account": "与 {{ name }} 解除关联",
+      "link_phone": "关联手机号码",
+      "unlink_phone": "解除关联手机号码",
+      "success_link": "成功与 {{ name }} 关联",
+      "success_unlink": "成功与 {{ name }} 解除关联",
+      "last_signin": "最后一次登录",
+      "league_creation_success": "成功创建联赛!",
+      "league_deletion_success": "成功删除联赛!",
+      "league_division_creation_success": "成功创建分组联赛!",
+      "league_division_deletion_success": "成功删除分组联赛!",
+      "datasync_card": {
+        "title": "实时与TOA同步你的活动数据",
+        "docs": "你可以查阅DataSync的完整文档"
+      },
+      "create_event_card": {
+        "title": "创建活动",
+        "create": "创建",
+        "event_id": "活动ID",
+        "event_type": "活动类型",
+        "league": "联赛",
+        "region": "区域",
+        "season": "赛季",
+        "division_number": "分组号码",
+        "division_name": "分组名",
+        "advancement_spots": "晋级位置",
+        "advancement_event": "晋级活动",
+        "number_fields": "活动场地数量",
+        "number_alliances": "联盟数量",
+        "success": "成功创建活动",
+        "dual_division": "双分组",
+        "advanced": "高级"
+      },
+      "dump_cache": {
+        "title": "倾倒缓存",
+        "general": "通用",
+        "dump": "倾倒",
+        "success": "成功倾倒缓存"
+      },
+      "retriever": {
+        "title": "接收端",
+        "success_events": "成功创建{{value}}个活动",
+        "success_teams": "成功创建{{value}}个队伍"
+      },
+      "subpages": {
+        "login": {
+          "title": "登录",
+          "email": "电子邮箱",
+          "password": "密码",
+          "login": "登录",
+          "forgot_password": "忘记密码？",
+          "login_google": "使用Google登录",
+          "login_github": "使用Github登录",
+          "no_account_linked": "此账户没有和任何myTOA账户关联。请登录后关联。"
+        },
+        "register": {
+          "title": "注册",
+          "full_name": "全名",
+          "email": "电子邮箱",
+          "password": "密码",
+          "confirm_password": "确认密码",
+          "your_team": "你的队伍号码",
+          "sign_up": "注册"
+        }
+      }
+    },
+
+    "home": {
+      "title": "主页",
+      "short_info": "The Orange Alliance是<i>FIRST</i>科技挑战赛的<b>官方</b>比赛、活动、队伍数据提供方。",
+      "active_teams": "活动队伍",
+      "matches_played": "比赛总计",
+      "todays_events": "今天的活动",
+      "no_events_today": "今天没有活动",
+      "leaderboards": {
+        "title": "排行榜",
+        "high_score_qual": "最高分资格赛",
+        "high_score_elim": "最高分淘汰赛",
+        "high_score_all": "最高分比赛",
+        "with_enalties": "有处罚",
+        "penalty_free": "无处罚"
+      }
+    },
+
+    "event": {
+      "event_info": "活动信息",
+      "game_info": "赛事信息",
+      "view_website": "访问活动网站",
+      "event_key": "活动密钥",
+      "stream_available": "观看直播",
+      "alliances_count": "{{ value }}个联盟",
+      "fields_count": "{{ value }}个场地",
+      "matches_per_team": "每支队伍{{ value }}次比赛",
+      "settings": {
+        "title": "活动设置",
+        "favorite": "喜欢",
+        "favorite_summary": "你可以通过\"喜欢\"来保存队伍，活动以便更方便的查看",
+        "notification_settings": "推送消息设置",
+        "notification_settings_summary": "订阅某项东西以让你在有更新时获取到推送消息。",
+        "match_scores": "比赛分数",
+        "schedule_updated": "比赛时间表已经公开",
+        "awards_posted": "奖项已经公开",
+        "alliances_posted": "联盟选择",
+        "saved": "你的活动已经被成功保存！",
+        "failed": "活动保存失败，请稍后重试"
+      },
+      "subpages": {
+        "rankings": {
+          "title": "排行榜",
+          "rank": "排名",
+          "team": "队伍",
+          "wlt_record": "赢-输-平",
+          "qual_points": "资格点数",
+          "ranking_points": "排名点数",
+          "tie_reaker_points": "决胜局点数",
+          "highest_score": "最高分",
+          "matches_played": "赛数总计",
+          "what_is_opr": "进攻能力评分，也称为OPR，是FIRST社区中经常使用的一项统计数据，用于比较团队的赛场表现。 OPR是一种在特定事件中为团队分割数据的方式，但它并不是评估团队绩效或贡献的理想系统。"
+        },
+        "matches": {
+          "title": "比赛"
+        },
+        "teams": {
+          "title": "队伍"
+        },
+        "alliances": {
+          "title": "联盟"
+        },
+        "awards": {
+          "title": "荣誉"
+        },
+        "insights": {
+          "title": "见解",
+          "qual": "资格",
+          "playoff": "决赛",
+          "high_score": "最高分",
+          "avg_score": "平均分",
+          "avg_winning_score": "平均赢场分数",
+          "avg_winning_margin": "平均赢场偏差",
+          "prc_landed": "%落地",
+          "prc_latched": "%钩回",
+          "prc_sampling": "%成功采样",
+          "prc_claiming": "%占领基地",
+          "prc_parking": "%停车",
+          "avg_golds": "平均货舱金矿石数量",
+          "avg_silvers": "平均货舱银矿石数量",
+          "avg_depot": "平均基地矿石数量"
+        },
+        "for-participants": {
+          "title": "参加者信息",
+          "pits_map": "活动区域地图",
+          "venue_map": "会场地图",
+          "schedule": "活动时间表"
+        },
+        "admin": {
+          "title": "管理",
+          "playlist_card": {
+            "title": "从YouTube添加比赛播放列表",
+            "playlist_url": "播放列表URL",
+            "load": "加载",
+            "confirm": "确定并上传",
+            "successfully": "成功上传{{ value }}个视频",
+            "error": "我们无法找到任何比赛视频",
+            "invalid_url": "无效URL，我们无法找到YouTube播放列表"
+          },
+          "update_info_card": {
+            "title": "编辑活动信息",
+            "event_name": "活动名称",
+            "website": "网站",
+            "start_date": "开始日期",
+            "end_date": "结束日期",
+            "venue": "活动会场",
+            "city": "城市",
+            "state": "州/省",
+            "country": "国家",
+            "update": "更新",
+            "upload": "上传",
+            "image_only": "你只可以以图片形式上传",
+            "choose_image": "选择图片...",
+            "successfully": "成功更新活动信息"
+          },
+          "stream_card": {
+            "add_stream": "添加直播",
+            "unlink_stream": "解除直播关联",
+            "currently_linked": "已关联的直播",
+            "url": "{{ provider }} URL",
+            "stream_name": "直播名称",
+            "link": "关联",
+            "unlink": "解除关联",
+            "stream": "{{ provider }}直播",
+            "success_linked": "成功关联直播",
+            "success_unlinked": "成功解除直播关联"
+          },
+          "delete_card": {
+            "delete_event": "删除活动",
+            "delete_failed": "删除失败",
+            "delete": "删除",
+            "delete_all_data": "<b>你将会删除本次活动的所有数据</b>",
+            "delete_sure": "<b>你确定要删除这次活动吗</b>",
+            "delete_final": "<b>这将彻底删除活动</b>"
+          },
+          "verify_email": "请验证你的电子邮箱并重试。",
+          "success_sent_verify_email": "成功发送验证电子邮件。"
+        }
+      }
+    },
+
+    "events": {
+      "filter_season": "赛季",
+      "filter_region": "区域",
+      "filter": "过滤选项",
+      "clear_filter": "清除过滤选项"
+    },
+
+    "match": {
+      "match_info": "比赛信息",
+      "match_key": "比赛密钥",
+      "scheduled_time": "计划的时间",
+      "no_video": "无视频",
+      "add_one": "添加"
+    },
+
+    "streams": {
+      "event_results": "活动结果",
+      "close_stream": "关闭直播",
+      "select_stream": "选择直播",
+      "show_chat": "显示聊天",
+      "select": "选择",
+      "cancel": "取消",
+      "layouts": {
+        "title": "选择布局",
+        "single_view": "单独视图",
+        "vertical_split_view": "垂直拆分视图",
+        "horizontal_split_view": "水平拆分视图",
+        "1_2_view": "1+2视图",
+        "1_4_view": "1+4视图",
+        "quad_view": "四宫格视图"
+      }
+    },
+
+    "team": {
+      "team_info": "队伍信息",
+      "event_results": "活动结果",
+      "part_of_region": "所属{{ regionKey }}区域",
+      "website": "网站",
+      "rookie_year": "第一次参赛年度",
+      "last_active": "最后一个活动赛季",
+      "awards_in_season": "在{{ season }}赛季中取得了{{ awards }}个荣誉",
+      "robot_profile": {
+        "title": "机器人",
+        "engineering_notebook": "工程笔记",
+        "robot_reveal": "机器人揭露",
+        "photos": "照片"
+      }
+    },
+
+    "teams": {
+      "title": "队伍",
+      "filter": "通过号码，名字或地点过滤队伍",
+      "results": "{{ results }}个结果"
+    }
+  },
+
+  "match_table": {
+    "teams": "队伍",
+    "score": "分数",
+    "scores": "分数",
+    "blue_alliance": "蓝方联盟",
+    "red_alliance": "红方联盟",
+    "blue_score": "蓝方分数",
+    "red_score": "红方分数",
+    "no_matches_for_event": "此活动没有可用的比赛数据",
+    "match": "比赛",
+    "view_team": "查看队伍",
+    "rank": "排名",
+    "wlt": "赢输平",
+    "played": "比赛数",
+    "help": {
+      "bold": "<b>粗体</b>是获胜联盟</small>",
+      "bold_and_black": "<b>粗体和黑体</b>是选择的队伍</small>",
+      "surrogate": "<b>*</b>是替代"
+    }
+  },
+
+  "no_data": {
+    "teams": "队伍未找到",
+    "teams_long": "没有队伍符合本次查询符合条件",
+    "events": "活动未找到",
+    "event_long": "没有收到这次活动的结果",
+    "streams_long": "没有正在进行的直播",
+    "events_for_season": "没有{{ season }}赛季的活动",
+    "events_for_season_long": "这个队伍没有在这个赛季中进行过任何的比赛<br/>尝试使用上面的选项来切换赛季或区域",
+    "events_filter": "没有符合过滤条件的活动",
+    "events_filter_long": "尝试使用上面的选项来切换赛季或区域",
+    "match_breakdown": "没有找到比分详解"
+  }
+}
