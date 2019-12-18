@@ -56,7 +56,7 @@
       "add_event_data": "在活动结束后添加数据",
       "add_match_video": "添加比赛视频",
       "add_event_stream": "添加活动直播",
-      "stream_your_event": "在TOA Twitch channel上直播你的活动"
+      "stream_your_event": "在TOA Twitch频道上直播你的活动"
     },
 
     "404": {
@@ -343,7 +343,7 @@
         "horizontal_split_view": "水平拆分视图",
         "1_2_view": "1+2视图",
         "1_4_view": "1+4视图",
-        "quad_view": "四视图"
+        "quad_view": "四宫格视图"
       }
     },
 
