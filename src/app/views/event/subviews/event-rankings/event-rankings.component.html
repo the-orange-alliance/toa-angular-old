@@ -26,7 +26,7 @@
         <td mdcDataTableCell numeric *ngIf="showOPR">{{ rank.opr.toFixed(1) }}</td>
         <td mdcDataTableCell numeric *ngIf="showQualPoints">{{ rank.qualifyingPoints }}</td>
         <td mdcDataTableCell numeric>{{ rank.rankingPoints.toFixed(2) }}</td>
-        <td mdcDataTableCell numeric *ngIf="showTieBreakerPoints">{{ rank.tieBreakerPoints.toFixed(1) }}</td>
+        <td mdcDataTableCell numeric *ngIf="showTieBreakerPoints">{{ rank.tieBreakerPoints.toFixed(2) }}</td>
         <td mdcDataTableCell numeric *ngIf="showHighScore">{{ rank.highestQualScore }}</td>
         <td mdcDataTableCell numeric>{{ rank.played }}</td>
       </tr>
