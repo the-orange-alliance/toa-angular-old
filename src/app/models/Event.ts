@@ -33,6 +33,7 @@ export default class Event implements ISerializable {
   private _fieldCount: number;
   private _advanceSpots: number;
   private _advanceEvent: string;
+  private _dataSource: number;
   private _teamCount: number;
   private _matchCount: number;
 
@@ -71,6 +72,7 @@ export default class Event implements ISerializable {
     this._fieldCount = 0;
     this._advanceSpots = 0;
     this._advanceEvent = '';
+    this._dataSource = 0;
     this._teamCount = -1;
     this._matchCount = -1;
 
@@ -108,7 +110,8 @@ export default class Event implements ISerializable {
       alliance_count: this.allianceCount,
       field_count: this.fieldCount,
       advance_spots: this.advanceSpots,
-      advance_event: this.advanceEvent
+      advance_event: this.advanceEvent,
+      data_source: this.dataSource
     };
   }
 
@@ -141,6 +144,7 @@ export default class Event implements ISerializable {
     event.fieldCount = parseInt(json.field_count, 10);
     event.advanceSpots = parseInt(json.advance_spots, 10);
     event.advanceEvent = json.advance_event;
+    event._dataSource = json.data_source;
     event.teamCount = json.team_count && parseInt(json.team_count, 10) > -1 ? parseInt(json.team_count, 10) : -1;
     event.matchCount = json.match_count && parseInt(json.match_count, 10) > -1 ? parseInt(json.match_count, 10) : -1;
     return event;
@@ -360,6 +364,14 @@ export default class Event implements ISerializable {
 
   set advanceEvent(value: string) {
     this._advanceEvent = value;
+  }
+  
+  get dataSource(): number {
+    return this._dataSource;
+  }
+
+  set dataSource(value: number) {
+    this._dataSource = value;
   }
 
   get teamCount(): number {

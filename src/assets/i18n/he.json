@@ -74,11 +74,19 @@
       "no_verify": "בבקשה אמת את האימייל שלך",
       "why_verify": "כדי ליהנות מכל האפשרויות של חשבונך, יש לאמת את כתובת האימייל שלך.",
       "manage_events": "נהל אירועים",
-      "manage_leagues": "נהל ליגות",
-      "create_league": "צור ליגה",
-      "create_league_fields": {
-        "league_key": "מזהה ליגה (באנגלית)",
-        "league_description": "תיאור הליגה"
+      "division_tab": {
+        "manage_leagues": "נהל ליגות",
+        "select_season": "בחר עונה",
+        "create_league": "צור ליגה",
+        "create_league_div": "צור League Division",
+        "division_key": "Division Key",
+        "leagues": "ליגות",
+        "league_divisions": "League Divisions",
+        "create_league_fields": {
+          "league_key": "מזהה ליגה (באנגלית)",
+          "league_description": "תיאור הליגה",
+          "division_desc": "תיאור ה־Division"
+        }
       },
       "notifications_card": {
         "title": "התראות",
@@ -107,6 +115,9 @@
       "success_unlink": "חשבון {{ name }} נותק בהצלחה",
       "last_signin": "התחברות אחרונה",
       "league_creation_success": "הליגה נוצרה בהצלחה!",
+      "league_deletion_success": "הליגה נמחקה בהצלחה!",
+      "league_division_creation_success": "ה־League Division נוצר בהצלחה",
+      "league_division_deletion_success": "ה־League Division נמחק בהצלחה",
       "datasync_card": {
         "title": "סנכרן את האירוע שלך עם TOA בלייב",
         "docs": "ניתן לבדוק את תיעוד ה־DataSync המלא שלנו"

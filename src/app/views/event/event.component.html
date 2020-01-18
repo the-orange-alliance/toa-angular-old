@@ -22,6 +22,18 @@
       <mdc-icon svgIcon="video"></mdc-icon>
       <p><a routerLink="/stream" [queryParams]="{ e: eventKey.substring(5) }">{{ 'pages.event.stream_available' | translate }}</a></p>
     </div>
+    <div class="info-state" *ngIf="eventData.dataSource == 1">
+      <mdc-icon svgIcon="shield-check"></mdc-icon>
+      <p>Data provided by Live DataSync</p>
+    </div> 
+    <div class="info-state" *ngIf="eventData.dataSource == 2">
+      <mdc-icon svgIcon="shield-check"></mdc-icon>
+      <p>Data provided by the Affiliate Partner</p>
+    </div> 
+    <div class="info-state" *ngIf="eventData.dataSource == 3">
+      <mdc-icon svgIcon="shield-check"></mdc-icon>
+      <p>Data provided by <em>FIRST</em></p>
+    </div>
   </div>
   <div mdcMenuSurfaceAnchor #divisionsAnchor *ngIf="divisions && divisions.length > 0">
     <button mdc-button class="divisions-btn" (click)="divisionDropdown.open = !divisionDropdown.open">
