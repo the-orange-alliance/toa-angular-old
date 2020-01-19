@@ -6,12 +6,13 @@
         <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.rank' | translate }}</th>
         <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.team' | translate }}</th>
         <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.wlt_record' | translate }}</th>
-        <th mdcDataTableHeaderCell numeric *ngIf="showOPR" style="cursor: help" (click)="showOprHelp()">OPR</th>
         <th mdcDataTableHeaderCell numeric *ngIf="showQualPoints">{{ 'pages.event.subpages.rankings.qual_points' | translate }}</th>
         <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.ranking_points' | translate }}</th>
         <th mdcDataTableHeaderCell numeric *ngIf="showTieBreakerPoints">{{ 'pages.event.subpages.rankings.tie_reaker_points' | translate }}</th>
         <th mdcDataTableHeaderCell numeric *ngIf="showHighScore">{{ 'pages.event.subpages.rankings.highest_score' | translate }}</th>
         <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.matches_played' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showOPR" style="cursor: help" (click)="showOprHelp()">OPR</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showOPR" style="cursor: help" (click)="showNpOprHelp()">NP-OPR</th>
       </tr>
       </thead>
       <tbody mdcDataTableContent>
@@ -23,12 +24,13 @@
           </a>
         </td>
         <td mdcDataTableCell>{{ rank.wins }} - {{ rank.losses }} - {{ rank.ties }}</td>
-        <td mdcDataTableCell numeric *ngIf="showOPR">{{ rank.opr.toFixed(1) }}</td>
         <td mdcDataTableCell numeric *ngIf="showQualPoints">{{ rank.qualifyingPoints }}</td>
         <td mdcDataTableCell numeric>{{ rank.rankingPoints.toFixed(2) }}</td>
-        <td mdcDataTableCell numeric *ngIf="showTieBreakerPoints">{{ rank.tieBreakerPoints.toFixed(1) }}</td>
+        <td mdcDataTableCell numeric *ngIf="showTieBreakerPoints">{{ rank.tieBreakerPoints.toFixed(2) }}</td>
         <td mdcDataTableCell numeric *ngIf="showHighScore">{{ rank.highestQualScore }}</td>
         <td mdcDataTableCell numeric>{{ rank.played }}</td>
+        <td mdcDataTableCell numeric *ngIf="showOPR">{{ rank.opr.toFixed(1) }}</td>
+        <td mdcDataTableCell numeric *ngIf="showOPR">{{ rank.npOpr.toFixed(1) }}</td>
       </tr>
       </tbody>
     </table>

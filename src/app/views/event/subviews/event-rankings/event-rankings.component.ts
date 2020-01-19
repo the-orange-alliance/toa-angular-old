@@ -54,4 +54,17 @@ export class EventRankingsComponent implements OnInit {
       });
     });
   }
+
+  showNpOprHelp() {
+    this.translate.get('pages.event.subpages.rankings.what_is_opr').subscribe((res: string) => {
+      console.log(res);
+      this.dialog.open(DialogText, {
+        scrollable: true,
+        data: {
+          title: 'Non-Penalty OPR',
+          text: res
+        }
+      });
+    });
+  }
 }

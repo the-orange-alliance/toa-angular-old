@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   onLoginEmail(): void {
     this.auth.auth.signInWithEmailAndPassword(this.email, this.password).catch(error => {
-      this.snackbar.open('Error: ' + JSON.parse(error.message).error.message);
+      this.snackbar.open(error.message);
     });
   }
 
