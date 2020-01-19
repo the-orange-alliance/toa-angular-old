@@ -9,6 +9,7 @@ export default class Ranking implements ISerializable {
   private _rank: number;
   private _rankChange: number;
   private _opr: number;
+  private _npOpr: number;
   private _wins: number;
   private _losses: number;
   private _ties: number;
@@ -28,6 +29,7 @@ export default class Ranking implements ISerializable {
     this._rank = 0;
     this._rankChange = 0;
     this._opr = 0;
+    this._npOpr = 0;
     this._wins = 0;
     this._losses = 0;
     this._ties = 0;
@@ -49,6 +51,7 @@ export default class Ranking implements ISerializable {
       rank: this.rank,
       rank_change: this.rankChange,
       opr: this.opr,
+      np_opr: this.npOpr,
       wins: this.wins,
       losses: this.losses,
       ties: this.ties,
@@ -71,6 +74,7 @@ export default class Ranking implements ISerializable {
     ranking.rank = json.rank;
     ranking.rankChange = json.rank_change;
     ranking.opr = json.opr;
+    ranking.npOpr = json.np_opr;
     ranking.wins = json.wins;
     ranking.losses = json.losses;
     ranking.ties = json.ties;
@@ -138,6 +142,14 @@ export default class Ranking implements ISerializable {
 
   set opr(value: number) {
     this._opr = value;
+  }
+  
+  get npOpr(): number {
+    return this._npOpr;
+  }
+
+  set npOpr(value: number) {
+    this._npOpr = value;
   }
 
   get wins(): number {
