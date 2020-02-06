@@ -22,10 +22,10 @@ import League from '../../models/League';
 import {Location} from '@angular/common';
 
 @Component({
-  providers: [FTCDatabase, TheOrangeAllianceGlobals],
   selector: 'toa-event',
   templateUrl: './event.component.html',
-  styleUrls: ['./event.component.scss']
+  styleUrls: ['./event.component.scss'],
+  providers: [FTCDatabase, TheOrangeAllianceGlobals]
 })
 export class EventComponent implements OnInit {
 

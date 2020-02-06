@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
@@ -22,6 +22,7 @@ import Region from '../../models/Region';
 
 @Component({
   selector: 'toa-account',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
   providers: [CloudFunctions, TheOrangeAllianceGlobals, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]

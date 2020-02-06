@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CloudFunctions } from '../../providers/cloud-functions';
 import { TranslateService } from '@ngx-translate/core';
 import { MdcSnackbar } from '@angular-mdc/web';
@@ -8,6 +8,7 @@ import User from '../../models/User';
 
 @Component({
   selector: 'toa-league-item',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './league.item.component.html',
   styleUrls: ['./league.item.component.scss']
 })

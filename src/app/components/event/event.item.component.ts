@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import Event from '../../models/Event';
 
 @Component({
   selector: 'toa-event-item',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './event.item.component.html',
   styleUrls: ['./event.item.component.scss']
 })
