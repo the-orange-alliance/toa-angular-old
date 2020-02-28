@@ -169,6 +169,33 @@ mdc-icon svg {
   color: currentColor;
 }
 
+/* ==========================================================================
+   Dark Theme
+   ========================================================================== */
+
+
+.dark {
+  .mdc-dialog__surface {
+    background: $dark-surface-color;
+    color: #ffffff;
+  
+    .mdc-list {
+      color: $dark-text-color;
+    }
+  
+    .mdc-list-item__graphic {
+      color: $dark-icon-color;
+    }
+  
+  }
+  .mdc-radio .mdc-radio__native-control:enabled:not(:checked) + .mdc-radio__background .mdc-radio__outer-circle {
+    border-color: rgba(255, 255, 255, 0.54);
+  }
+  .select-stream {
+    background: #2d2d2d !important;
+    color: #fff !important;
+  }
+}
 
 /* ==========================================================================
    Padding and Margin
