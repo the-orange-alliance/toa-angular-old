@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { CloudFunctions, Service } from '../../providers/cloud-functions';
@@ -8,6 +8,7 @@ import { MdcSnackbar } from '@angular-mdc/web';
 
 @Component({
   selector: 'toa-server',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './server.item.component.html',
 })
 export class ServerItemComponent implements OnInit {

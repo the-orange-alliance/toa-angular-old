@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../app-bar.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -13,10 +13,11 @@ import Week from '../../models/Week';
 import {Location} from '@angular/common';
 
 @Component({
-  providers: [FTCDatabase, TheOrangeAllianceGlobals],
   selector: 'toa-events',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './events.component.html',
-  styleUrls: ['./events.component.scss']
+  styleUrls: ['./events.component.scss'],
+  providers: [FTCDatabase, TheOrangeAllianceGlobals]
 })
 export class EventsComponent implements OnInit {
 

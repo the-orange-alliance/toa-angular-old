@@ -1,5 +1,5 @@
 .about-header {
-  padding: 30px 15px;
+  padding: 0 15px 20px;
   font-weight: 700;
   text-align: center;
   font-size: 45px;
@@ -11,10 +11,10 @@
 }
 
 .dev-card::before {
-  background: #ffe9c8;
+  background: #fef5e8;
   content: '';
   display: block;
-  height: 115px;
+  height: 110px;
   width: calc(100% - 16px);
   position: absolute;
 }
@@ -26,7 +26,7 @@
   left: 30px;
   pointer-events: none;
   position: absolute;
-  top: 115px;
+  top: 110px;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   width: 64px;

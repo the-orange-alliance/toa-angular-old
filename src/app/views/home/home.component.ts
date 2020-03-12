@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
@@ -10,6 +10,7 @@ import Team from '../../models/Team';
 
 @Component({
   selector: 'toa-home',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   providers: [FTCDatabase, TheOrangeAllianceGlobals]

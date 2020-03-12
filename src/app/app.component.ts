@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, Injectable, NgZone, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, HostListener, Inject, Injectable, NgZone, OnInit, PLATFORM_ID, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AppBarService } from './app-bar.service';
 import { isPlatformBrowser, Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
@@ -19,6 +19,7 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
 
 @Component({
   selector: 'app-root',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   providers: [FTCDatabase, TheOrangeAllianceGlobals, AppBarService]

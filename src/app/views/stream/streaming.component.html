@@ -1,4 +1,4 @@
-<div *ngIf="streams" class="main">
+<div *ngIf="streams" class="main dark">
   <div class="row m-0 h-100">
     <div class="p-3 m-0 col-12 col-12" [class.col-lg-10]="showChat" *ngIf="layouts.length === 0 && streams.length > 0" style="background-color: #000">
       <div mdcDialogSurface class="modal-content border-0" style="width: 300px; margin: auto auto">
@@ -79,7 +79,7 @@
     <div class="col-2 d-none d-lg-block chat"  [class.d-lg-block]="showChat">
       <iframe frameborder="0"
               scrolling="no"
-              src="https://www.twitch.tv/embed/theorangealliance/chat">
+              src="https://www.twitch.tv/embed/theorangealliance/chat?darkpopout">
       </iframe>
     </div>
   </div>

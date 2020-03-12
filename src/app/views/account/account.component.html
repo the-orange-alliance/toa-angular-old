@@ -11,8 +11,8 @@
 <div class="full-page" *ngIf="user && user.firebaseUser">
   <div class="profile-block px-3 px-lg-5 pt-3 pb-5">
     <div *ngIf="!user.photoURL && user.displayName" class="profile-image">{{ user.displayName.substring(0, 1) }}</div>
-    <img *ngIf="user.photoURL " class="profile-image" [src]="user.photoURL" />
-    <div class="flex-column w-100 ps-3">
+    <img *ngIf="user.photoURL" class="profile-image" [src]="user.photoURL" />
+    <div class="flex-column w-100 ms-3">
       <div class="d-flex justify-content-between">
         <div class="profile-name">{{ user.displayName || 'User' }}</div>
         <button mdc-button primary (click)="signOut()">{{ 'pages.account.logout' | translate }}</button>
