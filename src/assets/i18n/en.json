@@ -298,7 +298,7 @@
             "unlink": "Unlink",
             "stream": "{{ provider }} Stream",
             "success_linked": "Successfully Linked Stream",
-            "success_unlinked": "Successfully Linked Stream"
+            "success_unlinked": "Successfully Unlinked Stream"
           },
           "delete_card": {
             "delete_event": "Delete Event",
