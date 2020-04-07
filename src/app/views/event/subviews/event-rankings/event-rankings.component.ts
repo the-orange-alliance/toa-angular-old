@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import Ranking from '../../../../models/Ranking';
 import { RankSorter } from '../../../../util/ranking-utils';
 import { DialogText } from '../../../../dialogs/text/dialog-text';
-import { MdcDialog } from '@angular-mdc/web';
+import { MdcDialog, MDCDataTable } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -23,8 +24,13 @@ export class EventRankingsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sortByRank();
+    this.setHiddenColumns();
+  }
+
+  private setHiddenColumns()
+  {
     if (this.rankings) {
-      this.rankings = new RankSorter().sort(this.rankings);
       for (const rank of this.rankings) {
         if (rank.qualifyingPoints && rank.qualifyingPoints > 0) {
           this.showQualPoints = true;
@@ -66,5 +72,17 @@ export class EventRankingsComponent implements OnInit {
         }
       });
     });
+  }
+
+  sortByRank() {
+    if (this.rankings) {
+      new RankSorter().sortByRank(this.rankings);
+    }
+  }
+
+  sortByTeam() {
+    if (this.rankings) {
+      new RankSorter().sortByTeam(this.rankings);
+    }
   }
 }
