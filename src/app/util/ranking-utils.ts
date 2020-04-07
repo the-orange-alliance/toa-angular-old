@@ -1,18 +1,30 @@
+import { Injectable } from '@angular/core';
 import Ranking from '../models/Ranking';
 
-export class RankSorter {
+@Injectable()
+export class RankingSorter {
 
-  public sortByRank(items: Ranking[]) {
-    items.sort(function(a, b) {
-      return a.rank - b.rank;
-    });
-    return items;
+  public sortByRank(rankings: Ranking[]) {
+    if(rankings) {
+      rankings.sort((a, b) => a.rank - b.rank);
+    }
   }
 
-  public sortByTeam(items: Ranking[]) {
-    items.sort(function(a, b) {
-      return a.team.teamNumber - b.team.teamNumber;
-    });
-    return items;
+  public sortByTeam(rankings: Ranking[]) {
+    if(rankings) {
+      rankings.sort((a, b) => a.team.teamNumber - b.team.teamNumber);
+    }
+  }
+
+  public sortByOpr(rankings: Ranking[]) {
+    if(rankings) {
+      rankings.sort((a, b) => a.opr - b.opr);
+    }
+  }
+
+  public sortByNpOpr(rankings: Ranking[]) {
+    if(rankings) {
+      rankings.sort((a, b) => a.npOpr - b.npOpr);
+    }
   }
 }

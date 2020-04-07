@@ -4,10 +4,10 @@
       <thead>
       <tr mdcDataTableHeaderRow>
         <th mdcDataTableHeaderCell numeric
-            ><button mdc-icon-button (click)="sortByRank()"><mdc-icon svgIcon="sort"></mdc-icon></button
+            ><button mdc-icon-button (click)="sorter.sortByRank(rankings)"><mdc-icon svgIcon="sort"></mdc-icon></button
             >{{ 'pages.event.subpages.rankings.rank' | translate }}</th>
         <th mdcDataTableHeaderCell
-            ><button mdc-icon-button (click)="sortByTeam()"><mdc-icon svgIcon="sort"></mdc-icon></button
+            ><button mdc-icon-button (click)="sorter.sortByTeam(rankings)"><mdc-icon svgIcon="sort"></mdc-icon></button
             >{{ 'pages.event.subpages.rankings.team' | translate }}</th>
         <th mdcDataTableHeaderCell
             >{{ 'pages.event.subpages.rankings.wlt_record' | translate }}</th>
@@ -21,12 +21,12 @@
             >{{ 'pages.event.subpages.rankings.highest_score' | translate }}</th>
         <th mdcDataTableHeaderCell numeric
             >{{ 'pages.event.subpages.rankings.matches_played' | translate }}</th>
-        <th mdcDataTableHeaderCell numeric *ngIf="showOPR" style="cursor: help" (click)="showOprHelp()"
-            ><button mdc-icon-button><mdc-icon svgIcon="sort"></mdc-icon></button
-            >OPR</th>
-        <th mdcDataTableHeaderCell numeric *ngIf="showOPR" style="cursor: help" (click)="showNpOprHelp()"
-            ><button mdc-icon-button><mdc-icon svgIcon="sort"></mdc-icon></button
-            >NP-OPR</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showOPR"
+            ><button mdc-icon-button (click)="sorter.sortByOpr(rankings)"><mdc-icon svgIcon="sort"></mdc-icon></button
+            ><span style="cursor: help" (click)="showOprHelp()">OPR</span></th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showOPR"
+            ><button mdc-icon-button (click)="sorter.sortByNpOpr(rankings)"><mdc-icon svgIcon="sort"></mdc-icon></button
+            ><span style="cursor: help" (click)="showNpOprHelp()">NP-OPR</span></th>
       </tr>
       </thead>
       <tbody mdcDataTableContent>
