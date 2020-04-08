@@ -4,27 +4,27 @@ import Ranking from '../models/Ranking';
 @Injectable()
 export class RankingSorter {
 
-  public sortByRank(rankings: Ranking[]) {
+  public byRank(rankings: Ranking[]) {
     if(rankings) {
       rankings.sort((a, b) => a.rank - b.rank);
     }
   }
 
-  public sortByTeam(rankings: Ranking[]) {
+  public byTeam(rankings: Ranking[]) {
     if(rankings) {
       rankings.sort((a, b) => a.team.teamNumber - b.team.teamNumber);
     }
   }
 
-  public sortByOpr(rankings: Ranking[]) {
+  public byOpr(rankings: Ranking[]) {
     if(rankings) {
-      rankings.sort((a, b) => a.opr - b.opr);
+      rankings.sort((a, b) => b.opr - a.opr);  // note sort descending
     }
   }
 
-  public sortByNpOpr(rankings: Ranking[]) {
+  public byNpOpr(rankings: Ranking[]) {
     if(rankings) {
-      rankings.sort((a, b) => a.npOpr - b.npOpr);
+      rankings.sort((a, b) => b.npOpr - a.npOpr);  // note sort descending
     }
   }
 }
