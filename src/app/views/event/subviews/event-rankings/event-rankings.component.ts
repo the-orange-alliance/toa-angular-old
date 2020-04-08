@@ -23,10 +23,11 @@ export class EventRankingsComponent implements OnInit {
   constructor(
       private dialog: MdcDialog,
       private translate: TranslateService,
-      public sorter: RankingSorter) {
+      private sorter: RankingSorter) {
   }
 
   ngOnInit() {
+    this.sorter.byRank(this.rankings);
     this.setHiddenColumns();
   }
 
