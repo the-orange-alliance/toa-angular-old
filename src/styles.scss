@@ -796,13 +796,15 @@ table.match-table tr {
 .rankings-table td, .rankings-table th {
   padding: .75rem;
 
+  .mdc-icon-button {
+    height: 24px;
+    width: 36px;
+    padding: 0px 6px;
+  }
+
   mdc-icon {
     width: 24px;
     height: 24px;
-  }
-
-  .mdc-icon-button {
-    padding-top: 6px;
   }
 }
 
