@@ -23,7 +23,7 @@ export class EventRankingsComponent implements OnInit {
   constructor(
       private dialog: MdcDialog,
       private translate: TranslateService,
-      private sorter: RankingSorter) {
+      public sorter: RankingSorter) {
   }
 
   ngOnInit() {
