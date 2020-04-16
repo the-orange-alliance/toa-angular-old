@@ -1,4 +1,3 @@
-import { WINDOW } from '@ng-toolkit/universal';
 import {Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { FTCDatabase } from '../../providers/ftc-database';
@@ -31,7 +30,7 @@ export class TeamsComponent implements OnInit {
   public rightSide: Team[];
   public leftSide: Team[];
 
-  constructor(@Inject(WINDOW) private window: Window, private router: Router, private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals,
+  constructor(private window: Window, private router: Router, private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals,
               private translate: TranslateService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object,
               private loca: Location, private route: ActivatedRoute, ) {
     const queryParam = this.route.snapshot.queryParamMap.get('query');

@@ -1,7 +1,5 @@
-@import "~@angular-mdc/theme/material";
-
 .docs-api-class-selector-name {
-  background: rgba(0, 0, 0, .06);
+  background: rgba(0, 0, 0, 0.06);
   margin-left: 3px;
   padding: 3px;
 }
@@ -14,7 +12,7 @@
 // API table
 //
 
-.docs-api  {
+.docs-api {
   margin-bottom: 30px;
 
   h4 {
@@ -31,20 +29,20 @@
   }
 
   th {
-    @include mdc-typography(subtitle2);
+    // TODO
   }
 
   tr:nth-child(2n) {
     background-color: #f6f8fa;
   }
 
-  td, th {
+  td,
+  th {
     border: 1px solid #dfe2ef;
     padding: 12px;
   }
 
   td {
-    font-size: .9em;
+    font-size: 0.9em;
   }
-
 }

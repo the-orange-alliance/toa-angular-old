@@ -1,26 +1,41 @@
 /* Global Styles */
-@import "constants";
-@import "~@angular-mdc/theme/material";
+@use '@material/theme' with (
+  $primary: #F89808,
+  $secondary: #F89808,
+  $background: #FFF,
+);
+@use './styles/mdc';
+@use '@angular-mdc/theme/material';
 
-html, body {
+@import 'constants';
+
+html,
+body {
   margin: 0;
   height: 100%;
-  background: #F5F6F7;
+  background: #f5f6f7;
   text-align: start;
 }
 
 .row {
   max-width: 100%;
-  margin-left: 0!important;
-  margin-right: 0!important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
-.col-12, .col-sm-12, .col-md-12 {
+.col-12,
+.col-sm-12,
+.col-md-12 {
   padding-left: 0;
   padding-right: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 400;
 }
 
@@ -29,7 +44,7 @@ a:hover {
 }
 
 *:focus {
-  outline:none !important;
+  outline: none !important;
 }
 
 .img-fit {
@@ -49,33 +64,35 @@ a:hover {
 }
 
 .btn {
-  background: #fff!important;
+  background: #fff !important;
 }
 
-.pagination>li:not(.disabled)>a {
+.pagination > li:not(.disabled) > a {
   color: #ff9800 !important;
 }
 
-.pagination>.active>a {
+.pagination > .active > a {
   background-color: #d2d2d2 !important;
   border-color: #d2d2d2 !important;
 }
 
-.no-underline, .no-underline a {
-  text-decoration: none!important;
+.no-underline,
+.no-underline a {
+  text-decoration: none !important;
 }
 
-.no-underline:hover, .no-underline a:hover  {
-  text-decoration: none!important;
+.no-underline:hover,
+.no-underline a:hover {
+  text-decoration: none !important;
 }
 
-.table-no-border-top thead td  {
+.table-no-border-top thead td {
   border-top: none;
 }
 
 .toa-fab {
   z-index: 0;
-  color: #000!important;
+  color: #000 !important;
 }
 
 mdc-text-field .mdc-floating-label {
@@ -112,7 +129,7 @@ mdc-icon svg {
 }
 
 .mdc-dialog {
-  z-index: 10!important;
+  z-index: 10 !important;
 }
 
 /* ==========================================================================
@@ -124,8 +141,8 @@ mdc-icon svg {
 }
 
 .bg-primary {
-  background: $mdc-theme-primary!important;
-  color: #fff!important;
+  background: $mdc-theme-primary !important;
+  color: #fff !important;
 }
 
 .red {
@@ -149,11 +166,11 @@ mdc-icon svg {
 }
 
 .black {
-  color: #000!important;;
+  color: #000 !important;
 }
 
 .black:hover {
-  color: #000!important;
+  color: #000 !important;
 }
 
 .icon-white {
@@ -173,22 +190,23 @@ mdc-icon svg {
    Dark Theme
    ========================================================================== */
 
-
 .dark {
   .mdc-dialog__surface {
     background: $dark-surface-color;
     color: #ffffff;
-  
+
     .mdc-list {
       color: $dark-text-color;
     }
-  
+
     .mdc-list-item__graphic {
       color: $dark-icon-color;
     }
-  
   }
-  .mdc-radio .mdc-radio__native-control:enabled:not(:checked) + .mdc-radio__background .mdc-radio__outer-circle {
+  .mdc-radio
+    .mdc-radio__native-control:enabled:not(:checked)
+    + .mdc-radio__background
+    .mdc-radio__outer-circle {
     border-color: rgba(255, 255, 255, 0.54);
   }
   .select-stream {
@@ -204,11 +222,19 @@ mdc-icon svg {
 $spacer: 1rem !default;
 $spacers: (
   0: 0,
-  1: ($spacer * .25),
-  2: ($spacer * .5),
+  1: (
+    $spacer * 0.25
+  ),
+  2: (
+    $spacer * 0.5
+  ),
   3: $spacer,
-  4: ($spacer * 1.5),
-  5: ($spacer * 3)
+  4: (
+    $spacer * 1.5
+  ),
+  5: (
+    $spacer * 3
+  )
 );
 $breakpoints: (
   xs: 0,
@@ -232,17 +258,17 @@ $breakpoints: (
   $min: map-get($breakpoints, $breakpoint);
 
   @include media-breakpoint-up($min) {
-    $infix: if($min == 0, "", "-#{$breakpoint}");
+    $infix: if($min == 0, '', '-#{$breakpoint}');
 
     @each $prop, $abbrev in (margin: m, padding: p) {
       @each $size, $length in $spacers {
-        [dir=rtl] .#{$abbrev}s#{$infix}-#{$size},
-        [dir=ltr] .#{$abbrev}e#{$infix}-#{$size} {
+        [dir='rtl'] .#{$abbrev}s#{$infix}-#{$size},
+        [dir='ltr'] .#{$abbrev}e#{$infix}-#{$size} {
           #{$prop}-right: $length !important;
         }
 
-        [dir=rtl] .#{$abbrev}e#{$infix}-#{$size},
-        [dir=ltr] .#{$abbrev}s#{$infix}-#{$size} {
+        [dir='rtl'] .#{$abbrev}e#{$infix}-#{$size},
+        [dir='ltr'] .#{$abbrev}s#{$infix}-#{$size} {
           #{$prop}-left: $length !important;
         }
       }
@@ -250,14 +276,13 @@ $breakpoints: (
   }
 }
 
-[dir="rtl"].custom-file-label::after {
+[dir='rtl'].custom-file-label::after {
   left: 0;
   right: initial;
   border-right: 1px solid #ced4da;
   border-left: 0;
-  border-radius: .20rem 0 0 .20rem;
+  border-radius: 0.2rem 0 0 0.2rem;
 }
-
 
 /* ==========================================================================
    FIRST RISE Banners
@@ -269,7 +294,7 @@ $breakpoints: (
   color: #fff;
   text-align: center;
   padding: 10px;
-  margin-bottom: 30px!important;
+  margin-bottom: 30px !important;
   direction: ltr;
 }
 
@@ -279,15 +304,15 @@ $breakpoints: (
 }
 
 .kickoff-banner a {
-  color: #ccc!important;
+  color: #ccc !important;
 }
 
 .kickoff-banner--home a {
-  color: #fff!important;
+  color: #fff !important;
 }
 
 .kickoff-banner a:hover {
-  color: #fff!important;
+  color: #fff !important;
   font-weight: bold;
   text-decoration: none;
 }
@@ -310,23 +335,24 @@ $breakpoints: (
 }
 
 mdc-drawer mdc-list .mdc-list-item--activated {
-  color: $mdc-theme-primary!important;
+  color: $mdc-theme-primary !important;
 }
 
-:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::before {
-  opacity: .1!important;
+:not(.mdc-list--non-interactive)
+  > :not(.mdc-list-item--disabled).mdc-list-item--activated::before {
+  opacity: 0.1 !important;
 }
 
 mdc-drawer mdc-list a {
-  color: rgba(0, 0, 0, 0.54)!important;
+  color: rgba(0, 0, 0, 0.54) !important;
 }
 
 .item-profile {
-  height: 80px!important;
+  height: 80px !important;
 }
 
 .item-profile button {
-  color: #4285F4!important;
+  color: #4285f4 !important;
 }
 
 .item-profile img {
@@ -354,7 +380,7 @@ mdc-drawer mdc-list a {
     padding-left: 20px;
   }
 
-  [dir="rtl"] .toa-page {
+  [dir='rtl'] .toa-page {
     margin-right: 256px !important;
     margin-left: 0 !important;
   }
@@ -394,7 +420,6 @@ mdc-drawer mdc-list a {
   }
 }
 
-
 /* ==========================================================================
    Info State
    ========================================================================== */
@@ -422,15 +447,15 @@ mdc-drawer mdc-list a {
     fill: $mdc-theme-primary;
   }
 
-  [dir="rtl"] mdc-icon {
-    margin-right: 0!important;
-    margin-left: 12px!important;;
+  [dir='rtl'] mdc-icon {
+    margin-right: 0 !important;
+    margin-left: 12px !important;
   }
 }
 
 .info-state-dense {
   .info-state {
-    margin: 0!important;
+    margin: 0 !important;
     font-size: 14px;
   }
 
@@ -441,11 +466,10 @@ mdc-drawer mdc-list a {
   mdc-icon {
     width: 14px;
     height: 14px;
-    margin: 0!important;
+    margin: 0 !important;
     fill: #000;
   }
 }
-
 
 /* ==========================================================================
    Basic Card
@@ -460,10 +484,10 @@ mdc-drawer mdc-list a {
 }
 
 .toa-card {
-  border-radius: 8px!important;
+  border-radius: 8px !important;
   overflow: hidden;
   padding: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12)!important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12) !important;
 }
 
 .toa-card.overflow {
@@ -483,7 +507,7 @@ mdc-drawer mdc-list a {
 
 .outline-card {
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: .75rem;
+  border-radius: 0.75rem;
   padding: 1rem;
 }
 
@@ -508,7 +532,7 @@ mdc-drawer mdc-list a {
   background: $mdc-theme-primary;
   margin-left: 10px;
   border-radius: 50px;
-  color: #FFFFFF;
+  color: #ffffff;
   height: 50px;
   width: 50px;
   position: absolute;
@@ -544,23 +568,21 @@ mdc-drawer mdc-list a {
   }
 }
 
-
 /* ==========================================================================
    List Item
    ========================================================================== */
 
 .mdc-list-item__primary-text span:first-child {
-   display: inline-block;
+  display: inline-block;
 }
-
 
 /* ==========================================================================
    Team Item
    ========================================================================== */
 
 .item-team {
-  height: 70px!important;
-  padding-left: 10px!important;
+  height: 70px !important;
+  padding-left: 10px !important;
 }
 
 .item-team .mdc-list-item__text {
@@ -568,10 +590,9 @@ mdc-drawer mdc-list a {
 }
 
 .item-team img {
-  height: 50px!important;
+  height: 50px !important;
   margin-right: 15px;
 }
-
 
 /* ==========================================================================
    Tooltip
@@ -585,14 +606,14 @@ mdc-drawer mdc-list a {
 .toa-tooltip .tooltiptext {
   opacity: 0;
   visibility: hidden;
-  background-color: rgb(60,64,67);
+  background-color: rgb(60, 64, 67);
   -webkit-border-radius: 4px;
   border-radius: 4px;
   color: #fff;
   font-size: 12px;
   font-weight: 500;
   -webkit-font-smoothing: antialiased;
-  letter-spacing: .3px;
+  letter-spacing: 0.3px;
   line-height: 16px;
   padding: 6px 12px;
   white-space: nowrap;
@@ -608,19 +629,19 @@ mdc-drawer mdc-list a {
   opacity: 1;
 }
 
-
 /* ==========================================================================
    Dropdown
    ========================================================================== */
 
 .toa-dropdown {
   .mdc-button {
-    color: black!important;
-    justify-content: start!important;
+    color: black !important;
+    justify-content: start !important;
     padding: 0 8px;
 
-    ::before, ::after {
-      background: black!important;
+    ::before,
+    ::after {
+      background: black !important;
     }
   }
 
@@ -629,12 +650,12 @@ mdc-drawer mdc-list a {
   }
 }
 
-
 /* ==========================================================================
    Match Table
    ========================================================================== */
 
-.match-details-table, .match-details-row {
+.match-details-table,
+.match-details-row {
   width: 100%;
 }
 
@@ -664,7 +685,6 @@ mdc-drawer mdc-list a {
   padding: 10px;
 }
 
-
 /* ==========================================================================
    Match Table
    ========================================================================== */
@@ -674,7 +694,8 @@ mdc-drawer mdc-list a {
     max-width: 600px;
   }
 
-  .mdc-dialog .toa-match-details, .mdc-dialog .toa-match-video {
+  .mdc-dialog .toa-match-details,
+  .mdc-dialog .toa-match-video {
     width: 500px;
   }
 }
@@ -688,32 +709,38 @@ table.match-table {
   border-spacing: 0;
 }
 
-table.match-table>tbody {
-  border-top-width: 1px!important;
+table.match-table > tbody {
+  border-top-width: 1px !important;
 }
 
-table.match-table>thead {
+table.match-table > thead {
   display: table-header-group;
   vertical-align: middle;
   border-color: inherit;
   background-color: #f0f0f0;
 }
 
-table.match-table>thead>tr>th, table.match-table>tbody>tr>th, table.match-table>tfoot>tr>th, table.match-table>thead>tr>td, table.match-table>tbody>tr>td, table.match-table>tfoot>tr>td {
+table.match-table > thead > tr > th,
+table.match-table > tbody > tr > th,
+table.match-table > tfoot > tr > th,
+table.match-table > thead > tr > td,
+table.match-table > tbody > tr > td,
+table.match-table > tfoot > tr > td {
   padding: 12px;
   line-height: 1.42857143;
   vertical-align: middle;
   border-top: 1px solid #efefef;
 }
 
-table.match-table>tbody > tr > td {
-  padding: 15px!important;
+table.match-table > tbody > tr > td {
+  padding: 15px !important;
 }
 
 @media (max-width: 601px) {
-  table.match-table > tbody > tr > td, table.match-table > thead > tr > th {
-    padding: 8px 4px!important;
-    font-size: 14px!important;
+  table.match-table > tbody > tr > td,
+  table.match-table > thead > tr > th {
+    padding: 8px 4px !important;
+    font-size: 14px !important;
   }
 
   /*
@@ -724,7 +751,8 @@ table.match-table>tbody > tr > td {
   */
 }
 
-table.match-table th, table.oprTable th {
+table.match-table th,
+table.oprTable th {
   font-weight: bold;
   text-align: center;
   vertical-align: middle !important;
@@ -765,7 +793,7 @@ table.match-table tr {
 }
 
 .selected-team {
-  background-color: #FBCC81!important;
+  background-color: #fbcc81 !important;
 }
 
 .selected-team-snackbar {
@@ -788,15 +816,14 @@ table.match-table tr {
   z-index: 30;
 }
 
-
 /* ==========================================================================
    Rankings Table
    ========================================================================== */
 
-.rankings-table td, .rankings-table th {
-  padding: .75rem;
+.rankings-table td,
+.rankings-table th {
+  padding: 0.75rem;
 }
-
 
 /* ==========================================================================
    Search
@@ -825,7 +852,8 @@ table.match-table tr {
   fill: #80868b;
 }
 
-.toa-search-content, .toa-search-box {
+.toa-search-content,
+.toa-search-box {
   margin: 16px auto;
   max-width: 720px;
   position: relative;
@@ -839,12 +867,12 @@ table.match-table tr {
 
   .toa-search-box {
     flex-grow: 1;
-    margin: 16px !important;;
+    margin: 16px !important;
     border-radius: 8px !important;
   }
 
   .toa-search-box:after {
-    display: none !important;;
+    display: none !important;
   }
 
   .toa-search-content {
@@ -861,8 +889,10 @@ table.match-table tr {
 }
 
 .toa-search-box {
-  box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12);
-  -webkit-box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   background: #fff;
   border-radius: 8px 8px 0 0;
   position: relative;
@@ -870,11 +900,12 @@ table.match-table tr {
 }
 
 .toa-search-box:after {
-  content: "";
+  content: '';
   background: #fff;
   border-top: none;
   box-shadow: -1px 0 0 #dadce0, 1px 0 0 #dadce0, 0 1px 0 #dadce0, 0 5px 0 #fff;
-  -webkit-box-shadow: -1px 0 0 #dadce0, 1px 0 0 #dadce0, 0 1px 0 #dadce0, 0 5px 0 #fff;
+  -webkit-box-shadow: -1px 0 0 #dadce0, 1px 0 0 #dadce0, 0 1px 0 #dadce0,
+    0 5px 0 #fff;
   height: 6px;
   position: absolute;
   right: 0;
@@ -883,16 +914,18 @@ table.match-table tr {
 }
 
 .toa-search-box-input::placeholder {
-  color: #9aa0a6!important;
+  color: #9aa0a6 !important;
   opacity: 1; /* Firefox */
 }
 
-.toa-search-box-input:-ms-input-placeholder { /* IE 10-11 */
-  color: #9aa0a6!important;
+.toa-search-box-input:-ms-input-placeholder {
+  /* IE 10-11 */
+  color: #9aa0a6 !important;
 }
 
-.toa-search-box-input::-ms-input-placeholder { /* Microsoft Edge */
-  color: #9aa0a6!important;
+.toa-search-box-input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #9aa0a6 !important;
 }
 
 .toa-search-box-input {
@@ -917,7 +950,8 @@ table.match-table tr {
 
 .toa-search-results {
   border-radius: 0 0 8px 8px;
-  box-shadow: 0 -5px 0 0 #fff, 0 2px 1px -1px rgba(0,0,0,0.2), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 -5px 0 0 #fff, 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
   margin-top: -32px;
   height: calc(100vh - 110px);
   border-top: 1px solid #dadce0;
@@ -930,20 +964,20 @@ table.match-table tr {
 
 .search-box {
   width: 300px;
-  color: #000!important;
+  color: #000 !important;
   box-shadow: none;
-  background-color: $mdc-theme-light!important;
+  background-color: $mdc-theme-light !important;
   border-radius: 4px;
 }
 
-.search-box input{
+.search-box input {
   border: 0;
-  color: #000!important;
-  caret-color: #000!important;
+  color: #000 !important;
+  caret-color: #000 !important;
 }
 
 .search-anchor .mdc-floating-label {
-  color: #000!important;
+  color: #000 !important;
 }
 
 .search-anchor .mdc-floating-label--float-above {
@@ -962,22 +996,23 @@ table.match-table tr {
   border: none;
 }
 
-[dir="ltr"] .mdc-text-field--outlined .mdc-floating-label {
+[dir='ltr'] .mdc-text-field--outlined .mdc-floating-label {
   left: 0;
   padding-left: 16px;
 }
 
-[dir="rtl"] .mdc-text-field--outlined .mdc-floating-label {
+[dir='rtl'] .mdc-text-field--outlined .mdc-floating-label {
   right: 0;
   padding-right: 16px;
 }
 
-.search-anchor .mdc-notched-outline__leading, .search-anchor .mdc-notched-outline__trailing {
+.search-anchor .mdc-notched-outline__leading,
+.search-anchor .mdc-notched-outline__trailing {
   display: none;
 }
 
 .search-anchor .mdc-list-item {
-  height: auto!important;
+  height: auto !important;
   min-height: 48px;
   padding: 16px;
 }

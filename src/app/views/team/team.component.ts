@@ -1,4 +1,3 @@
-import { WINDOW } from '@ng-toolkit/universal';
 import { Component, OnInit, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppBarService } from '../../app-bar.service';
@@ -43,7 +42,7 @@ export class TeamComponent implements OnInit {
   user: TOAUser = null;
   favorite: boolean;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, @Inject(WINDOW) private window: Window, private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
+  constructor(private platformId: Object, private window: Window, private ftc: FTCDatabase, private route: ActivatedRoute, private router: Router, private app: TheOrangeAllianceGlobals,
               public cloud: CloudFunctions, public auth: AngularFireAuth, private appBarService: AppBarService) {
     this.teamKey = this.route.snapshot.params['team_key'];
     this.select('results');

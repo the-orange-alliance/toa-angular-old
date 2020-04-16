@@ -1,6 +1,4 @@
-import { NgtUniversalModule } from '@ng-toolkit/universal';
 import { CommonModule } from '@angular/common';
-import { TransferHttpCacheModule } from '@nguniversal/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -48,7 +46,7 @@ import { TeamComponent } from './views/team/team.component';
 import { StreamingComponent } from './views/stream/streaming.component';
 import { PrivacyTermsComponent } from './views/privacy_terms/PrivacyTerms.component';
 import { MatchesComponent } from './views/matches/matches.component';
-import { AppMaterialModule } from './material.module';
+import { MaterialModule } from './material.module';
 import { DialogText } from './dialogs/text/dialog-text';
 import { DialogMatch } from './dialogs/match/dialog-match';
 import { DialogEventFavorite } from './dialogs/event-favorite/dialog-event-favorite';
@@ -72,7 +70,11 @@ import { LeagueItemComponent } from './components/league/league.item.component';
 import { ServerItemComponent } from './components/server/server.item.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
+  return new TranslateHttpLoader(
+    httpClient,
+    '/assets/i18n/',
+    '.json?v=20041510'
+  );
 }
 
 @NgModule({
@@ -126,16 +128,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     LeagueCreatorComponent,
     ServerItemComponent
   ],
-  entryComponents: [
-    DialogText,
-    DialogMatch,
-    DialogEventFavorite
-  ],
+  entryComponents: [DialogText, DialogMatch, DialogEventFavorite],
   imports: [
     // Angular Uni Stuff
     CommonModule,
-    NgtUniversalModule,
-    TransferHttpCacheModule,
     HttpClientModule,
     BrowserModule.withServerTransition({ appId: 'server-app' }),
     // Firebase Stuffs
@@ -156,9 +152,20 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    AppMaterialModule
+    MaterialModule
   ],
-  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService, {provide: 'externalUrlRedirectResolver', useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {window.location.href = (route.data as any).externalUrl}}],
+  providers: [
+    FTCDatabase,
+    CloudFunctions,
+    UploadService,
+    CookieService,
+    {
+      provide: 'externalUrlRedirectResolver',
+      useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+        window.location.href = (route.data as any).externalUrl;
+      }
+    }
+  ],
   bootstrap: [TheOrangeAllianceComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,4 +1,3 @@
-import { WINDOW } from '@ng-toolkit/universal';
 import {Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AppBarService } from '../../../app-bar.service';
@@ -21,7 +20,7 @@ export class LoginComponent implements OnInit {
   googleProvider = new providers.GoogleAuthProvider();
   githubProvider = new providers.GithubAuthProvider();
 
-  constructor(@Inject(WINDOW) private window: Window, private router: Router, public auth: AngularFireAuth, private snackbar: MdcSnackbar,
+  constructor(private window: Window, private router: Router, public auth: AngularFireAuth, private snackbar: MdcSnackbar,
               private translate: TranslateService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
     auth.authState.subscribe(user => {
       if (user !== null) {
@@ -37,13 +36,13 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginEmail(): void {
-    this.auth.auth.signInWithEmailAndPassword(this.email, this.password).catch(error => {
+    this.auth.signInWithEmailAndPassword(this.email, this.password).catch(error => {
       this.snackbar.open(error.message);
     });
   }
 
   signInWithPopup(provider): void {
-    this.auth.auth.signInWithPopup(provider).then(result => {
+    this.auth.signInWithPopup(provider).then(result => {
       // The signed-in user info.
       const user = result.user;
       if (isPlatformBrowser(this.platformId)) {
@@ -64,7 +63,7 @@ export class LoginComponent implements OnInit {
   }
 
   sendPasswordResetEmail() {
-    this.auth.auth.sendPasswordResetEmail(this.email).then( () => {
+    this.auth.sendPasswordResetEmail(this.email).then( () => {
       // Show success in snackbar
       this.translate.get('pages.account.reset_password_email').subscribe((res: string) => {
         this.snackbar.open(res)
