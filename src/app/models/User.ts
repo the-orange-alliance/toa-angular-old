@@ -104,11 +104,13 @@ export default class TOAUser implements ISerializable {
       roles.push('Member of #' + this.team);
     }
     if (this.adminRegions.length > 0 || this.individualAdminEvents.length > 0) {
-      let txt = 'Admin of ' + this.adminRegions.map(key => regionsMap[key] || key).join(' ');
+      let txt = 'Admin of ' + this.adminRegions.map(key => regionsMap[key] || key).join(', ');
       if (this.adminRegions.length > 0 && this.individualAdminEvents.length > 0) {
         txt += ' and '
       }
-      txt += this.individualAdminEvents.length + ' events';
+      if (this.individualAdminEvents.length > 0) {
+        txt += this.individualAdminEvents.length + ' events';
+      }
       roles.push(txt);
     }
     if (this.adminTeams.length > 0) {

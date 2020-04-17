@@ -44,7 +44,7 @@
   <mdc-drawer #drawer="mdcDrawer" [drawer]="isScreenSmall() || topAppBar.isCollapsed() ? 'modal' : 'permanent'" class="toa-drawer--fixed">
     <mdc-drawer-content>
       <mdc-list interactive="false" class="p-0">
-        <mdc-list-item class="item-profile" disabled>
+        <mdc-list-item class="item-profile" [class.authed]="!!user" disabled>
           <div *ngIf="!user">
             <span>{{ 'drawer.mytoa.hello' | translate: {'name': 'drawer.mytoa.guest' | translate } }}</span>
             <span class="mdc-list-item__secondary-text">
@@ -54,10 +54,11 @@
             </span>
           </div>
           <div *ngIf="user" routerLink="/account" (click)="drawerItemClicked()" style="cursor:pointer">
-            <mdc-list-item-text>
-              <span style="text-transform: capitalize">{{ 'drawer.mytoa.hello' | translate: {'name': user.displayName || 'User'} }}</span>
-              <span class="mdc-list-item__secondary-text">{{ user.email }}</span>
-            </mdc-list-item-text>
+            <div class="user">
+              <div *ngIf="!user.photoURL && user.displayName" class="avatar">{{ user.displayName.substring(0, 1) }}</div>
+              <img *ngIf="user.photoURL" class="avatar" [src]="user.photoURL" />
+              <span class="name">{{ user.displayName }}</span>
+            </div>
           </div>
         </mdc-list-item>
       </mdc-list>
@@ -104,22 +105,21 @@
             <mdc-icon mdcListItemGraphic svgIcon="code-tags"></mdc-icon>{{ "drawer.api" | translate }}
           </a>
 
-          <a mdc-list-item href="https://github.com/orange-alliance" target="_blank">
-            <mdc-icon mdcListItemGraphic svgIcon="github-circle"></mdc-icon>{{ "drawer.github" | translate }}
-          </a>
-
           <div class="text-center w-100 pb-2">
-            <a mdcIconButton class="col-3" href="https://discord.gg/5fH66UV" target="_blank" (click)="this.sendAnalytic('leaving', 'discord sidebar');">
+            <a mdcIconButton class="col-3" href="https://discord.gg/5fH66UV" target="_blank">
               <mdc-icon svgIcon="discord"></mdc-icon>
             </a>
-            <a mdcIconButton class="col-3" href="https://www.facebook.com/theorangealliance" target="_blank" (click)="this.sendAnalytic('leaving', 'facebook sidebar');">
+            <a mdcIconButton class="col-3" href="https://www.facebook.com/theorangealliance" target="_blank">
               <mdc-icon svgIcon="facebook"></mdc-icon>
             </a>
-            <a mdcIconButton class="col-3" href="https://www.twitter.com/toalliance" target="_blank" (click)="this.sendAnalytic('leaving', 'twitter sidebar');">
+            <a mdcIconButton class="col-3" href="https://www.twitter.com/toalliance" target="_blank">
               <mdc-icon svgIcon="twitter"></mdc-icon>
             </a>
-            <a mdcIconButton class="col-3" href="https://www.instagram.com/toalliance" target="_blank" (click)="this.sendAnalytic('leaving', 'instagram sidebar');">
+            <a mdcIconButton class="col-3" href="https://www.instagram.com/theorangealliance" target="_blank">
               <mdc-icon svgIcon="instagram"></mdc-icon>
+            </a>
+            <a mdcIconButton class="col-3" href="https://github.com/orange-alliance" target="_blank">
+              <mdc-icon svgIcon="github-circle"></mdc-icon>
             </a>
           </div>
 
@@ -134,15 +134,12 @@
 
           <mdc-list-divider></mdc-list-divider>
 
-          <a mdc-list-item href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CDE5Q5XXPM25J&source=toa_donate_drawer" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
-            <mdc-icon mdcListItemGraphic svgIcon="paypal"></mdc-icon>{{ "drawer.donate" | translate }}
-          </a>
-          <a mdc-list-item href="https://smile.amazon.com/ch/83-2083376" target="_blank" (click)="this.sendAnalytic('leaving', 'paypal sidebar')">
-            <mdc-icon mdcListItemGraphic svgIcon="amazon"></mdc-icon>{{ "drawer.amazon_smile" | translate }}
-          </a>
-          <a href="https://revrobotics.com/" target="_blank" class="p-4" mdc-list-item (click)="this.sendAnalytic('leaving', 'rev robotics logo')">
-            <img class="img-fit-w" src="../assets/imgs/powered_by_rev.png" title="Powered by REV" />
-          </a>
+          <div class="d-flex flex-column align-items-center">
+            <div mdcOverline>Powered By</div>
+            <a href="https://revrobotics.com/" class="py-1 px-4" target="_blank" (click)="this.sendAnalytic('leaving', 'rev robotics logo')">
+              <img class="img-fit-w" height="55" src="../assets/imgs/rev-robotics.svg" title="REV Robotics Logo" />
+            </a>  
+          </div>
         </mdc-list>
       </mdc-list-group>
     </mdc-drawer-content>

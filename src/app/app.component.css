@@ -1,0 +1,32 @@
+.item-profile.authed {
+  height: 48px !important;
+  display: flex !important;
+  align-content: center !important;
+  margin-top: 8px !important;
+}
+
+.user {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+}
+
+.user .avatar {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 50%;
+  background: #ececec;
+  border: 1px solid #d8d8d8;
+  font-size: 32px;
+  color: #000;
+  text-align: center;
+  pointer-events: none;
+}
+
+.user .name {
+  margin: 0 8pt;
+}
