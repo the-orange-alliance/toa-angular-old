@@ -1,11 +1,18 @@
-import { Component, HostListener, Inject, Injectable, NgZone, OnInit, PLATFORM_ID, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Injectable,
+  NgZone,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import { AppBarService } from './app-bar.service';
 import { isPlatformBrowser, Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { TranslateService } from '@ngx-translate/core';
 import { FTCDatabase } from './providers/ftc-database';
-import { CloudFunctions, Service } from './providers/cloud-functions';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { CloudFunctions } from './providers/cloud-functions';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { NavigationEnd, Router } from '@angular/router';
 import { EventFilter } from './util/event-utils';
@@ -26,13 +33,18 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
 })
 @Injectable()
 export class TheOrangeAllianceComponent implements OnInit {
-
-  server: { 'is_dev': boolean, 'last_commit': string, 'build_time': string, 'api_version': string, 'mdc_version': string } = {
-    'is_dev': false,
-    'last_commit': null,
-    'build_time': null,
-    'api_version': null,
-    'mdc_version': null
+  server: {
+    is_dev: boolean;
+    last_commit: string;
+    build_time: string;
+    api_version: string;
+    mdc_version: string;
+  } = {
+    is_dev: false,
+    last_commit: null,
+    build_time: null,
+    api_version: null,
+    mdc_version: null
   };
 
   teams: Team[];
@@ -56,15 +68,20 @@ export class TheOrangeAllianceComponent implements OnInit {
   @ViewChild(MdcDrawer, { static: false }) drawer: MdcDrawer;
   title: string;
 
-  constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location, messaging: MessagingService,
-    db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService, private cloud: CloudFunctions,
-    private cookieService: CookieService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
-
-    translate.setDefaultLang('en'); // this language will be used as a fallback when a translation isn't found in the current language
-    if (isPlatformBrowser(this.platformId)) {
-      this.selectedLanguage = this.cookieService.get('toa-lang') || translate.getBrowserLang();
-      this.languageSelected();
-    }
+  constructor(
+    public router: Router,
+    private ftc: FTCDatabase,
+    private ngZone: NgZone,
+    private location: Location,
+    messaging: MessagingService,
+    auth: AngularFireAuth,
+    private translate: TranslateService,
+    private cloud: CloudFunctions,
+    private cookieService: CookieService,
+    private appBarService: AppBarService
+  ) {
+    this.selectedLanguage = this.cookieService.get('toa-lang') || translate.getBrowserLang();
+    this.languageSelected();
 
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -77,32 +94,28 @@ export class TheOrangeAllianceComponent implements OnInit {
       });
     });
 
-    this.appBarService.titleChange.subscribe(title => {
+    this.appBarService.titleChange.subscribe((title) => {
       setTimeout(() => {
         this.title = title;
       });
     });
 
-    if (isPlatformBrowser(this.platformId)) {
-      auth.authState.subscribe(user => {
-        this.user = user;
-      });
-    }
+    auth.authState.subscribe((user) => {
+      this.user = user;
+    });
 
     this.current_year = new Date().getFullYear();
     this.teamSearchResults = [];
     this.eventSearchResults = [];
 
-    if (isPlatformBrowser(this.platformId)) {
-      this.ftc.getAllTeams().then((data: Team[]) => {
-        this.teams = data;
-      });
+    this.ftc.getAllTeams().then((data: Team[]) => {
+      this.teams = data;
+    });
 
-      this.ftc.getAllEvents().then((data: Event[]) => {
-        this.events = data;
-        this.eventsFilter = new EventFilter(this.events);
-      });
-    }
+    this.ftc.getAllEvents().then((data: Event[]) => {
+      this.events = data;
+      this.eventsFilter = new EventFilter(this.events);
+    });
 
     // Listen for foreground notifications
     messaging.receiveMessage();
@@ -119,27 +132,19 @@ export class TheOrangeAllianceComponent implements OnInit {
       }
     });
 
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd && isPlatformBrowser(this.platformId)) {
-        (<any>window).ga('set', 'page', event.urlAfterRedirects);
-        (<any>window).ga('send', 'pageview');
-      }
+    this.router.events.subscribe((event: NavigationEnd) => {
+      (<any>window).ga('set', 'page', event.urlAfterRedirects);
+      (<any>window).ga('send', 'pageview');
     });
   }
 
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.matcher = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
-      this.matcher.addListener((event: MediaQueryListEvent) => this.ngZone.run(() => event.matches));
-    }
+    this.matcher = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
+    this.matcher.addListener((event: MediaQueryListEvent) => this.ngZone.run(() => event.matches));
   }
 
   isScreenSmall(): boolean {
-    if (isPlatformBrowser(this.platformId)) {
-      return this.router.url.startsWith('/stream') || this.matcher.matches;
-    } else {
-      return this.router.url.startsWith('/stream');
-    }
+    return this.router.url.startsWith('/stream') || this.matcher.matches;
   }
 
   back() {
@@ -152,13 +157,15 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   performSearch(): void {
     const maxResults = this.showMobileSearch ? 8 : 5;
-    const query = this.search && this.search.trim().length > 0 ? this.search.toLowerCase().trim() : null;
+    const query =
+      this.search && this.search.trim().length > 0 ? this.search.toLowerCase().trim() : null;
 
     if (query && this.teams && this.eventsFilter) {
-      this.teamSearchResults = this.teams.filter(team => (
-        String(team.teamKey).includes(query) ||
-        (team.teamNameShort && team.teamNameShort.toLowerCase().includes(query))
-      ));
+      this.teamSearchResults = this.teams.filter(
+        (team) =>
+          String(team.teamKey).includes(query) ||
+          (team.teamNameShort && team.teamNameShort.toLowerCase().includes(query))
+      );
       this.teamSearchResults = this.teamSearchResults.splice(0, maxResults);
 
       this.eventsFilter.searchFilter(query);
@@ -185,12 +192,17 @@ export class TheOrangeAllianceComponent implements OnInit {
 
   getBoldText(text: string): string {
     let pattern = this.search.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-    pattern = pattern.split(' ').filter((t) => {
-      return t.length > 0;
-    }).join('|');
+    pattern = pattern
+      .split(' ')
+      .filter((t) => {
+        return t.length > 0;
+      })
+      .join('|');
     const regex = new RegExp(pattern, 'gi');
 
-    return '<p>' + (this.search ? text.replace(regex, (match) => `<b>${match}</b>`) : text) + '</p>';
+    return (
+      '<p>' + (this.search ? text.replace(regex, (match) => `<b>${match}</b>`) : text) + '</p>'
+    );
   }
 
   teamClicked(e, teamKey): void {

@@ -20,9 +20,6 @@ import { environment } from '../environments/environment';
 import { TheOrangeAllianceComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
 import { AddDataComponent } from './views/add-data/add-data.component';
-import { ManageEventsComponent } from './views/account/subpages/manage-events/manage-events.component';
-import { UsersComponent } from './views/account/subpages/users/users.component';
-import { CreateEventComponent } from './views/account/subpages/create-event/create-event.component';
 import { CacheComponent } from './views/account/subpages/cache/cache.component';
 import { RetrieverComponent } from './views/account/subpages/retriever/retriever.component';
 import { AccountComponent } from './views/account/account.component';
@@ -69,7 +66,6 @@ import { Insights1819Component } from './components/insights-card/years/insights
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LeagueCreatorComponent } from './views/account/subpages/league-creator/league-creator.component';
 import { LeagueItemComponent } from './components/league/league.item.component';
-import { ServerItemComponent } from './components/server/server.item.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
@@ -80,9 +76,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TheOrangeAllianceComponent,
     HomeComponent,
     AddDataComponent,
-    ManageEventsComponent,
-    UsersComponent,
-    CreateEventComponent,
     CacheComponent,
     RetrieverComponent,
     AccountComponent,
@@ -123,14 +116,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     InsightsCardComponent,
     CircularPercentageComponent,
     Insights1819Component,
-    LeagueCreatorComponent,
-    ServerItemComponent
+    LeagueCreatorComponent
   ],
-  entryComponents: [
-    DialogText,
-    DialogMatch,
-    DialogEventFavorite
-  ],
+  entryComponents: [DialogText, DialogMatch, DialogEventFavorite],
   imports: [
     // Angular Uni Stuff
     CommonModule,
@@ -158,7 +146,18 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppRoutingModule,
     AppMaterialModule
   ],
-  providers: [FTCDatabase, CloudFunctions, UploadService, CookieService, {provide: 'externalUrlRedirectResolver', useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {window.location.href = (route.data as any).externalUrl}}],
+  providers: [
+    FTCDatabase,
+    CloudFunctions,
+    UploadService,
+    CookieService,
+    {
+      provide: 'externalUrlRedirectResolver',
+      useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+        window.location.href = (route.data as any).externalUrl;
+      }
+    }
+  ],
   bootstrap: [TheOrangeAllianceComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -17,20 +17,17 @@ import { AddDataComponent } from './views/add-data/add-data.component';
 import { LoginComponent } from './views/account/login/login.component';
 import { RegisterComponent } from './views/account/register/register.component';
 
-const donateUrl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CDE5Q5XXPM25J&source=toa_donate_link';
 
 const routes: Routes = [
   { path: 'kickoff', redirectTo: '/stream?kickoff' },
   { path: 'home', component: HomeComponent },
   {
-    path: 'account', children: [
+    path: 'account',
+    children: [
       { path: '', component: AccountComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'create-league', component: AccountComponent },
-      { path: 'events', component: AccountComponent },
-      { path: 'new-event', component: AccountComponent },
-      { path: 'users', component: AccountComponent },
       { path: 'cache', component: AccountComponent },
       { path: 'retriever', component: AccountComponent }
     ]
@@ -40,7 +37,9 @@ const routes: Routes = [
   { path: 'teams', component: TeamsComponent },
   { path: 'about', component: AboutComponent },
   {
-    path: 'apidocs', component: ApiDocsComponent, children: [
+    path: 'apidocs',
+    component: ApiDocsComponent,
+    children: [
       { path: '', redirectTo: 'get', pathMatch: 'full' },
       { path: 'get', component: ApiDocsComponent },
       { path: 'post', component: ApiDocsComponent },
@@ -53,7 +52,9 @@ const routes: Routes = [
   { path: 'stream', component: StreamingComponent },
   { path: 'privacy-terms', component: PrivacyTermsComponent },
   {
-    path: 'events/:event_key', component: EventComponent, children: [
+    path: 'events/:event_key',
+    component: EventComponent,
+    children: [
       { path: '', redirectTo: 'rankings', pathMatch: 'full' },
       { path: 'rankings', component: EventComponent },
       { path: 'matches', component: EventComponent },
@@ -75,10 +76,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    anchorScrolling: 'enabled'
-  })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      anchorScrolling: 'enabled'
+    })
+  ],
   exports: [RouterModule]
 })
-
-export class AppRoutingModule { }
+export class AppRoutingModule {}
