@@ -57,7 +57,10 @@
             <div class="user">
               <div *ngIf="!user.photoURL && user.displayName" class="avatar">{{ user.displayName.substring(0, 1) }}</div>
               <img *ngIf="user.photoURL" class="avatar" [src]="user.photoURL" />
-              <span class="name">{{ user.displayName }}</span>
+              <div class="names">
+                <span class="name">{{ user.displayName }}</span>
+                <span class="email">{{ user.email }}</span>  
+              </div>
             </div>
           </div>
         </mdc-list-item>

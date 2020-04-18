@@ -22,7 +22,8 @@ const donateUrl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_bu
 const routes: Routes = [
   { path: 'kickoff', redirectTo: '/stream?kickoff' },
   { path: 'home', component: HomeComponent },
-  { path: 'account',  children: [
+  {
+    path: 'account', children: [
       { path: '', component: AccountComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
@@ -38,7 +39,8 @@ const routes: Routes = [
   { path: 'events', component: EventsComponent },
   { path: 'teams', component: TeamsComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'apidocs', component: ApiDocsComponent,  children: [
+  {
+    path: 'apidocs', component: ApiDocsComponent, children: [
       { path: '', redirectTo: 'get', pathMatch: 'full' },
       { path: 'get', component: ApiDocsComponent },
       { path: 'post', component: ApiDocsComponent },
@@ -50,7 +52,8 @@ const routes: Routes = [
   },
   { path: 'stream', component: StreamingComponent },
   { path: 'privacy-terms', component: PrivacyTermsComponent },
-  { path: 'events/:event_key', component: EventComponent,  children: [
+  {
+    path: 'events/:event_key', component: EventComponent, children: [
       { path: '', redirectTo: 'rankings', pathMatch: 'full' },
       { path: 'rankings', component: EventComponent },
       { path: 'matches', component: EventComponent },
@@ -65,10 +68,8 @@ const routes: Routes = [
   { path: 'teams/:team_key', component: TeamComponent },
   { path: 'matches/:match_key', component: MatchesComponent },
   { path: 'not-found', component: PageNotFoundComponent },
-  { path: 'livedocs', redirectTo: 'https://github.com/orange-alliance/TOA-DataSync/wiki/DataSync-Documentation', pathMatch: 'full' },
   { path: 'terms', redirectTo: '/privacy-terms', pathMatch: 'full' },
   { path: 'privacy', redirectTo: '/privacy-terms', pathMatch: 'full' },
-  { path: 'donate', component: HomeComponent, resolve: {url: 'externalUrlRedirectResolver'}, data: {externalUrl: donateUrl}},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -80,4 +81,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class AppRoutingModule {}
+export class AppRoutingModule { }

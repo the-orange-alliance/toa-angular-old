@@ -1,0 +1,44 @@
+.item-profile.authed {
+  height: 52px !important;
+  display: flex !important;
+  align-content: center !important;
+  margin-top: 8px !important;
+}
+
+.user {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+
+  .avatar {
+    flex: none;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 50%;
+    background: #ececec;
+    border: 1px solid #d8d8d8;
+    font-size: 32px;
+    color: #000;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .names {
+    margin: 0 8pt;
+  }
+
+  .name, .email {
+    display: block;
+    line-height: 1em;
+  }
+  
+  .email {
+    padding-top: 4px;
+    color: #444;
+    font-size: 12px;
+    font-weight: 300;
+  }
+}

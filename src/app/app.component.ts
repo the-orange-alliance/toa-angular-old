@@ -21,7 +21,7 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
   selector: 'app-root',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
   providers: [FTCDatabase, TheOrangeAllianceGlobals, AppBarService]
 })
 @Injectable()
@@ -52,13 +52,13 @@ export class TheOrangeAllianceComponent implements OnInit {
   user: firebase.User;
 
   matcher: MediaQueryList;
-  @ViewChild(MdcTopAppBar, {static: false}) appBar: MdcTopAppBar;
-  @ViewChild(MdcDrawer, {static: false}) drawer: MdcDrawer;
+  @ViewChild(MdcTopAppBar, { static: false }) appBar: MdcTopAppBar;
+  @ViewChild(MdcDrawer, { static: false }) drawer: MdcDrawer;
   title: string;
 
-  constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location,  messaging: MessagingService,
-              db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService, private cloud: CloudFunctions,
-              private cookieService: CookieService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(public router: Router, private ftc: FTCDatabase, private ngZone: NgZone, private location: Location, messaging: MessagingService,
+    db: AngularFireDatabase, auth: AngularFireAuth, private translate: TranslateService, private cloud: CloudFunctions,
+    private cookieService: CookieService, private appBarService: AppBarService, @Inject(PLATFORM_ID) private platformId: Object) {
 
     translate.setDefaultLang('en'); // this language will be used as a fallback when a translation isn't found in the current language
     if (isPlatformBrowser(this.platformId)) {
@@ -66,7 +66,7 @@ export class TheOrangeAllianceComponent implements OnInit {
       this.languageSelected();
     }
 
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
 
@@ -197,7 +197,7 @@ export class TheOrangeAllianceComponent implements OnInit {
     this.router.navigate(['/teams', teamKey]);
     e.preventDefault();
     e.stopPropagation();
-    this.sendAnalytic('search',  teamKey);
+    this.sendAnalytic('search', teamKey);
     this.showSearch = false;
     this.search = '';
   }
@@ -206,7 +206,7 @@ export class TheOrangeAllianceComponent implements OnInit {
     this.router.navigate(['/events', eventKey]);
     e.preventDefault();
     e.stopPropagation();
-    this.sendAnalytic('search',  eventKey);
+    this.sendAnalytic('search', eventKey);
     this.showSearch = false;
     this.search = '';
   }
@@ -219,13 +219,13 @@ export class TheOrangeAllianceComponent implements OnInit {
     const query = this.search ? this.search.trim() : '';
     if (this.teamSearchResults.length > 0) {
       this.router.navigate(['/teams', this.teamSearchResults[0].teamKey]);
-      this.sendAnalytic('search',  this.teamSearchResults[0].teamKey);
+      this.sendAnalytic('search', this.teamSearchResults[0].teamKey);
     } else if (this.eventSearchResults.length > 0) {
       this.router.navigate(['/events', this.eventSearchResults[0].eventKey]);
-      this.sendAnalytic('search',  this.eventSearchResults[0].eventKey);
+      this.sendAnalytic('search', this.eventSearchResults[0].eventKey);
     } else if (this.search && query.length > 0 && !isNaN(parseInt(query, 10))) {
       this.router.navigate(['/teams', query]);
-      this.sendAnalytic('search',  query);
+      this.sendAnalytic('search', query);
     } else {
       return;
     }
