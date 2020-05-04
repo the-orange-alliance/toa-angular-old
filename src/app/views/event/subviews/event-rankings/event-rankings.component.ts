@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RankSorter } from '../../../../util/ranking-utils';
+import { RankSortType } from '../../../../util/ranking-utils';
 import { DialogText } from '../../../../dialogs/text/dialog-text';
 import { MdcDialog } from '@angular-mdc/web';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,13 +19,15 @@ export class EventRankingsComponent implements OnInit {
   showHighScore = false;
   showOPR = false;
 
+  rankSorter = new RankSorter()
+
   constructor(private dialog: MdcDialog, private translate: TranslateService) {
 
   }
 
   ngOnInit() {
     if (this.rankings) {
-      this.rankings = new RankSorter().sort(this.rankings);
+      this.sort(RankSortType.Rank);
       for (const rank of this.rankings) {
         if (rank.qualifyingPoints && rank.qualifyingPoints > 0) {
           this.showQualPoints = true;
@@ -67,4 +70,8 @@ export class EventRankingsComponent implements OnInit {
       });
     });
   }
-}
+
+  sort(sortType: RankSortType) {
+    this.rankings = this.rankSorter.sort(this.rankings, sortType);
+  }
+};
