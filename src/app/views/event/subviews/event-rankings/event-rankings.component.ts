@@ -71,7 +71,7 @@ export class EventRankingsComponent implements OnInit {
     });
   }
 
-  sort(sortType: RankSortType) {
-    this.rankings = this.rankSorter.sort(this.rankings, sortType);
+  sort(sortType: string) {
+    this.rankings = this.rankSorter.sort(this.rankings, RankSortType[sortType]);
   }
 };
