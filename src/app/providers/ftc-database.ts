@@ -24,11 +24,11 @@ import LeagueDiv from '../models/LeagueDiv';
 @Injectable()
 export class FTCDatabase {
 
-  public year = '1920';
-  public allYears = ['1617', '1718', '1819', '1920'];
+  public year = '2021';
+  public allYears = ['1617', '1718', '1819', '1920', '2021'];
 
   public baseURL = 'https://theorangealliance.org/api';
-  // public baseURL = 'http://127.0.0.1:8008/api';
+  // public baseURL = 'http://127.0.0.1:8080/api';
 
   constructor(private http: HttpClient) {}
 
@@ -149,7 +149,7 @@ export class FTCDatabase {
 
   public getMatchSize(): Promise<number> {
     return new Promise<number>((resolve, reject) => {
-      this.request('/match/size').then((data: any) => {
+      this.request('/match/size?season_key=' + this.year).then((data: any) => {
         resolve(parseInt(data.result, 10));
       }).catch((err: any) => reject(err));
     });

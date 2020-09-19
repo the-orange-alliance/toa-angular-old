@@ -95,6 +95,7 @@
         </mdc-card>
       </div>
     </div>
+    <!--
     <div class="row">
       <div class="p-1 col-12">
         <mdc-card class="toa-card p-3 red">
@@ -106,6 +107,7 @@
         </mdc-card>
       </div>
     </div>
+    -->
     <div class="row" *ngIf="false && currentEvents">
       <div class="p-1 col-12">
         <mdc-card class="toa-card p-0">
@@ -129,10 +131,10 @@
   </div>
   <div class="col-sm-12 col-lg-6 p-lg-3 p-0 mt-1">
     <div class="row">
-      <div class="p-1 col-12">
+      <div class="p-1 col-12" *ngIf="(highScoreQual && highScoreQual.participants) || (highScoreAll && highScoreAll.participants) || (highScoreElim && highScoreElim.participants)">
         <mdc-card class="toa-card">
           <div class="toa-card-header pb-0" mdcSubtitle2>{{ "pages.home.leaderboards.title" | translate }}</div>
-          <div class="toa-card-subtitle pt-0" mdcSubtitle2>SKYSTONE 2019/20</div>
+          <div class="toa-card-subtitle pt-0" mdcSubtitle2>ULTIMATE GOAL 2020/21</div>
           <mdc-list-divider></mdc-list-divider>
           <div class="p-3">
             <div *ngIf="highScoreAll && highScoreAll.participants">
@@ -158,6 +160,16 @@
                 <a (click)="openMatchDetails(highScoreElim.matchKey)"> <h1 mdcCaption>{{ highScoreElim.matchName }}</h1></a></h1>
               <match-table [match]="highScoreElim"></match-table>
             </div>
+          </div>
+        </mdc-card>
+      </div>
+      <div class="p-1 col-12" *ngIf="!(highScoreQual && highScoreQual.participants) && !(highScoreAll && highScoreAll.participants) && !(highScoreElim && highScoreElim.participants)">
+        <mdc-card class="toa-card">
+          <div class="toa-card-header pb-0" mdcSubtitle2>{{ "pages.home.leaderboards.title" | translate }}</div>
+          <div class="toa-card-subtitle pt-0" mdcSubtitle2>ULTIMATE GOAL 2020/21</div>
+          <mdc-list-divider></mdc-list-divider>
+          <div class="p-3">
+            No high scores at this time! Please come back later!
           </div>
         </mdc-card>
       </div>
