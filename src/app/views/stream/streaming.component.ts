@@ -87,8 +87,9 @@ export class StreamingComponent implements OnInit {
   }
 
   getSafeURL(streamURL): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(streamURL);
-  }
+    // TWICH EMBEDS WILL NOT WORK ON DEV SIDE DUE TO TWITCH'S EMBED PARAMETERS
+    return this.sanitizer.bypassSecurityTrustResourceUrl(streamURL + '&parent=theorangealliance.org'); // &parent=theorangealliance.org is for twitch embeds
+  }                                                                                                          // set to 'localhost' to test on dev site
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
