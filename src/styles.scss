@@ -797,14 +797,20 @@ table.match-table tr {
   padding: .75rem;
 
   .mdc-icon-button {
+    --mdc-ripple-fg-scale: 1.2 !important;
     height: 24px;
     width: 36px;
     padding: 0px 6px;
+    margin-bottom: .3125rem
   }
 
   mdc-icon {
     width: 24px;
     height: 24px;
+    svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 
