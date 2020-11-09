@@ -11,11 +11,12 @@ export class MatchBreakdownRow {
   points: number;
   isVelocityVortexParking: boolean;
   isVelocityVortexCapBall: boolean;
+  ultimateGoalWobble: boolean;
 
   redIcon: string;
   blueIcon: string;
 
-  constructor (isTitle: boolean, name: string, red: number, blue: number, points: number, velocityVortexParking: boolean, velocityVortexCapBall: boolean) {
+  constructor (isTitle: boolean, name: string, red: number, blue: number, points: number, velocityVortexParking: boolean, velocityVortexCapBall: boolean, ultimateGoalWobble: boolean = false) {
     this.isTitle = isTitle;
     this.name = name;
     this.red = red;
@@ -23,6 +24,7 @@ export class MatchBreakdownRow {
     this.points = points;
     this.isVelocityVortexParking = velocityVortexParking;
     this.isVelocityVortexCapBall = velocityVortexCapBall;
+    this.ultimateGoalWobble = ultimateGoalWobble;
 
     const constants = new MatchBreakdownConstants();
     this.redIcon = this.red === constants.trueValue ? 'check' : this.red === constants.falseValue ? 'close' : null;
@@ -50,6 +52,8 @@ export class MatchBreakdownRow {
       return this.getVelocityVortexParkingString(s);
     } else if (this.isVelocityVortexCapBall) {
       return this.getVelocityVortexCapBallString(s);
+    } else if (this.ultimateGoalWobble) {
+      return this.getUltimateGoalWobbleString(s);
     } else {
       const constants = new MatchBreakdownConstants();
       const isTrue = s === constants.trueValue;
@@ -87,6 +91,18 @@ export class MatchBreakdownRow {
     }
     return 'Not Scored';
   }
+
+  getUltimateGoalWobbleString(key: number) {
+    switch (key) {
+      case 5:
+        return 'Start Line (+5)';
+      case 20:
+        return 'Drop Zone (+20)';
+      case 0:
+        return 'Not Scored';
+    }
+    return 'Not Scored';
+  }
 }
 
 export function MatchBreakdownTitle(name: string, redScore: number, blueScore: number) {
@@ -99,6 +115,10 @@ export function MatchBreakdownField(name: string, red: number, blue: number, poi
 
 export function MatchBreakdownVelocityVortexParkingField(name: string, red: number, blue: number) {
   return new MatchBreakdownRow(false, name, red, blue, -1, true, false);
+}
+
+export function MatchBreakdownUltimateGoalWobbleField(name: string, red: number, blue: number) {
+  return new MatchBreakdownRow(false, name, red, blue, -1, false, false, true);
 }
 
 export function MatchBreakdownVelocityVortexCapBallField(name: string, red: number, blue: number) {

@@ -1,68 +1,68 @@
 <!-- Single match table -->
 <table class="match-table" *ngIf="match">
   <thead>
-  <tr *ngIf="match.participants && match.participants.length === 4">
-    <th colspan="2">{{ 'match_table.teams' | translate }}</th>
-    <th>{{ 'match_table.score' | translate }}</th>
-  </tr>
-  <tr *ngIf="match.participants && match.participants.length === 6">
-    <th colspan="3">{{ 'match_table.teams' | translate }}</th>
-    <th>{{ 'match_table.score' | translate }}</th>
-  </tr>
+    <tr *ngIf="match.participants && match.participants.length === 4">
+      <th colspan="2">{{ 'match_table.teams' | translate }}</th>
+      <th>{{ 'match_table.score' | translate }}</th>
+    </tr>
+    <tr *ngIf="match.participants && match.participants.length === 6">
+      <th colspan="3">{{ 'match_table.teams' | translate }}</th>
+      <th>{{ 'match_table.score' | translate }}</th>
+    </tr>
   </thead>
   <tbody *ngIf="match.participants && match.participants.length == 4">
-  <tr>
-    <td class="red" [class.match-winner]="match.redScore > match.blueScore">
-      <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantStringWithoutStatus(match, 0) }}</a>
-    </td>
-    <td class="red" [class.match-winner]="match.redScore > match.blueScore">
-      <a routerLink="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantStringWithoutStatus(match, 1) }}</a>
-    </td>
-    <td class="red" [class.match-winner]="match.redScore > match.blueScore">
-      {{ match.redScore > -1 ? match.redScore : '?' }}
-    </td>
-  </tr>
-  <tr>
-    <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
-      <a routerLink="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantStringWithoutStatus(match, 2) }}</a>
-    </td>
-    <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
-      <a routerLink="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantStringWithoutStatus(match, 3) }}</a>
-    </td>
-    <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
-      {{ match.blueScore > -1 ? match.blueScore : '?' }}
-    </td>
-  </tr>
+    <tr>
+      <td class="red" [class.match-winner]="match.redScore > match.blueScore">
+        <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantStringWithoutStatus(match, 0) }}</a>
+      </td>
+      <td class="red" [class.match-winner]="match.redScore > match.blueScore">
+        <a routerLink="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantStringWithoutStatus(match, 1) }}</a>
+      </td>
+      <td class="red" [class.match-winner]="match.redScore > match.blueScore">
+        {{ match.redScore > -1 ? match.redScore : '?' }}
+      </td>
+    </tr>
+    <tr>
+      <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
+        <a routerLink="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantStringWithoutStatus(match, 2) }}</a>
+      </td>
+      <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
+        <a routerLink="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantStringWithoutStatus(match, 3) }}</a>
+      </td>
+      <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
+        {{ match.blueScore > -1 ? match.blueScore : '?' }}
+      </td>
+    </tr>
   </tbody>
   <tbody *ngIf="match.participants && match.participants.length === 6">
-  <tr>
-    <td class="red" [class.match-winner]="match.redScore > match.blueScore">
-      <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantStringWithoutStatus(match, 0) }}</a>
-    </td>
-    <td class="red" [class.match-winner]="match.redScore > match.blueScore">
-      <a routerLink="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantStringWithoutStatus(match, 1) }}</a>
-    </td>
-    <td class="red" [class.match-winner]="match.redScore > match.blueScore">
-      <a routerLink="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantStringWithoutStatus(match, 2) }}</a>
-    </td>
-    <td class="red" [class.match-winner]="match.redScore > match.blueScore">
-      {{ match.redScore > -1 ? match.redScore : '?' }}
-    </td>
-  </tr>
-  <tr>
-    <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
-      <a routerLink="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantStringWithoutStatus(match, 3) }}</a>
-    </td>
-    <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
-      <a routerLink="/teams/{{ match.participants[4].teamKey }}">{{ getParticipantStringWithoutStatus(match, 4) }}</a>
-    </td>
-    <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
-      <a routerLink="/teams/{{ match.participants[5].teamKey }}">{{ getParticipantStringWithoutStatus(match, 5) }}</a>
-    </td>
-    <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
-      {{ match.blueScore > -1 ? match.blueScore : '?' }}
-    </td>
-  </tr>
+    <tr>
+      <td class="red" [class.match-winner]="match.redScore > match.blueScore">
+        <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantStringWithoutStatus(match, 0) }}</a>
+      </td>
+      <td class="red" [class.match-winner]="match.redScore > match.blueScore">
+        <a routerLink="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantStringWithoutStatus(match, 1) }}</a>
+      </td>
+      <td class="red" [class.match-winner]="match.redScore > match.blueScore">
+        <a routerLink="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantStringWithoutStatus(match, 2) }}</a>
+      </td>
+      <td class="red" [class.match-winner]="match.redScore > match.blueScore">
+        {{ match.redScore > -1 ? match.redScore : '?' }}
+      </td>
+    </tr>
+    <tr>
+      <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
+        <a routerLink="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantStringWithoutStatus(match, 3) }}</a>
+      </td>
+      <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
+        <a routerLink="/teams/{{ match.participants[4].teamKey }}">{{ getParticipantStringWithoutStatus(match, 4) }}</a>
+      </td>
+      <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
+        <a routerLink="/teams/{{ match.participants[5].teamKey }}">{{ getParticipantStringWithoutStatus(match, 5) }}</a>
+      </td>
+      <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
+        {{ match.blueScore > -1 ? match.blueScore : '?' }}
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -98,140 +98,140 @@
   </tr>
   </tbody>
   <tbody *ngFor="let match of matchList; let i = index;">
-  <tr *ngIf="(match.participants.length == 4 || match.participants.length == 6) && ((i > 0 && match.getShortName() !== matchList[i - 1].getShortName()) || i === 0)">
-    <th colspan="18">{{ match.getShortName() }}es</th>
-  </tr>
-  <tr *ngIf="match.participants && match.participants.length == 6" class="d-none d-lg-table-row d-xl-table-row">
-    <td rowspan="2">
-      <a (click)="openMatch(match)">{{ match.matchName }}</a>
-    </td>
-    <td rowspan="2">
-      <a *ngIf="match.videoURL" [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
-      <mdc-icon *ngIf="!match.videoURL" class="play-icon offline" svgIcon="play-circle-outline"></mdc-icon>
-    </td>
-    <td colspan="2" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" (click)="selectTeam(match, 0)" [class.selected-team]="isSelectedTeam(match, 0)">
-      {{ getParticipantString(match, 0) }}
-    </td>
-    <td colspan="2" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" (click)="selectTeam(match, 1)" [class.selected-team]="isSelectedTeam(match, 1)">
-      {{ getParticipantString(match, 1) }}
-    </td>
-    <td colspan="2" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" (click)="selectTeam(match, 2)" [class.selected-team]="isSelectedTeam(match, 2)">
-      {{ getParticipantString(match, 2) }}
-    </td>
-    <td colspan="2" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" (click)="selectTeam(match, 3)" [class.selected-team]="isSelectedTeam(match, 3)">
-      {{ getParticipantString(match, 3) }}
-    </td>
-    <td colspan="2" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" (click)="selectTeam(match, 4)" [class.selected-team]="isSelectedTeam(match, 4)">
-      {{ getParticipantString(match, 4) }}
-    </td>
-    <td colspan="2" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" (click)="selectTeam(match, 5)" [class.selected-team]="isSelectedTeam(match, 5)">
-      {{ getParticipantString(match, 5) }}
-    </td>
-    <td *ngIf="!(match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00'))" colspan="2" class="not-played">
-      {{ match.scheduledTime | date: 'EE, h:mm a' }}
-    </td>
-    <td class="red" [class.match-winner]="match.redScore > match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
-      {{ match.redScore > -1 ? match.redScore : '?' }}
-    </td>
-    <td class="blue" [class.match-winner]="match.redScore < match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
-      {{ match.blueScore > -1 ? match.blueScore : '?' }}
-    </td>
-  </tr>
-  <tr *ngIf="match.participants && match.participants.length == 6" class="d-lg-none d-xl-none">
-    <td rowspan="2">
-      <a (click)="openMatch(match)">{{ match.matchName }}</a>
-    </td>
-    <td rowspan="2">
-      <a *ngIf="match.videoURL" [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
-      <mdc-icon *ngIf="!match.videoURL" class="play-icon offline" svgIcon="play-circle-outline"></mdc-icon>
-    </td>
-    <td colspan="4" class="red clickable" [class.match-winner]="match.redScore > match.blueScore">
-      <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantString(match, 0) }}</a>
-    </td>
-    <td colspan="4" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" >
-      <a routerLink="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantString(match, 1) }}</a>
-    </td>
-    <td colspan="4" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" >
-      <a routerLink="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantString(match, 2) }}</a>
-    </td>
-    <td colspan="2" class="red" [class.match-winner]="match.redScore > match.blueScore">
-      {{ match.redScore > -1 ? match.redScore : '?' }}
-    </td>
-  </tr>
-  <tr *ngIf="match.participants && match.participants.length == 6" class="d-lg-none d-xl-none">
-    <td colspan="4" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore">
-      <a routerLink="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantString(match, 3) }}</a>
-    </td>
-    <td colspan="4" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" >
-      <a routerLink="/teams/{{ match.participants[4].teamKey }}">{{ getParticipantString(match, 4) }}</a>
-    </td>
-    <td colspan="4" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" >
-      <a routerLink="/teams/{{ match.participants[5].teamKey }}">{{ getParticipantString(match, 5) }}</a>
-    </td>
-    <td colspan="2" class="blue" [class.match-winner]="match.redScore < match.blueScore">
-      {{ match.blueScore > -1 ? match.blueScore : '?' }}
-    </td>
-  </tr>
+    <tr *ngIf="(match.participants.length == 4 || match.participants.length == 6) && ((i > 0 && match.getShortName() !== matchList[i - 1].getShortName()) || i === 0)">
+      <th colspan="18">{{ match.getShortName() }}es</th>
+    </tr>
+    <tr *ngIf="match.participants && match.participants.length == 6" class="d-none d-lg-table-row d-xl-table-row">
+      <td rowspan="2">
+        <a (click)="openMatch(match)">{{ match.matchName }}</a>
+      </td>
+      <td rowspan="2">
+        <a *ngIf="match.videoURL" [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
+        <mdc-icon *ngIf="!match.videoURL" class="play-icon offline" svgIcon="play-circle-outline"></mdc-icon>
+      </td>
+      <td colspan="2" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" (click)="selectTeam(match, 0)" [class.selected-team]="isSelectedTeam(match, 0)">
+        {{ getParticipantString(match, 0) }}
+      </td>
+      <td colspan="2" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" (click)="selectTeam(match, 1)" [class.selected-team]="isSelectedTeam(match, 1)">
+        {{ getParticipantString(match, 1) }}
+      </td>
+      <td colspan="2" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" (click)="selectTeam(match, 2)" [class.selected-team]="isSelectedTeam(match, 2)">
+        {{ getParticipantString(match, 2) }}
+      </td>
+      <td colspan="2" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" (click)="selectTeam(match, 3)" [class.selected-team]="isSelectedTeam(match, 3)">
+        {{ getParticipantString(match, 3) }}
+      </td>
+      <td colspan="2" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" (click)="selectTeam(match, 4)" [class.selected-team]="isSelectedTeam(match, 4)">
+        {{ getParticipantString(match, 4) }}
+      </td>
+      <td colspan="2" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" (click)="selectTeam(match, 5)" [class.selected-team]="isSelectedTeam(match, 5)">
+        {{ getParticipantString(match, 5) }}
+      </td>
+      <td *ngIf="!(match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00'))" colspan="2" class="not-played">
+        {{ match.scheduledTime | date: 'EE, h:mm a' }}
+      </td>
+      <td class="red" [class.match-winner]="match.redScore > match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
+        {{ match.redScore > -1 ? match.redScore : '?' }}
+      </td>
+      <td class="blue" [class.match-winner]="match.redScore < match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
+        {{ match.blueScore > -1 ? match.blueScore : '?' }}
+      </td>
+    </tr>
+    <tr *ngIf="match.participants && match.participants.length == 6" class="d-lg-none d-xl-none">
+      <td rowspan="2">
+        <a (click)="openMatch(match)">{{ match.matchName }}</a>
+      </td>
+      <td rowspan="2">
+        <a *ngIf="match.videoURL" [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
+        <mdc-icon *ngIf="!match.videoURL" class="play-icon offline" svgIcon="play-circle-outline"></mdc-icon>
+      </td>
+      <td colspan="4" class="red clickable" [class.match-winner]="match.redScore > match.blueScore">
+        <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantString(match, 0) }}</a>
+      </td>
+      <td colspan="4" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" >
+        <a routerLink="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantString(match, 1) }}</a>
+      </td>
+      <td colspan="4" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" >
+        <a routerLink="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantString(match, 2) }}</a>
+      </td>
+      <td colspan="2" class="red" [class.match-winner]="match.redScore > match.blueScore">
+        {{ match.redScore > -1 ? match.redScore : '?' }}
+      </td>
+    </tr>
+    <tr *ngIf="match.participants && match.participants.length == 6" class="d-lg-none d-xl-none">
+      <td colspan="4" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore">
+        <a routerLink="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantString(match, 3) }}</a>
+      </td>
+      <td colspan="4" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" >
+        <a routerLink="/teams/{{ match.participants[4].teamKey }}">{{ getParticipantString(match, 4) }}</a>
+      </td>
+      <td colspan="4" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" >
+        <a routerLink="/teams/{{ match.participants[5].teamKey }}">{{ getParticipantString(match, 5) }}</a>
+      </td>
+      <td colspan="2" class="blue" [class.match-winner]="match.redScore < match.blueScore">
+        {{ match.blueScore > -1 ? match.blueScore : '?' }}
+      </td>
+    </tr>
 
-  <tr *ngIf="match.participants.length === 4" class="d-none d-lg-table-row d-xl-table-row">
-    <td rowspan="2">
-      <a (click)="openMatch(match)">{{ match.matchName }}</a>
-    </td>
-    <td rowspan="2">
-      <a *ngIf="match.videoURL" [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
-      <mdc-icon *ngIf="!match.videoURL" class="play-icon offline" svgIcon="play-circle-outline"></mdc-icon>
-    </td>
-    <td colspan="3" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" (click)="selectTeam(match, 0)" [class.selected-team]="isSelectedTeam(match, 0)">
-      {{ getParticipantString(match, 0) }}
-    </td>
-    <td colspan="3" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" (click)="selectTeam(match, 1)" [class.selected-team]="isSelectedTeam(match, 1)">
-      {{ getParticipantString(match, 1) }}
-    </td>
-    <td colspan="3" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" (click)="selectTeam(match, 2)" [class.selected-team]="isSelectedTeam(match, 2)">
-      {{ getParticipantString(match, 2) }}
-    </td>
-    <td colspan="3" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" (click)="selectTeam(match, 3)" [class.selected-team]="isSelectedTeam(match, 3)">
-      {{ getParticipantString(match, 3) }}
-    </td>
-    <td *ngIf="!(match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00'))" colspan="2" class="not-played">
-      {{ match.scheduledTime | date: 'EE, h:mm a' }}
-    </td>
-    <td class="red" [class.match-winner]="match.redScore > match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
-      {{ match.redScore > -1 ? match.redScore : '?' }}
-    </td>
-    <td class="blue" [class.match-winner]="match.redScore < match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
-      {{ match.blueScore > -1 ? match.blueScore : '?' }}
-    </td>
-  </tr>
-  <tr *ngIf="match.participants && match.participants.length == 4" class="d-lg-none d-xl-none">
-    <td rowspan="2">
-      <a (click)="openMatch(match)">{{ match.matchName }}</a>
-    </td>
-    <td rowspan="2">
-      <a *ngIf="match.videoURL" [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
-      <mdc-icon *ngIf="!match.videoURL" class="play-icon offline" svgIcon="play-circle-outline"></mdc-icon>
-    </td>
-    <td colspan="6" class="red clickable" [class.match-winner]="match.redScore > match.blueScore">
-      <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantString(match, 0) }}</a>
-    </td>
-    <td colspan="6" class="red clickable" [class.match-winner]="match.redScore > match.blueScore">
-      <a routerLink="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantString(match, 1) }}</a>
-    </td>
-    <td colspan="2" class="red" [class.match-winner]="match.redScore > match.blueScore">
-      {{ match.redScore > -1 ? match.redScore : '?' }}
-    </td>
-  </tr>
-  <tr *ngIf="match.participants && match.participants.length == 4" class="d-lg-none d-xl-none">
-    <td colspan="6" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore">
-      <a routerLink="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantString(match, 2) }}</a>
-    </td>
-    <td colspan="6" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore">
-      <a routerLink="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantString(match, 3) }}</a>
-    </td>
-    <td colspan="2" class="blue" [class.match-winner]="match.redScore < match.blueScore">
-      {{ match.blueScore > -1 ? match.blueScore : '?' }}
-    </td>
-  </tr>
+    <tr *ngIf="match.participants.length === 4" class="d-none d-lg-table-row d-xl-table-row">
+      <td rowspan="2">
+        <a (click)="openMatch(match)">{{ match.matchName }}</a>
+      </td>
+      <td rowspan="2">
+        <a *ngIf="match.videoURL" [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
+        <mdc-icon *ngIf="!match.videoURL" class="play-icon offline" svgIcon="play-circle-outline"></mdc-icon>
+      </td>
+      <td colspan="3" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" (click)="selectTeam(match, 0)" [class.selected-team]="isSelectedTeam(match, 0)">
+        {{ getParticipantString(match, 0) }}
+      </td>
+      <td colspan="3" class="red clickable" [class.match-winner]="match.redScore > match.blueScore" (click)="selectTeam(match, 1)" [class.selected-team]="isSelectedTeam(match, 1)">
+        {{ getParticipantString(match, 1) }}
+      </td>
+      <td colspan="3" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" (click)="selectTeam(match, 2)" [class.selected-team]="isSelectedTeam(match, 2)">
+        {{ getParticipantString(match, 2) }}
+      </td>
+      <td colspan="3" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore" (click)="selectTeam(match, 3)" [class.selected-team]="isSelectedTeam(match, 3)">
+        {{ getParticipantString(match, 3) }}
+      </td>
+      <td *ngIf="!(match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00'))" colspan="2" class="not-played">
+        {{ match.scheduledTime | date: 'EE, h:mm a' }}
+      </td>
+      <td class="red" [class.match-winner]="match.redScore > match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
+        {{ match.redScore > -1 ? match.redScore : '?' }}
+      </td>
+      <td class="blue" [class.match-winner]="match.redScore < match.blueScore" *ngIf="match.redScore > -1 && match.blueScore > -1 || (!match.scheduledTime || match.scheduledTime === '0000-00-00 00:00:00')">
+        {{ match.blueScore > -1 ? match.blueScore : '?' }}
+      </td>
+    </tr>
+    <tr *ngIf="match.participants && match.participants.length == 4" class="d-lg-none d-xl-none">
+      <td rowspan="2">
+        <a (click)="openMatch(match)">{{ match.matchName }}</a>
+      </td>
+      <td rowspan="2">
+        <a *ngIf="match.videoURL" [href]="match.videoURL" target="_blank"><mdc-icon class="play-icon" svgIcon="play-circle-outline"></mdc-icon></a>
+        <mdc-icon *ngIf="!match.videoURL" class="play-icon offline" svgIcon="play-circle-outline"></mdc-icon>
+      </td>
+      <td colspan="6" class="red clickable" [class.match-winner]="match.redScore > match.blueScore">
+        <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantString(match, 0) }}</a>
+      </td>
+      <td colspan="6" class="red clickable" [class.match-winner]="match.redScore > match.blueScore">
+        <a routerLink="/teams/{{ match.participants[1].teamKey }}">{{ getParticipantString(match, 1) }}</a>
+      </td>
+      <td colspan="2" class="red" [class.match-winner]="match.redScore > match.blueScore">
+        {{ match.redScore > -1 ? match.redScore : '?' }}
+      </td>
+    </tr>
+    <tr *ngIf="match.participants && match.participants.length == 4" class="d-lg-none d-xl-none">
+      <td colspan="6" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore">
+        <a routerLink="/teams/{{ match.participants[2].teamKey }}">{{ getParticipantString(match, 2) }}</a>
+      </td>
+      <td colspan="6" class="blue clickable" [class.match-winner]="match.redScore < match.blueScore">
+        <a routerLink="/teams/{{ match.participants[3].teamKey }}">{{ getParticipantString(match, 3) }}</a>
+      </td>
+      <td colspan="2" class="blue" [class.match-winner]="match.redScore < match.blueScore">
+        {{ match.blueScore > -1 ? match.blueScore : '?' }}
+      </td>
+    </tr>
   </tbody>
 </table>
 

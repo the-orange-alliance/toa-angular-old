@@ -3,7 +3,7 @@ import SkystoneMatchDetails from '../../../models/game-specifics/SkystoneMatchDe
 import SkystoneAllianceDetails from '../../../models/game-specifics/SkystoneAllianceDetails';
 import Match from '../../../models/Match';
 
-export default class MatchBreakdown1819 {
+export default class MatchBreakdown1920 {
 
   getRows(match: Match): MatchBreakdownRow[] {
     const details: SkystoneMatchDetails = new SkystoneMatchDetails().fromJSON(match.details.toJSON());

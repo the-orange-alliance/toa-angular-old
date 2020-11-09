@@ -4,7 +4,6 @@ import { FTCDatabase } from '../../providers/ftc-database';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { AppBarService } from '../../app-bar.service';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
-import MatchBreakdown1718 from './years/MatchBreakdown1718';
 import urlParser from 'js-video-url-parser';
 import Match from '../../models/Match';
 import Event from '../../models/Event';
