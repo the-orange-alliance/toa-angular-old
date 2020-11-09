@@ -94,9 +94,9 @@ export class MatchBreakdownRow {
 
   getUltimateGoalWobbleString(key: number) {
     switch (key) {
-      case 5:
+      case 1:
         return 'Start Line (+5)';
-      case 20:
+      case 2:
         return 'Drop Zone (+20)';
       case 0:
         return 'Not Scored';

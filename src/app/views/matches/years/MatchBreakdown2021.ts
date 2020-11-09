@@ -28,7 +28,8 @@ export default class MatchBreakdown2021 {
       MatchBreakdownTitle('End Game', match.redEndScore, match.blueEndScore),
       MatchBreakdownField('Rings on Wobble Goal 1', red.wobbleRings1, blue.wobbleRings1, 5),
       MatchBreakdownField('Rings on Wobble Goal 2', red.wobbleRings2, blue.wobbleRings2, 5),
-      MatchBreakdownUltimateGoalWobbleField('Wobble Goal End Position', red.wobbleRings2, blue.wobbleRings2),
+      MatchBreakdownUltimateGoalWobbleField('Wobble Goal 1 End Position', red.wobbleEnd1, blue.wobbleEnd1),
+      MatchBreakdownUltimateGoalWobbleField('Wobble Goal 2 End Position', red.wobbleEnd2, blue.wobbleEnd2),
       MatchBreakdownField('PowerShots Successfully Launched Back', red.endPowerShotPoints / 15, blue.endPowerShotPoints / 15, 15),
 
       MatchBreakdownTitle('Penalty', match.redPenalty, match.bluePenalty),
