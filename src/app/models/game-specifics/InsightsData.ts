@@ -1,6 +1,7 @@
 import Insights from '../Insights';
 import RelicRecoveryInsights from './RelicRecoveryInsights';
 import RoverRuckusInsights from './RoverRuckusInsights';
+import UltimateGoalInsights from './UltimateGoalInsights';
 
 export function getInsights(seasonKey: string): Insights {
   switch (seasonKey) {
@@ -10,6 +11,8 @@ export function getInsights(seasonKey: string): Insights {
       return new RelicRecoveryInsights();
     case '1819':
       return new RoverRuckusInsights();
+    case '2021':
+      return new UltimateGoalInsights();
     default:
       return new Insights();
   }

@@ -5,7 +5,7 @@
     <div class="align-items-center" *ngIf="insights.highScoreMatch">
       <div class="insight-card-title">{{ 'pages.event.subpages.insights.high_score' | translate }}</div>
       <div class="insight-card-content">{{ highScore }}</div>
-      <div>{{ insights.highScoreMatch.matchName }}</div>
+      <a routerLink="/matches/{{ insights.highScoreMatch.matchKey }}">{{ insights.highScoreMatch.matchName }}</a>
     </div>
     <hr *ngIf="insights.highScoreMatch" />
     <div class="align-items-center">
@@ -24,5 +24,6 @@
     </div>
 
     <toa-insights-rover-ruckus *ngIf="seasonKey === '1819'" [insights]="insights"></toa-insights-rover-ruckus>
+    <toa-insights-ultimate-goal *ngIf="seasonKey === '2021'" [insights]="insights"></toa-insights-ultimate-goal>
   </div>
 </div>
