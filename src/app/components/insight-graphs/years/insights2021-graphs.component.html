@@ -1,0 +1,164 @@
+<div class="container d-none d-sm-none d-md-inline">
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Rings Scored in Autonomous</h4>
+      <canvas baseChart
+              [datasets]="autoAvgRings"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Rings Scored in Teleop</h4>
+      <canvas baseChart
+              [datasets]="teleAvgRings"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average PowerShots Hit</h4>
+      <canvas baseChart
+              [datasets]="avgPS"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Percent Robots Navigated Autonomous</h4>
+      <canvas baseChart
+              [datasets]="percentNav"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Wobbles Delivered</h4>
+      <canvas baseChart
+              [datasets]="percentWobbles"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Wobble Location after Match</h4>
+      <canvas baseChart
+              [datasets]="percentWobblesEnd"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+</div>
+
+
+<!-- Auto Rings Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Rings Scored in Autonomous</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="autoAvgRings"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<!-- Tele Rings Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Rings Scored in Teleop</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="teleAvgRings"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<!-- PowerShots Hit Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Average PowerShots Hit</h4>
+  <canvas baseChart
+          [datasets]="avgPS"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+<!-- Robots Nav Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Percent Robots Navigated Autonomous</h4>
+  <canvas baseChart
+          [datasets]="percentNav"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+<!-- Wobbles Delivered Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Average Wobbles Delivered</h4>
+  <canvas baseChart
+          [datasets]="percentWobbles"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+<!-- Wobble Location Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Wobble Location after Match</h4>
+  <canvas baseChart
+          [datasets]="percentWobblesEnd"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>

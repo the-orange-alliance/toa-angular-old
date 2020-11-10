@@ -16,6 +16,7 @@ import { MatchesComponent } from './views/matches/matches.component';
 import { AddDataComponent } from './views/add-data/add-data.component';
 import { LoginComponent } from './views/account/login/login.component';
 import { RegisterComponent } from './views/account/register/register.component';
+import {InsightsComponent} from './views/insights/insights.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,16 @@ const routes: Routes = [
   { path: 'add-data', component: AddDataComponent },
   { path: 'events', component: EventsComponent },
   { path: 'teams', component: TeamsComponent },
+  { path: 'insights',
+    component: InsightsComponent,
+    children: [
+      { path: '', redirectTo: 'quals', pathMatch: 'full' },
+      { path: 'quals', component: InsightsComponent },
+      { path: 'elims', component: InsightsComponent },
+      { path: 'stquals', component: InsightsComponent },
+      { path: 'combined', component: InsightsComponent },
+    ]
+  },
   { path: 'about', component: AboutComponent },
   {
     path: 'apidocs',

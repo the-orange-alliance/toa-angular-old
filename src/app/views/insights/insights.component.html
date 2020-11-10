@@ -1,0 +1,21 @@
+<div dir="ltr">
+  <h2>Insights</h2>
+  <p>Season-Wide statistics for the current season</p>
+
+  <div class="outline-card bg-white">
+    <mdc-tab-bar [activeTabIndex]="activeTab" (activated)="onTab($event)">
+      <mdc-tab-scroller>
+        <mdc-tab label="Quals Multi-Team Matches"    (click)="changeUrlNoRoute('quals')"></mdc-tab>
+        <mdc-tab label="Elims Multi-Team Matches"   (click)="changeUrlNoRoute('elims')"></mdc-tab>
+        <mdc-tab label="Quals Single-Team Matches"    (click)="changeUrlNoRoute('stquals')"></mdc-tab>
+        <mdc-tab label="Quals Combined Single/Multi-Team Matches " (click)="changeUrlNoRoute('combined')"></mdc-tab>
+      </mdc-tab-scroller>
+    </mdc-tab-bar>
+    <div>
+      <toa-insight-graphs *ngIf="activeTab === 0 && insightsQuals" [insights]="insightsQuals" [season]="2021"></toa-insight-graphs>
+      <toa-insight-graphs *ngIf="activeTab === 1 && insightsElims" [insights]="insightsElims" [season]="2021"></toa-insight-graphs>
+      <toa-insight-graphs *ngIf="activeTab === 2 && insightsSingle" [insights]="insightsSingle" [season]="2021"></toa-insight-graphs>
+      <toa-insight-graphs *ngIf="activeTab === 3 && insightsCombo" [insights]="insightsCombo" [season]="2021"></toa-insight-graphs>
+    </div>
+  </div>
+</div>

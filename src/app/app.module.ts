@@ -66,7 +66,11 @@ import { Insights1819Component } from './components/insights-card/years/insights
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LeagueCreatorComponent } from './views/account/subpages/league-creator/league-creator.component';
 import { LeagueItemComponent } from './components/league/league.item.component';
-import {Insights2021component} from './components/insights-card/years/insights2021component';
+import { Insights2021component } from './components/insights-card/years/insights2021component';
+import { InsightsComponent } from './views/insights/insights.component';
+import {ChartsModule, ThemeService} from 'ng2-charts';
+import {InsightGraphComponent} from './components/insight-graphs/insight-graph.component';
+import {InsightGraphs2021Component} from './components/insight-graphs/years/insights2021-graph.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json?v=20041510');
@@ -118,7 +122,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         CircularPercentageComponent,
         Insights1819Component,
         LeagueCreatorComponent,
-        Insights2021component
+        Insights2021component,
+        InsightsComponent,
+        InsightGraphComponent,
+        InsightGraphs2021Component
     ],
   entryComponents: [DialogText, DialogMatch, DialogEventFavorite],
   imports: [
@@ -146,13 +153,15 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+    ChartsModule,
   ],
   providers: [
     FTCDatabase,
     CloudFunctions,
     UploadService,
     CookieService,
+    ThemeService,
     {
       provide: 'externalUrlRedirectResolver',
       useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {

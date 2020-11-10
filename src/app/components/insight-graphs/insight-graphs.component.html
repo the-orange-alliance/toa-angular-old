@@ -1,0 +1,70 @@
+<div class="container d-none d-sm-none d-md-inline">
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Match Scores</h4>
+      <canvas baseChart
+              [datasets]="matchScore"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Winning Margin</h4>
+      <canvas baseChart
+              [datasets]="winMargin"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Match Score Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Average Match Scores</h4>
+  <canvas baseChart
+          [datasets]="matchScore"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+<!-- Win Margin Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Average Winning Margin</h4>
+  <canvas baseChart
+          [datasets]="winMargin"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+
+<toa-insight-graphs-ultimate-goal
+  [autoAvgRings]="autoAvgRings"
+  [teleAvgRings]="teleAvgRings"
+  [avgPS]="avgPS"
+  [percentNav]="percentNav"
+  [percentWobbles]="percentWobbles"
+  [percentWobblesEnd]="percentWobblesEnd"
+  [lineChartColors]="lineChartColors"
+  [lineChartOptions]="lineChartOptions"
+  [lineChartLabels]="lineChartLabels"
+  [lineChartPlugins]="lineChartPlugins"
+></toa-insight-graphs-ultimate-goal>

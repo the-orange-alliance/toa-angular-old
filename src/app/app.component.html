@@ -59,7 +59,7 @@
               <img *ngIf="user.photoURL" class="avatar" [src]="user.photoURL" />
               <div class="names">
                 <span class="name">{{ user.displayName }}</span>
-                <span class="email">{{ user.email }}</span>  
+                <span class="email">{{ user.email }}</span>
               </div>
             </div>
           </div>
@@ -77,6 +77,9 @@
           </a>
           <a mdc-list-item routerLink="/events" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon mdcListItemGraphic svgIcon="calendar"></mdc-icon>{{ "drawer.events" | translate }}
+          </a>
+          <a mdc-list-item routerLink="/insights" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
+            <mdc-icon mdcListItemGraphic svgIcon="chart-donut"></mdc-icon>{{ "pages.event.subpages.insights.title" | translate }}
           </a>
           <a mdc-list-item routerLink="/stream" routerLinkActive="mdc-list-item--activated" (click)="drawerItemClicked()">
             <mdc-icon mdcListItemGraphic svgIcon="video"></mdc-icon>{{ "drawer.streaming" | translate }}
@@ -141,7 +144,7 @@
             <div mdcOverline>Powered By</div>
             <a href="https://revrobotics.com/" class="py-1 px-4" target="_blank" (click)="this.sendAnalytic('leaving', 'rev robotics logo')">
               <img class="img-fit-w" height="55" src="../assets/imgs/rev-robotics.svg" title="REV Robotics Logo" />
-            </a>  
+            </a>
           </div>
         </mdc-list>
       </mdc-list-group>
