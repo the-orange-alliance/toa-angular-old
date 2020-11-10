@@ -12,7 +12,7 @@ export class EventMatchesComponent implements OnInit {
   @Input() rankings: any;
   @Input() teams: any;
 
-  private singleTeamSort: any[];
+  singleTeamSort: any[];
 
   constructor() {
     this.matches = [];
