@@ -26,6 +26,8 @@ export class HomeComponent {
   public highScoreQual: Match;
   public highScoreElim: Match;
   public highScoreAll: Match;
+  public highScoreSingleTeam: Match;
+  public highScoreSingleTeamPenalty: Match;
 
   public matchCount: number;
   public teamsCount: number;
@@ -74,6 +76,28 @@ export class HomeComponent {
         });
         this.ftc.getEventBasic(this.highScoreAll.eventKey).then((event: Event) => {
           this.highScoreAll.event = event;
+        });
+      }
+    });
+    this.ftc.getHighScoreSingleTeam(this.ftc.year).then((data: Match) => {
+      this.highScoreSingleTeam = data;
+      if (data) {
+        this.ftc.getMatchParticipants(this.highScoreSingleTeam.matchKey).then((participants: MatchParticipant[]) => {
+          this.highScoreSingleTeam.participants = participants;
+        });
+        this.ftc.getEventBasic(this.highScoreSingleTeam.eventKey).then((event: Event) => {
+          this.highScoreSingleTeam.event = event;
+        });
+      }
+    });
+    this.ftc.getHighScoreSingleTeamWithPenalty(this.ftc.year).then((data: Match) => {
+      this.highScoreSingleTeamPenalty = data;
+      if (data) {
+        this.ftc.getMatchParticipants(this.highScoreSingleTeamPenalty.matchKey).then((participants: MatchParticipant[]) => {
+          this.highScoreSingleTeamPenalty.participants = participants;
+        });
+        this.ftc.getEventBasic(this.highScoreSingleTeamPenalty.eventKey).then((event: Event) => {
+          this.highScoreSingleTeamPenalty.event = event;
         });
       }
     });

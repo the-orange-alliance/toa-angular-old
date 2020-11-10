@@ -187,6 +187,22 @@ export class FTCDatabase {
     });
   }
 
+  public getHighScoreSingleTeam(seasonKey: string): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.request('/match/high-scores?type=single_team&season_key=' + seasonKey).then((data: any[]) => {
+        resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
+      }).catch((err: any) => reject(err));
+    });
+  }
+
+  public getHighScoreSingleTeamWithPenalty(seasonKey: string): Promise<Match> {
+    return new Promise<Match>((resolve, reject) => {
+      this.request('/match/high-scores?type=single_team&penalty=true&season_key=' + seasonKey).then((data: any[]) => {
+        resolve(data.map((result: any) => new Match().fromJSON(result))[0]);
+      }).catch((err: any) => reject(err));
+    });
+  }
+
   public getAllEvents(): Promise<Event[]> {
     return new Promise<Event[]>((resolve, reject) => {
       this.request('/event').then((data: any[]) => {

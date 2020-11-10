@@ -1,5 +1,5 @@
-<!-- Single match table -->
-<table class="match-table" *ngIf="match">
+<!-- Single match table, Multi-participant -->
+<table class="match-table" *ngIf="match && match.participants.length > 1">
   <thead>
     <tr *ngIf="match.participants && match.participants.length === 4">
       <th colspan="2">{{ 'match_table.teams' | translate }}</th>
@@ -61,6 +61,26 @@
       </td>
       <td class="blue" [class.match-winner]="match.redScore < match.blueScore">
         {{ match.blueScore > -1 ? match.blueScore : '?' }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Single match table, Single-participant -->
+<table class="match-table" *ngIf="match && match.participants.length === 1">
+  <thead>
+    <tr *ngIf="match.participants">
+      <th>{{ 'match_table.teams' | translate }}</th>
+      <th>{{ 'match_table.score' | translate }}</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="match.participants">
+    <tr>
+      <td class="red" [class.match-winner]="match.redScore > match.blueScore">
+        <a routerLink="/teams/{{ match.participants[0].teamKey }}">{{ getParticipantStringWithoutStatus(match, 0) }}</a>
+      </td>
+      <td class="red" [class.match-winner]="match.redScore > match.blueScore">
+        {{ match.redScore > -1 ? match.redScore : '?' }}
       </td>
     </tr>
   </tbody>
