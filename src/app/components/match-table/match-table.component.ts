@@ -14,6 +14,7 @@ export class MatchTableComponent {
   @Input() matchList?: Match[];
   @Input() match?: Match;
   @Input() team?: Team;
+  @Input() singleTeamSort?: any[];
 
   @Input() teams?: EventParticipant[];
   @Input() rankings?: Ranking[];
@@ -22,6 +23,25 @@ export class MatchTableComponent {
 
   constructor(private dialog: MdcDialog) {
 
+  }
+
+  public filterByTeam(): any[] {
+    const returnValue = [];
+    for (const m of this.matchList) {
+      if (m.participants[0].teamKey === this.team.teamKey) {
+        returnValue.push(m);
+      }
+    }
+    return returnValue;
+  }
+
+  public getRank(teamKey: string): Ranking {
+    for (const r of this.rankings) {
+      if (r.teamKey === teamKey) {
+        return r;
+      }
+    }
+    return new Ranking();
   }
 
   public getMatchResultString(match: Match): string {

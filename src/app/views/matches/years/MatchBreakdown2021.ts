@@ -9,6 +9,7 @@ export default class MatchBreakdown2021 {
     const details: UltimateGoalMatchDetails = new UltimateGoalMatchDetails().fromJSON(match.details.toJSON());
     const red: UltimateGoalAllianceDetails = details.redDtls;
     const blue: UltimateGoalAllianceDetails = details.blueDtls;
+
     return [
       MatchBreakdownTitle('Autonomous', match.redAutoScore, match.blueAutoScore),
       MatchBreakdownField('Rings Scored High', red.autoTowerHigh , blue.autoTowerHigh, 12),

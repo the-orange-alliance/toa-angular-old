@@ -1,4 +1,5 @@
 import { ISerializable } from './ISerializable';
+import Team from './Team';
 
 export default class MatchParticipant implements ISerializable {
  private _matchParticipantKey: string;
@@ -8,6 +9,7 @@ export default class MatchParticipant implements ISerializable {
  private _station: number;
  private _stationStatus: number;
  private _refStatus: number;
+ private _team: Team;
 
  constructor() {
    this._matchParticipantKey = '';
@@ -17,6 +19,7 @@ export default class MatchParticipant implements ISerializable {
    this._station = 0;
    this._stationStatus = 0;
    this._refStatus = 0;
+   this._team = new Team();
  }
 
  toJSON(): object {
@@ -27,7 +30,8 @@ export default class MatchParticipant implements ISerializable {
      team_number: this.teamNumber,
      station: this.station,
      station_status: this.stationStatus,
-     ref_status: this.refStatus
+     ref_status: this.refStatus,
+     team: this.team.toJSON()
    };
  }
 
@@ -40,6 +44,7 @@ export default class MatchParticipant implements ISerializable {
    participant.station = json.station;
    participant.stationStatus = json.station_status;
    participant.refStatus = json.ref_status;
+   participant.team = new Team().fromJSON(json.team);
    return participant;
  }
 
@@ -97,5 +102,13 @@ export default class MatchParticipant implements ISerializable {
 
   set refStatus(value: number) {
     this._refStatus = value;
+  }
+
+  get team(): Team {
+    return this._team;
+  }
+
+  set team(value: Team) {
+    this._team = value;
   }
 }
