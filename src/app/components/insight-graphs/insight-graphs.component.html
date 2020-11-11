@@ -4,7 +4,7 @@
       <h4 mdcHeadline6 class="pt-5 pb-3">Average Match Scores</h4>
       <canvas baseChart
               [datasets]="matchScore"
-              [labels]="lineChartLabels"
+              [labels]="(season === '1718') ? lineChartLabelsOld : lineChartLabels"
               [options]="lineChartOptions"
               [colors]="lineChartColors"
               [legend]="true"
@@ -16,7 +16,7 @@
       <h4 mdcHeadline6 class="pt-5 pb-3">Average Winning Margin</h4>
       <canvas baseChart
               [datasets]="winMargin"
-              [labels]="lineChartLabels"
+              [labels]="(season === '1718') ? lineChartLabelsOld : lineChartLabels"
               [options]="lineChartOptions"
               [colors]="lineChartColors"
               [legend]="true"
@@ -34,7 +34,7 @@
   <h4 mdcHeadline6 class="pt-5 pb-3">Average Match Scores</h4>
   <canvas baseChart
           [datasets]="matchScore"
-          [labels]="lineChartLabels"
+          [labels]="(season === '1718') ? lineChartLabelsOld : lineChartLabels"
           [options]="lineChartOptions"
           [colors]="lineChartColors"
           [legend]="true"
@@ -47,7 +47,7 @@
   <h4 mdcHeadline6 class="pt-5 pb-3">Average Winning Margin</h4>
   <canvas baseChart
           [datasets]="winMargin"
-          [labels]="lineChartLabels"
+          [labels]="(season === '1718') ? lineChartLabelsOld : lineChartLabels"
           [options]="lineChartOptions"
           [colors]="lineChartColors"
           [legend]="true"
