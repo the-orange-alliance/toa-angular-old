@@ -50,7 +50,7 @@ export class FTCDatabase {
     return this.request('/docs');
   }
 
-  public getInsights(seasonKey: number, type: string, singleTeam): Promise<any> {
+  public getInsights(seasonKey: any, type: string, singleTeam): Promise<any> {
     return new Promise<WebAnnouncement[]>((resolve, reject) => {
       this.request('/insights/' + seasonKey + '?type=' + type + '&single_team=' + singleTeam).then((data: any[]) => {
         resolve(data);

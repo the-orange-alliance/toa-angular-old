@@ -8,8 +8,7 @@
       <mdc-list-divider></mdc-list-divider>
       <div class="p-3 row">
 
-        <div mdcMenuSurfaceAnchor #seasonAnchor *ngIf="currentSeason && seasons && seasons.length > 0"
-             class="toa-dropdown">
+        <div mdcMenuSurfaceAnchor #seasonAnchor *ngIf="currentSeason && seasons && seasons.length > 0" class="toa-dropdown">
           <button mdc-button (click)="seasonDropdown.open = !seasonDropdown.open">
             {{ currentSeason.description || getSeasonString(currentSeason.seasonKey) }}
             <mdc-icon>arrow_drop_down</mdc-icon>

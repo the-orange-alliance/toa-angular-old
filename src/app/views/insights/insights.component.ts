@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ApplicationRef, Component, OnInit} from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { AppBarService } from '../../app-bar.service';
 import { FTCDatabase } from '../../providers/ftc-database';
@@ -7,6 +7,9 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import { MdcTabActivatedEvent } from '@angular-mdc/web';
 import { Router } from '@angular/router';
 import UltimateGoalInsights from '../../models/game-specifics/UltimateGoalInsights';
+import Season from '../../models/Season';
+import Event from '../../models/Event';
+import {EventFilter, EventSorter} from '../../util/event-utils';
 
 @Component({
   selector: 'toa-insights',
@@ -22,10 +25,13 @@ export class InsightsComponent implements OnInit {
   insightsSingle: any = null;
   insightsCombo: any = null;
 
+  seasons: Season[] = [];
+  currentSeason: Season = null;
+
   activeTab = 0;
 
   constructor(private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals, protected sanitizer: DomSanitizer,
-              private loca: Location, private router: Router, private appBarService: AppBarService) {
+              private loca: Location, private router: Router, private appBarService: AppBarService, private appRef: ApplicationRef) {
     this.app.setTitle('Insights');
   }
 
@@ -42,6 +48,11 @@ export class InsightsComponent implements OnInit {
     });
     this.ftc.getInsights(2021, 'quals', 'included').then(data => {
       this.insightsCombo = data;
+    });
+
+    this.ftc.getAllSeasons().then((data: Season[]) => {
+      this.seasons = data.reverse();
+      this.selectSeason(this.getCurrentSeason());
     });
 
     if (this.router.url.indexOf('/insights/quals') > -1) {
@@ -64,6 +75,72 @@ export class InsightsComponent implements OnInit {
       eventAction: action,
       eventValue: 10
     });
+  }
+
+  seasonStringToSeason(season: string): Season {
+    for (const s of this.seasons) {
+      if (s.seasonKey === season) {
+        return s;
+      }
+    }
+    return this.getCurrentSeason();
+  }
+
+  getCurrentSeason(): Season {
+    for (const season of this.seasons) {
+      if (season.seasonKey === this.ftc.year) {
+        return season;
+      }
+    }
+    return null;
+  }
+
+  onSeasonChange(event: {index: any, value: any}) {
+    event.index = (event.index < 0) ? 0 : event.index;
+    this.selectSeason(this.seasons[event.index]);
+  }
+
+  selectSeason(season: Season) {
+    if (this.currentSeason === null || this.currentSeason.seasonKey !== season.seasonKey) {
+      this.insightsQuals = undefined;
+      this.insightsElims = undefined;
+      this.insightsSingle = undefined;
+      this.insightsCombo = undefined;
+
+      this.currentSeason = season;
+      if (this.activeTab > 1) {
+        this.activeTab = 0;
+      }
+
+      this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'excluded').then((data: any) => {
+        this.insightsQuals = data;
+      }).catch(() => {});
+
+      this.ftc.getInsights(this.currentSeason.seasonKey, 'elims', 'excluded').then((data: any) => {
+        this.insightsElims = data;
+      }).catch(() => {});
+
+      if (this.currentSeason.seasonKey === '2021') {
+        this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'only').then((data: any) => {
+          this.insightsSingle = data;
+        }).catch(() => {});
+
+        this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'included').then((data: any) => {
+          this.insightsCombo = data;
+        }).catch(() => {});
+      }
+    }
+  }
+
+  getSeasonString(seasonKey: string, description?: string) {
+    const codeOne = seasonKey.toString().substring(0, 2);
+    const codeTwo = seasonKey.toString().substring(2, 4);
+
+    if (description) {
+      return '20' + codeOne + '/' + codeTwo + ' - ' + description;
+    } else {
+      return '20' + codeOne + '/' + codeTwo;
+    }
   }
 
   onTab(event) {

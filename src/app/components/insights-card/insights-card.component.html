@@ -23,7 +23,8 @@
       <div class="insight-card-content">{{ insights.averageWinningMargin }}</div>
     </div>
 
-    <toa-insights-rover-ruckus *ngIf="seasonKey === '1819'" [insights]="insights"></toa-insights-rover-ruckus>
-    <toa-insights-ultimate-goal *ngIf="seasonKey === '2021'" [insights]="insights"></toa-insights-ultimate-goal>
+    <toa-insights-rover-ruckus *ngIf="seasonKey === '1819' && insights" [insights]="insights"></toa-insights-rover-ruckus>
+    <toa-insights-skystone *ngIf="seasonKey === '1920' && insights" [insights]="insights"></toa-insights-skystone>
+    <toa-insights-ultimate-goal *ngIf="seasonKey === '2021' && insights" [insights]="insights"></toa-insights-ultimate-goal>
   </div>
 </div>

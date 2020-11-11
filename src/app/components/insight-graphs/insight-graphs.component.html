@@ -56,15 +56,31 @@
   </canvas>
 </div>
 
-<toa-insight-graphs-ultimate-goal
-  [autoAvgRings]="autoAvgRings"
-  [teleAvgRings]="teleAvgRings"
-  [avgPS]="avgPS"
-  [percentNav]="percentNav"
-  [percentWobbles]="percentWobbles"
-  [percentWobblesEnd]="percentWobblesEnd"
+<toa-insight-graphs-ultimate-goal *ngIf="season === '2021'"
+  [insights]="insights"
   [lineChartColors]="lineChartColors"
   [lineChartOptions]="lineChartOptions"
   [lineChartLabels]="lineChartLabels"
   [lineChartPlugins]="lineChartPlugins"
 ></toa-insight-graphs-ultimate-goal>
+<toa-insight-graphs-skystone *ngIf="season === '1920'"
+  [insights]="insights"
+  [lineChartColors]="lineChartColors"
+  [lineChartOptions]="lineChartOptions"
+  [lineChartLabels]="lineChartLabels"
+  [lineChartPlugins]="lineChartPlugins"
+></toa-insight-graphs-skystone>
+<toa-insight-graphs-rover-rukus *ngIf="season === '1819'"
+  [insights]="insights"
+  [lineChartColors]="lineChartColors"
+  [lineChartOptions]="lineChartOptions"
+  [lineChartLabels]="lineChartLabels"
+  [lineChartPlugins]="lineChartPlugins"
+></toa-insight-graphs-rover-rukus>
+<toa-insight-graphs-relic-recovery *ngIf="season === '1718'"
+  [insights]="insights"
+  [lineChartColors]="lineChartColors"
+  [lineChartOptions]="lineChartOptions"
+  [lineChartLabels]="lineChartLabelsOld"
+  [lineChartPlugins]="lineChartPlugins"
+></toa-insight-graphs-relic-recovery>

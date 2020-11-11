@@ -3,7 +3,7 @@ import {Color, Label} from 'ng2-charts';
 import {ChartDataSets, ChartOptions} from 'chart.js';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import UltimateGoalInsights from '../../models/game-specifics/UltimateGoalInsights';
+import Insights from '../../models/Insights';
 
 @Component({
   selector: 'toa-insight-graphs',
@@ -13,9 +13,10 @@ import UltimateGoalInsights from '../../models/game-specifics/UltimateGoalInsigh
 export class InsightGraphComponent implements OnInit {
 
   @Input() insights: {};
-  @Input() season: number;
+  @Input() season: string;
 
   public lineChartLabels: Label[] = ['October', 'November', 'December', 'January', 'February', 'March', 'April'];
+  public lineChartLabelsOld: Label[] = [];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     scales: {xAxes: [{}], yAxes: [{id: 'y-axis-0', position: 'left', }]},
@@ -55,31 +56,26 @@ export class InsightGraphComponent implements OnInit {
       pointHoverBorderColor: 'rgba(77,83,96,1)'
     }
   ];
-  autoAvgRings: ChartDataSets[] = [{data: [], label: 'Avg Auto High Goal'}, {data: [], label: 'Avg Auto Mid Goal'}, {data: [], label: 'Avg Auto Low Goal'}]
-  teleAvgRings: ChartDataSets[] = [{data: [], label: 'Avg Tele High Goal'}, {data: [], label: 'Avg Tele Mid Goal'}, {data: [], label: 'Avg Tele Low Goal'}]
-  avgPS: ChartDataSets[] = [{data: [], label: 'Avg PowerShots Auton'}, {data: [], label: 'Avg PowerShots Tele'}]
-  percentNav: ChartDataSets[] = [{data: [], label: 'Percent Robots Navigated'}]
-  percentWobbles: ChartDataSets[] = [{data: [], label: 'Percent Wobbles Delivered'}]
-  percentWobblesEnd: ChartDataSets[] = [{data: [], label: 'Percent Wobbles on Start'}, {data: [], label: 'Percent Wobbles in Drop Zone'}]
+
   matchScore: ChartDataSets[] = [{data: [], label: 'Average Winning Score'}, {data: [], label: 'Average Match Score'}]
   winMargin: ChartDataSets[] = [{data: [], label: 'Average Win Margin'}]
+
+  constructor() {
+    // add all the weeks to the old week style
+    let i = 3;
+    while (i <= 21) {
+      if (i === 7) {i++; } // skip 7 (thanksgiving)
+      if (i === 11) {i += 2; }// skip week 11/12 (christmas/new years)
+      this.lineChartLabelsOld.push('Week ' + i)
+      i++;
+    }
+    this.lineChartLabelsOld.push('West SuperRegional', 'North SuperRegional', 'CMP Houston', 'CMP Detroit', 'Offseason')
+  }
 
   ngOnInit() {
     for (const i in this.insights) {
       if (this.insights.hasOwnProperty(i) && this.insights[i]) {
-        const insight = new UltimateGoalInsights().fromJSON(this.insights[i]);
-        this.autoAvgRings[0].data.push(insight.autoAverageRingsScoredHigh);
-        this.autoAvgRings[1].data.push(insight.autoAverageRingsScoredMid);
-        this.autoAvgRings[2].data.push(insight.autoAverageRingsScoredLow);
-        this.teleAvgRings[0].data.push(insight.teleAverageRingsScoredHigh);
-        this.teleAvgRings[1].data.push(insight.teleAverageRingsScoredMid);
-        this.teleAvgRings[2].data.push(insight.teleAverageRingsScoredLow);
-        this.avgPS[0].data.push(insight.autoAveragePowerShots);
-        this.avgPS[1].data.push(insight.endAveragePowerShots);
-        this.percentNav[0].data.push(insight.autoPercentNavigated)
-        this.percentWobbles[0].data.push(insight.autoPercentWobblesDelivered)
-        this.percentWobblesEnd[0].data.push(insight.endPercentWobblesOnStart)
-        this.percentWobblesEnd[1].data.push(insight.endPercentWobblesInDropZone)
+        const insight = new Insights().fromJSON(this.insights[i]);
         this.matchScore[0].data.push(insight.averageWinningScore)
         this.matchScore[1].data.push(insight.averageMatchScore)
         this.winMargin[0].data.push(insight.averageWinningMargin)

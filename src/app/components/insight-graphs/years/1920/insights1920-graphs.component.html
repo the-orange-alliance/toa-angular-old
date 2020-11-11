@@ -1,0 +1,189 @@
+<div class="container d-none d-sm-none d-md-inline">
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Stones Scored in Autonomous</h4>
+      <canvas baseChart
+              [datasets]="autoStones"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Stones Scored in Teleop</h4>
+      <canvas baseChart
+              [datasets]="teleStones"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Percent Robot Parked/Navigated Auton</h4>
+      <canvas baseChart
+              [datasets]="robotAuton"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Percent Foundations Moved/Repositioned</h4>
+      <canvas baseChart
+              [datasets]="foundation"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Cap Level</h4>
+      <canvas baseChart
+              [datasets]="averageCapLevel"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Bonuses</h4>
+      <canvas baseChart
+              [datasets]="bonuses"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Percent Parked after Match</h4>
+      <canvas baseChart
+              [datasets]="percentParked"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+</div>
+
+
+<!-- Auto stones Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Average Stones Scored in Autonomous</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="autoStones"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<!-- Tele stones Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Average Stones Scored in Teleop</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="teleStones"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<!-- percent parked/naved Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Percent Robot Parked/Navigated Auton</h4>
+  <canvas baseChart
+          [datasets]="robotAuton"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+<!-- foundation Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Percent Foundations Moved/Repositioned</h4>
+  <canvas baseChart
+          [datasets]="foundation"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+<!-- cap level Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Average Cap Level</h4>
+  <canvas baseChart
+          [datasets]="averageCapLevel"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+<!-- bonuses Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Average Bonuses</h4>
+  <canvas baseChart
+          [datasets]="bonuses"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+<!-- percent parked Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Percent Parked after Match</h4>
+  <canvas baseChart
+          [datasets]="percentParked"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>

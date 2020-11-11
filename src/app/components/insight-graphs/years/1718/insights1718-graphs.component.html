@@ -1,0 +1,137 @@
+<div class="container d-none d-sm-none d-md-inline">
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Glyphs Scored Autonomous</h4>
+      <canvas baseChart
+              [datasets]="autoGlyphs"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Glyphs and Ciphers Scored Teleop</h4>
+      <canvas baseChart
+              [datasets]="glyphsCiphers"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Relics End</h4>
+      <canvas baseChart
+              [datasets]="endRelics"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Percent Relics Standing</h4>
+      <canvas baseChart
+              [datasets]="percentStanding"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Robots Balanced</h4>
+      <canvas baseChart
+              [datasets]="balanced"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+
+
+<!-- landing Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Average Glyphs Scored Autonomous</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="autoGlyphs"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<!-- sample claim Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Average Glyphs Scored Teleop</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="glyphsCiphers"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<!-- percent parked Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Average Relics End</h4>
+  <canvas baseChart
+          [datasets]="endRelics"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+<!-- scoring Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Percent Relics Standing</h4>
+  <canvas baseChart
+          [datasets]="percentStanding"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+<!-- cap level Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Average Robots Balanced</h4>
+  <canvas baseChart
+          [datasets]="balanced"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>

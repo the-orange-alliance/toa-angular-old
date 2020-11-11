@@ -152,7 +152,7 @@ export class EventsComponent implements OnInit {
       return this.ftc.getSeasonEvents(this.currentSeason.seasonKey).then((data: Event[]) => {
         this.events = new EventSorter().sort(data);
         this.eventFilter = new EventFilter(this.events);
-        this.selectRegion(this.currentRegion)
+        this.selectRegion(this.currentRegion);
       }).catch(() => {
         this.events = [];
         this.eventFilter = new EventFilter(this.events);
