@@ -50,9 +50,10 @@ export class FTCDatabase {
     return this.request('/docs');
   }
 
-  public getInsights(seasonKey: any, type: string, singleTeam): Promise<any> {
+  public getInsights(seasonKey: any, type: string, singleTeam: string, regionKey: string): Promise<any> {
     return new Promise<WebAnnouncement[]>((resolve, reject) => {
-      this.request('/insights/' + seasonKey + '?type=' + type + '&single_team=' + singleTeam).then((data: any[]) => {
+      const regionString = (regionKey === 'All Regions') ? '' : '&region_key=' + regionKey;
+      this.request('/insights/' + seasonKey + '?type=' + type + '&single_team=' + singleTeam + regionString).then((data: any[]) => {
         resolve(data);
       }).catch((err: any) => reject(err));
     });

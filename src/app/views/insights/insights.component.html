@@ -2,22 +2,52 @@
   <h2>Insights</h2>
   <p>Season-Wide statistics</p>
 
-  <div mdcMenuSurfaceAnchor #seasonAnchor *ngIf="currentSeason && seasons && seasons.length > 0" class="toa-dropdown p-2 ">
-    <button mdc-button (click)="seasonDropdown.open = !seasonDropdown.open" class="bg-primary">
-      {{ currentSeason.description || getSeasonString(currentSeason.seasonKey) }}
-      <mdc-icon>arrow_drop_down</mdc-icon>
-    </button>
-    <mdc-menu #seasonDropdown [anchorElement]="seasonAnchor" (selected)="onSeasonChange($event)"
-              anchorCorner="bottomStart">
-      <mdc-list dense>
-        <mdc-list-item *ngFor="let season of seasons" [disabled]="season.seasonKey === currentSeason.seasonKey">
-          {{ getSeasonString(season.seasonKey, season.description) }}
-        </mdc-list-item>
-      </mdc-list>
-    </mdc-menu>
+  <div class="row p-2">
+    <div class="col-12">
+      <mdc-card class="toa-card overflow">
+        <div class="toa-card-header">{{ 'pages.events.filter' | translate }}</div>
+
+        <mdc-list-divider></mdc-list-divider>
+        <div class="p-3 row">
+
+          <div mdcMenuSurfaceAnchor #seasonAnchor *ngIf="currentSeason && seasons && seasons.length > 0" class="toa-dropdown">
+            <button mdc-button (click)="seasonDropdown.open = !seasonDropdown.open">
+              {{ currentSeason.description || getSeasonString(currentSeason.seasonKey) }}
+              <mdc-icon>arrow_drop_down</mdc-icon>
+            </button>
+            <mdc-menu #seasonDropdown [anchorElement]="seasonAnchor" (selected)="onSeasonChange($event)" anchorCorner="bottomStart">
+              <mdc-list dense>
+                <mdc-list-item *ngFor="let season of seasons" [disabled]="season.seasonKey === currentSeason.seasonKey" style="width: 200px">
+                  {{ getSeasonString(season.seasonKey, season.description) }}
+                </mdc-list-item>
+              </mdc-list>
+            </mdc-menu>
+          </div>
+
+          <div mdcMenuSurfaceAnchor #regionAnchor *ngIf="currentRegion && regions && regions.length > 0"
+               class="toa-dropdown">
+            <button mdc-button (click)="regionDropdown.open = !regionDropdown.open">
+              {{ currentRegion.description || getRegionString(currentRegion.regionKey) }}
+              <mdc-icon>arrow_drop_down</mdc-icon>
+            </button>
+            <mdc-menu #regionDropdown [anchorElement]="regionAnchor" (selected)="onRegionChange($event)" anchorCorner="bottomStart">
+              <mdc-list dense>
+                <mdc-list-item *ngFor="let region of regions" [disabled]="region.regionKey === currentRegion.regionKey" style="width: 250px">
+                  {{ getRegionString(region.regionKey, region.description) }}
+                </mdc-list-item>
+              </mdc-list>
+            </mdc-menu>
+          </div>
+        </div>
+
+        <mdc-list-divider></mdc-list-divider>
+
+        <button mdc-button (click)="clearFilter()">{{ 'pages.events.clear_filter' | translate }}</button>
+      </mdc-card>
+    </div>
   </div>
 
-  <div class="outline-card bg-white">
+  <div class="outline-card bg-white p-2">
     <mdc-tab-bar [activeTabIndex]="activeTab" (activated)="onTab($event)">
       <mdc-tab-scroller>
         <mdc-tab label="Quals Multi-Team Matches"    (click)="changeUrlNoRoute('quals')"></mdc-tab>
