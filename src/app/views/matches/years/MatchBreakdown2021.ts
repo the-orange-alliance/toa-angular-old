@@ -34,8 +34,8 @@ export default class MatchBreakdown2021 {
       MatchBreakdownField('PowerShots Successfully Launched Back', red.endPowerShotPoints / 15, blue.endPowerShotPoints / 15, 15),
 
       MatchBreakdownTitle('Penalty', match.redPenalty, match.bluePenalty),
-      MatchBreakdownField('Minor Penalty', details.blueMinPen, details.redMinPen, 5),
-      MatchBreakdownField('Major Penalty', details.blueMajPen, details.redMajPen, 20)
+      MatchBreakdownField('Minor Penalty', details.redMinPen, details.blueMinPen, 5),
+      MatchBreakdownField('Major Penalty', details.redMajPen, details.blueMajPen, 20)
     ];
   }
 }
