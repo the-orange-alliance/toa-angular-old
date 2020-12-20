@@ -3,16 +3,30 @@
     <table mdcDataTableTable>
       <thead>
       <tr mdcDataTableHeaderRow>
-        <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.rank' | translate }}</th>
-        <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.team' | translate }}</th>
-        <th mdcDataTableHeaderCell>{{ 'pages.event.subpages.rankings.wlt_record' | translate }}</th>
-        <th mdcDataTableHeaderCell numeric *ngIf="showQualPoints">{{ 'pages.event.subpages.rankings.qual_points' | translate }}</th>
-        <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.ranking_points' | translate }}</th>
-        <th mdcDataTableHeaderCell numeric *ngIf="showTieBreakerPoints">{{ 'pages.event.subpages.rankings.tie_reaker_points' | translate }}</th>
-        <th mdcDataTableHeaderCell numeric *ngIf="showHighScore">{{ 'pages.event.subpages.rankings.highest_score' | translate }}</th>
-        <th mdcDataTableHeaderCell numeric>{{ 'pages.event.subpages.rankings.matches_played' | translate }}</th>
-        <th mdcDataTableHeaderCell numeric *ngIf="showOPR" style="cursor: help" (click)="showOprHelp()">OPR</th>
-        <th mdcDataTableHeaderCell numeric *ngIf="showOPR" style="cursor: help" (click)="showNpOprHelp()">NP-OPR</th>
+        <th mdcDataTableHeaderCell numeric
+            ><button mdc-icon-button (click)="sorter.byRank(rankings)"><mdc-icon svgIcon="sort"></mdc-icon></button
+            >{{ 'pages.event.subpages.rankings.rank' | translate }}</th>
+        <th mdcDataTableHeaderCell
+            ><button mdc-icon-button (click)="sorter.byTeam(rankings)"><mdc-icon svgIcon="sort"></mdc-icon></button
+            >{{ 'pages.event.subpages.rankings.team' | translate }}</th>
+        <th mdcDataTableHeaderCell
+            >{{ 'pages.event.subpages.rankings.wlt_record' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showQualPoints"
+            >{{ 'pages.event.subpages.rankings.qual_points' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric
+            >{{ 'pages.event.subpages.rankings.ranking_points' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showTieBreakerPoints"
+            >{{ 'pages.event.subpages.rankings.tie_reaker_points' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showHighScore"
+            >{{ 'pages.event.subpages.rankings.highest_score' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric
+            >{{ 'pages.event.subpages.rankings.matches_played' | translate }}</th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showOPR"
+            ><button mdc-icon-button (click)="sorter.byOpr(rankings)"><mdc-icon svgIcon="sort"></mdc-icon></button
+            ><span style="cursor: help" (click)="showOprHelp()">OPR</span></th>
+        <th mdcDataTableHeaderCell numeric *ngIf="showOPR"
+            ><button mdc-icon-button (click)="sorter.byNpOpr(rankings)"><mdc-icon svgIcon="sort"></mdc-icon></button
+            ><span style="cursor: help" (click)="showNpOprHelp()">NP-OPR</span></th>
       </tr>
       </thead>
       <tbody mdcDataTableContent>
