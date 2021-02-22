@@ -65,7 +65,7 @@ export default class SkystoneInsights extends Insights implements ISerializable 
 
   fromJSON(json: any): SkystoneInsights {
     const skystone: SkystoneInsights = new SkystoneInsights();
-    skystone.highScoreMatch = json.high_score_match;
+    skystone.highScoreMatch = json.high_score_match ? new Match().fromJSON(json.high_score_match) : null;
     skystone.averageMatchScore = json.average_match_score;
     skystone.averageWinningScore = json.average_winning_score;
     skystone.averageWinningMargin = json.average_winning_margin;
