@@ -1,5 +1,6 @@
-import Insights from '../Insights';
 import {ISerializable} from '../ISerializable';
+import Insights from '../Insights';
+import Match from '../Match';
 
 export default class SkystoneInsights extends Insights implements ISerializable {
   private _autoAverageSkystonesDelivered: number;
