@@ -4,10 +4,8 @@
 
 
   <div mdcHeadline5 class="headline-margin">Accessing the API</div>
-  <p>The API only ever responds with JSON data. To correctly request JSON from the API, set the Content-Type header of your request to be application/json.</p>
   <p>Two custom request headers must be sent with every request you make: <code>X-TOA-Key</code> and <code>X-Application-Origin</code>. <code>X-TOA-Key</code> should be the value of your API key, and <code>X-Application-Origin</code> should be the name of your application. Without either of these headers, your request will be denied by the API.</p>
   <p>TL;DR:<br/>
-    Set <code>Content-Type</code> to <code>application/json</code><br/>
     Set <code>X-TOA-Key</code> to your API Key<br/>
     Set <code>X-Application-Origin</code> to your application name<br/>
   </p>
