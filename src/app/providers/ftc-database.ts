@@ -158,7 +158,7 @@ export class FTCDatabase {
 
   public getMatchSize(): Promise<number> {
     return new Promise<number>((resolve, reject) => {
-      this.request('/match/size?season_key=' + this.year).then((data: any) => {
+      this.request('/match/size?played=true&season_key=' + this.year).then((data: any) => {
         resolve(parseInt(data.result, 10));
       }).catch((err: any) => reject(err));
     });
