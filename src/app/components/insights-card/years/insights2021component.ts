@@ -10,7 +10,7 @@ import UltimateGoalInsights from '../../../models/game-specifics/UltimateGoalIns
   <div class="row">
     <toa-circular-percentage [title]="'Average High Rings'" [value]="insights.autoAverageRingsScoredHigh" [max]="40" class="col-4"></toa-circular-percentage>
     <toa-circular-percentage [title]="'Average Middle Rings'" [value]="insights.autoAverageRingsScoredMid" [max]="40" class="col-4"></toa-circular-percentage>
-    <toa-circular-percentage [title]="'Average Low Rings'" [value]="insights.autoAverageRingsScoredHigh" [max]="40" class="col-4"></toa-circular-percentage>
+    <toa-circular-percentage [title]="'Average Low Rings'" [value]="insights.autoAverageRingsScoredLow" [max]="40" class="col-4"></toa-circular-percentage>
   </div>
   <div class="row">
     <toa-circular-percentage [title]="'Average PowerShots Hit'" [value]="insights.autoAveragePowerShots" [max]="10" class="col-6"></toa-circular-percentage>
@@ -24,7 +24,7 @@ import UltimateGoalInsights from '../../../models/game-specifics/UltimateGoalIns
   <div class="row">
     <toa-circular-percentage [title]="'Average High Rings'" [value]="insights.teleAverageRingsScoredHigh" [max]="40" class="col-4"></toa-circular-percentage>
     <toa-circular-percentage [title]="'Average Middle Rings'" [value]="insights.teleAverageRingsScoredMid" [max]="40" class="col-4"></toa-circular-percentage>
-    <toa-circular-percentage [title]="'Average Low Rings'" [value]="insights.teleAverageRingsScoredHigh" [max]="40" class="col-4"></toa-circular-percentage>
+    <toa-circular-percentage [title]="'Average Low Rings'" [value]="insights.teleAverageRingsScoredLow" [max]="40" class="col-4"></toa-circular-percentage>
   </div>
   <hr/>
   <div class="insight-card-header">End Game Breakout</div>
