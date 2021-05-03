@@ -83,6 +83,9 @@ export class StreamingComponent implements OnInit {
           }
         }
       }
+      this.streams.sort(function(a,b) {
+        return (a.startDateTime < b.startDateTime) ? -1 : ((a.startDateTime > b.startDateTime) ? 1 : 0)
+      });
     });
   }
 
