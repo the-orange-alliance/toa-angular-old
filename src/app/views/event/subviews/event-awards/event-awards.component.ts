@@ -49,6 +49,8 @@ export class EventAwardsComponent {
       return 'Dean\'s List Finalist Award Winners';
     } else if (key.startsWith('DNSF')) {
       return 'Dean\'s List Award Winners';
+    } else if (key.startsWith('TR')) {
+      return 'Top Ranked Teams';
     } else {
       return awardRecipient.awardName + 's';
     }
