@@ -24,8 +24,8 @@ import LeagueDiv from '../models/LeagueDiv';
 @Injectable()
 export class FTCDatabase {
 
-  public year = '2021';
-  public allYears = ['1617', '1718', '1819', '1920', '2021'];
+  public year = '2122';
+  public allYears = ['1617', '1718', '1819', '1920', '2021', '2122'];
 
   public baseURL = 'https://theorangealliance.org/api';
   // public baseURL = 'http://127.0.0.1:8080/api';

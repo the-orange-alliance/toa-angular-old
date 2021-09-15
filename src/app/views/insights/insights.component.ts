@@ -2,7 +2,7 @@ import {ApplicationRef, Component, OnInit} from '@angular/core';
 import { TheOrangeAllianceGlobals } from '../../app.globals';
 import { AppBarService } from '../../app-bar.service';
 import { FTCDatabase } from '../../providers/ftc-database';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import Season from '../../models/Season';
