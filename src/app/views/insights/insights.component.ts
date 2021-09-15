@@ -40,18 +40,33 @@ export class InsightsComponent implements OnInit {
 
   ngOnInit(): void {
     this.appBarService.setTitle('Insights');
+
+    // TODO: load first data based on URL query (quals, elims, etc)
+
     this.ftc.getInsights(2021, 'quals', 'excluded', 'All Regions').then(data => {
       this.insightsQuals = data;
-    });
-    this.ftc.getInsights(2021, 'elims', 'excluded', 'All Regions').then(data => {
+      return this.ftc.getInsights(2021, 'elims', 'excluded', 'All Regions')
+    }).then(data => {
       this.insightsElims = data;
-    });
-    this.ftc.getInsights(2021, 'quals', 'only', 'All Regions').then(data => {
+      return this.ftc.getInsights(2021, 'quals', 'only', 'All Regions');
+    }).then(data => {
       this.insightsSingle = data;
-    });
-    this.ftc.getInsights(2021, 'quals', 'included', 'All Regions').then(data => {
+      return this.ftc.getInsights(2021, 'quals', 'included', 'All Regions')
+    }).then(data => {
       this.insightsCombo = data;
     });
+
+    if (this.router.url.indexOf('/insights/quals') > -1) {
+      this.activeTab = 0;
+    } else if (this.router.url.indexOf('/insights/elims') > -1) {
+      this.activeTab = 1;
+    } else if (this.router.url.indexOf('/insights/stquals') > -1) {
+      this.activeTab = 2;
+    } else if (this.router.url.indexOf('/insights/combined') > -1) {
+      this.activeTab = 3;
+    } else {
+      this.changeUrlNoRoute('quals')
+    }
 
     this.ftc.getAllSeasons().then((data: Season[]) => {
       this.seasons = data.reverse();
@@ -67,18 +82,6 @@ export class InsightsComponent implements OnInit {
       ];
       this.selectRegion(this.regions[0])
     });
-
-    if (this.router.url.indexOf('/insights/quals') > -1) {
-      this.activeTab = 0;
-    } else if (this.router.url.indexOf('/insights/elims') > -1) {
-      this.activeTab = 1;
-    } else if (this.router.url.indexOf('/insights/stquals') > -1) {
-      this.activeTab = 2;
-    } else if (this.router.url.indexOf('/insights/combined') > -1) {
-      this.activeTab = 3;
-    } else {
-      this.changeUrlNoRoute('quals')
-    }
   }
 
   sendAnalytic(category, label, action): void {
