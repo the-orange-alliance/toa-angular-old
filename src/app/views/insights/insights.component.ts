@@ -4,12 +4,8 @@ import { AppBarService } from '../../app-bar.service';
 import { FTCDatabase } from '../../providers/ftc-database';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { MdcTabActivatedEvent } from '@angular-mdc/web';
 import { Router } from '@angular/router';
-import UltimateGoalInsights from '../../models/game-specifics/UltimateGoalInsights';
 import Season from '../../models/Season';
-import Event from '../../models/Event';
-import {EventFilter, EventSorter} from '../../util/event-utils';
 import Region from '../../models/Region';
 
 @Component({
@@ -41,31 +37,21 @@ export class InsightsComponent implements OnInit {
   ngOnInit(): void {
     this.appBarService.setTitle('Insights');
 
-    // TODO: load first data based on URL query (quals, elims, etc)
-
-    this.ftc.getInsights(2021, 'quals', 'excluded', 'All Regions').then(data => {
-      this.insightsQuals = data;
-      return this.ftc.getInsights(2021, 'elims', 'excluded', 'All Regions')
-    }).then(data => {
-      this.insightsElims = data;
-      return this.ftc.getInsights(2021, 'quals', 'only', 'All Regions');
-    }).then(data => {
-      this.insightsSingle = data;
-      return this.ftc.getInsights(2021, 'quals', 'included', 'All Regions')
-    }).then(data => {
-      this.insightsCombo = data;
-    });
-
     if (this.router.url.indexOf('/insights/quals') > -1) {
       this.activeTab = 0;
+      this.loadQualsMTFirst();
     } else if (this.router.url.indexOf('/insights/elims') > -1) {
       this.activeTab = 1;
+      this.loadElimsMTFirst();
     } else if (this.router.url.indexOf('/insights/stquals') > -1) {
       this.activeTab = 2;
+      this.loadQualsSTFirst();
     } else if (this.router.url.indexOf('/insights/combined') > -1) {
       this.activeTab = 3;
+      this.loadCombinedFirst();
     } else {
-      this.changeUrlNoRoute('quals')
+      this.changeUrlNoRoute('quals');
+      this.loadQualsMTFirst();
     }
 
     this.ftc.getAllSeasons().then((data: Season[]) => {
@@ -201,5 +187,65 @@ export class InsightsComponent implements OnInit {
 
   changeUrlNoRoute(route: any) {
     this.loca.go(`insights/${route}`);
+  }
+
+  loadQualsMTFirst() {
+    this.ftc.getInsights(2021, 'quals', 'excluded', 'All Regions').then(data => {
+      this.insightsQuals = data;
+      return this.ftc.getInsights(2021, 'elims', 'excluded', 'All Regions')
+    }).then(data => {
+      this.insightsElims = data;
+      return this.ftc.getInsights(2021, 'quals', 'only', 'All Regions');
+    }).then(data => {
+      this.insightsSingle = data;
+      return this.ftc.getInsights(2021, 'quals', 'included', 'All Regions')
+    }).then(data => {
+      this.insightsCombo = data;
+    });
+  }
+
+  loadElimsMTFirst() {
+    this.ftc.getInsights(2021, 'elims', 'excluded', 'All Regions').then(data => {
+      this.insightsQuals = data;
+      return this.ftc.getInsights(2021, 'quals', 'excluded', 'All Regions')
+    }).then(data => {
+      this.insightsElims = data;
+      return this.ftc.getInsights(2021, 'quals', 'only', 'All Regions');
+    }).then(data => {
+      this.insightsSingle = data;
+      return this.ftc.getInsights(2021, 'quals', 'included', 'All Regions')
+    }).then(data => {
+      this.insightsCombo = data;
+    });
+  }
+
+  loadQualsSTFirst() {
+    this.ftc.getInsights(2021, 'quals', 'only', 'All Regions').then(data => {
+      this.insightsQuals = data;
+      return this.ftc.getInsights(2021, 'quals', 'excluded', 'All Regions')
+    }).then(data => {
+      this.insightsElims = data;
+      return this.ftc.getInsights(2021, 'elims', 'excluded', 'All Regions');
+    }).then(data => {
+      this.insightsSingle = data;
+      return this.ftc.getInsights(2021, 'quals', 'included', 'All Regions')
+    }).then(data => {
+      this.insightsCombo = data;
+    });
+  }
+
+  loadCombinedFirst() {
+    this.ftc.getInsights(2021, 'quals', 'included', 'All Regions').then(data => {
+      this.insightsQuals = data;
+      return this.ftc.getInsights(2021, 'quals', 'excluded', 'All Regions')
+    }).then(data => {
+      this.insightsElims = data;
+      return this.ftc.getInsights(2021, 'elims', 'excluded', 'All Regions');
+    }).then(data => {
+      this.insightsSingle = data;
+      return this.ftc.getInsights(2021, 'quals', 'only', 'All Regions');
+    }).then(data => {
+      this.insightsCombo = data;
+    });
   }
 }
