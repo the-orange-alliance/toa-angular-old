@@ -9,8 +9,8 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json ./
 
-# serve is used to serve the webapp at the end, typescript is for ng compiler
-RUN npm install -g serve typescript@3.4.1
+# serve is used to serve the webapp at the end
+RUN npm install -g serve
 
 # package.json install
 RUN npm install
