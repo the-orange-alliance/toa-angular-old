@@ -13,7 +13,7 @@ export class EventAlliancesComponent implements OnInit {
 
   ngOnInit() {
     if (this.alliances) {
-      this.showPick2 = this.alliances.every((alliance) => alliance.pick2)
+      this.showPick2 = this.alliances.every((alliance) => !!alliance.pick2)
     }
   }
 }
