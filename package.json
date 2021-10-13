@@ -49,7 +49,7 @@
     "cors": "~2.8.4",
     "express": "^4.17.1",
     "express-rate-limit": "^2.11.0",
-    "firebase": "^5.11.1",
+    "firebase": "^9.1.2",
     "jasmine": "^3.5.0",
     "js-video-url-parser": "^0.2.8",
     "memory-cache": "^0.2.0",
