@@ -74,6 +74,7 @@ const routes: Routes = [
       { path: 'alliances', component: EventComponent },
       { path: 'media', component: EventComponent },
       { path: 'insights', component: EventComponent },
+      { path: 'suggestions', component: EventComponent },
       { path: 'admin', component: EventComponent }
     ]
   },

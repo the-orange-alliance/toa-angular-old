@@ -1,0 +1,55 @@
+<div class="row pr-2 pl-2 pb-4">
+  <div class="col-12">
+    <div class="outline-card mt-2 mb-2" *ngIf="!user">
+      <div mdcHeadline5 class="black pb-4">{{ 'pages.event.subpages.suggestions.please_sign_in' | translate }}</div>
+      <span class="mdc-list-item__secondary-text">
+        <button mdc-button dense routerLink="/account/login">{{ 'drawer.mytoa.login' | translate }}</button>
+        <span>•</span>
+        <button mdc-button dense routerLink="/account/register">{{ 'drawer.mytoa.register' | translate }}</button>
+      </span>
+    </div>
+    <div class="outline-card mt-2 mb-2" *ngIf="user">
+      <div class="row edit-event">
+        <div class="col-sm-12 col-md-6 p-1">
+          <div mdcHeadline5 class="black pb-4">{{ 'pages.event.subpages.suggestions.title' | translate }}</div>
+          <div mdcSubtitle1 class="black pb-4">{{ 'pages.event.subpages.suggestions.data_upload' | translate }}</div>
+          <mdc-select #suggestion_type [placeholder]="'pages.event.subpages.suggestions.type_selector' | translate" (selectionChange)="onMediaTypeChange($event)" class="w-100">
+            <option value="twitch_stream">{{ 'pages.event.subpages.suggestions.types.twitch_stream' | translate }}</option>
+            <option value="twitch_vod">{{ 'pages.event.subpages.suggestions.types.twitch_vod' | translate }}</option>
+            <option *ngIf="matches && matches.length > 0" value="twitch_clip">{{ 'pages.event.subpages.suggestions.types.twitch_clip' | translate }}</option>
+            <option value="youtube_stream">{{ 'pages.event.subpages.suggestions.types.youtube_stream' | translate }}</option>
+            <option value="youtube_vod">{{ 'pages.event.subpages.suggestions.types.youtube_vod' | translate }}</option>
+            <option *ngIf="matches && matches.length > 0" value="youtube_video">{{ 'pages.event.subpages.suggestions.types.youtube_video' | translate }}</option>
+            <option *ngIf="matches && matches.length > 0" value="youtube_playlist">{{ 'pages.event.subpages.suggestions.types.youtube_playlist' | translate }}</option>
+            <option value="venue_media">{{ 'pages.event.subpages.suggestions.types.venue_media' | translate }}</option>
+            <option value="other">{{ 'pages.event.subpages.suggestions.types.other' | translate }}</option>
+          </mdc-select>
+          <mdc-textarea #notes required class="mb-2 mt-2" rows="4" fullwidth dense [label]="'pages.event.subpages.suggestions.notes' | translate" *ngIf="!hideNotes">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="earth"></mdc-icon>
+          </mdc-textarea>
+          <mdc-select #match_selector *ngIf="!hideMatchSelect && matches && matches.length > 0"  [placeholder]="'pages.event.subpages.suggestions.match_selector' | translate" class="w-100">
+            <option *ngFor="let match of matches" [value]="match.matchKey">{{match.matchName + " (" + mapParticipants(match) + ")"}}</option>
+          </mdc-select>
+          <mdc-text-field #url required dense [label]="'pages.event.subpages.suggestions.url' | translate" *ngIf="!hideUrl">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="earth"></mdc-icon>
+          </mdc-text-field>
+          <mdc-text-field #description required dense [label]="'pages.event.subpages.suggestions.desc' | translate" *ngIf="!hideDesc">
+            <mdc-icon mdcTextFieldIcon leading svgIcon="earth"></mdc-icon>
+          </mdc-text-field>
+          <div class="d-flex" *ngIf="!hideFilebox">
+            <div class="custom-file me-2">
+              <input class="custom-file-input" required type="file" id="upload" (change)="handleImage($event)" />
+              <label class="custom-file-label" for="upload" [dir]="'config.direction' | translate">{{ ('pages.event.subpages.admin.update_info_card.choose_image' | translate) }}</label>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="image && image.raw"  class="col-sm-12 col-md-6 p-1">
+          <div class="outline-card mt-2 mb-2" style="height: 350px">
+            <img class="w-100 h-100" alt="Uploaded Image Preview" [src]="image.raw">
+          </div>
+        </div>
+      </div>
+      <button mdc-button primary *ngIf="!hideSubmit" (click)="submitSuggestion()">{{ 'pages.event.subpages.suggestions.submit' | translate }}</button>
+    </div>
+  </div>
+</div>

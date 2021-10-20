@@ -39,6 +39,7 @@ import { EventAlliancesComponent } from './views/event/subviews/event-alliances/
 import { EventMatchesComponent } from './views/event/subviews/event-matches/event-matches.component';
 import { EventTeamsComponent } from './views/event/subviews/event-teams/event-teams.component';
 import { EventAwardsComponent } from './views/event/subviews/event-awards/event-awards.component';
+import { EventSuggestionsComponent } from './views/event/subviews/event-suggestions/event-suggestions.component';
 import { EventAdminComponent } from './views/event/subviews/event-admin/event-admin.component';
 import { PageNotFoundComponent } from './views/404/404.component';
 import { TeamComponent } from './views/team/team.component';
@@ -103,6 +104,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       EventTeamsComponent,
       EventAwardsComponent,
       EventInsightsComponent,
+      EventSuggestionsComponent,
       EventAdminComponent,
       TeamRobotComponent,
       TeamResultsComponent,

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'firebase/app';
 import TOAUser from '../models/User';
-import { rejects } from 'assert';
 
 @Injectable()
 export class CloudFunctions {
@@ -305,11 +304,12 @@ export class CloudFunctions {
     });
   }
 
-  public addMediaToPending(user: User, mediaData: any): Promise<any> {
+
+  public addMediaToPending(user: User, mediaData: { event_key: string | undefined, team_key: string | undefined, [key: string]: any }): Promise<any> {
     let dataHeader;
-    if (mediaData.team_key !== undefined && mediaData.event_key === undefined) {
+    if (mediaData.team_key && mediaData.team_key.toString().length > 0 && !mediaData.event_key) {
       dataHeader = 'team';
-    } else if (mediaData.team_key === undefined && mediaData.event_key !== undefined) {
+    } else if (mediaData.event_key && mediaData.event_key.length > 0 && !mediaData.team_key) {
       dataHeader = 'event';
     } else {
       return new Promise<any>((resolve, reject) => {

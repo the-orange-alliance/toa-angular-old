@@ -40,7 +40,7 @@ export class EventComponent implements OnInit {
   divisions: Event[] = [];
 
   activeTab = -1;
-  totalmedia = 0;
+  totalmedia = 1;
   totalteams: any;
   totalmatches: any;
   totalrankings: any;
@@ -70,7 +70,7 @@ export class EventComponent implements OnInit {
     const changePage = () => this.changeUrlNoRoute(getPath());
     const originalPath = getPath();
     this.currentUrl = getPath();
-    this.possiblePages = ['rankings', 'matches', 'teams', 'alliances', 'awards', 'insights', 'media', 'admin'];
+    this.possiblePages = ['rankings', 'matches', 'teams', 'alliances', 'awards', 'insights', 'media', 'suggestions', 'admin'];
     if (this.eventKey) {
 
       this.auth.authState.subscribe(user => {
@@ -284,8 +284,13 @@ export class EventComponent implements OnInit {
           } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.changeUrlNoRoute('rankings'); // If no media, check for rankings
           } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.changeUrlNoRoute('teams'); } // If no rankings, check for teams
           break;
+        case 'suggestions':
+          if (this.totalmatches > 0 || true) { this.activeTab = 7;
+          } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.changeUrlNoRoute('rankings'); // If no suggestions, check for rankings
+          } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.changeUrlNoRoute('teams'); } // If no rankings, check for teams
+          break;
         case 'admin':
-          if (this.admin) { this.activeTab = 7;
+          if (this.admin) { this.activeTab = 8;
           } else if (this.eventData.rankings && this.eventData.rankings.length > 0) { this.changeUrlNoRoute('rankings'); // If no admin, check for rankings
           } else if (this.eventData.teams && this.eventData.teams.length > 0) { this.changeUrlNoRoute('teams'); } // If no rankings, check for teams
           break;
@@ -334,7 +339,8 @@ export class EventComponent implements OnInit {
       case 4: return 'awards';
       case 5: return 'insights';
       case 6: return 'media';
-      case 7: return 'admin';
+      case 7: return 'suggestions';
+      case 8: return 'admin';
       default: return 'rankings';
     }
   }

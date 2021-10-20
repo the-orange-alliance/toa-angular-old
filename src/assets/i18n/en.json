@@ -261,6 +261,30 @@
           "venue_map": "Venue Map",
           "schedule": "Event Schedule"
         },
+        "suggestions": {
+          "title": "Suggestions",
+          "please_sign_in": "Please sign in to submit a suggestion",
+          "data_upload": "Have media from or for an event? Submit it here!",
+          "type_selector": "Select Media Type",
+          "match_selector": "Select Match",
+          "types": {
+            "twitch_stream": "Twitch Stream",
+            "twitch_vod": "Twitch VOD",
+            "twitch_clip": "Twitch Clip",
+            "youtube_stream": "Youtube Stream",
+            "youtube_video": "Youtube Video",
+            "youtube_vod": "Youtube VOD (Full/Partial Event Stream)",
+            "youtube_playlist": "Youtube Playlist",
+            "venue_media": "Venue Media (Venue Map, Pit Map, etc.)",
+            "other": "Other Media"
+          },
+          "desc": "Description",
+          "submit": "Submit Suggestion",
+          "url": "URL",
+          "notes": "Notes for Admin",
+          "success_msg": "Thank you, you suggestion has been submitted",
+          "missing_field": "You are missing a value for {{ value }}"
+        },
         "admin": {
           "title": "Admin",
           "playlist_card": {
