@@ -26,7 +26,7 @@ export class RetrieverComponent implements OnInit {
 
   ngOnInit() { // TODO Update Year Yearly :P
     this.appBarService.setTitle('Retriever');
-    this.cloud.eventsRetriever(this.user.firebaseUser, 2122).then((events: any) => {
+    this.cloud.eventsRetriever(this.user.firebaseUser, 2021).then((events: any) => {
       this.newEvents = events.new_events.map((result: any) => new Event().fromJSON(result));
       this.modifiedEvents = events.modified_events.map((result: any) => new ModifiedEvent().fromJSON(result));
     });
