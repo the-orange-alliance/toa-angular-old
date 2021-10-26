@@ -6,6 +6,7 @@ import MatchBreakdown1819 from '../years/MatchBreakdown1819';
 import MatchBreakdown1920 from '../years/MatchBreakdown1920';
 import MatchBreakdown2021 from '../years/MatchBreakdown2021';
 import Match from '../../../models/Match';
+import MatchBreakdown2122 from '../years/MatchBreakdown2122';
 
 @Component({
   selector: 'toa-match-details',
@@ -37,6 +38,9 @@ export class MatchDetailsComponent implements OnInit {
           break;
         case 2021:
           this.rows = new MatchBreakdown2021().getRows(match);
+          break;
+        case 2122:
+          this.rows = new MatchBreakdown2122().getRows(match);
           break;
         default:
           this.rows = [

@@ -3,8 +3,8 @@ import RelicRecoveryMatchDetails from './RelicRecoveryMatchDetails';
 import VelocityVortexMatchDetails from './VelocityVortexMatchDetails';
 import RoverRuckusMatchDetails from './RoverRuckusMatchDetails';
 import SkystoneMatchDetails from './SkystoneMatchDetails';
-import MatchBreakdown2021 from '../../views/matches/years/MatchBreakdown2021';
 import UltimateGoalMatchDetails from './UltimateGoalMatchDetails';
+import FreightFrenzyMatchDetails from './FreightFrenzyMatchDetails';
 
 export function getMatchDetails(seasonKey: string): MatchDetails {
   switch (seasonKey) {
@@ -18,6 +18,8 @@ export function getMatchDetails(seasonKey: string): MatchDetails {
       return new SkystoneMatchDetails();
     case '2021':
       return new UltimateGoalMatchDetails();
+    case '2122':
+      return new FreightFrenzyMatchDetails();
     default:
       return new MatchDetails();
   }
