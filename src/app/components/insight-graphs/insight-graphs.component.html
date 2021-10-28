@@ -56,6 +56,13 @@
   </canvas>
 </div>
 
+<toa-insight-graphs-freight-frenzy *ngIf="season === '2122'"
+  [insights]="insights"
+  [lineChartColors]="lineChartColors"
+  [lineChartOptions]="lineChartOptions"
+  [lineChartLabels]="lineChartLabels"
+  [lineChartPlugins]="lineChartPlugins"
+></toa-insight-graphs-freight-frenzy>
 <toa-insight-graphs-ultimate-goal *ngIf="season === '2021'"
   [insights]="insights"
   [lineChartColors]="lineChartColors"

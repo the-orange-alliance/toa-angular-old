@@ -1,0 +1,248 @@
+<div class="container d-none d-sm-none d-md-inline">
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Freight in Autonomous</h4>
+      <canvas baseChart
+              [datasets]="autoFreight"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Percent Parking in Autonomous</h4>
+      <canvas baseChart
+              [datasets]="autoParking"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Percent Bonuses in Autonomous</h4>
+      <canvas baseChart
+              [datasets]="autoBonuses"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Freight in Teleop</h4>
+      <canvas baseChart
+              [datasets]="teleFreight"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Percent Parked in End Game</h4>
+      <canvas baseChart
+              [datasets]="endParking"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Percent Balances in End Game</h4>
+      <canvas baseChart
+              [datasets]="endBalanced"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+  <div class="row"><div class="col-6">
+    <h4 mdcHeadline6 class="pt-5 pb-3">Percent Carousels</h4>
+    <canvas baseChart
+            [datasets]="endCapped"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Percent Carousels</h4>
+      <canvas baseChart
+              [datasets]="endCarousel"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Percent Delivered in End Game</h4>
+      <canvas baseChart
+              [datasets]="endDelivered"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+</div>
+
+
+<!--------- Small Screen Things ---------->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Average Freight in Autonomous</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="autoFreight"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Percent Parking in Autonomous</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="autoParking"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Percent Bonuses in Autonomous</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="autoBonuses"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Average Freight in Teleop</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="teleFreight"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Percent Parked in End Game</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="endParking"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Percent Balances in End Game</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="endBalanced"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Percent Carousels</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="endCarousel"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Percent Capped in End Game</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="endCapped"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h3 mdcHeadline6 class="pt-5 pb-3">Percent Delivered in End Game</h3>
+  <div style="display:block">
+    <canvas baseChart
+            [datasets]="endDelivered"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="true"
+            [chartType]="'line'"
+            [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
+</div>
