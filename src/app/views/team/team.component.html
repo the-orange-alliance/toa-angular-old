@@ -1,4 +1,7 @@
-<div class="row">
+<mdc-linear-progress *ngIf="!team"></mdc-linear-progress>
+<div class="text-center" *ngIf="!team">{{ 'general.loading' | translate }}</div>
+
+<div class="row" *ngIf="team">
   <h2 class="col-md-9 col-12">Team #{{ (team?.teamNumber) ? team.teamNumber : teamKey }}</h2>
   <div *ngIf="user !== null && team?.teamKey" class="col-12 col-md-3">
     <button mdc-button primary (click)="toggleTeam()" class="align-self-end black" style="text-transform:initial; height: auto; padding: 7px">
@@ -136,7 +139,7 @@
           </mdc-tab-scroller>
         </mdc-tab-bar>
         <div class="mt-4 p-2">
-          <toa-team-results *ngIf="isSelected('results')" [team]="team" [season]="getSeasonString(currentSeason.seasonKey, false)"></toa-team-results>
+          <toa-team-results *ngIf="isSelected('results')" [team]="team" [season]="getSeasonString(currentSeason.seasonKey, false)" [eventsReady]="eventsReady"></toa-team-results>
           <toa-team-robot *ngIf="isSelected('robot')" [team]="team"></toa-team-robot>
         </div>
       </mdc-card>

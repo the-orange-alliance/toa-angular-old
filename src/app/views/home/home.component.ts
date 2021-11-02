@@ -22,12 +22,19 @@ export class HomeComponent {
   eventSearchResults: Event[] = [];
 
   public currentEvents: Event[];
+  public eventsReady: boolean = false;
 
   public highScoreQual: Match;
   public highScoreElim: Match;
   public highScoreAll: Match;
   public highScoreSingleTeam: Match;
   public highScoreSingleTeamPenalty: Match;
+
+  public highScoreQualReady: boolean = false;
+  public highScoreElimReady: boolean = false;
+  public highScoreAllReady: boolean = false;
+  public highScoreSTPReady: boolean = false;
+  public highScoreSTNPReady: boolean = false;
 
   public matchCount: number;
   public teamsCount: number;
@@ -51,10 +58,14 @@ export class HomeComponent {
       if (data) {
         this.ftc.getMatchParticipants(this.highScoreQual.matchKey).then((participants: MatchParticipant[]) => {
           this.highScoreQual.participants = participants;
+          this.highScoreQualReady = true;
         });
         this.ftc.getEventBasic(this.highScoreQual.eventKey).then((event: Event) => {
           this.highScoreQual.event = event;
+          this.highScoreQualReady = true;
         });
+      } else {
+        this.highScoreQualReady = true;
       }
     });
     this.ftc.getHighScoreElim(this.ftc.year).then((data: Match) => {
@@ -62,10 +73,14 @@ export class HomeComponent {
       if (data) {
         this.ftc.getMatchParticipants(this.highScoreElim.matchKey).then((participants: MatchParticipant[]) => {
           this.highScoreElim.participants = participants;
+          this.highScoreElimReady = true;
         });
         this.ftc.getEventBasic(this.highScoreElim.eventKey).then((event: Event) => {
           this.highScoreElim.event = event;
+          this.highScoreElimReady = true;
         });
+      } else {
+        this.highScoreElimReady = true;
       }
     });
     this.ftc.getHighScoreWithPenalty(this.ftc.year).then((data: Match) => {
@@ -73,10 +88,14 @@ export class HomeComponent {
       if (data) {
         this.ftc.getMatchParticipants(this.highScoreAll.matchKey).then((participants: MatchParticipant[]) => {
           this.highScoreAll.participants = participants;
+          this.highScoreAllReady = true;
         });
         this.ftc.getEventBasic(this.highScoreAll.eventKey).then((event: Event) => {
           this.highScoreAll.event = event;
+          this.highScoreAllReady = true;
         });
+      } else {
+        this.highScoreAllReady = true;
       }
     });
     this.ftc.getHighScoreSingleTeam(this.ftc.year).then((data: Match) => {
@@ -84,10 +103,14 @@ export class HomeComponent {
       if (data) {
         this.ftc.getMatchParticipants(this.highScoreSingleTeam.matchKey).then((participants: MatchParticipant[]) => {
           this.highScoreSingleTeam.participants = participants;
+          this.highScoreSTNPReady = true;
         });
         this.ftc.getEventBasic(this.highScoreSingleTeam.eventKey).then((event: Event) => {
           this.highScoreSingleTeam.event = event;
+          this.highScoreSTNPReady = true;
         });
+      } else {
+        this.highScoreSTNPReady = true;
       }
     });
     this.ftc.getHighScoreSingleTeamWithPenalty(this.ftc.year).then((data: Match) => {
@@ -95,10 +118,14 @@ export class HomeComponent {
       if (data) {
         this.ftc.getMatchParticipants(this.highScoreSingleTeamPenalty.matchKey).then((participants: MatchParticipant[]) => {
           this.highScoreSingleTeamPenalty.participants = participants;
+          this.highScoreSTPReady = true;
         });
         this.ftc.getEventBasic(this.highScoreSingleTeamPenalty.eventKey).then((event: Event) => {
           this.highScoreSingleTeamPenalty.event = event;
+          this.highScoreSTPReady = true;
         });
+      } else {
+        this.highScoreSTPReady = true;
       }
     });
     this.ftc.getSeasonEvents(this.ftc.year).then((events: Event[]) => {
@@ -110,6 +137,7 @@ export class HomeComponent {
         }
       }
       this.currentEvents.sort((a: Event, b: Event) => b.teamCount - a.teamCount);
+      this.eventsReady = true;
     });
 
     this.ftc.getAllStreams().then((streams: EventLiveStream[]) => {
@@ -119,6 +147,10 @@ export class HomeComponent {
         }
       }
     })
+  }
+
+  private isNaN(number: number): boolean {
+    return isNaN(number);
   }
 
   private isBetweenDates(startDate: Date, endDate: Date, today: Date) {

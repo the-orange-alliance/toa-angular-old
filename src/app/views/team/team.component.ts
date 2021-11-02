@@ -39,6 +39,7 @@ export class TeamComponent implements OnInit {
   view_type: string;
   wlt: TeamSeasonRecord = null;
   topOpr: Ranking;
+  eventsReady: boolean = false;
 
   user: TOAUser = null;
   favorite: boolean;
@@ -112,6 +113,7 @@ export class TeamComponent implements OnInit {
   }
 
   public onSeasonChange(event: {index: any, value: any}) {
+    this.eventsReady = false;
     event.index = (event.index < 0) ? 0 : event.index;
     this.selectSeason(this.seasons[event.index])
   }
@@ -123,12 +125,14 @@ export class TeamComponent implements OnInit {
       Promise.all(data.map((result: any) => this.ftc.getEventBasic(result.eventKey).catch(e => null)))
         .then(events => {
           this.team.events = events.filter(result => result !== null);
+          this.eventsReady = true;
           this.getEventMatches();
           this.getEventRankings();
           this.getEventAwards();
         });
     }).catch(() => {
       this.team.events = [];
+      this.eventsReady = true;
     });
     this.getTeamMedia();
     this.getTeamWLT();

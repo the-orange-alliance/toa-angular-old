@@ -7,6 +7,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import { Router } from '@angular/router';
 import Season from '../../models/Season';
 import Region from '../../models/Region';
+import {MdcSnackbar} from "@angular-mdc/web";
 
 @Component({
   selector: 'toa-insights',
@@ -17,10 +18,18 @@ import Region from '../../models/Region';
 
 export class InsightsComponent implements OnInit {
 
-  insightsQuals: any = null;
-  insightsElims: any = null;
-  insightsSingle: any = null;
-  insightsCombo: any = null;
+  // years where single team matches exist and need to be shown
+  readonly singleTeamYears = ["2021", "2122"]
+
+  insightsQuals: any;
+  insightsElims: any;
+  insightsSingle: any;
+  insightsCombo: any;
+
+  insightsQualsReady: boolean = false;
+  insightsElimsReady: boolean = false;
+  insightsSingleReady: boolean = false;
+  insightsComboReady: boolean = false;
 
   seasons: Season[] = [];
   regions: Region[] = [];
@@ -30,7 +39,8 @@ export class InsightsComponent implements OnInit {
   activeTab = 0;
 
   constructor(private ftc: FTCDatabase, private app: TheOrangeAllianceGlobals, protected sanitizer: DomSanitizer,
-              private loca: Location, private router: Router, private appBarService: AppBarService, private appRef: ApplicationRef) {
+              private loca: Location, private router: Router, private appBarService: AppBarService, private appRef: ApplicationRef,
+              private snackbar: MdcSnackbar,) {
     this.app.setTitle('Insights');
   }
 
@@ -87,6 +97,14 @@ export class InsightsComponent implements OnInit {
   }
 
   onSeasonChange(event: {index: any, value: any}) {
+    this.insightsCombo = undefined;
+    this.insightsElims = undefined;
+    this.insightsQuals = undefined;
+    this.insightsSingle = undefined;
+    this.insightsComboReady = false;
+    this.insightsElimsReady = false;
+    this.insightsQualsReady = false;
+    this.insightsSingleReady = false;
     event.index = (event.index < 0) ? 0 : event.index;
     this.selectSeason(this.seasons[event.index]);
   }
@@ -178,60 +196,84 @@ export class InsightsComponent implements OnInit {
   loadQualsMTFirst() {
     this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'excluded', this.currentRegion.regionKey).then(data => {
       this.insightsQuals = data;
+      this.insightsQualsReady = true;
       return this.ftc.getInsights(this.currentSeason.seasonKey, 'elims', 'excluded', this.currentRegion.regionKey)
     }).then(data => {
       this.insightsElims = data;
+      this.insightsElimsReady = true;
       return this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'only', this.currentRegion.regionKey);
     }).then(data => {
-      this.insightsSingle = data;
-      return this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'included', this.currentRegion.regionKey)
-    }).then(data => {
       this.insightsCombo = data;
-    });
+      this.insightsComboReady = true;
+    }).then(data => {
+      this.insightsSingle = data;
+      this.insightsSingleReady = true;
+      return this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'included', this.currentRegion.regionKey)
+    }).catch(() => this.fetchFailed());
   }
 
   loadElimsMTFirst() {
     this.ftc.getInsights(this.currentSeason.seasonKey, 'elims', 'excluded', this.currentRegion.regionKey).then(data => {
-      this.insightsQuals = data;
+      this.insightsElims = data;
+      this.insightsElimsReady = true;
       return this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'excluded', this.currentRegion.regionKey)
     }).then(data => {
-      this.insightsElims = data;
+      this.insightsQuals = data;
+      this.insightsQualsReady = true;
       return this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'only', this.currentRegion.regionKey);
     }).then(data => {
-      this.insightsSingle = data;
-      return this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'included', this.currentRegion.regionKey)
-    }).then(data => {
       this.insightsCombo = data;
-    });
+      this.insightsComboReady = true;
+    }).then(data => {
+      this.insightsSingle = data;
+      this.insightsSingleReady = true;
+      return this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'included', this.currentRegion.regionKey)
+    }).catch(() => this.fetchFailed());
   }
 
   loadQualsSTFirst() {
     this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'only', this.currentRegion.regionKey).then(data => {
-      this.insightsQuals = data;
+      this.insightsSingle = data;
+      this.insightsSingleReady = true;
       return this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'excluded', this.currentRegion.regionKey)
     }).then(data => {
-      this.insightsElims = data;
+      this.insightsQuals = data;
+      this.insightsQualsReady = true;
       return this.ftc.getInsights(this.currentSeason.seasonKey, 'elims', 'excluded', this.currentRegion.regionKey);
     }).then(data => {
-      this.insightsSingle = data;
+      this.insightsElims = data;
+      this.insightsElimsReady = true;
       return this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'included', this.currentRegion.regionKey)
     }).then(data => {
       this.insightsCombo = data;
-    });
+      this.insightsComboReady = true;
+    }).catch(() => this.fetchFailed());
   }
 
   loadCombinedFirst() {
     this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'included', this.currentRegion.regionKey).then(data => {
-      this.insightsQuals = data;
+      this.insightsCombo = data;
+      this.insightsComboReady = true;
       return this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'excluded', this.currentRegion.regionKey)
     }).then(data => {
-      this.insightsElims = data;
+      this.insightsQuals = data;
+      this.insightsQualsReady = true;
       return this.ftc.getInsights(this.currentSeason.seasonKey, 'elims', 'excluded', this.currentRegion.regionKey);
     }).then(data => {
-      this.insightsSingle = data;
+      this.insightsElims = data;
+      this.insightsElimsReady = true;
       return this.ftc.getInsights(this.currentSeason.seasonKey, 'quals', 'only', this.currentRegion.regionKey);
     }).then(data => {
-      this.insightsCombo = data;
-    });
+      this.insightsSingle = data;
+      this.insightsSingleReady = true;
+    }).catch(() => this.fetchFailed());
+  }
+
+  fetchFailed() {
+    this.insightsComboReady = true;
+    this.insightsElimsReady = true;
+    this.insightsQualsReady = true;
+    this.insightsSingleReady = true;
+    this.snackbar.open("Error fetching insights. Please refresh to try again.")
   }
 }

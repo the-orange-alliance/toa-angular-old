@@ -9,6 +9,7 @@ export class TeamResultsComponent {
 
   @Input() team: Team;
   @Input() season: string;
+  @Input() eventsReady: boolean;
 
   constructor() {
 

@@ -76,9 +76,10 @@
         <mdc-card class="toa-card counting-card">
           <div class="counting-card-icon">
             <mdc-icon svgIcon="account-group"></mdc-icon>
+            <div class="spinner small secondary" *ngIf="isNaN(teamsCount)"></div>
           </div>
           <div class="counting-card-content">
-            <div class="counting-card-title">{{ teamsCount ? teamsCount : 0 }}</div>
+            <div class="counting-card-title">{{ isNaN(teamsCount) ? "..." : teamsCount }}</div>
             <div class="counting-card-info">{{ "pages.home.active_teams" | translate }}</div>
           </div>
         </mdc-card>
@@ -87,9 +88,10 @@
         <mdc-card class="toa-card counting-card">
           <div class="counting-card-icon">
             <mdc-icon svgIcon="gamepad-variant"></mdc-icon>
+            <div class="spinner small secondary" *ngIf="isNaN(matchCount)"></div>
           </div>
           <div class="counting-card-content">
-            <div class="counting-card-title">{{ matchCount ? matchCount : 0 }}</div>
+            <div class="counting-card-title">{{ isNaN(matchCount) ? "..." : matchCount }}</div>
             <div class="counting-card-info">{{ "pages.home.matches_played" | translate }}</div>
           </div>
         </mdc-card>
@@ -117,12 +119,13 @@
           </div>
 
           <mdc-list-divider></mdc-list-divider>
+          <mdc-linear-progress *ngIf="!eventsReady"></mdc-linear-progress>
 
-          <div *ngIf="currentEvents.length <= 0">
+          <div *ngIf="eventsReady && currentEvents.length <= 0">
             <p class="pt-4 text-center toa-card-subtitle">{{ "pages.home.no_events_today" | translate }}</p>
           </div>
 
-          <mdc-list *ngIf="currentEvents.length > 0">
+          <mdc-list *ngIf="eventsReady && currentEvents.length > 0">
             <toa-event-item *ngFor="let event of currentEvents" [event]="event"></toa-event-item>
           </mdc-list>
         </mdc-card>
@@ -136,6 +139,7 @@
           <div class="toa-card-header pb-0" mdcSubtitle2>{{ "pages.home.leaderboards.title" | translate }}</div>
           <div class="toa-card-subtitle pt-0" mdcSubtitle2>FREIGHT FRENZY 2021/22</div>
           <mdc-list-divider></mdc-list-divider>
+          <mdc-linear-progress *ngIf="!highScoreAllReady || !highScoreElimReady || !highScoreQualReady || !highScoreSTNPReady || !highScoreSTPReady"></mdc-linear-progress>
           <div class="p-3">
             <div *ngIf="highScoreAll && highScoreAll.participants">
               <h1 class="mb-0" mdcSubtitle2>{{ "pages.home.leaderboards.high_score_all" | translate }} Regular</h1>
@@ -194,7 +198,7 @@
           <div class="pr-3 pl-3 pt-3 pb-0">
             <h2 class="toa-card-title" mdcHeadline6>FIRST Updates Now will go live at {{ firstupdatesnow.startDateTime | date: 'MMM d, h:mm a' }} EST</h2>
             <div mdcBody2>
-              FIRST Updates Now (FUN) FTC is a live show that produces entertaining and original content about the FIRST Tech Challenge competition. FUN FTC has shows that range from event recaps, to team interviews, panel discussions, to hosting competition live stream.
+              First Updates Now (FUN) FTC is a live show that produces entertaining and original content about the FIRST Tech Challenge competition. FUN FTC has shows that range from event recaps, to team interviews, panel discussions, to hosting competition live stream.
             </div>
           </div>
           <mdc-card-actions>

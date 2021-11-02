@@ -23,6 +23,8 @@ export class TeamsComponent implements OnInit {
   currentTeams: Team[];
   regions: Region[];
 
+  loading: boolean = false;
+
   doneTypingInt = 2000;
   typingTimer;
 
@@ -55,6 +57,7 @@ export class TeamsComponent implements OnInit {
   }
 
   getTeams() {
+    this.loading = true;
     const query = this.query && this.query.trim().length > 0 ? this.query.toLowerCase().trim() : null;
     if (query) {
       let isRegion = false;
@@ -92,6 +95,7 @@ export class TeamsComponent implements OnInit {
     }
     clearTimeout(this.typingTimer);
     this.typingTimer = setTimeout(() => this.updateQueryParam(), this.doneTypingInt);
+    this.loading = false;
   }
 
   scrollTo(selectors: string) {

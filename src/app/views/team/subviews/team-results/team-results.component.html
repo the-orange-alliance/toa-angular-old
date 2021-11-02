@@ -1,3 +1,5 @@
+<mdc-linear-progress *ngIf="!eventsReady"></mdc-linear-progress>
+<div class="text-center" *ngIf="!eventsReady">{{ 'general.loading' | translate }}</div>
 <div *ngIf="team.events && team.events.length > 0">
   <div *ngFor="let event of team.events" id="{{ event.eventKey }}" class="col-12 p-0 pb-4">
     <div class="outline-card p-2">
@@ -27,7 +29,7 @@
   <small [innerHTML]="'match_table.help.surrogate' | translate"></small><br/>
 </div>
 
-<div *ngIf="team.events && team.events.length <= 0" style="color: #757575; text-align: center">
+<div *ngIf="eventsReady && team.events && team.events.length <= 0" style="color: #757575; text-align: center">
   <div mdcHeadline6>{{ 'no_data.events_for_season' | translate: {'season': season} }}</div>
   <div mdcBody1 [innerHTML]="'no_data.events_for_season_long' | translate"></div>
 </div>

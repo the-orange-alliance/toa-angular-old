@@ -8,6 +8,7 @@
         <div class="toa-card-header">{{ 'pages.events.filter' | translate }}</div>
 
         <mdc-list-divider></mdc-list-divider>
+        <mdc-linear-progress *ngIf="!insightsQualsReady || !insightsComboReady || !insightsSingleReady || !insightsElimsReady"></mdc-linear-progress>
         <div class="p-3 row">
 
           <div mdcMenuSurfaceAnchor #seasonAnchor *ngIf="currentSeason && seasons && seasons.length > 0" class="toa-dropdown">
@@ -52,8 +53,8 @@
       <mdc-tab-scroller>
         <mdc-tab label="Quals Multi-Team Matches"    (click)="changeUrlNoRoute('quals')"></mdc-tab>
         <mdc-tab label="Elims Multi-Team Matches"   (click)="changeUrlNoRoute('elims')"></mdc-tab>
-        <mdc-tab *ngIf="this.currentSeason && this.currentSeason.seasonKey === '2021'" label="Quals Single-Team Matches"    (click)="changeUrlNoRoute('stquals')"></mdc-tab>
-        <mdc-tab *ngIf="this.currentSeason && this.currentSeason.seasonKey === '2021'" label="Quals Combined Single/Multi-Team Matches " (click)="changeUrlNoRoute('combined')"></mdc-tab>
+        <mdc-tab *ngIf="this.currentSeason && this.singleTeamYears.includes(this.currentSeason.seasonKey)" label="Quals Single-Team Matches"    (click)="changeUrlNoRoute('stquals')"></mdc-tab>
+        <mdc-tab *ngIf="this.currentSeason && this.singleTeamYears.includes(this.currentSeason.seasonKey)" label="Quals Combined Single/Multi-Team Matches " (click)="changeUrlNoRoute('combined')"></mdc-tab>
       </mdc-tab-scroller>
     </mdc-tab-bar>
 

@@ -6,6 +6,7 @@
       <div class="toa-card-header">{{ 'pages.events.filter' | translate }}</div>
 
       <mdc-list-divider></mdc-list-divider>
+      <mdc-linear-progress *ngIf="!availableWeeks"></mdc-linear-progress>
       <div class="p-3 row">
 
         <div mdcMenuSurfaceAnchor #seasonAnchor *ngIf="currentSeason && seasons && seasons.length > 0" class="toa-dropdown">

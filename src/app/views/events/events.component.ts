@@ -140,6 +140,7 @@ export class EventsComponent implements OnInit {
   }
 
   onSeasonChange(event: {index: any, value: any}) {
+    this.availableWeeks = undefined;
     event.index = (event.index < 0) ? 0 : event.index;
     this.selectSeason(this.seasons[event.index]);
     // Update URL Parameter

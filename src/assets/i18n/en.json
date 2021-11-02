@@ -22,7 +22,8 @@
     "search_text_long": "Search teams and events",
     "search_text_short": "Team # or Event",
     "add_to_mytoa": "Add to myTOA",
-    "remove_from_mytoa": "Remove from myTOA"
+    "remove_from_mytoa": "Remove from myTOA",
+    "loading": "Loading..."
   },
 
   "drawer": {
