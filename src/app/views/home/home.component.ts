@@ -149,7 +149,7 @@ export class HomeComponent {
     })
   }
 
-  private isNaN(number: number): boolean {
+  isNaN(number: number): boolean {
     return isNaN(number);
   }
 
