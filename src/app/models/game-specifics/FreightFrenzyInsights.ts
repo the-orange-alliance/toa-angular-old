@@ -85,6 +85,8 @@ export default class FreightFrenzyInsights extends Insights implements ISerializ
     insights.averageMatchScore = json.average_match_score;
     insights.averageWinningScore = json.average_winning_score;
     insights.averageWinningMargin = json.average_winning_margin;
+    insights.averageMajorPenalties = json.average_major_penalty;
+    insights.averageMinorPenalties = json.average_minor_penalty;
 
     insights.autoAveragePartialStorage = json.game.auto_percent_partially_in_storage;
     insights.autoAverageCompleteStorage = json.game.auto_percent_complete_in_storage;
@@ -106,7 +108,6 @@ export default class FreightFrenzyInsights extends Insights implements ISerializ
     insights.autoAverageCompleteWarehouse = json.game.end_percent_completely_in_warehouse;
     insights.averageCapped = json.game.percent_capped;
     insights.averageCarousel = json.game.percent_carousel;
-    console.log(insights)
     return insights;
   }
 

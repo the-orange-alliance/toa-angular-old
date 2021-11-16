@@ -64,6 +64,9 @@ export default class UltimateGoalInsights extends Insights implements ISerializa
     insights.averageMatchScore = json.average_match_score;
     insights.averageWinningScore = json.average_winning_score;
     insights.averageWinningMargin = json.average_winning_margin;
+    insights.averageMajorPenalties = json.average_major_penalty;
+    insights.averageMinorPenalties = json.average_minor_penalty;
+
     insights.autoAverageRingsScoredHigh = json.game.auto_average_rings_scored_high;
     insights.autoAverageRingsScoredMid = json.game.auto_average_rings_scored_mid;
     insights.autoAverageRingsScoredLow = json.game.auto_average_rings_scored_low;

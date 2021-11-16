@@ -58,7 +58,9 @@ export class EventFilter {
   }
 
   public searchFilter(query: string) {
+    console.log('here')
     if (query && query.trim() !== '' && query !== null) {
+      console.log(this.events[0].seasonKey)
       this.eventsFiltered = this.events.filter((event) => {
         query = query.toLowerCase();
 
@@ -68,15 +70,18 @@ export class EventFilter {
         const event_country = (event.country + '' || 'null').toLowerCase();
         const event_name = (event.eventName || 'null').toLowerCase();
         const event_key = (event.eventKey || 'null').toLowerCase();
+        const firstid = (event.firstEventCode || 'null').toLowerCase();
 
         const contains_region = (event_region.indexOf(query) > -1);
         const contains_city = (event_city.indexOf(query) > -1);
         const contains_state_prov = (event_state_prov.indexOf(query) > -1);
         const contains_country = (event_country.indexOf(query) > -1);
         const contains_name = (event_name.indexOf(query) > -1);
+
+        const contains_firstid = (firstid.indexOf(query) > -1);
         const some_key = event_key === query;
 
-        return contains_region || contains_city || contains_state_prov || contains_country || contains_name || some_key;
+        return contains_region || contains_city || contains_state_prov || contains_country || contains_name || some_key || contains_firstid;
       });
     } else {
       this.eventsFiltered = this.events;

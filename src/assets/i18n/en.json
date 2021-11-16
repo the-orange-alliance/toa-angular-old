@@ -247,6 +247,8 @@
           "avg_score": "Average Score",
           "avg_winning_score": "Average Win Score",
           "avg_winning_margin": "Average Win Margin",
+          "avg_major_penalties": "Average Major Penalties per Match",
+          "avg_minor_penalties": "Average Minor Penalties per Match",
           "prc_landed": "% of Landed Robots",
           "prc_latched": "% of Latched Robots",
           "prc_sampling": "% of Successful Samples",

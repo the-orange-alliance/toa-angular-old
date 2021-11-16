@@ -70,6 +70,9 @@ export default class SkystoneInsights extends Insights implements ISerializable 
     skystone.averageMatchScore = json.average_match_score;
     skystone.averageWinningScore = json.average_winning_score;
     skystone.averageWinningMargin = json.average_winning_margin;
+    skystone.averageMajorPenalties = json.average_major_penalty;
+    skystone.averageMinorPenalties = json.average_minor_penalty;
+
     skystone.autoAverageStonesDelivered = json.game.auto_average_skystones_delivered;
     skystone.autoAveragePlaced = json.game.auto_average_placed;
     skystone.autoPercentParked = json.game.auto_percent_parked;
