@@ -17,10 +17,18 @@
       <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_winning_score' | translate }}</div>
       <div class="insight-card-content">{{ insights.averageWinningScore }}</div>
     </div>
-    <hr/>
     <div class="align-items-center">
       <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_winning_margin' | translate }}</div>
       <div class="insight-card-content">{{ insights.averageWinningMargin }}</div>
+    </div>
+    <hr/>
+    <div class="align-items-center">
+      <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_major_penalties' | translate }}</div>
+      <div class="insight-card-content">{{ insights.averageMajorPenalties }}</div>
+    </div>
+    <div class="align-items-center">
+      <div class="insight-card-title">{{ 'pages.event.subpages.insights.avg_minor_penalties' | translate }}</div>
+      <div class="insight-card-content">{{ insights.averageMinorPenalties }}</div>
     </div>
 
     <toa-insights-rover-ruckus *ngIf="seasonKey === '1819' && insights" [insights]="insights"></toa-insights-rover-ruckus>

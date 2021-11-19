@@ -34,7 +34,7 @@ export default class FreightFrenzyAllianceDetails implements ISerializable {
   private _endParkedPoints: number;
   private _capped: number;
   private _cappedPoints: number;
-  private _carouselPoints: string
+  private _carouselPoints: number;
   private _totalPoints: number;
 
   constructor() {
@@ -71,7 +71,7 @@ export default class FreightFrenzyAllianceDetails implements ISerializable {
     this._endParkedPoints = -1;
     this._capped = -1;
     this._cappedPoints = -1;
-    this._carouselPoints = '';
+    this._carouselPoints = -1;
     this._totalPoints = -1;
   }
 
@@ -419,11 +419,11 @@ export default class FreightFrenzyAllianceDetails implements ISerializable {
     this._cappedPoints = value;
   }
 
-  get carouselPoints(): string {
+  get carouselPoints(): number {
     return this._carouselPoints;
   }
 
-  set carouselPoints(value: string) {
+  set carouselPoints(value: number) {
     this._carouselPoints = value;
   }
 

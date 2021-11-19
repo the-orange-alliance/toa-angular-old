@@ -17,7 +17,6 @@ export class InsightsCardComponent implements OnInit {
   highScore = 0;
 
   ngOnInit() {
-    console.log(this.insights)
     this.seasonKey = this.event.seasonKey;
     if (this.insights && this.insights.highScoreMatch) {
       this.highScore = Math.max(this.insights.highScoreMatch.redScore, this.insights.highScoreMatch.blueScore);

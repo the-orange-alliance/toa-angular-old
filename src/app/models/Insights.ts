@@ -6,12 +6,16 @@ export default class Insights implements ISerializable {
   private _averageMatchScore: number;
   private _averageWinningScore: number;
   private _averageWinningMargin: number;
+  private _averageMajorPenalties: number;
+  private _averageMinorPenalties: number;
 
   constructor() {
-    this._highScoreMatch = null;
+    this._highScoreMatch = new Match();
     this._averageMatchScore = 0;
     this._averageWinningScore = 0;
     this._averageWinningMargin = 0;
+    this._averageMajorPenalties = 0;
+    this._averageMinorPenalties = 0;
   }
 
   toJSON(): object {
@@ -19,7 +23,9 @@ export default class Insights implements ISerializable {
       high_score_match: this.highScoreMatch ? this.highScoreMatch.toJSON() : null,
       average_match_score: this.averageMatchScore,
       average_winning_score: this.averageWinningScore,
-      average_winning_margin: this.averageWinningMargin
+      average_winning_margin: this.averageWinningMargin,
+      average_major_penalty: this.averageMajorPenalties,
+      average_minor_penalty: this.averageMinorPenalties
     };
   }
 
@@ -29,6 +35,8 @@ export default class Insights implements ISerializable {
     insights.averageMatchScore = json.average_match_score;
     insights.averageWinningScore = json.average_winning_score;
     insights.averageWinningMargin = json.average_winning_margin;
+    insights.averageMajorPenalties = json.average_major_penalty;
+    insights.averageMinorPenalties = json.average_minor_penalty;
     return insights;
   }
 
@@ -62,5 +70,21 @@ export default class Insights implements ISerializable {
 
   set averageWinningMargin(value: number) {
     this._averageWinningMargin = value;
+  }
+
+  get averageMajorPenalties(): number {
+    return this._averageMajorPenalties;
+  }
+
+  set averageMajorPenalties(value: number) {
+    this._averageMajorPenalties = value;
+  }
+
+  get averageMinorPenalties(): number {
+    return this._averageMinorPenalties;
+  }
+
+  set averageMinorPenalties(value: number) {
+    this._averageMinorPenalties = value;
   }
 }

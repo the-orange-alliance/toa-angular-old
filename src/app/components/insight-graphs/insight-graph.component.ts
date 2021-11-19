@@ -58,6 +58,7 @@ export class InsightGraphComponent implements OnInit {
   ];
 
   matchScore: ChartDataSets[] = [{data: [], label: 'Average Winning Score'}, {data: [], label: 'Average Match Score'}]
+  penalties: ChartDataSets[] = [{data: [], label: 'Average Major Penalties'}, {data: [], label: 'Average Minor Penalties'}]
   winMargin: ChartDataSets[] = [{data: [], label: 'Average Win Margin'}]
 
   constructor() {
@@ -79,6 +80,8 @@ export class InsightGraphComponent implements OnInit {
         this.matchScore[0].data.push(insight.averageWinningScore)
         this.matchScore[1].data.push(insight.averageMatchScore)
         this.winMargin[0].data.push(insight.averageWinningMargin)
+        this.penalties[0].data.push(insight.averageMajorPenalties)
+        this.penalties[1].data.push(insight.averageMinorPenalties)
       }
     }
   }

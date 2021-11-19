@@ -27,6 +27,23 @@
   </div>
 </div>
 
+<div class="container d-none d-sm-none d-md-inline">
+  <div class="row">
+    <div class="col-6">
+      <h4 mdcHeadline6 class="pt-5 pb-3">Average Penalties</h4>
+      <canvas baseChart
+              [datasets]="penalties"
+              [labels]="(season === '1718') ? lineChartLabelsOld : lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="true"
+              [chartType]="'line'"
+              [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </div>
+</div>
+
 
 
 <!-- Match Score Small Screen -->
@@ -55,6 +72,22 @@
           [plugins]="lineChartPlugins">
   </canvas>
 </div>
+<!-- Penalty Small Screen -->
+<div class="d-block d-sm-none d-sm-block d-md-none">
+  <h4 mdcHeadline6 class="pt-5 pb-3">Average Penalties</h4>
+  <canvas baseChart
+          [datasets]="penalties"
+          [labels]="(season === '1718') ? lineChartLabelsOld : lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="true"
+          [chartType]="'line'"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
+
+
+<h4 mdcHeadline4 class="pt-5 pb-3">Game Specific</h4>
 
 <toa-insight-graphs-freight-frenzy *ngIf="season === '2122'"
   [insights]="insights"
