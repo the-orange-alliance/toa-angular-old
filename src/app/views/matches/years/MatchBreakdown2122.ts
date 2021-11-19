@@ -17,9 +17,9 @@ export default class MatchBreakdown2122 {
     const blue: FreightFrenzyAllianceDetails = details.blueDtls;
 
     const red1AutoBonusPts = red.barcode1 === 'DUCK' ? 10 : 20;
-    const red2AutoBonusPts = red.barcode1 === 'DUCK' ? 10 : 20;
-    const blue1AutoBonusPts = red.barcode1 === 'DUCK' ? 10 : 20;
-    const blue2AutoBonusPts = red.barcode1 === 'DUCK' ? 10 : 20;
+    const red2AutoBonusPts = red.barcode2 === 'DUCK' ? 10 : 20;
+    const blue1AutoBonusPts = blue.barcode1 === 'DUCK' ? 10 : 20;
+    const blue2AutoBonusPts = blue.barcode2 === 'DUCK' ? 10 : 20;
 
     // TODO: Replace team 1 and 2 with actual team numbers?
     return [
@@ -33,13 +33,13 @@ export default class MatchBreakdown2122 {
       MatchBreakdownField('Level 3 Cargo', red.autoFreight3, blue.autoFreight3, 6),
       MatchBreakdownFreightFrenzyBarcodeElement('Barcode Element 1', red.barcode1, blue.barcode1),
       MatchBreakdownFreightFrenzyBarcodeElement('Barcode Element 2', red.barcode2, blue.barcode2),
-      MatchBreakdownBoolFieldVariable('Robot 1 Bonus', red.autoBonus1, blue.autoBonus1, red1AutoBonusPts, blue1AutoBonusPts ),
-      MatchBreakdownBoolFieldVariable('Robot 2 Bonus', red.autoBonus2, blue.autoBonus1, red2AutoBonusPts, blue2AutoBonusPts ),
+      MatchBreakdownBoolFieldVariable('Robot 1 Bonus', red.autoBonus1, blue.autoBonus1, red1AutoBonusPts, blue1AutoBonusPts),
+      MatchBreakdownBoolFieldVariable('Robot 2 Bonus', red.autoBonus2, blue.autoBonus2, red2AutoBonusPts, blue2AutoBonusPts),
 
       MatchBreakdownTitle('Driver-Controlled', match.redTeleScore, match.blueTeleScore),
       MatchBreakdownField('Storage Unit Freight', red.teleStorageFreight, blue.teleStorageFreight, 1),
       MatchBreakdownField('Level 1 Cargo', red.teleFreight1, blue.teleFreight1, 2),
-      MatchBreakdownField('Level 2 Cargo', red.teleFreight2, blue.teleFreight2, 3),
+      MatchBreakdownField('Level 2 Cargo', red.teleFreight2, blue.teleFreight2, 4),
       MatchBreakdownField('Level 3 Cargo', red.teleFreight3, blue.teleFreight3, 6),
       MatchBreakdownField('Shared Hub Freight', red.sharedFreight, blue.sharedFreight, 4),
 
