@@ -39,7 +39,7 @@ export default class MatchBreakdown2122 {
       MatchBreakdownTitle('Driver-Controlled', match.redTeleScore, match.blueTeleScore),
       MatchBreakdownField('Storage Unit Freight', red.teleStorageFreight, blue.teleStorageFreight, 1),
       MatchBreakdownField('Level 1 Cargo', red.teleFreight1, blue.teleFreight1, 2),
-      MatchBreakdownField('Level 2 Cargo', red.teleFreight2, blue.teleFreight2, 3),
+      MatchBreakdownField('Level 2 Cargo', red.teleFreight2, blue.teleFreight2, 4),
       MatchBreakdownField('Level 3 Cargo', red.teleFreight3, blue.teleFreight3, 6),
       MatchBreakdownField('Shared Hub Freight', red.sharedFreight, blue.sharedFreight, 4),
 
