@@ -1,6 +1,17 @@
 <h2 class="page-title">{{ 'pages.add_data.title' | translate }}</h2>
 <p class="page-subtitle">{{ 'pages.add_data.short_info' | translate }}</p>
 
+<h3 class="pt-3">IMPORTANT SEASON CHANGES</h3>
+  <p>
+    Uploading scores and match results for Official Events listed on <a href="https://ftc-events.firstinspires.org/" target="_blank">https://ftc-events.firstinspires.org/</a> 
+    can now be done through the <i>FIRST</i> Tech Challenge Scoring System.  Please refer to Chapter 12 for setting up the event and Chapter 18 for sending results to <i>FIRST</i> in the 
+   <a href="https://www.firstinspires.org/sites/default/files/uploads/resource_library/ftc/scorekeeper-manual.pdf" target="_blank">Scorekeeper Manual</a>.
+  </p>
+  <p>
+    For events not listed on <a href="https://ftc-events.firstinspires.org/" target="_blank">https://ftc-events.firstinspires.org/</a>, you can still use the following methods 
+    get scores to The Orange Alliance.
+  </p>
+
 <mdc-list class="mt-3">
   <a mdc-list-item class="link-item"  href="http://upload.theorangealliance.org" target="_blank" (click)="this.sendAnalytic('leaving', '/add-data', 'datasync');">
     <mdc-icon class="mdc-list-item__graphic" svgIcon="progress-upload"></mdc-icon> {{ 'pages.add_data.datasync' | translate }}
