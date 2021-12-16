@@ -21,6 +21,9 @@ export default class MatchBreakdown2122 {
     const blue1AutoBonusPts = blue.barcode1 === 'DUCK' ? 10 : 20;
     const blue2AutoBonusPts = blue.barcode2 === 'DUCK' ? 10 : 20;
 
+    const redPen = (details.redMinPen * -10) + (details.redMajPen * -30);
+    const bluePen = (details.blueMinPen * -10) + (details.blueMajPen * -30);
+
     // TODO: Replace team 1 and 2 with actual team numbers?
     return [
       MatchBreakdownTitle('Autonomous', match.redAutoScore, match.blueAutoScore),
@@ -52,9 +55,9 @@ export default class MatchBreakdown2122 {
       MatchBreakdownFreightFrenzyParkingLocation('Robot 1 Navigated', red.endParked1, blue.endParked1),
       MatchBreakdownFreightFrenzyParkingLocation('Robot 2 Navigated', red.endParked2, blue.endParked2),
 
-      MatchBreakdownTitle('Penalty', match.redPenalty, match.bluePenalty),
-      MatchBreakdownField('Minor Penalty', details.redMinPen, details.blueMinPen, 5),
-      MatchBreakdownField('Major Penalty', details.redMajPen, details.blueMajPen, 20)
+      MatchBreakdownTitle('Penalty', redPen, bluePen),
+      MatchBreakdownField('Minor Penalty', details.redMinPen, details.blueMinPen, -10),
+      MatchBreakdownField('Major Penalty', details.redMajPen, details.blueMajPen, -30)
     ];
   }
 }
