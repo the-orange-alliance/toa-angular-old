@@ -391,20 +391,20 @@
         },
 
         "teams": {
-            "title": "Teams",
-            "filter": "Filter by number, name, or location",
-            "results": "{{ results }} Results"
+            "title": "Echipe",
+            "filter": "Filtrează după nr, nume sau locație",
+            "results": "{{ results }} Resultate"
         }
     },
 
     "match_table": {
-        "teams": "Teams",
-        "score": "Score",
-        "scores": "Scores",
-        "blue_alliance": "Blue Alliance",
-        "red_alliance": "Red Alliance",
-        "blue_score": "Blue Score",
-        "red_score": "Red Score",
+        "teams": "Echipe",
+        "score": "Scor",
+        "scores": "Scoruri",
+        "blue_alliance": "Alianța Albastră",
+        "red_alliance": "Alianța Roșie",
+        "blue_score": "Scor Albastru",
+        "red_score": "Scor Roșu",
         "no_matches_for_event": "Nu există date despre meciurile acestui eveniment.",
         "match": "Meci",
         "view_team": "Vezi echipa",
