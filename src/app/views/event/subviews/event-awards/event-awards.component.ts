@@ -21,6 +21,7 @@ export class EventAwardsComponent {
   getHeader(awardRecipient: AwardRecipient) {
     // TODO: translate
     const key = awardRecipient.awardKey;
+    const season = parseInt(awardRecipient.awardsKey);  // the season component, i.e. 2122
     if (key.startsWith('INS')) {
       return 'Inspire Award Winners';
     } else if (key.startsWith('THK')) {
@@ -28,13 +29,21 @@ export class EventAwardsComponent {
     } else if (key.startsWith('CNT')) {
       return 'Connect Award Winners';
     } else if (key.startsWith('INV')) {
-      return 'Collins Aerospace Innovate Award Winners';
+      if (season >= 2122) {  // in 2021-22 the award was renamed
+        return 'Innovate Award sponsored by Raytheon Technologies Winners';
+      } else {
+        return 'Collins Aerospace Innovate Award Winners';
+      }
     } else if (key.startsWith('DSN')) {
       return 'Design Award Winners';
     } else if (key.startsWith('MOT')) {
       return 'Motivate Award Winners';
     } else if (key.startsWith('CTL')) {
-      return 'Control Award Winners';
+      if (season >= 2122) {  // in 2021-22 the award was renamed
+          return 'Control Award sponsored by Arm, Inc. Winners';
+      } else {
+          return 'Control Award Winners';
+      }
     } else if (key.startsWith('PRM')) {
       return 'Promote Award Winners';
     } else if (key.startsWith('CMP')) {
