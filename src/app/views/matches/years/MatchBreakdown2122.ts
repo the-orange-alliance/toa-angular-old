@@ -49,7 +49,6 @@ export default class MatchBreakdown2122 {
       MatchBreakdownTitle('End Game', match.redEndScore, match.blueEndScore),
       MatchBreakdownField('Duck or Shipping Element Delivered', red.endDelivered, blue.endDelivered, 6),
       MatchBreakdownField('Shipping Hub Capped', red.capped , blue.capped, 15),
-      MatchBreakdownField('Shipping Hub Capped', red.capped , blue.capped, 15),
       MatchBreakdownBoolField('Alliance Hub Balanced', red.allianceBalanced, blue.allianceBalanced, 10),
       MatchBreakdownBoolField('Shared Hub Unbalanced', red.sharedUnbalanced, blue.sharedUnbalanced, 20),
       MatchBreakdownFreightFrenzyParkingLocation('Robot 1 Navigated', red.endParked1, blue.endParked1),
