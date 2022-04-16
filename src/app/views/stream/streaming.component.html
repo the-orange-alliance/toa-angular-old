@@ -70,17 +70,16 @@
     </div>
 
     <div class="p-0 m-0 col-12 col-12" [class.col-lg-10]="showChat" *ngIf="layouts.length > 0 && streams.length > 0">
-      <toa-stream-item *ngFor="let layout of layouts; let i = index" [id]="i" [streams]="streams" [stream]="mainStream" [ngStyle]="layout.getStyle()"></toa-stream-item>
+      <toa-stream-item *ngFor="let layout of layouts; let i = index" [id]="i" [streams]="streams" [stream]="getInitialStream(i)" [ngStyle]="layout.getStyle()"></toa-stream-item>
     </div>
 
     <h5 class="text-center mt-5 col-12" [class.col-lg-10]="showChat" *ngIf="streams && streams.length <= 0">
       {{ 'no_data.streams_long' | translate }}
     </h5>
     <div class="col-2 d-none d-lg-block chat"  [class.d-lg-block]="showChat">
-      <!-- TWITCH EMBEDS WILL NOT WORK ON DEV SITE | Set &parent to 'localhost' to test on local dev site -->
       <iframe frameborder="0"
               scrolling="no"
-              src="https://www.twitch.tv/embed/theorangealliance/chat?darkpopout&parent=theorangealliance.org">
+              src="https://www.twitch.tv/embed/theorangealliance/chat?darkpopout&parent=theorangealliance.org&parent=&parent=dev.theorangealliance.org&parent=localhost">
       </iframe>
     </div>
   </div>
