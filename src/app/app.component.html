@@ -194,6 +194,33 @@
       </button>
     </div>
 -->
+    <div class="championship-banner championship-banner--home py-5 px-4 full-page" *ngIf="router.url === '/home'">
+      <img class="mw-100 mb-4" style="max-height: 100px;" src="../assets/imgs/cmp22-logo.png">
+      <div class="mt-3 w-100 d-flex flex-wrap justify-content-center">
+        <a
+          routerLink="/stream"
+          [queryParams]="{ config: JSON.stringify({ layout: 1, events: ['2122-CMP-HOU1', '2122-CMP-HOU2'] }) }"
+          class="championship-banner__button"
+        >
+          Watch Live
+        </a>
+        <!-- <a routerLink="/events/2122-CMP-HOU0" class="championship-banner__button">Finals Results</a> -->
+        <a routerLink="/events/2122-CMP-HOU1" class="championship-banner__button">Franklin Results</a>
+        <a routerLink="/events/2122-CMP-HOU2" class="championship-banner__button">Jemison Results</a>
+      </div>
+    </div>
+    <div class="championship-banner full-page" *ngIf="router.url !== '/home' && !router.url.startsWith('/stream')">
+      <a
+        routerLink="/stream"
+        [queryParams]="{ config: JSON.stringify({ layout: 1, events: ['2122-CMP-HOU1', '2122-CMP-HOU2'] }) }"
+        class="championship-banner__button"
+      >
+        Watch Live
+      </a>
+      <!-- <a routerLink="/events/2122-CMP-HOU0" class="championship-banner__button" routerLinkActive="championship-banner__button-activated">Finals Results</a> -->
+      <a routerLink="/events/2122-CMP-HOU1" class="championship-banner__button" routerLinkActive="championship-banner__button-activated">Franklin Results</a>
+      <a routerLink="/events/2122-CMP-HOU2" class="championship-banner__button" routerLinkActive="championship-banner__button-activated">Jemison Results</a>
+    </div>
     <router-outlet></router-outlet>
   </div>
 </div>

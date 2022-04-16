@@ -33,6 +33,8 @@ const SMALL_WIDTH_BREAKPOINT = 1240;
 })
 @Injectable()
 export class TheOrangeAllianceComponent implements OnInit {
+  private JSON = JSON; 
+
   server: {
     is_dev: boolean;
     last_commit: string;
