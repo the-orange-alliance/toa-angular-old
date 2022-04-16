@@ -1,0 +1,433 @@
+{
+    "config": {
+        "name": "Română",
+        "englishName": "Romanian",
+        "direction": "ltr"
+    },
+
+    "general": {
+        "team": "Echipă",
+        "teams": "Echipe",
+        "event": "Eveniment",
+        "events": "Evenimente",
+        "match": "Match",
+        "matches": "Matches",
+        "live": "LIVE",
+        "here": "aici",
+        "verify": "Verifică",
+        "add": "Adaugă",
+        "close": "Închide",
+        "save": "Salvează",
+        "error_occurred": "Am întâmpinat o eroare, Te rog încearcă mai târziu",
+        "search_text_long": "Cautare echipe și evenimente",
+        "search_text_short": "# Echipei sau al Evenimentului",
+        "add_to_mytoa": "Adaugă la myTOA",
+        "remove_from_mytoa": "Șterge din myTOA",
+        "loading": "Se încarcă..."
+    },
+
+    "drawer": {
+        "home": "Acasă",
+        "teams": "Echipe",
+        "events": "Evenimente",
+        "streaming": "Streaming",
+        "android_app": "Aplicație Android",
+        "ios_app": "Aplicație iOS",
+        "add_data": "Adaugă date",
+        "api": "API",
+        "github": "GitHub",
+        "about": "Despre",
+        "donate": "Donează",
+        "amazon_smile": "Amazon Smile",
+        "privacy_and_terms": "Termeni & Confidențialitate",
+        "official_ftc": "Furnizor oficial de date",
+        "mytoa": {
+            "hello": "Salut, {{ name }}",
+            "guest": "Oaspete",
+            "register": "Înregistreazăte",
+            "login": "Autentificare"
+        }
+    },
+
+    "pages": {
+        "add_data": {
+            "title": "Adaugă",
+            "short_info": "Ai niște date pe care ai vrea să le adaugi pe The Orange Alliance?",
+            "datasync": "DataSync - Sincronizează-ți evenimentul live cu TOA",
+            "add_event_data": "Adaugă rezultatele evenimentului după ce meciul s-a încheiat",
+            "add_match_video": "Adaugă video cu meciul",
+            "add_event_stream": "Adaugă un stream al evenimentului",
+            "stream_your_event": "Stream your event on TOA Twitch channel"
+        },
+
+        "404": {
+            "title": "Pagina negăsită",
+            "short_info": "Se pare ca ați introdus un link stricat sau ați introdus o echipă/eveniment/meci ce nu există."
+        },
+
+        "about": {
+            "title": "Despre noi"
+        },
+
+        "account": {
+            "logout": "Deconectare",
+            "level": "Nivel {{ level }}",
+            "no_verify": "Te rog verifică-ți email-ul",
+            "why_verify": "Pentru a te bucura de toate trăsăturile contului tău, te rog să îți verifici email-ul",
+            "manage_events": "Administrează evenimentele",
+            "division_tab": {
+                "manage_leagues": "Administrează Ligile",
+                "select_season": "Alege Sezonul",
+                "create_league": "Crează o Ligă",
+                "create_league_div": "Crează o diviziune de ligă",
+                "division_key": "Cheia diviziunii",
+                "leagues": "Ligi",
+                "league_divisions": "Diviziile ligilor",
+                "create_league_fields": {
+                    "league_key": "Cheia Ligii",
+                    "league_description": "Descripția Ligii",
+                    "division_desc": "Descripția Diviziunii"
+                }
+            },
+            "notifications_card": {
+                "title": "Notificări",
+                "summary": "Primește notificări bazat pe setările evenimentelor tale",
+                "grant_access": "Acordă accesul",
+                "enabled": "Notificările sunt activate pe acest dispozitivul",
+                "blocked": "Notificările sunt blocate pe acest dispozitiv",
+                "help": "Pentru a dezactiva blocarea de notificări, dă click pe iconița cu lacăt în stânga adresei web, click pe Site settings și schimbă permisiunile de notificări."
+            },
+            "api_card": {
+                "title": "Construiește chestii minunate cu API-ul nostru",
+                "your_key": "Aici este API Key-ul tău:",
+                "no_key": "Nu ai o cheie existentă",
+                "generate_key": "Generează o cheie",
+                "generating_key": "Se generează o cheie...",
+                "docs": "Te poți folosi de Documentația API-ului nostru"
+            },
+            "account_settings": "Setările contului",
+            "reset_password": "Resetează Parola",
+            "reset_password_email": "Un email despre resetarea parolii a fost trimis.",
+            "link_account": "Asociază contul de {{ name }}",
+            "unlink_account": "Dezasociază contul de {{ name }}",
+            "link_phone": "Asociază numărul de telefon",
+            "unlink_phone": "Dezasociază numărul de telefon",
+            "success_link": "Contul de {{ name }} a fost asociat cu succes",
+            "success_unlink": "Contul de {{ name }} a fost dezasociat cu succes",
+            "last_signin": "Ultima conectare",
+            "league_creation_success": "S-a creat liga cu succes!",
+            "league_deletion_success": "S-a șters cu succes liga!",
+            "league_division_creation_success": "S-a creat cu succes liga!",
+            "league_division_deletion_success": "S-a șters cu succes liga!",
+            "datasync_card": {
+                "title": "Sincronizează-ți evenimentul live cu TOA",
+                "docs": "Te poți folos de Documentația noastra despre Data Sync"
+            },
+            "create_event_card": {
+                "title": "Crează un Eveniment",
+                "create": "Crează",
+                "event_id": "Event ID",
+                "event_type": "Tipul Evenimentului",
+                "league": "Ligă",
+                "region": "Regiune",
+                "season": "Sezon",
+                "division_number": "Numbărul Diviziei",
+                "division_name": "Numele Diviziei",
+                "advancement_spots": "Advancement Spots",
+                "advancement_event": "Advancement Event",
+                "number_fields": "Numărul de Terenuri",
+                "number_alliances": "Numărul de Alianțe",
+                "success": "S-a creat cu succes evenimentul",
+                "dual_division": "Divizie Dublă",
+                "advanced": "Avansat"
+            },
+            "dump_cache": {
+                "title": "Dump Cache",
+                "general": "General",
+                "dump": "Dump",
+                "success": "Successfully Dumped Cache"
+            },
+            "retriever": {
+                "title": "Retriever",
+                "success_events": "S-au creat {{value}} Evenimente",
+                "success_teams": "S-au creat {{value}} Echipe"
+            },
+            "subpages": {
+                "login": {
+                    "title": "Autentificare",
+                    "email": "Email",
+                    "password": "Parolă",
+                    "login": "Autentificare",
+                    "forgot_password": "Ai uitat Parola?",
+                    "login_google": "Autentificare cu Google",
+                    "login_github": "Autentificare cu Github",
+                    "no_account_linked": "Acel cont nu este asociat cu nicun cont myTOA. Te rog autentifică-te pentru a îl asocia."
+                },
+                "register": {
+                    "title": "Înregistrare",
+                    "full_name": "Nume întreg",
+                    "email": "Email",
+                    "password": "Parolă",
+                    "confirm_password": "Confirmă parola",
+                    "your_team": "Numărul echipei tale",
+                    "sign_up": "Înregistrează-te"
+                }
+            }
+        },
+
+        "home": {
+            "title": "Acasă",
+            "short_info": "The Orange Alliance este furnizorul <b>oficial</b>  de meciuri, evenimente, și date ale echipelor pentru <i>FIRST</i> Tech Challenge.",
+            "active_teams": "Echipe Active",
+            "matches_played": "Meciuri Jucate",
+            "todays_events": "Evenimentele de Astăzi",
+            "no_events_today": "Nu este planificat niciun eveniment pe azi.",
+            "leaderboards": {
+                "title": "Clasamente",
+                "high_score_qual": "Meciul de Calificare cu cel mai mare Scor",
+                "high_score_elim": "Meciul de eliminare cu cel mai mare scor",
+                "high_score_all": "Meciul cu cel mai mare Scor",
+                "with_enalties": "Cu Penalizări",
+                "penalty_free": "Fără Penalizări"
+            }
+        },
+
+        "event": {
+            "event_info": "Informații despre Eveniment",
+            "game_info": "Informații despre joc",
+            "view_website": "Vezi site-ul evenimentului",
+            "event_key": "Cheia Evenimentului",
+            "stream_available": "Vezi live stream-ul",
+            "alliances_count": "{{ value }} Allianțe",
+            "fields_count": "{{ value }} Terenuri",
+            "matches_per_team": "{{ value }} Meciuri / echipă",
+            "settings": {
+                "title": "Setările Evenimentului",
+                "favorite": "Favorit",
+                "favorite_summary": "Poți salva echipe, evenimente și multe altele prin ale marca ca și \"favorite\".",
+                "notification_settings": "Setările notificărilor",
+                "notification_settings_summary": "Abonarea la ce va te ajută prin a prim notificări de fiecare dată când se actualizează ceva.",
+                "match_scores": "Scorurile Meciurilor",
+                "schedule_updated": "Programul Meciurilor s-a Postat",
+                "awards_posted": "Premiile s-au postat",
+                "alliances_posted": "Selecția Alianțelor",
+                "saved": "Setările evenimentului tău au fost salvate cu succes!",
+                "failed": "Salvarea setărilor a eșuat. Încercați mai târziu"
+            },
+            "subpages": {
+                "rankings": {
+                    "title": "Clasament",
+                    "rank": "Clasare",
+                    "team": "Echipă",
+                    "wlt_record": "C-P-R",
+                    "qual_points": "Puncte de Calificare",
+                    "ranking_points": "Puncte de Clasare",
+                    "tie_reaker_points": "Puncte de Tiebreaker",
+                    "highest_score": "Cel mai mare Scor",
+                    "matches_played": "Meciuri Jucate",
+                    "what_is_opr": "Offensive Power Rating, also know as OPR, is a stat that is often used in the FIRST community to compare the performance of teams on the field. OPRs are an interesting way to slice the data for teams at particular events, but aren't a perfect system for assessing a team's performance or contribution."
+                },
+                "matches": {
+                    "title": "Meciuri"
+                },
+                "teams": {
+                    "title": "Echipe"
+                },
+                "alliances": {
+                    "title": "Alliances"
+                },
+                "awards": {
+                    "title": "Awards"
+                },
+                "insights": {
+                    "title": "Grafice",
+                    "qual": "Calificare",
+                    "playoff": "Playoff",
+                    "high_score": "Cel mai mare Scor",
+                    "avg_score": "Scorul Mediu",
+                    "avg_winning_score": "Scorul Câștigător Mediu",
+                    "avg_winning_margin": "Margina Medie de Câștig",
+                    "avg_major_penalties": "Numărul Mediu de Penalizări Majore / Meci",
+                    "avg_minor_penalties": "Numărul Mediu de Penalizări Minore / Meci",
+                    "prc_landed": "% of Landed Robots",
+                    "prc_latched": "% of Latched Robots",
+                    "prc_sampling": "% of Successful Samples",
+                    "prc_claiming": "% of Depots Claimed",
+                    "prc_parking": "% of Parked Robots",
+                    "avg_golds": "Average # of Golds Minerals in Cargo Hold",
+                    "avg_silvers": "Average # of Silvers Minerals in Cargo Hold",
+                    "avg_depot": "Average # of Minerals in Depot"
+                },
+                "for-participants": {
+                    "title": "Pentru Participanți",
+                    "pits_map": "Pits Map",
+                    "venue_map": "Venue Map",
+                    "schedule": "Programul Evenimentului"
+                },
+                "suggestions": {
+                    "title": "Sugestii",
+                    "please_sign_in": "Te rog autentificăte pentru a lăsa o sugestie",
+                    "data_upload": "Ai material pentru un eveniment? Încarcă-l aici!",
+                    "type_selector": "Alege tipul de material",
+                    "match_selector": "Selectează Meciul",
+                    "types": {
+                        "twitch_stream": "Twitch Stream",
+                        "twitch_vod": "Twitch VOD",
+                        "twitch_clip": "Twitch Clip",
+                        "youtube_stream": "Youtube Stream",
+                        "youtube_video": "Youtube Video",
+                        "youtube_vod": "Youtube VOD (Full/Partial Event Stream)",
+                        "youtube_playlist": "Youtube Playlist",
+                        "venue_media": "Venue Media (Venue Map, Pit Map, etc.)",
+                        "other": "Other Media"
+                    },
+                    "desc": "Descriere",
+                    "submit": "Încarcă o sugestie",
+                    "url": "URL",
+                    "notes": "Note pentru Administrator",
+                    "success_msg": "Mulțumim, sugestia ta a fost trimisă",
+                    "missing_field": "Lipsește o valoare de {{ value }}"
+                },
+                "admin": {
+                    "title": "Administator",
+                    "playlist_card": {
+                        "title": "Adauga videoclipuri de meciuri dintr-un playlist YouTube",
+                        "playlist_url": "Playlist URL",
+                        "load": "Încarcă",
+                        "confirm": "Confirmă și Încarcă",
+                        "successfully": "S-au incărcat cu succes {{ value }} videouri",
+                        "error": "Nu am putut găsi niciun video de meci.",
+                        "invalid_url": "URL invalid, nu am găsit un Playlist YouTube"
+                    },
+                    "update_info_card": {
+                        "title": "Editează informațiile despre Eveniment",
+                        "event_name": "Nume Eveniment",
+                        "website": "Website",
+                        "start_date": "Data de Start",
+                        "end_date": "Data de Final",
+                        "venue": "Locație",
+                        "city": "Oraș",
+                        "state": "Stat",
+                        "country": "Țară",
+                        "update": "Actualizează",
+                        "upload": "Încarcă",
+                        "image_only": "O poți încărca doar ca imagine",
+                        "choose_image": "Alege imaginea...",
+                        "successfully": "Am actualizat cu succes detaliile evenimentului"
+                    },
+                    "stream_card": {
+                        "add_stream": "Adaugă Stream",
+                        "unlink_stream": "Dezasociază Stream",
+                        "currently_linked": "Stream Asociat Acum",
+                        "url": "{{ provider }} URL",
+                        "stream_name": "Numele Streamului",
+                        "link": "Asociază",
+                        "unlink": "Dezasociază",
+                        "stream": "{{ provider }} Stream",
+                        "success_linked": "Stream asociat cu Succes",
+                        "success_unlinked": "Stream Dezasociat cu succes"
+                    },
+                    "delete_card": {
+                        "delete_event": "Șterge Eveniment",
+                        "delete_failed": "Ștergere eșuată",
+                        "delete": "Șterge",
+                        "delete_all_data": "VEI ȘTERGE TOATE DATELE DESPRE ACEST EVENIMENT",
+                        "delete_sure": "SIGUR VREI SĂ ȘTERGI ACEST EVENIMENT?",
+                        "delete_final": "ACEST LUCRU VA ȘTERGE EVENIMENTUL"
+                    },
+                    "verify_email": "Verifică-ți email-ul și încearcă din nou.",
+                    "success_sent_verify_email": "Email de verificare trimis cu succes."
+                }
+            }
+        },
+
+        "events": {
+            "filter_season": "Sezon",
+            "filter_region": "Regiune",
+            "filter": "Opțiuni de Filtrare",
+            "clear_filter": "Șterge Filtrele"
+        },
+
+        "match": {
+            "match_info": "Informații despre Meci",
+            "match_key": "Cheia Meciului",
+            "scheduled_time": "Ora Programată",
+            "no_video": "Nu este disponibil un videoclip",
+            "add_one": "Adaugă unul"
+        },
+
+        "streams": {
+            "event_results": "Event Results",
+            "close_stream": "Close Stream",
+            "select_stream": "Select Stream",
+            "show_chat": "Show Chat",
+            "select": "Select",
+            "cancel": "Cancel",
+            "layouts": {
+                "title": "Select Layout",
+                "single_view": "Single View",
+                "vertical_split_view": "Vertical Split View",
+                "horizontal_split_view": "Horizontal Split View",
+                "1_2_view": "1+2 View",
+                "1_4_view": "1+4 View",
+                "quad_view": "Quad View"
+            }
+        },
+
+        "team": {
+            "team_info": "Team Information",
+            "event_results": "Event Results",
+            "part_of_region": "Part of the {{ regionKey }} Region",
+            "website": "Website",
+            "rookie_year": "Rookie Year",
+            "last_active": "Last Active Season",
+            "awards_in_season": "{{ awards }} awards in {{ season }}",
+            "robot_profile": {
+                "title": "Robot",
+                "engineering_notebook": "Engineering Notebook",
+                "robot_reveal": "Robot Reveal",
+                "photos": "Photos"
+            }
+        },
+
+        "teams": {
+            "title": "Echipe",
+            "filter": "Filtrează după nr, nume sau locație",
+            "results": "{{ results }} Resultate"
+        }
+    },
+
+    "match_table": {
+        "teams": "Echipe",
+        "score": "Scor",
+        "scores": "Scoruri",
+        "blue_alliance": "Alianța Albastră",
+        "red_alliance": "Alianța Roșie",
+        "blue_score": "Scor Albastru",
+        "red_score": "Scor Roșu",
+        "no_matches_for_event": "Nu există date despre meciurile acestui eveniment.",
+        "match": "Meci",
+        "view_team": "Vezi echipa",
+        "rank": "Clasare",
+        "wlt": "CPR",
+        "played": "Jucat",
+        "help": {
+            "bold": "<b>Bold</b> este Alianța Câștigătoare</small>",
+            "bold_and_black": "<b>Bold and Black</b> este Echipa Selectată</small>",
+            "surrogate": "<b>*</b> este Surogat"
+        }
+    },
+
+    "no_data": {
+        "teams": "Nicio echipă găsită",
+        "teams_long": "Nu există echipe cu aceste proprietăți",
+        "events": "Niciun eveniment găsit",
+        "event_long": "No results have been reported for this event.",
+        "streams_long": "Momentan nu există nici un stream activ.",
+        "events_for_season": "Niciun eveniment pentru sezonul {{ season }}",
+        "events_for_season_long": "Această echipă nu a jucat încă nici un meci în acest sezon.<br/>Încearcă să schimbi sezonul folosind selectorul de mai sus.",
+        "events_filter": "Niciun eveniment găsit cu acest filtru",
+        "events_filter_long": "Încearcă să schimbi sezonul sau regiunea folosind selectorul de mai sus",
+        "match_breakdown": "Nici o detaliere a meciului disponibilă"
+    }
+}
