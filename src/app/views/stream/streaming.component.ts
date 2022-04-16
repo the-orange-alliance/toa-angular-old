@@ -41,7 +41,7 @@ const SMALL_WIDTH_BREAKPOINT = 700;
 })
 export class StreamingComponent implements OnInit {
 
-  mainStream: EventLiveStream = null;
+  initialStreams: EventLiveStream[] = [];
   streams: EventLiveStream[];
   layouts: Layout[] = [];
   selectedLayout = -1;
@@ -64,7 +64,12 @@ export class StreamingComponent implements OnInit {
 
   ngOnInit() {
     const event = new URL(window.location.href).searchParams.get('e');
-    const kickoff = new URL(window.location.href).searchParams.get('kickoff') === '';
+    let config: any = new URL(window.location.href).searchParams.get('config');
+    if (config) {
+      config = JSON.parse(config);
+    } else if (event) {
+      config = { events: [event], layout: 0 };
+    }
     this.loca.go('/stream'); // Remove query parameters
     this.checkSize(window.innerWidth); // TODO: Fix for SSR
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
@@ -73,19 +78,20 @@ export class StreamingComponent implements OnInit {
         stream.safeURL = this.getSafeURL(stream.streamURL);
         if (stream.isActive) {
           this.streams.push(stream);
-          if (kickoff && stream.streamKey.toLowerCase() === 'kickoff') {
-            this.mainStream = stream;
-            this.selectLayout(0);
-          } else if (stream.eventKey && event && (stream.eventKey.toUpperCase() === `${this.ftc.year}-${event}`.toUpperCase() ||
-            stream.eventKey.toUpperCase() === event.toUpperCase())) {
-            this.mainStream = stream;
-            this.selectLayout(0);
-          }
         }
       }
       this.streams.sort(function(a,b) {
         return (a.startDateTime < b.startDateTime) ? -1 : ((a.startDateTime > b.startDateTime) ? 1 : 0)
       });
+      if (config) {
+        for (const event of config.events) {
+          const stream = this.streams.find(s => s.eventKey === event);
+          if (stream) {
+            this.initialStreams.push(stream);
+          }
+        }
+        this.selectLayout(config.layout);
+      }
     });
   }
 
@@ -207,5 +213,9 @@ export class StreamingComponent implements OnInit {
       layouts.push(new Layout(25, 25, 75, 75));
     }
     return layouts;
+  }
+
+  getInitialStream(index: number): EventLiveStream | null{
+    return this.initialStreams[index] || null;
   }
 }
