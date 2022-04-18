@@ -22,7 +22,7 @@
     </div>
     <div class="info-state" *ngIf="stream && stream.isActive">
       <mdc-icon svgIcon="video"></mdc-icon>
-      <p><a routerLink="/stream" [queryParams]="{ e: eventKey.substring(5) }">{{ 'pages.event.stream_available' | translate }}</a></p>
+      <p><a routerLink="/stream" [queryParams]="{ e: eventKey }">{{ 'pages.event.stream_available' | translate }}</a></p>
     </div>
     <div class="info-state" *ngIf="eventData.dataSource == 1">
       <mdc-icon svgIcon="shield-check"></mdc-icon>
