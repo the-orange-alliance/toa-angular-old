@@ -22,7 +22,7 @@
     </div>
     <div class="info-state" *ngIf="stream && stream.isActive">
       <mdc-icon svgIcon="video"></mdc-icon>
-      <p><a routerLink="/stream" [queryParams]="{ e: eventKey.substring(5) }">{{ 'pages.event.stream_available' | translate }}</a></p>
+      <p><a routerLink="/stream" [queryParams]="{ e: eventKey }">{{ 'pages.event.stream_available' | translate }}</a></p>
     </div>
     <div class="info-state" *ngIf="eventData.dataSource == 1">
       <mdc-icon svgIcon="shield-check"></mdc-icon>
@@ -73,7 +73,7 @@
             <mdc-tab (click)="changeUrlNoRoute('alliances')" label="{{ 'pages.event.subpages.alliances.title' | translate }}" [class.d-none]="totalalliances === 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalalliances }}</span></mdc-tab>
             <mdc-tab (click)="changeUrlNoRoute('awards')" label="{{ 'pages.event.subpages.awards.title' | translate }}" [class.d-none]="totalawards === 0"><span class="ml-1 mr-1 badge badge-pill badge-primary bg-primary">{{ totalawards }}</span></mdc-tab>
             <mdc-tab (click)="changeUrlNoRoute('insights')" label="{{ 'pages.event.subpages.insights.title' | translate }}" [class.d-none]="!qualInsights && !elimInsights"></mdc-tab>
-            <mdc-tab (click)="changeUrlNoRoute('media')" label="{{ 'pages.event.subpages.for-participants.title' | translate }}" [class.d-none]="totalmedia !== 0"></mdc-tab>
+            <mdc-tab (click)="changeUrlNoRoute('media')" label="{{ 'pages.event.subpages.for-participants.title' | translate }}" [class.d-none]="totalmedia === 0"></mdc-tab>
             <mdc-tab (click)="changeUrlNoRoute('suggestions')" label="{{ 'pages.event.subpages.suggestions.title' | translate }}"></mdc-tab>
             <mdc-tab (click)="changeUrlNoRoute('admin')" label="{{ 'pages.event.subpages.admin.title' | translate }}" [class.d-none]="!admin" [disabled]="!emailVerified"></mdc-tab>
           </mdc-tab-scroller>
@@ -85,7 +85,7 @@
           <toa-event-alliances *ngIf="tabs.activeTabIndex === 3" [alliances]="eventData.alliances"></toa-event-alliances>
           <toa-event-awards *ngIf="tabs.activeTabIndex === 4" [event]="eventData"></toa-event-awards>
           <toa-event-insights *ngIf="tabs.activeTabIndex === 5" [event]="eventData" [matches]="eventData.matches" [qualInsights]="qualInsights" [elimInsights]="elimInsights"></toa-event-insights>
-          <toa-event-for-participants *ngIf="tabs.activeTabIndex === 6" [event]="eventData" [media]="media"></toa-event-for-participants>
+          <toa-event-for-participants *ngIf="tabs.activeTabIndex === 6 && media" [event]="eventData" [media]="media"></toa-event-for-participants>
           <toa-event-suggestions *ngIf="tabs.activeTabIndex === 7" [event]="eventData" [user]="user" [matches]="eventData.matches"></toa-event-suggestions>
           <toa-event-admin *ngIf="admin" [class.d-none]="!emailVerified || !(tabs.activeTabIndex === 8 || (totalrankings === 0 && totalmatches === 0 && totalteams === 0 && totalalliances === 0 && totalawards === 0 && totalmedia === 0 && !qualInsights && !elimInsights))" [user]="user" [uid]="user.uid" [eventKey]="eventData.eventKey" [eventData]="eventData" [toaAdmin]="toaAdmin" [league]="eventLeague" [leagues]="allLeagues"></toa-event-admin>
         </div>
