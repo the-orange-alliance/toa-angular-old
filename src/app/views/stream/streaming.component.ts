@@ -72,6 +72,7 @@ export class StreamingComponent implements OnInit {
     }
     this.loca.go('/stream'); // Remove query parameters
     this.checkSize(window.innerWidth); // TODO: Fix for SSR
+    
     this.ftc.getAllStreams().then((data: EventLiveStream[]) => {
       this.streams = [];
       for (const stream of data) {
@@ -91,6 +92,7 @@ export class StreamingComponent implements OnInit {
           }
         }
         this.selectLayout(config.layout);
+        this.checkSize(window.innerWidth);
       }
     });
   }
@@ -119,7 +121,11 @@ export class StreamingComponent implements OnInit {
   }
 
   selectLayout(layoutKey: number, user: boolean = true) {
-    this.layouts = this.getLayouts(layoutKey, user)
+    if (user) {
+      this.selectedLayout = layoutKey;
+    }
+    this.currentlyLayout = layoutKey;
+    this.layouts = this.getLayouts(layoutKey)
   }
 
   unselectLayout() {
@@ -128,12 +134,7 @@ export class StreamingComponent implements OnInit {
     this.currentlyLayout = -1;
   }
 
-  getLayouts(layoutKey: number, user: boolean = true): Layout[] {
-    if (user) {
-      this.selectedLayout = layoutKey;
-    }
-    this.currentlyLayout = layoutKey;
-
+  getLayouts(layoutKey: number): Layout[] {
     // The layouts, names, and icons were taken from TBA
     // https://github.com/the-blue-alliance/the-blue-alliance/blob/master/react/gameday2/constants/LayoutConstants.js
     const layouts: Layout[] = [];
