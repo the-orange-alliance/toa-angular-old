@@ -117,7 +117,12 @@ export class EventComponent implements OnInit {
           let appDesc = `Event results for the ${new Date(this.eventData.startDate).getFullYear()} ${this.eventData.eventName} FIRST Tech Challenge in `;
           appDesc = appDesc + `${this.eventData.stateProv ? this.eventData.stateProv + ', ' + this.eventData.country : this.eventData.country }`;
           this.app.setDescription(appDesc);
-          this.appBarService.setTitle(new Date(this.eventData.startDate).getFullYear() + ' ' + this.eventData.eventName, true);
+          this.appBarService.setTitle(
+            this.eventData.divisionKey !== 0 && this.eventData.divisionName
+              ? `${this.eventData.divisionName} Division / ${this.eventData.eventName}`
+              : `${new Date(this.eventData.startDate).getFullYear()} ${this.eventData.eventName}`,
+            true
+          );
 
           if (this.eventData.matches) {
             this.eventData.matches = new MatchSorter().sort(this.eventData.matches, 0, this.eventData.matches.length - 1);
