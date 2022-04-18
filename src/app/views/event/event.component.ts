@@ -40,7 +40,7 @@ export class EventComponent implements OnInit {
   divisions: Event[] = [];
 
   activeTab = -1;
-  totalmedia = 1;
+  totalmedia = 0;
   totalteams: any;
   totalmatches: any;
   totalrankings: any;
