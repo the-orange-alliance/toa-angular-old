@@ -1,12 +1,17 @@
+h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
 .link-item {
   -webkit-font-smoothing: antialiased;
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 500;
-  letter-spacing: 0.00714286em;
   text-decoration: inherit;
   text-transform: inherit;
-  height: calc(48px - 2 * 4px);
-  margin: 0;
-  padding: 30px 8px;
+  height: 3rem;
+  margin: 0.5rem 0 0;
+  border-radius: 1rem;
+  max-width: 24rem;
 }
