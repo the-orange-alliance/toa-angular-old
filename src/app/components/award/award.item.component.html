@@ -11,11 +11,15 @@
   </mdc-list-item>
 </a>
 <a [routerLink]="award.teamKey ? '/teams/' + award.teamKey : null" class="no-underline" *ngIf="mini">
-  <mdc-list-item class="black" *ngIf="award.teamKey">
+  <mdc-list-item class="black" *ngIf="award.teamKey && !award.receiverName">
     <mdc-icon mdcListItemGraphic [svgIcon]="getIcon()"></mdc-icon> Team #{{ award.team.teamNumber }} - {{ award.team.teamNameShort }}
   </mdc-list-item>
 
   <mdc-list-item class="black" *ngIf="!award.teamKey && award.receiverName">
     <mdc-icon mdcListItemGraphic [svgIcon]="getIcon()"></mdc-icon> {{ award.receiverName }}
+  </mdc-list-item>
+
+  <mdc-list-item class="black" *ngIf="award.teamKey && award.receiverName">
+    <mdc-icon mdcListItemGraphic [svgIcon]="getIcon()"></mdc-icon> {{ award.receiverName }} (Team #{{ award.team.teamNumber }})
   </mdc-list-item>
 </a>
