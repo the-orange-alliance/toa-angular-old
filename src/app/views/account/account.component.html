@@ -195,6 +195,24 @@
                   | translate
               }}
             </mdc-list-item>
+
+            <mdc-list-item
+              (click)="changeName()"
+            >
+              <mdc-icon mdcListItemGraphic svgIcon="pencil"></mdc-icon>
+              {{
+                ('pages.account.change_name' | translate)
+              }}
+            </mdc-list-item>
+
+            <mdc-list-item
+              (click)="changeEmail()"
+            >
+              <mdc-icon mdcListItemGraphic svgIcon="email"></mdc-icon>
+              {{
+                ('pages.account.change_email' | translate)
+              }}
+            </mdc-list-item>
           </mdc-list>
           <!-- For phone auth, this has to be here -->
           <div id="recaptcha" *ngIf="showCaptcha"></div>

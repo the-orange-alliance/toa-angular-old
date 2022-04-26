@@ -72,6 +72,9 @@
     "account": {
       "logout": "Logout",
       "level": "Level {{ level }}",
+      "updated_name": "Successfully updated name. Please refresh to see changes",
+      "updated_email": "Successfully updated email. Please check your email for a verification email",
+      "update_email_fail": "Failed to update email. Please logout/login and try again",
       "no_verify": "Please verify your email",
       "why_verify": "In order to enjoy all your account features, your email address needs to be verified.",
       "manage_events": "Manage Events",
@@ -107,6 +110,8 @@
       },
       "account_settings": "Account Settings",
       "reset_password": "Reset Password",
+      "change_name": "Change Name",
+      "change_email": "Change Email Address",
       "reset_password_email": "A password reset email has been sent.",
       "link_account": "Link {{ name }} account",
       "unlink_account": "Unlink {{ name }} account",

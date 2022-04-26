@@ -295,6 +295,30 @@ export class AccountComponent implements OnInit {
     return name;
   }
 
+  changeName() {
+    const name = prompt("Please Enter a New Name:")
+    if(!name || name.length < 1) return;
+    this.auth.auth.currentUser.updateProfile({
+      displayName: name
+    }).then(() => {
+      this.showSnackbar("pages.account.updated_name");
+    })
+  }
+
+  changeEmail() {
+    const email = prompt("Please Enter a New Email Address:")
+    if(!email || email.length < 1) return;
+    this.auth.auth.currentUser.updateEmail(email).then(() => {
+      this.showSnackbar("pages.account.updated_email");
+    }).catch(() => {
+      this.showSnackbar("pages.account.update_email_fail");
+    }).then(() => {
+      return this.auth.auth.currentUser.sendEmailVerification();
+    }).catch(() => {
+      // failed to send verification email??
+    })
+  }
+
   sendAnalytic(category, label, action): void {
     (<any>window).ga('send', 'event', {
       eventCategory: category,
