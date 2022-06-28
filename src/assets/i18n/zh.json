@@ -222,6 +222,7 @@
           "qual_points": "资格点数",
           "ranking_points": "排名点数",
           "tie_reaker_points": "决胜局点数",
+	  "average_rp": "平均排名点数",
           "highest_score": "最高分",
           "matches_played": "赛数总计",
           "what_is_opr": "进攻能力评分，也称为OPR，是FIRST社区中经常使用的一项统计数据，用于比较团队的赛场表现。 OPR是一种在特定事件中为团队分割数据的方式，但它并不是评估团队绩效或贡献的理想系统。"

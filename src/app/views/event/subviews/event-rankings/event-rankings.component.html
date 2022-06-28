@@ -17,6 +17,9 @@
             >{{ 'pages.event.subpages.rankings.ranking_points' | translate }}</th>
         <th mdcDataTableHeaderCell numeric *ngIf="showTieBreakerPoints"
             >{{ 'pages.event.subpages.rankings.tie_reaker_points' | translate }}</th>
+        <th mdcDataTableHeaderCell
+            ><button mdc-icon-button (click)="sorter.byAverageRP(rankings)"><mdc-icon svgIcon="sort"></mdc-icon></button
+            >{{ 'pages.event.subpages.rankings.average_rp' | translate }}</th>
         <th mdcDataTableHeaderCell numeric *ngIf="showHighScore"
             >{{ 'pages.event.subpages.rankings.highest_score' | translate }}</th>
         <th mdcDataTableHeaderCell numeric
@@ -41,6 +44,7 @@
         <td mdcDataTableCell numeric *ngIf="showQualPoints">{{ rank.qualifyingPoints }}</td>
         <td mdcDataTableCell numeric>{{ rank.rankingPoints.toFixed(2) }}</td>
         <td mdcDataTableCell numeric *ngIf="showTieBreakerPoints">{{ rank.tieBreakerPoints.toFixed(2) }}</td>
+        <td mdcDataTableCell numeric>{{ (rank.rankingPoints / rank.played).toFixed(2) }}</td>
         <td mdcDataTableCell numeric *ngIf="showHighScore">{{ rank.highestQualScore }}</td>
         <td mdcDataTableCell numeric>{{ rank.played }}</td>
         <td mdcDataTableCell numeric *ngIf="showOPR">{{ rank.opr.toFixed(1) }}</td>

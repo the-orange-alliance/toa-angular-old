@@ -222,6 +222,7 @@
           "qual_points": "Puntos de calificación",
           "ranking_points": "Puntos de ranking",
           "tie_reaker_points": "Puntos de desempate",
+	  "average_rp": "Puntos de ranking moyen",
           "highest_score": "Puntuación más alta",
           "matches_played": "Partidos jugados",
           "what_is_opr": "La clasificación de potencia ofensiva, también conocido como CPO, es una estadística que se utiliza a menudo en la comunidad FIRST para comparar el rendimiento de los equipos sobre el terreno. Los CPO son una forma interesante de segmentar los datos de los equipos en eventos concretos, pero no son un sistema perfecto para evaluar el rendimiento o la contribución de un equipo."
