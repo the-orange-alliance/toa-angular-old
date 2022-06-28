@@ -223,6 +223,7 @@
                     "qual_points": "Puncte de Calificare",
                     "ranking_points": "Puncte de Clasare",
                     "tie_reaker_points": "Puncte de Tiebreaker",
+                    "average_rp": "Puncte Medii de Clasare",
                     "highest_score": "Cel mai mare Scor",
                     "matches_played": "Meciuri Jucate",
                     "what_is_opr": "Offensive Power Rating, also know as OPR, is a stat that is often used in the FIRST community to compare the performance of teams on the field. OPRs are an interesting way to slice the data for teams at particular events, but aren't a perfect system for assessing a team's performance or contribution."

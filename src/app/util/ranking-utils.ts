@@ -16,6 +16,12 @@ export class RankingSorter {
     }
   }
 
+  public byAverageRP(rankings: Ranking[]) {
+    if(rankings) {
+      rankings.sort((a, b) => b.rankingPoints / b.played - a.rankingPoints / a.played);
+    }
+  }
+
   public byOpr(rankings: Ranking[]) {
     if(rankings) {
       rankings.sort((a, b) => b.opr - a.opr);  // note sort descending
